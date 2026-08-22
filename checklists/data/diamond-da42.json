@@ -75,13 +75,11 @@
         },
         {
           "id": "glow-annunciation-left",
-          "challenge": "CAP \"L GLOWN ON\"",
+          "challenge": "CAP \"L/R GLOW ON\"",
           "response": "Wait",
           "kind": "verify",
           "condition": "Until CAP clears",
-          "speech": "Left glow indication: Wait until it clears.",
-          "needsReview": true,
-          "reviewNote": "Verify whether the simulator annunciation reads GLOWN ON or GLOW ON."
+          "speech": "Left glow indication: Wait until it clears."
         },
         {
           "id": "start-key-left",
@@ -109,13 +107,11 @@
         },
         {
           "id": "glow-annunciation-right",
-          "challenge": "CAP \"R GLOWN ON\"",
+          "challenge": "CAP \"L/R GLOW ON\"",
           "response": "Wait",
           "kind": "verify",
           "condition": "Until CAP clears",
-          "speech": "Right glow indication: Wait until it clears.",
-          "needsReview": true,
-          "reviewNote": "Verify whether the simulator annunciation reads GLOWN ON or GLOW ON."
+          "speech": "Right glow indication: Wait until it clears."
         },
         {
           "id": "start-key-right",

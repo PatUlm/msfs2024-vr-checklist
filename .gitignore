@@ -1,0 +1,3 @@
+# Original checklist source documents are local reference material.
+checklists/source/**
+!checklists/source/.gitkeep

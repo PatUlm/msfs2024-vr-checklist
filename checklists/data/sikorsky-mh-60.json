@@ -1,0 +1,222 @@
+{
+  "schemaVersion": 1,
+  "id": "sikorsky-mh-60",
+  "title": "Sikorsky MH-60",
+  "aircraft": {
+    "manufacturer": "Sikorsky",
+    "model": "MH-60"
+  },
+  "revision": "2026-05-16",
+  "sections": [
+    {
+      "id": "preparations",
+      "title": "Preparations",
+      "items": [
+        {
+          "id": "cargo-fuel",
+          "challenge": "Cargo + Fuel",
+          "response": "Set in EFB",
+          "kind": "action"
+        },
+        {
+          "id": "battery",
+          "challenge": "Battery",
+          "response": "On",
+          "kind": "action"
+        },
+        {
+          "id": "strobe-lights",
+          "challenge": "Strobe LTS",
+          "response": "Both + Day/Night",
+          "kind": "action"
+        },
+        {
+          "id": "console-lights",
+          "challenge": "Console LTS",
+          "response": "100 % Brightness",
+          "kind": "action"
+        },
+        {
+          "id": "displays",
+          "challenge": "Displays",
+          "response": "Day/Night",
+          "kind": "action"
+        }
+      ]
+    },
+    {
+      "id": "apu",
+      "title": "APU",
+      "items": [
+        {
+          "id": "primary-fuel-pump",
+          "challenge": "Primary Fuel Pump",
+          "response": "APU Boost",
+          "kind": "action"
+        },
+        {
+          "id": "fuel-boost-pumps",
+          "challenge": "Fuel Boost Pumps",
+          "response": "1+2 On",
+          "kind": "action"
+        },
+        {
+          "id": "apu-control",
+          "challenge": "APU Control",
+          "response": "Start",
+          "kind": "action"
+        },
+        {
+          "id": "apu-generator",
+          "challenge": "APU Generator",
+          "response": "On",
+          "kind": "action"
+        },
+        {
+          "id": "air-source-ecs",
+          "challenge": "Air Source ECS",
+          "response": "APU",
+          "kind": "action"
+        }
+      ]
+    },
+    {
+      "id": "before-engine-start",
+      "title": "Before Engine Start",
+      "items": [
+        {
+          "id": "utility-hydraulic-pump",
+          "challenge": "Utility Hyd Pump",
+          "response": "On",
+          "kind": "action"
+        },
+        {
+          "id": "engine-ignition",
+          "challenge": "Engine Ignition",
+          "response": "Norm",
+          "kind": "action"
+        },
+        {
+          "id": "computer-power",
+          "challenge": "Computer Power",
+          "response": "1+2 On",
+          "kind": "action"
+        },
+        {
+          "id": "egi-power",
+          "challenge": "EGI Power",
+          "response": "1+2 On",
+          "kind": "action"
+        },
+        {
+          "id": "blade-fold-master",
+          "challenge": "Blade Fold Master",
+          "response": "On",
+          "kind": "action"
+        },
+        {
+          "id": "blade-fold",
+          "challenge": "Blade Fold",
+          "response": "Spread",
+          "kind": "action"
+        },
+        {
+          "id": "stabilator-auto-control",
+          "challenge": "Stabilator Auto Control",
+          "response": "On",
+          "kind": "action"
+        },
+        {
+          "id": "sas-trim-autopilot",
+          "challenge": "SAS 1+2 + TRIM + AP",
+          "response": "All On",
+          "kind": "action"
+        }
+      ]
+    },
+    {
+      "id": "engine-start",
+      "title": "Engine Start",
+      "items": [
+        {
+          "id": "fuel-selectors-crossfeed",
+          "challenge": "Fuel Selectors",
+          "response": "1+2 XFD",
+          "kind": "action"
+        },
+        {
+          "id": "engine-1-start",
+          "challenge": "Engines",
+          "response": "1 Start + IDLE",
+          "kind": "action"
+        },
+        {
+          "id": "engine-2-start",
+          "challenge": "Engines",
+          "response": "2 Start + IDLE",
+          "kind": "action"
+        },
+        {
+          "id": "engines-fly",
+          "challenge": "Engines",
+          "response": "1+2 FLY",
+          "kind": "action"
+        },
+        {
+          "id": "fuel-selectors-direct",
+          "challenge": "Fuel Selectors",
+          "response": "1+2 DIR",
+          "kind": "action"
+        }
+      ]
+    },
+    {
+      "id": "after-engine-start",
+      "title": "After Engine Start",
+      "items": [
+        {
+          "id": "air-source-ecs",
+          "challenge": "Air Source ECS",
+          "response": "ENG",
+          "kind": "action"
+        },
+        {
+          "id": "generators",
+          "challenge": "Generators",
+          "response": "1+2 On",
+          "kind": "action"
+        },
+        {
+          "id": "apu-generator",
+          "challenge": "APU Generator",
+          "response": "Off (Reset)",
+          "kind": "action"
+        },
+        {
+          "id": "apu-control",
+          "challenge": "APU Control",
+          "response": "Off",
+          "kind": "action"
+        },
+        {
+          "id": "primary-fuel-pump",
+          "challenge": "Primary Fuel Pump",
+          "response": "Off",
+          "kind": "action"
+        },
+        {
+          "id": "pitot-heat",
+          "challenge": "Pitot Heat",
+          "response": "On",
+          "kind": "action"
+        },
+        {
+          "id": "de-ice-master",
+          "challenge": "DE-ICE Master",
+          "response": "Auto",
+          "kind": "action"
+        }
+      ]
+    }
+  ]
+}

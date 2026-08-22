@@ -38,9 +38,10 @@
         },
         {
           "id": "trim",
-          "challenge": "Trimmung",
+          "challenge": "Trim",
           "response": "T/O",
-          "kind": "action"
+          "kind": "action",
+          "speech": "Trim: Takeoff."
         },
         {
           "id": "electric-master",
@@ -62,7 +63,7 @@
       "items": [
         {
           "id": "fuel-quantity-temperature",
-          "challenge": "Fuel Quantity and Temp",
+          "challenge": "Fuel Quantity and Temperature",
           "response": "Check",
           "kind": "verify"
         },
@@ -75,24 +76,30 @@
         {
           "id": "glow-annunciation-left",
           "challenge": "CAP \"L GLOWN ON\"",
-          "response": "Wait\ntill CAP clears",
+          "response": "Wait",
           "kind": "verify",
-          "condition": "until CAP clears",
+          "condition": "Until CAP clears",
+          "speech": "Left glow indication: Wait until it clears.",
           "needsReview": true,
           "reviewNote": "Verify whether the simulator annunciation reads GLOWN ON or GLOW ON."
         },
         {
           "id": "start-key-left",
           "challenge": "Start Key",
-          "response": "Start\nhold till 500 RPM",
+          "response": "Start and hold",
           "kind": "action",
-          "condition": "until 500 RPM"
+          "condition": "Until 500 RPM",
+          "speech": "Start key: Start and hold until 500 R P M."
         },
         {
           "id": "voltage-electrical-load",
-          "challenge": "Voltage, Electrical load",
-          "response": "Check\non EIS",
-          "kind": "verify"
+          "challenge": "Voltage and Electrical Load",
+          "response": "Check",
+          "kind": "verify",
+          "speech": "Voltage and electrical load: Check on E I S.",
+          "notes": [
+            "On EIS"
+          ]
         },
         {
           "id": "engine-master-right",
@@ -103,18 +110,20 @@
         {
           "id": "glow-annunciation-right",
           "challenge": "CAP \"R GLOWN ON\"",
-          "response": "Wait\ntill CAP clears",
+          "response": "Wait",
           "kind": "verify",
-          "condition": "until CAP clears",
+          "condition": "Until CAP clears",
+          "speech": "Right glow indication: Wait until it clears.",
           "needsReview": true,
           "reviewNote": "Verify whether the simulator annunciation reads GLOWN ON or GLOW ON."
         },
         {
           "id": "start-key-right",
           "challenge": "Start Key",
-          "response": "Start\nhold till 500 RPM",
+          "response": "Start and hold",
           "kind": "action",
-          "condition": "until 500 RPM"
+          "condition": "Until 500 RPM",
+          "speech": "Start key: Start and hold until 500 R P M."
         }
       ]
     },
@@ -137,14 +146,19 @@
         {
           "id": "atis",
           "challenge": "ATC – ATIS",
-          "response": "QNH\nGet",
-          "kind": "communication"
+          "response": "Get QNH",
+          "kind": "communication",
+          "speech": "A T I S: Get Q N H."
         },
         {
           "id": "altimeters",
           "challenge": "Altimeters (both)",
-          "response": "Set QNH\nfrom ATIS or METAR",
-          "kind": "action"
+          "response": "Set QNH",
+          "kind": "action",
+          "speech": "Altimeters, both: Set Q N H from A T I S or M E T A R.",
+          "notes": [
+            "Use ATIS or METAR"
+          ]
         },
         {
           "id": "cage",
@@ -155,45 +169,60 @@
         {
           "id": "ifr-clearance",
           "challenge": "ATC – Clearance",
-          "response": "IFR Clearance\nRequest",
-          "kind": "communication"
+          "response": "Request IFR clearance",
+          "kind": "communication",
+          "speech": "A T C clearance: Request I F R clearance."
         },
         {
           "id": "transponder",
           "challenge": "Transponder",
-          "response": "Mode + Code\nVFR | ALT",
-          "kind": "action"
+          "response": "Set mode and code",
+          "kind": "action",
+          "speech": "Transponder: Set mode and code. V F R, altitude mode.",
+          "notes": [
+            "VFR | ALT"
+          ]
         },
         {
           "id": "flight-plan",
-          "challenge": "Flightplan",
+          "challenge": "Flight Plan",
           "response": "As required",
           "kind": "verify"
         },
         {
           "id": "autopilot",
           "challenge": "Autopilot",
-          "response": "As required\nHDG/NAV | ALT | FLC",
-          "kind": "action"
+          "response": "As required",
+          "kind": "action",
+          "speech": "Autopilot: As required. Heading or navigation, altitude, and flight level change.",
+          "notes": [
+            "HDG/NAV | ALT | FLC"
+          ]
         },
         {
           "id": "gear-fire-warning",
           "challenge": "Gear/Fire Warning",
           "response": "Test",
-          "kind": "verify"
+          "kind": "verify",
+          "speech": "Gear and fire warning: Test."
         },
         {
           "id": "engine-warm-up",
-          "challenge": "Engine",
-          "response": "Start warm up\n1.400 - 1.500 RPM",
-          "kind": "action"
+          "challenge": "Engine Warm-Up",
+          "response": "1,400–1,500 RPM",
+          "kind": "action",
+          "speech": "Engine warm-up: Set 1,400 to 1,500 R P M."
         },
         {
           "id": "ecu-test",
-          "challenge": "ECU Test (both)\nuse „click spot“",
-          "response": "Hold for 25 s\ntill CAP clears",
+          "challenge": "ECU Test (both)",
+          "response": "Hold for 25 s",
           "kind": "verify",
-          "condition": "until CAP clears"
+          "condition": "Until CAP clears",
+          "speech": "E C U test, both: Hold for 25 seconds until the CAP indication clears.",
+          "notes": [
+            "Use click spot"
+          ]
         }
       ]
     },
@@ -204,8 +233,9 @@
         {
           "id": "pushback-request",
           "challenge": "ATC – Ground",
-          "response": "Push Back\nRequest",
-          "kind": "communication"
+          "response": "Request pushback",
+          "kind": "communication",
+          "speech": "A T C ground: Request pushback."
         },
         {
           "id": "taxi-light",
@@ -221,21 +251,26 @@
         },
         {
           "id": "pushback",
-          "challenge": "Push Back",
+          "challenge": "Pushback",
           "response": "As required",
           "kind": "action"
         },
         {
           "id": "taxi-clearance",
           "challenge": "ATC – Ground",
-          "response": "Taxi to Runway\nRequest",
-          "kind": "communication"
+          "response": "Request taxi to runway",
+          "kind": "communication",
+          "speech": "A T C ground: Request taxi to the runway."
         },
         {
           "id": "taxi-hold-short",
           "challenge": "Taxi to",
-          "response": "Hold Short Line\nMax. 20 kt GS",
-          "kind": "action"
+          "response": "Hold Short Line",
+          "kind": "action",
+          "speech": "Taxi to the hold-short line, maximum 20 knots ground speed.",
+          "notes": [
+            "Maximum 20 kt ground speed"
+          ]
         }
       ]
     },
@@ -246,22 +281,23 @@
         {
           "id": "departure-request",
           "challenge": "ATC – Tower",
-          "response": "Departure\nRequest",
-          "kind": "communication"
+          "response": "Request departure",
+          "kind": "communication",
+          "speech": "A T C tower: Request departure."
         },
-      {
+        {
           "id": "flaps",
-        "challenge": "Flaps",
-        "response": "Up",
-        "kind": "action",
-        "alternatives": [
-          {
-            "when": "Short Field TO",
-            "response": "App (1)"
-          }
-        ],
-        "speech": "Flaps: Up. Alternative short field takeoff: Flaps: Approach one."
-      },
+          "challenge": "Flaps",
+          "response": "Up",
+          "kind": "action",
+          "alternatives": [
+            {
+              "when": "Short Field TO",
+              "response": "App (1)"
+            }
+          ],
+          "speech": "Flaps: Up. Alternative short field takeoff: Flaps: Approach one."
+        },
         {
           "id": "taxi-lights",
           "challenge": "Taxi Lights",
@@ -282,23 +318,25 @@
         },
         {
           "id": "pitot-heat",
-        "challenge": "Pitot-Heats",
-        "response": "On",
-        "kind": "action",
-        "condition": "OAT ≤ +5 °C",
-        "speech": "Pitot heat: On, when outside air temperature is plus five degrees Celsius or below."
+          "challenge": "Pitot Heat",
+          "response": "On",
+          "kind": "action",
+          "condition": "OAT ≤ +5 °C",
+          "speech": "Pitot heat: On, when outside air temperature is plus five degrees Celsius or below."
         },
         {
           "id": "taxi-to-runway",
           "challenge": "Taxi to",
           "response": "Runway",
-          "kind": "action"
+          "kind": "action",
+          "speech": "Taxi to the runway."
         },
         {
           "id": "heading",
           "challenge": "HDG",
           "response": "Set",
-          "kind": "action"
+          "kind": "action",
+          "speech": "Heading: Set."
         }
       ]
     },
@@ -309,55 +347,68 @@
         {
           "id": "power-levers-takeoff",
           "challenge": "Power Levers (both)",
-          "response": "100 %",
-          "kind": "action"
+          "response": "100 %",
+          "kind": "action",
+          "speech": "Power levers, both: 100 percent."
         },
         {
           "id": "rotation-speed",
-          "challenge": "Rotate Speed Vr",
-          "response": "76 kt\nShort Field TO: 71 kt",
+          "challenge": "Rotation Speed (Vr)",
+          "response": "76 kt",
           "kind": "action",
-          "condition": "Short Field TO"
+          "alternatives": [
+            {
+              "when": "Short Field TO",
+              "response": "71 kt"
+            }
+          ],
+          "speech": "Rotation speed V R: 76 knots. Alternative short field takeoff: 71 knots."
         },
         {
           "id": "gear",
           "challenge": "Gear",
-          "response": "Up\nPositive Climb",
+          "response": "Up",
           "kind": "action",
-          "condition": "Positive Climb"
+          "condition": "Positive climb",
+          "speech": "Gear: Up, after positive climb."
         },
         {
           "id": "flaps",
           "challenge": "Flaps",
-          "response": "Up\n92 kt + 200 ft AGL",
+          "response": "Up",
           "kind": "action",
-          "condition": "92 kt + 200 ft AGL"
+          "condition": "At 92 kt and 200 ft AGL",
+          "speech": "Flaps: Up, once reaching 92 knots and 200 feet above ground level."
         },
         {
           "id": "climb-speed",
-          "challenge": "Climb Speed Vy",
+          "challenge": "Climb Speed (Vy)",
           "response": "92 kt",
-          "kind": "action"
+          "kind": "action",
+          "speech": "Climb speed V Y: 92 knots."
         },
         {
           "id": "fuel-pumps",
           "challenge": "Fuel Pumps (both)",
-          "response": "Off\n> 1.000 ft AGL",
+          "response": "Off",
           "kind": "action",
-          "condition": "> 1.000 ft AGL"
+          "condition": "Above 1,000 ft AGL",
+          "speech": "Fuel pumps, both: Off after passing 1,000 feet above ground level."
         },
         {
           "id": "landing-lights",
           "challenge": "Landing Lights",
-          "response": "Off\n> 10.000 ft",
+          "response": "Off",
           "kind": "action",
-          "condition": "> 10.000 ft"
+          "condition": "Above 10,000 ft",
+          "speech": "Landing lights: Off above 10,000 feet."
         },
         {
           "id": "power-levers-climb",
           "challenge": "Power Levers (both)",
-          "response": "≤ 92%",
-          "kind": "action"
+          "response": "≤ 92 %",
+          "kind": "action",
+          "speech": "Power levers, both: 92 percent or less."
         }
       ]
     },
@@ -368,22 +419,25 @@
         {
           "id": "fuel-pumps",
           "challenge": "Fuel Pumps (both)",
-          "response": "On\nTOD",
+          "response": "On",
           "kind": "action",
-          "condition": "TOD"
+          "condition": "At TOD",
+          "speech": "Fuel pumps, both: On at top of descent."
         },
         {
           "id": "landing-lights",
           "challenge": "Landing Lights",
-          "response": "On\n< 10.000 ft",
+          "response": "On",
           "kind": "action",
-          "condition": "< 10.000 ft"
+          "condition": "Below 10,000 ft",
+          "speech": "Landing lights: On below 10,000 feet."
         },
         {
           "id": "approach-speed",
-          "challenge": "Vapp (Approach Speed)",
+          "challenge": "Approach Speed (Vapp)",
           "response": "85 kt",
-          "kind": "action"
+          "kind": "action",
+          "speech": "Approach speed V app: 85 knots."
         }
       ]
     }

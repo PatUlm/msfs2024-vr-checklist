@@ -14,9 +14,10 @@
       "items": [
         {
           "id": "cargo-fuel",
-          "challenge": "Cargo + Fuel",
+          "challenge": "Cargo and Fuel",
           "response": "Set in EFB",
-          "kind": "action"
+          "kind": "action",
+          "speech": "Cargo and fuel: Set in the E F B."
         },
         {
           "id": "battery",
@@ -26,21 +27,24 @@
         },
         {
           "id": "strobe-lights",
-          "challenge": "Strobe LTS",
+          "challenge": "Strobe Lights",
           "response": "Both + Day/Night",
-          "kind": "action"
+          "kind": "action",
+          "speech": "Strobe lights: Set to both and select day or night."
         },
         {
           "id": "console-lights",
-          "challenge": "Console LTS",
+          "challenge": "Console Lights",
           "response": "100 % Brightness",
-          "kind": "action"
+          "kind": "action",
+          "speech": "Console lights: 100 percent brightness."
         },
         {
           "id": "displays",
           "challenge": "Displays",
           "response": "Day/Night",
-          "kind": "action"
+          "kind": "action",
+          "speech": "Displays: Set for day or night."
         }
       ]
     },
@@ -52,31 +56,36 @@
           "id": "primary-fuel-pump",
           "challenge": "Primary Fuel Pump",
           "response": "APU Boost",
-          "kind": "action"
+          "kind": "action",
+          "speech": "Primary fuel pump: A P U boost."
         },
         {
           "id": "fuel-boost-pumps",
           "challenge": "Fuel Boost Pumps",
           "response": "1+2 On",
-          "kind": "action"
+          "kind": "action",
+          "speech": "Fuel boost pumps one and two: On."
         },
         {
           "id": "apu-control",
           "challenge": "APU Control",
           "response": "Start",
-          "kind": "action"
+          "kind": "action",
+          "speech": "A P U control: Start."
         },
         {
           "id": "apu-generator",
           "challenge": "APU Generator",
           "response": "On",
-          "kind": "action"
+          "kind": "action",
+          "speech": "A P U generator: On."
         },
         {
           "id": "air-source-ecs",
           "challenge": "Air Source ECS",
           "response": "APU",
-          "kind": "action"
+          "kind": "action",
+          "speech": "Air source E C S: A P U."
         }
       ]
     },
@@ -86,7 +95,7 @@
       "items": [
         {
           "id": "utility-hydraulic-pump",
-          "challenge": "Utility Hyd Pump",
+          "challenge": "Utility Hydraulic Pump",
           "response": "On",
           "kind": "action"
         },
@@ -94,19 +103,22 @@
           "id": "engine-ignition",
           "challenge": "Engine Ignition",
           "response": "Norm",
-          "kind": "action"
+          "kind": "action",
+          "speech": "Engine ignition: Normal."
         },
         {
           "id": "computer-power",
           "challenge": "Computer Power",
           "response": "1+2 On",
-          "kind": "action"
+          "kind": "action",
+          "speech": "Computer power one and two: On."
         },
         {
           "id": "egi-power",
           "challenge": "EGI Power",
           "response": "1+2 On",
-          "kind": "action"
+          "kind": "action",
+          "speech": "E G I power one and two: On."
         },
         {
           "id": "blade-fold-master",
@@ -130,7 +142,8 @@
           "id": "sas-trim-autopilot",
           "challenge": "SAS 1+2 + TRIM + AP",
           "response": "All On",
-          "kind": "action"
+          "kind": "action",
+          "speech": "S A S one and two, trim, and autopilot: All on."
         }
       ]
     },
@@ -142,31 +155,36 @@
           "id": "fuel-selectors-crossfeed",
           "challenge": "Fuel Selectors",
           "response": "1+2 XFD",
-          "kind": "action"
+          "kind": "action",
+          "speech": "Fuel selectors one and two: Crossfeed."
         },
         {
           "id": "engine-1-start",
           "challenge": "Engines",
           "response": "1 Start + IDLE",
-          "kind": "action"
+          "kind": "action",
+          "speech": "Engine one: Start, then idle."
         },
         {
           "id": "engine-2-start",
           "challenge": "Engines",
           "response": "2 Start + IDLE",
-          "kind": "action"
+          "kind": "action",
+          "speech": "Engine two: Start, then idle."
         },
         {
           "id": "engines-fly",
           "challenge": "Engines",
           "response": "1+2 FLY",
-          "kind": "action"
+          "kind": "action",
+          "speech": "Engines one and two: Fly."
         },
         {
           "id": "fuel-selectors-direct",
           "challenge": "Fuel Selectors",
           "response": "1+2 DIR",
-          "kind": "action"
+          "kind": "action",
+          "speech": "Fuel selectors one and two: Direct."
         }
       ]
     },
@@ -178,25 +196,29 @@
           "id": "air-source-ecs",
           "challenge": "Air Source ECS",
           "response": "ENG",
-          "kind": "action"
+          "kind": "action",
+          "speech": "Air source E C S: Engine."
         },
         {
           "id": "generators",
           "challenge": "Generators",
           "response": "1+2 On",
-          "kind": "action"
+          "kind": "action",
+          "speech": "Generators one and two: On."
         },
         {
           "id": "apu-generator",
           "challenge": "APU Generator",
           "response": "Off (Reset)",
-          "kind": "action"
+          "kind": "action",
+          "speech": "A P U generator: Off, then reset."
         },
         {
           "id": "apu-control",
           "challenge": "APU Control",
           "response": "Off",
-          "kind": "action"
+          "kind": "action",
+          "speech": "A P U control: Off."
         },
         {
           "id": "primary-fuel-pump",
@@ -214,7 +236,8 @@
           "id": "de-ice-master",
           "challenge": "DE-ICE Master",
           "response": "Auto",
-          "kind": "action"
+          "kind": "action",
+          "speech": "De-ice master: Auto."
         }
       ]
     }

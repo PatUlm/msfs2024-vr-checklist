@@ -1,6 +1,10 @@
 # Strukturierte Checklistendaten
 
-`checklist.schema.json` definiert das versionierbare Austauschformat der EFB-App. `challenge` und `response` enthalten die kanonischen, direkt darstell- und vorlesbaren Texte. Varianten und Bedingungen werden getrennt in `alternatives` beziehungsweise `condition` erfasst. Die strukturierten Daten sind bewusst von Aufbau und Format der ursprünglichen Quelldokumente entkoppelt.
+`checklist.schema.json` definiert das versionierbare Austauschformat der EFB-App. `challenge` und `response` enthalten die kanonischen, direkt darstell- und vorlesbaren Texte. Varianten und Bedingungen werden getrennt in `alternatives` beziehungsweise `condition` erfasst und nicht in `response` wiederholt. Ergänzende Anzeigeinformationen, die weder Antwort noch Bedingung sind, stehen in `notes`. Die strukturierten Daten sind bewusst von Aufbau und Format der ursprünglichen Quelldokumente entkoppelt.
+
+Textfelder bleiben einzeilig; die spätere Oberfläche übernimmt das visuelle Wrapping. Dadurch enthalten die Daten keine aus Tabellenlayouts übernommenen Zeilenumbrüche.
+
+Die JSON-Dateien in diesem Verzeichnis sind die einzige Quelle für Checklist-Inhalte. Anwendungscode darf keine separate oder duplizierte Checklist-Liste enthalten.
 
 Die erste TTS-Sprache ist Englisch. Für einfache Einträge bildet die App den gesprochenen Text aus `<challenge>: <response>`. Das optionale Feld `speech` überschreibt diesen Fallback mit einem vollständig formulierten Satz, wenn Bedingungen, Alternativen, Abkürzungen oder Aussprache sonst nicht zuverlässig wiedergegeben würden.
 

@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "title": "MSFS 2024 VR Checklist",
-  "description": "Versionable, source-traceable checklist data for the native EFB app.",
+  "description": "Versionable structured checklist data for the native EFB app.",
   "type": "object",
   "additionalProperties": false,
   "required": [
@@ -86,11 +86,13 @@
         },
         "challenge": {
           "type": "string",
-          "minLength": 1
+          "minLength": 1,
+          "pattern": "^[^\\r\\n]+$"
         },
         "response": {
           "type": "string",
-          "minLength": 1
+          "minLength": 1,
+          "pattern": "^[^\\r\\n]+$"
         },
         "kind": {
           "enum": ["action", "verify", "communication"]
@@ -98,15 +100,19 @@
         "speech": {
           "type": "string",
           "minLength": 1,
+          "pattern": "^[^\\r\\n]+$",
           "description": "Optional complete English TTS sentence. If omitted, use challenge followed by response."
         },
         "condition": {
           "type": "string",
-          "minLength": 1
+          "minLength": 1,
+          "pattern": "^[^\\r\\n]+$",
+          "description": "Timing or applicability condition for the canonical response; do not repeat it in response."
         },
         "alternatives": {
           "type": "array",
           "minItems": 1,
+          "description": "Context-specific responses that replace the canonical response.",
           "items": {
             "$ref": "#/$defs/alternative"
           }
@@ -114,9 +120,11 @@
         "notes": {
           "type": "array",
           "minItems": 1,
+          "description": "Supplementary display information that is neither a response nor a condition.",
           "items": {
             "type": "string",
-            "minLength": 1
+            "minLength": 1,
+            "pattern": "^[^\\r\\n]+$"
           }
         },
         "needsReview": {
@@ -124,9 +132,38 @@
         },
         "reviewNote": {
           "type": "string",
-          "minLength": 1
+          "minLength": 1,
+          "pattern": "^[^\\r\\n]+$"
         }
-      }
+      },
+      "allOf": [
+        {
+          "if": {
+            "required": ["needsReview"],
+            "properties": {
+              "needsReview": {
+                "const": true
+              }
+            }
+          },
+          "then": {
+            "required": ["reviewNote"]
+          }
+        },
+        {
+          "if": {
+            "required": ["reviewNote"]
+          },
+          "then": {
+            "required": ["needsReview"],
+            "properties": {
+              "needsReview": {
+                "const": true
+              }
+            }
+          }
+        }
+      ]
     },
     "alternative": {
       "type": "object",
@@ -135,11 +172,13 @@
       "properties": {
         "when": {
           "type": "string",
-          "minLength": 1
+          "minLength": 1,
+          "pattern": "^[^\\r\\n]+$"
         },
         "response": {
           "type": "string",
-          "minLength": 1
+          "minLength": 1,
+          "pattern": "^[^\\r\\n]+$"
         }
       }
     }

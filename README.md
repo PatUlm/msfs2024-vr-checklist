@@ -23,6 +23,8 @@ Lokale Originaldokumente liegen unter `checklists/source/` und werden unabhängi
 
 `challenge` und `response` enthalten die kanonischen, direkt darstell- und vorlesbaren Texte. Varianten und Bedingungen werden getrennt in `alternatives` beziehungsweise `condition` erfasst. Die JSON-Daten sind bewusst von Aufbau und Format der lokalen Quelldokumente entkoppelt.
 
+Die versionierten JSON-Dateien unter `checklists/data/` sind die einzige Quelle für Checklist-Inhalte. Die EFB-App lädt diese Daten, statt Einträge zusätzlich im Anwendungscode zu hinterlegen.
+
 Für die spätere englische TTS-Ausgabe gilt `<challenge>: <response>` als Fallback. Schwierige Aussprachen, Bedingungen und Alternativen erhalten einen optionalen vollständig formulierten `speech`-Override.
 
 Die beiden DA42-Anzeigen `L GLOWN ON` und `R GLOWN ON` bleiben bis zur Prüfung im Simulator erhalten. Sie sind mit `needsReview: true` und einer konkreten `reviewNote` markiert.

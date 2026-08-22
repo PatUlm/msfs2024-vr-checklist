@@ -30,13 +30,14 @@ Status: **Abgeschlossen**
 
 Status: **Ausstehend**
 
-Ziel: Eine eigene App erscheint im nativen MSFS-2024-EFB und zeigt eine fest im Code hinterlegte kurze Checkliste mit anklickbaren Checkboxen.
+Ziel: Eine eigene App erscheint im nativen MSFS-2024-EFB, lädt eine gebündelte versionierte JSON-Checkliste und zeigt deren Einträge mit anklickbaren Checkboxen.
 
 Abnahmekriterien:
 
 - Die App lässt sich mit dem offiziellen EFB-Template bauen.
 - Das Paket lässt sich in MSFS 2024 laden.
 - Die App erscheint im EFB aller unterstützten Flugzeuge.
+- Die angezeigten Checklist-Inhalte stammen ausschließlich aus den versionierten JSON-Dateien unter `checklists/data/`; im App-Code wird keine zweite Checklist-Liste gepflegt.
 - Checklisteneinträge können in VR gut gelesen und angeklickt werden.
 - Einträge mit `needsReview: true` zeigen in der Liste einen sichtbaren Review-Hinweis; die `reviewNote` erklärt den offenen Punkt.
 - Der Prototyp benötigt weder Backend noch Internetverbindung.

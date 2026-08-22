@@ -28,7 +28,7 @@ Status: **Abgeschlossen**
 
 ## Phase 1 – Minimaler nativer EFB-Prototyp
 
-Status: **Ausstehend**
+Status: **In Arbeit – lokaler Prototyp implementiert; MSFS-/VR-Abnahme ausstehend**
 
 Ziel: Eine eigene App erscheint im nativen MSFS-2024-EFB, lädt eine gebündelte versionierte JSON-Checkliste und zeigt deren Einträge mit anklickbaren Checkboxen.
 

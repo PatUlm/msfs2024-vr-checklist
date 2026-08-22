@@ -1,0 +1,63 @@
+version: "3"
+
+vars:
+  APP_DIR: msfs/PackageSources/VRChecklist
+  STAGING_DIR: '{{default "/mnt/c/dev/msfs2024-vr-checklist-staging" .STAGING_DIR}}'
+
+tasks:
+  default:
+    desc: List available project tasks
+    cmds:
+      - task --list
+
+  init:
+    desc: Create local, ignored workspace directories
+    cmds:
+      - mkdir -p tmp
+    status:
+      - test -d tmp
+
+  install:
+    desc: Install the locked EFB app dependencies
+    dir: "{{.APP_DIR}}"
+    cmds:
+      - npm ci
+
+  validate:
+    desc: Validate all versioned checklist data
+    cmds:
+      - node scripts/validate-checklists.mjs
+
+  build:
+    desc: Validate checklist data and build the EFB app
+    deps:
+      - validate
+    dir: "{{.APP_DIR}}"
+    preconditions:
+      - sh: test -d node_modules
+        msg: Run "task install" before building the EFB app.
+    cmds:
+      - npm run rebuild
+
+  watch:
+    desc: Watch and rebuild the EFB app during development
+    deps:
+      - validate
+    dir: "{{.APP_DIR}}"
+    preconditions:
+      - sh: test -d node_modules
+        msg: Run "task install" before starting watch mode.
+    cmds:
+      - npm run watch
+
+  deploy:
+    desc: Build and deploy managed inputs to the Windows MSFS staging
+    deps:
+      - build
+    cmds:
+      - node scripts/deploy-windows.mjs "{{.STAGING_DIR}}"
+
+  check:
+    desc: Run the complete local validation and build
+    deps:
+      - build

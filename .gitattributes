@@ -1,0 +1,8 @@
+* text=auto eol=lf
+
+# The copied SDK runtime is vendored source and uses repository line endings.
+msfs/PackageSources/efb_api/dist/** text eol=lf linguist-vendored
+
+# Copied SDK and MSFS metadata assets are binary.
+msfs/PackageSources/vendor/** binary
+msfs/PackageDefinitions/**/ContentInfo/*.jpg binary

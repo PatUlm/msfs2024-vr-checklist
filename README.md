@@ -1,101 +1,170 @@
 # MSFS 2024 VR Checklist
 
-Native, offlinefähige Checklist-App für das Electronic Flight Bag (EFB) von Microsoft Flight Simulator 2024. Entwicklungsumgebung und Beispielchecklisten sind vorbereitet; der native EFB-Prototyp aus Phase 1 ist noch nicht begonnen.
+Native, offlinefähige Checklist-App für das Electronic Flight Bag (EFB) von
+Microsoft Flight Simulator 2024. Der Phase-1-Prototyp lädt die versionierte
+DA42-Checkliste und zeigt ihre Einträge als große, anklickbare Checklist-Zeilen.
 
-## Verifizierte Entwicklungsumgebung
+## Entwicklungsmodell
 
-- Microsoft Flight Simulator 2024 SDK: `1.7.3`
-- SDK-Pfad: `C:\MSFS 2024 SDK`
-- Offizielles EFB-Sample: `C:\MSFS 2024 SDK\Samples\DevmodeProjects\EFB`
-- Node.js: `v24.19.0` (über NVM for Windows)
-- npm: `11.17.0`
-- MSFS Developer Mode: aktiviert
+Das Linux-native WSL2-Repository ist die einzige editierbare Source of Truth.
+Build und TypeScript-Entwicklung laufen ausschließlich unter WSL2. Ein
+deterministisches One-Way-Deployment überträgt nur die für den MSFS Project
+Editor benötigten Dateien in ein Windows-lokales Staging.
 
-Das installierte SDK und insbesondere das offizielle EFB-Sample bleiben unverändert. Das Sample dient nur als Referenz. Sobald in Phase 1 das App-Gerüst angelegt wird, werden benötigte Template-Dateien zuerst in dieses Repository übernommen; alle folgenden Befehle werden ausschließlich in der Projektkopie ausgeführt.
+Das installierte SDK und dessen Samples bleiben strikt read-only. Die benötigten
+Dateien des offiziellen EFB Template Samples aus SDK 1.7.3 wurden unter `msfs/`
+in dieses Repository kopiert und nur dort angepasst.
+
+Verifizierte Werkzeuge:
+
+- Microsoft Flight Simulator 2024 SDK `1.7.3`
+- Node.js `v24.19.0`
+- npm `11.17.0`
+- Task `v3.37.2`
+
+## Einstieg
+
+Nach einem frischen Clone:
+
+```bash
+task init
+task install
+task check
+```
+
+`task init` legt ausschließlich den lokalen, ignorierten Ordner `tmp/` an und
+führt keine Downloads aus. `task install` installiert den gelockten
+Abhängigkeitsstand der EFB-App mit `npm ci`.
+
+## Projekt-Tasks
+
+Alle projektweiten Abläufe beginnen im Repository-Root:
+
+| Task            | Wirkung                                         |
+| --------------- | ----------------------------------------------- |
+| `task init`     | Legt lokale, ignorierte Arbeitsverzeichnisse an |
+| `task install`  | Installiert die EFB-Abhängigkeiten              |
+| `task validate` | Prüft alle versionierten Checklistendaten       |
+| `task build`    | Validiert die Daten und baut die EFB-App        |
+| `task watch`    | Startet den Watch-Build für die EFB-App         |
+| `task deploy`   | Baut und deployed ins Windows-Staging           |
+| `task check`    | Führt die vollständige lokale Prüfung aus       |
+
+Die `package.json` unter `msfs/PackageSources/VRChecklist/` bleibt für rein
+Frontend-spezifische npm-Skripte zuständig. Nichttriviale projektweite Logik
+liegt unter `scripts/`.
+
+## Verzeichnisstruktur
+
+```text
+checklists/data/                         kanonische Checklistendaten
+msfs/VRChecklistProject.xml              MSFS-DevMode-Projekt
+msfs/PackageDefinitions/                 Paketdefinition und ContentInfo
+msfs/PackageSources/VRChecklist/          TypeScript/SCSS-App und Build
+msfs/PackageSources/efb_api/              kopierte EFB-API aus SDK 1.7.3
+msfs/PackageSources/vendor/               kopiertes MSFS-SDK-Paket
+scripts/                                  Validierung und One-Way-Deployment
+```
+
+`node_modules/`, `dist/` und Ausgaben des MSFS Project Editors werden nicht
+versioniert.
 
 ## Checklistendaten
 
-Lokale Originaldokumente liegen unter `checklists/source/` und werden unabhängig vom Dateiformat von Git ausgeschlossen. Versioniert werden ausschließlich die daraus abgeleiteten JSON-Datensätze unter `checklists/data/`:
+Die JSON-Dateien unter `checklists/data/` sind die einzige Quelle für
+Checklist-Inhalte:
 
 - `diamond-da42.json`: 7 Abschnitte mit 52 Einträgen
 - `sikorsky-mh-60.json`: 5 Abschnitte mit 30 Einträgen
-- `checklist.schema.json`: gemeinsames JSON-Schema
+- `checklist.schema.json`: gemeinsamer Datenvertrag
 
-`challenge` und `response` enthalten die kanonischen, direkt darstell- und vorlesbaren Texte. Varianten und Bedingungen werden getrennt in `alternatives` beziehungsweise `condition` erfasst. Die JSON-Daten sind bewusst von Aufbau und Format der lokalen Quelldokumente entkoppelt.
+Der Phase-1-Durchstich importiert `diamond-da42.json` direkt aus diesem
+Verzeichnis; es existiert keine zweite Liste im App-Code. Die beiden offenen
+DA42-Anzeigen sind in der Oberfläche sichtbar als `Review required` markiert,
+einschließlich ihrer jeweiligen `reviewNote`.
 
-Die versionierten JSON-Dateien unter `checklists/data/` sind die einzige Quelle für Checklist-Inhalte. Die EFB-App lädt diese Daten, statt Einträge zusätzlich im Anwendungscode zu hinterlegen.
+Validierung ohne App-Build:
 
-Für die spätere englische TTS-Ausgabe gilt `<challenge>: <response>` als Fallback. Schwierige Aussprachen, Bedingungen und Alternativen erhalten einen optionalen vollständig formulierten `speech`-Override.
-
-Die beiden DA42-Anzeigen `L GLOWN ON` und `R GLOWN ON` bleiben bis zur Prüfung im Simulator erhalten. Sie sind mit `needsReview: true` und einer konkreten `reviewNote` markiert.
-
-## Build-Ablauf
-
-Die folgenden Schritte gelten erst, nachdem das EFB-Gerüst in einer späteren Phase im Repository angelegt wurde.
-
-1. Abhängigkeiten der kopierten EFB-API installieren:
-
-   ```powershell
-   Set-Location '<Projektwurzel>\PackageSources\efb_api'
-   npm install
-   ```
-
-2. Abhängigkeiten der kopierten App installieren:
-
-   ```powershell
-   Set-Location '<Projektwurzel>\PackageSources\<App-Verzeichnis>'
-   npm install
-   ```
-
-3. Einen einmaligen App-Build erzeugen:
-
-   ```powershell
-   npm run build
-   ```
-
-   Die gebündelten JavaScript-, CSS- und Asset-Dateien werden unter `dist\` erzeugt. Der Build muss ohne TypeScript- oder esbuild-Fehler enden.
-
-4. Während der Entwicklung kann stattdessen der Watch-Modus laufen:
-
-   ```powershell
-   npm run watch
-   ```
-
-   Der Watch-Modus aktualisiert `dist\` nach Quelltextänderungen. Danach muss das MSFS-Paket erneut gebaut werden, damit die aktuelle Ausgabe im Simulator verwendet wird.
-
-Die vom SDK-Sample vorgegebenen Entwicklungswerte in `.env` sind `TYPECHECKING=true`, `SOURCE_MAPS=true` und `MINIFY=false`. Produktionswerte werden erst vor einem späteren Release festgelegt.
-
-## Packaging in MSFS 2024
-
-1. Zuerst den App-Build ausführen und prüfen, dass `dist\` vorhanden ist.
-2. Microsoft Flight Simulator 2024 mit aktiviertem Developer Mode starten und noch vor dem Start eines Fluges über `File` → `Open project…` die XML-Projektdatei aus diesem Repository öffnen.
-3. Falls nötig den Project Editor über `Tools` öffnen.
-4. In der Paketdefinition prüfen, dass die `Copy`-Asset-Gruppe als Quelle das `dist\`-Verzeichnis und als Ziel `html_ui\efb_ui\efb_apps\<App-Name>\` verwendet.
-5. Im Project Editor `Build All In Project` ausführen. Fehler über `Debug` → `The Console` beziehungsweise `Show Errors` untersuchen.
-6. Der Package-Build wird im `Packages\`-Verzeichnis neben der Projektdatei abgelegt und für die aktuelle Simulator-Sitzung temporär eingebunden.
-
-Für eine spätere manuelle Installation oder Weitergabe wird der vollständig erzeugte Paketordner unverändert in den für die jeweilige MSFS-Installation gültigen Community-Ordner kopiert. Marketplace-Export und Veröffentlichung sind nicht Bestandteil der ersten Projektphasen.
-
-## Testablauf
-
-Der erste Smoke-Test erfolgt nach einem erfolgreichen App- und Package-Build:
-
-1. Einen Free-Flight mit einem EFB-fähigen Flugzeug starten; für das erste Sample empfiehlt die offizielle Dokumentation die DA62.
-2. Auf dem EFB-Startbildschirm prüfen, dass die App mit korrektem Namen und Symbol erscheint und sich öffnen lässt.
-3. Navigation, Schaltflächen, Checkboxen und Scrollverhalten mit Maus beziehungsweise Touch vollständig durchlaufen.
-4. Im VR-Modus prüfen, dass Text und Bedienelemente aus normaler Sitzposition gut lesbar, zuverlässig anwählbar und ausreichend groß sind.
-5. Mindestens einen vollständigen Checklistendurchlauf testen und sicherstellen, dass jeder Eintrag genau einmal kontrolliert umgeschaltet werden kann.
-6. Einen zweiten Flugzeugtyp mit EFB prüfen, um die allgemeine Verfügbarkeit der App zu bestätigen.
-7. Test ohne Netzwerkverbindung wiederholen; die Kern-Checkliste muss vollständig funktionieren.
-8. Während des Tests die DevMode-Konsole auf JavaScript-, Paket- und Ressourcenfehler prüfen.
-
-Nach Änderungen gilt immer dieselbe Reihenfolge:
-
-```text
-Quelltext ändern → App nach dist bauen → Paket im Project Editor bauen → im EFB testen
+```bash
+task validate
 ```
 
-Ein Testlauf wird mit Datum, SDK-Version, Node-/npm-Version, verwendetem Flugzeug, 2D-/VR-Modus und Ergebnis dokumentiert. Die eigentlichen Abnahmetests beginnen erst mit dem Prototyp in Phase 1.
+## App-Build
+
+Ein einmaliger Build wird mit folgendem Befehl erzeugt:
+
+```bash
+task build
+```
+
+Die gebündelten JavaScript-, CSS- und Asset-Dateien entstehen unter
+`msfs/PackageSources/VRChecklist/dist/`. Die aus dem offiziellen Template
+übernommenen Entwicklungswerte sind `TYPECHECKING=true`, `SOURCE_MAPS=true` und
+`MINIFY=false`.
+
+Während der Entwicklung:
+
+```bash
+task watch
+```
+
+## Windows-Staging
+
+Der Standard-Deploy erzeugt beziehungsweise aktualisiert:
+
+```text
+/mnt/c/dev/msfs2024-vr-checklist-staging
+C:\dev\msfs2024-vr-checklist-staging
+```
+
+Ausführung:
+
+```bash
+task deploy
+```
+
+Ein abweichendes Laufwerk kann explizit angegeben werden; der schützende
+Verzeichnisname bleibt verbindlich:
+
+```bash
+task deploy STAGING_DIR=/mnt/d/dev/msfs2024-vr-checklist-staging
+```
+
+Das Deploymentskript überträgt ausschließlich:
+
+- `VRChecklistProject.xml`
+- `PackageDefinitions/`
+- `PackageSources/VRChecklist/dist/`
+
+Es verweigert ein nicht leeres Staging, das nicht bereits durch seinen Marker
+diesem Projekt zugeordnet ist. Bei Folgedeployments werden nur die verwalteten
+Eingaben ersetzt. Die vom Project Editor erzeugten Verzeichnisse `Packages/`,
+`PackagesMetadata/` und `_PackageInt/` bleiben erhalten. Es gibt keine
+Synchronisation vom Windows-Staging zurück in das Repository.
+
+## Packaging und Test in MSFS 2024
+
+1. Unter WSL2 `task deploy` erfolgreich ausführen.
+2. MSFS 2024 mit aktiviertem Developer Mode starten.
+3. Vor dem Start eines Fluges über `File` → `Open project…` folgende Datei
+   öffnen:
+
+   ```text
+   C:\dev\msfs2024-vr-checklist-staging\VRChecklistProject.xml
+   ```
+
+4. Im Project Editor `Build All In Project` ausführen.
+5. Einen Flug mit einem EFB-fähigen Flugzeug starten und `VR Checklist` öffnen.
+6. Checkboxen, Scrollverhalten und die beiden Review-Hinweise zunächst in 2D,
+   anschließend in VR prüfen.
+7. Einen zweiten Flugzeugtyp und einen Lauf ohne Netzwerkverbindung testen.
+8. Die DevMode-Konsole auf JavaScript-, Paket- und Ressourcenfehler prüfen.
+
+Nach Änderungen gilt:
+
+```text
+Source ändern → task deploy → Build All In Project → im EFB testen
+```
 
 ## Offizielle Referenzen
 

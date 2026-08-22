@@ -1,3 +1,6 @@
 # Original checklist source documents are local reference material.
 checklists/source/**
 !checklists/source/.gitkeep
+
+# Local handovers, plans and temporary working notes.
+/tmp/

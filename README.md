@@ -79,9 +79,9 @@ Checklist-Inhalte:
 - `checklist.schema.json`: gemeinsamer Datenvertrag
 
 Der Phase-1-Durchstich importiert `diamond-da42.json` direkt aus diesem
-Verzeichnis; es existiert keine zweite Liste im App-Code. Die beiden offenen
-DA42-Anzeigen sind in der Oberfläche sichtbar als `Review required` markiert,
-einschließlich ihrer jeweiligen `reviewNote`.
+Verzeichnis; es existiert keine zweite Liste im App-Code. Das Schema unterstützt
+weiterhin die sichtbaren Felder `needsReview` und `reviewNote`; die aktuell
+versionierten Checklisten enthalten keine offenen Review-Markierungen.
 
 Validierung ohne App-Build:
 
@@ -155,16 +155,29 @@ Synchronisation vom Windows-Staging zurück in das Repository.
 
 4. Im Project Editor `Build All In Project` ausführen.
 5. Einen Flug mit einem EFB-fähigen Flugzeug starten und `VR Checklist` öffnen.
-6. Checkboxen, Scrollverhalten und die beiden Review-Hinweise zunächst in 2D,
+6. Nach Folgebuilds im Coherent Debugger `Ignore Cache` aktivieren und die App
+   mit `Reload` neu laden.
+7. Checkboxen, Scrollverhalten und semantische Hinweise zunächst in 2D,
    anschließend in VR prüfen.
-7. Einen zweiten Flugzeugtyp und einen Lauf ohne Netzwerkverbindung testen.
-8. Die DevMode-Konsole auf JavaScript-, Paket- und Ressourcenfehler prüfen.
+8. Einen zweiten Flugzeugtyp und einen Lauf ohne Netzwerkverbindung testen.
+9. Die DevMode-Konsole auf JavaScript-, Paket- und Ressourcenfehler prüfen.
 
 Nach Änderungen gilt:
 
 ```text
-Source ändern → task deploy → Build All In Project → im EFB testen
+Source ändern → task deploy → Build All In Project → Ignore Cache + Reload → im EFB testen
 ```
+
+Für reine UI-Änderungen ist dabei kein kompletter Neustart von MSFS 2024 nötig.
+Ein neuer Flug wird nur benötigt, wenn Lifecycle- oder Reset-Verhalten geprüft
+werden soll.
+
+## Design- und Agentendokumentation
+
+- `AGENTS.md`: dauerhafte Arbeitsregeln für neue Agent-Sessions
+- `docs/design-decisions.md`: akzeptierte UI- und Interaktionsentscheidungen
+- `docs/design-qa.md`: visuelle Nachweise, Abweichungen und nächste Iteration
+- `docs/assets/`: versionierte, dauerhaft referenzierte Design-Screenshots
 
 ## Offizielle Referenzen
 

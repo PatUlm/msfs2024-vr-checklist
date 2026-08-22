@@ -1,46 +1,65 @@
 # Design QA
 
-- Source visual truth: `tmp/03.png`
-- Implementation screenshot: unavailable until the revised package is rendered in MSFS 2024
-- Source pixels: 668 × 56 at 1× density
+- Layout reference: [`assets/default-item-reference.png`](assets/default-item-reference.png)
+- Current MSFS capture: [`assets/action-bar-alignment.png`](assets/action-bar-alignment.png)
+- Reference pixels: 668 × 56 at 1× density
+- Current capture pixels: 741 × 360 at 1× density
 - Intended implementation viewport: approximately 668 CSS px item width in the EFB
-- State: default, unchecked action item
-- Density normalization: not applicable until the implementation screenshot exists
+- Current state: completed Action-Item hovered in the first checklist group
 
 ## Full-view comparison evidence
 
-Blocked. The source crop was opened and inspected at its original resolution, but the MSFS/Coherent runtime cannot be captured from this workspace.
+The current implementation has been captured from the MSFS/Coherent runtime.
+It confirms the overall hierarchy, the background-based item hover, the CSS X,
+the dotted leader and the right-aligned checkbox. The action bar extends farther
+right than the item list while both left edges align.
 
 ## Focused-region comparison evidence
 
-The source is already a focused crop of one default checklist item. It specifies a compact single row with challenge, dotted leader, response, and a right-aligned checkbox. A corresponding rendered implementation crop is still required.
+The reference is a focused crop of one default checklist item. It specifies a
+compact single row with challenge, dotted leader, response, and a right-aligned
+checkbox. The current MSFS capture shows this structure in the completed and
+hovered state. The historical blue Action marker in the reference is no longer
+desired; `design-decisions.md` supersedes it.
 
 ## Findings
 
-- [P1] Runtime comparison is missing.
-  - Location: default action item in the MSFS EFB.
-  - Evidence: source image is available; no post-change implementation screenshot exists yet.
-  - Impact: typography, exact vertical centering, and Coherent-specific CSS behavior cannot be verified from build output alone.
-  - Fix: build the deployed package, reload the EFB with Coherent resource caching disabled, and capture the same default item state.
+- [P1] The action bar is wider than the item list on the right.
+  - Location: first checklist group in `assets/action-bar-alignment.png`.
+  - Evidence: both left edges align, but the navigation reaches farther right.
+  - Impact: the main vertical alignment looks imprecise.
+  - Fix: account for the item list's scrollbar/right padding in the action bar.
+- [P2] The navigation buttons still use a white/accent outline on hover.
+  - Location: previous/next buttons.
+  - Impact: navigation and checklist items use different interaction feedback.
+  - Fix: apply the same background-based hover language as the items.
+- [P2] Item hover feedback feels delayed in the MSFS runtime.
+  - Location: checklist items.
+  - Evidence: visual response follows the pointer with a perceptible delay.
+  - Fix: inspect inherited EFB transitions and the local 100 ms transition;
+    prefer immediate background feedback if the delay persists.
 
-## Implemented changes awaiting visual verification
+## Visually verified implementation
 
 - Default item minimum height reduced to 60 px.
 - Base font set to 20 px, slightly larger than the source mock.
 - Challenge, dotted leader, response, and 40 px checkbox share one horizontal row.
 - Checkbox is aligned at the right edge.
 - Item spacing is 8 px, exceeding the requested minimum of 2 px.
-- Additional verify/review content may still expand an item vertically.
+- Additional verify/review content expands an item vertically.
+- Completed state uses a font-independent CSS X.
+- Item hover uses a lighter background rather than a white outline.
 
 ## Comparison history
 
-- Initial implementation pass completed from `tmp/03.png`.
-- No post-fix visual iteration is possible until a new MSFS screenshot is available.
+- Initial implementation pass used the now-versioned default-item reference.
+- The current MSFS capture verifies the completed item and records the remaining
+  action-bar alignment issue.
 
 ## Next iteration
 
 - Give the two action-bar navigation buttons the same background-based hover treatment as the checklist items instead of a white outline.
-- Align the action bar's right edge with the checklist items; its left edge already aligns correctly. See `tmp/09.png`.
+- Align the action bar's right edge with the checklist items; its left edge already aligns correctly. See `assets/action-bar-alignment.png`.
 - Investigate the perceptible delay before item hover feedback, especially whether an inherited CSS transition causes it.
 
-final result: blocked
+final result: pending next visual iteration

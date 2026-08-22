@@ -4,6 +4,28 @@ Native, offlinefähige Checklist-App für das Electronic Flight Bag (EFB) von
 Microsoft Flight Simulator 2024. Der Phase-1-Prototyp lädt die versionierte
 DA42-Checkliste und zeigt ihre Einträge als große, anklickbare Checklist-Zeilen.
 
+## Features
+
+Aktuell verfügbar:
+
+- native, offlinefähige MSFS-2024-EFB-App
+- versionierte und validierte Checklistendaten im JSON-Format
+- VR-first Oberfläche mit großen, vollständig anklickbaren Items
+- genau eine sichtbare Gruppe mit Vor-/Zurück-Navigation
+- automatischer Wechsel nach Abschluss einer Gruppe
+- Fortschrittsanzeige und Reset beim Laden eines neuen Fluges
+- semantische Darstellung von Action-, Verify- und Communication-Items
+
+Für den ersten VR-Test vorbereitet beziehungsweise als nächster Meilenstein
+geplant:
+
+- automatische Auswahl der Checkliste anhand des geladenen Flugzeugmodells
+- zentrierter Leerzustand, wenn keine passende Checkliste vorhanden ist
+- minimale Zwei-Gruppen-Checkliste für die Beechcraft Bonanza G36
+- Bestätigung des ersten noch offenen Items mit dem Stream-Deck-Hotkey
+  `Return` sowie `Enter`/`Numpad Enter`
+- die unter `docs/design-qa.md` festgehaltenen UI-Korrekturen
+
 ## Entwicklungsmodell
 
 Das Linux-native WSL2-Repository ist die einzige editierbare Source of Truth.
@@ -177,10 +199,14 @@ werden soll.
 - `AGENTS.md`: dauerhafte Arbeitsregeln für neue Agent-Sessions
 - `docs/design-decisions.md`: akzeptierte UI- und Interaktionsentscheidungen
 - `docs/design-qa.md`: visuelle Nachweise, Abweichungen und nächste Iteration
+- `docs/vr-test-preparation.md`: Scope und technische Vorarbeit für den ersten
+  VR-Teststand
 - `docs/assets/`: versionierte, dauerhaft referenzierte Design-Screenshots
 
 ## Offizielle Referenzen
 
 - [EFB Template Sample](https://docs.flightsimulator.com/msfs2024/retail/samples-tutorials/samples/efb/efb-template-sample/)
 - [Electronic Flight Bag API](https://docs.flightsimulator.com/msfs2024/flighting/programming-apis/efb/electronic-flight-bag-api/)
+- [Simulation Variables](https://docs.flightsimulator.com/msfs2024/flighting/programming-apis/simvars/simulation-variables/)
+- [Key Events](https://docs.flightsimulator.com/msfs2024/flighting/programming-apis/key-events/key-events-index/)
 - [Project Editor](https://docs.flightsimulator.com/msfs2024/flighting/devmode/editors/project-editor/the-project-editor/)

@@ -13,6 +13,8 @@ gehören nach `docs/design-qa.md`.
 - Vor UI-Arbeiten sind `docs/design-decisions.md` und
   `docs/design-qa.md` zu lesen. Ändere dokumentierte Designentscheidungen nicht
   stillschweigend.
+- Vor Arbeiten am nächsten VR-Teststand ist zusätzlich
+  `docs/vr-test-preparation.md` zu lesen.
 - Vor Änderungen an Checklistendaten ist `checklists/data/README.md` zu lesen.
 - Commit und Push erfolgen nur auf ausdrücklichen Wunsch des Benutzers.
 

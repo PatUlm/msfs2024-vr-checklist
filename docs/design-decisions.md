@@ -56,6 +56,29 @@ Iteration stehen separat in `design-qa.md`.
 - Beim Start beziehungsweise Laden eines neuen Fluges werden alle Items, der
   Fortschritt und die aktive Gruppe zurückgesetzt.
 
+## Flugzeugauswahl und Leerzustand
+
+- Die App wählt automatisch die zum aktuell geladenen Flugzeug oder
+  Hubschrauber passende JSON-Checkliste.
+- Die Zuordnung erfolgt über explizite MSFS-Modell-Aliase in den versionierten
+  Daten. Es gibt keine unscharfe Auswahl nach Teilstrings und keine heimliche
+  Default-Checkliste.
+- Ist kein Alias zugeordnet, bleibt die App verfügbar und zeigt zentriert die
+  kurze Meldung `Keine Checkliste vorhanden`.
+- Ein unbekanntes Modell darf niemals versehentlich die DA42-Checkliste laden.
+
+## Sequenzielle Eingabe
+
+- Der Stream-Deck-Hotkey `Return` sowie `Enter` und `Numpad Enter` bestätigen
+  das erste noch offene Item in Checklist-Reihenfolge.
+- Die Eingabe ist nur aktiv, solange die VR-Checklist-Ansicht sichtbar ist. Sie
+  darf außerhalb der App insbesondere keine Karriere-Funkaktion blockieren.
+- Ein Gedrückthalten der Taste darf ein Item nur einmal bestätigen.
+- Der erste Implementierungsweg ist ein normales Coherent/DOM-Tastaturereignis.
+  L- und B-Events sind kein Ersatz für eine Tastatureingabe. Falls Coherent das
+  Ereignis nicht liefert, wird erst nach Ermittlung des tatsächlich ausgelösten
+  MSFS-Key-Events ein gezielter Intercept ergänzt.
+
 ## Referenzen
 
 - [`assets/default-item-reference.png`](assets/default-item-reference.png) ist

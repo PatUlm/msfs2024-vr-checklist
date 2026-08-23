@@ -17,14 +17,18 @@ Notable project changes are recorded under their completion date.
 
 - Refined the checklist layout for VR and cockpit-tablet use with dedicated VR
   typography, spacing, navigation, item, and checkbox dimensions.
+- Added the researched `Utility Hydraulic Pump: Off` step immediately after APU
+  shutdown in the MH-60 checklist.
 - Standardized paired-component labels as `[1+2]` across checklist data.
 - Improved checklist navigation, scrollbar alignment, hover feedback, and
   aircraft changes during a resident EFB session.
+- Completed Phase 1 after a successful free-flight VR acceptance test.
 
 ### Fixed
 
 - Preserved completed items and the active section when MSFS recreates the EFB
-  app context while switching between VR and non-VR.
+  app context while switching between VR and non-VR; the round trip was
+  verified in MSFS.
 - Kept new-flight and aircraft-change resets independent from display-mode
   changes.
 

@@ -28,21 +28,23 @@ Status: **Abgeschlossen**
 
 ## Phase 1 – Minimaler nativer EFB-Prototyp
 
-Status: **In Arbeit – lokaler Prototyp implementiert; MSFS-/VR-Abnahme ausstehend**
+Status: **Abgeschlossen – MSFS- und VR-Abnahme am 2026-08-23 erfolgreich**
 
 Ziel: Eine eigene App erscheint im nativen MSFS-2024-EFB, lädt eine gebündelte versionierte JSON-Checkliste und zeigt deren Einträge mit anklickbaren Checkboxen.
 
 Abnahmekriterien:
 
-- Die App lässt sich mit dem offiziellen EFB-Template bauen.
-- Das Paket lässt sich in MSFS 2024 laden.
-- Die App erscheint im EFB aller unterstützten Flugzeuge.
-- Die angezeigten Checklist-Inhalte stammen ausschließlich aus den versionierten JSON-Dateien unter `checklists/data/`; im App-Code wird keine zweite Checklist-Liste gepflegt.
-- Checklisteneinträge können in VR gut gelesen und angeklickt werden.
-- Einträge mit `needsReview: true` zeigen in der Liste einen sichtbaren Review-Hinweis; die `reviewNote` erklärt den offenen Punkt.
-- Der Prototyp benötigt weder Backend noch Internetverbindung.
+- [x] Die App lässt sich mit dem offiziellen EFB-Template bauen.
+- [x] Das Paket lässt sich in MSFS 2024 laden.
+- [x] Die App erscheint im EFB aller unterstützten Flugzeuge.
+- [x] Die angezeigten Checklist-Inhalte stammen ausschließlich aus den versionierten JSON-Dateien unter `checklists/data/`; im App-Code wird keine zweite Checklist-Liste gepflegt.
+- [x] Checklisteneinträge können in VR gut gelesen und angeklickt werden.
+- [x] Einträge mit `needsReview: true` zeigen in der Liste einen sichtbaren Review-Hinweis; die `reviewNote` erklärt den offenen Punkt.
+- [x] Der Prototyp benötigt weder Backend noch Internetverbindung.
 
-Nicht Bestandteil dieses Meilensteins sind PDF-Konvertierung, KI, SimVars, Aircraft-Erkennung, Cloud-Dienste und komplexe Persistenz.
+Die automatische Flugzeugerkennung und ein eng begrenzter Fortschritts-Snapshot
+für VR-Moduswechsel wurden bereits in dieser Phase umgesetzt. PDF-Konvertierung,
+KI, Cloud-Dienste, TTS und komplexe Persistenz bleiben spätere Meilensteine.
 
 ## Späterer Meilenstein – TTS und schnelle Eingabebestätigung
 

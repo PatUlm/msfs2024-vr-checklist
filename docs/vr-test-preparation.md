@@ -1,16 +1,17 @@
-# Vorbereitung des ersten VR-Teststands
+# Abschluss des ersten VR-Teststands
 
 ## Ziel
 
-Der erste echte VR-Test soll einen möglichst unbeeinflussten Ersteindruck
-liefern. Der Agent erstellt deshalb keine Test-Checkliste und gibt keinen
-vorgegebenen Prüfablauf vor. Der Benutzer fliegt normal und berichtet danach,
-was nicht gut funktioniert hat.
+Der erste echte VR-Test sollte einen möglichst unbeeinflussten Ersteindruck
+liefern. Der Benutzer flog deshalb ohne vorgegebene Test-Checkliste und meldete
+die im normalen Betrieb beobachteten Abweichungen zurück.
 
-Der für diesen Test vorgesehene Build umfasst die drei UI-Korrekturen aus
-`design-qa.md` sowie die folgenden Produktfunktionen.
+Status: **Erfolgreich abgeschlossen am 2026-08-23.** Das kompakte VR-Layout ist
+gut lesbar und bedienbar; Phase 1 ist damit abgenommen. Die akzeptierte
+Laufzeitreferenz liegt unter
+[`assets/vr-g36-accepted-layout.png`](assets/vr-g36-accepted-layout.png).
 
-Status: Der erste freie VR-Flug mit der G36 wurde erfolgreich absolviert. Die
+Der erste freie VR-Flug mit der G36 wurde erfolgreich absolviert. Die
 Checkliste war insgesamt gut bedienbar. MSFS vergrößerte jedoch die gesamte
 EFB-Darstellung in VR, wodurch die 20-Pixel-Schrift zu groß wirkte, und der
 reservierte Scrollbarbereich erzeugte rechts einen sichtbar größeren
@@ -22,9 +23,9 @@ EFB-Aktion `VALIDATE` erreicht die Custom-App über keinen der mit SDK 1.7.3
 verfügbaren getesteten Pfade und bleibt weiterhin deaktiviert.
 
 Beim ersten Wechsel aus VR zurück in den normalen Modus gingen abgeschlossene
-Items scheinbar verloren. Der nächste Teststand speichert Fortschritt und aktive
-Gruppe deshalb als kurzlebigen SDK-`DataStore`-Snapshot und stellt ihn nur für
-dieselbe Flugzeugidentität und Checklistenrevision wieder her. Ein echter
+Items scheinbar verloren. Der daraufhin ergänzte kurzlebige
+SDK-`DataStore`-Snapshot wurde beim Wechsel von Nicht-VR zu VR und zurück
+erfolgreich geprüft: Fortschritt und aktive Gruppe bleiben bestehen. Ein echter
 Flug-Ladezustand oder Flugzeugwechsel löscht den Snapshot weiterhin.
 
 ## Automatische Checklistenauswahl
@@ -113,9 +114,10 @@ fest; eine erneute Umsetzung wartet auf einen dokumentierten und in einer
 Custom-App bestätigten Eventpfad oder ein bewusst definiertes eigenes externes
 Event.
 
-## Abnahmekriterium vor dem freien VR-Test
+## Abnahmeergebnis
 
-Der lokale Stand muss `task check` bestehen und nach `task deploy`, **Build All
-In Project** sowie **Ignore Cache + Reload** in 2D kurz auf technische Fehler
-geprüft werden. Danach folgt der freie VR-Test ohne weiteren vorgegebenen
-Prüfablauf.
+Der lokale Stand bestand `task check` und wurde über `task deploy`, **Build All
+In Project** sowie **Ignore Cache + Reload** in MSFS geladen. Der anschließende
+freie VR-Flug bestätigte Lesbarkeit, Bedienbarkeit, Flugzeugauswahl und das
+kompakte VR-Dichteprofil. Der Wechsel Nicht-VR → VR → Nicht-VR behielt den
+Checklistenzustand bei.

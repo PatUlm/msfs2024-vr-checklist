@@ -164,6 +164,8 @@ Iteration stehen separat in `design-qa.md`.
 - [`assets/default-item-reference.png`](assets/default-item-reference.png) ist
   die historische Layoutreferenz für die kompakte Hauptzeile. Ihr blauer linker
   Action-Marker wurde durch eine spätere Entscheidung verworfen.
-- [`assets/action-bar-alignment.png`](assets/action-bar-alignment.png) zeigt den
-  aktuellen MSFS-Laufzeitstand und die noch offene rechte Fehlflucht der
-  Abschnittsnavigation.
+- [`assets/action-bar-alignment.png`](assets/action-bar-alignment.png) hält die
+  inzwischen behobene rechte Fehlflucht der Abschnittsnavigation fest.
+- [`assets/vr-g36-accepted-layout.png`](assets/vr-g36-accepted-layout.png) zeigt
+  das für den Abschluss von Phase 1 akzeptierte kompakte VR-Layout im
+  G36-Cockpit.

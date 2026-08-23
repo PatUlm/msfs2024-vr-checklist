@@ -227,6 +227,12 @@
           "speech": "A P U control: Off."
         },
         {
+          "id": "utility-hydraulic-pump",
+          "challenge": "Utility Hydraulic Pump",
+          "response": "Off",
+          "kind": "action"
+        },
+        {
           "id": "primary-fuel-pump",
           "challenge": "Primary Fuel Pump",
           "response": "Off",

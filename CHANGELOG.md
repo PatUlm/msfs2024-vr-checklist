@@ -19,6 +19,9 @@ Notable project changes are recorded under their completion date.
   typography, spacing, navigation, item, and checkbox dimensions.
 - Added the researched `Utility Hydraulic Pump: Off` step immediately after APU
   shutdown in the MH-60 checklist.
+- Split the combined MH-60 SAS, trim, and autopilot action into separately
+  confirmable `SAS [1+2]: On` and `TRIM: On` items; the autopilot action was
+  removed.
 - Standardized paired-component labels as `[1+2]` across checklist data.
 - Improved checklist navigation, scrollbar alignment, hover feedback, and
   aircraft changes during a resident EFB session.

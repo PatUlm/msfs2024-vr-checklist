@@ -23,6 +23,8 @@ Notable project changes are recorded under their completion date.
 - Improved checklist navigation, scrollbar alignment, hover feedback, and
   aircraft changes during a resident EFB session.
 - Completed Phase 1 after a successful free-flight VR acceptance test.
+- Added repository guidance to separate commits by functional context whenever
+  practical.
 
 ### Fixed
 

@@ -22,6 +22,10 @@ gehören nach `docs/design-qa.md`.
   tatsächlichen Abschlussdatum im ISO-Format `## YYYY-MM-DD`; es gibt keinen
   `Unreleased`-Abschnitt. Weitere Änderungen am selben Tag werden in den
   bestehenden Datumsabschnitt einsortiert.
+- Commits sind, soweit sinnvoll möglich, nach fachlichem Kontext zu trennen.
+  Checklistendaten, Anwendungscode und allgemeine Dokumentation gehören
+  beispielsweise in getrennte Commits. Unmittelbar zugehörige Tests und
+  Dokumentation dürfen bei der jeweiligen fachlichen Änderung bleiben.
 - Commit und Push erfolgen nur auf ausdrücklichen Wunsch des Benutzers.
 
 ## Source of Truth und generierte Dateien

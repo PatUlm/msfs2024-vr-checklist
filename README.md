@@ -100,7 +100,7 @@ Die JSON-Dateien unter `checklists/data/` sind die einzige Quelle für
 Checklist-Inhalte:
 
 - `diamond-da42.json`: 7 Abschnitte mit 52 Einträgen
-- `beechcraft-bonanza-g36.json`: 2 Abschnitte mit 9 Einträgen
+- `beechcraft-bonanza-g36.json`: 2 Abschnitte mit 10 Einträgen
 - `sikorsky-mh-60.json`: 5 Abschnitte mit 30 Einträgen
 - `checklist.schema.json`: gemeinsamer Datenvertrag
 

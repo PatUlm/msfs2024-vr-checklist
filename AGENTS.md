@@ -17,6 +17,11 @@ gehören nach `docs/design-qa.md`.
   `docs/vr-test-preparation.md` zu lesen.
 - Vor Änderungen an Checklistendaten sind `checklists/data/README.md` und
   `checklists/data/style-guide.md` zu lesen.
+- Jede abgeschlossene Änderung muss im selben Arbeitsgang das englische
+  `CHANGELOG.md` aktualisieren. Einträge stehen ohne Versionsnummer unter dem
+  tatsächlichen Abschlussdatum im ISO-Format `## YYYY-MM-DD`; es gibt keinen
+  `Unreleased`-Abschnitt. Weitere Änderungen am selben Tag werden in den
+  bestehenden Datumsabschnitt einsortiert.
 - Commit und Push erfolgen nur auf ausdrücklichen Wunsch des Benutzers.
 
 ## Source of Truth und generierte Dateien

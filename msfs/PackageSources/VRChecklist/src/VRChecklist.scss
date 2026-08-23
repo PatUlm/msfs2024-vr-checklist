@@ -10,6 +10,8 @@
   --checklist-verify: #ffd166;
   --checklist-communication: #b7a2ff;
 
+  position: relative;
+
   width: 100%;
   height: 100%;
   overflow: hidden;
@@ -29,6 +31,81 @@
   font-size: 20px;
   line-height: 1.35;
   scrollbar-color: var(--checklist-border) transparent;
+}
+
+.checklist-version {
+  position: absolute;
+  right: 18px;
+  bottom: 8px;
+  z-index: 12;
+
+  color: rgba(184, 197, 209, 0.5);
+  font-size: 0.5em;
+  font-variant-numeric: tabular-nums;
+  font-weight: 500;
+  line-height: 1;
+  pointer-events: none;
+  white-space: nowrap;
+}
+
+.checklist-instance {
+  display: none;
+  flex: 1 1 auto;
+  flex-direction: column;
+  width: 100%;
+  min-height: 0;
+}
+
+.checklist-instance--active {
+  display: flex;
+}
+
+.checklist-unavailable {
+  position: relative;
+
+  display: none;
+  flex: 1 1 auto;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: 0;
+  padding: 34px;
+  box-sizing: border-box;
+
+  color: var(--checklist-muted);
+  font-size: 1.15em;
+  font-weight: 700;
+  text-align: center;
+}
+
+.checklist-unavailable--active {
+  display: flex;
+}
+
+.checklist-unavailable__message {
+  font: inherit;
+}
+
+.checklist-unavailable__diagnostics {
+  position: absolute;
+  right: 34px;
+  bottom: 22px;
+  left: 34px;
+
+  color: rgba(184, 197, 209, 0.68);
+  font-size: 0.5em;
+  font-weight: 500;
+  line-height: 1.5;
+  text-align: center;
+  user-select: text;
+  white-space: nowrap;
+}
+
+.checklist-unavailable__diagnostic-label {
+  margin-right: 5px;
+  color: rgba(184, 197, 209, 0.82);
+  font-weight: 700;
 }
 
 .checklist-header {
@@ -162,6 +239,11 @@
   display: flex;
   align-items: stretch;
   margin-bottom: 0;
+  // Coherent reserves about 10 px for its vertical scrollbar and renders the
+  // item edge another pixel inside the navigation edge. Keep this gutter
+  // explicit because scrollbar-gutter is not dependable in the EFB runtime.
+  padding-right: 15px;
+  box-sizing: border-box;
 }
 
 .section-navigation__button.abstract-button {
@@ -182,6 +264,9 @@
   font: inherit;
   text-align: left;
   cursor: pointer;
+  outline: none !important;
+  box-shadow: none !important;
+  transition: none !important;
 }
 
 .section-navigation__button--next.abstract-button {
@@ -189,17 +274,27 @@
   text-align: right;
 }
 
-.section-navigation__button.abstract-button.hoverable:hover,
-.section-navigation__button.abstract-button:focus-visible {
-  border-color: var(--checklist-accent);
-  outline: none;
+.section-navigation__button.abstract-button:hover,
+.section-navigation__button.abstract-button:focus {
+  border-color: var(--checklist-border) !important;
+  outline: none !important;
   color: var(--checklist-text);
-  background: var(--checklist-surface-hover);
+  background: #2b4152 !important;
+  background-color: #2b4152 !important;
+  box-shadow: none !important;
 }
 
 .section-navigation__button--disabled.abstract-button {
   opacity: 0.38;
   cursor: default;
+}
+
+.section-navigation__button--disabled.abstract-button:hover,
+.section-navigation__button--disabled.abstract-button:focus {
+  border-color: var(--checklist-border) !important;
+  color: var(--checklist-muted);
+  background: rgba(21, 30, 40, 0.78) !important;
+  background-color: rgba(21, 30, 40, 0.78) !important;
 }
 
 .section-navigation__arrow {
@@ -221,22 +316,27 @@
 .section-navigation__text {
   display: flex;
   flex: 1 1 auto;
-  flex-direction: column;
+  align-items: baseline;
   min-width: 0;
 }
 
-.section-navigation__direction {
-  color: var(--checklist-muted);
-  font-size: 0.56em;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
+.section-navigation__button--next .section-navigation__text {
+  justify-content: flex-end;
+}
+
+.section-navigation__number {
+  flex: 0 0 auto;
+  margin-right: 10px;
+  color: var(--checklist-accent);
+  font-size: 1em;
+  font-variant-numeric: tabular-nums;
+  font-weight: 800;
 }
 
 .section-navigation__name {
   overflow: hidden;
   color: var(--checklist-text);
-  font-size: 0.76em;
+  font-size: 1em;
   font-weight: 700;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -249,7 +349,9 @@
   min-height: 0;
   padding-right: 4px;
   padding-bottom: 54px;
-  overflow-y: auto;
+  // Always reserve Coherent's scrollbar track so navigation and item width do
+  // not change when a section starts or stops overflowing.
+  overflow-y: scroll;
   box-sizing: border-box;
 }
 
@@ -284,8 +386,7 @@
   font: inherit;
   text-align: left;
   cursor: pointer;
-  transition: background-color 100ms ease-out, border-color 100ms ease-out,
-    box-shadow 100ms ease-out;
+  transition: none !important;
 }
 
 .checklist-item--verify.abstract-button {
@@ -325,14 +426,10 @@
   background-color: #315847 !important;
 }
 
-.checklist-item--complete.abstract-button:hover
-  .checklist-item__challenge,
-.checklist-item--complete.abstract-button:hover
-  .checklist-item__response,
-.checklist-item--complete.abstract-button:focus
-  .checklist-item__challenge,
-.checklist-item--complete.abstract-button:focus
-  .checklist-item__response {
+.checklist-item--complete.abstract-button:hover .checklist-item__challenge,
+.checklist-item--complete.abstract-button:hover .checklist-item__response,
+.checklist-item--complete.abstract-button:focus .checklist-item__challenge,
+.checklist-item--complete.abstract-button:focus .checklist-item__response {
   color: #a0f0c2 !important;
 }
 
@@ -572,10 +669,6 @@
 
   .section-navigation__button--next .section-navigation__arrow {
     margin-left: 9px;
-  }
-
-  .section-navigation__name {
-    font-size: 0.67em;
   }
 
   .checklist-item.abstract-button {

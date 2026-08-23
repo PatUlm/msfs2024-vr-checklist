@@ -18,6 +18,21 @@ const env = {
 
 const appDirectoryName = path.basename(__dirname);
 
+function createDevelopmentVersion(date = new Date()) {
+  const year = date.getUTCFullYear();
+  const monthIndex = date.getUTCMonth();
+  const month = String(monthIndex + 1).padStart(2, "0");
+  const monthStart = Date.UTC(year, monthIndex, 1);
+  const secondsSinceMonthStart = Math.floor(
+    (date.getTime() - monthStart) / 1000
+  );
+
+  return `${year}.${month}-dev.${String(secondsSinceMonthStart).padStart(7, "0")}`;
+}
+
+const appVersion =
+  process.env.VR_CHECKLIST_VERSION || createDevelopmentVersion();
+
 const baseConfig = {
   entryPoints: ["src/VRChecklist.tsx"],
   keepNames: true,
@@ -30,7 +45,10 @@ const baseConfig = {
     ".html": "copy",
   },
   target: "es2017",
-  define: { BASE_URL: `"coui://html_ui/efb_ui/efb_apps/${appDirectoryName}"` },
+  define: {
+    APP_VERSION: JSON.stringify(appVersion),
+    BASE_URL: `"coui://html_ui/efb_ui/efb_apps/${appDirectoryName}"`,
+  },
   plugins: [
     copyStaticFiles({
       src: "./src/Assets",

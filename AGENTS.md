@@ -15,7 +15,8 @@ gehören nach `docs/design-qa.md`.
   stillschweigend.
 - Vor Arbeiten am nächsten VR-Teststand ist zusätzlich
   `docs/vr-test-preparation.md` zu lesen.
-- Vor Änderungen an Checklistendaten ist `checklists/data/README.md` zu lesen.
+- Vor Änderungen an Checklistendaten sind `checklists/data/README.md` und
+  `checklists/data/style-guide.md` zu lesen.
 - Commit und Push erfolgen nur auf ausdrücklichen Wunsch des Benutzers.
 
 ## Source of Truth und generierte Dateien
@@ -64,6 +65,16 @@ gehören nach `docs/design-qa.md`.
   Selektoren verwenden.
 - Für bedeutungstragende Symbole nicht auf Unicode-Fontabdeckung vertrauen. Das
   X der Checkbox wird deshalb mit CSS-Pseudoelementen gezeichnet.
+- Die EFB-App kann einen Free-Flight-Wechsel resident überleben, ohne dass ein
+  zuverlässiges View- oder Game-State-Ereignis ankommt. Die Flugzeugkennung wird
+  deshalb zusätzlich alle zehn Sekunden geprüft, solange die Ansicht aktiv ist;
+  diese Absicherung nicht wieder durch eine reine Lifecycle-Lösung ersetzen.
+- Die Custom-App erhielt unter SDK 1.7.3 weder DOM-Enter, die Input-Stack-Aktionen
+  `KEY_EFB_VALID`/`KEY_MENU_WM_VALIDATE` noch
+  `AppView.routeGamepadInteractionEvent(BUTTON_A)`; letzteres wurde auch mit
+  einem physischen Gamepad geprüft. Es ist bewusst kein wirkungsloser
+  `VALIDATE`-Listener aktiv. Diesen erst nach einem dokumentierten und im
+  Custom-App-Kontext bestätigten Eingabepfad wieder einführen.
 - Screenshot-Vergleiche in Originalauflösung durchführen. Zwischenstände in
   `tmp/` dürfen erst nach Auswahl als dauerhafte Referenz nach `docs/assets/`
   übernommen werden.
@@ -75,6 +86,10 @@ gehören nach `docs/design-qa.md`.
   `docs/design-qa.md`.
 - Die Oberfläche ist VR-first. Lesbarkeit und große Interaktionsziele haben
   Vorrang vor maximaler Informationsdichte.
+- Laufzeitlogik ist event-first und darf keine unnötige Arbeit pro Frame
+  verursachen. Polling ist nur als begründeter, langsamer und bei inaktiver App
+  vollständig gestoppter Fallback zulässig; Performance und MSFS-FPS sind
+  eigenständige Qualitätskriterien.
 - Die Checkliste wird beim Übergang in den Ladezustand eines neuen Fluges
   zurückgesetzt. Änderungen an diesem Verhalten müssen gezielt in MSFS geprüft
   werden.

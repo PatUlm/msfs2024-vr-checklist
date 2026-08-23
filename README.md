@@ -1,8 +1,9 @@
 # MSFS 2024 VR Checklist
 
 Native, offlinefähige Checklist-App für das Electronic Flight Bag (EFB) von
-Microsoft Flight Simulator 2024. Der Phase-1-Prototyp lädt die versionierte
-DA42-Checkliste und zeigt ihre Einträge als große, anklickbare Checklist-Zeilen.
+Microsoft Flight Simulator 2024. Die App lädt passend zum aktuellen Flugzeug
+eine versionierte Checkliste und zeigt ihre Einträge als große, anklickbare
+Checklist-Zeilen.
 
 ## Features
 
@@ -15,16 +16,18 @@ Aktuell verfügbar:
 - automatischer Wechsel nach Abschluss einer Gruppe
 - Fortschrittsanzeige und Reset beim Laden eines neuen Fluges
 - semantische Darstellung von Action-, Verify- und Communication-Items
-
-Für den ersten VR-Test vorbereitet beziehungsweise als nächster Meilenstein
-geplant:
-
 - automatische Auswahl der Checkliste anhand des geladenen Flugzeugmodells
-- zentrierter Leerzustand, wenn keine passende Checkliste vorhanden ist
+- zentrierter Leerzustand mit Diagnosewerten, wenn keine passende Checkliste
+  vorhanden ist
 - minimale Zwei-Gruppen-Checkliste für die Beechcraft Bonanza G36
-- Bestätigung des ersten noch offenen Items mit dem Stream-Deck-Hotkey
-  `Return` sowie `Enter`/`Numpad Enter`
-- die unter `docs/design-qa.md` festgehaltenen UI-Korrekturen
+- kleine CalVer-Entwicklungskennung am unteren rechten Rand
+
+## Bekannte Einschränkungen
+
+- Die MSFS-EFB-Aktion `VALIDATE` wird in SDK 1.7.3 nicht an diese Custom-App
+  weitergereicht. Enter, Numpad Enter und ein physisches Gamepad wurden über
+  DOM-, Input-Stack- und `AppView`-Interaction-Pfade ohne eingehenden Callback
+  getestet. Deshalb ist aktuell kein wirkungsloser Eingabe-Listener aktiv.
 
 ## Entwicklungsmodell
 
@@ -97,13 +100,20 @@ Die JSON-Dateien unter `checklists/data/` sind die einzige Quelle für
 Checklist-Inhalte:
 
 - `diamond-da42.json`: 7 Abschnitte mit 52 Einträgen
+- `beechcraft-bonanza-g36.json`: 2 Abschnitte mit 9 Einträgen
 - `sikorsky-mh-60.json`: 5 Abschnitte mit 30 Einträgen
 - `checklist.schema.json`: gemeinsamer Datenvertrag
 
-Der Phase-1-Durchstich importiert `diamond-da42.json` direkt aus diesem
-Verzeichnis; es existiert keine zweite Liste im App-Code. Das Schema unterstützt
-weiterhin die sichtbaren Felder `needsReview` und `reviewNote`; die aktuell
-versionierten Checklisten enthalten keine offenen Review-Markierungen.
+Die App importiert alle drei JSON-Dateien über eine zentrale Registry; es
+existiert keine zweite Liste mit Checklist-Inhalten im App-Code. Explizite
+`aircraft.msfsMatches`-Regeln ordnen die SimVars `ATC MODEL`,
+`ATC TYPE` und `TITLE` einer Checkliste zu. Die Regeln unterstützen kontrollierte
+exakte und Teilstring-Vergleiche sowie gemeinsam erforderliche Felder.
+Unbekannte Flugzeuge zeigen alle drei Werte direkt im Leerzustand, damit neue
+Regeln gezielt ergänzt werden können. Das Schema unterstützt weiterhin die
+sichtbaren Felder
+`needsReview` und `reviewNote`; die aktuell versionierten Checklisten enthalten
+keine offenen Review-Markierungen.
 
 Validierung ohne App-Build:
 
@@ -123,6 +133,15 @@ Die gebündelten JavaScript-, CSS- und Asset-Dateien entstehen unter
 `msfs/PackageSources/VRChecklist/dist/`. Die aus dem offiziellen Template
 übernommenen Entwicklungswerte sind `TYPECHECKING=true`, `SOURCE_MAPS=true` und
 `MINIFY=false`.
+
+Entwicklungsbuilds erhalten automatisch eine sichtbare CalVer-Kennung im Format
+`YYYY.0M-dev.SSSSSSS`. `SSSSSSS` sind die siebenstellig aufgefüllten Sekunden
+seit Beginn des aktuellen UTC-Monats. Für einen späteren Release kann die
+Kennung explizit überschrieben werden, zum Beispiel:
+
+```bash
+VR_CHECKLIST_VERSION=2026.08 task deploy
+```
 
 Während der Entwicklung:
 

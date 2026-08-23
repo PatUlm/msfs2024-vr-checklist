@@ -20,8 +20,14 @@ Iteration stehen separat in `design-qa.md`.
 - Der aktuelle Gruppenname ist visuell dominant und zeigt Nummer und Titel auf
   gemeinsamer Grundlinie.
 - Darunter liegen zwei gleichwertige Navigationsbuttons mit jeweils 50 Prozent
-  Breite. Sie zeigen Pfeil, Richtung sowie den Namen der vorherigen
-  beziehungsweise nächsten Gruppe.
+  Breite. Sie zeigen ausschließlich Pfeil und Namen der vorherigen
+  beziehungsweise nächsten Gruppe; zusätzliche Texte wie `PREVIOUS` und `NEXT`
+  sind visuell redundant.
+- Die Gruppennamen in den Navigationsbuttons verwenden dieselbe Schriftgröße
+  wie die Texte der Checklist-Items und bleiben dadurch in VR gleich gut lesbar.
+- Vor einem vorhandenen Gruppenziel steht dessen zweistellige Nummer in Blau.
+  An den deaktivierten Listenenden bleiben stattdessen die unnummerierten
+  Platzhalter `Start` und `Complete` sichtbar.
 - Sind alle Items einer Gruppe erledigt, wechselt die App nach einer kurzen
   Bestätigungspause automatisch zur nächsten Gruppe.
 - App-Header, Gruppenname und Navigation bleiben stehen; ausschließlich die
@@ -29,6 +35,9 @@ Iteration stehen separat in `design-qa.md`.
   `position: sticky` erreicht.
 - Der Hintergrund hinter Gruppenname und Navigation ist transparent, damit der
   Bereich nicht wie eine zusätzliche schwere Leiste wirkt.
+- Der Platz für die vertikale Scrollbar wird auch bei kurzen Gruppen dauerhaft
+  reserviert. Navigation und Item-Liste behalten dadurch unabhängig vom
+  Overflow dieselbe rechte Flucht.
 
 ## Aufbau eines Checklist-Items
 
@@ -60,24 +69,76 @@ Iteration stehen separat in `design-qa.md`.
 
 - Die App wählt automatisch die zum aktuell geladenen Flugzeug oder
   Hubschrauber passende JSON-Checkliste.
-- Die Zuordnung erfolgt über explizite MSFS-Modell-Aliase in den versionierten
-  Daten. Es gibt keine unscharfe Auswahl nach Teilstrings und keine heimliche
-  Default-Checkliste.
-- Ist kein Alias zugeordnet, bleibt die App verfügbar und zeigt zentriert die
-  kurze Meldung `Keine Checkliste vorhanden`.
+- Die Zuordnung erfolgt über explizite, versionierte Match-Regeln für
+  `ATC MODEL`, `ATC TYPE` und `TITLE`. Eine Regel darf pro Feld bewusst `equals`
+  oder `contains` verwenden; mehrere Felder derselben Regel müssen gemeinsam
+  passen. Es gibt keine implizite Teilstring-Heuristik und keine heimliche
+  Default-Checkliste. Mehrdeutige Treffer führen ebenfalls in den Leerzustand.
+- Die Auswahl wird primär ereignisgesteuert beim Öffnen der Ansicht und bei
+  beobachteten Ladezustandswechseln aktualisiert. Solange die App sichtbar ist,
+  prüft ein zusätzlicher Fallback die Identität nur alle zehn Sekunden. Damit
+  wird ein Flugzeugwechsel auch erkannt, wenn die residente EFB-App kein
+  zuverlässiges View- oder Ladezustandsereignis erhält.
+- Ist keine Match-Regel zugeordnet, bleibt die App verfügbar und zeigt
+  zentriert die Meldung `Keine Checkliste vorhanden`. Am unteren Rand steht eine
+  einzelne, zentrierte und blasse Diagnosezeile `Model:`, gefolgt von
+  `ATC MODEL`, `ATC TYPE` und `TITLE`. So kann eine neue Match-Regel anhand eines
+  Screenshots oder Berichts ergänzt werden.
 - Ein unbekanntes Modell darf niemals versehentlich die DA42-Checkliste laden.
 
-## Sequenzielle Eingabe
+## Laufzeitperformance
 
-- Der Stream-Deck-Hotkey `Return` sowie `Enter` und `Numpad Enter` bestätigen
-  das erste noch offene Item in Checklist-Reihenfolge.
-- Die Eingabe ist nur aktiv, solange die VR-Checklist-Ansicht sichtbar ist. Sie
-  darf außerhalb der App insbesondere keine Karriere-Funkaktion blockieren.
-- Ein Gedrückthalten der Taste darf ein Item nur einmal bestätigen.
-- Der erste Implementierungsweg ist ein normales Coherent/DOM-Tastaturereignis.
-  L- und B-Events sind kein Ersatz für eine Tastatureingabe. Falls Coherent das
-  Ereignis nicht liefert, wird erst nach Ermittlung des tatsächlich ausgelösten
-  MSFS-Key-Events ein gezielter Intercept ergänzt.
+- Die App arbeitet event-first und führt keine eigene Logik pro Render-Frame
+  aus.
+- Periodische Arbeit ist nur als langsamer Sicherheitsmechanismus zulässig und
+  wird beendet, sobald die App nicht sichtbar ist.
+- Ein bequemeres Verhalten darf nicht unbemerkt zulasten der MSFS-Framerate
+  gehen. Performance und FPS-Verträglichkeit sind explizite Qualitätskriterien.
+
+## Checklistensprache
+
+- Komponenten- oder Triebwerksnummern sind Teil der Challenge; die Response
+  enthält nur den geforderten Zustand oder die Aktion.
+- Gemeinsam gemeinte Komponentenpaare werden einheitlich und kompakt als
+  `1+2` geschrieben. Numerische Sollstellungen bleiben in der Response.
+- Die vollständigen Schreibregeln stehen in
+  [`../checklists/data/style-guide.md`](../checklists/data/style-guide.md).
+
+## Sequenzielle Eingabe (zurückgestellt)
+
+- Das Produktziel bleibt, mit einer abstrakten externen Eingabe das erste noch
+  offene Item in Checklist-Reihenfolge zu bestätigen.
+- SDK 1.7.3 reicht die konfigurierte MSFS-EFB-Aktion `VALIDATE` im getesteten
+  Custom-App-Kontext weder über DOM-Tastaturereignisse, den EFB-Input-Stack noch
+  `AppView.routeGamepadInteractionEvent()` weiter. Auch ein physisches Gamepad
+  erzeugte keinen App-Callback.
+- Deshalb enthält die App aktuell keinen wirkungslosen Listener. Die Funktion
+  wird erst mit einem dokumentierten und in einer Custom-App bestätigten
+  Eingabepfad oder über ein später bewusst definiertes eigenes externes Event
+  umgesetzt.
+- L- und B-Events werden nicht ohne nachgewiesene Zuordnung als Ersatz geraten.
+
+## Versionsanzeige
+
+- Die App-Version steht sehr klein und blass am unteren rechten Rand, ohne die
+  Checkliste visuell zu stören.
+- Entwicklungsbuilds verwenden die CalVer-Ausprägung
+  `YYYY.0M-dev.SSSSSSS`. `SSSSSSS` entspricht den siebenstellig aufgefüllten
+  Sekunden seit Beginn des aktuellen UTC-Monats. Dadurch sind Builds innerhalb
+  eines Monats automatisch eindeutig und lexikografisch sortierbar; `dev`
+  kennzeichnet sie unmissverständlich als Entwicklungsstand.
+- Die Build-Kennung wird beim App-Build erzeugt. Für einen Release kann eine
+  explizite Version vorgegeben und beispielsweise nur `YYYY.0M` angezeigt
+  werden.
+
+## Sprachausgabe
+
+- Die erste TTS-Sprache der App ist Englisch.
+- Beim Übergang vom unvollständigen in den vollständig erledigten Zustand einer
+  Checkliste wird einmalig `Checklist completed` gesprochen.
+- Ein Reset oder das bloße Laden einer bereits leeren Checkliste darf diese
+  Ansage nicht auslösen. Wird ein abgeschlossenes Item wieder geöffnet und die
+  Checkliste danach erneut vervollständigt, ist eine neue Ansage zulässig.
 
 ## Referenzen
 

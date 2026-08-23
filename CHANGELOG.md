@@ -19,6 +19,8 @@ Notable project changes are recorded under their completion date.
   typography, spacing, navigation, item, and checkbox dimensions.
 - Added the researched `Utility Hydraulic Pump: Off` step immediately after APU
   shutdown in the MH-60 checklist.
+- Added separate MH-60 engine Ng stability checks after each engine start and
+  switched both fuel boost pumps off before the utility hydraulic pump.
 - Split the combined MH-60 SAS, trim, and autopilot action into separately
   confirmable `SAS [1+2]: On` and `TRIM: On` items; the autopilot action was
   removed.

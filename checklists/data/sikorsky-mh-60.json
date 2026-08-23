@@ -179,11 +179,25 @@
           "speech": "Engine one: Start, then idle."
         },
         {
+          "id": "engine-1-ng-stable",
+          "challenge": "Engine 1 Ng",
+          "response": "≥ 63 % and stable",
+          "kind": "verify",
+          "speech": "Engine one N G: At least 63 percent and stable."
+        },
+        {
           "id": "engine-2-start",
           "challenge": "Engine 2",
           "response": "Start + IDLE",
           "kind": "action",
           "speech": "Engine two: Start, then idle."
+        },
+        {
+          "id": "engine-2-ng-stable",
+          "challenge": "Engine 2 Ng",
+          "response": "≥ 63 % and stable",
+          "kind": "verify",
+          "speech": "Engine two N G: At least 63 percent and stable."
         },
         {
           "id": "engines-fly",
@@ -232,6 +246,13 @@
           "response": "Off",
           "kind": "action",
           "speech": "A P U control: Off."
+        },
+        {
+          "id": "fuel-boost-pumps",
+          "challenge": "Fuel Boost Pumps [1+2]",
+          "response": "Off",
+          "kind": "action",
+          "speech": "Fuel boost pumps one and two: Off."
         },
         {
           "id": "utility-hydraulic-pump",

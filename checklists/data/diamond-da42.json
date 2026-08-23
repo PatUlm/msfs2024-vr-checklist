@@ -4,7 +4,12 @@
   "title": "Diamond DA42 – Checklist + ATC",
   "aircraft": {
     "manufacturer": "Diamond",
-    "model": "DA42"
+    "model": "DA42",
+    "msfsMatches": [
+      { "atcModel": { "equals": "DA42" } },
+      { "atcModel": { "equals": "DA42 NG" } },
+      { "atcModel": { "equals": "Diamond DA42" } }
+    ]
   },
   "revision": "2026-08-22",
   "sections": [
@@ -95,9 +100,7 @@
           "response": "Check",
           "kind": "verify",
           "speech": "Voltage and electrical load: Check on E I S.",
-          "notes": [
-            "On EIS"
-          ]
+          "notes": ["On EIS"]
         },
         {
           "id": "engine-master-right",
@@ -152,9 +155,7 @@
           "response": "Set QNH",
           "kind": "action",
           "speech": "Altimeters, both: Set Q N H from A T I S or M E T A R.",
-          "notes": [
-            "Use ATIS or METAR"
-          ]
+          "notes": ["Use ATIS or METAR"]
         },
         {
           "id": "cage",
@@ -175,9 +176,7 @@
           "response": "Set mode and code",
           "kind": "action",
           "speech": "Transponder: Set mode and code. V F R, altitude mode.",
-          "notes": [
-            "VFR | ALT"
-          ]
+          "notes": ["VFR | ALT"]
         },
         {
           "id": "flight-plan",
@@ -191,9 +190,7 @@
           "response": "As required",
           "kind": "action",
           "speech": "Autopilot: As required. Heading or navigation, altitude, and flight level change.",
-          "notes": [
-            "HDG/NAV | ALT | FLC"
-          ]
+          "notes": ["HDG/NAV | ALT | FLC"]
         },
         {
           "id": "gear-fire-warning",
@@ -216,9 +213,7 @@
           "kind": "verify",
           "condition": "Until CAP clears",
           "speech": "E C U test, both: Hold for 25 seconds until the CAP indication clears.",
-          "notes": [
-            "Use click spot"
-          ]
+          "notes": ["Use click spot"]
         }
       ]
     },
@@ -264,9 +259,7 @@
           "response": "Hold Short Line",
           "kind": "action",
           "speech": "Taxi to the hold-short line, maximum 20 knots ground speed.",
-          "notes": [
-            "Maximum 20 kt ground speed"
-          ]
+          "notes": ["Maximum 20 kt ground speed"]
         }
       ]
     },

@@ -26,7 +26,7 @@
     "aircraft": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["manufacturer", "model"],
+      "required": ["manufacturer", "model", "msfsMatches"],
       "properties": {
         "manufacturer": {
           "type": "string",
@@ -35,6 +35,15 @@
         "model": {
           "type": "string",
           "minLength": 1
+        },
+        "msfsMatches": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "description": "Explicit MSFS identity rules. Rules are ORed; all fields within one rule must match.",
+          "items": {
+            "$ref": "#/$defs/aircraftMatch"
+          }
         }
       }
     },
@@ -54,6 +63,40 @@
     "id": {
       "type": "string",
       "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+    },
+    "aircraftMatch": {
+      "type": "object",
+      "additionalProperties": false,
+      "minProperties": 1,
+      "properties": {
+        "atcModel": {
+          "$ref": "#/$defs/aircraftMatchCriterion"
+        },
+        "atcType": {
+          "$ref": "#/$defs/aircraftMatchCriterion"
+        },
+        "title": {
+          "$ref": "#/$defs/aircraftMatchCriterion"
+        }
+      }
+    },
+    "aircraftMatchCriterion": {
+      "type": "object",
+      "additionalProperties": false,
+      "minProperties": 1,
+      "maxProperties": 1,
+      "properties": {
+        "equals": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "^[^\\r\\n]+$"
+        },
+        "contains": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "^[^\\r\\n]+$"
+        }
+      }
     },
     "section": {
       "type": "object",

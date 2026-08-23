@@ -1,0 +1,85 @@
+{
+  "schemaVersion": 1,
+  "id": "beechcraft-bonanza-g36",
+  "title": "Beechcraft Bonanza G36 – Minimal Checklist",
+  "aircraft": {
+    "manufacturer": "Beechcraft",
+    "model": "Bonanza G36",
+    "msfsMatches": [
+      {
+        "atcModel": { "contains": "AC_MODEL_BE36" },
+        "title": { "contains": "Beechcraft Bonanza" }
+      }
+    ]
+  },
+  "revision": "2026-08-23",
+  "sections": [
+    {
+      "id": "departure",
+      "title": "Departure",
+      "items": [
+        {
+          "id": "flaps",
+          "challenge": "Flaps",
+          "response": "0",
+          "kind": "action"
+        },
+        {
+          "id": "rotation-speed",
+          "challenge": "Rotation Speed (Vr)",
+          "response": "73 kt",
+          "kind": "action",
+          "speech": "Rotation speed V R: 73 knots."
+        },
+        {
+          "id": "climb-rate",
+          "challenge": "Climb Rate",
+          "response": "Positive",
+          "kind": "verify"
+        },
+        {
+          "id": "gear",
+          "challenge": "Gear",
+          "response": "Up",
+          "kind": "action"
+        }
+      ]
+    },
+    {
+      "id": "approach",
+      "title": "Approach",
+      "items": [
+        {
+          "id": "gear",
+          "challenge": "Gear",
+          "response": "Down",
+          "kind": "action"
+        },
+        {
+          "id": "approach-speed-95",
+          "challenge": "Approach Speed",
+          "response": "95 kt",
+          "kind": "action"
+        },
+        {
+          "id": "flaps-approach",
+          "challenge": "Flaps",
+          "response": "1 (Approach)",
+          "kind": "action"
+        },
+        {
+          "id": "approach-speed-80",
+          "challenge": "Approach Speed",
+          "response": "80 kt",
+          "kind": "action"
+        },
+        {
+          "id": "flaps-full",
+          "challenge": "Flaps",
+          "response": "2 (Full)",
+          "kind": "action"
+        }
+      ]
+    }
+  ]
+}

@@ -4,7 +4,13 @@
   "title": "Sikorsky MH-60",
   "aircraft": {
     "manufacturer": "Sikorsky",
-    "model": "MH-60"
+    "model": "MH-60",
+    "msfsMatches": [
+      {
+        "atcType": { "contains": "MH-60" },
+        "title": { "contains": "MH60" }
+      }
+    ]
   },
   "revision": "2026-05-16",
   "sections": [
@@ -61,8 +67,8 @@
         },
         {
           "id": "fuel-boost-pumps",
-          "challenge": "Fuel Boost Pumps",
-          "response": "1+2 On",
+          "challenge": "Fuel Boost Pumps 1+2",
+          "response": "On",
           "kind": "action",
           "speech": "Fuel boost pumps one and two: On."
         },
@@ -108,15 +114,15 @@
         },
         {
           "id": "computer-power",
-          "challenge": "Computer Power",
-          "response": "1+2 On",
+          "challenge": "Computer Power 1+2",
+          "response": "On",
           "kind": "action",
           "speech": "Computer power one and two: On."
         },
         {
           "id": "egi-power",
-          "challenge": "EGI Power",
-          "response": "1+2 On",
+          "challenge": "EGI Power 1+2",
+          "response": "On",
           "kind": "action",
           "speech": "E G I power one and two: On."
         },
@@ -153,36 +159,36 @@
       "items": [
         {
           "id": "fuel-selectors-crossfeed",
-          "challenge": "Fuel Selectors",
-          "response": "1+2 XFD",
+          "challenge": "Fuel Selectors 1+2",
+          "response": "XFD",
           "kind": "action",
           "speech": "Fuel selectors one and two: Crossfeed."
         },
         {
           "id": "engine-1-start",
-          "challenge": "Engines",
-          "response": "1 Start + IDLE",
+          "challenge": "Engine 1",
+          "response": "Start + IDLE",
           "kind": "action",
           "speech": "Engine one: Start, then idle."
         },
         {
           "id": "engine-2-start",
-          "challenge": "Engines",
-          "response": "2 Start + IDLE",
+          "challenge": "Engine 2",
+          "response": "Start + IDLE",
           "kind": "action",
           "speech": "Engine two: Start, then idle."
         },
         {
           "id": "engines-fly",
-          "challenge": "Engines",
-          "response": "1+2 FLY",
+          "challenge": "Engines 1+2",
+          "response": "FLY",
           "kind": "action",
           "speech": "Engines one and two: Fly."
         },
         {
           "id": "fuel-selectors-direct",
-          "challenge": "Fuel Selectors",
-          "response": "1+2 DIR",
+          "challenge": "Fuel Selectors 1+2",
+          "response": "DIR",
           "kind": "action",
           "speech": "Fuel selectors one and two: Direct."
         }
@@ -201,8 +207,8 @@
         },
         {
           "id": "generators",
-          "challenge": "Generators",
-          "response": "1+2 On",
+          "challenge": "Generators 1+2",
+          "response": "On",
           "kind": "action",
           "speech": "Generators one and two: On."
         },

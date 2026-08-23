@@ -2,9 +2,32 @@
 
 `checklist.schema.json` definiert das versionierbare Austauschformat der EFB-App. `challenge` und `response` enthalten die kanonischen, direkt darstell- und vorlesbaren Texte. Varianten und Bedingungen werden getrennt in `alternatives` beziehungsweise `condition` erfasst und nicht in `response` wiederholt. Ergänzende Anzeigeinformationen, die weder Antwort noch Bedingung sind, stehen in `notes`. Die strukturierten Daten sind bewusst von Aufbau und Format der ursprünglichen Quelldokumente entkoppelt.
 
+Verbindliche Schreibweisen und die inhaltliche Abgrenzung von Challenge und
+Response stehen im [`style-guide.md`](style-guide.md). Er ist bei jeder
+inhaltlichen Änderung zusammen mit diesem Dokument zu beachten.
+
 Textfelder bleiben einzeilig; die spätere Oberfläche übernimmt das visuelle Wrapping. Dadurch enthalten die Daten keine aus Tabellenlayouts übernommenen Zeilenumbrüche.
 
 Die JSON-Dateien in diesem Verzeichnis sind die einzige Quelle für Checklist-Inhalte. Anwendungscode darf keine separate oder duplizierte Checklist-Liste enthalten.
+
+`aircraft.msfsMatches` enthält explizite Regeln für die String-SimVars
+`ATC MODEL`, `ATC TYPE` und `TITLE`. Mehrere Regeln werden als Alternativen
+behandelt; alle Felder innerhalb einer Regel müssen gemeinsam passen. Jedes Feld
+verwendet bewusst entweder `equals` oder `contains`. Vor dem Vergleich
+normalisiert die App Groß-/Kleinschreibung, Leerzeichen und Satzzeichen.
+`contains` muss mindestens vier normalisierte Zeichen enthalten. Neue Regeln
+werden erst nach Beobachtung im MSFS ergänzt. Mehrdeutige Treffer laden aus
+Sicherheitsgründen keine Checkliste. Bei einer fehlenden Zuordnung zeigt der
+Leerzustand alle drei Werte in einer `Model:`-Zeile an.
+
+Beispiel für eine kombinierte Regel:
+
+```json
+{
+  "atcType": { "contains": "MH-60" },
+  "title": { "contains": "MH60" }
+}
+```
 
 Die erste TTS-Sprache ist Englisch. Für einfache Einträge bildet die App den gesprochenen Text aus `<challenge>: <response>`. Das optionale Feld `speech` überschreibt diesen Fallback mit einem vollständig formulierten Satz, wenn Bedingungen, Alternativen, Abkürzungen oder Aussprache sonst nicht zuverlässig wiedergegeben würden.
 

@@ -6,11 +6,20 @@ Iteration stehen separat in `design-qa.md`.
 
 ## VR-first Typografie und Dichte
 
-- Die Basisschrift der Checkliste beträgt 20 CSS-Pixel. Sie ist bewusst größer
-  als in der ursprünglichen Layoutreferenz, damit sie in VR lesbar bleibt.
-- Ein einfaches Action-Item hat mindestens 60 Pixel Höhe. Condition,
-  Alternative, Note oder Review-Inhalt dürfen das Item vertikal vergrößern.
-- Zwischen Items liegen 8 Pixel Abstand; gefordert waren mindestens 2 Pixel.
+- Die Basisschrift der Checkliste beträgt außerhalb von VR 20 CSS-Pixel. Sie
+  bleibt damit auf dem dauerhaft eingebauten Cockpit-EFB auch aus normaler
+  Sitzposition gut lesbar.
+- Meldet die offizielle Umgebungsvariable `IS IN VR` den VR-Modus, verwendet die
+  App ein eigenes, moderat kompakteres Dichteprofil: 17 CSS-Pixel Basisschrift,
+  62 Pixel Navigationshöhe, 51 Pixel Mindesthöhe für einfache Items und
+  34 Pixel große Checkboxen. Die von MSFS vergrößerte VR-Darstellung wird nicht
+  mit einem globalen CSS-Transform gegenskaliert, damit Layoutbreiten und
+  Interaktionsziele stabil bleiben.
+- Außerhalb von VR hat ein einfaches Action-Item mindestens 60 Pixel Höhe und
+  eine 40 Pixel große Checkbox. Condition, Alternative, Note oder Review-Inhalt
+  dürfen das Item in beiden Dichteprofilen vertikal vergrößern.
+- Zwischen Items liegen außerhalb von VR 8 Pixel und in VR 7 Pixel Abstand;
+  beide Werte überschreiten den ursprünglich geforderten Mindestabstand.
 - Lesbarkeit und robuste Interaktion sind wichtiger als die maximale Anzahl
   gleichzeitig sichtbarer Items.
 
@@ -38,6 +47,9 @@ Iteration stehen separat in `design-qa.md`.
 - Der Platz für die vertikale Scrollbar wird auch bei kurzen Gruppen dauerhaft
   reserviert. Navigation und Item-Liste behalten dadurch unabhängig vom
   Overflow dieselbe rechte Flucht.
+- Der reservierte Scrollbarbereich liegt innerhalb des rechten Außenpaddings,
+  nicht innerhalb der sichtbaren Itembreite. Navigation und Items haben dadurch
+  links und rechts denselben sichtbaren Außenabstand.
 
 ## Aufbau eines Checklist-Items
 
@@ -64,6 +76,11 @@ Iteration stehen separat in `design-qa.md`.
   Hover-Sprache verwenden.
 - Beim Start beziehungsweise Laden eines neuen Fluges werden alle Items, der
   Fortschritt und die aktive Gruppe zurückgesetzt.
+- Ein Wechsel zwischen VR und Nicht-VR ist kein neuer Flug und darf den
+  Fortschritt nicht zurücksetzen. Da MSFS dabei den EFB-App-Kontext neu erzeugen
+  kann, hält die App einen kurzlebigen Fortschritts-Snapshot im SDK-`DataStore`.
+  Er wird nur für dieselbe Flugzeugidentität und Checklistenrevision
+  wiederhergestellt und bei einem Ladezustand oder Flugzeugwechsel gelöscht.
 
 ## Flugzeugauswahl und Leerzustand
 

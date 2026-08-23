@@ -20,7 +20,7 @@ Beispiele:
 | Fuel Boost Pumps [1+2]  | On             | `[1+2]` identifiziert die Pumpen.       |
 | Engine 1                | Start + IDLE   | `1` identifiziert das Triebwerk.        |
 | Flaps                    | 2 (Full)       | `2` ist die geforderte Klappenstellung. |
-| Approach Speed          | 80 kt          | `80 kt` ist der geforderte Wert.        |
+| Landing Speed           | 80 kt          | `80 kt` ist der geforderte Wert.        |
 
 ## Nummerierte Komponenten
 

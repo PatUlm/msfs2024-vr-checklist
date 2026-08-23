@@ -11,6 +11,7 @@ import {
   TVNode,
 } from "@efb/efb-api";
 import {
+  DataStore,
   FSComponent,
   GameStateProvider,
   MappedSubscribable,
@@ -81,7 +82,19 @@ interface AircraftIdentity {
   title: string;
 }
 
+interface StoredChecklistProgress {
+  schemaVersion: 1;
+  checklistId: string;
+  checklistRevision: string;
+  aircraftIdentityKey: string;
+  activeSectionIndex: number;
+  completedItemKeys: string[];
+  savedAt: number;
+}
+
 const AIRCRAFT_REFRESH_INTERVAL_MS = 10000;
+const CHECKLIST_PROGRESS_DATASTORE_KEY = "vr-checklist.progress.v1";
+const CHECKLIST_PROGRESS_MAX_AGE_MS = 30 * 60 * 1000;
 
 const checklists = [
   beechcraftBonanzaG36Data as Checklist,
@@ -228,6 +241,7 @@ class VRChecklistView extends AppView<RequiredProps<AppViewProps, "bus">> {
   private readonly aircraftIdentityText = Subject.create(
     "(leer) | (leer) | (leer)"
   );
+  private readonly isVrMode = Subject.create(false);
   private readonly gameStateSubscription: Subscription;
 
   /*
@@ -245,8 +259,10 @@ class VRChecklistView extends AppView<RequiredProps<AppViewProps, "bus">> {
 
   private previousGameState: GameState | undefined;
   private currentAircraftIdentityKey = "";
+  private currentVrMode: boolean | undefined;
   private aircraftRefreshTimer: number | undefined;
   private isViewActive = false;
+  private readonly handleViewportResize = (): void => this.refreshVrMode();
 
   public constructor(props: RequiredProps<AppViewProps, "bus">) {
     super(props);
@@ -282,12 +298,139 @@ class VRChecklistView extends AppView<RequiredProps<AppViewProps, "bus">> {
     };
   }
 
+  private refreshVrMode(): void {
+    if (!this.isViewActive) {
+      return;
+    }
+
+    try {
+      // IS IN VR is an official read-only E: environment variable. A viewport
+      // resize is the event-first trigger; the existing slow aircraft refresh
+      // also covers a resident EFB that receives no useful resize event.
+      const isInVr = Boolean(
+        SimVar.GetSimVarValue("E:IS IN VR", SimVarValueType.Bool)
+      );
+
+      if (isInVr === this.currentVrMode) {
+        return;
+      }
+
+      if (this.currentVrMode !== undefined) {
+        this.persistSelectedChecklistProgress();
+      }
+
+      this.currentVrMode = isInVr;
+      this.isVrMode.set(isInVr);
+      console.info(
+        `[VR Checklist] Display mode detected: ${isInVr ? "VR" : "non-VR"}`
+      );
+    } catch (error) {
+      console.error("[VR Checklist] Unable to read E:IS IN VR", error);
+    }
+  }
+
   private updateAircraftDiagnostics(identity: AircraftIdentity): void {
     this.aircraftIdentityText.set(
       [identity.atcModel, identity.atcType, identity.title]
         .map((value) => value || "(leer)")
         .join(" | ")
     );
+  }
+
+  private clearStoredChecklistProgress(): void {
+    try {
+      DataStore.remove(CHECKLIST_PROGRESS_DATASTORE_KEY);
+    } catch (error) {
+      console.error("[VR Checklist] Unable to clear stored progress", error);
+    }
+  }
+
+  private persistSelectedChecklistProgress(): void {
+    const runtime = this.getSelectedRuntime();
+
+    if (!runtime || this.currentAircraftIdentityKey.length === 0) {
+      return;
+    }
+
+    const progress: StoredChecklistProgress = {
+      schemaVersion: 1,
+      checklistId: runtime.checklist.id,
+      checklistRevision: runtime.checklist.revision,
+      aircraftIdentityKey: this.currentAircraftIdentityKey,
+      activeSectionIndex: runtime.activeSectionIndex.get(),
+      completedItemKeys: Array.from(runtime.itemStates.entries())
+        .filter(([, state]) => state.get())
+        .map(([itemKey]) => itemKey),
+      savedAt: Date.now(),
+    };
+
+    try {
+      DataStore.set(
+        CHECKLIST_PROGRESS_DATASTORE_KEY,
+        JSON.stringify(progress)
+      );
+    } catch (error) {
+      console.error("[VR Checklist] Unable to store progress", error);
+    }
+  }
+
+  private restoreStoredChecklistProgress(
+    runtime: ChecklistRuntimeState,
+    aircraftIdentityKey: string
+  ): boolean {
+    try {
+      const storedProgress = DataStore.get<string>(
+        CHECKLIST_PROGRESS_DATASTORE_KEY
+      );
+
+      if (typeof storedProgress !== "string") {
+        return false;
+      }
+
+      const candidate = JSON.parse(storedProgress) as Partial<StoredChecklistProgress>;
+      const isCompatible =
+        candidate.schemaVersion === 1 &&
+        candidate.checklistId === runtime.checklist.id &&
+        candidate.checklistRevision === runtime.checklist.revision &&
+        candidate.aircraftIdentityKey === aircraftIdentityKey &&
+        typeof candidate.activeSectionIndex === "number" &&
+        Array.isArray(candidate.completedItemKeys) &&
+        candidate.completedItemKeys.every(
+          (itemKey) =>
+            typeof itemKey === "string" && runtime.itemStates.has(itemKey)
+        ) &&
+        typeof candidate.savedAt === "number" &&
+        Date.now() - candidate.savedAt >= 0 &&
+        Date.now() - candidate.savedAt <= CHECKLIST_PROGRESS_MAX_AGE_MS;
+
+      if (!isCompatible) {
+        this.clearStoredChecklistProgress();
+        return false;
+      }
+
+      const completedItemKeys = new Set(candidate.completedItemKeys);
+
+      for (const [itemKey, itemState] of runtime.itemStates) {
+        itemState.set(completedItemKeys.has(itemKey));
+      }
+
+      runtime.updateCompletedCount();
+      const activeSectionIndex = Math.min(
+        Math.max(0, candidate.activeSectionIndex as number),
+        runtime.checklist.sections.length - 1
+      );
+      this.showSection(runtime, activeSectionIndex, false);
+      this.persistSelectedChecklistProgress();
+      console.info(
+        `[VR Checklist] Restored ${completedItemKeys.size} completed items ` +
+          `after EFB context reload.`
+      );
+      return true;
+    } catch (error) {
+      this.clearStoredChecklistProgress();
+      console.error("[VR Checklist] Unable to restore stored progress", error);
+      return false;
+    }
   }
 
   private refreshSelectedChecklist(): void {
@@ -298,6 +441,7 @@ class VRChecklistView extends AppView<RequiredProps<AppViewProps, "bus">> {
     // onResume and GameState changes trigger immediate reads. This slow timer
     // only guards against a resident EFB missing both lifecycle signals.
     this.scheduleAircraftRefresh(AIRCRAFT_REFRESH_INTERVAL_MS);
+    this.refreshVrMode();
 
     const identity = this.readCurrentAircraftIdentity();
     this.updateAircraftDiagnostics(identity);
@@ -325,6 +469,10 @@ class VRChecklistView extends AppView<RequiredProps<AppViewProps, "bus">> {
 
     if (checklistChanged) {
       this.resetAllChecklists();
+
+      if (previousChecklistId !== null || checklistId === null) {
+        this.clearStoredChecklistProgress();
+      }
     }
 
     this.currentAircraftIdentityKey = aircraftIdentityKey;
@@ -334,7 +482,13 @@ class VRChecklistView extends AppView<RequiredProps<AppViewProps, "bus">> {
       const runtime = this.runtimesByChecklistId.get(checklist.id);
 
       if (runtime && checklistChanged) {
-        this.showSection(runtime, 0);
+        const progressRestored =
+          previousChecklistId === null &&
+          this.restoreStoredChecklistProgress(runtime, aircraftIdentityKey);
+
+        if (!progressRestored) {
+          this.showSection(runtime, 0, false);
+        }
       }
 
       console.info(
@@ -383,14 +537,15 @@ class VRChecklistView extends AppView<RequiredProps<AppViewProps, "bus">> {
 
     if (
       gameState === GameState.loading &&
-      previousGameState !== undefined &&
       previousGameState !== GameState.loading
     ) {
       this.cancelAircraftRefresh();
       this.resetAllChecklists();
+      this.clearStoredChecklistProgress();
       this.currentAircraftIdentityKey = "";
       this.selectedChecklistId.set(null);
       this.updateAircraftDiagnostics({ atcModel: "", atcType: "", title: "" });
+      console.info("[VR Checklist] Flight loading detected; progress reset.");
       this.scheduleAircraftRefresh(AIRCRAFT_REFRESH_INTERVAL_MS);
       return;
     }
@@ -427,7 +582,8 @@ class VRChecklistView extends AppView<RequiredProps<AppViewProps, "bus">> {
 
   private showSection(
     runtime: ChecklistRuntimeState,
-    sectionIndex: number
+    sectionIndex: number,
+    persistProgress = true
   ): void {
     if (sectionIndex < 0 || sectionIndex >= runtime.checklist.sections.length) {
       return;
@@ -438,6 +594,13 @@ class VRChecklistView extends AppView<RequiredProps<AppViewProps, "bus">> {
 
     if (sectionItems) {
       sectionItems.scrollTop = 0;
+    }
+
+    if (
+      persistProgress &&
+      this.selectedChecklistId.get() === runtime.checklist.id
+    ) {
+      this.persistSelectedChecklistProgress();
     }
   }
 
@@ -450,6 +613,7 @@ class VRChecklistView extends AppView<RequiredProps<AppViewProps, "bus">> {
     const checked = !itemState.get();
     itemState.set(checked);
     runtime.updateCompletedCount();
+    this.persistSelectedChecklistProgress();
 
     if (
       checked &&
@@ -701,17 +865,22 @@ class VRChecklistView extends AppView<RequiredProps<AppViewProps, "bus">> {
     super.onResume();
 
     this.isViewActive = true;
+    window.addEventListener("resize", this.handleViewportResize);
     this.scheduleAircraftRefresh();
   }
 
   public onPause(): void {
+    this.persistSelectedChecklistProgress();
     this.isViewActive = false;
+    window.removeEventListener("resize", this.handleViewportResize);
     this.cancelAircraftRefresh();
     super.onPause();
   }
 
   public onClose(): void {
+    this.persistSelectedChecklistProgress();
     this.isViewActive = false;
+    window.removeEventListener("resize", this.handleViewportResize);
     this.cancelAircraftRefresh();
 
     this.gameStateSubscription.destroy();
@@ -720,7 +889,12 @@ class VRChecklistView extends AppView<RequiredProps<AppViewProps, "bus">> {
 
   public render(): VNode {
     return (
-      <div class="vr-checklist-app">
+      <div
+        class={{
+          "vr-checklist-app": true,
+          "vr-checklist-app--vr": this.isVrMode,
+        }}
+      >
         {this.runtimes.map((runtime) => this.renderChecklist(runtime))}
 
         <div

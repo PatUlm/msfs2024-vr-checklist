@@ -43,7 +43,13 @@ gehören nach `docs/design-qa.md`.
 - Nach einem frischen Clone: `task init`, `task install`, `task check`.
 - Nach Code- oder Datenänderungen muss mindestens `task check` erfolgreich
   laufen.
-- Für eine MSFS-Testiteration: `task deploy`, anschließend im Project Editor
+- Nach jeder app-wirksamen Code-, UI- oder Checklistendaten-Änderung muss nach
+  der erfolgreichen Prüfung automatisch `task deploy` ausgeführt werden. Reine
+  Dokumentationsänderungen lösen keinen unnötigen Deployment-Build aus.
+- Nach jedem Deployment ist die tatsächlich ins Windows-Staging geschriebene
+  CalVer-Version zu ermitteln und dem Benutzer ausdrücklich zu nennen. Nicht
+  lediglich eine Version aus einem früheren lokalen Build angeben.
+- Für eine MSFS-Testiteration folgt nach `task deploy` im Project Editor
   **Build All In Project** und im Coherent Debugger **Ignore Cache + Reload**.
 - Für reine UI-Änderungen ist kein Neustart von MSFS 2024 und normalerweise
   auch kein neuer Flug erforderlich. Ein neuer Flug ist nur für Lifecycle- oder

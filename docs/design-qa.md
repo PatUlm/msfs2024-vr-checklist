@@ -31,10 +31,11 @@ desired; `design-decisions.md` supersedes it.
   - First runtime result: with a short, non-scrolling section the item edge is
     about 1 px inside the navigation edge; with a scrolling section the
     difference grows to about 11 px.
-  - Implemented locally: the list now always reserves Coherent's scrollbar
-    track and the navigation reserves the corresponding explicit 15 px gutter.
-  - Runtime result: verified; both right edges now align with and without a
-    visible scrollbar.
+  - Implemented locally: the list always reserves Coherent's scrollbar track,
+    while the scroll container extends that track into the right outer padding.
+    Navigation and visible items therefore use the same full content width.
+  - Runtime result: verified; both right edges and the visible outer padding now
+    align with and without a visible scrollbar.
 - [P2] The navigation buttons still use a white/accent outline on hover.
   - Location: previous/next buttons.
   - Impact: navigation and checklist items use different interaction feedback.
@@ -67,6 +68,19 @@ desired; `design-decisions.md` supersedes it.
 
 ## Next runtime verification
 
+- Verify that completed items and the active section survive switching from VR
+  to non-VR and back. The EFB may recreate the app context during this switch;
+  the new transient DataStore snapshot should restore the same aircraft and
+  checklist revision without weakening the new-flight reset.
+- Verify that a real new-flight loading transition still clears both the visible
+  state and the transient progress snapshot. The console should report
+  `Flight loading detected; progress reset.`.
+- Verify that the console reports `Display mode detected: VR` after entering VR
+  and `non-VR` after leaving it.
+- Runtime result: the 17 px VR typography, equal visible left/right padding and
+  compact VR density profile with 62 px navigation, 51 px default items and
+  34 px checkboxes are accepted for the next flight. The non-VR cockpit tablet
+  retains its accepted 20 px baseline.
 - Verify that both navigation buttons use immediate background hover without a
   white outline.
 - Verify that the larger navigation group names remain readable without

@@ -42,6 +42,13 @@
           "challenge": "Gear",
           "response": "Up",
           "kind": "action"
+        },
+        {
+          "id": "climb-speed",
+          "challenge": "Climb Speed (Vy)",
+          "response": "100 kt",
+          "kind": "action",
+          "speech": "Climb speed V Y: 100 knots."
         }
       ]
     },
@@ -69,7 +76,7 @@
         },
         {
           "id": "approach-speed-80",
-          "challenge": "Approach Speed",
+          "challenge": "Landing Speed",
           "response": "80 kt",
           "kind": "action"
         },

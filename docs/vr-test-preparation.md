@@ -10,13 +10,22 @@ was nicht gut funktioniert hat.
 Der für diesen Test vorgesehene Build umfasst die drei UI-Korrekturen aus
 `design-qa.md` sowie die folgenden Produktfunktionen.
 
-Status: Der erste 2D-Laufzeittest hat die DA42-, G36- und MH-60-Erkennung, den
-Leerzustand, den Checklistenwechsel und das verbesserte Hover-Timing bestätigt.
-Die rechte Flucht von Navigation und Items ist ebenfalls bestätigt. Die
+Status: Der erste freie VR-Flug mit der G36 wurde erfolgreich absolviert. Die
+Checkliste war insgesamt gut bedienbar. MSFS vergrößerte jedoch die gesamte
+EFB-Darstellung in VR, wodurch die 20-Pixel-Schrift zu groß wirkte, und der
+reservierte Scrollbarbereich erzeugte rechts einen sichtbar größeren
+Außenabstand. Die 17-Pixel-Basisschrift und das korrigierte Padding wurden im
+zweiten VR-Stand als deutliche Verbesserung bestätigt. Navigation, Item-Zeilen,
+Checkboxen und deren Innenmaße wurden anschließend ebenfalls moderat
+verkleinert; dieses Dichteprofil ist für den nächsten Flug akzeptiert. Die
 EFB-Aktion `VALIDATE` erreicht die Custom-App über keinen der mit SDK 1.7.3
-verfügbaren getesteten Pfade und ist deshalb aus diesem Teststand entfernt. Vor
-dem freien VR-Test stehen noch die Laufzeitprüfung der CalVer-Anzeige und der
-vereinfachten Abschnittsnavigation aus.
+verfügbaren getesteten Pfade und bleibt weiterhin deaktiviert.
+
+Beim ersten Wechsel aus VR zurück in den normalen Modus gingen abgeschlossene
+Items scheinbar verloren. Der nächste Teststand speichert Fortschritt und aktive
+Gruppe deshalb als kurzlebigen SDK-`DataStore`-Snapshot und stellt ihn nur für
+dieselbe Flugzeugidentität und Checklistenrevision wieder her. Ein echter
+Flug-Ladezustand oder Flugzeugwechsel löscht den Snapshot weiterhin.
 
 ## Automatische Checklistenauswahl
 
@@ -70,16 +79,18 @@ wo möglich der DA42:
 | Departure | Rotation Speed (Vr) | 73 kt          | action |
 | Departure | Climb Rate          | Positive       | verify |
 | Departure | Gear                | Up             | action |
+| Departure | Climb Speed (Vy)    | 100 kt         | action |
 | Approach  | Gear                | Down           | action |
 | Approach  | Approach Speed      | 95 kt          | action |
 | Approach  | Flaps               | 1 (Approach)   | action |
-| Approach  | Approach Speed      | 80 kt          | action |
+| Approach  | Landing Speed       | 80 kt          | action |
 | Approach  | Flaps               | 2 (Full)       | action |
 
 Die Checkliste ist absichtlich minimal und unvollständig. Es werden keine
 zusätzlichen Verfahrensschritte erfunden. Der Benutzer hat bestätigt, dass mit
 `Flag`/`Flags` jeweils `Flap`/`Flaps` gemeint war. Die Werte 95 kt und 80 kt
-werden ohne TAS- oder IAS-Zusatz einheitlich als `Approach Speed` dargestellt.
+werden ohne TAS- oder IAS-Zusatz als `Approach Speed` beziehungsweise
+`Landing Speed` dargestellt.
 
 ## VALIDATE-Bedienung (zurückgestellt)
 

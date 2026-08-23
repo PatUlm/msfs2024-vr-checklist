@@ -145,11 +145,18 @@
           "kind": "action"
         },
         {
-          "id": "sas-trim-autopilot",
-          "challenge": "SAS [1+2] + TRIM + AP",
-          "response": "All On",
+          "id": "sas",
+          "challenge": "SAS [1+2]",
+          "response": "On",
           "kind": "action",
-          "speech": "S A S one and two, trim, and autopilot: All on."
+          "speech": "S A S one and two: On."
+        },
+        {
+          "id": "trim",
+          "challenge": "TRIM",
+          "response": "On",
+          "kind": "action",
+          "speech": "Trim: On."
         }
       ]
     },

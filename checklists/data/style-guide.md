@@ -34,9 +34,13 @@ Beispiele:
   einen Bruch ausdrücken kann.
 - Eine einzelne Komponente wird mit Leerzeichen geschrieben, zum Beispiel
   `Engine 1`.
-- Verbindet ein Pluszeichen dagegen eigenständige Bedienelemente oder Aktionen,
-  wird es zur Lesbarkeit von Leerzeichen umgeben, zum Beispiel
-  `SAS [1+2] + TRIM + AP` oder `Start + IDLE`.
+- Eigenständig zu bestätigende Bedienelemente erhalten getrennte Items. Sie
+  werden nicht allein wegen eines kompakten Quelldokuments mit Pluszeichen in
+  einer Challenge zusammengefasst; so bleiben beispielsweise `SAS [1+2]` und
+  `TRIM` getrennt wahrnehmbar.
+- Verbindet ein Pluszeichen mehrere Zustände oder Aktionen innerhalb einer
+  Response, wird es zur Lesbarkeit von Leerzeichen umgeben, zum Beispiel
+  `Start + IDLE`.
 - Ein optionaler `speech`-Text formuliert Nummern natürlich aus, zum Beispiel
   `one and two`; die kompakte Bildschirmschreibweise wird nicht vorgelesen.
 

@@ -11,7 +11,7 @@
       { "atcModel": { "equals": "Diamond DA42" } }
     ]
   },
-  "revision": "2026-08-22",
+  "revision": "2026-08-23",
   "sections": [
     {
       "id": "before-engine-start",
@@ -19,9 +19,10 @@
       "items": [
         {
           "id": "power-levers",
-          "challenge": "Power Levers (both)",
+          "challenge": "Power Levers [1+2]",
           "response": "Idle",
-          "kind": "action"
+          "kind": "action",
+          "speech": "Power levers, one and two: Idle."
         },
         {
           "id": "parking-brake",
@@ -151,10 +152,10 @@
         },
         {
           "id": "altimeters",
-          "challenge": "Altimeters (both)",
+          "challenge": "Altimeters [1+2]",
           "response": "Set QNH",
           "kind": "action",
-          "speech": "Altimeters, both: Set Q N H from A T I S or M E T A R.",
+          "speech": "Altimeters one and two: Set Q N H from A T I S or M E T A R.",
           "notes": ["Use ATIS or METAR"]
         },
         {
@@ -208,11 +209,11 @@
         },
         {
           "id": "ecu-test",
-          "challenge": "ECU Test (both)",
+          "challenge": "ECU Test [1+2]",
           "response": "Hold for 25 s",
           "kind": "verify",
           "condition": "Until CAP clears",
-          "speech": "E C U test, both: Hold for 25 seconds until the CAP indication clears.",
+          "speech": "E C U test one and two: Hold for 25 seconds until the CAP indication clears.",
           "notes": ["Use click spot"]
         }
       ]
@@ -301,9 +302,10 @@
         },
         {
           "id": "fuel-pumps",
-          "challenge": "Fuel Pumps (both)",
+          "challenge": "Fuel Pumps [1+2]",
           "response": "On",
-          "kind": "action"
+          "kind": "action",
+          "speech": "Fuel pumps, one and two: On."
         },
         {
           "id": "pitot-heat",
@@ -335,10 +337,10 @@
       "items": [
         {
           "id": "power-levers-takeoff",
-          "challenge": "Power Levers (both)",
+          "challenge": "Power Levers [1+2]",
           "response": "100 %",
           "kind": "action",
-          "speech": "Power levers, both: 100 percent."
+          "speech": "Power levers, one and two: 100 percent."
         },
         {
           "id": "rotation-speed",
@@ -378,11 +380,11 @@
         },
         {
           "id": "fuel-pumps",
-          "challenge": "Fuel Pumps (both)",
+          "challenge": "Fuel Pumps [1+2]",
           "response": "Off",
           "kind": "action",
           "condition": "Above 1,000 ft AGL",
-          "speech": "Fuel pumps, both: Off after passing 1,000 feet above ground level."
+          "speech": "Fuel pumps, one and two: Off after passing 1,000 feet above ground level."
         },
         {
           "id": "landing-lights",
@@ -394,10 +396,10 @@
         },
         {
           "id": "power-levers-climb",
-          "challenge": "Power Levers (both)",
+          "challenge": "Power Levers [1+2]",
           "response": "≤ 92 %",
           "kind": "action",
-          "speech": "Power levers, both: 92 percent or less."
+          "speech": "Power levers, one and two: 92 percent or less."
         }
       ]
     },
@@ -407,11 +409,11 @@
       "items": [
         {
           "id": "fuel-pumps",
-          "challenge": "Fuel Pumps (both)",
+          "challenge": "Fuel Pumps [1+2]",
           "response": "On",
           "kind": "action",
           "condition": "At TOD",
-          "speech": "Fuel pumps, both: On at top of descent."
+          "speech": "Fuel pumps, one and two: On at top of descent."
         },
         {
           "id": "landing-lights",

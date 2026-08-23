@@ -100,7 +100,9 @@ Iteration stehen separat in `design-qa.md`.
 - Komponenten- oder Triebwerksnummern sind Teil der Challenge; die Response
   enthält nur den geforderten Zustand oder die Aktion.
 - Gemeinsam gemeinte Komponentenpaare werden einheitlich und kompakt als
-  `1+2` geschrieben. Numerische Sollstellungen bleiben in der Response.
+  `[1+2]` geschrieben. Die eckigen Klammern markieren den Komponenten-Scope;
+  runde Klammern bleiben erklärenden Zusätzen vorbehalten. Numerische
+  Sollstellungen bleiben in der Response.
 - Die vollständigen Schreibregeln stehen in
   [`../checklists/data/style-guide.md`](../checklists/data/style-guide.md).
 

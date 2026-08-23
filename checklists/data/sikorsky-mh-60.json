@@ -12,7 +12,7 @@
       }
     ]
   },
-  "revision": "2026-05-16",
+  "revision": "2026-08-23",
   "sections": [
     {
       "id": "preparations",
@@ -67,7 +67,7 @@
         },
         {
           "id": "fuel-boost-pumps",
-          "challenge": "Fuel Boost Pumps 1+2",
+          "challenge": "Fuel Boost Pumps [1+2]",
           "response": "On",
           "kind": "action",
           "speech": "Fuel boost pumps one and two: On."
@@ -114,14 +114,14 @@
         },
         {
           "id": "computer-power",
-          "challenge": "Computer Power 1+2",
+          "challenge": "Computer Power [1+2]",
           "response": "On",
           "kind": "action",
           "speech": "Computer power one and two: On."
         },
         {
           "id": "egi-power",
-          "challenge": "EGI Power 1+2",
+          "challenge": "EGI Power [1+2]",
           "response": "On",
           "kind": "action",
           "speech": "E G I power one and two: On."
@@ -146,7 +146,7 @@
         },
         {
           "id": "sas-trim-autopilot",
-          "challenge": "SAS 1+2 + TRIM + AP",
+          "challenge": "SAS [1+2] + TRIM + AP",
           "response": "All On",
           "kind": "action",
           "speech": "S A S one and two, trim, and autopilot: All on."
@@ -159,7 +159,7 @@
       "items": [
         {
           "id": "fuel-selectors-crossfeed",
-          "challenge": "Fuel Selectors 1+2",
+          "challenge": "Fuel Selectors [1+2]",
           "response": "XFD",
           "kind": "action",
           "speech": "Fuel selectors one and two: Crossfeed."
@@ -180,14 +180,14 @@
         },
         {
           "id": "engines-fly",
-          "challenge": "Engines 1+2",
+          "challenge": "Engines [1+2]",
           "response": "FLY",
           "kind": "action",
           "speech": "Engines one and two: Fly."
         },
         {
           "id": "fuel-selectors-direct",
-          "challenge": "Fuel Selectors 1+2",
+          "challenge": "Fuel Selectors [1+2]",
           "response": "DIR",
           "kind": "action",
           "speech": "Fuel selectors one and two: Direct."
@@ -207,7 +207,7 @@
         },
         {
           "id": "generators",
-          "challenge": "Generators 1+2",
+          "challenge": "Generators [1+2]",
           "response": "On",
           "kind": "action",
           "speech": "Generators one and two: On."

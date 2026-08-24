@@ -5,6 +5,15 @@ Changelog, and the project uses Semantic Versioning.
 
 ## [Unreleased]
 
+## [0.1.2] - 2026-08-24
+
+### Changed
+
+- Moved the blue app-icon checkmarks to the right of the gray item lines to
+  match the checklist row composition.
+- Added the centered `VR Checklist` product name beneath the mark in the My
+  Library thumbnail.
+
 ## [0.1.1] - 2026-08-24
 
 ### Changed

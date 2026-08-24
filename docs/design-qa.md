@@ -117,18 +117,24 @@ issues:
 - Coherent GT filled the clipboard interior white even though the root SVG
   declared a transparent fill.
 
-The next candidate uses a text-free 360 × 240 thumbnail, one shared SemVer
+The `0.1.1` candidate used a text-free 360 × 240 thumbnail, one shared SemVer
 value, and explicit `fill="none"` on every icon outline. The editable sources
 remain under `../assets/branding/`; both finding screenshots are stored above.
 
+The source composition accepted for `0.1.2` moves the gray item lines to the
+left and the blue checkmarks to the right with a visible gap, matching the app's
+checklist rows. The My Library thumbnail now adds the centered product name
+`VR Checklist` below the mark. Both local original-resolution previews were
+accepted on 2026-08-24.
+
 Pending runtime checks for this revised candidate:
 
-- Confirm that My Library displays the full uncropped thumbnail and the same
-  SemVer version as the app footer.
+- Confirm that My Library displays the full uncropped thumbnail, including its
+  centered title, and the same SemVer version as the app footer.
 - Confirm the transparent clipboard interior in normal, hover, and selected
   app-list states.
 - Confirm that the revised icon remains clear in VR.
 
-current result: interaction states and VR legibility accepted for the initial
-motif; revised transparency, thumbnail crop, and unified version pending MSFS
+current result: source composition accepted for release 0.1.2; revised
+transparency, thumbnail crop/title, and unified version pending MSFS runtime
 verification

@@ -158,14 +158,17 @@ Iteration stehen separat in `design-qa.md`.
   Hintergrund. Alle konturbasierten SVG-Pfade deklarieren `fill="none"`
   ausdrücklich, weil Coherent GT die vererbte SVG-Füllung nicht zuverlässig
   respektiert.
+- Die grauen Item-Linien stehen links und die blauen Häkchen mit sichtbarem
+  Abstand rechts. Diese Leserichtung entspricht dem Aufbau der Checklist-Zeilen
+  mit der Bestätigung am rechten Rand.
 - Die kräftigen Formen bleiben im kleinen 26 × 27-Pixel-Raster und in VR
   eindeutig lesbar. Hover-, Selected- und VR-Darstellung des ursprünglichen
   Motivs sind akzeptiert; die korrigierte Transparenz benötigt den in
   `design-qa.md` festgehaltenen Laufzeit-Gegencheck.
-- Das textfreie 360 × 240 Pixel große My-Library-Thumbnail verwendet dieselbe
-  dunkle Oberfläche, Akzentfarbe und Bildmarke wie die App. Es enthält bewusst
-  keinen eingebetteten Titel oder Versionswert, weil MSFS diese Metadaten
-  daneben darstellt und das Bild je nach Oberfläche beschneiden kann.
+- Das 360 × 240 Pixel große My-Library-Thumbnail verwendet dieselbe dunkle
+  Oberfläche, Akzentfarbe und Bildmarke wie die App. Unter der zentrierten
+  Bildmarke steht der Produktname `VR Checklist`; ein Versionswert wird nicht
+  in das Bild eingebettet.
 - Die editierbaren Branding-Quellen liegen dauerhaft unter
   `assets/branding/`. App-Build und MSFS-Staging beziehen ihre Ausgaben aus
   diesem gemeinsamen Ursprung.

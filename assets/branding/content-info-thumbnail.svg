@@ -5,10 +5,12 @@
   <path d="M283 38L360 14V0H326L283 38Z" fill="#57C8FF" fill-opacity="0.12"/>
   <path d="M0 238L113 199L215 220L360 182" stroke="#57C8FF" stroke-opacity="0.18" stroke-width="2"/>
 
-  <g transform="translate(134.5 72.75) scale(3.5)">
+  <g transform="translate(134.5 57.75) scale(3.5)">
     <path d="M6.25 2.75H19.75C21.13 2.75 22.25 3.87 22.25 5.25V24.25H3.75V5.25C3.75 3.87 4.87 2.75 6.25 2.75Z" fill="none" stroke="#F4F7FA" stroke-width="1.7" stroke-linejoin="round"/>
     <path d="M9 1.25H17V5.25H9V1.25Z" fill="none" stroke="#F4F7FA" stroke-width="1.7" stroke-linejoin="round"/>
-    <path d="M6.75 9.1L8.3 10.65L11.25 7.55M6.75 14.25L8.3 15.8L11.25 12.7M6.75 19.4L8.3 20.95L11.25 17.85" fill="none" stroke="#57C8FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-    <path d="M13.5 9.1H19M13.5 14.25H19M13.5 19.4H19" fill="none" stroke="#B8C5D1" stroke-width="1.7" stroke-linecap="round"/>
+    <path d="M7 9.1H12.5M7 14.25H12.5M7 19.4H12.5" fill="none" stroke="#B8C5D1" stroke-width="1.7" stroke-linecap="round"/>
+    <path d="M15.25 9.1L16.8 10.65L19.75 7.55M15.25 14.25L16.8 15.8L19.75 12.7M15.25 19.4L16.8 20.95L19.75 17.85" fill="none" stroke="#57C8FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
   </g>
+
+  <text x="180" y="182" fill="#F4F7FA" font-family="Arial, sans-serif" font-size="18" font-weight="600" letter-spacing="0.4" text-anchor="middle">VR Checklist</text>
 </svg>

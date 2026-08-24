@@ -44,7 +44,7 @@ notwendige Spiegelungen gegen `VERSION` geprüft. Ein abweichender Wert lässt
 
 Entwicklungsbuilds bleiben eindeutig, indem sie die Projektversion um
 `-dev.YYYYMMDDHHMMSS` in UTC ergänzen. Beispiel:
-`0.1.1-dev.20260824153042`. Diese Kennung erscheint nur in der App; das
+`0.1.2-dev.20260824153042`. Diese Kennung erscheint nur in der App; das
 Staging-Manifest behält die veröffentlichungsfähige dreiteilige Version.
 
 Vor einer inhaltlich veränderten Veröffentlichung wird `VERSION` nach SemVer
@@ -73,10 +73,10 @@ Der Task führt nacheinander aus:
    eingebetteter Release-Version und fehlenden Source Maps.
 7. Kopie in ein versioniertes, unveränderliches Artefakt.
 
-Für `VERSION=0.1.1` entsteht standardmäßig:
+Für `VERSION=0.1.2` entsteht standardmäßig:
 
 ```text
-C:\dev\msfs2024-vr-checklist-releases\0.1.1\
+C:\dev\msfs2024-vr-checklist-releases\0.1.2\
 ├── release.json
 └── patulm-vr-checklist\
     ├── manifest.json
@@ -128,8 +128,9 @@ daher für normale Entwicklungsiterationen nicht deaktiviert werden.
 - vom MSFS-Paket verwendetes Thumbnail:
   `assets/branding/content-info-thumbnail.jpg`
 
-Das Thumbnail ist textfrei und exakt 360 × 240 Pixel groß. Dieses Format folgt
-der mit SDK 1.5.3 eingeführten
+Das Thumbnail ist exakt 360 × 240 Pixel groß und zeigt Bildmarke sowie
+Produktname, aber keinen eingebetteten Versionswert. Dieses Format folgt der
+mit SDK 1.5.3 eingeführten
 [MSFS-2024-Vorgabe für Community-My-Library-Bilder](https://docs.flightsimulator.com/msfs2024/retail/introduction/sdk-release-notes/);
 Titel, Hersteller und Version werden von MSFS daneben aus den Paketmetadaten
 dargestellt.

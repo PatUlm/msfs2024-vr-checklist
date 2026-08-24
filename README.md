@@ -220,6 +220,8 @@ werden soll.
 - `docs/design-qa.md`: visuelle Nachweise, Abweichungen und nächste Iteration
 - `docs/vr-test-preparation.md`: Scope und technische Vorarbeit für den ersten
   VR-Teststand
+- `docs/phase-2-tech-stack-plan.md`: Research-, Entscheidungs- und PoC-Plan für
+  die lokale TTS-Begleit-App
 - `docs/assets/`: versionierte, dauerhaft referenzierte Design-Screenshots
 
 ## Offizielle Referenzen

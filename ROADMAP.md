@@ -46,9 +46,14 @@ Die automatische Flugzeugerkennung und ein eng begrenzter Fortschritts-Snapshot
 für VR-Moduswechsel wurden bereits in dieser Phase umgesetzt. PDF-Konvertierung,
 KI, Cloud-Dienste, TTS und komplexe Persistenz bleiben spätere Meilensteine.
 
-## Späterer Meilenstein – TTS und schnelle Eingabebestätigung
+## Phase 2 – TTS-Begleit-App und schnelle Eingabebestätigung
 
-Status: **Idee vorgemerkt; nicht Teil von Phase 1**
+Status: **Geplant – Tech-Stack- und TTS-Evaluation steht aus**
+
+Der verbindliche Research-first-Ablauf steht in
+[`docs/phase-2-tech-stack-plan.md`](docs/phase-2-tech-stack-plan.md). Vor der
+Technologieentscheidung und ihrer ausdrücklichen Freigabe wird kein
+Begleit-App-Code implementiert.
 
 Ziel: Checklisteneinträge können vorgelesen und anschließend ohne Sprachaufnahme per Eingabe bestätigt werden.
 
@@ -63,7 +68,7 @@ Ziel: Checklisteneinträge können vorgelesen und anschließend ohne Sprachaufna
 - Optional globale Bestätigung über eine lokale Begleit-App, falls die EFB-App nicht fokussiert ist
 - Keine Mikrofonaufnahme und keine Spracherkennung erforderlich
 
-### Bevorzugte Architektur
+### Bisherige Arbeitshypothese
 
 ```text
 Native EFB-App (TypeScript/TSX)
@@ -74,7 +79,13 @@ Optionaler TTS-Anbieter
         → Audioausgabe im aktiven Windows-/VR-Audiogerät
 ```
 
-Für die Audioausgabe wird eine kleine Tray- oder Hintergrund-App in der angemeldeten Windows-Sitzung gegenüber einem echten Windows-Dienst bevorzugt. Die EFB-App und die Begleit-App kommunizieren über die von MSFS bereitgestellte Communication API beziehungsweise SimConnect; eine direkte, undokumentierte Verbindung aus dem EFB zu `localhost` ist nicht Grundlage des Designs.
+Die dargestellte C#/.NET-Architektur ist ein zu prüfender Ausgangskandidat und
+noch keine getroffene Stack-Entscheidung. Für die Audioausgabe wird eine kleine
+Tray- oder Hintergrund-App in der angemeldeten Windows-Sitzung gegenüber einem
+echten Windows-Dienst bevorzugt. Die EFB-App und die Begleit-App kommunizieren
+über die von MSFS bereitgestellte Communication API beziehungsweise SimConnect;
+eine direkte, undokumentierte Verbindung aus dem EFB zu `localhost` ist nicht
+Grundlage des Designs.
 
 ### Offline- und Sicherheitsanforderungen
 

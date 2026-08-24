@@ -12,6 +12,9 @@ Notable project changes are recorded under their completion date.
   speed and an 80 kt landing speed.
 - Added a visible development CalVer identifier and permanent design, QA, and
   agent guidance for future work sessions.
+- Added a research-first Phase 2 plan covering the companion-app stack, secure
+  settings, current local and cloud TTS options, VR audio, radio/intercom DSP,
+  and a bounded proof of concept.
 
 ### Changed
 

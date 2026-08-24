@@ -4,6 +4,7 @@ checklists/source/**
 
 # Local handovers, plans and temporary working notes.
 /tmp/
+/.env
 
 # Node.js dependencies and generated EFB assets.
 node_modules/

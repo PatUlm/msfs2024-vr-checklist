@@ -141,14 +141,34 @@ Iteration stehen separat in `design-qa.md`.
 
 - Die App-Version steht sehr klein und blass am unteren rechten Rand, ohne die
   Checkliste visuell zu stören.
-- Entwicklungsbuilds verwenden die CalVer-Ausprägung
-  `YYYY.0M-dev.SSSSSSS`. `SSSSSSS` entspricht den siebenstellig aufgefüllten
-  Sekunden seit Beginn des aktuellen UTC-Monats. Dadurch sind Builds innerhalb
-  eines Monats automatisch eindeutig und lexikografisch sortierbar; `dev`
-  kennzeichnet sie unmissverständlich als Entwicklungsstand.
-- Die Build-Kennung wird beim App-Build erzeugt. Für einen Release kann eine
-  explizite Version vorgegeben und beispielsweise nur `YYYY.0M` angezeigt
-  werden.
+- Die Root-Datei `VERSION` ist die kanonische Quelle für eine gemeinsame
+  SemVer-Version `MAJOR.MINOR.PATCH`. Ein Release zeigt diesen Wert in der App,
+  im MSFS-Manifest und als Namen des lokalen Release-Artefakts identisch an.
+- Entwicklungsbuilds ergänzen die aktuelle Projektversion automatisch um
+  `-dev.YYYYMMDDHHMMSS` in UTC. Dadurch bleiben sie eindeutig und lassen sich
+  klar von einem Release unterscheiden.
+- Neue Produktstände erhöhen `VERSION` bewusst nach SemVer. Ein separates
+  CalVer-Schema wird nicht parallel gepflegt, weil MSFS in My Library ohnehin
+  die dreiteilige Manifest-Version anzeigt.
+
+## App-Icon und Release-Branding
+
+- Das EFB-App-Icon verwendet eine reduzierte Zwischenablage mit drei blauen
+  Häkchen, grauen Item-Linien und einer weißen Außenkontur auf transparentem
+  Hintergrund. Alle konturbasierten SVG-Pfade deklarieren `fill="none"`
+  ausdrücklich, weil Coherent GT die vererbte SVG-Füllung nicht zuverlässig
+  respektiert.
+- Die kräftigen Formen bleiben im kleinen 26 × 27-Pixel-Raster und in VR
+  eindeutig lesbar. Hover-, Selected- und VR-Darstellung des ursprünglichen
+  Motivs sind akzeptiert; die korrigierte Transparenz benötigt den in
+  `design-qa.md` festgehaltenen Laufzeit-Gegencheck.
+- Das textfreie 360 × 240 Pixel große My-Library-Thumbnail verwendet dieselbe
+  dunkle Oberfläche, Akzentfarbe und Bildmarke wie die App. Es enthält bewusst
+  keinen eingebetteten Titel oder Versionswert, weil MSFS diese Metadaten
+  daneben darstellt und das Bild je nach Oberfläche beschneiden kann.
+- Die editierbaren Branding-Quellen liegen dauerhaft unter
+  `assets/branding/`. App-Build und MSFS-Staging beziehen ihre Ausgaben aus
+  diesem gemeinsamen Ursprung.
 
 ## Sprachausgabe
 

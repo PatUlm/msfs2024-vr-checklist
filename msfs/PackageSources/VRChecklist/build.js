@@ -1,7 +1,7 @@
-const copyStaticFiles = require("esbuild-copy-static-files");
 const globalExternals = require("@fal-works/esbuild-plugin-global-externals");
 const { typecheckPlugin } = require("@jgoz/esbuild-plugin-typecheck");
 const esbuild = require("esbuild");
+const fs = require("node:fs");
 const postcss = require("postcss");
 const postCssUrl = require("postcss-url");
 const postcssPrefixSelector = require("postcss-prefix-selector");
@@ -17,21 +17,46 @@ const env = {
 };
 
 const appDirectoryName = path.basename(__dirname);
+const projectVersionSource = path.resolve(__dirname, "../../../VERSION");
+const appIconSource = path.resolve(
+  __dirname,
+  "../../../assets/branding/app-icon.svg"
+);
 
-function createDevelopmentVersion(date = new Date()) {
-  const year = date.getUTCFullYear();
-  const monthIndex = date.getUTCMonth();
-  const month = String(monthIndex + 1).padStart(2, "0");
-  const monthStart = Date.UTC(year, monthIndex, 1);
-  const secondsSinceMonthStart = Math.floor(
-    (date.getTime() - monthStart) / 1000
-  );
+function copyBrandingAssets() {
+  return {
+    name: "copy-branding-assets",
+    setup(build) {
+      build.onEnd((result) => {
+        if (result.errors.length > 0) {
+          return;
+        }
 
-  return `${year}.${month}-dev.${String(secondsSinceMonthStart).padStart(7, "0")}`;
+        const appIconTarget = path.resolve(__dirname, "dist/Assets/app-icon.svg");
+        fs.mkdirSync(path.dirname(appIconTarget), { recursive: true });
+        fs.copyFileSync(appIconSource, appIconTarget);
+      });
+    },
+  };
 }
 
+function readProjectVersion() {
+  const version = fs.readFileSync(projectVersionSource, "utf8").trim();
+  if (!/^(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)$/.test(version)) {
+    throw new Error(`Project VERSION must use MAJOR.MINOR.PATCH: ${version}`);
+  }
+
+  return version;
+}
+
+function createDevelopmentVersion(version, date = new Date()) {
+  const timestamp = date.toISOString().replace(/[-:TZ.]/g, "").slice(0, 14);
+  return `${version}-dev.${timestamp}`;
+}
+
+const projectVersion = readProjectVersion();
 const appVersion =
-  process.env.VR_CHECKLIST_VERSION || createDevelopmentVersion();
+  process.env.VR_CHECKLIST_VERSION || createDevelopmentVersion(projectVersion);
 
 const baseConfig = {
   entryPoints: ["src/VRChecklist.tsx"],
@@ -50,10 +75,7 @@ const baseConfig = {
     BASE_URL: `"coui://html_ui/efb_ui/efb_apps/${appDirectoryName}"`,
   },
   plugins: [
-    copyStaticFiles({
-      src: "./src/Assets",
-      dest: "./dist/Assets",
-    }),
+    copyBrandingAssets(),
     globalExternals.globalExternals({
       "@microsoft/msfs-sdk": {
         varName: "msfssdk",

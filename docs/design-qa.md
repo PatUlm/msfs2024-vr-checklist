@@ -6,6 +6,10 @@
   [`assets/action-bar-alignment.png`](assets/action-bar-alignment.png)
 - Accepted VR runtime capture:
   [`assets/vr-g36-accepted-layout.png`](assets/vr-g36-accepted-layout.png)
+- My Library branding finding:
+  [`assets/content-manager-thumbnail-version-finding.png`](assets/content-manager-thumbnail-version-finding.png)
+- EFB icon fill finding:
+  [`assets/efb-icon-fill-finding.png`](assets/efb-icon-fill-finding.png)
 - Accepted capture size: 861 × 948 pixels at original resolution
 
 The accepted capture shows the compact Phase 1 layout in the G36 cockpit. It
@@ -29,7 +33,7 @@ runtime behavior is accepted:
   condition, note, alternative, or review content expands vertically.
 - The larger section names, blue section numbers, and `Start`/`Complete`
   placeholders remain legible in VR.
-- The CalVer identifier remains unobtrusive at the lower-right edge.
+- The build identifier remains unobtrusive at the lower-right edge.
 - Switching non-VR → VR → non-VR preserves completed items and the active
   section through the transient SDK DataStore snapshot.
 
@@ -92,3 +96,39 @@ implementation should speak `Checklist completed` once. It must share the
 item-speech path, avoid duplicate announcements, and remain optional.
 
 final result: Phase 1 accepted in MSFS and VR on 2026-08-23
+
+## Release-branding runtime follow-up
+
+The copied EFB template icon and placeholder ContentInfo thumbnail were
+replaced on 2026-08-24 with a project-specific checklist mark and matching
+release thumbnail. The candidate sources are:
+
+- `../assets/branding/app-icon.svg`
+- `../assets/branding/content-info-thumbnail.svg`
+
+The first 26 × 27 app icon was checked in the EFB app list on 2026-08-24:
+hover and selected states render correctly, and the motif remains clear in VR.
+A later original-resolution review found three remaining release-branding
+issues:
+
+- The 412 × 170 ContentInfo image was cropped in My Library.
+- My Library showed manifest version `0.1.0`, while the app footer showed the
+  separate release identifier `2026.08`.
+- Coherent GT filled the clipboard interior white even though the root SVG
+  declared a transparent fill.
+
+The next candidate uses a text-free 360 × 240 thumbnail, one shared SemVer
+value, and explicit `fill="none"` on every icon outline. The editable sources
+remain under `../assets/branding/`; both finding screenshots are stored above.
+
+Pending runtime checks for this revised candidate:
+
+- Confirm that My Library displays the full uncropped thumbnail and the same
+  SemVer version as the app footer.
+- Confirm the transparent clipboard interior in normal, hover, and selected
+  app-list states.
+- Confirm that the revised icon remains clear in VR.
+
+current result: interaction states and VR legibility accepted for the initial
+motif; revised transparency, thumbnail crop, and unified version pending MSFS
+verification

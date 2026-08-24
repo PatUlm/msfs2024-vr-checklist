@@ -20,7 +20,7 @@ Aktuell verfügbar:
 - zentrierter Leerzustand mit Diagnosewerten, wenn keine passende Checkliste
   vorhanden ist
 - minimale Zwei-Gruppen-Checkliste für die Beechcraft Bonanza G36
-- kleine CalVer-Entwicklungskennung am unteren rechten Rand
+- kleine SemVer-basierte Entwicklungskennung am unteren rechten Rand
 
 ## Bekannte Einschränkungen
 
@@ -65,15 +65,18 @@ Abhängigkeitsstand der EFB-App mit `npm ci`.
 
 Alle projektweiten Abläufe beginnen im Repository-Root:
 
-| Task            | Wirkung                                         |
-| --------------- | ----------------------------------------------- |
-| `task init`     | Legt lokale, ignorierte Arbeitsverzeichnisse an |
-| `task install`  | Installiert die EFB-Abhängigkeiten              |
-| `task validate` | Prüft alle versionierten Checklistendaten       |
-| `task build`    | Validiert die Daten und baut die EFB-App        |
-| `task watch`    | Startet den Watch-Build für die EFB-App         |
-| `task deploy`   | Baut und deployed ins Windows-Staging           |
-| `task check`    | Führt die vollständige lokale Prüfung aus       |
+| Task                                      | Wirkung                                         |
+| ----------------------------------------- | ----------------------------------------------- |
+| `task init`                               | Legt lokale, ignorierte Arbeitsverzeichnisse an |
+| `task install`                            | Installiert die EFB-Abhängigkeiten              |
+| `task validate`                           | Prüft alle versionierten Checklistendaten       |
+| `task build`                              | Validiert die Daten und baut die EFB-App        |
+| `task watch`                              | Startet den Watch-Build für die EFB-App         |
+| `task deploy`                             | Baut und deployed ins Windows-Staging           |
+| `task release`                            | Erzeugt das in `VERSION` deklarierte Release     |
+| `task community:install`                  | Installiert das aktuelle Release in `Community2024` |
+| `task community:install VERSION=x.y.z`    | Installiert gezielt ein vorhandenes Release      |
+| `task check`                              | Führt die vollständige lokale Prüfung aus       |
 
 Die `package.json` unter `msfs/PackageSources/VRChecklist/` bleibt für rein
 Frontend-spezifische npm-Skripte zuständig. Nichttriviale projektweite Logik
@@ -82,6 +85,8 @@ liegt unter `scripts/`.
 ## Verzeichnisstruktur
 
 ```text
+assets/branding/                         editierbare Branding-Quellen
+VERSION                                  kanonische SemVer-Projektversion
 checklists/data/                         kanonische Checklistendaten
 msfs/VRChecklistProject.xml              MSFS-DevMode-Projekt
 msfs/PackageDefinitions/                 Paketdefinition und ContentInfo
@@ -134,14 +139,10 @@ Die gebündelten JavaScript-, CSS- und Asset-Dateien entstehen unter
 übernommenen Entwicklungswerte sind `TYPECHECKING=true`, `SOURCE_MAPS=true` und
 `MINIFY=false`.
 
-Entwicklungsbuilds erhalten automatisch eine sichtbare CalVer-Kennung im Format
-`YYYY.0M-dev.SSSSSSS`. `SSSSSSS` sind die siebenstellig aufgefüllten Sekunden
-seit Beginn des aktuellen UTC-Monats. Für einen späteren Release kann die
-Kennung explizit überschrieben werden, zum Beispiel:
-
-```bash
-VR_CHECKLIST_VERSION=2026.08 task deploy
-```
+Die Root-Datei `VERSION` enthält die kanonische SemVer-Projektversion. Ein
+Entwicklungsbuild ergänzt sie automatisch um einen UTC-Zeitstempel im Format
+`x.y.z-dev.YYYYMMDDHHMMSS`. Ein Release zeigt dagegen exakt `x.y.z`; derselbe
+Wert wird auch in das MSFS-Manifest und das Release-Artefakt übernommen.
 
 Während der Entwicklung:
 
@@ -176,12 +177,35 @@ Das Deploymentskript überträgt ausschließlich:
 - `VRChecklistProject.xml`
 - `PackageDefinitions/`
 - `PackageSources/VRChecklist/dist/`
+- das gerenderte ContentInfo-Thumbnail aus `assets/branding/`
 
 Es verweigert ein nicht leeres Staging, das nicht bereits durch seinen Marker
 diesem Projekt zugeordnet ist. Bei Folgedeployments werden nur die verwalteten
 Eingaben ersetzt. Die vom Project Editor erzeugten Verzeichnisse `Packages/`,
 `PackagesMetadata/` und `_PackageInt/` bleiben erhalten. Es gibt keine
 Synchronisation vom Windows-Staging zurück in das Repository.
+
+## Releases und Community-Installation
+
+Windows-spezifische SDK-, Release- und `Community2024`-Pfade werden lokal in
+einer ignorierten Root-`.env` konfiguriert; `.env.example` ist die versionierte
+Vorlage. Ein produktives, versioniertes Paket wird ohne Source Maps gebaut mit:
+
+```bash
+task release
+```
+
+Die aktuelle, zuvor erzeugte Version wird bei beendetem MSFS installiert mit:
+
+```bash
+task community:install
+```
+
+Für einen gezielten Rollback kann weiterhin eine vorhandene Artefaktversion
+angegeben werden, beispielsweise `task community:install VERSION=2026.08`. Der
+vollständige Ablauf, das gemeinsame Versionsmodell und die Sicherheitsprüfungen
+sind in
+[`docs/release.md`](docs/release.md) dokumentiert.
 
 ## Packaging und Test in MSFS 2024
 
@@ -220,6 +244,7 @@ werden soll.
 - `docs/design-qa.md`: visuelle Nachweise, Abweichungen und nächste Iteration
 - `docs/vr-test-preparation.md`: Scope und technische Vorarbeit für den ersten
   VR-Teststand
+- `docs/release.md`: reproduzierbarer Release- und Community2024-Installationsflow
 - `docs/phase-2-tech-stack-plan.md`: Research-, Entscheidungs- und PoC-Plan für
   die lokale TTS-Begleit-App
 - `docs/assets/`: versionierte, dauerhaft referenzierte Design-Screenshots
@@ -231,3 +256,4 @@ werden soll.
 - [Simulation Variables](https://docs.flightsimulator.com/msfs2024/flighting/programming-apis/simvars/simulation-variables/)
 - [Key Events](https://docs.flightsimulator.com/msfs2024/flighting/programming-apis/key-events/key-events-index/)
 - [Project Editor](https://docs.flightsimulator.com/msfs2024/flighting/devmode/editors/project-editor/the-project-editor/)
+- [SDK release notes for 360 × 240 My Library images](https://docs.flightsimulator.com/msfs2024/retail/introduction/sdk-release-notes/)

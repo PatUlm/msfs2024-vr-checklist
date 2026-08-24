@@ -1,8 +1,16 @@
 version: "3"
 
+dotenv:
+  - .env
+
 vars:
   APP_DIR: msfs/PackageSources/VRChecklist
   STAGING_DIR: '{{default "/mnt/c/dev/msfs2024-vr-checklist-staging" .STAGING_DIR}}'
+  MSFS_SDK_ROOT: '{{default "/mnt/c/MSFS 2024 SDK" .VR_CHECKLIST_MSFS_SDK_ROOT}}'
+  COMMUNITY_DIR: '{{default "" .VR_CHECKLIST_COMMUNITY_DIR}}'
+  RELEASE_DIR: '{{default "/mnt/c/dev/msfs2024-vr-checklist-releases" .VR_CHECKLIST_RELEASE_DIR}}'
+  PROJECT_VERSION:
+    sh: node scripts/release-package.mjs current-version
 
 tasks:
   default:
@@ -55,9 +63,48 @@ tasks:
     deps:
       - build
     cmds:
+      - node scripts/release-package.mjs validate-version
       - node scripts/deploy-windows.mjs "{{.STAGING_DIR}}"
+
+  test:release:
+    desc: Test the release packaging and installation utilities
+    cmds:
+      - node --test scripts/release-package.test.mjs
+
+  release:deploy:
+    internal: true
+    env:
+      MINIFY: "true"
+      SOURCE_MAPS: "false"
+      TYPECHECKING: "true"
+      VR_CHECKLIST_VERSION: "{{.PROJECT_VERSION}}"
+    cmds:
+      - task deploy
+
+  release:
+    desc: Build the production package declared in VERSION
+    env:
+      VR_CHECKLIST_RELEASE_VERSION: "{{.PROJECT_VERSION}}"
+      VR_CHECKLIST_RELEASE_STAGING_DIR: "{{.STAGING_DIR}}"
+      VR_CHECKLIST_RELEASE_OUTPUT_DIR: "{{.RELEASE_DIR}}"
+      VR_CHECKLIST_RELEASE_SDK_ROOT: "{{.MSFS_SDK_ROOT}}"
+    cmds:
+      - node scripts/release-package.mjs validate-version
+      - task: test:release
+      - task: release:deploy
+      - node scripts/release-package.mjs build
+
+  community:install:
+    desc: Install the current or specified release into Community2024
+    env:
+      VR_CHECKLIST_RELEASE_VERSION: '{{default .PROJECT_VERSION .VERSION}}'
+      VR_CHECKLIST_RELEASE_OUTPUT_DIR: "{{.RELEASE_DIR}}"
+      VR_CHECKLIST_RELEASE_COMMUNITY_DIR: "{{.COMMUNITY_DIR}}"
+    cmds:
+      - node scripts/release-package.mjs install
 
   check:
     desc: Run the complete local validation and build
-    deps:
-      - build
+    cmds:
+      - task: build
+      - task: test:release

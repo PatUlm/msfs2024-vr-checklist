@@ -18,10 +18,10 @@ gehören nach `docs/design-qa.md`.
 - Vor Änderungen an Checklistendaten sind `checklists/data/README.md` und
   `checklists/data/style-guide.md` zu lesen.
 - Jede abgeschlossene Änderung muss im selben Arbeitsgang das englische
-  `CHANGELOG.md` aktualisieren. Einträge stehen ohne Versionsnummer unter dem
-  tatsächlichen Abschlussdatum im ISO-Format `## YYYY-MM-DD`; es gibt keinen
-  `Unreleased`-Abschnitt. Weitere Änderungen am selben Tag werden in den
-  bestehenden Datumsabschnitt einsortiert.
+  `CHANGELOG.md` aktualisieren. Noch nicht veröffentlichte Änderungen stehen
+  unter `## [Unreleased]`. Bei einem Release werden sie nach
+  `## [MAJOR.MINOR.PATCH] - YYYY-MM-DD` verschoben; datumsbasierte Überschriften
+  ohne Version werden nicht verwendet.
 - Commits sind, soweit sinnvoll möglich, nach fachlichem Kontext zu trennen.
   Checklistendaten, Anwendungscode und allgemeine Dokumentation gehören
   beispielsweise in getrennte Commits. Unmittelbar zugehörige Tests und
@@ -39,6 +39,10 @@ gehören nach `docs/design-qa.md`.
 - `node_modules/`, `dist/` sowie `Packages/`, `PackagesMetadata/` und
   `_PackageInt/` sind generiert und werden nicht manuell bearbeitet oder
   versioniert.
+- Die Root-Datei `VERSION` ist die kanonische Quelle für die SemVer-Version der
+  App, des MSFS-Pakets und neuer Release-Artefakte. Die Versionsangaben in der
+  Paketdefinition und den npm-Metadaten müssen mit ihr übereinstimmen;
+  `task check` prüft diese Konsistenz.
 - Die JSON-Dateien unter `checklists/data/` sind die einzige Quelle für
   Checklist-Inhalte. Keine zweite Checkliste im Anwendungscode pflegen.
 - `tmp/` ist ignoriert und flüchtig. Dauerhaft benötigte Screenshots liegen mit
@@ -56,7 +60,7 @@ gehören nach `docs/design-qa.md`.
   der erfolgreichen Prüfung automatisch `task deploy` ausgeführt werden. Reine
   Dokumentationsänderungen lösen keinen unnötigen Deployment-Build aus.
 - Nach jedem Deployment ist die tatsächlich ins Windows-Staging geschriebene
-  CalVer-Version zu ermitteln und dem Benutzer ausdrücklich zu nennen. Nicht
+  App-Version zu ermitteln und dem Benutzer ausdrücklich zu nennen. Nicht
   lediglich eine Version aus einem früheren lokalen Build angeben.
 - Für eine MSFS-Testiteration folgt nach `task deploy` im Project Editor
   **Build All In Project** und im Coherent Debugger **Ignore Cache + Reload**.

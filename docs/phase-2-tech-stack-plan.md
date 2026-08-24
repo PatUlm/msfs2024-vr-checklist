@@ -150,7 +150,7 @@ Die Zielarchitektur beschreibt außerdem:
 - saubere Deinstallation einschließlich optionaler Cache- und Credential-Löschung,
 - Update-Strategie ohne ungefragte Hintergrunddownloads,
 - Entwicklungs- und Release-Builds sowie eine zum Projekt passende
-  CalVer-Strategie.
+  SemVer-Strategie auf Basis der kanonischen Root-Datei `VERSION`.
 
 ## Bewertungsmethode
 

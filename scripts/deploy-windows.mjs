@@ -21,6 +21,7 @@ const marker = {
 const scriptDirectory = dirname(fileURLToPath(import.meta.url));
 const repositoryRoot = resolve(scriptDirectory, "..");
 const msfsSourceRoot = join(repositoryRoot, "msfs");
+const brandingSourceRoot = join(repositoryRoot, "assets", "branding");
 const appDistSource = join(
   msfsSourceRoot,
   "PackageSources",
@@ -65,6 +66,10 @@ async function assertSourceBuild() {
     join(appDistSource, "Assets", "app-icon.svg"),
   ];
 
+  requiredBuildFiles.push(
+    join(brandingSourceRoot, "content-info-thumbnail.jpg")
+  );
+
   for (const requiredFile of requiredBuildFiles) {
     if (!(await pathExists(requiredFile))) {
       throw new Error(`Required build output is missing: ${requiredFile}`);
@@ -104,6 +109,9 @@ async function prepareDeployment(tempRoot) {
   await mkdir(join(tempRoot, "PackageSources", "VRChecklist"), {
     recursive: true,
   });
+  await mkdir(join(tempRoot, "Branding", "ContentInfo"), {
+    recursive: true,
+  });
   await cp(
     join(msfsSourceRoot, "VRChecklistProject.xml"),
     join(tempRoot, "VRChecklistProject.xml")
@@ -122,21 +130,28 @@ async function prepareDeployment(tempRoot) {
       recursive: true,
     }
   );
+  await cp(
+    join(brandingSourceRoot, "content-info-thumbnail.jpg"),
+    join(tempRoot, "Branding", "ContentInfo", "thumbnail.jpg")
+  );
 }
 
 async function replaceManagedInputs(tempRoot) {
   const targetProject = join(stagingRoot, "VRChecklistProject.xml");
   const targetDefinitions = join(stagingRoot, "PackageDefinitions");
   const targetApp = join(stagingRoot, "PackageSources", "VRChecklist");
+  const targetBranding = join(stagingRoot, "Branding");
 
   await rm(targetProject, { force: true });
   await rm(targetDefinitions, { force: true, recursive: true });
   await rm(targetApp, { force: true, recursive: true });
+  await rm(targetBranding, { force: true, recursive: true });
 
   await mkdir(join(stagingRoot, "PackageSources"), { recursive: true });
   await rename(join(tempRoot, "VRChecklistProject.xml"), targetProject);
   await rename(join(tempRoot, "PackageDefinitions"), targetDefinitions);
   await rename(join(tempRoot, "PackageSources", "VRChecklist"), targetApp);
+  await rename(join(tempRoot, "Branding"), targetBranding);
   await writeFile(
     join(stagingRoot, markerFileName),
     `${JSON.stringify(marker, null, 2)}\n`

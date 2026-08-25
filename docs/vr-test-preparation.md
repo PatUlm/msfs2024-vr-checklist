@@ -26,7 +26,12 @@ Beim ersten Wechsel aus VR zurück in den normalen Modus gingen abgeschlossene
 Items scheinbar verloren. Der daraufhin ergänzte kurzlebige
 SDK-`DataStore`-Snapshot wurde beim Wechsel von Nicht-VR zu VR und zurück
 erfolgreich geprüft: Fortschritt und aktive Gruppe bleiben bestehen. Ein echter
-Flug-Ladezustand oder Flugzeugwechsel löscht den Snapshot weiterhin.
+Flug-Ladezustand oder Flugzeugwechsel löscht den Snapshot weiterhin. Nachdem
+ein Snapshot aus Release 0.1.2 auch einen zeitnahen vollständigen
+Simulatorneustart überlebt hatte, wurde er zusätzlich an den über
+`E:SIMULATION TIME` abgeleiteten Simulatorprozess gebunden. Der nächste
+Laufzeittest muss sowohl den VR-Rundweg als auch einen vollständigen
+MSFS-Neustart abdecken.
 
 ## Automatische Checklistenauswahl
 

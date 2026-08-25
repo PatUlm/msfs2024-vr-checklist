@@ -79,8 +79,11 @@ Iteration stehen separat in `design-qa.md`.
 - Ein Wechsel zwischen VR und Nicht-VR ist kein neuer Flug und darf den
   Fortschritt nicht zurücksetzen. Da MSFS dabei den EFB-App-Kontext neu erzeugen
   kann, hält die App einen kurzlebigen Fortschritts-Snapshot im SDK-`DataStore`.
-  Er wird nur für dieselbe Flugzeugidentität und Checklistenrevision
-  wiederhergestellt und bei einem Ladezustand oder Flugzeugwechsel gelöscht.
+  Er wird nur innerhalb desselben gestarteten Simulatorprozesses sowie für
+  dieselbe Flugzeugidentität und Checklistenrevision wiederhergestellt. Die
+  Prozesssitzung wird aus der aktiven Simulatordauer `E:SIMULATION TIME`
+  abgeleitet. Ein MSFS-Neustart, ein Ladezustand oder ein Flugzeugwechsel setzt
+  den Fortschritt immer zurück.
 
 ## Flugzeugauswahl und Leerzustand
 

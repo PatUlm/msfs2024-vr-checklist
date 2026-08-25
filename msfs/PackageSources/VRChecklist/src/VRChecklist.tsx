@@ -83,18 +83,21 @@ interface AircraftIdentity {
 }
 
 interface StoredChecklistProgress {
-  schemaVersion: 1;
+  schemaVersion: 2;
   checklistId: string;
   checklistRevision: string;
   aircraftIdentityKey: string;
+  simulatorSessionStartedAt: number;
   activeSectionIndex: number;
   completedItemKeys: string[];
   savedAt: number;
 }
 
 const AIRCRAFT_REFRESH_INTERVAL_MS = 10000;
-const CHECKLIST_PROGRESS_DATASTORE_KEY = "vr-checklist.progress.v1";
+const CHECKLIST_PROGRESS_DATASTORE_KEY = "vr-checklist.progress.v2";
+const LEGACY_CHECKLIST_PROGRESS_DATASTORE_KEY = "vr-checklist.progress.v1";
 const CHECKLIST_PROGRESS_MAX_AGE_MS = 30 * 60 * 1000;
+const SIMULATOR_SESSION_START_TOLERANCE_MS = 5000;
 
 const checklists = [
   beechcraftBonanzaG36Data as Checklist,
@@ -267,6 +270,7 @@ class VRChecklistView extends AppView<RequiredProps<AppViewProps, "bus">> {
   public constructor(props: RequiredProps<AppViewProps, "bus">) {
     super(props);
 
+    this.clearLegacyStoredChecklistProgress();
     this.gameStateSubscription = GameStateProvider.get().sub(
       (gameState) => this.handleGameStateChanged(gameState),
       true
@@ -337,6 +341,40 @@ class VRChecklistView extends AppView<RequiredProps<AppViewProps, "bus">> {
     );
   }
 
+  private readSimulatorSessionStartedAt(): number | undefined {
+    try {
+      const activeDurationSeconds = Number(
+        SimVar.GetSimVarValue("E:SIMULATION TIME", SimVarValueType.Seconds)
+      );
+
+      if (
+        !Number.isFinite(activeDurationSeconds) ||
+        activeDurationSeconds < 0
+      ) {
+        throw new Error(`Invalid active duration: ${activeDurationSeconds}`);
+      }
+
+      return Date.now() - activeDurationSeconds * 1000;
+    } catch (error) {
+      console.error(
+        "[VR Checklist] Unable to identify the current simulator session",
+        error
+      );
+      return undefined;
+    }
+  }
+
+  private clearLegacyStoredChecklistProgress(): void {
+    try {
+      DataStore.remove(LEGACY_CHECKLIST_PROGRESS_DATASTORE_KEY);
+    } catch (error) {
+      console.error(
+        "[VR Checklist] Unable to clear legacy stored progress",
+        error
+      );
+    }
+  }
+
   private clearStoredChecklistProgress(): void {
     try {
       DataStore.remove(CHECKLIST_PROGRESS_DATASTORE_KEY);
@@ -347,16 +385,22 @@ class VRChecklistView extends AppView<RequiredProps<AppViewProps, "bus">> {
 
   private persistSelectedChecklistProgress(): void {
     const runtime = this.getSelectedRuntime();
+    const simulatorSessionStartedAt = this.readSimulatorSessionStartedAt();
 
-    if (!runtime || this.currentAircraftIdentityKey.length === 0) {
+    if (
+      !runtime ||
+      this.currentAircraftIdentityKey.length === 0 ||
+      simulatorSessionStartedAt === undefined
+    ) {
       return;
     }
 
     const progress: StoredChecklistProgress = {
-      schemaVersion: 1,
+      schemaVersion: 2,
       checklistId: runtime.checklist.id,
       checklistRevision: runtime.checklist.revision,
       aircraftIdentityKey: this.currentAircraftIdentityKey,
+      simulatorSessionStartedAt,
       activeSectionIndex: runtime.activeSectionIndex.get(),
       completedItemKeys: Array.from(runtime.itemStates.entries())
         .filter(([, state]) => state.get())
@@ -365,10 +409,7 @@ class VRChecklistView extends AppView<RequiredProps<AppViewProps, "bus">> {
     };
 
     try {
-      DataStore.set(
-        CHECKLIST_PROGRESS_DATASTORE_KEY,
-        JSON.stringify(progress)
-      );
+      DataStore.set(CHECKLIST_PROGRESS_DATASTORE_KEY, JSON.stringify(progress));
     } catch (error) {
       console.error("[VR Checklist] Unable to store progress", error);
     }
@@ -379,6 +420,13 @@ class VRChecklistView extends AppView<RequiredProps<AppViewProps, "bus">> {
     aircraftIdentityKey: string
   ): boolean {
     try {
+      const simulatorSessionStartedAt = this.readSimulatorSessionStartedAt();
+
+      if (simulatorSessionStartedAt === undefined) {
+        this.clearStoredChecklistProgress();
+        return false;
+      }
+
       const storedProgress = DataStore.get<string>(
         CHECKLIST_PROGRESS_DATASTORE_KEY
       );
@@ -387,12 +435,18 @@ class VRChecklistView extends AppView<RequiredProps<AppViewProps, "bus">> {
         return false;
       }
 
-      const candidate = JSON.parse(storedProgress) as Partial<StoredChecklistProgress>;
+      const candidate = JSON.parse(
+        storedProgress
+      ) as Partial<StoredChecklistProgress>;
       const isCompatible =
-        candidate.schemaVersion === 1 &&
+        candidate.schemaVersion === 2 &&
         candidate.checklistId === runtime.checklist.id &&
         candidate.checklistRevision === runtime.checklist.revision &&
         candidate.aircraftIdentityKey === aircraftIdentityKey &&
+        typeof candidate.simulatorSessionStartedAt === "number" &&
+        Math.abs(
+          simulatorSessionStartedAt - candidate.simulatorSessionStartedAt
+        ) <= SIMULATOR_SESSION_START_TOLERANCE_MS &&
         typeof candidate.activeSectionIndex === "number" &&
         Array.isArray(candidate.completedItemKeys) &&
         candidate.completedItemKeys.every(

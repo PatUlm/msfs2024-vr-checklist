@@ -5,6 +5,12 @@ Changelog, and the project uses Semantic Versioning.
 
 ## [Unreleased]
 
+### Added
+
+- Added a minimal `CLAUDE.md` that forwards to `AGENTS.md`, so tools which do
+  not read `AGENTS.md` automatically still load the repository work rules from
+  the single existing source.
+
 ### Changed
 
 - Accepted and documented that the checklist reset is bound to the load of the

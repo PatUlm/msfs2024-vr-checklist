@@ -12,6 +12,11 @@ Changelog, and the project uses Semantic Versioning.
   in the menu after a flight still shows the previous session.
 - Documented that checklist matching already works in the Free Flight
   configuration screen and follows an aircraft change made there.
+- Accepted the release branding in MSFS: My Library shows the full uncropped
+  thumbnail with its centered title and the same SemVer version as the app
+  footer, and the clipboard interior stays transparent in the normal, hover,
+  and selected app-list states.
+- Accepted the arrow-free `Start` and `Complete` navigation placeholders.
 
 ## [0.1.6] - 2026-08-25
 

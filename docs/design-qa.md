@@ -67,6 +67,12 @@ Observed identities used by the match rules:
 - G36: `TT:ATCCOM.AC_MODEL_BE36.0.text |
   TT:ATCCOM.ATC_NAME_BEECHCFRAFT.0.text | Beechcraft Bonanza`
 
+### Navigation endpoint placeholders
+
+The disabled `Start` and `Complete` navigation placeholders no longer render
+direction arrows, while navigation buttons with real section targets keep their
+arrows and alignment. Both endpoints were accepted in release 0.1.6.
+
 ## Lifecycle regression follow-up
 
 Release 0.1.5 still retained all completed H125 items after ending a Free
@@ -120,13 +126,6 @@ one: reopening the EFB in the menu after ending a flight still shows the
 previous session. Both results are accepted and recorded in
 `design-decisions.md`.
 
-## Navigation endpoint placeholder follow-up
-
-The disabled `Start` and `Complete` navigation placeholders no longer render
-direction arrows. Confirm both endpoints in non-VR and VR after the next
-Coherent reload; navigation buttons with real section targets must retain their
-arrows and alignment.
-
 ## Deferred VALIDATE input
 
 Confirming the first open item through MSFS `VALIDATE` is deferred. SDK 1.7.3
@@ -179,14 +178,15 @@ checklist rows. The My Library thumbnail now adds the centered product name
 `VR Checklist` below the mark. Both local original-resolution previews were
 accepted on 2026-08-24.
 
-Pending runtime checks for this revised candidate:
+Release 0.1.6 resolved all three findings in MSFS. My Library shows the full
+uncropped 360 × 240 thumbnail including its centered title, and its version
+matches the app footer now that both read the canonical `VERSION`. The
+clipboard interior stays transparent in the normal, hover, and selected
+app-list states, so the explicit `fill="none"` declarations hold in Coherent GT.
 
-- Confirm that My Library displays the full uncropped thumbnail, including its
-  centered title, and the same SemVer version as the app footer.
-- Confirm the transparent clipboard interior in normal, hover, and selected
-  app-list states.
-- Confirm that the revised icon remains clear in VR.
+The revised icon was not re-checked in VR for this release. The original motif
+was accepted in VR on 2026-08-24, and the revision changed only the fill
+declarations and the left/right composition, not the shape weight that carries
+VR legibility.
 
-current result: source composition accepted for release 0.1.2; revised
-transparency, thumbnail crop/title, and unified version pending MSFS runtime
-verification
+current result: release branding accepted in MSFS with release 0.1.6

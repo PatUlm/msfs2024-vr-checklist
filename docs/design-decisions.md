@@ -177,9 +177,9 @@ Iteration stehen separat in `design-qa.md`.
   Abstand rechts. Diese Leserichtung entspricht dem Aufbau der Checklist-Zeilen
   mit der Bestätigung am rechten Rand.
 - Die kräftigen Formen bleiben im kleinen 26 × 27-Pixel-Raster und in VR
-  eindeutig lesbar. Hover-, Selected- und VR-Darstellung des ursprünglichen
-  Motivs sind akzeptiert; die korrigierte Transparenz benötigt den in
-  `design-qa.md` festgehaltenen Laufzeit-Gegencheck.
+  eindeutig lesbar. Normal-, Hover- und Selected-Darstellung sind akzeptiert,
+  einschließlich der korrigierten Transparenz; die VR-Darstellung ist für das
+  ursprüngliche Motiv akzeptiert.
 - Das 360 × 240 Pixel große My-Library-Thumbnail verwendet dieselbe dunkle
   Oberfläche, Akzentfarbe und Bildmarke wie die App. Unter der zentrierten
   Bildmarke steht der Produktname `VR Checklist`; ein Versionswert wird nicht

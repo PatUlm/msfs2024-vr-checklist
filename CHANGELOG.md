@@ -5,6 +5,18 @@ Changelog, and the project uses Semantic Versioning.
 
 ## [Unreleased]
 
+## [0.1.4] - 2026-08-25
+
+### Added
+
+- Added a basic Airbus H125 checklist covering preparation and engine start.
+
+### Fixed
+
+- Prevented checklist progress snapshots from being restored after a complete
+  MSFS restart while retaining them across EFB context reloads in the same
+  simulator session.
+
 ## [0.1.3] - 2026-08-25
 
 ### Added

@@ -41,6 +41,12 @@
           "challenge": "Twist Grip",
           "response": "IDLE",
           "kind": "action"
+        },
+        {
+          "id": "rotor-brake",
+          "challenge": "Rotor Brake",
+          "response": "Off",
+          "kind": "action"
         }
       ]
     },
@@ -48,12 +54,6 @@
       "id": "engine-start",
       "title": "Engine Start",
       "items": [
-        {
-          "id": "rotor-brake",
-          "challenge": "Rotor Brake",
-          "response": "Off",
-          "kind": "action"
-        },
         {
           "id": "starter-switch",
           "challenge": "Starter Switch",
@@ -98,6 +98,12 @@
           "kind": "action"
         },
         {
+          "id": "pitot-heat",
+          "challenge": "Pitot Heat",
+          "response": "On",
+          "kind": "action"
+        },
+        {
           "id": "twist-grip",
           "challenge": "Twist Grip",
           "response": "IDLE → FLIGHT",
@@ -111,6 +117,86 @@
           "kind": "action",
           "condition": "Optional",
           "speech": "Landing or taxi light: On, if desired."
+        }
+      ]
+    },
+    {
+      "id": "engine-shutdown",
+      "title": "Engine Shutdown",
+      "items": [
+        {
+          "id": "twist-grip",
+          "challenge": "Twist Grip",
+          "response": "IDLE",
+          "kind": "action"
+        },
+        {
+          "id": "engine-cool-down",
+          "challenge": "Engine Cool-Down",
+          "response": "30 s",
+          "kind": "verify",
+          "speech": "Engine cool-down: Wait 30 seconds."
+        },
+        {
+          "id": "pitot-heat",
+          "challenge": "Pitot Heat",
+          "response": "Off",
+          "kind": "action"
+        },
+        {
+          "id": "horn",
+          "challenge": "Horn",
+          "response": "Off",
+          "kind": "action"
+        },
+        {
+          "id": "landing-taxi-light",
+          "challenge": "Landing/Taxi Light",
+          "response": "Off",
+          "kind": "action",
+          "condition": "If used",
+          "speech": "Landing or taxi light: Off, if used."
+        },
+        {
+          "id": "avionics",
+          "challenge": "Avionics",
+          "response": "Off",
+          "kind": "action"
+        },
+        {
+          "id": "starter-switch",
+          "challenge": "Starter Switch",
+          "response": "Off",
+          "kind": "action"
+        },
+        {
+          "id": "generator",
+          "challenge": "Generator",
+          "response": "Off",
+          "kind": "action"
+        },
+        {
+          "id": "rotor-brake",
+          "challenge": "Rotor Brake",
+          "response": "Apply",
+          "kind": "action",
+          "condition": "Rotor RPM ≤ 140",
+          "speech": "Rotor brake: Apply at 140 rotor R P M or less."
+        },
+        {
+          "id": "anti-collision-light",
+          "challenge": "Anti-Collision Light (Beacon)",
+          "response": "Off",
+          "kind": "action",
+          "condition": "Rotor stopped",
+          "speech": "Anti-collision light: Off after the rotor has stopped."
+        },
+        {
+          "id": "battery-master",
+          "challenge": "Battery / Master",
+          "response": "Off",
+          "kind": "action",
+          "speech": "Battery and master: Off."
         }
       ]
     }

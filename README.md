@@ -195,6 +195,10 @@ Vorlage. Ein produktives, versioniertes Paket wird ohne Source Maps gebaut mit:
 task release
 ```
 
+Der zugehörige Commit `chore(release): publish version X.Y.Z` wird mit einem
+annotierten Git-Tag `vX.Y.Z` markiert. Der Tag zeigt exakt auf den Commit, der
+`VERSION`, Paketmetadaten und Changelog für diesen Release festschreibt.
+
 Die aktuelle, zuvor erzeugte Version wird bei beendetem MSFS installiert mit:
 
 ```bash

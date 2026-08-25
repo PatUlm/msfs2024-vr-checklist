@@ -5,6 +5,11 @@ Changelog, and the project uses Semantic Versioning.
 
 ## [Unreleased]
 
+### Added
+
+- Added an annotated `vX.Y.Z` tag convention for every unambiguous SemVer
+  release commit and documented it in the contributor and release guidance.
+
 ## [0.1.5] - 2026-08-25
 
 ### Added

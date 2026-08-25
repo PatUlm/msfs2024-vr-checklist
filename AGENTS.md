@@ -26,6 +26,8 @@ gehören nach `docs/design-qa.md`.
   Checklistendaten, Anwendungscode und allgemeine Dokumentation gehören
   beispielsweise in getrennte Commits. Unmittelbar zugehörige Tests und
   Dokumentation dürfen bei der jeweiligen fachlichen Änderung bleiben.
+- Jeder eindeutige Release-Commit `chore(release): publish version X.Y.Z` erhält
+  einen annotierten Git-Tag `vX.Y.Z`, der exakt auf diesen Commit zeigt.
 - Commit und Push erfolgen nur auf ausdrücklichen Wunsch des Benutzers.
 
 ## Source of Truth und generierte Dateien

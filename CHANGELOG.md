@@ -5,6 +5,13 @@ Changelog, and the project uses Semantic Versioning.
 
 ## [Unreleased]
 
+## [0.1.3] - 2026-08-25
+
+### Added
+
+- Added an MH-60 APU indicator check after APU start and a separately
+  confirmable `AUTO PLT: Press` action after SAS and trim activation.
+
 ## [0.1.2] - 2026-08-24
 
 ### Changed

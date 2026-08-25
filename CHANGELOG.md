@@ -18,6 +18,11 @@ Changelog, and the project uses Semantic Versioning.
   lifecycle events delivered through `__FLOW_API__`, logging every event as a
   single compact line with its name, ID, and optional flight path.
 
+### Changed
+
+- Documented that the phase 2 companion app extends the existing documented
+  Communication API channel instead of adding a second transport to the EFB app.
+
 ### Fixed
 
 - Reset resident in-memory checklist progress on the `FltLoad` Flow API event.

@@ -76,6 +76,13 @@ Die Recherche prüft ausschließlich dokumentierte Wege:
 - SimConnect für die lokale Begleit-App,
 - Lebenszyklus, Verbindungsaufbau, Wiederverbindung und Fehlerverhalten.
 
+Die in Phase 1 eingeführte JavaScript-Flow-API nutzt bereits den dokumentierten
+Communication-API-Kanal `JS_LISTENER_COMM_BUS`. Phase 2 soll diese
+ereignisbasierte Infrastruktur für Voice- und SimConnect-Nachrichten erweitern,
+statt daneben einen zweiten proprietären Transport in der EFB-App aufzubauen.
+Die Begleit-App bleibt ein normaler SimConnect-Client; die Communication API
+bildet den dokumentierten Austausch zwischen SimConnect und JavaScript ab.
+
 Eine direkte, undokumentierte Verbindung der EFB-WebView zu `localhost` bleibt
 außerhalb der Zielarchitektur. Die Eingabeaktion `VALIDATE` wird nicht erneut
 implementiert, solange kein dokumentierter und im Custom-App-Kontext

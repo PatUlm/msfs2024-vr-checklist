@@ -5,6 +5,30 @@ Changelog, and the project uses Semantic Versioning.
 
 ## [Unreleased]
 
+## [0.1.5] - 2026-08-25
+
+### Added
+
+- Added the researched `Pitot Heat: On` step to the H125 engine-start flow
+  after generator and avionics activation.
+- Added a compact H125 engine-shutdown section with a 30-second cool-down and
+  rotor-brake timing derived from published AS350 B3e normal procedures.
+
+### Changed
+
+- Moved the H125 rotor-brake check into `Before Start` while preserving the
+  overall item sequence.
+- Removed direction arrows from the disabled `Start` and `Complete` navigation
+  placeholders.
+- Documented the successful MSFS runtime validation of the Airbus H125
+  checklist selection rule.
+
+### Fixed
+
+- Restricted progress restoration to a short, single-use VR display-mode
+  handoff so a new Free Flight with the same aircraft cannot inherit completed
+  items when MSFS misses the loading transition.
+
 ## [0.1.4] - 2026-08-25
 
 ### Added

@@ -69,13 +69,48 @@ Observed identities used by the match rules:
 
 ## Lifecycle regression follow-up
 
-Release 0.1.4 correctly rejected progress after a complete simulator restart,
-but a same-aircraft Free Flight restarted inside the same MSFS process restored
-all completed H125 items. The snapshot is now a single-use handoff created only
-for an observed VR display-mode transition and expires after 15 seconds. The
-next runtime pass must verify both directions of the VR round trip and a new
-Free Flight with the same aircraft; only the display-mode transition may retain
-progress.
+Release 0.1.5 still retained all completed H125 items after ending a Free
+Flight and starting another H125 Free Flight in the same MSFS process. Waiting
+longer than the 15-second display-mode handoff did not change the result. Code
+inspection confirms that the timeout only removes the `DataStore` handoff;
+the resident `ChecklistRuntimeState` has no timeout and remains completed when
+neither `GameState.loading` nor an aircraft identity change is observed.
+
+The first diagnostic build showed `GameModeManager.isInMenu` changing from
+`false` to `true` when leaving Free Flight and back to `false` when the next
+Free Flight started. The counter-test ESC → Settings → Save → Resume produced
+the identical `true`/`false` sequence. `isInMenu` is therefore explicitly
+rejected as a reset trigger because it cannot distinguish the Config menu from
+the end of a flight.
+
+The installed SDK 1.7.3, its `FlowAircraft` sample, and the official JavaScript
+Flow API documentation identify `__FLOW_API__` as the direct JavaScript path
+for global flight-flow events. Development build
+`0.1.5-dev.20260825194948` received the following same-aircraft transition in
+the resident Custom EFB while `GameStateProvider` stayed `ingame` and the H125
+identity remained unchanged:
+
+- `FlightEnd`
+- `FltLoad` / `FltLoaded` for `apron.flt`
+- `FltLoad` / `FltLoaded` for `CustomFlight.FLT`
+- `TeleportStart` / `TeleportDone`
+- `FlightStart`, followed by another `apron.flt` load and `RTCStart` / `RTCEnd`
+
+Each `FltLoad` reset is intentionally idempotent. The console confirmed the
+reset callback, and the user confirmed that the new H125 Free Flight started
+without the completed state from the previous flight. The original
+same-aircraft regression is therefore runtime-verified as fixed.
+
+The `FltLoad` reset was checked against the earlier `isInMenu` counter-test on
+build `0.1.5-dev.20260825200349`: ESC → Settings → Save → Resume kept every
+checked item and produced no reset. The Config menu therefore does not emit a
+`FltLoad` event, which is what disqualified `isInMenu` as a trigger.
+
+The non-VR → VR → non-VR round trip was accepted in the Phase 1 runtime pass
+and has not been re-verified against the Flow API listener. VR display-mode
+changes do not emit `FltLoad`, so the single-use `DataStore` handoff is expected
+to remain unaffected. A regression here is tracked as a new bug report rather
+than as a release blocker.
 
 ## Navigation endpoint placeholder follow-up
 

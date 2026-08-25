@@ -83,6 +83,11 @@ interface AircraftIdentity {
   title: string;
 }
 
+interface FlowEventPayload {
+  event: number;
+  flt_path?: string;
+}
+
 interface StoredChecklistProgress {
   schemaVersion: 3;
   checklistId: string;
@@ -98,12 +103,54 @@ interface StoredChecklistProgress {
 
 const AIRCRAFT_REFRESH_INTERVAL_MS = 10000;
 const CHECKLIST_PROGRESS_DATASTORE_KEY = "vr-checklist.progress.v3";
-const LEGACY_CHECKLIST_PROGRESS_DATASTORE_KEYS = [
+const OBSOLETE_DATASTORE_KEYS = [
   "vr-checklist.progress.v1",
   "vr-checklist.progress.v2",
+  "vr-checklist.lifecycle-diagnostics.v1",
 ];
 const DISPLAY_MODE_HANDOFF_MAX_AGE_MS = 15 * 1000;
 const SIMULATOR_SESSION_START_TOLERANCE_MS = 5000;
+const FLOW_API_EVENT_NAME = "__FLOW_API__";
+
+enum FlowEventId {
+  None = 0,
+  FltLoad = 1,
+  FltLoaded = 2,
+  TeleportStart = 3,
+  TeleportDone = 4,
+  BackOnTrackStart = 5,
+  BackOnTrackDone = 6,
+  SkipStart = 7,
+  SkipDone = 8,
+  BackToMainMenu = 9,
+  RTCStart = 10,
+  RTCEnd = 11,
+  ReplayStart = 12,
+  ReplayEnd = 13,
+  FlightStart = 14,
+  FlightEnd = 15,
+  PlaneCrash = 16,
+}
+
+const FLOW_EVENT_NAMES: Record<FlowEventId, string> = {
+  [FlowEventId.None]: "None",
+  [FlowEventId.FltLoad]: "FltLoad",
+  [FlowEventId.FltLoaded]: "FltLoaded",
+  [FlowEventId.TeleportStart]: "TeleportStart",
+  [FlowEventId.TeleportDone]: "TeleportDone",
+  [FlowEventId.BackOnTrackStart]: "BackOnTrackStart",
+  [FlowEventId.BackOnTrackDone]: "BackOnTrackDone",
+  [FlowEventId.SkipStart]: "SkipStart",
+  [FlowEventId.SkipDone]: "SkipDone",
+  [FlowEventId.BackToMainMenu]: "BackToMainMenu",
+  [FlowEventId.RTCStart]: "RTCStart",
+  [FlowEventId.RTCEnd]: "RTCEnd",
+  [FlowEventId.ReplayStart]: "ReplayStart",
+  [FlowEventId.ReplayEnd]: "ReplayEnd",
+  [FlowEventId.FlightStart]: "FlightStart",
+  [FlowEventId.FlightEnd]: "FlightEnd",
+  [FlowEventId.PlaneCrash]: "PlaneCrash",
+};
 
 const checklists = [
   airbusH125Data as Checklist,
@@ -253,6 +300,7 @@ class VRChecklistView extends AppView<RequiredProps<AppViewProps, "bus">> {
   );
   private readonly isVrMode = Subject.create(false);
   private readonly gameStateSubscription: Subscription;
+  private readonly flowApiListener: ViewListener.ViewListener;
 
   /*
    * External VALIDATE input is intentionally disabled for SDK 1.7.3.
@@ -274,15 +322,23 @@ class VRChecklistView extends AppView<RequiredProps<AppViewProps, "bus">> {
   private progressHandoffClearTimer: number | undefined;
   private isViewActive = false;
   private readonly handleViewportResize = (): void => this.refreshVrMode();
+  private readonly handleFlowEvent = (data: string): void => {
+    this.processFlowEvent(data);
+  };
 
   public constructor(props: RequiredProps<AppViewProps, "bus">) {
     super(props);
 
-    this.clearLegacyStoredChecklistProgress();
+    this.clearObsoleteStoredData();
     this.gameStateSubscription = GameStateProvider.get().sub(
       (gameState) => this.handleGameStateChanged(gameState),
       true
     );
+    this.flowApiListener = RegisterViewListener(
+      "JS_LISTENER_COMM_BUS",
+      () => console.info("[VR Checklist] Flow API listener registered.")
+    );
+    this.flowApiListener.on(FLOW_API_EVENT_NAME, this.handleFlowEvent);
   }
 
   private getSelectedRuntime(): ChecklistRuntimeState | undefined {
@@ -372,16 +428,13 @@ class VRChecklistView extends AppView<RequiredProps<AppViewProps, "bus">> {
     }
   }
 
-  private clearLegacyStoredChecklistProgress(): void {
+  private clearObsoleteStoredData(): void {
     try {
-      for (const key of LEGACY_CHECKLIST_PROGRESS_DATASTORE_KEYS) {
+      for (const key of OBSOLETE_DATASTORE_KEYS) {
         DataStore.remove(key);
       }
     } catch (error) {
-      console.error(
-        "[VR Checklist] Unable to clear legacy stored progress",
-        error
-      );
+      console.error("[VR Checklist] Unable to clear obsolete stored data", error);
     }
   }
 
@@ -629,13 +682,7 @@ class VRChecklistView extends AppView<RequiredProps<AppViewProps, "bus">> {
       gameState === GameState.loading &&
       previousGameState !== GameState.loading
     ) {
-      this.cancelAircraftRefresh();
-      this.resetAllChecklists();
-      this.clearStoredChecklistProgress();
-      this.currentAircraftIdentityKey = "";
-      this.selectedChecklistId.set(null);
-      this.updateAircraftDiagnostics({ atcModel: "", atcType: "", title: "" });
-      console.info("[VR Checklist] Flight loading detected; progress reset.");
+      this.resetForFlightTransition("GameState.loading");
       this.scheduleAircraftRefresh(AIRCRAFT_REFRESH_INTERVAL_MS);
       return;
     }
@@ -645,6 +692,61 @@ class VRChecklistView extends AppView<RequiredProps<AppViewProps, "bus">> {
         previousGameState === GameState.loading ? 300 : 0
       );
     }
+  }
+
+  private processFlowEvent(data: string): void {
+    let payload: FlowEventPayload;
+
+    try {
+      const candidate = JSON.parse(data) as Partial<FlowEventPayload>;
+
+      if (typeof candidate.event !== "number") {
+        throw new Error("Flow event payload has no numeric event ID.");
+      }
+
+      payload = {
+        event: candidate.event,
+        flt_path:
+          typeof candidate.flt_path === "string"
+            ? candidate.flt_path
+            : undefined,
+      };
+    } catch (error) {
+      console.error("[VR Checklist] Invalid Flow API event", data, error);
+      return;
+    }
+
+    const flowEventId = payload.event as FlowEventId;
+    const flowEventName = FLOW_EVENT_NAMES[flowEventId] ?? "Unknown";
+
+    console.info(
+      `[VR Checklist] Flow event ${flowEventName} (${flowEventId})` +
+        (payload.flt_path ? ` for ${payload.flt_path}` : "")
+    );
+
+    if (flowEventId === FlowEventId.FltLoad) {
+      this.resetForFlightTransition(`FlowApi.${flowEventName}`);
+      return;
+    }
+
+    if (
+      flowEventId === FlowEventId.FltLoaded ||
+      flowEventId === FlowEventId.FlightStart
+    ) {
+      this.scheduleAircraftRefresh(300);
+    }
+  }
+
+  private resetForFlightTransition(source: string): void {
+    this.cancelAircraftRefresh();
+    this.resetAllChecklists();
+    this.clearStoredChecklistProgress();
+    this.currentAircraftIdentityKey = "";
+    this.selectedChecklistId.set(null);
+    this.updateAircraftDiagnostics({ atcModel: "", atcType: "", title: "" });
+    console.info(
+      `[VR Checklist] Flight transition detected by ${source}; progress reset.`
+    );
   }
 
   private resetAllChecklists(): void {
@@ -969,6 +1071,8 @@ class VRChecklistView extends AppView<RequiredProps<AppViewProps, "bus">> {
     this.cancelAircraftRefresh();
 
     this.gameStateSubscription.destroy();
+    this.flowApiListener.off(FLOW_API_EVENT_NAME, this.handleFlowEvent);
+    this.flowApiListener.unregister();
     super.onClose();
   }
 

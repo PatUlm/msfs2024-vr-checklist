@@ -14,6 +14,17 @@ Changelog, and the project uses Semantic Versioning.
   support sources, and targeted runtime diagnostics instead of assumptions.
 - Added a repository rule requiring reported bugs to be fixed and verified or
   explicitly documented with reproduction details and a concrete follow-up.
+- Added a JavaScript Flow API listener for the documented global MSFS flight
+  lifecycle events delivered through `__FLOW_API__`, logging every event as a
+  single compact line with its name, ID, and optional flight path.
+
+### Fixed
+
+- Reset resident in-memory checklist progress on the `FltLoad` Flow API event.
+  A new Free Flight with the same aircraft no longer inherits completed items
+  while `GameStateProvider` stays `ingame` and the aircraft identity is
+  unchanged. The Config menu emits no `FltLoad`, so ESC, Settings, Save, and
+  Resume keep every checked item. Both cases were verified in MSFS.
 
 ## [0.1.5] - 2026-08-25
 

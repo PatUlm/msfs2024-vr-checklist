@@ -34,8 +34,47 @@ Laufzeittest zeigte anschließend, dass Release 0.1.4 bei einem neuen Free Fligh
 mit demselben H125 innerhalb desselben Simulatorprozesses trotzdem den alten
 Fortschritt wiederherstellte. Seitdem entsteht der Snapshot ausschließlich als
 15 Sekunden gültige Einmal-Übergabe bei einem erkannten Wechsel von `IS IN VR`.
-Der nächste Laufzeittest muss beide Richtungen des VR-Rundwegs sowie einen neuen
-Free Flight mit demselben Flugzeug abdecken.
+Release 0.1.5 behielt den Fortschritt in einem weiteren neuen H125-Free-Flight
+dennoch auch nach einer Wartezeit von mehr als 15 Sekunden. Damit ist bestätigt,
+dass nicht der abgelaufene `DataStore`-Snapshot, sondern der unbegrenzt lebende
+In-Memory-Zustand der residenten EFB-App erhalten bleibt, wenn weder
+`GameState.loading` noch eine neue Flugzeugidentität beobachtet wird.
+
+Die erste Lifecycle-Telemetrie zeigte beim Verlassen des Free Flight und beim
+Start des nächsten Fluges den Wechsel `GameModeManager.isInMenu` von `false`
+auf `true` und zurück. Der Gegenversuch ESC → Settings → Save → Resume erzeugte
+jedoch exakt dieselbe Sequenz. Dieser Menüstatus ist damit als Reset-Signal
+ausgeschlossen.
+
+SDK 1.7.3, das mitgelieferte `FlowAircraft`-Sample und die offizielle
+JavaScript-Flow-API dokumentieren stattdessen den globalen CommBus-Kanal
+`__FLOW_API__`. Die App lauscht über `JS_LISTENER_COMM_BUS` auf
+die Flow-Events und setzt bei `FltLoad` zurück. Nach der runtime-verifizierten
+Behebung protokolliert die Coherent-Ausgabe jedes Flow-Event nur noch als eine
+kompakte Zeile mit Eventname, Event-ID und optionalem FLT-Pfad. Der frühere
+Diagnosestand ergänzte zusätzlich Game-State und Flugzeugidentität; diese
+Angaben stehen weiterhin in den Meldungen zu Display-Mode, Flugzeugauswahl und
+Reset.
+
+Der Laufzeittest mit `0.1.5-dev.20260825194948` bestätigte trotz durchgehendem
+Game-State `ingame` und unveränderter H125-Identität diese Ereignisfolge:
+`FlightEnd`, `FltLoad`/`FltLoaded` für `apron.flt`,
+`FltLoad`/`FltLoaded` für `CustomFlight.FLT`, `TeleportStart`/`TeleportDone`
+und anschließend `FlightStart`. Der Reset wurde bei `FltLoad` ausgeführt, und
+der neue H125-Free-Flight begann ohne die erledigten Punkte des vorherigen
+Fluges. Mehrere `FltLoad`-Ereignisse innerhalb derselben Ladesequenz sind
+beobachtet und wegen des idempotenten Resets unkritisch.
+
+Der entscheidende Gegenversuch ist damit ebenfalls bestanden: ESC → Settings →
+Save → Resume behielt auf Build `0.1.5-dev.20260825200349` alle gesetzten Haken
+und löste keinen Reset aus. Das Config-Menü sendet also kein `FltLoad`, während
+der Flugwechsel es sendet. Genau diese Unterscheidung fehlte `isInMenu`.
+
+Der Rundweg Nicht-VR → VR → Nicht-VR wurde für die Flow-API-Umstellung nicht
+erneut geprüft. Er war in der Phase-1-Abnahme erfolgreich, und ein
+Display-Mode-Wechsel erzeugt kein `FltLoad`, sodass die Einmal-Übergabe im
+`DataStore` unberührt bleibt. Eine Abweichung wird als neuer Bugreport
+behandelt.
 
 ## Automatische Checklistenauswahl
 
@@ -76,13 +115,14 @@ Twist Grip auf `IDLE`, 30 Sekunden Cool-down, Pitot/Horn/Licht/Avionik,
 Starter und Generator aus, Rotorbremse bei höchstens 140 Rotor-RPM sowie Beacon
 und Battery/Master nach Rotorstillstand aus.
 
-Die EFB-API dokumentiert `onResume()` für jede Wiederaufnahme der Ansicht. Die
-offiziellen Ereignisse `AircraftLoaded` und `FlightLoaded` existieren dagegen
-in der nativen SimConnect-Schicht und stehen der reinen EFB-JavaScript-App nicht
-als dokumentierter Hook zur Verfügung. Eine zusätzliche WASM- oder externe
-SimConnect-Komponente wäre für diese Aufgabe unverhältnismäßig. Deshalb bleibt
-die Implementierung event-first und verwendet den Zehn-Sekunden-Timer nur als
-Fallback für den beobachteten residenten Free-Flight-Wechsel.
+Die EFB-API dokumentiert `onResume()` für jede Wiederaufnahme der Ansicht. Für
+den eigentlichen Flug-Lifecycle stellt MSFS 2024 darüber hinaus die globale
+[JavaScript Flow API](https://docs.flightsimulator.com/msfs2024/html/6_Programming_APIs/JavaScript/Flow_API/Flow_API.htm)
+bereit. Sie liefert unter anderem `FltLoad`, `FltLoaded`, `BackToMainMenu`,
+`FlightStart` und `FlightEnd` direkt über den Communication API Listener. Eine
+eigene WASM-Brücke ist für diese Events deshalb nicht erforderlich. Der
+Zehn-Sekunden-Timer bleibt ausschließlich als Fallback für die automatische
+Flugzeugauswahl bestehen, nicht als Erkennung eines neuen Fluges.
 
 ## Fehlende Checkliste
 

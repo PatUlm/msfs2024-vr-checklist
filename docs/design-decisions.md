@@ -76,6 +76,13 @@ Iteration stehen separat in `design-qa.md`.
   Hover-Sprache verwenden.
 - Beim Start beziehungsweise Laden eines neuen Fluges werden alle Items, der
   Fortschritt und die aktive Gruppe zurückgesetzt.
+- Der Reset ist bewusst an das Laden des nächsten Fluges (`FltLoad`) gebunden
+  und nicht an das Ende des vorherigen Fluges (`FlightEnd`). Wer das EFB nach
+  dem Beenden eines Fluges im Menü öffnet, sieht deshalb noch den Zustand der
+  letzten Session. Dieses Verhalten ist mit Release 0.1.6 in MSFS beobachtet
+  und ausdrücklich akzeptiert: Der Fortschritt bleibt bis zum tatsächlichen
+  Beginn des nächsten Fluges lesbar. Den Reset nicht ohne neue ausdrückliche
+  Entscheidung auf `FlightEnd` vorziehen.
 - Ein Wechsel zwischen VR und Nicht-VR ist kein neuer Flug und darf den
   Fortschritt nicht zurücksetzen. Da MSFS dabei den EFB-App-Kontext neu erzeugen
   kann, hält die App einen kurzlebigen Fortschritts-Snapshot im SDK-`DataStore`.
@@ -105,6 +112,10 @@ Iteration stehen separat in `design-qa.md`.
   einzelne, zentrierte und blasse Diagnosezeile `Model:`, gefolgt von
   `ATC MODEL`, `ATC TYPE` und `TITLE`. So kann eine neue Match-Regel anhand eines
   Screenshots oder Berichts ergänzt werden.
+- Die Zuordnung greift auch schon in der Free-Flight-Konfiguration, bevor ein
+  Flug gestartet ist. Mit Release 0.1.6 ist in MSFS bestätigt, dass ein dort
+  vorgenommener Flugzeugwechsel die passende Checkliste im bereits geöffneten
+  EFB nachzieht.
 - Ein unbekanntes Modell darf niemals versehentlich die DA42-Checkliste laden.
 
 ## Laufzeitperformance

@@ -112,6 +112,14 @@ changes do not emit `FltLoad`, so the single-use `DataStore` handoff is expected
 to remain unaffected. A regression here is tracked as a new bug report rather
 than as a release blocker.
 
+Release 0.1.6 confirmed two further runtime behaviors. Opening the app from the
+Free Flight configuration screen already selects the matching checklist, and
+changing the aircraft there updates the open EFB. The reset is also observably
+bound to the load of the next flight rather than to the end of the previous
+one: reopening the EFB in the menu after ending a flight still shows the
+previous session. Both results are accepted and recorded in
+`design-decisions.md`.
+
 ## Navigation endpoint placeholder follow-up
 
 The disabled `Start` and `Complete` navigation placeholders no longer render

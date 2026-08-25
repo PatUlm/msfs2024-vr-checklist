@@ -3,6 +3,16 @@
 Notable project changes are recorded here. The format follows Keep a
 Changelog, and the project uses Semantic Versioning.
 
+## [Unreleased]
+
+### Changed
+
+- Accepted and documented that the checklist reset is bound to the load of the
+  next flight rather than to the end of the previous one, so reopening the EFB
+  in the menu after a flight still shows the previous session.
+- Documented that checklist matching already works in the Free Flight
+  configuration screen and follows an aircraft change made there.
+
 ## [0.1.6] - 2026-08-25
 
 ### Added

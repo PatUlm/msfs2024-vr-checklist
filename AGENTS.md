@@ -10,6 +10,12 @@ gehören nach `docs/design-qa.md`.
   wechselt.
 - Prüfe vor Änderungen `git status --short` und erhalte alle bestehenden,
   insbesondere nicht zugehörigen Änderungen.
+- Ein vom Benutzer gemeldeter Bug ist standardmäßig ein Arbeitsauftrag. Er wird
+  entweder selbstständig untersucht, behoben und angemessen verifiziert oder,
+  wenn eine sofortige Bearbeitung bewusst nicht möglich ist, mit Reproduktion,
+  Auswirkung, aktuellem Kenntnisstand und nächstem Schritt dauerhaft in der
+  passenden Projektdokumentation für später festgehalten. Ein Bug bleibt nicht
+  ausschließlich als Gesprächsergebnis undokumentiert offen.
 - Vor UI-Arbeiten sind `docs/design-decisions.md` und
   `docs/design-qa.md` zu lesen. Ändere dokumentierte Designentscheidungen nicht
   stillschweigend.
@@ -29,6 +35,28 @@ gehören nach `docs/design-qa.md`.
 - Jeder eindeutige Release-Commit `chore(release): publish version X.Y.Z` erhält
   einen annotierten Git-Tag `vX.Y.Z`, der exakt auf diesen Commit zeigt.
 - Commit und Push erfolgen nur auf ausdrücklichen Wunsch des Benutzers.
+
+## MSFS-SDK-Recherche und Laufzeitnachweise
+
+- MSFS 2024, das EFB-SDK und Coherent GT werden nicht wie Standard-Web- oder
+  Desktop-Laufzeiten behandelt. Ihr Verhalten darf nicht aus allgemeinen
+  Browser-, React- oder Betriebssystem-Konventionen abgeleitet werden.
+- Vor einer Implementierung, die von MSFS-spezifischen APIs, Events, SimVars,
+  Lifecycle- oder Paketierungsdetails abhängt, sind das installierte SDK, die
+  offiziellen SDK-Unterlagen und die passenden SDK-Samples zu prüfen. Das
+  installierte SDK und seine Samples bleiben dabei strikt read-only.
+- Reichen Dokumentation und Samples nicht für eine eindeutige Aussage aus,
+  sind zusätzlich das offizielle MSFS-DevSupport-Forum und andere belastbare
+  Primärquellen nach dem konkreten Laufzeitverhalten zu durchsuchen. Annahmen
+  und Community-Vermutungen werden nicht als bestätigte API-Verträge behandelt.
+- Bleibt der tatsächliche Eventpfad unklar, wird vor der Produktivlogik ein
+  eng begrenztes diagnostisches Logging eingebaut. Der relevante Übergang wird
+  im Simulator reproduziert; empfangene Events, Reihenfolge und Payloads werden
+  dokumentiert. Erst danach wird das Reset-, Persistenz- oder Lifecycle-Verhalten
+  an einen im Custom-EFB-Kontext bestätigten Pfad gebunden.
+- Recherchequellen, Laufzeitnachweise und weiterhin offene Unsicherheiten werden
+  in der passenden dauerhaften Dokumentation beziehungsweise in
+  `docs/design-qa.md` festgehalten.
 
 ## Source of Truth und generierte Dateien
 

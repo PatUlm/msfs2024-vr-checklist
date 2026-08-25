@@ -9,6 +9,11 @@ Changelog, and the project uses Semantic Versioning.
 
 - Added an annotated `vX.Y.Z` tag convention for every unambiguous SemVer
   release commit and documented it in the contributor and release guidance.
+- Added a repository rule requiring MSFS-specific behavior to be verified
+  against the installed SDK, official documentation, SDK samples, developer
+  support sources, and targeted runtime diagnostics instead of assumptions.
+- Added a repository rule requiring reported bugs to be fixed and verified or
+  explicitly documented with reproduction details and a concrete follow-up.
 
 ## [0.1.5] - 2026-08-25
 

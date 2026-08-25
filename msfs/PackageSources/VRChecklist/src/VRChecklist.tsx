@@ -84,20 +84,25 @@ interface AircraftIdentity {
 }
 
 interface StoredChecklistProgress {
-  schemaVersion: 2;
+  schemaVersion: 3;
   checklistId: string;
   checklistRevision: string;
   aircraftIdentityKey: string;
   simulatorSessionStartedAt: number;
+  sourceVrMode: boolean;
+  targetVrMode: boolean;
   activeSectionIndex: number;
   completedItemKeys: string[];
   savedAt: number;
 }
 
 const AIRCRAFT_REFRESH_INTERVAL_MS = 10000;
-const CHECKLIST_PROGRESS_DATASTORE_KEY = "vr-checklist.progress.v2";
-const LEGACY_CHECKLIST_PROGRESS_DATASTORE_KEY = "vr-checklist.progress.v1";
-const CHECKLIST_PROGRESS_MAX_AGE_MS = 30 * 60 * 1000;
+const CHECKLIST_PROGRESS_DATASTORE_KEY = "vr-checklist.progress.v3";
+const LEGACY_CHECKLIST_PROGRESS_DATASTORE_KEYS = [
+  "vr-checklist.progress.v1",
+  "vr-checklist.progress.v2",
+];
+const DISPLAY_MODE_HANDOFF_MAX_AGE_MS = 15 * 1000;
 const SIMULATOR_SESSION_START_TOLERANCE_MS = 5000;
 
 const checklists = [
@@ -266,6 +271,7 @@ class VRChecklistView extends AppView<RequiredProps<AppViewProps, "bus">> {
   private currentAircraftIdentityKey = "";
   private currentVrMode: boolean | undefined;
   private aircraftRefreshTimer: number | undefined;
+  private progressHandoffClearTimer: number | undefined;
   private isViewActive = false;
   private readonly handleViewportResize = (): void => this.refreshVrMode();
 
@@ -322,7 +328,7 @@ class VRChecklistView extends AppView<RequiredProps<AppViewProps, "bus">> {
       }
 
       if (this.currentVrMode !== undefined) {
-        this.persistSelectedChecklistProgress();
+        this.persistSelectedChecklistProgress(isInVr);
       }
 
       this.currentVrMode = isInVr;
@@ -368,7 +374,9 @@ class VRChecklistView extends AppView<RequiredProps<AppViewProps, "bus">> {
 
   private clearLegacyStoredChecklistProgress(): void {
     try {
-      DataStore.remove(LEGACY_CHECKLIST_PROGRESS_DATASTORE_KEY);
+      for (const key of LEGACY_CHECKLIST_PROGRESS_DATASTORE_KEYS) {
+        DataStore.remove(key);
+      }
     } catch (error) {
       console.error(
         "[VR Checklist] Unable to clear legacy stored progress",
@@ -378,6 +386,8 @@ class VRChecklistView extends AppView<RequiredProps<AppViewProps, "bus">> {
   }
 
   private clearStoredChecklistProgress(): void {
+    this.cancelProgressHandoffClear();
+
     try {
       DataStore.remove(CHECKLIST_PROGRESS_DATASTORE_KEY);
     } catch (error) {
@@ -385,24 +395,43 @@ class VRChecklistView extends AppView<RequiredProps<AppViewProps, "bus">> {
     }
   }
 
-  private persistSelectedChecklistProgress(): void {
+  private cancelProgressHandoffClear(): void {
+    if (this.progressHandoffClearTimer !== undefined) {
+      window.clearTimeout(this.progressHandoffClearTimer);
+      this.progressHandoffClearTimer = undefined;
+    }
+  }
+
+  private scheduleProgressHandoffClear(): void {
+    this.cancelProgressHandoffClear();
+    this.progressHandoffClearTimer = window.setTimeout(() => {
+      this.progressHandoffClearTimer = undefined;
+      this.clearStoredChecklistProgress();
+    }, DISPLAY_MODE_HANDOFF_MAX_AGE_MS);
+  }
+
+  private persistSelectedChecklistProgress(targetVrMode: boolean): void {
     const runtime = this.getSelectedRuntime();
     const simulatorSessionStartedAt = this.readSimulatorSessionStartedAt();
 
     if (
       !runtime ||
       this.currentAircraftIdentityKey.length === 0 ||
-      simulatorSessionStartedAt === undefined
+      simulatorSessionStartedAt === undefined ||
+      this.currentVrMode === undefined ||
+      this.currentVrMode === targetVrMode
     ) {
       return;
     }
 
     const progress: StoredChecklistProgress = {
-      schemaVersion: 2,
+      schemaVersion: 3,
       checklistId: runtime.checklist.id,
       checklistRevision: runtime.checklist.revision,
       aircraftIdentityKey: this.currentAircraftIdentityKey,
       simulatorSessionStartedAt,
+      sourceVrMode: this.currentVrMode,
+      targetVrMode,
       activeSectionIndex: runtime.activeSectionIndex.get(),
       completedItemKeys: Array.from(runtime.itemStates.entries())
         .filter(([, state]) => state.get())
@@ -412,6 +441,7 @@ class VRChecklistView extends AppView<RequiredProps<AppViewProps, "bus">> {
 
     try {
       DataStore.set(CHECKLIST_PROGRESS_DATASTORE_KEY, JSON.stringify(progress));
+      this.scheduleProgressHandoffClear();
     } catch (error) {
       console.error("[VR Checklist] Unable to store progress", error);
     }
@@ -441,7 +471,7 @@ class VRChecklistView extends AppView<RequiredProps<AppViewProps, "bus">> {
         storedProgress
       ) as Partial<StoredChecklistProgress>;
       const isCompatible =
-        candidate.schemaVersion === 2 &&
+        candidate.schemaVersion === 3 &&
         candidate.checklistId === runtime.checklist.id &&
         candidate.checklistRevision === runtime.checklist.revision &&
         candidate.aircraftIdentityKey === aircraftIdentityKey &&
@@ -449,6 +479,10 @@ class VRChecklistView extends AppView<RequiredProps<AppViewProps, "bus">> {
         Math.abs(
           simulatorSessionStartedAt - candidate.simulatorSessionStartedAt
         ) <= SIMULATOR_SESSION_START_TOLERANCE_MS &&
+        typeof candidate.sourceVrMode === "boolean" &&
+        typeof candidate.targetVrMode === "boolean" &&
+        candidate.sourceVrMode !== candidate.targetVrMode &&
+        candidate.targetVrMode === this.currentVrMode &&
         typeof candidate.activeSectionIndex === "number" &&
         Array.isArray(candidate.completedItemKeys) &&
         candidate.completedItemKeys.every(
@@ -457,7 +491,7 @@ class VRChecklistView extends AppView<RequiredProps<AppViewProps, "bus">> {
         ) &&
         typeof candidate.savedAt === "number" &&
         Date.now() - candidate.savedAt >= 0 &&
-        Date.now() - candidate.savedAt <= CHECKLIST_PROGRESS_MAX_AGE_MS;
+        Date.now() - candidate.savedAt <= DISPLAY_MODE_HANDOFF_MAX_AGE_MS;
 
       if (!isCompatible) {
         this.clearStoredChecklistProgress();
@@ -475,11 +509,11 @@ class VRChecklistView extends AppView<RequiredProps<AppViewProps, "bus">> {
         Math.max(0, candidate.activeSectionIndex as number),
         runtime.checklist.sections.length - 1
       );
-      this.showSection(runtime, activeSectionIndex, false);
-      this.persistSelectedChecklistProgress();
+      this.showSection(runtime, activeSectionIndex);
+      this.clearStoredChecklistProgress();
       console.info(
         `[VR Checklist] Restored ${completedItemKeys.size} completed items ` +
-          `after EFB context reload.`
+          `after a VR display-mode transition.`
       );
       return true;
     } catch (error) {
@@ -543,7 +577,7 @@ class VRChecklistView extends AppView<RequiredProps<AppViewProps, "bus">> {
           this.restoreStoredChecklistProgress(runtime, aircraftIdentityKey);
 
         if (!progressRestored) {
-          this.showSection(runtime, 0, false);
+          this.showSection(runtime, 0);
         }
       }
 
@@ -638,8 +672,7 @@ class VRChecklistView extends AppView<RequiredProps<AppViewProps, "bus">> {
 
   private showSection(
     runtime: ChecklistRuntimeState,
-    sectionIndex: number,
-    persistProgress = true
+    sectionIndex: number
   ): void {
     if (sectionIndex < 0 || sectionIndex >= runtime.checklist.sections.length) {
       return;
@@ -650,13 +683,6 @@ class VRChecklistView extends AppView<RequiredProps<AppViewProps, "bus">> {
 
     if (sectionItems) {
       sectionItems.scrollTop = 0;
-    }
-
-    if (
-      persistProgress &&
-      this.selectedChecklistId.get() === runtime.checklist.id
-    ) {
-      this.persistSelectedChecklistProgress();
     }
   }
 
@@ -669,7 +695,6 @@ class VRChecklistView extends AppView<RequiredProps<AppViewProps, "bus">> {
     const checked = !itemState.get();
     itemState.set(checked);
     runtime.updateCompletedCount();
-    this.persistSelectedChecklistProgress();
 
     if (
       checked &&
@@ -712,9 +737,11 @@ class VRChecklistView extends AppView<RequiredProps<AppViewProps, "bus">> {
               : "No previous section"
           }
         >
-          <span class="section-navigation__arrow" aria-hidden="true">
-            ←
-          </span>
+          {previousSection ? (
+            <span class="section-navigation__arrow" aria-hidden="true">
+              ←
+            </span>
+          ) : null}
           <span class="section-navigation__text">
             {previousSection ? (
               <span class="section-navigation__number">
@@ -749,9 +776,11 @@ class VRChecklistView extends AppView<RequiredProps<AppViewProps, "bus">> {
               {nextSection?.title ?? "Complete"}
             </span>
           </span>
-          <span class="section-navigation__arrow" aria-hidden="true">
-            →
-          </span>
+          {nextSection ? (
+            <span class="section-navigation__arrow" aria-hidden="true">
+              →
+            </span>
+          ) : null}
         </Button>
       </nav>
     );
@@ -926,7 +955,7 @@ class VRChecklistView extends AppView<RequiredProps<AppViewProps, "bus">> {
   }
 
   public onPause(): void {
-    this.persistSelectedChecklistProgress();
+    this.refreshVrMode();
     this.isViewActive = false;
     window.removeEventListener("resize", this.handleViewportResize);
     this.cancelAircraftRefresh();
@@ -934,7 +963,7 @@ class VRChecklistView extends AppView<RequiredProps<AppViewProps, "bus">> {
   }
 
   public onClose(): void {
-    this.persistSelectedChecklistProgress();
+    this.refreshVrMode();
     this.isViewActive = false;
     window.removeEventListener("resize", this.handleViewportResize);
     this.cancelAircraftRefresh();

@@ -52,6 +52,11 @@ MSFS-Neustart abdecken.
 Die offiziellen SDK-Unterlagen beschreiben `ATC MODEL` als Modellnamen für ATC
 mit bis zu 128 Zeichen. Die DA42-Zuordnung ist im Simulator bestätigt; die
 Laufzeitwerte der G36 und MH-60 wurden erfasst und in Match-Regeln übernommen.
+Die erste H125-Regel verwendet den eindeutigen `H125`-Teil des sichtbaren
+Titels, weil das gestreamte Asobo-Paket seine `aircraft.cfg`-Werte nur in
+geschützten `fsarchive`-Dateien bereitstellt. Beim ersten H125-Flug muss die
+vollständige `Model:`-Diagnose festgehalten und die Regel damit bestätigt oder
+präzisiert werden.
 
 Die EFB-API dokumentiert `onResume()` für jede Wiederaufnahme der Ansicht. Die
 offiziellen Ereignisse `AircraftLoaded` und `FlightLoaded` existieren dagegen

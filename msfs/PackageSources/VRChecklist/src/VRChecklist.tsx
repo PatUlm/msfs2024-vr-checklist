@@ -21,6 +21,7 @@ import {
   Subscription,
   VNode,
 } from "@microsoft/msfs-sdk";
+import airbusH125Data from "../../../../checklists/data/airbus-h125.json";
 import beechcraftBonanzaG36Data from "../../../../checklists/data/beechcraft-bonanza-g36.json";
 import diamondDa42Data from "../../../../checklists/data/diamond-da42.json";
 import sikorskyMh60Data from "../../../../checklists/data/sikorsky-mh-60.json";
@@ -100,6 +101,7 @@ const CHECKLIST_PROGRESS_MAX_AGE_MS = 30 * 60 * 1000;
 const SIMULATOR_SESSION_START_TOLERANCE_MS = 5000;
 
 const checklists = [
+  airbusH125Data as Checklist,
   beechcraftBonanzaG36Data as Checklist,
   diamondDa42Data as Checklist,
   sikorskyMh60Data as Checklist,

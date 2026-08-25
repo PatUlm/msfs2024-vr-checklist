@@ -1,0 +1,118 @@
+{
+  "schemaVersion": 1,
+  "id": "airbus-h125",
+  "title": "Airbus H125",
+  "aircraft": {
+    "manufacturer": "Airbus Helicopters",
+    "model": "H125",
+    "msfsMatches": [
+      {
+        "title": { "contains": "H125" }
+      }
+    ]
+  },
+  "revision": "2026-08-25",
+  "sections": [
+    {
+      "id": "before-start",
+      "title": "Before Start",
+      "items": [
+        {
+          "id": "battery-master",
+          "challenge": "Battery / Master",
+          "response": "On",
+          "kind": "action",
+          "speech": "Battery and master: On."
+        },
+        {
+          "id": "fuel-pump",
+          "challenge": "Fuel Pump",
+          "response": "On",
+          "kind": "action"
+        },
+        {
+          "id": "anti-collision-light",
+          "challenge": "Anti-Collision Light (Beacon)",
+          "response": "On",
+          "kind": "action"
+        },
+        {
+          "id": "twist-grip",
+          "challenge": "Twist Grip",
+          "response": "IDLE",
+          "kind": "action"
+        }
+      ]
+    },
+    {
+      "id": "engine-start",
+      "title": "Engine Start",
+      "items": [
+        {
+          "id": "rotor-brake",
+          "challenge": "Rotor Brake",
+          "response": "Off",
+          "kind": "action"
+        },
+        {
+          "id": "starter-switch",
+          "challenge": "Starter Switch",
+          "response": "Start",
+          "kind": "action"
+        },
+        {
+          "id": "starter-switch-guard",
+          "challenge": "Starter Switch Guard",
+          "response": "Close",
+          "kind": "action"
+        },
+        {
+          "id": "engine-n1",
+          "challenge": "Engine N1",
+          "response": "≥ 60 %",
+          "kind": "verify",
+          "speech": "Engine N one: At least 60 percent."
+        },
+        {
+          "id": "fuel-pump",
+          "challenge": "Fuel Pump",
+          "response": "Off",
+          "kind": "action"
+        },
+        {
+          "id": "generator",
+          "challenge": "Generator",
+          "response": "On",
+          "kind": "action"
+        },
+        {
+          "id": "horn",
+          "challenge": "Horn",
+          "response": "On",
+          "kind": "action"
+        },
+        {
+          "id": "avionics",
+          "challenge": "Avionics",
+          "response": "On",
+          "kind": "action"
+        },
+        {
+          "id": "twist-grip",
+          "challenge": "Twist Grip",
+          "response": "IDLE → FLIGHT",
+          "kind": "action",
+          "speech": "Twist grip: Move from idle to flight."
+        },
+        {
+          "id": "landing-taxi-light",
+          "challenge": "Landing/Taxi Light",
+          "response": "On",
+          "kind": "action",
+          "condition": "Optional",
+          "speech": "Landing or taxi light: On, if desired."
+        }
+      ]
+    }
+  ]
+}

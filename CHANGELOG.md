@@ -7,12 +7,21 @@ Changelog, and the project uses Semantic Versioning.
 
 ### Added
 
+- Added `docs/msfs-sdk-reference.md` as the single technical reference for MSFS
+  SDK, EFB API, flight lifecycle, SimVar, Coherent GT, and packaging behavior.
+  It consolidates knowledge that was previously spread across the agent rules,
+  README, design documents, VR test notes, release notes, changelog, and source
+  comments, and marks every statement as runtime-verified, documented,
+  disproven, or open.
 - Added a minimal `CLAUDE.md` that forwards to `AGENTS.md`, so tools which do
   not read `AGENTS.md` automatically still load the repository work rules from
   the single existing source.
 
 ### Changed
 
+- Reduced the Coherent GT section of the agent rules to a pointer at the new SDK
+  reference so the runtime facts have a single home; the binding effect of its
+  documented don'ts and disproven paths is stated explicitly.
 - Accepted and documented that the checklist reset is bound to the load of the
   next flight rather than to the end of the previous one, so reopening the EFB
   in the menu after a flight still shows the previous session.

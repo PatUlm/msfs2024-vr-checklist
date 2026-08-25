@@ -246,6 +246,8 @@ werden soll.
 - `AGENTS.md`: dauerhafte Arbeitsregeln für neue Agent-Sessions
 - `CLAUDE.md`: Weiterleitung auf `AGENTS.md` für Werkzeuge, die diese Datei
   nicht automatisch laden
+- `docs/msfs-sdk-reference.md`: zentrale technische SDK-Referenz mit bestätigten
+  Fakten, Do's, Don'ts und nachgewiesen wirkungslosen Pfaden
 - `docs/design-decisions.md`: akzeptierte UI- und Interaktionsentscheidungen
 - `docs/design-qa.md`: visuelle Nachweise, Abweichungen und nächste Iteration
 - `docs/vr-test-preparation.md`: Scope und technische Vorarbeit für den ersten

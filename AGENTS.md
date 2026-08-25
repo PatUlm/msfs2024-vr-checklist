@@ -21,6 +21,10 @@ gehören nach `docs/design-qa.md`.
   stillschweigend.
 - Vor Arbeiten am nächsten VR-Teststand ist zusätzlich
   `docs/vr-test-preparation.md` zu lesen.
+- Vor Arbeiten, die vom MSFS-SDK, der EFB-API, dem Flug-Lifecycle, SimVars,
+  Coherent GT oder der Paketierung abhängen, ist `docs/msfs-sdk-reference.md` zu
+  lesen. Dort stehen die bestätigten Fakten, Do's und Don'ts einschließlich der
+  nachgewiesen wirkungslosen Pfade.
 - Vor Änderungen an Checklistendaten sind `checklists/data/README.md` und
   `checklists/data/style-guide.md` zu lesen.
 - Jede abgeschlossene Änderung muss im selben Arbeitsgang das englische
@@ -57,6 +61,9 @@ gehören nach `docs/design-qa.md`.
 - Recherchequellen, Laufzeitnachweise und weiterhin offene Unsicherheiten werden
   in der passenden dauerhaften Dokumentation beziehungsweise in
   `docs/design-qa.md` festgehalten.
+- Dauerhaft gültige SDK-Erkenntnisse gehören zusätzlich nach
+  `docs/msfs-sdk-reference.md`, damit sie nicht erneut über mehrere Dokumente
+  verstreuen. Jede Aussage dort trägt ihre Nachweisstufe.
 
 ## Source of Truth und generierte Dateien
 
@@ -100,33 +107,18 @@ gehören nach `docs/design-qa.md`.
 - Ein erfolgreicher Build beweist nicht, dass Coherent GT das Styling wie ein
   normaler Browser rendert. Visuelle Änderungen müssen im EFB geprüft werden.
 
-## Coherent-GT-Erfahrungen
+## MSFS-SDK- und Coherent-GT-Verhalten
 
-- Bevorzuge konservatives CSS: Flexbox, explizite Größen und Margins. Moderne
-  Sizing-Funktionen, `gap` und echtes `position: sticky` nur nach erfolgreicher
-  Prüfung im MSFS-Laufzeitsystem einsetzen.
-- Der sticky wirkende Bereich ist als feste Flex-Struktur umgesetzt: App-Header
-  und Abschnittsnavigation bleiben außerhalb des einzigen scrollenden
-  Item-Containers. Dieses Layout nicht wieder auf CSS Sticky umstellen.
-- Die globalen EFB-Styles für `Button`/`.abstract-button` können lokale
-  Hover-, Focus-, Selected- und Active-Regeln überschreiben. Alle Zustände mit
-  der tatsächlichen EFB-Komponente und in Coherent prüfen; bei Bedarf spezifische
-  Selektoren verwenden.
-- Für bedeutungstragende Symbole nicht auf Unicode-Fontabdeckung vertrauen. Das
-  X der Checkbox wird deshalb mit CSS-Pseudoelementen gezeichnet.
-- Die EFB-App kann einen Free-Flight-Wechsel resident überleben, ohne dass ein
-  zuverlässiges View- oder Game-State-Ereignis ankommt. Die Flugzeugkennung wird
-  deshalb zusätzlich alle zehn Sekunden geprüft, solange die Ansicht aktiv ist;
-  diese Absicherung nicht wieder durch eine reine Lifecycle-Lösung ersetzen.
-- Die Custom-App erhielt unter SDK 1.7.3 weder DOM-Enter, die Input-Stack-Aktionen
-  `KEY_EFB_VALID`/`KEY_MENU_WM_VALIDATE` noch
-  `AppView.routeGamepadInteractionEvent(BUTTON_A)`; letzteres wurde auch mit
-  einem physischen Gamepad geprüft. Es ist bewusst kein wirkungsloser
-  `VALIDATE`-Listener aktiv. Diesen erst nach einem dokumentierten und im
-  Custom-App-Kontext bestätigten Eingabepfad wieder einführen.
-- Screenshot-Vergleiche in Originalauflösung durchführen. Zwischenstände in
-  `tmp/` dürfen erst nach Auswahl als dauerhafte Referenz nach `docs/assets/`
-  übernommen werden.
+Die bestätigten Fakten, Do's und Don'ts zu Coherent GT, EFB-API, App-Lifecycle,
+SimVars, Flug-Lifecycle, Persistenz, Eingaben und Paketierung stehen vollständig
+in [`docs/msfs-sdk-reference.md`](docs/msfs-sdk-reference.md). Hier werden sie
+nicht dupliziert.
+
+- Die dort dokumentierten Don'ts und die als **[NEG]** markierten Pfade sind
+  verbindlich. Sie werden nicht ohne neuen, im Custom-EFB-Kontext geführten
+  Laufzeitnachweis erneut umgesetzt.
+- Als **[OPEN]** markierte Punkte sind vor einer darauf aufbauenden
+  Implementierung nachzuweisen.
 
 ## Produkt- und Qualitätsregeln
 

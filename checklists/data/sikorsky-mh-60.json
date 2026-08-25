@@ -12,7 +12,7 @@
       }
     ]
   },
-  "revision": "2026-08-23",
+  "revision": "2026-08-25",
   "sections": [
     {
       "id": "preparations",
@@ -78,6 +78,13 @@
           "response": "Start",
           "kind": "action",
           "speech": "A P U control: Start."
+        },
+        {
+          "id": "apu-indicator",
+          "challenge": "APU Indicator",
+          "response": "On",
+          "kind": "verify",
+          "speech": "A P U indicator: On."
         },
         {
           "id": "apu-generator",
@@ -157,6 +164,13 @@
           "response": "On",
           "kind": "action",
           "speech": "Trim: On."
+        },
+        {
+          "id": "auto-plt",
+          "challenge": "AUTO PLT",
+          "response": "Press",
+          "kind": "action",
+          "speech": "Autopilot: Press."
         }
       ]
     },

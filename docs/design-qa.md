@@ -67,13 +67,22 @@ Observed identities used by the match rules:
 - G36: `TT:ATCCOM.AC_MODEL_BE36.0.text |
   TT:ATCCOM.ATC_NAME_BEECHCFRAFT.0.text | Beechcraft Bonanza`
 
-## Remaining lifecycle regression check
+## Lifecycle regression follow-up
 
-A real new-flight loading transition must continue to clear visible progress
-and the transient progress snapshot. This behavior existed before the display
-mode persistence fix and remains explicit in the implementation, but should be
-rechecked when lifecycle/reset behavior is changed again. It does not block the
-accepted Phase 1 VR result.
+Release 0.1.4 correctly rejected progress after a complete simulator restart,
+but a same-aircraft Free Flight restarted inside the same MSFS process restored
+all completed H125 items. The snapshot is now a single-use handoff created only
+for an observed VR display-mode transition and expires after 15 seconds. The
+next runtime pass must verify both directions of the VR round trip and a new
+Free Flight with the same aircraft; only the display-mode transition may retain
+progress.
+
+## Navigation endpoint placeholder follow-up
+
+The disabled `Start` and `Complete` navigation placeholders no longer render
+direction arrows. Confirm both endpoints in non-VR and VR after the next
+Coherent reload; navigation buttons with real section targets must retain their
+arrows and alignment.
 
 ## Deferred VALIDATE input
 

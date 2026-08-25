@@ -30,8 +30,12 @@ Flug-Ladezustand oder Flugzeugwechsel löscht den Snapshot weiterhin. Nachdem
 ein Snapshot aus Release 0.1.2 auch einen zeitnahen vollständigen
 Simulatorneustart überlebt hatte, wurde er zusätzlich an den über
 `E:SIMULATION TIME` abgeleiteten Simulatorprozess gebunden. Der nächste
-Laufzeittest muss sowohl den VR-Rundweg als auch einen vollständigen
-MSFS-Neustart abdecken.
+Laufzeittest zeigte anschließend, dass Release 0.1.4 bei einem neuen Free Flight
+mit demselben H125 innerhalb desselben Simulatorprozesses trotzdem den alten
+Fortschritt wiederherstellte. Seitdem entsteht der Snapshot ausschließlich als
+15 Sekunden gültige Einmal-Übergabe bei einem erkannten Wechsel von `IS IN VR`.
+Der nächste Laufzeittest muss beide Richtungen des VR-Rundwegs sowie einen neuen
+Free Flight mit demselben Flugzeug abdecken.
 
 ## Automatische Checklistenauswahl
 
@@ -54,9 +58,23 @@ mit bis zu 128 Zeichen. Die DA42-Zuordnung ist im Simulator bestätigt; die
 Laufzeitwerte der G36 und MH-60 wurden erfasst und in Match-Regeln übernommen.
 Die erste H125-Regel verwendet den eindeutigen `H125`-Teil des sichtbaren
 Titels, weil das gestreamte Asobo-Paket seine `aircraft.cfg`-Werte nur in
-geschützten `fsarchive`-Dateien bereitstellt. Beim ersten H125-Flug muss die
-vollständige `Model:`-Diagnose festgehalten und die Regel damit bestätigt oder
-präzisiert werden.
+geschützten `fsarchive`-Dateien bereitstellt. Die automatische Auswahl der
+H125-Checkliste über diese Regel wurde am 2026-08-25 im MSFS-Laufzeitsystem
+bestätigt.
+
+Für den kompakten H125-Motorstart steht `Pitot Heat: On` nach Generator und
+Avionik sowie vor dem Übergang des Twist Grip auf `FLIGHT`. Diese Reihenfolge
+folgt der veröffentlichten
+[AS350/H125-Operatorcheckliste](https://aviapages.com/media/2022/03/14/Checklist_H125.pdf),
+die Pitot Heat nach Generator und Avionics/Instruments und vor Hydrauliktest und
+Flight-Stellung aufführt.
+
+Der kompakte H125-Shutdown spiegelt die zuvor verwendeten Bedienelemente und
+folgt dem veröffentlichten
+[AS350-B3e-Flight-Manual-Auszug](https://data.ntsb.gov/Docket/Document/docBLOB?FileExtension=.PDF&FileName=Excerpts+from+AS350+Flight+Manual%2C+Revisions+2+%26+3+-+Normal+Procedures-Master.PDF&ID=40431411):
+Twist Grip auf `IDLE`, 30 Sekunden Cool-down, Pitot/Horn/Licht/Avionik,
+Starter und Generator aus, Rotorbremse bei höchstens 140 Rotor-RPM sowie Beacon
+und Battery/Master nach Rotorstillstand aus.
 
 Die EFB-API dokumentiert `onResume()` für jede Wiederaufnahme der Ansicht. Die
 offiziellen Ereignisse `AircraftLoaded` und `FlightLoaded` existieren dagegen

@@ -36,7 +36,7 @@ Iteration stehen separat in `design-qa.md`.
   wie die Texte der Checklist-Items und bleiben dadurch in VR gleich gut lesbar.
 - Vor einem vorhandenen Gruppenziel steht dessen zweistellige Nummer in Blau.
   An den deaktivierten Listenenden bleiben stattdessen die unnummerierten
-  Platzhalter `Start` und `Complete` sichtbar.
+  Platzhalter `Start` und `Complete` ohne Richtungspfeil sichtbar.
 - Sind alle Items einer Gruppe erledigt, wechselt die App nach einer kurzen
   Bestätigungspause automatisch zur nächsten Gruppe.
 - App-Header, Gruppenname und Navigation bleiben stehen; ausschließlich die
@@ -79,11 +79,12 @@ Iteration stehen separat in `design-qa.md`.
 - Ein Wechsel zwischen VR und Nicht-VR ist kein neuer Flug und darf den
   Fortschritt nicht zurücksetzen. Da MSFS dabei den EFB-App-Kontext neu erzeugen
   kann, hält die App einen kurzlebigen Fortschritts-Snapshot im SDK-`DataStore`.
-  Er wird nur innerhalb desselben gestarteten Simulatorprozesses sowie für
-  dieselbe Flugzeugidentität und Checklistenrevision wiederhergestellt. Die
-  Prozesssitzung wird aus der aktiven Simulatordauer `E:SIMULATION TIME`
-  abgeleitet. Ein MSFS-Neustart, ein Ladezustand oder ein Flugzeugwechsel setzt
-  den Fortschritt immer zurück.
+  Dieser Snapshot ist eine höchstens 15 Sekunden gültige Einmal-Übergabe, die
+  ausschließlich bei einem tatsächlich erkannten Wechsel von `IS IN VR`
+  entsteht und nur im entgegengesetzten Darstellungsmodus wiederhergestellt
+  wird. Zusätzlich müssen Simulatorprozess, Flugzeugidentität und
+  Checklistenrevision übereinstimmen. Ein MSFS-Neustart, ein neuer Flug, ein
+  Ladezustand oder ein Flugzeugwechsel setzt den Fortschritt immer zurück.
 
 ## Flugzeugauswahl und Leerzustand
 

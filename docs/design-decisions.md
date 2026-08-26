@@ -150,6 +150,18 @@ Iteration stehen separat in `design-qa.md`.
   wird erst mit einem dokumentierten und in einer Custom-App bestätigten
   Eingabepfad oder über ein später bewusst definiertes eigenes externes Event
   umgesetzt.
+- Am 2026-08-26 ist entschieden, den zweiten Weg zu gehen: Das externe Ereignis
+  liefert eine lokale Windows-Begleit-App, die in Phase 2 genau dafür entsteht
+  und die Sprachausgabe aus Phase 3 später mitträgt. Sie erkennt einen
+  konfigurierbaren Tastendruck systemweit und sendet daraus eine
+  Bestätigungsnachricht über einen dokumentierten MSFS-Kanal. Der Kanal ist
+  bidirektional: Die EFB-App meldet ihren Stand zurück, damit die Begleit-App
+  Item und Fortschritt anzeigen kann und der Abschluss der Checkliste später die
+  Sprachausgabe auslöst. Details und Nachweispflicht stehen in
+  `phase-2-tech-stack-plan.md`; die Reihenfolge steht in `../ROADMAP.md`.
+- Die Bestätigungsnachricht enthält keinen Item-Index. Welches Item das erste
+  offene ist, entscheidet ausschließlich die EFB-App. Ohne laufende Begleit-App
+  bleibt die Checkliste unverändert vollständig bedienbar.
 - L- und B-Events werden nicht ohne nachgewiesene Zuordnung als Ersatz geraten.
 
 ## Versionsanzeige
@@ -196,6 +208,9 @@ Iteration stehen separat in `design-qa.md`.
 - Ein Reset oder das bloße Laden einer bereits leeren Checkliste darf diese
   Ansage nicht auslösen. Wird ein abgeschlossenes Item wieder geöffnet und die
   Checkliste danach erneut vervollständigt, ist eine neue Ansage zulässig.
+- Die Ansage entsteht in der Begleit-App und wird durch das eigene
+  Abschluss-Ereignis des Rückkanals ausgelöst. Die EFB-App entscheidet damit
+  weiterhin allein, wann die Checkliste vollständig erledigt ist.
 
 ## Referenzen
 

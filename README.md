@@ -27,7 +27,9 @@ Aktuell verfügbar:
 - Die MSFS-EFB-Aktion `VALIDATE` wird in SDK 1.7.3 nicht an diese Custom-App
   weitergereicht. Enter, Numpad Enter und ein physisches Gamepad wurden über
   DOM-, Input-Stack- und `AppView`-Interaction-Pfade ohne eingehenden Callback
-  getestet. Deshalb ist aktuell kein wirkungsloser Eingabe-Listener aktiv.
+  getestet. Deshalb ist aktuell kein wirkungsloser Eingabe-Listener aktiv. Die
+  schnelle Bestätigung entsteht stattdessen als eigenes externes Ereignis einer
+  lokalen Begleit-App in Phase 2; siehe [ROADMAP.md](ROADMAP.md).
 
 ## Entwicklungsmodell
 
@@ -254,7 +256,7 @@ werden soll.
   VR-Teststand
 - `docs/release.md`: reproduzierbarer Release- und Community2024-Installationsflow
 - `docs/phase-2-tech-stack-plan.md`: Research-, Entscheidungs- und PoC-Plan für
-  die lokale TTS-Begleit-App
+  die lokale Begleit-App aus Phase 2 und Phase 3
 - `docs/assets/`: versionierte, dauerhaft referenzierte Design-Screenshots
 
 ## Offizielle Referenzen

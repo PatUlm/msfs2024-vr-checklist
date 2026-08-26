@@ -32,6 +32,23 @@ Changelog, and the project uses Semantic Versioning.
   footer, and the clipboard interior stays transparent in the normal, hover,
   and selected app-list states.
 - Accepted the arrow-free `Start` and `Complete` navigation placeholders.
+- Reduced phase 2 to a working local Windows companion app: a global key press
+  checks off the first open item through a documented MSFS channel, and the
+  companion app shows the checklist state as a readable item and progress
+  display. The speech output moved out into the new phase 3, which reuses the
+  same companion app and the completion event of the same channel. The stack
+  decision is still made for both phases together, so a candidate that would
+  have to be replaced for phase 3 is not a valid recommendation.
+- Recorded the decision to implement the deferred sequential confirmation as the
+  project's own external event sent by the companion app, instead of waiting for
+  the MSFS `VALIDATE` action that SDK 1.7.3 does not deliver to a custom app.
+  The confirmation message carries no item index; the EFB app alone decides
+  which item is the first open one.
+- Downgraded the assumption that the Communication API bridges an
+  out-of-process SimConnect client and the JavaScript CommBus to an explicitly
+  unproven working assumption, and listed the candidate transports, the
+  evaluation criteria, and the runtime evidence required before any productive
+  logic depends on one.
 
 ## [0.1.6] - 2026-08-25
 

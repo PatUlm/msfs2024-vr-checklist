@@ -364,11 +364,20 @@ aus `atlasapp.js` und nicht aus dieser App.
   und ein Display-Mode-Wechsel erzeugt kein `FltLoad`, sodass die Einmal-Übergabe
   im `DataStore` unberührt bleiben sollte. Eine Abweichung wird als neuer
   Bugreport behandelt.
-- **[OPEN]** Der Rückkanal der Communication API zu einer lokalen Begleit-App
-  über SimConnect ist geplant, aber noch nicht implementiert oder verifiziert.
-  Grundlage bleibt der dokumentierte Kanal `JS_LISTENER_COMM_BUS`; eine direkte,
-  undokumentierte Verbindung der EFB-WebView zu `localhost` ist ausgeschlossen.
-  Siehe `phase-2-tech-stack-plan.md`.
+- **[OPEN]** Der bidirektionale Kanal zwischen EFB-App und einer lokalen
+  Begleit-App ist als Phase 2 geplant, aber weder implementiert noch
+  verifiziert. Auf der JavaScript-Seite bleibt der dokumentierte Kanal
+  `JS_LISTENER_COMM_BUS` die Grundlage. Nicht bestätigt ist, wie eine Nachricht
+  zwischen einem prozessexternen SimConnect-Client und diesem Kanal
+  transportiert wird. Die Aussage, die Communication API bilde diesen Übergang
+  ab, ist eine Arbeitsannahme und kein nachgewiesener API-Vertrag; Kandidaten,
+  Bewertungsauftrag und Nachweispflicht stehen in
+  `phase-2-tech-stack-plan.md`. Eine direkte, undokumentierte Verbindung der
+  EFB-WebView zu `localhost` ist ausgeschlossen.
+- **[OPEN]** Eine systemweite Tastenerkennung in der angemeldeten
+  Windows-Sitzung soll die Bestätigung des ersten offenen Items auslösen. Sie
+  ist ein bewusst eigenes externes Ereignis der Begleit-App und kein neuer
+  Versuch, die nicht erreichbare EFB-Aktion `VALIDATE` zu verwenden.
 - **[OPEN]** Ein Eingabepfad für `VALIDATE` in Custom-Apps existiert unter
   SDK 1.7.3 nicht; siehe oben.
 

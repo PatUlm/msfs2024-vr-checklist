@@ -7,6 +7,29 @@ Changelog, and the project uses Semantic Versioning.
 
 ### Added
 
+- Added `docs/phase-2-3-research.md` with the full technical research for phases
+  2 and 3: transport candidates between the EFB app and an external process, the
+  confirmation input path, the companion-app stack, text-to-speech models and
+  their licenses, the radio and intercom chain, Windows audio output, the
+  evaluation of BeyondATC as a building block, open-source prior art, and the
+  Visual-Studio-free toolchain. Every statement carries its evidence level.
+- Added `docs/adr/` with the documentation split between facts, research, and
+  decisions, plus the decisions taken on 2026-08-26 as an interim record until
+  the individual records are written.
+- Documented that MSFS 2024 exposes a documented bidirectional channel between
+  an out-of-process SimConnect client and the EFB app's JavaScript context since
+  SDK 1.6.4, so no WASM module is required, together with the client-side
+  constraints: the managed SimConnect wrapper cannot be loaded from modern .NET,
+  the native library exports the CommBus functions directly, and the SDK licence
+  does not clearly permit redistributing it.
+- Documented the previously untested in-simulator input path that intercepts a
+  named sim key event in JavaScript, including its semantics, the absence of an
+  unregister call, suitable unused key events, the confirmation that joystick
+  bindings trigger it, and the unresolved helicopter defect that makes a test
+  with the H125 and MH-60 mandatory.
+- Documented the cause of the earlier input failures: every `KEY_EFB_*` action
+  is tagged `norebind_kbmpad` in the SDK input database and therefore cannot be
+  bound to a key, mouse, or pad at all.
 - Added `docs/msfs-sdk-reference.md` as the single technical reference for MSFS
   SDK, EFB API, flight lifecycle, SimVar, Coherent GT, and packaging behavior.
   It consolidates knowledge that was previously spread across the agent rules,
@@ -32,23 +55,30 @@ Changelog, and the project uses Semantic Versioning.
   footer, and the clipboard interior stays transparent in the normal, hover,
   and selected app-list states.
 - Accepted the arrow-free `Start` and `Complete` navigation placeholders.
-- Reduced phase 2 to a working local Windows companion app: a global key press
-  checks off the first open item through a documented MSFS channel, and the
-  companion app shows the checklist state as a readable item and progress
-  display. The speech output moved out into the new phase 3, which reuses the
-  same companion app and the completion event of the same channel. The stack
-  decision is still made for both phases together, so a candidate that would
-  have to be replaced for phase 3 is not a valid recommendation.
-- Recorded the decision to implement the deferred sequential confirmation as the
-  project's own external event sent by the companion app, instead of waiting for
-  the MSFS `VALIDATE` action that SDK 1.7.3 does not deliver to a custom app.
-  The confirmation message carries no item index; the EFB app alone decides
-  which item is the first open one.
-- Downgraded the assumption that the Communication API bridges an
-  out-of-process SimConnect client and the JavaScript CommBus to an explicitly
-  unproven working assumption, and listed the candidate transports, the
-  evaluation criteria, and the runtime evidence required before any productive
-  logic depends on one.
+- Reduced phase 2 to the EFB app alone: a freely bindable, otherwise unused sim
+  key event is intercepted in the app itself and checks off the first open item,
+  so no Windows companion app is required to confirm an item. The companion app,
+  the return channel, and the progress display moved into phase 3, where they
+  are built together with the speech output because they share the same app and
+  the same completion event.
+- Recorded the decision to confirm items through a sim key event the user binds
+  in the MSFS control settings, instead of the MSFS `VALIDATE` action that
+  SDK 1.7.3 does not deliver to a custom app. The event is intercepted without
+  masking, and which item is the first open one is decided by the EFB app alone.
+  The path is still subject to a runtime proof that must include the H125 and
+  the MH-60.
+- Replaced the earlier working assumption about bridging an out-of-process
+  SimConnect client and the JavaScript CommBus with the documented API that has
+  existed since SDK 1.6.4, so no WASM module and no C++ toolchain are required,
+  and recorded the client-side constraints that come with it.
+- Chose .NET 10 with Avalonia for the companion app, with SimConnect bound
+  through the native exports rather than the managed wrapper, which cannot be
+  loaded from modern .NET at all.
+- Decided to render the speech output ahead of time and ship only audio files,
+  so neither a text-to-speech model nor a phonemizer becomes part of the
+  delivery, and recorded the versioning exception this creates for `assets/`.
+- Retired `docs/phase-2-tech-stack-plan.md` to a pointer at the three documents
+  that replace it, now that its research assignment is complete.
 
 ## [0.1.6] - 2026-08-25
 

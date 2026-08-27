@@ -46,131 +46,170 @@ Die automatische Flugzeugerkennung und ein eng begrenzter Fortschritts-Snapshot
 für VR-Moduswechsel wurden bereits in dieser Phase umgesetzt. PDF-Konvertierung,
 KI, Cloud-Dienste, TTS und komplexe Persistenz bleiben spätere Meilensteine.
 
-## Phase 2 – Begleit-App: Abhaken per Tastendruck und Fortschrittsanzeige
+## Phase 2 – Abhaken per Tastendruck in der EFB-App
 
-Status: **Geplant – Tech-Stack-Evaluation steht aus**
+Status: **Geplant – der Eingabepfad ist im Simulator nachzuweisen**
 
-Der verbindliche Research-first-Ablauf steht in
-[`docs/phase-2-tech-stack-plan.md`](docs/phase-2-tech-stack-plan.md). Vor der
-Technologieentscheidung und ihrer ausdrücklichen Freigabe wird kein
-Begleit-App-Code implementiert.
+Ziel: Ein Tastendruck oder ein HOTAS-Knopf hakt das erste noch offene Item ab,
+ohne dass der Nutzer in VR die Maus benutzen muss. **Diese Phase enthält keine
+Windows-App.** Der Tastendruck erreicht die EFB-App direkt.
 
-Die Recherche entscheidet den Stack für Phase 2, muss die Anforderungen von
-Phase 3 aber ausdrücklich mitbewerten. Eine Entscheidung, die nur für das
-Abhaken und die Anzeige passt und für die Sprachausgabe später gewechselt werden
-müsste, gilt als nicht bestanden.
+Grundlage ist [ADR 0002](docs/adr/0002-bestaetigungseingabe-in-sim-key-interception.md)
+und [ADR 0005](docs/adr/0005-phase-2-auf-die-efb-app-verkuerzen.md). Die
+technischen Belege stehen in
+[`docs/phase-2-3-research.md`](docs/phase-2-3-research.md), Abschnitt 2.
 
-Ziel: Eine funktionierende lokale Windows-Begleit-App. Ein Tastendruck hakt auch
-ohne fokussiertes EFB das erste noch offene Item ab, und die Begleit-App zeigt
-den aktuellen Checklistenstand als lesbare Anzeige. Sprachausgabe ist nicht Teil
-dieser Phase.
+Der Zuschnitt dieser Phase hängt an einem Laufzeitnachweis: Ein JS-Kontext in
+MSFS kann ein benanntes Sim-Key-Event abfangen und direkt in JavaScript
+empfangen. Belegt ist das für ein In-Game-Panel, nicht für eine EFB-App.
+**Fällt der Nachweis, wird Phase 2 neu geschnitten** und braucht dann doch eine
+Begleit-App mit eigener Eingabeerkennung.
+
+### Erster Arbeitsschritt: der Nachweis
+
+Vor jeder Produktivlogik wird ein eng begrenztes diagnostisches Logging
+eingebaut und im Simulator gefahren:
+
+- `KeyEventManager` aus dem bereits vendorten `@microsoft/msfs-sdk` verwenden,
+  `interceptKey("AUTOCOORD_ON", true)`, Treffer auf dem Event-Bus unter
+  `key_intercept` protokollieren.
+- Der Nutzer belegt die Aktion in den MSFS-Steuerungen **zweimal**: einmal mit
+  einer Taste, einmal mit einem HOTAS-Knopf.
+- Getestet wird mit einem Starrflügler **und zwingend mit H125 und MH-60** —
+  Asobo hat 2022 bestätigt, dass die Key-Interception in Hubschraubern nicht
+  feuerte, ohne dass ein Fix bestätigt wurde.
+- Zusätzlich geprüft werden der VR-Modus, der Wechsel VR ↔ Nicht-VR und ein
+  fokussiertes Textfeld in der EFB.
 
 ### Geplanter Funktionsumfang
 
-- Hinkanal: Die Begleit-App erkennt in der angemeldeten Windows-Sitzung einen
-  konfigurierbaren Tastendruck und sendet daraus eine Bestätigungsnachricht an
-  die EFB-App. Die App hakt genau das erste offene Item in
+- Die EFB-App fängt genau ein frei belegbares, in der Simulation ungenutztes
+  Sim-Key-Event ab und hakt daraufhin das erste offene Item in
   Checklist-Reihenfolge ab.
-- Rückkanal: Die EFB-App meldet jede relevante Zustandsänderung mit Checkliste,
-  Flugzeug, aktiver Gruppe, nächstem offenem Item und Fortschritt an die
-  Begleit-App.
-- Die Begleit-App stellt diesen Stand als lesbare Item- und
-  Fortschrittsanzeige dar, nicht als Logausgabe.
-- Der Übergang der Checkliste von unvollständig auf vollständig erledigt wird
-  als eigenes Ereignis über den Rückkanal gemeldet. Phase 2 zeigt es an;
-  Phase 3 verwendet genau dieses Ereignis als TTS-Auslöser.
-- Der Transport verwendet ausschließlich dokumentierte MSFS-Wege. Auf der
-  JavaScript-Seite ist das der in Phase 1 bereits genutzte
-  Communication-API-Kanal `JS_LISTENER_COMM_BUS`. Welcher dokumentierte Weg eine
-  Nachricht zwischen einem externen SimConnect-Client und diesem Kanal
-  transportiert, ist noch offen und ausdrücklich Teil der Recherche.
+- Das Event wird mit `passThrough = true` abgefangen, also **nicht maskiert**.
+  Es gibt keinen Unregister-Aufruf; eine nicht gesetzte Maske ist die einzige,
+  die sich nicht später rächt.
+- Die Belegung wählt der Nutzer selbst in den MSFS-Steuerungen — damit
+  funktioniert jedes Gerät, das MSFS kennt, einschließlich HOTAS und Yoke.
+- Ohne offenes Item, ohne zugeordnete Checkliste und ohne laufenden Flug bleibt
+  der Druck wirkungslos.
 - Die MSFS-EFB-Aktion `VALIDATE` wird nicht erneut implementiert; sie ist unter
-  SDK 1.7.3 nachweislich nicht erreichbar. Siehe
+  SDK 1.7.3 nachweislich nicht erreichbar. Die Ursache ist inzwischen belegt:
+  alle `KEY_EFB_*`-Actions tragen das Tag `norebind_kbmpad`. Siehe
   [`docs/msfs-sdk-reference.md`](docs/msfs-sdk-reference.md).
-- Eine direkte, undokumentierte Verbindung der EFB-WebView zu `localhost` bleibt
-  ausgeschlossen. Im EFB-Kontext entsteht kein lokaler Webserver.
-- Eine frei belegbare Taste für Joystick oder VR-Controller bleibt eine spätere
-  optionale Erweiterung derselben Bestätigungsnachricht.
 
 ### Abnahmekriterien
 
-- Der konfigurierte Tastendruck hakt bei nicht fokussiertem EFB und in VR genau
-  das erste offene Item ab und verändert nichts anderes.
-- Ohne offenes Item, ohne zugeordnete Checkliste und ohne laufenden Flug bleibt
-  der Tastendruck wirkungslos und erzeugt keinen Fehlerzustand.
+- Der belegte Tastendruck hakt in VR genau das erste offene Item ab und
+  verändert nichts anderes.
+- Derselbe Nachweis gelingt mit einem HOTAS-Knopf auf derselben Aktion.
+- Der Weg funktioniert in H125 und MH-60, nicht nur in einem Starrflügler.
+- Ohne offenes Item, ohne Checkliste und ohne laufenden Flug entsteht kein
+  Fehlerzustand.
+- Es entsteht kein Polling und keine messbare Belastung der MSFS-Framerate.
+- Der Wechsel zwischen VR und Nicht-VR sowie ein neuer Flug führen zu einem
+  definierten Zustand; die Registrierung wird dabei nachweislich wieder
+  hergestellt.
+- Die App erfährt ausschließlich, dass dieses eine Event ausgelöst wurde — sie
+  liest keine Tastatureingaben.
+
+## Phase 3 – Begleit-App mit Fortschrittsanzeige und Sprachausgabe
+
+Status: **Geplant – setzt eine abgenommene Phase 2 voraus**
+
+Ziel: Eine lokale Windows-Begleit-App zeigt den Checklistenstand als lesbare
+Item- und Fortschrittsanzeige und liest die Checklisteneinträge vor.
+Begleit-App, Rückkanal und Sprachausgabe entstehen gemeinsam, weil sie
+technisch zusammengehören — siehe
+[ADR 0005](docs/adr/0005-phase-2-auf-die-efb-app-verkuerzen.md).
+
+Der Stack ist entschieden: **.NET 10 mit Avalonia**, SimConnect per eigenem
+P/Invoke, NAudio für die Audioausgabe
+([ADR 0004](docs/adr/0004-stack-der-begleit-app.md)). Der Kanal ist der
+**CommBus über SimConnect**
+([ADR 0003](docs/adr/0003-transportkanal-commbus-ueber-simconnect.md)). Die
+Sprachausgabe wird **vorab gerendert**, nicht zur Laufzeit synthetisiert
+([ADR 0006](docs/adr/0006-tts-vorab-synthese.md)); die Dateien liegen unter
+`assets/` ([ADR 0007](docs/adr/0007-ablage-der-gerenderten-audiodateien.md)).
+Offen ist allein die Wahl der Stimme
+([ADR 0008](docs/adr/0008-stimme-und-tts-anbieter.md)).
+
+### Geplanter Funktionsumfang
+
+- Rückkanal: Die EFB-App meldet jede relevante Zustandsänderung mit Checkliste,
+  Flugzeug, aktiver Gruppe, nächstem offenem Item und Fortschritt an die
+  Begleit-App — ereignisgesteuert, nur bei Änderung und mit Ratenbegrenzung.
+- Die Begleit-App stellt diesen Stand als lesbare Item- und
+  Fortschrittsanzeige dar, nicht als Logausgabe. Dazu ein Tray-Icon und ein
+  Einstellungsfenster.
+- Der Übergang der Checkliste von unvollständig auf vollständig erledigt wird
+  als eigenes Ereignis über den Rückkanal gemeldet und löst die Ansage
+  `Checklist completed` aus.
+- Optionales Vorlesen des aktuellen Checklisteneintrags aus vorab gerenderten
+  Audiodateien.
+- Englisch als erste Sprache; weitere Sprachen sind nicht Teil dieses
+  Meilensteins.
+- Einfacher Ansagetext aus `<challenge>: <response>` mit optionalem
+  `speech`-Override für natürlich formulierte Sonderfälle. Beispiel:
+  `Flaps: Up, Alternative Short Field TO: Flaps: App (1)`
+- Klangprofile `Clean`, `Intercom` und `Radio`, ebenfalls vorab gerechnet.
+- Auswahl des Windows-Ausgabegeräts, damit die Ansage im VR-Headset landet.
+- Keine Mikrofonaufnahme und keine Spracherkennung.
+
+### Abnahmekriterien
+
 - Die Begleit-App zeigt Checkliste, aktive Gruppe, nächstes offenes Item und
   Fortschritt und zieht eine Änderung ohne merkbare Verzögerung nach.
 - Ohne laufende Begleit-App bleibt die EFB-App unverändert vollständig
-  bedienbar.
+  bedienbar, einschließlich des Abhakens aus Phase 2.
+- Ein aktivierter Sprachmodus liest den aktuellen Eintrag verständlich vor.
+- Die Ansage `Checklist completed` erfolgt genau einmal pro Übergang und nicht
+  nach einem Reset.
+- Die Ausgabe landet auf dem gewählten Gerät, während MSFS läuft, ohne dass
+  MSFS stummgeschaltet oder in eine kleinere Audiopuffer-Periode gezogen wird.
 - Beide Richtungen arbeiten ereignisgesteuert. Es entsteht kein Polling und
   keine messbare Belastung der MSFS-Framerate.
 - Neustart von MSFS, Flugwechsel und Neustart der Begleit-App in beliebiger
   Reihenfolge führen zu einem definierten Zustand ohne manuelles Aufräumen.
-- Der gewählte Stack deckt die Anforderungen von Phase 3 nachweislich ab, ohne
-  dass die Begleit-App dafür ersetzt werden muss.
+- Es findet keine Mikrofonaufnahme statt.
+- Geheimnisse sind weder im Quellpaket noch in den gebauten EFB-Dateien
+  enthalten.
+- Fehler und Verbindungsstatus werden dezent angezeigt, ohne die VR-Bedienung
+  zu stören.
 
-### Arbeitshypothese für die Begleit-App
+### Aufbau
 
 ```text
 Native EFB-App (TypeScript/TSX)
-        ⇅ JSON über einen dokumentierten MSFS-Kanal (Transportweg noch offen)
-          hin: Bestätigung – zurück: Checklistenstand und Abschluss
-Lokale Windows-Begleit-App mit SimConnect und globaler Tastenerkennung
-        ⇅ HTTPS (erst Phase 3)
-Optionaler TTS-Anbieter
-        → Audioausgabe im aktiven Windows-/VR-Audiogerät (erst Phase 3)
+        ⇅ JSON über den CommBus, SimConnect-Seite: CallCommBusEvent /
+          SubscribeToCommBusEvent
+          zurück: Checklistenstand und Abschlussereignis
+Lokale Windows-Begleit-App (.NET 10, Avalonia, SimConnect per P/Invoke)
+        → Audioausgabe aus vorab gerenderten Dateien auf das gewählte
+          Windows-/VR-Audiogerät
 ```
 
-Die Begleit-App bleibt ein normaler SimConnect-Client; C#/.NET ist dafür ein zu
-prüfender Ausgangskandidat und noch keine getroffene Stack-Entscheidung. Für
-Anzeige, Tastenerkennung und die späteren Audioausgaben wird eine kleine
-Tray-App in der angemeldeten Windows-Sitzung gegenüber einem echten
-Windows-Dienst bevorzugt, weil alle drei Aufgaben eine Benutzersitzung mit
-Fenster, Eingabe und Audiogerät benötigen. Die EFB-App und die Begleit-App
-kommunizieren ausschließlich über einen dokumentierten MSFS-Weg; welcher das
-ist, entscheidet die Recherche. Eine direkte, undokumentierte Verbindung aus dem
-EFB zu `localhost` ist nicht Grundlage des Designs.
+Die Begleit-App bleibt ein normaler SimConnect-Client und läuft als kleine
+Tray-App in der angemeldeten Windows-Sitzung, nicht als Windows-Dienst — Anzeige
+und Audiogerät brauchen eine Benutzersitzung. Eine direkte, undokumentierte
+Verbindung der EFB-WebView zu `localhost` bleibt ausgeschlossen; im EFB-Kontext
+entsteht kein lokaler Webserver.
 
 ### Offline- und Sicherheitsanforderungen
 
-Diese Anforderungen gelten für Phase 2 und Phase 3.
-
-- Die eigentliche Checklist-App funktioniert immer ohne Begleit-App und ohne Internet.
-- Bestätigungskanal und TTS sind optional und dürfen den normalen Checklist-Ablauf bei einem Fehler nicht blockieren.
-- Die globale Tastenerkennung reagiert ausschließlich auf die konfigurierte Taste; sie zeichnet keine Eingaben auf und protokolliert keine Tastenanschläge.
+- Die eigentliche Checklist-App funktioniert immer ohne Begleit-App und ohne
+  Internet.
+- Rückkanal und Sprachausgabe sind optional und dürfen den normalen
+  Checklist-Ablauf bei einem Fehler nicht blockieren.
 - API-Schlüssel werden niemals im EFB-Paket oder dessen JavaScript abgelegt.
-- Zugangsdaten verbleiben in der lokalen Begleit-App und werden nach Möglichkeit über den Windows Credential Manager geschützt.
-- Bereits erzeugte Audiodateien können lokal gecacht werden.
-- Für feste Checklistentexte wird geprüft, ob vorab generierte und mitgelieferte Audiodateien die bessere vollständig offlinefähige Lösung sind.
-- Der konkrete TTS-Anbieter wird erst nach einem Vergleich von Qualität, Latenz, Kosten, Lizenzbedingungen und API-Unterstützung ausgewählt.
-
-## Phase 3 – Sprachausgabe
-
-Status: **Geplant – setzt eine abgenommene Phase 2 voraus**
-
-Ziel: Checklisteneinträge und der Abschluss der Checkliste werden verständlich
-vorgelesen. Die Sprachausgabe entsteht in derselben Begleit-App und nutzt den in
-Phase 2 verifizierten Kanal; ein Technologiewechsel ist ausdrücklich nicht
-vorgesehen.
-
-### Geplanter Funktionsumfang
-
-- Optionales Vorlesen des aktuellen Checklisteneintrags per Text-to-Speech (TTS)
-- Einmalige Ansage `Checklist completed` beim Übergang auf vollständig erledigt, ausgelöst über das Abschluss-Ereignis aus Phase 2
-- Englisch als erste TTS-Sprache; weitere Sprachen sind nicht Teil des ersten TTS-Meilensteins
-- Einfacher TTS-Fallback aus `<challenge>: <response>` und optionaler `speech`-Override für natürlich formulierte Sonderfälle
-- Beispiel für einen vollständig formulierten `speech`-Override: `Flaps: Up, Alternative Short Field TO: Flaps: App (1)`
-- Klangprofile `Clean`, `Intercom` und `Radio` für die Ausgabe
-- Keine Mikrofonaufnahme und keine Spracherkennung erforderlich
-
-### Abnahmekriterien
-
-- Ein aktivierter TTS-Modus liest den aktuellen Checklisteneintrag verständlich vor.
-- Die Ansage `Checklist completed` erfolgt genau einmal pro Übergang und nicht nach einem Reset.
-- Es findet keine Mikrofonaufnahme statt.
-- Ohne Internet, API-Guthaben oder laufende Begleit-App bleibt die Checkliste vollständig bedienbar.
-- Geheimnisse sind weder im Quellpaket noch in den gebauten EFB-Dateien enthalten.
-- Fehler und Verbindungsstatus werden dezent angezeigt, ohne die VR-Bedienung zu stören.
+- Zugangsdaten verbleiben in der lokalen Begleit-App und werden über den
+  Windows Credential Manager geschützt.
+- Die ausgelieferte Begleit-App enthält kein TTS-Modell und keinen Phonemizer;
+  das Rendern ist ein Entwicklerschritt. Damit bleibt die Auslieferung frei von
+  Copyleft-Komponenten und vollständig offlinefähig.
+- Ein etwaiger TTS-Anbieter wird nur beim Vorab-Rendern kontaktiert, niemals zur
+  Flugzeit. Vor der Anbieterwahl ist zu klären, ob dessen Nutzungsbedingungen
+  die Weitergabe der erzeugten Audiodateien erlauben.
 
 ## Leitlinien für alle Meilensteine
 

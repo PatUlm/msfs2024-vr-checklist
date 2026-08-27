@@ -10,6 +10,10 @@ Geltungsbereich sind ausschließlich SDK-, Laufzeit- und Paketierungsfragen.
 Produktentscheidungen stehen weiter in `design-decisions.md`, offene visuelle
 Abweichungen in `design-qa.md`, der Release-Ablauf in `release.md`.
 
+Hier steht **was gilt**. Warum wir es wissen, welche Alternativen es gab und was
+gegen sie spricht, steht in [`phase-2-3-research.md`](phase-2-3-research.md);
+die daraus getroffenen Entscheidungen stehen in den ADRs unter `adr/`.
+
 ## Wie dieses Dokument zu lesen ist
 
 Jede Aussage trägt eine Nachweisstufe:
@@ -300,11 +304,172 @@ bestätigen. Unter SDK 1.7.3 erreichte in einer sichtbaren Custom-EFB-App
 Nebenbefund: **[RT]** Die Warnung zu bereits aktivierten Gamepad-Inputs stammt
 aus `atlasapp.js` und nicht aus dieser App.
 
+Die **Ursache** dieser Fehlschläge ist inzwischen belegt: **[SDK]** In
+`Tools/Setup_InputProfiles/action.actiondb` steht `KEY_EFB_VALID` im Context
+`EFB` mit dem Tag `norebind_kbmpad`. Alle 22 `KEY_EFB_*`-Actions tragen dieses
+Tag und sind damit für Tastatur, Maus und Pad **nicht belegbar**. Der
+`InputStackListener` konnte für diese Aktion also gar nicht feuern. Die
+`[NEG]`-Einträge sind damit erklärt, nicht nur beobachtet.
+
 - **DON'T:** L- oder B-Events ohne nachgewiesene Zuordnung als Ersatz raten.
 - **DON'T:** Auf Eingaben pollen.
 - **[OPEN]** Eine Wiederaufnahme setzt einen dokumentierten und im
   Custom-App-Kontext bestätigten Eingabepfad oder ein bewusst definiertes
   eigenes externes Event voraus.
+
+## Eingaben: der noch nicht geprüfte Kandidatenpfad
+
+Ein JS-Kontext in MSFS kann ein benanntes Sim-Key-Event abfangen und direkt in
+JavaScript empfangen. Der Pfad ist in einer Custom-EFB-App **noch nicht
+geprüft**; die Begründungen, Belege und der Testablauf stehen in
+[`phase-2-3-research.md`](phase-2-3-research.md), Abschnitt 2.
+
+- **[OSS]** Die API liegt bereits im Projekt: `KeyEventManager` in
+  `@microsoft/msfs-sdk` 2.1.1 (`msfssdk.js:2677` `RegisterViewListener('JS_LISTENER_KEYEVENT')`,
+  `:2630` `Coherent.call('INTERCEPT_KEY_EVENT', key, passThrough ? 0 : 1)`,
+  `:2596` `Coherent.on('keyIntercepted')`). Keine neue Abhängigkeit nötig.
+- **[OSS]** Semantik des zweiten Parameters: **`1` = abfangen und vor dem Sim
+  verschlucken**, **`0` = abfangen und durchreichen**. Die verbreitete Deutung
+  als register/unregister-Flag ist falsch.
+- **[OSS]** Payload `keyIntercepted(key, value1, value0, value2)` — die
+  Reihenfolge von `value0` und `value1` ist **vertauscht**. Kein Down/Up-Flag.
+- **[FORUM]** **Es gibt keinen Unregister-Aufruf.** Die Familie besteht nur aus
+  `INTERCEPT_KEY_EVENT` und `TRIGGER_KEY_EVENT`. Ein gesetzter Intercept gilt
+  bis zum Ende der View. **DO:** Nur maskieren, wenn es unvermeidbar ist.
+- **[FORUM]** Eine **Joystick- oder HOTAS-Belegung** derselben Aktion löst den
+  Intercept ebenfalls aus; der Pfad ist Gerät → Input Action → Key Event.
+- **[NEG]** **`SimConnect_TransmitClientEvent` umgeht die JS-Interception.**
+  Asobo (FlyingRaccoon, 2024-02-27): der Aufruf „will bypass JS and Input Event
+  interception and call the sim event directly". Eine externe App kann die
+  EFB-App über Key-Events also **nicht** erreichen. Dasselbe gilt für
+  `trigger_key_event` und `execute_calculator_code` der Gauge-API.
+- **[SDK]** Frei belegbare Kandidaten haben in `action.actiondb` ein leeres
+  `TT_Tag`. Geeignet: `AUTOCOORD_ON`/`_OFF`/`_SET` (laut Doku „Not used in the
+  simulation"; **nicht** `AUTOCOORD_TOGGLE`, das invertiert die Y-Achse) und
+  `EXTERNAL_SYSTEM_TOGGLE`. `ATC_MENU_0` ist durch das ausgelieferte
+  BeyondATC-Toolbar-Paket maskiert und damit unbrauchbar.
+- **[DOC]** Die Doku-Seite `JS_LISTENER_KEYEVENT` existiert, ist aber „Work In
+  Progress" mit leeren Parameter- und Beschreibungsspalten. Der Mechanismus ist
+  **benannt, aber nicht als API-Vertrag zugesagt**.
+- **[OPEN]** Feuert `keyIntercepted` in einer **EFB-App**? Belegt ist es nur für
+  ein `InGamePanel`.
+- **[OPEN]** **Hubschrauber.** Asobo hat 2022 bestätigt, dass
+  `INTERCEPT_KEY_EVENT` in Hubschraubern nicht feuerte („we can confirm there's
+  an issue on our side"). Es gibt keine Fix-Bestätigung und keinen
+  MSFS-2024-Datenpunkt. **DO:** Jeden Test dieses Pfads zwingend auch mit H125
+  und MH-60 fahren, nicht nur mit einem Starrflügler.
+- **[OPEN]** Verhalten nach dem VR-Wechsel, der den App-Kontext neu erzeugt —
+  Intercepts müssen dann vermutlich neu gesetzt werden.
+
+Der offiziell für EFB gedachte `InputStackListener`
+(`JS_LISTENER_INPUT_STACK`, `addInputAction`) bleibt daneben nutzbar, aber nur
+für die fest verdrahteten `KEY_EFB_*`-Gamepad-Actions; eine freie Tastenwahl ist
+darüber wegen `norebind_kbmpad` nicht möglich. Die ältere `InputsListener`-Variante
+(`JS_LISTENER_INPUTS`, `ADD_INPUT_WATCHER`) ist im Typing `@deprecated`.
+
+## Kommunikationskanal zu einer externen Anwendung
+
+Der Transportweg zwischen einem prozessexternen SimConnect-Client und dem
+JavaScript-Kontext der EFB-App ist **dokumentiert vorhanden** und braucht kein
+WASM-Modul. Kandidatenvergleich, Risiken und die noch offenen Nachweise stehen
+in [`phase-2-3-research.md`](phase-2-3-research.md), Abschnitt 1.
+
+- **[SDK]** SimConnect hat die CommBus-Funktionen:
+  `SimConnect_CallCommBusEvent`, `SimConnect_SubscribeToCommBusEvent`,
+  `SimConnect_UnsubscribeFromCommBusEvent` in
+  `SimConnect SDK/include/SimConnect.h:1130-1132`;
+  `SIMCONNECT_COMM_BUS_BROADCAST_TO_JS = 1<<0` bei `:438-445`;
+  `SIMCONNECT_RECV_COMM_BUS` bei `:997-1001`. Eingeführt mit SDK 1.6.4
+  („Added possibility to use CommBus with Simconnect"), in 1.7.3 enthalten.
+- **[SAMPLE]** Vollständiger bidirektionaler Client:
+  `Samples/VisualStudio/SimConnectSamples/CommBus/CommBus.cpp`, JS-Gegenstück im
+  `WasmAircraft`-Sample.
+- **[DOC]** Der Eventname muss auf der SimConnect-Seite **nicht** vorab
+  registriert werden. Nachrichten in Richtung Client kommen **gechunkt** über
+  `dwEntryNumber`/`dwOutOf`; die Reassembly ist Pflicht.
+- **[RT]** Der CommBus ist **nicht paket- oder view-lokal**: Unsere EFB-App
+  empfängt über `RegisterViewListener("JS_LISTENER_COMM_BUS")` Flow-API-Events
+  unter `__FLOW_API__`, die aus dem Sim-Kern und damit von außerhalb unseres
+  Pakets stammen (`VRChecklist.tsx:337-341`).
+- **[OSS]** `node-simconnect` 4.2.0 (LGPL-3.0-or-later) implementiert die
+  CommBus-Pakete in reinem TypeScript über die Named Pipe, ohne `SimConnect.dll`
+  und ohne Compiler. Die Aufrufe sind auf `Protocol.SunRise` gegated, also
+  MSFS 2024 exklusiv.
+- **[DOC]** Es gibt **keine** Typisierung: „CommBus" kommt in
+  `@microsoft/msfs-sdk` 2.1.1 und 2.3.3, in `@microsoft/msfs-types` 1.14.6 und
+  in `@efb/efb-api` 1.0.3 nicht vor. Anbindung per eigener Ambient-Deklaration.
+- **[DOC]** Known Issue: Bei **pausierter Simulation** laufen WASM und
+  SimConnect weiter, **JavaScript nicht**. Events an JS werden gequeued und erst
+  beim Fortsetzen verarbeitet; bei Stau ist ein Freeze möglich. **DO:** Der
+  Rückkanal sendet nur bei Zustandsänderung und mit Ratenbegrenzung.
+- **[DOC]** SDK 1.7.3 enthält den Fix für „rare random deadlocks when using the
+  CommBus API" — die API hatte Deadlock-Fehler.
+- **[NEG]** Client Data Areas allein erreichen den EFB-Kontext **nicht**; es gibt
+  keine JS-API dafür. Nur zusammen mit einem WASM-Modul nutzbar.
+- **[NEG]** LVars als Kanal erfordern auf der SimConnect-Seite periodische
+  Requests, also Polling; durch die Projektregeln ausgeschlossen. Ein externer
+  Client kann auch keinen H-Event direkt senden.
+
+Zur **Client-Seite** dieses Kanals:
+
+- **[SDK]** Die native `SimConnect.dll` exportiert 117 undekorierte
+  `extern "C"`-Funktionen, einschließlich aller sechs Client-Data-Funktionen und
+  der drei CommBus-Funktionen. P/Invoke oder FFI ist damit unproblematisch; der
+  Managed-Wrapper wird nicht gebraucht.
+- **[NEG]** `Microsoft.FlightSimulator.SimConnect.dll` ist unter .NET 8, 9 und
+  10 **nicht ladbar**. PE-Analyse der SDK-1.7.3-Datei: COR20-Flags `0x10`
+  (`ILONLY=false`, `NATIVE_ENTRYPOINT=true`), Section `.nep`, Imports
+  `mscoree.dll` und `VCRUNTIME140.dll`, Target `.NETFramework 4.6.1`. Es ist
+  eine Mixed-Mode-C++/CLI-Assembly; NativeAOT schließt C++/CLI ausdrücklich aus.
+- **[DOC]** Der **MSFS-SDK-EULA** („MS Flight Simulator SDK EULA (11/2019)",
+  im installierten SDK) verbietet in §2(e) „share, publish, distribute, or lend
+  the Software (except for any distributable code, subject to the terms above)".
+  „Distributable code" wird nicht definiert, „SimConnect" kommt im EULA nicht
+  vor. Gegenläufig liefert das SDK `SimConnect SDK/installer/SimConnect.msi`
+  mit. **DON'T:** Die `SimConnect.dll` ohne geklärte Rechtslage in ein eigenes
+  Auslieferungspaket legen. **DO:** Entweder den Nutzer die mitgelieferte
+  `SimConnect.msi` installieren lassen oder eine Bindung verwenden, die die DLL
+  nicht braucht.
+- **[DOC]** Randnotiz: §1(g) desselben EULA verbietet die Nutzung des SDK für
+  „AI or machine learning".
+
+Zum **localhost-Weg** (`WebSocket` oder `fetch` aus dem Coherent-GT-JS):
+
+- **[SHIP]** Er funktioniert empirisch, auch im EFB-Kontext — das ausgelieferte
+  Paket `mamudesign-efb-animatelifts` ruft `fetch("http://localhost:8080/")`
+  direkt aus einer EFB-App auf; BeyondATC und FlyByWire nutzen WebSockets aus
+  In-Sim-JS.
+- **[DOC]** Er ist **nirgends dokumentiert**: „WebSocket" kommt im gesamten SDK
+  1.7.3 und in der SDK-Doku nicht vor, ebenso keine CSP-, CORS- oder
+  Whitelist-Angabe. Die einzige dokumentierte Netzwerk-API (WASM) ist
+  ausdrücklich auf HTTPS beschränkt und kann localhost gerade nicht.
+- **[FORUM]** Asobo hat zwei Coherent-GT-Fehler bestätigt: „Websockets not being
+  cleaned up" (Fix in SU10) und **„Multiple WebSocket creation in JS causes
+  CTD"** — Absturz in `CoherentUIGT.dll` ab etwa 60 bis 100 Sockets. **Ein
+  leckender Reconnect-Loop kann den Simulator zum Absturz bringen.**
+- Die Projektregel „keine undokumentierte localhost-Verbindung aus der
+  EFB-WebView, kein lokaler Webserver im EFB-Kontext" bleibt bis zu einer
+  ausdrücklichen Gegenentscheidung in Kraft.
+
+## Werkzeugkette: WASM ohne Visual Studio
+
+Nur relevant, falls je ein eigenes WASM-Modul gebraucht wird.
+
+- **[SDK]** Der Compiler liegt im SDK: `WASM/llvm/bin/{clang-cl.exe,
+  wasm-ld.exe, llvm-ar.exe}` plus `WASM/wasi-sysroot/` und
+  `WASM/WasmVersions/MSFS_WasmVersions.a`. `clang-cl.exe` meldet
+  `clang version 15.0.1` aus Asobos öffentlichem LLVM-Fork.
+- **[RT]** Ein SDK-Sample wurde aus WSL2 ohne Visual Studio, ohne MSVC und ohne
+  MSBuild zu einer `.wasm` kompiliert und gelinkt. `-fms-extensions` ist
+  zwingend, sonst scheitert `MSFS_WindowsTypes.h:67` an `__int64`. Die Flags
+  stehen in [`phase-2-3-research.md`](phase-2-3-research.md), Abschnitt 8.
+- **[OPEN]** Ob ein so gebautes Modul im Simulator **lädt**, ist ungeprüft; die
+  Referenz-`.wasm` des Samples ist deutlich größer.
+- **[DOC]** `fspackagetool.exe` und der Project Editor **kompilieren kein
+  WASM**; sie kopieren nur das fertige Modul und bauen `layout.json`.
+- **[SHIP]** Ein Standalone-WASM-Paket ist zulässig und real:
+  `Packages/Community/mobiflight-event-module/` besteht nur aus
+  `manifest.json`, `layout.json` und `modules/*.wasm`.
 
 ## Coherent GT: Rendering und CSS
 
@@ -365,19 +530,22 @@ aus `atlasapp.js` und nicht aus dieser App.
   im `DataStore` unberührt bleiben sollte. Eine Abweichung wird als neuer
   Bugreport behandelt.
 - **[OPEN]** Der bidirektionale Kanal zwischen EFB-App und einer lokalen
-  Begleit-App ist als Phase 2 geplant, aber weder implementiert noch
-  verifiziert. Auf der JavaScript-Seite bleibt der dokumentierte Kanal
-  `JS_LISTENER_COMM_BUS` die Grundlage. Nicht bestätigt ist, wie eine Nachricht
-  zwischen einem prozessexternen SimConnect-Client und diesem Kanal
-  transportiert wird. Die Aussage, die Communication API bilde diesen Übergang
-  ab, ist eine Arbeitsannahme und kein nachgewiesener API-Vertrag; Kandidaten,
-  Bewertungsauftrag und Nachweispflicht stehen in
-  `phase-2-tech-stack-plan.md`. Eine direkte, undokumentierte Verbindung der
-  EFB-WebView zu `localhost` ist ausgeschlossen.
-- **[OPEN]** Eine systemweite Tastenerkennung in der angemeldeten
-  Windows-Sitzung soll die Bestätigung des ersten offenen Items auslösen. Sie
-  ist ein bewusst eigenes externes Ereignis der Begleit-App und kein neuer
-  Versuch, die nicht erreichbare EFB-Aktion `VALIDATE` zu verwenden.
+  Begleit-App ist als Phase 3 geplant, aber weder implementiert noch
+  verifiziert. Der **Transportweg ist inzwischen dokumentiert belegt** und
+  braucht kein WASM-Modul; die Fakten stehen oben unter
+  „Kommunikationskanal zu einer externen Anwendung", die Kandidatenbewertung in
+  `phase-2-3-research.md`. Offen bleiben vier Nachweise: ob ein selbst benannter
+  CommBus-Event von SimConnect in der EFB-App ankommt, wie die EFB-App
+  zurücksendet, die maximale Nutzlast, und die Lebensdauer der Registrierung bei
+  `AppBootMode.COLD` mit `AppSuspendMode.SLEEP` — vor dem ersten Öffnen der App
+  existiert derzeit **kein** Empfänger.
+- **[OPEN]** Die Bestätigung des ersten offenen Items soll durch ein bewusst
+  eigenes Ereignis ausgelöst werden, nicht durch die nicht erreichbare
+  EFB-Aktion `VALIDATE`. Als erster Kandidat wird der In-Sim-Weg über
+  `INTERCEPT_KEY_EVENT` geprüft (siehe oben); erst wenn der fällt, kommt eine
+  systemweite Erkennung in der Begleit-App in Betracht, dann vorzugsweise
+  DirectInput auf einen HOTAS-Knopf mit `DISCL_BACKGROUND` statt eines
+  Tastaturhooks.
 - **[OPEN]** Ein Eingabepfad für `VALIDATE` in Custom-Apps existiert unter
   SDK 1.7.3 nicht; siehe oben.
 

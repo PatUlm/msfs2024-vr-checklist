@@ -150,18 +150,25 @@ Iteration stehen separat in `design-qa.md`.
   wird erst mit einem dokumentierten und in einer Custom-App bestätigten
   Eingabepfad oder über ein später bewusst definiertes eigenes externes Event
   umgesetzt.
-- Am 2026-08-26 ist entschieden, den zweiten Weg zu gehen: Das externe Ereignis
-  liefert eine lokale Windows-Begleit-App, die in Phase 2 genau dafür entsteht
-  und die Sprachausgabe aus Phase 3 später mitträgt. Sie erkennt einen
-  konfigurierbaren Tastendruck systemweit und sendet daraus eine
-  Bestätigungsnachricht über einen dokumentierten MSFS-Kanal. Der Kanal ist
-  bidirektional: Die EFB-App meldet ihren Stand zurück, damit die Begleit-App
-  Item und Fortschritt anzeigen kann und der Abschluss der Checkliste später die
-  Sprachausgabe auslöst. Details und Nachweispflicht stehen in
-  `phase-2-tech-stack-plan.md`; die Reihenfolge steht in `../ROADMAP.md`.
-- Die Bestätigungsnachricht enthält keinen Item-Index. Welches Item das erste
-  offene ist, entscheidet ausschließlich die EFB-App. Ohne laufende Begleit-App
-  bleibt die Checkliste unverändert vollständig bedienbar.
+- Die Ursache der Fehlschläge ist seit dem 2026-08-26 belegt: Alle
+  `KEY_EFB_*`-Aktionen tragen in `action.actiondb` das Tag `norebind_kbmpad` und
+  sind für Tastatur, Maus und Pad nicht belegbar. Der Weg über den EFB-Input-Stack
+  konnte für `KEY_EFB_VALID` also nie funktionieren.
+- Am 2026-08-26 ist entschieden, die schnelle Bestätigung **in der EFB-App
+  selbst** zu empfangen: Sie fängt ein frei belegbares, in der Simulation
+  ungenutztes Sim-Key-Event ab, das der Nutzer in den MSFS-Steuerungen mit einer
+  Taste oder einem HOTAS-Knopf belegt. Damit braucht Phase 2 keine Windows-App.
+  Begründung und verworfene Alternativen stehen in
+  [`adr/0002-bestaetigungseingabe-in-sim-key-interception.md`](adr/0002-bestaetigungseingabe-in-sim-key-interception.md),
+  der Phasenzuschnitt in
+  [`adr/0005-phase-2-auf-die-efb-app-verkuerzen.md`](adr/0005-phase-2-auf-die-efb-app-verkuerzen.md).
+  Der Weg steht unter Nachweisvorbehalt; er ist im Simulator zu bestätigen,
+  zwingend auch mit H125 und MH-60.
+- Welches Item das erste offene ist, entscheidet ausschließlich die EFB-App. Ein
+  externer Auslöser trägt keinen Item-Index.
+- Eine lokale Begleit-App entsteht erst in Phase 3, gemeinsam mit der
+  Sprachausgabe. Sie zeigt Item und Fortschritt an und erhält den Stand über den
+  Rückkanal; ohne sie bleibt die Checkliste unverändert vollständig bedienbar.
 - L- und B-Events werden nicht ohne nachgewiesene Zuordnung als Ersatz geraten.
 
 ## Versionsanzeige

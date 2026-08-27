@@ -25,6 +25,10 @@ gehören nach `docs/design-qa.md`.
   Coherent GT oder der Paketierung abhängen, ist `docs/msfs-sdk-reference.md` zu
   lesen. Dort stehen die bestätigten Fakten, Do's und Don'ts einschließlich der
   nachgewiesen wirkungslosen Pfade.
+- Vor Arbeiten an Phase 2 oder Phase 3 sind `docs/adr/README.md` und die dort
+  verlinkten Entscheidungen zu lesen. Eine dokumentierte Entscheidung wird nicht
+  stillschweigend umgeworfen; eine Kehrtwende bekommt ein neues ADR, das das
+  alte ersetzt.
 - Vor Änderungen an Checklistendaten sind `checklists/data/README.md` und
   `checklists/data/style-guide.md` zu lesen.
 - Jede abgeschlossene Änderung muss im selben Arbeitsgang das englische
@@ -64,6 +68,11 @@ gehören nach `docs/design-qa.md`.
 - Dauerhaft gültige SDK-Erkenntnisse gehören zusätzlich nach
   `docs/msfs-sdk-reference.md`, damit sie nicht erneut über mehrere Dokumente
   verstreuen. Jede Aussage dort trägt ihre Nachweisstufe.
+- Die Dokumentation ist nach Zweck getrennt, damit nichts doppelt gepflegt wird:
+  `docs/msfs-sdk-reference.md` sagt **was gilt**, `docs/phase-2-3-research.md`
+  sagt **warum wir es wissen** einschließlich der verworfenen Kandidaten, und
+  die ADRs unter `docs/adr/` sagen **wie wir uns entschieden haben**. Ein ADR mit
+  Status `Vorgeschlagen` oder `Offen` hängt noch an einem Nachweis.
 
 ## Source of Truth und generierte Dateien
 
@@ -75,7 +84,10 @@ gehören nach `docs/design-qa.md`.
   darf nicht als Quelle zurück in das Repository synchronisiert werden.
 - `node_modules/`, `dist/` sowie `Packages/`, `PackagesMetadata/` und
   `_PackageInt/` sind generiert und werden nicht manuell bearbeitet oder
-  versioniert.
+  versioniert. Ausnahme: Die vorab gerenderten Sprachausgabedateien unter
+  `assets/` werden bewusst versioniert, damit die Auslieferung ohne TTS-Modell
+  und ohne Phonemizer auskommt; die Begründung steht in
+  `docs/adr/0007-ablage-der-gerenderten-audiodateien.md`.
 - Die Root-Datei `VERSION` ist die kanonische Quelle für die SemVer-Version der
   App, des MSFS-Pakets und neuer Release-Artefakte. Die Versionsangaben in der
   Paketdefinition und den npm-Metadaten müssen mit ihr übereinstimmen;

@@ -28,8 +28,12 @@ Aktuell verfügbar:
   weitergereicht. Enter, Numpad Enter und ein physisches Gamepad wurden über
   DOM-, Input-Stack- und `AppView`-Interaction-Pfade ohne eingehenden Callback
   getestet. Deshalb ist aktuell kein wirkungsloser Eingabe-Listener aktiv. Die
-  schnelle Bestätigung entsteht stattdessen als eigenes externes Ereignis einer
-  lokalen Begleit-App in Phase 2; siehe [ROADMAP.md](ROADMAP.md).
+  Ursache ist inzwischen belegt: Alle `KEY_EFB_*`-Aktionen tragen in der
+  SDK-Input-Datenbank das Tag `norebind_kbmpad` und sind für Tastatur, Maus und
+  Pad überhaupt nicht belegbar. Die schnelle Bestätigung entsteht stattdessen in
+  Phase 2 über ein frei belegbares Sim-Key-Event, das die EFB-App direkt
+  abfängt; siehe [ROADMAP.md](ROADMAP.md) und
+  [docs/adr/](docs/adr/).
 
 ## Entwicklungsmodell
 
@@ -255,8 +259,12 @@ werden soll.
 - `docs/vr-test-preparation.md`: Scope und technische Vorarbeit für den ersten
   VR-Teststand
 - `docs/release.md`: reproduzierbarer Release- und Community2024-Installationsflow
-- `docs/phase-2-tech-stack-plan.md`: Research-, Entscheidungs- und PoC-Plan für
-  die lokale Begleit-App aus Phase 2 und Phase 3
+- `docs/phase-2-3-research.md`: technische Recherche zu Phase 2 und Phase 3 mit
+  Kandidaten, Belegen, Lizenzlagen und offenen Laufzeitnachweisen
+- `docs/adr/`: getroffene Architekturentscheidungen mit ihren verworfenen
+  Alternativen und ihrem Status
+- `docs/phase-2-tech-stack-plan.md`: der abgeschlossene Research-Auftrag, nur
+  noch als Verweis auf die drei Dokumente, die ihn ersetzen
 - `docs/assets/`: versionierte, dauerhaft referenzierte Design-Screenshots
 
 ## Offizielle Referenzen

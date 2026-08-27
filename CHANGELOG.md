@@ -5,6 +5,8 @@ Changelog, and the project uses Semantic Versioning.
 
 ## [Unreleased]
 
+## [0.1.7] - 2026-08-27
+
 ### Added
 
 - Added `docs/phase-2-3-research.md` with the full technical research for phases

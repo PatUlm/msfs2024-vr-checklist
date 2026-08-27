@@ -5,6 +5,8 @@ Changelog, and the project uses Semantic Versioning.
 
 ## [Unreleased]
 
+## [0.2.0] - 2026-08-27
+
 ### Added
 
 - The EFB app confirms the next open item of the section on screen when the sim

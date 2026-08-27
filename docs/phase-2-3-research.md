@@ -535,7 +535,22 @@ EFB-Input-Context auszuschließen. Ergänzend der Konsum-Test mit `ATC_MENU_9`:
 mit `passThrough=false` darf im offenen ATC-Menü kein Punkt 9 gewählt werden,
 mit `true` muss er gewählt werden.
 
----
+### 2.7 Ergebnis des Laufzeitnachweises (2026-08-27)
+
+Der Pfad trägt. Die geltenden Fakten stehen in
+[`msfs-sdk-reference.md`](msfs-sdk-reference.md), Abschnitt „Eingaben", die
+Entscheidung in [ADR 0002](adr/0002-bestaetigungseingabe-in-sim-key-interception.md).
+Hier nur, was die Kandidatenbewertung aus 2.2 korrigiert:
+
+- Die dortige Empfehlung `AUTOCOORD_ON` ist **widerlegt**. Ein Event ohne
+  Wirkung wird nicht erzeugt; „folgenlos" und „als Auslöser brauchbar"
+  schließen sich aus.
+- Brauchbar ist die Gegenklasse: ein real implementiertes Event, dessen System
+  das geflogene Flugzeug nicht besitzt. Geprüft und ankommend: `SPRAY_ON`,
+  `GRAPPLE_HOOK_ON`, `LEAD_POLE_ON`, `SKYDIVE_DOORLIGHTS_JUMP`.
+- Gewählt ist `LEAD_POLE_ON`. `SPRAY_ON` scheidet aus, weil die H125 es selbst
+  bindet; `GRAPPLE_HOOK_ON`, weil die MH-60 einen Lastenhaken führen kann.
+
 
 ## 3. Sprachausgabe (Phase 3)
 
@@ -1287,8 +1302,9 @@ Drei belegte Befunde, die zusammen die Entscheidung prägen:
 
 Nach Priorität. Die ersten beiden entscheiden die Architektur von Phase 2.
 
-1. **Feuert `keyIntercepted` in einer EFB-App?** Testcode und Deutung in 2.6.
-   Zwingend auch mit **H125 und MH-60** wegen des offenen Hubschrauber-Bugs.
+1. ~~**Feuert `keyIntercepted` in einer EFB-App?**~~ **Geführt am 2026-08-27**
+   in der DA42, siehe 2.8. Offen bleibt der Test mit **H125 und MH-60** wegen
+   des Hubschrauber-Bugs aus Topic 4906.
 2. **Kommt ein selbst benannter CommBus-Event von SimConnect in der EFB-App an,
    und wie sendet die EFB-App zurück?** Siehe 1.8, Punkte 1 und 2.
 3. **Lebensdauer der Listener-Registrierung** bei `AppBootMode.COLD` und

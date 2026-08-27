@@ -318,85 +318,92 @@ Source ändern → task deploy → Build All In Project → Ignore Cache + Reloa
   die Ursache und der Umbau stehen in
   [ADR 0009](adr/0009-fortschritt-als-geteilter-sitzungszustand.md).
 
-## Eingaben: nachgewiesen nicht verfügbar
+## Eingaben
 
-Ziel war, mit der MSFS-EFB-Aktion `VALIDATE` das erste offene Item zu
-bestätigen. Unter SDK 1.7.3 erreichte in einer sichtbaren Custom-EFB-App
-**kein** getesteter Pfad einen Callback:
+Der Pilot bestätigt das nächste offene Item über ein **abgefangenes
+Sim-Key-Event**. Die Entscheidung steht in
+[ADR 0002](adr/0002-bestaetigungseingabe-in-sim-key-interception.md), die
+Herleitung in [`phase-2-3-research.md`](phase-2-3-research.md), Abschnitt 2.
 
-- **[NEG]** DOM-`keydown` für Enter, Return und Numpad Enter.
-- **[NEG]** EFB-`InputStackListener` für `KEY_EFB_VALID` auf `released`.
-- **[NEG]** `KEY_EFB_VALID` und `KEY_MENU_WM_VALIDATE` auf `pressed` nach
-  gemeldeter Stack-Bereitschaft. Die Registrierung war erfolgreich, der Callback
-  blieb aus.
-- **[NEG]** `AppView.routeGamepadInteractionEvent(GamepadEvents.BUTTON_A)`,
-  geprüft mit ENT und mit einem physischen Gamepad.
+**Der Mechanismus.** `RegisterViewListener('JS_LISTENER_KEYEVENT')`,
+`Coherent.call('INTERCEPT_KEY_EVENT', key, passThrough ? 0 : 1)`, Event
+`keyIntercepted`. Im SDK vorhanden als `KeyEventManager` in
+`@microsoft/msfs-sdk` 2.1.1, Bus-Topic `key_intercept`.
 
-Nebenbefund: **[RT]** Die Warnung zu bereits aktivierten Gamepad-Inputs stammt
-aus `atlasapp.js` und nicht aus dieser App.
+- **[RT]** Der Mechanismus funktioniert in einer sichtbaren Custom-EFB-App,
+  über Tastatur und über HOTAS. Registrierung im Konstruktor der `AppView`
+  genügt, `AppBootMode.COLD` steht nicht entgegen. Payload eines Drucks:
+  `value0 = value1 = value2 = 0`, kein Down/Up-Flag.
+- **[FORUM]** **Es gibt keinen Unregister-Aufruf.** Ein gesetzter Intercept
+  gilt bis zum Ende der View. **DO:** Nur mit `passThrough = true` abfangen,
+  also nie maskieren — eine nicht gesetzte Maske ist die einzige, die man nicht
+  bereut.
+- **[RT]** **Ein Druck kann mehrfach zustellen.** Jede erneute Registrierung
+  desselben Keys in derselben Sitzung fügt eine Zustellung hinzu, und jedes
+  `Ignore Cache + Reload` sowie jeder VR-Wechsel registriert erneut. Duplikate
+  liegen 0 bis 3 ms auseinander. **DO:** Entprellen und einen Key je JS-Kontext
+  nur einmal registrieren.
+- **[RT]** Das Event wird **auch bei geschlossener EFB** zugestellt. **DO:** Die
+  auslösende Logik gegen den Sichtbarkeitszustand der `AppView` gaten.
 
-Die **Ursache** dieser Fehlschläge ist inzwischen belegt: **[SDK]** In
-`Tools/Setup_InputProfiles/action.actiondb` steht `KEY_EFB_VALID` im Context
-`EFB` mit dem Tag `norebind_kbmpad`. Alle 22 `KEY_EFB_*`-Actions tragen dieses
-Tag und sind damit für Tastatur, Maus und Pad **nicht belegbar**. Der
-`InputStackListener` konnte für diese Aktion also gar nicht feuern. Die
-`[NEG]`-Einträge sind damit erklärt, nicht nur beobachtet.
+**Die Wahl des Events** ist der eigentlich schwierige Teil.
 
-- **DON'T:** L- oder B-Events ohne nachgewiesene Zuordnung als Ersatz raten.
-- **DON'T:** Auf Eingaben pollen.
-- **[OPEN]** Eine Wiederaufnahme setzt einen dokumentierten und im
-  Custom-App-Kontext bestätigten Eingabepfad oder ein bewusst definiertes
-  eigenes externes Event voraus.
+- **[NEG]** **Ein Event ohne Wirkung wird nicht erzeugt.** `AUTOCOORD_ON`, von
+  der Doku als „Not used in the simulation" geführt, lieferte konfliktfrei
+  belegt auf Taste und HOTAS-Knopf nichts. **DON'T:** Ein Event wählen, weil die
+  Doku es als folgenlos führt.
+- **[RT]** **DO:** Ein **real implementiertes** Event wählen, dessen System das
+  geflogene Flugzeug nicht besitzt. Bestätigt ankommend: `SPRAY_ON`,
+  `GRAPPLE_HOOK_ON`, `LEAD_POLE_ON`, `SKYDIVE_DOORLIGHTS_JUMP`. Gewählt ist
+  `LEAD_POLE_ON`.
+- **[SDK]** **DON'T:** `SPRAY_*` verwenden — die H125 bindet es selbst
+  (`Bind_Key_Events`, `EVENT_ID SPRAY`, `Interior_Behavior.xml:674`). **DON'T:**
+  `GRAPPLE_HOOK_*` verwenden, solange der Lastenhaken der MH-60 ungeprüft ist.
+  Die MH-60-Rettungswinde hängt an eigenen `HOIST_*`-Events.
+- **DO:** Vor der Wahl das Model Behavior der eigenen Flugzeuge gegen den
+  Eventnamen prüfen. Ein `Bind_Key_Events`-Eintrag heißt, das Flugzeug nutzt es.
+- **[SDK]** Ein leeres `TT_Tag` in `Tools/Setup_InputProfiles/action.actiondb`
+  heißt „in den Steuerungsoptionen frei belegbar". Der Key-Event-Name ist der
+  Action-Name ohne `KEY_`-Präfix.
+- **[RT]** Der Input-Context entscheidet mit: `AIRCRAFT` und `PLANE` sind im
+  Cockpit aktiv, `ATC` nur bei offenem ATC-Menü, `DEVMODE` nur im Devmode.
+  **DON'T:** Mit einem kontextgebundenen Event testen — sein Schweigen beweist
+  nichts.
 
-## Eingaben: der noch nicht geprüfte Kandidatenpfad
+**Nicht verfügbar.** Die MSFS-EFB-Aktion `VALIDATE` ist unerreichbar:
 
-Ein JS-Kontext in MSFS kann ein benanntes Sim-Key-Event abfangen und direkt in
-JavaScript empfangen. Der Pfad ist in einer Custom-EFB-App **noch nicht
-geprüft**; die Begründungen, Belege und der Testablauf stehen in
-[`phase-2-3-research.md`](phase-2-3-research.md), Abschnitt 2.
+- **[NEG]** DOM-`keydown`, EFB-`InputStackListener` auf `KEY_EFB_VALID` und
+  `KEY_MENU_WM_VALIDATE`, `AppView.routeGamepadInteractionEvent(BUTTON_A)` —
+  keiner erreichte einen Callback. **[SDK]** Ursache: Alle 22
+  `KEY_EFB_*`-Actions tragen das Tag `norebind_kbmpad` und sind für Tastatur,
+  Maus und Pad nicht belegbar.
+- **[SDK]** Was das Steuerungsmenü als `VALIDATE` anzeigt, ist
+  `KEY_DEVMODE_VALIDATE` aus dem Devmode-Kontext — nicht die EFB-Aktion.
+- **[NEG]** **`SimConnect_TransmitClientEvent` umgeht die JS-Interception**
+  (Asobo, 2024-02-27). Eine externe App erreicht die EFB-App **nicht** über
+  Key-Events. Dasselbe gilt für `trigger_key_event` und
+  `execute_calculator_code`.
+- **DON'T:** Auf Eingaben pollen. **DON'T:** L- oder B-Events ohne nachgewiesene
+  Zuordnung als Ersatz raten.
 
-- **[OSS]** Die API liegt bereits im Projekt: `KeyEventManager` in
-  `@microsoft/msfs-sdk` 2.1.1 (`msfssdk.js:2677` `RegisterViewListener('JS_LISTENER_KEYEVENT')`,
-  `:2630` `Coherent.call('INTERCEPT_KEY_EVENT', key, passThrough ? 0 : 1)`,
-  `:2596` `Coherent.on('keyIntercepted')`). Keine neue Abhängigkeit nötig.
-- **[OSS]** Semantik des zweiten Parameters: **`1` = abfangen und vor dem Sim
-  verschlucken**, **`0` = abfangen und durchreichen**. Die verbreitete Deutung
-  als register/unregister-Flag ist falsch.
-- **[OSS]** Payload `keyIntercepted(key, value1, value0, value2)` — die
-  Reihenfolge von `value0` und `value1` ist **vertauscht**. Kein Down/Up-Flag.
-- **[FORUM]** **Es gibt keinen Unregister-Aufruf.** Die Familie besteht nur aus
-  `INTERCEPT_KEY_EVENT` und `TRIGGER_KEY_EVENT`. Ein gesetzter Intercept gilt
-  bis zum Ende der View. **DO:** Nur maskieren, wenn es unvermeidbar ist.
-- **[FORUM]** Eine **Joystick- oder HOTAS-Belegung** derselben Aktion löst den
-  Intercept ebenfalls aus; der Pfad ist Gerät → Input Action → Key Event.
-- **[NEG]** **`SimConnect_TransmitClientEvent` umgeht die JS-Interception.**
-  Asobo (FlyingRaccoon, 2024-02-27): der Aufruf „will bypass JS and Input Event
-  interception and call the sim event directly". Eine externe App kann die
-  EFB-App über Key-Events also **nicht** erreichen. Dasselbe gilt für
-  `trigger_key_event` und `execute_calculator_code` der Gauge-API.
-- **[SDK]** Frei belegbare Kandidaten haben in `action.actiondb` ein leeres
-  `TT_Tag`. Geeignet: `AUTOCOORD_ON`/`_OFF`/`_SET` (laut Doku „Not used in the
-  simulation"; **nicht** `AUTOCOORD_TOGGLE`, das invertiert die Y-Achse) und
-  `EXTERNAL_SYSTEM_TOGGLE`. `ATC_MENU_0` ist durch das ausgelieferte
-  BeyondATC-Toolbar-Paket maskiert und damit unbrauchbar.
-- **[DOC]** Die Doku-Seite `JS_LISTENER_KEYEVENT` existiert, ist aber „Work In
-  Progress" mit leeren Parameter- und Beschreibungsspalten. Der Mechanismus ist
-  **benannt, aber nicht als API-Vertrag zugesagt**.
-- **[OPEN]** Feuert `keyIntercepted` in einer **EFB-App**? Belegt ist es nur für
-  ein `InGamePanel`.
-- **[OPEN]** **Hubschrauber.** Asobo hat 2022 bestätigt, dass
-  `INTERCEPT_KEY_EVENT` in Hubschraubern nicht feuerte („we can confirm there's
-  an issue on our side"). Es gibt keine Fix-Bestätigung und keinen
-  MSFS-2024-Datenpunkt. **DO:** Jeden Test dieses Pfads zwingend auch mit H125
-  und MH-60 fahren, nicht nur mit einem Starrflügler.
-- **[OPEN]** Verhalten nach dem VR-Wechsel, der den App-Kontext neu erzeugt —
-  Intercepts müssen dann vermutlich neu gesetzt werden.
+**Belegungen des Nutzers auslesen.** Der Anzeigename im Steuerungsmenü lässt
+sich aus dem SDK nicht auflösen; das locPak fehlt dort.
 
-Der offiziell für EFB gedachte `InputStackListener`
-(`JS_LISTENER_INPUT_STACK`, `addInputAction`) bleibt daneben nutzbar, aber nur
-für die fest verdrahteten `KEY_EFB_*`-Gamepad-Actions; eine freie Tastenwahl ist
-darüber wegen `norebind_kbmpad` nicht möglich. Die ältere `InputsListener`-Variante
-(`JS_LISTENER_INPUTS`, `ADD_INPUT_WATCHER`) ist im Typing `@deprecated`.
+- **[RT]** Die Belegungen einer Steam-Installation liegen als XML unter
+  `Steam/userdata/<SteamID>/2537590/remote/inputprofile_*`, ein Profil je Gerät,
+  geschrieben beim Beenden von MSFS. MSFS kombiniert **mehrere Profile je
+  Gerät** — für eine Konfliktprüfung sind alle zu vereinigen.
+- **DO:** Einen Anzeigenamen auflösen, indem man ihn auf eine eindeutige
+  Kombination legt, MSFS beendet und gegen einen vorher gezogenen Stand diffed.
+- **DO:** Vor jedem Eingabetest prüfen, dass die Eingabe **belegt** und **nicht
+  doppelt belegt** ist. Eine unbelegte Aktion erscheint als selbstschließendes
+  `<Action …/>`; ein Regex über `<Action>…</Action>` liest sonst die Belegung
+  der folgenden Aktion.
+
+Der offiziell für EFB gedachte `InputStackListener` (`JS_LISTENER_INPUT_STACK`,
+`addInputAction`) bleibt daneben nutzbar, aber nur für die fest verdrahteten
+`KEY_EFB_*`-Gamepad-Actions. Die ältere `InputsListener`-Variante ist
+`@deprecated`.
 
 ## Kommunikationskanal zu einer externen Anwendung
 

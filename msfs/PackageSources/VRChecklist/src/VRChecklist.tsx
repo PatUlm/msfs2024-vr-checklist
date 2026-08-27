@@ -12,8 +12,12 @@ import {
 } from "@efb/efb-api";
 import {
   DataStore,
+  EventBus,
   FSComponent,
   GameStateProvider,
+  KeyEventData,
+  KeyEventManager,
+  KeyEvents,
   MappedSubscribable,
   NodeReference,
   SimVarValueType,
@@ -120,6 +124,54 @@ const OBSOLETE_DATASTORE_KEYS = [
 ];
 const SIMULATION_TIME_TOLERANCE_SECONDS = 5;
 const FLOW_API_EVENT_NAME = "__FLOW_API__";
+
+/*
+ * The sim key event that confirms the next open item of the section on screen.
+ * The user binds it in the MSFS controls, so any device MSFS knows works,
+ * including a HOTAS button; the app never learns which key or button was
+ * pressed, only that this event fired.
+ *
+ * Why this one. The obvious choice would be an event the SDK documents as
+ * unused, and `AUTOCOORD_ON` was exactly that — but it is refuted: bound
+ * conflict-free to a key and to a HOTAS button it never produced an event,
+ * while a working event bound in the same session kept arriving. An action
+ * without effect is apparently never emitted at all, which makes the whole
+ * class useless as a trigger.
+ *
+ * `LEAD_POLE_ON` takes the opposite route: it is really implemented and
+ * therefore emitted, but it drives the tow pole of a glider tug, which none of
+ * our four aircraft has. It stays without effect in a DA42, G36, H125 or MH-60
+ * — without a mask, which matters because an intercept cannot be unregistered.
+ *
+ * The other candidates proven to arrive were rejected for a reason each.
+ * `SPRAY_ON` is bound by the H125 itself, through the Bind_Key_Events
+ * procedure in its interior model behavior. `GRAPPLE_HOOK_ON` drives a cargo
+ * hook, which the MH-60 may well carry. `SKYDIVE_DOORLIGHTS_JUMP` is the
+ * remaining safe alternative. The rescue hoist of the MH-60 runs on its own
+ * HOIST_* events and is unaffected either way.
+ *
+ * It is intercepted with pass-through, so the sim still receives it and
+ * nothing is masked. See
+ * docs/adr/0002-bestaetigungseingabe-in-sim-key-interception.md.
+ */
+const CONFIRM_KEY_EVENT = "LEAD_POLE_ON";
+
+/*
+ * Shortest gap between two presses that count as two confirmations. It exists
+ * because a single press can deliver the event more than once: there is no
+ * unregister call for an intercept, so every re-registration in the same
+ * simulator session adds another delivery, and a reload or a VR switch that
+ * recreates the app context registers again. Duplicates from that arrive
+ * within the same frame, a deliberate double press never does.
+ */
+const CONFIRM_KEY_DEBOUNCE_MS = 60;
+
+/*
+ * Key events this JavaScript context has already asked to intercept. A second
+ * app instance in the same context must not register them again, for the same
+ * reason the debounce exists.
+ */
+const interceptedKeyEvents = new Set<string>();
 
 enum FlowEventId {
   None = 0,
@@ -321,17 +373,20 @@ class VRChecklistView extends AppView<RequiredProps<AppViewProps, "bus">> {
   private readonly flowApiListener: ViewListener.ViewListener;
 
   /*
-   * External VALIDATE input is intentionally disabled for SDK 1.7.3.
-   * Runtime tests showed that a visible custom EFB AppView receives none of:
-   * - DOM keydown for Enter/Return,
-   * - InputStackListener actions KEY_EFB_VALID or KEY_MENU_WM_VALIDATE,
-   * - AppView.routeGamepadInteractionEvent(GamepadEvents.BUTTON_A), including
-   *   when VALIDATE is tested with a physical gamepad.
+   * The MSFS EFB action VALIDATE stays out of this app. Under SDK 1.7.3 a
+   * visible custom EFB AppView received none of: DOM keydown for Enter/Return,
+   * the InputStackListener actions KEY_EFB_VALID or KEY_MENU_WM_VALIDATE, or
+   * AppView.routeGamepadInteractionEvent(BUTTON_A) with a physical gamepad.
+   * The cause is documented: every KEY_EFB_* action carries the actiondb tag
+   * norebind_kbmpad and cannot be bound to keyboard, mouse or pad at all.
    *
-   * Do not restore an inactive listener or poll for input. Reintroduce this
-   * feature only after MSFS exposes a documented, runtime-verified custom-app
-   * input route, or after the project defines its own explicit external event.
+   * Do not restore any of those listeners and do not poll for input. The
+   * confirmation input runs over an intercepted sim key event instead, see
+   * CONFIRM_KEY_EVENT.
    */
+  private readonly eventBus: EventBus;
+  private keyEventSubscription: Subscription | undefined;
+  private lastConfirmAt = 0;
 
   private previousGameState: GameState | undefined;
   private currentAircraftIdentityKey = "";
@@ -360,7 +415,11 @@ class VRChecklistView extends AppView<RequiredProps<AppViewProps, "bus">> {
   public constructor(props: RequiredProps<AppViewProps, "bus">) {
     super(props);
 
-    console.info(`[VR Checklist] App instance ${this.instanceId} created.`);
+    console.info(
+      `[VR Checklist] App instance ${this.instanceId} created, ` +
+        `version ${APP_VERSION}.`
+    );
+    this.eventBus = props.bus;
     this.clearObsoleteStoredData();
     this.gameStateSubscription = GameStateProvider.get().sub(
       (gameState) => this.handleGameStateChanged(gameState),
@@ -371,6 +430,93 @@ class VRChecklistView extends AppView<RequiredProps<AppViewProps, "bus">> {
       () => console.info("[VR Checklist] Flow API listener registered.")
     );
     this.flowApiListener.on(FLOW_API_EVENT_NAME, this.handleFlowEvent);
+    this.setupConfirmationInput();
+  }
+
+  /*
+   * Intercepts the configured sim key events. Registration happens once per
+   * app context: there is no unregister call, and an intercept survives this
+   * view, so re-registering after a VR switch that recreates the context is
+   * harmless. Whether the sim routes `keyIntercepted` into an EFB view at all
+   * is the open point this logging is meant to answer.
+   */
+  private setupConfirmationInput(): void {
+    KeyEventManager.getManager(this.eventBus)
+      .then((manager) => {
+        if (!interceptedKeyEvents.has(CONFIRM_KEY_EVENT)) {
+          manager.interceptKey(CONFIRM_KEY_EVENT, true);
+          interceptedKeyEvents.add(CONFIRM_KEY_EVENT);
+        }
+
+        this.keyEventSubscription = this.eventBus
+          .getSubscriber<KeyEvents>()
+          .on("key_intercept")
+          .handle((data: KeyEventData) => this.handleKeyIntercept(data));
+
+        console.info(
+          `[VR Checklist] Key event interception active for ` +
+            `${CONFIRM_KEY_EVENT}.`
+        );
+      })
+      .catch((error) =>
+        console.error(
+          `[VR Checklist] Key event manager unavailable: ${error}`
+        )
+      );
+  }
+
+  private handleKeyIntercept(data: KeyEventData): void {
+    if (data.key !== CONFIRM_KEY_EVENT || !this.isViewActive) {
+      return;
+    }
+
+    const now = Date.now();
+
+    if (now - this.lastConfirmAt < CONFIRM_KEY_DEBOUNCE_MS) {
+      console.info(
+        `[VR Checklist] Key event ${data.key} ignored as a duplicate ` +
+          `delivery ${now - this.lastConfirmAt} ms after the last one.`
+      );
+      return;
+    }
+
+    this.lastConfirmAt = now;
+    this.confirmNextOpenItem();
+  }
+
+  /*
+   * Checks off the next open item of the section currently on screen. A
+   * complete section is deliberately left alone: the press stays without
+   * effect instead of reaching into a section the pilot is not looking at.
+   */
+  private confirmNextOpenItem(): void {
+    const runtime = this.getSelectedRuntime();
+
+    if (!runtime) {
+      return;
+    }
+
+    const sectionIndex = runtime.activeSectionIndex.get();
+    const section = runtime.checklist.sections[sectionIndex];
+
+    if (!section) {
+      return;
+    }
+
+    const openItem = section.items.find(
+      (item) => !runtime.getItemState(section.id, item.id).get()
+    );
+
+    if (!openItem) {
+      return;
+    }
+
+    this.toggleItem(
+      runtime,
+      section,
+      sectionIndex,
+      runtime.getItemState(section.id, openItem.id)
+    );
   }
 
   private getSelectedRuntime(): ChecklistRuntimeState | undefined {
@@ -1182,6 +1328,9 @@ class VRChecklistView extends AppView<RequiredProps<AppViewProps, "bus">> {
     this.cancelAircraftRefresh();
 
     this.gameStateSubscription.destroy();
+    // The intercepts themselves stay set: the sim has no unregister call.
+    // Only this view's subscription is released.
+    this.keyEventSubscription?.destroy();
     this.flowApiListener.off(FLOW_API_EVENT_NAME, this.handleFlowEvent);
     this.flowApiListener.unregister();
     super.onClose();

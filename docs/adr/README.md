@@ -23,7 +23,7 @@ eine spätere Kehrtwende bekommt ein neues ADR, das das alte ersetzt.
 | Nr. | Entscheidung | Status | Betrifft |
 | --- | --- | --- | --- |
 | [0001](0001-lizenz-und-veroeffentlichungsstrategie.md) | Lizenz- und Veröffentlichungsstrategie: vorerst privat, Option offen | Akzeptiert | alle Phasen |
-| [0002](0002-bestaetigungseingabe-in-sim-key-interception.md) | Bestätigungseingabe über In-Sim-Key-Interception | Vorgeschlagen | Phase 2 |
+| [0002](0002-bestaetigungseingabe-in-sim-key-interception.md) | Bestätigungseingabe über In-Sim-Key-Interception | Akzeptiert für Starrflügler, Hubschrauber offen | Phase 2 |
 | [0003](0003-transportkanal-commbus-ueber-simconnect.md) | Transportkanal über den CommBus mit SimConnect | Vorgeschlagen | Phase 3 |
 | [0004](0004-stack-der-begleit-app.md) | Stack der Begleit-App: .NET 10 mit Avalonia | Akzeptiert, offene Punkte | Phase 3 |
 | [0005](0005-phase-2-auf-die-efb-app-verkuerzen.md) | Phase 2 auf die EFB-App verkürzen | Akzeptiert | Phasenzuschnitt |
@@ -39,9 +39,10 @@ am selben Tag in MSFS nachgewiesen worden.
 
 ## Was als Nächstes den Status ändert
 
-- **0002** hängt an einem Laufzeittest in MSFS: Feuert `keyIntercepted` in einer
-  EFB-App, und feuert es in H125 und MH-60? Fällt der Test, fällt **0005** mit
-  ihm und Phase 2 wird neu geschnitten.
+- **0002** ist am 2026-08-27 in der DA42 nachgewiesen: `keyIntercepted` erreicht
+  eine EFB-App. Offen bleibt der Test in **H125 und MH-60**; fällt der, fällt
+  **0005** für die Hubschrauber mit ihm und Phase 2 wird für sie neu
+  geschnitten.
 - **0003** hängt an zwei kleinen Nachweisen im Simulator, die unabhängig von
   Phase 2 vorgezogen werden können.
 - **0008** wird beim Übergang zu Phase 3 entschieden, nach einem Hörvergleich

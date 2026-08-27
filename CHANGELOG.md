@@ -5,6 +5,22 @@ Changelog, and the project uses Semantic Versioning.
 
 ## [Unreleased]
 
+### Added
+
+- The EFB app confirms the next open item of the section on screen when the sim
+  key event `LEAD_POLE_ON` fires. The user binds it in the MSFS controls, so any
+  device works, including a HOTAS button; the app only learns that the event
+  fired, never which key was pressed. A section that is already complete leaves
+  the press without effect. Phase 2 per
+  [ADR 0002](docs/adr/0002-bestaetigungseingabe-in-sim-key-interception.md).
+- The app version is logged on startup.
+
+### Documented
+
+- Key-event interception is proven to work in a custom EFB app, and the trigger
+  event is chosen. Facts in `docs/msfs-sdk-reference.md`, decision in ADR 0002,
+  remaining proofs in the new `docs/open-tests.md`.
+
 ## [0.1.7] - 2026-08-27
 
 ### Added

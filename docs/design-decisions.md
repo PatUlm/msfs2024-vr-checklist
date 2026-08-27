@@ -148,38 +148,25 @@ Iteration stehen separat in `design-qa.md`.
 - Die vollständigen Schreibregeln stehen in
   [`../checklists/data/style-guide.md`](../checklists/data/style-guide.md).
 
-## Sequenzielle Eingabe (zurückgestellt)
+## Sequenzielle Eingabe
 
-- Das Produktziel bleibt, mit einer abstrakten externen Eingabe das erste noch
-  offene Item in Checklist-Reihenfolge zu bestätigen.
-- SDK 1.7.3 reicht die konfigurierte MSFS-EFB-Aktion `VALIDATE` im getesteten
-  Custom-App-Kontext weder über DOM-Tastaturereignisse, den EFB-Input-Stack noch
-  `AppView.routeGamepadInteractionEvent()` weiter. Auch ein physisches Gamepad
-  erzeugte keinen App-Callback.
-- Deshalb enthält die App aktuell keinen wirkungslosen Listener. Die Funktion
-  wird erst mit einem dokumentierten und in einer Custom-App bestätigten
-  Eingabepfad oder über ein später bewusst definiertes eigenes externes Event
-  umgesetzt.
-- Die Ursache der Fehlschläge ist seit dem 2026-08-26 belegt: Alle
-  `KEY_EFB_*`-Aktionen tragen in `action.actiondb` das Tag `norebind_kbmpad` und
-  sind für Tastatur, Maus und Pad nicht belegbar. Der Weg über den EFB-Input-Stack
-  konnte für `KEY_EFB_VALID` also nie funktionieren.
-- Am 2026-08-26 ist entschieden, die schnelle Bestätigung **in der EFB-App
-  selbst** zu empfangen: Sie fängt ein frei belegbares, in der Simulation
-  ungenutztes Sim-Key-Event ab, das der Nutzer in den MSFS-Steuerungen mit einer
-  Taste oder einem HOTAS-Knopf belegt. Damit braucht Phase 2 keine Windows-App.
-  Begründung und verworfene Alternativen stehen in
+- Ein Tastendruck oder HOTAS-Knopf bestätigt das **nächste offene Item der
+  gerade angezeigten Gruppe**. Ist sie bereits vollständig, bleibt der Druck
+  wirkungslos — die Eingabe greift nie in eine Gruppe, die der Pilot nicht vor
+  Augen hat. Wird ein Item das letzte offene seiner Gruppe, greift danach der
+  bestehende automatische Wechsel in die nächste.
+- Welches Item das nächste offene ist, entscheidet ausschließlich die EFB-App.
+  Ein externer Auslöser trägt keinen Item-Index.
+- Der Auslöser ist ein abgefangenes Sim-Key-Event, das der Nutzer selbst in den
+  MSFS-Steuerungen belegt. Welches und warum steht in
   [`adr/0002-bestaetigungseingabe-in-sim-key-interception.md`](adr/0002-bestaetigungseingabe-in-sim-key-interception.md),
   der Phasenzuschnitt in
   [`adr/0005-phase-2-auf-die-efb-app-verkuerzen.md`](adr/0005-phase-2-auf-die-efb-app-verkuerzen.md).
-  Der Weg steht unter Nachweisvorbehalt; er ist im Simulator zu bestätigen,
-  zwingend auch mit H125 und MH-60.
-- Welches Item das erste offene ist, entscheidet ausschließlich die EFB-App. Ein
-  externer Auslöser trägt keinen Item-Index.
-- Eine lokale Begleit-App entsteht erst in Phase 3, gemeinsam mit der
-  Sprachausgabe. Sie zeigt Item und Fortschritt an und erhält den Stand über den
-  Rückkanal; ohne sie bleibt die Checkliste unverändert vollständig bedienbar.
-- L- und B-Events werden nicht ohne nachgewiesene Zuordnung als Ersatz geraten.
+- **Die Wahl des Events ist bewusst nicht konfigurierbar**, solange das Paket
+  privat bleibt. Sie wird es, sobald es an Fremde geht: Ein für unsere Flotte
+  folgenloses Event kann in einer anderen ein reales System bedienen.
+- Die App enthält keine wirkungslosen Eingabe-Listener und pollt nicht auf
+  Eingaben.
 
 ## Versionsanzeige
 

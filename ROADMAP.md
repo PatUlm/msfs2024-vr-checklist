@@ -48,70 +48,23 @@ KI, Cloud-Dienste, TTS und komplexe Persistenz bleiben spätere Meilensteine.
 
 ## Phase 2 – Abhaken per Tastendruck in der EFB-App
 
-Status: **Geplant – der Eingabepfad ist im Simulator nachzuweisen**
+Status: **In MSFS bestätigt für Starrflügler – der Hubschraubertest steht aus**
 
-Ziel: Ein Tastendruck oder ein HOTAS-Knopf hakt das erste noch offene Item ab,
-ohne dass der Nutzer in VR die Maus benutzen muss. **Diese Phase enthält keine
-Windows-App.** Der Tastendruck erreicht die EFB-App direkt.
+Ein Tastendruck oder ein HOTAS-Knopf hakt das nächste offene Item der gerade
+angezeigten Gruppe ab, ohne Maus und ohne Windows-App. Ist die Gruppe schon
+vollständig, bleibt der Druck wirkungslos. Der Auslöser ist das Sim-Key-Event
+`LEAD_POLE_ON`, das der Nutzer in den MSFS-Steuerungen selbst belegt.
 
-Grundlage ist [ADR 0002](docs/adr/0002-bestaetigungseingabe-in-sim-key-interception.md)
-und [ADR 0005](docs/adr/0005-phase-2-auf-die-efb-app-verkuerzen.md). Die
-technischen Belege stehen in
-[`docs/phase-2-3-research.md`](docs/phase-2-3-research.md), Abschnitt 2.
+Grundlage: [ADR 0002](docs/adr/0002-bestaetigungseingabe-in-sim-key-interception.md)
+und [ADR 0005](docs/adr/0005-phase-2-auf-die-efb-app-verkuerzen.md). Fakten in
+[`docs/msfs-sdk-reference.md`](docs/msfs-sdk-reference.md).
 
-Der Zuschnitt dieser Phase hängt an einem Laufzeitnachweis: Ein JS-Kontext in
-MSFS kann ein benanntes Sim-Key-Event abfangen und direkt in JavaScript
-empfangen. Belegt ist das für ein In-Game-Panel, nicht für eine EFB-App.
-**Fällt der Nachweis, wird Phase 2 neu geschnitten** und braucht dann doch eine
-Begleit-App mit eigener Eingabeerkennung.
+### Abnahme
 
-### Erster Arbeitsschritt: der Nachweis
-
-Vor jeder Produktivlogik wird ein eng begrenztes diagnostisches Logging
-eingebaut und im Simulator gefahren:
-
-- `KeyEventManager` aus dem bereits vendorten `@microsoft/msfs-sdk` verwenden,
-  `interceptKey("AUTOCOORD_ON", true)`, Treffer auf dem Event-Bus unter
-  `key_intercept` protokollieren.
-- Der Nutzer belegt die Aktion in den MSFS-Steuerungen **zweimal**: einmal mit
-  einer Taste, einmal mit einem HOTAS-Knopf.
-- Getestet wird mit einem Starrflügler **und zwingend mit H125 und MH-60** —
-  Asobo hat 2022 bestätigt, dass die Key-Interception in Hubschraubern nicht
-  feuerte, ohne dass ein Fix bestätigt wurde.
-- Zusätzlich geprüft werden der VR-Modus, der Wechsel VR ↔ Nicht-VR und ein
-  fokussiertes Textfeld in der EFB.
-
-### Geplanter Funktionsumfang
-
-- Die EFB-App fängt genau ein frei belegbares, in der Simulation ungenutztes
-  Sim-Key-Event ab und hakt daraufhin das erste offene Item in
-  Checklist-Reihenfolge ab.
-- Das Event wird mit `passThrough = true` abgefangen, also **nicht maskiert**.
-  Es gibt keinen Unregister-Aufruf; eine nicht gesetzte Maske ist die einzige,
-  die sich nicht später rächt.
-- Die Belegung wählt der Nutzer selbst in den MSFS-Steuerungen — damit
-  funktioniert jedes Gerät, das MSFS kennt, einschließlich HOTAS und Yoke.
-- Ohne offenes Item, ohne zugeordnete Checkliste und ohne laufenden Flug bleibt
-  der Druck wirkungslos.
-- Die MSFS-EFB-Aktion `VALIDATE` wird nicht erneut implementiert; sie ist unter
-  SDK 1.7.3 nachweislich nicht erreichbar. Die Ursache ist inzwischen belegt:
-  alle `KEY_EFB_*`-Actions tragen das Tag `norebind_kbmpad`. Siehe
-  [`docs/msfs-sdk-reference.md`](docs/msfs-sdk-reference.md).
-
-### Abnahmekriterien
-
-- Der belegte Tastendruck hakt in VR genau das erste offene Item ab und
-  verändert nichts anderes.
-- Derselbe Nachweis gelingt mit einem HOTAS-Knopf auf derselben Aktion.
-- Der Weg funktioniert in H125 und MH-60, nicht nur in einem Starrflügler.
-- Ohne offenes Item, ohne Checkliste und ohne laufenden Flug entsteht kein
-  Fehlerzustand.
-- Es entsteht kein Polling und keine messbare Belastung der MSFS-Framerate.
-- Der Wechsel zwischen VR und Nicht-VR sowie ein neuer Flug führen zu einem
-  definierten Zustand; die Registrierung wird dabei nachweislich wieder
-  hergestellt.
-- Die App erfährt ausschließlich, dass dieses eine Event ausgelöst wurde — sie
-  liest keine Tastatureingaben.
+Erledigt sind Tastatur und HOTAS in der DA42. Offen sind H125, MH-60,
+VR-Wechsel und fokussiertes Textfeld — die vollständige Liste steht in
+[`docs/open-tests.md`](docs/open-tests.md). Fällt der Hubschraubertest, wird
+Phase 2 für die Hubschrauber neu geschnitten und braucht doch eine Begleit-App.
 
 ## Phase 3 – Begleit-App mit Fortschrittsanzeige und Sprachausgabe
 

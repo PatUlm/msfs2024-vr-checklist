@@ -36,6 +36,9 @@ gehören nach `docs/design-qa.md`.
   unter `## [Unreleased]`. Bei einem Release werden sie nach
   `## [MAJOR.MINOR.PATCH] - YYYY-MM-DD` verschoben; datumsbasierte Überschriften
   ohne Version werden nicht verwendet.
+- Das `CHANGELOG.md` hält **nutzerwirksame Änderungen** fest. Dokumentationsarbeit
+  ist ein Eintrag, nicht einer je berührter Datei; Zwischenstände einer
+  laufenden Untersuchung gehören gar nicht hinein.
 - Commits sind, soweit sinnvoll möglich, nach fachlichem Kontext zu trennen.
   Checklistendaten, Anwendungscode und allgemeine Dokumentation gehören
   beispielsweise in getrennte Commits. Unmittelbar zugehörige Tests und
@@ -72,7 +75,15 @@ gehören nach `docs/design-qa.md`.
   `docs/msfs-sdk-reference.md` sagt **was gilt**, `docs/phase-2-3-research.md`
   sagt **warum wir es wissen** einschließlich der verworfenen Kandidaten, und
   die ADRs unter `docs/adr/` sagen **wie wir uns entschieden haben**. Ein ADR mit
-  Status `Vorgeschlagen` oder `Offen` hängt noch an einem Nachweis.
+  Status `Vorgeschlagen` oder `Offen` hängt noch an einem Nachweis. Noch nicht
+  geführte Laufzeitnachweise stehen als Einzeiler in `docs/open-tests.md`.
+- **Ein Fakt hat genau einen Ort.** Andere Dokumente verweisen darauf, statt ihn
+  zu wiederholen. Wer eine Erkenntnis an mehreren Stellen ablegt, macht jede
+  spätere Korrektur zu einer Suche und lässt zwangsläufig eine Stelle veralten.
+- **Dokumentiert wird das Ergebnis, nicht der Weg.** Ein Fehlversuch gehört nur
+  hinein, wenn er jemanden davon abhält, ihn zu wiederholen — dann als `[NEG]`
+  oder `DON'T`, nicht als Protokoll. Geschrieben wird am Ende einer
+  Erkenntniskette, nicht nach jedem Zwischenschritt.
 
 ## Source of Truth und generierte Dateien
 

@@ -191,10 +191,13 @@ VR legibility.
 
 current result: release branding accepted in MSFS with release 0.1.6
 
-## Open bug: VR and non-VR keep separate checklist state
+## Resolved bug: VR and non-VR kept separate checklist state
 
-Reported by the user on 2026-08-26 against release 0.1.6. Not yet reproduced or
-fixed by a maintainer.
+Reported by the user on 2026-08-26 against release 0.1.6, rebuilt and
+**verified in MSFS on 2026-08-27**, released with 0.1.7. The fix and its
+reasoning are in
+[ADR 0009](adr/0009-fortschritt-als-geteilter-sitzungszustand.md); the section
+below keeps the original report and what the verification run showed.
 
 **Expected:** One checklist state that survives a display-mode change. Whatever
 is checked off stays checked off in both VR and non-VR.
@@ -213,7 +216,8 @@ after a display-mode change. In the worst case a pilot believes an item is still
 open, or believes one is done when it is not. That makes it a correctness bug,
 not a cosmetic one.
 
-**Current state of knowledge**, from reading the code, not yet verified in MSFS:
+**State of knowledge at the time of the report**, from reading the 0.1.6 code.
+The symbols named here no longer exist:
 
 - Progress crosses a display-mode change through a **single-use handoff** in the
   `DataStore` (`persistSelectedChecklistProgress` /
@@ -234,18 +238,47 @@ not a cosmetic one.
   simulator session tolerance); or `refreshVrMode` does not observe the
   transition in one direction, so no snapshot is written at all.
 
-**Next step:** Reproduce with diagnostic logging that answers three questions in
-one run — how many app-view instances exist across a switch, whether
-`persistSelectedChecklistProgress` actually writes on both transitions, and
-which of the compatibility checks in `restoreStoredChecklistProgress` fails.
-Only then choose a fix.
+**What was done instead of a diagnostic run first.** The planned next step was
+to reproduce with logging and only then choose a fix. That order was dropped on
+purpose: all three candidate explanations — recreated app context, two parallel
+instances, a rejected handoff — share one cause, namely that the authoritative
+state lived in one app instance and crossed to another only through a narrow,
+time-limited special case. The rebuild removes that cause and holds under all
+three, so it does not need the diagnosis to be chosen. The narrow logging was
+built anyway, so the verification run answers the open questions in the same
+pass.
 
-**Design tension to resolve deliberately.** The 15-second single-use handoff is
-a documented decision in `design-decisions.md`. It was introduced in 0.1.5 to
-stop a new Free Flight with the same aircraft from inheriting completed items
-when MSFS missed the loading transition. Release 0.1.6 then bound the reset to
-the `FltLoad` Flow API event and verified it in MSFS, which covers that original
-purpose directly. Relaxing the handoff into a plain session-scoped persistence
-would therefore be defensible — but it changes a documented decision and needs
-its own ADR rather than a silent edit. The new-flight reset, the MSFS-restart
-case, and the aircraft change must each stay covered.
+**The fix.** The `DataStore` record is now the authoritative progress state for
+the simulator session; an instance's memory is only a view of it. Every toggle
+and every section change writes it, and every instance reconciles against it on
+resume, on a detected `IS IN VR` change, on the flight-lifecycle events and on
+the existing slow aircraft fallback. A record with a newer `savedAt` than this
+instance's own last write is adopted. The 15-second window, the single-use
+delete and the stored display mode are gone. The reset now hangs on `FltLoad`,
+`GameState.loading`, the aircraft identity, the checklist id and revision, and
+the monotonicity of `E:SIMULATION TIME`. Details and the discarded alternatives
+are in ADR 0009.
+
+**Verification in MSFS, 2026-08-27 with `0.1.6-dev.20260827171941`.** All four
+cases confirmed by the user:
+
+1. VR: check off items. Switch to non-VR: the same items are checked. Check off
+   more. Switch back to VR: everything checked in either mode is checked.
+2. A new flight with the same aircraft starts with an empty checklist.
+3. An aircraft change starts with an empty checklist.
+4. Pausing the simulator for well over a minute does not clear progress — the
+   case the old derived session start would have broken.
+
+**Still unanswered, and deliberately so:** how many EFB app instances a
+display-mode change produces. The rebuild makes that irrelevant to correctness,
+which is the point of ADR 0009, so it was not worth a separate run. The
+diagnostics that answer it stay in the code and cost nothing outside state
+transitions:
+
+- `App instance <id> created` — whether a switch creates a new instance.
+- `Instance <id> resumed/paused/closed` — which lifecycle hooks an instance
+  receives on a display-mode change.
+- `Instance <id> adopted N completed items…` — that the reconcile fires, and in
+  which direction.
+- `Instance <id> discards the stored progress: <reason>` — expected on an
+  aircraft change and after a restart, not during a plain display-mode change.

@@ -88,28 +88,37 @@ interface FlowEventPayload {
   flt_path?: string;
 }
 
+/*
+ * The shared progress record. It is the single source of truth for checklist
+ * progress inside one simulator session: every state change writes it, and
+ * every app instance adopts a record it did not write itself. That covers a
+ * recreated EFB app context as well as two app instances living side by side,
+ * without either case needing its own mechanism.
+ *
+ * The record is deliberately not time-limited. Its lifetime ends with an
+ * explicit reset (`FltLoad`, GameState.loading, checklist change) or with a
+ * failed compatibility check, not with a timeout.
+ */
 interface StoredChecklistProgress {
-  schemaVersion: 3;
+  schemaVersion: 4;
   checklistId: string;
   checklistRevision: string;
   aircraftIdentityKey: string;
-  simulatorSessionStartedAt: number;
-  sourceVrMode: boolean;
-  targetVrMode: boolean;
+  simulationTimeSeconds?: number;
   activeSectionIndex: number;
   completedItemKeys: string[];
   savedAt: number;
 }
 
 const AIRCRAFT_REFRESH_INTERVAL_MS = 10000;
-const CHECKLIST_PROGRESS_DATASTORE_KEY = "vr-checklist.progress.v3";
+const CHECKLIST_PROGRESS_DATASTORE_KEY = "vr-checklist.progress.v4";
 const OBSOLETE_DATASTORE_KEYS = [
   "vr-checklist.progress.v1",
   "vr-checklist.progress.v2",
+  "vr-checklist.progress.v3",
   "vr-checklist.lifecycle-diagnostics.v1",
 ];
-const DISPLAY_MODE_HANDOFF_MAX_AGE_MS = 15 * 1000;
-const SIMULATOR_SESSION_START_TOLERANCE_MS = 5000;
+const SIMULATION_TIME_TOLERANCE_SECONDS = 5;
 const FLOW_API_EVENT_NAME = "__FLOW_API__";
 
 enum FlowEventId {
@@ -211,6 +220,15 @@ function matchesAircraftRule(
   }
 
   return matchedFieldCount > 0;
+}
+
+let instanceCounter = 0;
+
+function createInstanceId(): string {
+  instanceCounter += 1;
+  // Two app instances can live in separate JS contexts, where a plain counter
+  // would hand out the same number twice. The creation time separates them.
+  return `${Date.now().toString(36)}-${instanceCounter}`;
 }
 
 function matchesAircraft(
@@ -319,8 +337,21 @@ class VRChecklistView extends AppView<RequiredProps<AppViewProps, "bus">> {
   private currentAircraftIdentityKey = "";
   private currentVrMode: boolean | undefined;
   private aircraftRefreshTimer: number | undefined;
-  private progressHandoffClearTimer: number | undefined;
   private isViewActive = false;
+
+  /*
+   * Identifies this app instance in the log. MSFS may recreate the EFB app
+   * context, and it is not established that only one instance is alive at a
+   * time, so the lifecycle log has to stay attributable per instance.
+   */
+  private readonly instanceId = createInstanceId();
+
+  /*
+   * `savedAt` of the last record this instance wrote. A stored record with a
+   * newer timestamp was written by someone else and is adopted; our own record
+   * is skipped. This is what keeps two instances from overwriting each other.
+   */
+  private lastPersistedAt = 0;
   private readonly handleViewportResize = (): void => this.refreshVrMode();
   private readonly handleFlowEvent = (data: string): void => {
     this.processFlowEvent(data);
@@ -329,6 +360,7 @@ class VRChecklistView extends AppView<RequiredProps<AppViewProps, "bus">> {
   public constructor(props: RequiredProps<AppViewProps, "bus">) {
     super(props);
 
+    console.info(`[VR Checklist] App instance ${this.instanceId} created.`);
     this.clearObsoleteStoredData();
     this.gameStateSubscription = GameStateProvider.get().sub(
       (gameState) => this.handleGameStateChanged(gameState),
@@ -383,15 +415,17 @@ class VRChecklistView extends AppView<RequiredProps<AppViewProps, "bus">> {
         return;
       }
 
-      if (this.currentVrMode !== undefined) {
-        this.persistSelectedChecklistProgress(isInVr);
-      }
-
       this.currentVrMode = isInVr;
       this.isVrMode.set(isInVr);
       console.info(
-        `[VR Checklist] Display mode detected: ${isInVr ? "VR" : "non-VR"}`
+        `[VR Checklist] Display mode detected on instance ` +
+          `${this.instanceId}: ${isInVr ? "VR" : "non-VR"}`
       );
+
+      // A display-mode change is the moment another instance's progress may
+      // have become the current one. Reconcile immediately instead of waiting
+      // for the slow aircraft fallback.
+      this.reconcileSelectedChecklistProgress();
     } catch (error) {
       console.error("[VR Checklist] Unable to read E:IS IN VR", error);
     }
@@ -405,23 +439,31 @@ class VRChecklistView extends AppView<RequiredProps<AppViewProps, "bus">> {
     );
   }
 
-  private readSimulatorSessionStartedAt(): number | undefined {
+  /*
+   * `E:SIMULATION TIME` counts the active simulation seconds. It does not
+   * advance while the simulator is paused, so it must not be converted into a
+   * wall-clock session start and compared for equality: a pause would shift
+   * that derived start and discard valid progress. Only its monotonicity is
+   * used — the value never decreases inside a session, and a restart puts it
+   * back to zero.
+   */
+  private readSimulationTimeSeconds(): number | undefined {
     try {
-      const activeDurationSeconds = Number(
+      const simulationTimeSeconds = Number(
         SimVar.GetSimVarValue("E:SIMULATION TIME", SimVarValueType.Seconds)
       );
 
       if (
-        !Number.isFinite(activeDurationSeconds) ||
-        activeDurationSeconds < 0
+        !Number.isFinite(simulationTimeSeconds) ||
+        simulationTimeSeconds < 0
       ) {
-        throw new Error(`Invalid active duration: ${activeDurationSeconds}`);
+        throw new Error(`Invalid simulation time: ${simulationTimeSeconds}`);
       }
 
-      return Date.now() - activeDurationSeconds * 1000;
+      return simulationTimeSeconds;
     } catch (error) {
       console.error(
-        "[VR Checklist] Unable to identify the current simulator session",
+        "[VR Checklist] Unable to read the current simulation time",
         error
       );
       return undefined;
@@ -439,7 +481,7 @@ class VRChecklistView extends AppView<RequiredProps<AppViewProps, "bus">> {
   }
 
   private clearStoredChecklistProgress(): void {
-    this.cancelProgressHandoffClear();
+    this.lastPersistedAt = 0;
 
     try {
       DataStore.remove(CHECKLIST_PROGRESS_DATASTORE_KEY);
@@ -448,132 +490,181 @@ class VRChecklistView extends AppView<RequiredProps<AppViewProps, "bus">> {
     }
   }
 
-  private cancelProgressHandoffClear(): void {
-    if (this.progressHandoffClearTimer !== undefined) {
-      window.clearTimeout(this.progressHandoffClearTimer);
-      this.progressHandoffClearTimer = undefined;
-    }
-  }
-
-  private scheduleProgressHandoffClear(): void {
-    this.cancelProgressHandoffClear();
-    this.progressHandoffClearTimer = window.setTimeout(() => {
-      this.progressHandoffClearTimer = undefined;
-      this.clearStoredChecklistProgress();
-    }, DISPLAY_MODE_HANDOFF_MAX_AGE_MS);
-  }
-
-  private persistSelectedChecklistProgress(targetVrMode: boolean): void {
+  /*
+   * Writes the current progress of the selected checklist. Every state change
+   * calls this, so the stored record is never older than the in-memory state
+   * of this instance.
+   */
+  private persistSelectedChecklistProgress(): void {
     const runtime = this.getSelectedRuntime();
-    const simulatorSessionStartedAt = this.readSimulatorSessionStartedAt();
 
-    if (
-      !runtime ||
-      this.currentAircraftIdentityKey.length === 0 ||
-      simulatorSessionStartedAt === undefined ||
-      this.currentVrMode === undefined ||
-      this.currentVrMode === targetVrMode
-    ) {
+    if (!runtime || this.currentAircraftIdentityKey.length === 0) {
       return;
     }
 
+    const savedAt = Date.now();
     const progress: StoredChecklistProgress = {
-      schemaVersion: 3,
+      schemaVersion: 4,
       checklistId: runtime.checklist.id,
       checklistRevision: runtime.checklist.revision,
       aircraftIdentityKey: this.currentAircraftIdentityKey,
-      simulatorSessionStartedAt,
-      sourceVrMode: this.currentVrMode,
-      targetVrMode,
+      simulationTimeSeconds: this.readSimulationTimeSeconds(),
       activeSectionIndex: runtime.activeSectionIndex.get(),
       completedItemKeys: Array.from(runtime.itemStates.entries())
         .filter(([, state]) => state.get())
         .map(([itemKey]) => itemKey),
-      savedAt: Date.now(),
+      savedAt,
     };
 
     try {
       DataStore.set(CHECKLIST_PROGRESS_DATASTORE_KEY, JSON.stringify(progress));
-      this.scheduleProgressHandoffClear();
+      this.lastPersistedAt = savedAt;
     } catch (error) {
       console.error("[VR Checklist] Unable to store progress", error);
     }
   }
 
-  private restoreStoredChecklistProgress(
-    runtime: ChecklistRuntimeState,
-    aircraftIdentityKey: string
-  ): boolean {
+  /*
+   * Brings this instance in line with the shared record. It runs whenever the
+   * app may have missed a change made elsewhere: on resume, on a display-mode
+   * change, on observed flight-lifecycle events, and on the slow aircraft
+   * fallback. It never runs per frame.
+   */
+  private reconcileSelectedChecklistProgress(): void {
+    const runtime = this.getSelectedRuntime();
+
+    if (!runtime || this.currentAircraftIdentityKey.length === 0) {
+      return;
+    }
+
+    const storedProgress = this.readStoredChecklistProgress(runtime);
+
+    if (!storedProgress) {
+      // Either nothing is stored yet, or the record belongs to another
+      // session, aircraft or checklist. Both mean the state of this instance
+      // is the one that counts, so it becomes the new record.
+      this.persistSelectedChecklistProgress();
+      return;
+    }
+
+    if (storedProgress.savedAt <= this.lastPersistedAt) {
+      // Our own record; this instance is already in sync with it.
+      return;
+    }
+
+    this.applyStoredChecklistProgress(runtime, storedProgress);
+    this.lastPersistedAt = storedProgress.savedAt;
+  }
+
+  private readStoredChecklistProgress(
+    runtime: ChecklistRuntimeState
+  ): StoredChecklistProgress | undefined {
+    let candidate: Partial<StoredChecklistProgress>;
+
     try {
-      const simulatorSessionStartedAt = this.readSimulatorSessionStartedAt();
-
-      if (simulatorSessionStartedAt === undefined) {
-        this.clearStoredChecklistProgress();
-        return false;
-      }
-
       const storedProgress = DataStore.get<string>(
         CHECKLIST_PROGRESS_DATASTORE_KEY
       );
 
       if (typeof storedProgress !== "string") {
-        return false;
+        return undefined;
       }
 
-      const candidate = JSON.parse(
+      candidate = JSON.parse(
         storedProgress
       ) as Partial<StoredChecklistProgress>;
-      const isCompatible =
-        candidate.schemaVersion === 3 &&
-        candidate.checklistId === runtime.checklist.id &&
-        candidate.checklistRevision === runtime.checklist.revision &&
-        candidate.aircraftIdentityKey === aircraftIdentityKey &&
-        typeof candidate.simulatorSessionStartedAt === "number" &&
-        Math.abs(
-          simulatorSessionStartedAt - candidate.simulatorSessionStartedAt
-        ) <= SIMULATOR_SESSION_START_TOLERANCE_MS &&
-        typeof candidate.sourceVrMode === "boolean" &&
-        typeof candidate.targetVrMode === "boolean" &&
-        candidate.sourceVrMode !== candidate.targetVrMode &&
-        candidate.targetVrMode === this.currentVrMode &&
-        typeof candidate.activeSectionIndex === "number" &&
-        Array.isArray(candidate.completedItemKeys) &&
-        candidate.completedItemKeys.every(
-          (itemKey) =>
-            typeof itemKey === "string" && runtime.itemStates.has(itemKey)
-        ) &&
-        typeof candidate.savedAt === "number" &&
-        Date.now() - candidate.savedAt >= 0 &&
-        Date.now() - candidate.savedAt <= DISPLAY_MODE_HANDOFF_MAX_AGE_MS;
-
-      if (!isCompatible) {
-        this.clearStoredChecklistProgress();
-        return false;
-      }
-
-      const completedItemKeys = new Set(candidate.completedItemKeys);
-
-      for (const [itemKey, itemState] of runtime.itemStates) {
-        itemState.set(completedItemKeys.has(itemKey));
-      }
-
-      runtime.updateCompletedCount();
-      const activeSectionIndex = Math.min(
-        Math.max(0, candidate.activeSectionIndex as number),
-        runtime.checklist.sections.length - 1
-      );
-      this.showSection(runtime, activeSectionIndex);
-      this.clearStoredChecklistProgress();
-      console.info(
-        `[VR Checklist] Restored ${completedItemKeys.size} completed items ` +
-          `after a VR display-mode transition.`
-      );
-      return true;
     } catch (error) {
-      this.clearStoredChecklistProgress();
-      console.error("[VR Checklist] Unable to restore stored progress", error);
-      return false;
+      console.error("[VR Checklist] Unable to read stored progress", error);
+      return undefined;
     }
+
+    const incompatibility = this.findProgressIncompatibility(
+      runtime,
+      candidate
+    );
+
+    if (incompatibility !== undefined) {
+      console.info(
+        `[VR Checklist] Instance ${this.instanceId} discards the stored ` +
+          `progress: ${incompatibility}.`
+      );
+      return undefined;
+    }
+
+    return candidate as StoredChecklistProgress;
+  }
+
+  private findProgressIncompatibility(
+    runtime: ChecklistRuntimeState,
+    candidate: Partial<StoredChecklistProgress>
+  ): string | undefined {
+    if (candidate.schemaVersion !== 4) {
+      return `schema version ${String(candidate.schemaVersion)}`;
+    }
+
+    if (candidate.checklistId !== runtime.checklist.id) {
+      return `checklist ${String(candidate.checklistId)}`;
+    }
+
+    if (candidate.checklistRevision !== runtime.checklist.revision) {
+      return `checklist revision ${String(candidate.checklistRevision)}`;
+    }
+
+    if (candidate.aircraftIdentityKey !== this.currentAircraftIdentityKey) {
+      return `aircraft ${String(candidate.aircraftIdentityKey)}`;
+    }
+
+    if (
+      typeof candidate.savedAt !== "number" ||
+      typeof candidate.activeSectionIndex !== "number" ||
+      !Array.isArray(candidate.completedItemKeys) ||
+      !candidate.completedItemKeys.every(
+        (itemKey) =>
+          typeof itemKey === "string" && runtime.itemStates.has(itemKey)
+      )
+    ) {
+      return "a malformed payload";
+    }
+
+    const simulationTimeSeconds = this.readSimulationTimeSeconds();
+
+    if (
+      simulationTimeSeconds !== undefined &&
+      typeof candidate.simulationTimeSeconds === "number" &&
+      simulationTimeSeconds + SIMULATION_TIME_TOLERANCE_SECONDS <
+        candidate.simulationTimeSeconds
+    ) {
+      // Simulation time only moves forward inside a session. A smaller value
+      // means the record was written before a restart.
+      return "an earlier simulator session";
+    }
+
+    return undefined;
+  }
+
+  private applyStoredChecklistProgress(
+    runtime: ChecklistRuntimeState,
+    progress: StoredChecklistProgress
+  ): void {
+    const completedItemKeys = new Set(progress.completedItemKeys);
+
+    for (const [itemKey, itemState] of runtime.itemStates) {
+      itemState.set(completedItemKeys.has(itemKey));
+    }
+
+    runtime.updateCompletedCount();
+    this.showSection(
+      runtime,
+      Math.min(
+        Math.max(0, progress.activeSectionIndex),
+        runtime.checklist.sections.length - 1
+      )
+    );
+    console.info(
+      `[VR Checklist] Instance ${this.instanceId} adopted ` +
+        `${completedItemKeys.size} completed items from the shared progress ` +
+        `record.`
+    );
   }
 
   private refreshSelectedChecklist(): void {
@@ -606,52 +697,51 @@ class VRChecklistView extends AppView<RequiredProps<AppViewProps, "bus">> {
       aircraftIdentityKey !== this.currentAircraftIdentityKey;
     const checklistChanged = checklistId !== previousChecklistId;
 
-    if (!identityChanged && !checklistChanged) {
-      return;
-    }
+    if (identityChanged || checklistChanged) {
+      if (checklistChanged) {
+        this.resetAllChecklists();
 
-    if (checklistChanged) {
-      this.resetAllChecklists();
-
-      if (previousChecklistId !== null || checklistId === null) {
-        this.clearStoredChecklistProgress();
-      }
-    }
-
-    this.currentAircraftIdentityKey = aircraftIdentityKey;
-    this.selectedChecklistId.set(checklistId);
-
-    if (checklist) {
-      const runtime = this.runtimesByChecklistId.get(checklist.id);
-
-      if (runtime && checklistChanged) {
-        const progressRestored =
-          previousChecklistId === null &&
-          this.restoreStoredChecklistProgress(runtime, aircraftIdentityKey);
-
-        if (!progressRestored) {
-          this.showSection(runtime, 0);
+        // Leaving a checklist ends its progress. Arriving at one must not
+        // clear the record: a freshly created app context reaches this branch
+        // as well, and its record is exactly what has to be adopted below.
+        if (previousChecklistId !== null) {
+          this.clearStoredChecklistProgress();
         }
       }
 
-      console.info(
-        `[VR Checklist] Aircraft identity matched ${checklist.id}: ` +
-          `${identity.atcModel} | ${identity.atcType} | ${identity.title}`
-      );
-    } else if (matchingChecklists.length > 1) {
-      console.error(
-        `[VR Checklist] Ambiguous aircraft identity matched ` +
-          `${matchingChecklists
-            .map((candidate) => candidate.id)
-            .join(", ")}: ` +
-          `${identity.atcModel} | ${identity.atcType} | ${identity.title}`
-      );
-    } else if (aircraftIdentityKey.replace(/\|/g, "").length > 0) {
-      console.warn(
-        `[VR Checklist] No checklist for aircraft identity: ` +
-          `${identity.atcModel} | ${identity.atcType} | ${identity.title}`
-      );
+      this.currentAircraftIdentityKey = aircraftIdentityKey;
+      this.selectedChecklistId.set(checklistId);
+
+      if (checklist) {
+        const runtime = this.runtimesByChecklistId.get(checklist.id);
+
+        if (runtime && checklistChanged) {
+          this.showSection(runtime, 0);
+        }
+
+        console.info(
+          `[VR Checklist] Aircraft identity matched ${checklist.id}: ` +
+            `${identity.atcModel} | ${identity.atcType} | ${identity.title}`
+        );
+      } else if (matchingChecklists.length > 1) {
+        console.error(
+          `[VR Checklist] Ambiguous aircraft identity matched ` +
+            `${matchingChecklists
+              .map((candidate) => candidate.id)
+              .join(", ")}: ` +
+            `${identity.atcModel} | ${identity.atcType} | ${identity.title}`
+        );
+      } else if (aircraftIdentityKey.replace(/\|/g, "").length > 0) {
+        console.warn(
+          `[VR Checklist] No checklist for aircraft identity: ` +
+            `${identity.atcModel} | ${identity.atcType} | ${identity.title}`
+        );
+      }
     }
+
+    // Runs on every pass, not only when the selection changed: this is the
+    // path that picks up progress written by another app instance.
+    this.reconcileSelectedChecklistProgress();
   }
 
   private scheduleAircraftRefresh(delay = 0): void {
@@ -788,6 +878,23 @@ class VRChecklistView extends AppView<RequiredProps<AppViewProps, "bus">> {
     }
   }
 
+  /*
+   * A section change made in this app instance. `showSection` itself stays
+   * free of side effects so that adopting a stored record does not write one
+   * back — two instances would otherwise keep answering each other.
+   */
+  private changeSection(
+    runtime: ChecklistRuntimeState,
+    sectionIndex: number
+  ): void {
+    if (sectionIndex < 0 || sectionIndex >= runtime.checklist.sections.length) {
+      return;
+    }
+
+    this.showSection(runtime, sectionIndex);
+    this.persistSelectedChecklistProgress();
+  }
+
   private toggleItem(
     runtime: ChecklistRuntimeState,
     section: ChecklistSection,
@@ -797,6 +904,7 @@ class VRChecklistView extends AppView<RequiredProps<AppViewProps, "bus">> {
     const checked = !itemState.get();
     itemState.set(checked);
     runtime.updateCompletedCount();
+    this.persistSelectedChecklistProgress();
 
     if (
       checked &&
@@ -809,7 +917,7 @@ class VRChecklistView extends AppView<RequiredProps<AppViewProps, "bus">> {
           runtime.activeSectionIndex.get() === sectionIndex &&
           this.isSectionComplete(runtime, section)
         ) {
-          this.showSection(runtime, sectionIndex + 1);
+          this.changeSection(runtime, sectionIndex + 1);
         }
       }, 350);
     }
@@ -832,7 +940,7 @@ class VRChecklistView extends AppView<RequiredProps<AppViewProps, "bus">> {
               previousSection === undefined,
           }}
           disabled={previousSection === undefined}
-          callback={(): void => this.showSection(runtime, sectionIndex - 1)}
+          callback={(): void => this.changeSection(runtime, sectionIndex - 1)}
           aria-label={
             previousSection
               ? `Previous: ${previousSection.title}`
@@ -863,7 +971,7 @@ class VRChecklistView extends AppView<RequiredProps<AppViewProps, "bus">> {
             "section-navigation__button--disabled": nextSection === undefined,
           }}
           disabled={nextSection === undefined}
-          callback={(): void => this.showSection(runtime, sectionIndex + 1)}
+          callback={(): void => this.changeSection(runtime, sectionIndex + 1)}
           aria-label={
             nextSection ? `Next: ${nextSection.title}` : "No next section"
           }
@@ -1051,13 +1159,16 @@ class VRChecklistView extends AppView<RequiredProps<AppViewProps, "bus">> {
   public onResume(): void {
     super.onResume();
 
+    console.info(`[VR Checklist] Instance ${this.instanceId} resumed.`);
     this.isViewActive = true;
     window.addEventListener("resize", this.handleViewportResize);
+    // Reconciles through refreshSelectedChecklist: whatever happened while
+    // this instance was not visible is picked up here.
     this.scheduleAircraftRefresh();
   }
 
   public onPause(): void {
-    this.refreshVrMode();
+    console.info(`[VR Checklist] Instance ${this.instanceId} paused.`);
     this.isViewActive = false;
     window.removeEventListener("resize", this.handleViewportResize);
     this.cancelAircraftRefresh();
@@ -1065,7 +1176,7 @@ class VRChecklistView extends AppView<RequiredProps<AppViewProps, "bus">> {
   }
 
   public onClose(): void {
-    this.refreshVrMode();
+    console.info(`[VR Checklist] Instance ${this.instanceId} closed.`);
     this.isViewActive = false;
     window.removeEventListener("resize", this.handleViewportResize);
     this.cancelAircraftRefresh();

@@ -79,12 +79,38 @@ Changelog, and the project uses Semantic Versioning.
   delivery, and recorded the versioning exception this creates for `assets/`.
 - Retired `docs/phase-2-tech-stack-plan.md` to a pointer at the three documents
   that replace it, now that its research assignment is complete.
-- Documented an open correctness bug reported against 0.1.6: VR and non-VR keep
-  separate checklist state, so switching back to a display mode can show an
-  outdated set of completed items. The report carries the reproduction, the
-  impact, the current reading of the single-use display-mode handoff, the
-  alternative explanations not yet ruled out, and the diagnostic run needed
-  before a fix is chosen.
+- Documented the correctness bug reported against 0.1.6 — VR and non-VR keeping
+  separate checklist state — with its reproduction, its impact, the reading of
+  the single-use display-mode handoff that caused it, and the alternative
+  explanations considered. Kept as the record behind the fix below.
+- Rebuilt checklist progress into a shared session state instead of per-instance
+  memory with a timed handoff. The `DataStore` record is now authoritative for
+  the simulator session: every toggle and section change writes it, and every
+  app instance reconciles against it on resume, on a detected display-mode
+  change, on the flight-lifecycle events, and on the existing slow aircraft
+  fallback. A record whose `savedAt` is newer than an instance's own last write
+  is adopted, so two instances cannot overwrite each other. Recorded as
+  ADR 0009, which replaces the single-use handoff from 0.1.5.
+- Stopped deriving a simulator session start from `E:SIMULATION TIME`. The
+  counter stands still while the simulator is paused, so the derived start
+  drifted with every pause and would have discarded valid progress once the
+  record outlived the old 15-second window. Only the monotonicity of the raw
+  value is used now, to detect a restart.
+- Added narrow lifecycle diagnostics that name the app instance on creation,
+  resume, pause and close, and log every adopted or discarded progress record.
+  They stay in the code: they cost nothing outside state transitions and are
+  the only way to answer later how many EFB app instances a display-mode change
+  produces, which remains unmeasured and no longer affects correctness.
+
+### Fixed
+
+- Fixed the reported correctness bug that VR and non-VR keep separate checklist
+  state. Progress no longer depends on MSFS destroying and recreating the EFB
+  app context within 15 seconds of a display-mode change; a recreated context,
+  a resident instance, and two parallel instances now all converge on the same
+  state. Verified in MSFS across the full round trip with items checked in both
+  display modes, a new flight, an aircraft change, and a simulator pause of over
+  a minute.
 
 ## [0.1.6] - 2026-08-25
 

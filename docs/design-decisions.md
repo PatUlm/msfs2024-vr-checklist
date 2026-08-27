@@ -84,14 +84,24 @@ Iteration stehen separat in `design-qa.md`.
   Beginn des nächsten Fluges lesbar. Den Reset nicht ohne neue ausdrückliche
   Entscheidung auf `FlightEnd` vorziehen.
 - Ein Wechsel zwischen VR und Nicht-VR ist kein neuer Flug und darf den
-  Fortschritt nicht zurücksetzen. Da MSFS dabei den EFB-App-Kontext neu erzeugen
-  kann, hält die App einen kurzlebigen Fortschritts-Snapshot im SDK-`DataStore`.
-  Dieser Snapshot ist eine höchstens 15 Sekunden gültige Einmal-Übergabe, die
-  ausschließlich bei einem tatsächlich erkannten Wechsel von `IS IN VR`
-  entsteht und nur im entgegengesetzten Darstellungsmodus wiederhergestellt
-  wird. Zusätzlich müssen Simulatorprozess, Flugzeugidentität und
-  Checklistenrevision übereinstimmen. Ein MSFS-Neustart, ein neuer Flug, ein
-  Ladezustand oder ein Flugzeugwechsel setzt den Fortschritt immer zurück.
+  Fortschritt nicht zurücksetzen.
+- Der Fortschritt ist ein **geteilter Zustand der Simulatorsitzung**, kein
+  Zustand einer App-Instanz. Maßgeblich ist ein Datensatz im SDK-`DataStore`:
+  Jedes Abhaken und jeder Abschnittswechsel schreibt ihn, und jede App-Instanz
+  gleicht sich mit ihm ab, sobald sie eine Änderung verpasst haben kann. Ob
+  MSFS beim Darstellungswechsel den App-Kontext neu erzeugt, die App resident
+  hält oder zwei Instanzen nebeneinander betreibt, ändert das Ergebnis dadurch
+  nicht. Die Begründung steht in
+  [`adr/0009-fortschritt-als-geteilter-sitzungszustand.md`](adr/0009-fortschritt-als-geteilter-sitzungszustand.md).
+- Der Datensatz hat bewusst **keine Frist**. Er endet an fachlichen
+  Bedingungen: `FltLoad` und der Ladezustand löschen ihn, Flugzeugidentität,
+  Checklisten-ID und Checklistenrevision müssen übereinstimmen, und ein
+  MSFS-Neustart wird an der Monotonie der Simulationszeit erkannt. Die
+  frühere, auf 15 Sekunden begrenzte Einmal-Übergabe ist damit abgelöst: Sie
+  war eine Notbremse aus der Zeit vor dem `FltLoad`-Reset und keine Eigenschaft
+  des Darstellungswechsels.
+- Ein MSFS-Neustart, ein neuer Flug, ein Ladezustand oder ein Flugzeugwechsel
+  setzt den Fortschritt weiterhin immer zurück.
 
 ## Flugzeugauswahl und Leerzustand
 

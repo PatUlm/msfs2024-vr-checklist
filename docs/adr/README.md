@@ -30,9 +30,12 @@ eine spätere Kehrtwende bekommt ein neues ADR, das das alte ersetzt.
 | [0006](0006-tts-vorab-synthese.md) | Sprachausgabe als Vorab-Synthese mit Cache | Akzeptiert | Phase 3 |
 | [0007](0007-ablage-der-gerenderten-audiodateien.md) | Gerenderte Audiodateien liegen im Repository | Akzeptiert | Phase 3 |
 | [0008](0008-stimme-und-tts-anbieter.md) | Stimme und TTS-Anbieter | **Offen** | Phase 3 |
+| [0009](0009-fortschritt-als-geteilter-sitzungszustand.md) | Checklistenfortschritt als geteilter Sitzungszustand | Akzeptiert | Phase 1 |
 
-Alle acht entstanden am 2026-08-26 aus dem Entscheidungsgespräch nach der
-Recherche-Session.
+0001 bis 0008 entstanden am 2026-08-26 aus dem Entscheidungsgespräch nach der
+Recherche-Session. 0009 kam am 2026-08-27 aus dem Bugreport zum getrennten
+Zustand in VR und Nicht-VR hinzu, ersetzt die Einmal-Übergabe aus 0.1.5 und ist
+am selben Tag in MSFS nachgewiesen worden.
 
 ## Was als Nächstes den Status ändert
 

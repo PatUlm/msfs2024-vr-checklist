@@ -139,6 +139,13 @@ Source ändern → task deploy → Build All In Project → Ignore Cache + Reloa
   ohne dass `onResume()` erneut feuert. Siehe „Flug-Lifecycle“.
 - **[RT]** MSFS kann den EFB-App-Kontext bei einem Wechsel zwischen VR und
   Nicht-VR neu erzeugen. In-Memory-Zustand geht dabei verloren.
+- **[OPEN]** Ob dabei stets **genau eine** Instanz lebt, ist nicht belegt. Das
+  gemeldete Verhalten in 0.1.6 passt auch dazu, dass die VR- und die
+  Nicht-VR-Darstellung als **zwei parallele Instanzen** nebeneinander laufen.
+  **DON'T:** Korrektheit an die Ein-Instanz-Annahme binden; siehe
+  [ADR 0009](adr/0009-fortschritt-als-geteilter-sitzungszustand.md). Die
+  Instanz-ID im Log (`App instance … created/resumed/paused/closed`) beantwortet
+  die Frage beim nächsten Teststand.
 
 ## Laufzeit-Globals und Typen
 
@@ -160,7 +167,7 @@ Source ändern → task deploy → Build All In Project → Ignore Cache + Reloa
 | `ATC TYPE` | String | Flugzeugidentität, Match-Regeln | **[RT]** |
 | `TITLE` | String | Flugzeugidentität, Match-Regeln | **[RT]** |
 | `E:IS IN VR` | Bool | Erkennung des Darstellungsmodus | **[RT]** |
-| `E:SIMULATION TIME` | Sekunden | Ableitung der Simulatorsitzung | **[RT]** |
+| `E:SIMULATION TIME` | Sekunden | Erkennung eines MSFS-Neustarts | **[RT]** |
 
 - **[RT]** Die drei Identitätswerte werden vor dem Vergleich normalisiert
   (trimmen, Großschreibung, alles außer `A-Z0-9` entfernen). Ohne Normalisierung
@@ -172,9 +179,18 @@ Source ändern → task deploy → Build All In Project → Ignore Cache + Reloa
   `aircraft.cfg`-Werte in geschützten `fsarchive`-Dateien und stehen nicht als
   Referenz zur Verfügung. Die Match-Regel stützt sich dann auf einen eindeutigen
   Teilstring des sichtbaren Titels.
-- **[RT]** `E:SIMULATION TIME` liefert die aktive Dauer der Sitzung in Sekunden.
-  `Date.now() - Dauer` ergibt einen stabilen Sitzungsstart, der einen
-  MSFS-Neustart erkennbar macht (Toleranz im Projekt: 5 Sekunden).
+- **[RT]** `E:SIMULATION TIME` liefert die **aktive** Dauer der Sitzung in
+  Sekunden. Der Wert steigt innerhalb einer Sitzung monoton und beginnt nach
+  einem Neustart wieder bei null. Verwendet wird ausschließlich diese
+  Monotonie: Ein gespeicherter Wert, der über dem aktuellen liegt, stammt aus
+  einer früheren Sitzung (Toleranz im Projekt: 5 Sekunden).
+- **DON'T:** Daraus über `Date.now() - Dauer` einen Sitzungsstart ableiten und
+  auf Gleichheit prüfen. Der Zähler steht bei pausiertem Simulator still, der
+  abgeleitete Startzeitpunkt wandert dadurch mit jeder Pause. Über eine kurze
+  Frist fällt das nicht auf, über eine ganze Sitzung verwirft es gültigen
+  Fortschritt.
+- **[RT]** Mit 0.1.7 bestätigt: Eine Simulatorpause von über einer Minute lässt
+  den Fortschritt unangetastet.
 - **[RT]** Die Auswahl greift bereits im Free-Flight-Konfigurationsbildschirm;
   ein dort vorgenommener Flugzeugwechsel zieht die Checkliste im geöffneten EFB
   nach.
@@ -260,19 +276,29 @@ Source ändern → task deploy → Build All In Project → Ignore Cache + Reloa
   wie sie beim Wechsel zwischen VR und Nicht-VR auftritt.
 - **[RT]** Er überlebt außerdem einen zeitnahen vollständigen Neustart des
   Simulators. **DON'T:** `DataStore` als flüchtigen Sitzungsspeicher behandeln.
-- **[RT]** Wirksame Absicherungen im Projekt:
-  1. Der Snapshot entsteht ausschließlich bei einem tatsächlich erkannten
-     Wechsel von `E:IS IN VR`.
-  2. Er ist eine Einmal-Übergabe mit maximal 15 Sekunden Gültigkeit und wird
-     nach dem Wiederherstellen sofort gelöscht.
-  3. Simulatorsitzung (`E:SIMULATION TIME`), Flugzeugidentität, Checklisten-ID
-     und Checklistenrevision müssen übereinstimmen.
-  4. Der gespeicherte Ziel-Darstellungsmodus muss dem aktuellen entsprechen.
-- **DO:** Den Schlüssel versionieren (`…progress.v3`) und veraltete Schlüssel
+- **[DO]** Den Checklistenfortschritt als **geteilten Zustand der
+  Simulatorsitzung** im `DataStore` führen, nicht als Zustand einer
+  App-Instanz. Jede Zustandsänderung schreibt den Datensatz, jede Instanz
+  gleicht sich mit ihm ab. Entscheidung und Begründung:
+  [ADR 0009](adr/0009-fortschritt-als-geteilter-sitzungszustand.md).
+- **[DO]** Beim Abgleich den eigenen letzten `savedAt` merken und nur einen
+  Datensatz mit größerem `savedAt` übernehmen. Sonst überschreiben sich zwei
+  gleichzeitig lebende Instanzen gegenseitig.
+- **[DO]** Den maßgeblichen Zustand nicht an eine Annahme über den
+  EFB-App-Lifecycle binden. **DON'T:** Eine befristete Einmal-Übergabe bauen,
+  die voraussetzt, dass genau eine Instanz lebt — siehe den Bugreport zum
+  getrennten VR-/Nicht-VR-Zustand in `design-qa.md`.
+- **[RT]** Wirksame Absicherungen im Projekt, mit 0.1.7 einzeln in MSFS
+  bestätigt:
+  1. Flugzeugidentität, Checklisten-ID und Checklistenrevision müssen
+     übereinstimmen.
+  2. `FltLoad` und der Ladezustand `GameState.loading` löschen den Datensatz.
+  3. Ein Checklistenwechsel löscht den Datensatz der verlassenen Checkliste.
+  4. Ein MSFS-Neustart wird an der Monotonie von `E:SIMULATION TIME` erkannt.
+- **DO:** Den Schlüssel versionieren (`…progress.v4`) und veraltete Schlüssel
   beim Start aktiv entfernen.
-- **[RT]** Der residente In-Memory-Zustand der App hat kein Timeout. Ein
-  abgelaufener `DataStore`-Snapshot beendet den Fortschritt also **nicht**;
-  dafür ist ausschließlich der `FltLoad`-Reset zuständig.
+- **[RT]** Der Fortschritt hat kein Timeout. Er endet ausschließlich an den vier
+  Bedingungen oben, nicht durch Zeitablauf.
 
 ## Darstellungsmodus VR
 
@@ -286,6 +312,11 @@ Source ändern → task deploy → Build All In Project → Ignore Cache + Reloa
   Dichteprofil verwenden.
 - **[RT]** Ein VR-Wechsel ist kein neuer Flug und sendet kein `FltLoad`; er darf
   den Fortschritt nicht zurücksetzen.
+- **[RT]** Mit 0.1.7 ist der Rundweg VR → Nicht-VR → VR mit abgehakten Items in
+  **beiden** Modi bestätigt: Der Fortschritt ist danach in beiden Modi
+  vollständig. Bis 0.1.6 verhielten sich die Modi wie zwei getrennte Zustände;
+  die Ursache und der Umbau stehen in
+  [ADR 0009](adr/0009-fortschritt-als-geteilter-sitzungszustand.md).
 
 ## Eingaben: nachgewiesen nicht verfügbar
 
@@ -524,11 +555,13 @@ Nur relevant, falls je ein eigenes WASM-Modul gebraucht wird.
 
 ## Offene Punkte
 
-- **[OPEN]** Der Rundweg Nicht-VR → VR → Nicht-VR wurde nach der Umstellung auf
-  die Flow-API nicht erneut geprüft. Er war in der Phase-1-Abnahme erfolgreich,
-  und ein Display-Mode-Wechsel erzeugt kein `FltLoad`, sodass die Einmal-Übergabe
-  im `DataStore` unberührt bleiben sollte. Eine Abweichung wird als neuer
-  Bugreport behandelt.
+- **[OPEN]** Wie viele EFB-App-Instanzen ein Darstellungswechsel erzeugt, ist
+  weiterhin nicht gemessen. Der Punkt ist für die Fortschrittslogik ohne Belang,
+  seit sie nicht mehr an der Ein-Instanz-Annahme hängt
+  ([ADR 0009](adr/0009-fortschritt-als-geteilter-sitzungszustand.md)); die
+  Zeilen `App instance … created/resumed/paused/closed` im Log beantworten ihn
+  bei Gelegenheit ohne neuen Build. **DON'T:** Ihn vor der Messung als geklärt
+  behandeln.
 - **[OPEN]** Der bidirektionale Kanal zwischen EFB-App und einer lokalen
   Begleit-App ist als Phase 3 geplant, aber weder implementiert noch
   verifiziert. Der **Transportweg ist inzwischen dokumentiert belegt** und

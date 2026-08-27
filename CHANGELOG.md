@@ -79,6 +79,12 @@ Changelog, and the project uses Semantic Versioning.
   delivery, and recorded the versioning exception this creates for `assets/`.
 - Retired `docs/phase-2-tech-stack-plan.md` to a pointer at the three documents
   that replace it, now that its research assignment is complete.
+- Documented an open correctness bug reported against 0.1.6: VR and non-VR keep
+  separate checklist state, so switching back to a display mode can show an
+  outdated set of completed items. The report carries the reproduction, the
+  impact, the current reading of the single-use display-mode handoff, the
+  alternative explanations not yet ruled out, and the diagnostic run needed
+  before a fix is chosen.
 
 ## [0.1.6] - 2026-08-25
 

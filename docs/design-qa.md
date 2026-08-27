@@ -190,3 +190,62 @@ declarations and the left/right composition, not the shape weight that carries
 VR legibility.
 
 current result: release branding accepted in MSFS with release 0.1.6
+
+## Open bug: VR and non-VR keep separate checklist state
+
+Reported by the user on 2026-08-26 against release 0.1.6. Not yet reproduced or
+fixed by a maintainer.
+
+**Expected:** One checklist state that survives a display-mode change. Whatever
+is checked off stays checked off in both VR and non-VR.
+
+**Observed:** VR and non-VR behave as if each had its own state.
+
+**Reproduction:**
+
+1. In VR, check off one or more items.
+2. Switch to non-VR and check off different items.
+3. Switch back to VR.
+4. The previous VR state is shown, not the state left behind in non-VR.
+
+**Impact:** The checklist can silently show an outdated set of completed items
+after a display-mode change. In the worst case a pilot believes an item is still
+open, or believes one is done when it is not. That makes it a correctness bug,
+not a cosmetic one.
+
+**Current state of knowledge**, from reading the code, not yet verified in MSFS:
+
+- Progress crosses a display-mode change through a **single-use handoff** in the
+  `DataStore` (`persistSelectedChecklistProgress` /
+  `restoreStoredChecklistProgress` in `VRChecklist.tsx`). The snapshot carries
+  `sourceVrMode` and `targetVrMode`, and restoration requires
+  `targetVrMode === currentVrMode` plus an age of at most
+  `DISPLAY_MODE_HANDOFF_MAX_AGE_MS` (15 s). A timer clears the snapshot after
+  that window.
+- That design assumes MSFS **destroys and recreates** the EFB app context on a
+  display-mode change, so that exactly one instance is alive at a time.
+- The reported behavior fits the hypothesis that this assumption no longer
+  holds: if the VR EFB and the 2D EFB stay alive as **two parallel instances**,
+  each keeps its own resident `ChecklistRuntimeState`. Coming back, the 15-second
+  window has long expired, nothing is restored, and the other instance's stale
+  in-memory state is what the user sees.
+- Alternative explanations not yet ruled out: the handoff is written but rejected
+  on restore for another reason (aircraft identity key, checklist revision,
+  simulator session tolerance); or `refreshVrMode` does not observe the
+  transition in one direction, so no snapshot is written at all.
+
+**Next step:** Reproduce with diagnostic logging that answers three questions in
+one run — how many app-view instances exist across a switch, whether
+`persistSelectedChecklistProgress` actually writes on both transitions, and
+which of the compatibility checks in `restoreStoredChecklistProgress` fails.
+Only then choose a fix.
+
+**Design tension to resolve deliberately.** The 15-second single-use handoff is
+a documented decision in `design-decisions.md`. It was introduced in 0.1.5 to
+stop a new Free Flight with the same aircraft from inheriting completed items
+when MSFS missed the loading transition. Release 0.1.6 then bound the reset to
+the `FltLoad` Flow API event and verified it in MSFS, which covers that original
+purpose directly. Relaxing the handoff into a plain session-scoped persistence
+would therefore be defensible — but it changes a documented decision and needs
+its own ADR rather than a silent edit. The new-flight reset, the MSFS-restart
+case, and the aircraft change must each stay covered.

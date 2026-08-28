@@ -6,7 +6,6 @@ geprüft ist; das Ergebnis geht als Fakt nach
 
 ## Phase 2 — Bestätigungseingabe
 
-- [ ] `LEAD POLE ON` nach einem **VR-Wechsel** (erzeugt den App-Kontext neu)
 - [ ] Findet sich ein Auslöser, der **auch in Hubschraubern belegbar** und dort
       folgenlos ist, oder braucht die Flotte zwei Auslöser? Siehe den Nachtrag
       in [ADR 0002](adr/0002-bestaetigungseingabe-in-sim-key-interception.md).

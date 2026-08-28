@@ -5,6 +5,12 @@ Changelog, and the project uses Semantic Versioning.
 
 ## [Unreleased]
 
+### Documented
+
+- The release 0.2.2 VR acceptance pass confirms that `LEAD POLE ON` continues
+  to confirm exactly one item across a non-VR to VR round trip and that the
+  longer DA42 section names remain readable in the reduced navigation buttons.
+
 ## [0.2.2] - 2026-08-28
 
 ### Changed

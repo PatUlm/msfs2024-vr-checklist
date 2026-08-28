@@ -346,6 +346,11 @@ Herleitung in [`phase-2-3-research.md`](phase-2-3-research.md), Abschnitt 2.
   `Ignore Cache + Reload` sowie jeder VR-Wechsel registriert erneut. **DO:**
   Entprellen; die Entprellung ist kein Ausgleich für zu viele Registrierungen,
   sondern der Normalfall. **DO:** Trotzdem sparsam registrieren.
+- **[RT]** Mit Release 0.2.2 bleibt `LEAD_POLE_ON` über den vollständigen
+  Darstellungswechsel Nicht-VR → VR → Nicht-VR wirksam. Vor dem Wechsel, im
+  neu aktiven VR-Kontext und nach dem Rückwechsel bestätigte je ein Druck genau
+  das nächste offene DA42-Item; Fortschritt und aktive Gruppe blieben dabei
+  erhalten.
 - **[RT]** Das Event wird **auch bei geschlossener EFB** zugestellt. **DO:** Die
   auslösende Logik gegen den Sichtbarkeitszustand der `AppView` gaten. Mit
   0.2.1 bestätigt: Bei geschlossener App wirkt der Druck nicht, das ist das

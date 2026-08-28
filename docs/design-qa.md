@@ -71,8 +71,8 @@ Observed identities used by the match rules:
 
 Direction arrows were dropped from both navigation buttons, and number and name
 are now centred. The earlier arrow behaviour accepted in release 0.1.6 is
-therefore obsolete. The VR check of a long section name is still open, see
-“Offen in VR nach Release 0.2.1”.
+therefore obsolete. Release 0.2.2 confirmed the revised buttons in VR with the
+long DA42 section names; see “VR follow-up after release 0.2.1”.
 
 ## Lifecycle regression follow-up
 
@@ -330,8 +330,11 @@ drei `Confirmed`-Zeilen für die ersten drei DA42-Items. Jeweils eine zusätzlic
 Zustellung nach 0 bis 1 ms wurde von der 60-ms-Entprellung verworfen. Die App
 blieb dabei dieselbe Instanz.
 
-## Offen in VR nach Release 0.2.1
+## VR follow-up after release 0.2.1
 
-- Der lange Gruppenname in der geschrumpften Navigationsschaltfläche. Für 0.2.1
-  war VR nicht gestartet; die Prüfung steht weiter aus.
-- Der `optional`-Typ wurde am 2026-08-28 in Nicht-VR abgenommen.
+Release 0.2.2 was accepted in VR on 2026-08-28. `Before Engine Start`,
+`Line-Up and Wait`, and `Take-Off & Climb` remain readable in the reduced
+navigation buttons: number and name are centred without collisions or broken
+clipping, and both buttons retain equal dimensions and reliable interaction.
+
+The `optional` type was accepted in non-VR on 2026-08-28.

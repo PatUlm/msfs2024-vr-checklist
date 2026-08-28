@@ -5,6 +5,32 @@ Changelog, and the project uses Semantic Versioning.
 
 ## [Unreleased]
 
+## [0.2.2] - 2026-08-28
+
+### Changed
+
+- Communication items name the radio to set: `COM: Ground` instead of `Ground`.
+  The `COM:` prefix means COM 1 or COM 2 is tuned to that station; the `ATC`
+  badge keeps marking the kind of action. The spoken text is unchanged.
+
+### Fixed
+
+- The key event interception is marked stale for every load in a flight-start
+  sequence and renewed after `RTCEnd`. Renewing it after the first `FltLoaded`
+  was too early: later loads followed, and the bound press was silent after
+  returning from H125 and MH-60 flights to the DA42. The corrected sequence is
+  verified across that complete round trip in MSFS.
+
+### Documented
+
+- The README now says which name to search for in the MSFS controls
+  (`LEAD POLE ON`), that the press only acts while the app is open, and that
+  helicopters do not offer the action at all.
+- `LEAD POLE ON` cannot be bound in the MH-60 or the H125, because the controls
+  menu only lists actions of the loaded aircraft category. ADR 0002 keeps the
+  interception mechanism and records that the chosen trigger does not carry the
+  whole fleet.
+
 ## [0.2.1] - 2026-08-28
 
 ### Added

@@ -5,6 +5,8 @@ Changelog, and the project uses Semantic Versioning.
 
 ## [Unreleased]
 
+## [0.2.1] - 2026-08-28
+
 ### Added
 
 - A fourth item kind `optional` marks an item that may be skipped. It carries an

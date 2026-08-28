@@ -77,6 +77,11 @@ Iteration stehen separat in `design-qa.md`.
   erreichbar. Abhaken und Speichern funktionieren wie bei jedem anderen Item.
 - Das Typ-Label folgt der Cockpit-Sprache, nicht dem Datenfeld: `communication`
   wird als `ATC` angezeigt.
+- Ein `communication`-Item trägt das zu bedienende Gerät in der Challenge:
+  `COM: Ground`. Das Typ-Label `ATC` sagt, um welche Art Handlung es sich
+  handelt, die Challenge sagt, was einzustellen ist. Beides steht
+  nebeneinander, ohne sich zu wiederholen; die Wortwahl steht im
+  [Style Guide](../checklists/data/style-guide.md).
 - `Review required` ist ein neutraler Zusatzstatus und bekommt keine eigene
   Signalfarbe.
 - Labels wie `Condition:` und `Note:` enden mit Doppelpunkt und haben dieselbe

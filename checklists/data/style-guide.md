@@ -12,9 +12,12 @@ aufgebaut und benannt sein.
   Aktion.
 - Nummern, die selbst eine Sollstellung oder einen Sollwert darstellen, bleiben
   in der Response.
-- Bei `communication`-Items ist die Challenge allein die Funkstelle, zum
-  Beispiel `ATIS`, `Clearance`, `Ground` oder `Tower`. Ein Präfix `ATC` entfällt,
-  weil das Typ-Label des Items diesen Kontext bereits trägt.
+- Bei `communication`-Items lautet die Challenge `COM: <Funkstelle>`, zum
+  Beispiel `COM: ATIS`, `COM: Clearance`, `COM: Ground` oder `COM: Tower`. Das
+  `COM:` benennt das zu bedienende Funkgerät — COM 1 oder COM 2 ist auf diese
+  Station zu stellen —, nicht die Wortart „Communication". Es steht damit in
+  derselben Logik wie jede andere Challenge, die ein System benennt, und
+  wiederholt das Typ-Label `ATC` nicht, das die Art der Handlung markiert.
 - Ein überspringbares Item bekommt den Kind `optional`. Seine Optionalität wird
   nicht zusätzlich in die Response geschrieben; `As required` bleibt Items
   vorbehalten, die zwar abzuarbeiten sind, deren Sollzustand aber von der

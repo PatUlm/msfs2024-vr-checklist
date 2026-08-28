@@ -11,7 +11,7 @@
       { "atcModel": { "equals": "Diamond DA42" } }
     ]
   },
-  "revision": "2026-08-23",
+  "revision": "2026-08-28",
   "sections": [
     {
       "id": "before-engine-start",
@@ -145,7 +145,7 @@
         },
         {
           "id": "atis",
-          "challenge": "ATIS",
+          "challenge": "COM: ATIS",
           "response": "Get QNH",
           "kind": "communication",
           "speech": "A T I S: Get Q N H."
@@ -166,7 +166,7 @@
         },
         {
           "id": "ifr-clearance",
-          "challenge": "Clearance",
+          "challenge": "COM: Clearance",
           "response": "Request IFR clearance",
           "kind": "communication",
           "speech": "A T C clearance: Request I F R clearance."
@@ -224,7 +224,7 @@
       "items": [
         {
           "id": "pushback-request",
-          "challenge": "Ground",
+          "challenge": "COM: Ground",
           "response": "Request pushback",
           "kind": "communication",
           "speech": "A T C ground: Request pushback."
@@ -249,7 +249,7 @@
         },
         {
           "id": "taxi-clearance",
-          "challenge": "Ground",
+          "challenge": "COM: Ground",
           "response": "Request taxi to runway",
           "kind": "communication",
           "speech": "A T C ground: Request taxi to the runway."
@@ -270,7 +270,7 @@
       "items": [
         {
           "id": "departure-request",
-          "challenge": "Tower",
+          "challenge": "COM: Tower",
           "response": "Request departure",
           "kind": "communication",
           "speech": "A T C tower: Request departure."

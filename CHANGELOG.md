@@ -7,6 +7,8 @@ Changelog, and the project uses Semantic Versioning.
 
 ### Documented
 
+- Corrected the Phase 2 roadmap to record the completed VR acceptance, the
+  failed helicopter binding attempt, and the two remaining acceptance items.
 - The release 0.2.2 VR acceptance pass confirms that `LEAD POLE ON` continues
   to confirm exactly one item across a non-VR to VR round trip and that the
   longer DA42 section names remain readable in the reduced navigation buttons.

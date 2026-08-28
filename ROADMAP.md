@@ -48,12 +48,14 @@ KI, Cloud-Dienste, TTS und komplexe Persistenz bleiben spätere Meilensteine.
 
 ## Phase 2 – Abhaken per Tastendruck in der EFB-App
 
-Status: **In MSFS bestätigt für Starrflügler – der Hubschraubertest steht aus**
+Status: **Für Starrflügler in MSFS und VR bestätigt – die Auslöserwahl für
+Hubschrauber ist offen**
 
 Ein Tastendruck oder ein HOTAS-Knopf hakt das nächste offene Item der gerade
 angezeigten Gruppe ab, ohne Maus und ohne Windows-App. Ist die Gruppe schon
-vollständig, bleibt der Druck wirkungslos. Der Auslöser ist das Sim-Key-Event
-`LEAD_POLE_ON`, das der Nutzer in den MSFS-Steuerungen selbst belegt.
+vollständig, bleibt der Druck wirkungslos. Für Starrflügler ist der Auslöser das
+Sim-Key-Event `LEAD_POLE_ON`, das der Nutzer in den MSFS-Steuerungen selbst
+belegt. In H125 und MH-60 wird diese Action im Steuerungsmenü nicht angeboten.
 
 Grundlage: [ADR 0002](docs/adr/0002-bestaetigungseingabe-in-sim-key-interception.md)
 und [ADR 0005](docs/adr/0005-phase-2-auf-die-efb-app-verkuerzen.md). Fakten in
@@ -61,10 +63,17 @@ und [ADR 0005](docs/adr/0005-phase-2-auf-die-efb-app-verkuerzen.md). Fakten in
 
 ### Abnahme
 
-Erledigt sind Tastatur und HOTAS in der DA42. Offen sind H125, MH-60,
-VR-Wechsel und fokussiertes Textfeld — die vollständige Liste steht in
-[`docs/open-tests.md`](docs/open-tests.md). Fällt der Hubschraubertest, wird
-Phase 2 für die Hubschrauber neu geschnitten und braucht doch eine Begleit-App.
+Bestätigt sind Tastatur und HOTAS in der DA42, die Wirkung nur bei geöffneter
+App sowie der vollständige Wechsel Nicht-VR → VR → Nicht-VR. Ein Test mit
+fokussiertem Textfeld entfällt, weil die App kein Eingabefeld besitzt.
+
+Offen sind noch zwei Punkte: ein in Hubschraubern belegbarer und folgenloser
+Auslöser beziehungsweise ein zweiter Auslöser je Flugzeugkategorie sowie der
+Laufzeitnachweis, dass ein Druck in einer vollständigen Gruppe ohne Wirkung
+bleibt. Die kanonische Liste steht in
+[`docs/open-tests.md`](docs/open-tests.md). Bleiben beide Auslöservarianten für
+Hubschrauber verschlossen, wird Phase 2 für sie neu geschnitten und verwendet
+die DirectInput-Rückfallebene einer Begleit-App.
 
 ## Phase 3 – Begleit-App mit Fortschrittsanzeige und Sprachausgabe
 

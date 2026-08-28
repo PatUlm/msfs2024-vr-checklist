@@ -29,16 +29,24 @@ Iteration stehen separat in `design-qa.md`.
 - Der aktuelle Gruppenname ist visuell dominant und zeigt Nummer und Titel auf
   gemeinsamer Grundlinie.
 - Darunter liegen zwei gleichwertige Navigationsbuttons mit jeweils 50 Prozent
-  Breite. Sie zeigen ausschließlich Pfeil und Namen der vorherigen
+  Breite. Sie zeigen ausschließlich Nummer und Namen der vorherigen
   beziehungsweise nächsten Gruppe; zusätzliche Texte wie `PREVIOUS` und `NEXT`
-  sind visuell redundant.
+  sowie Richtungspfeile sind visuell redundant. Der Verzicht auf die Pfeile
+  schafft Platz, der gerade in VR zählt, und lässt die Leiste ruhiger wirken.
+  Die Richtung selbst ist nachrangig, weil die Gruppen nummeriert sind; im
+  Zweifel steht der vorherige Button links und der nächste rechts.
 - Die Gruppennamen in den Navigationsbuttons verwenden dieselbe Schriftgröße
   wie die Texte der Checklist-Items und bleiben dadurch in VR gleich gut lesbar.
+- Nummer und Name stehen mittig im Navigationsbutton, nicht an dessen
+  Außenkanten.
 - Vor einem vorhandenen Gruppenziel steht dessen zweistellige Nummer in Blau.
   An den deaktivierten Listenenden bleiben stattdessen die unnummerierten
-  Platzhalter `Start` und `Complete` ohne Richtungspfeil sichtbar.
+  Platzhalter `Start` und `Complete` sichtbar.
 - Sind alle Items einer Gruppe erledigt, wechselt die App nach einer kurzen
-  Bestätigungspause automatisch zur nächsten Gruppe.
+  Bestätigungspause automatisch zur nächsten Gruppe. Auch ein offenes
+  `optional`-Item hält den Wechsel auf: Es zu überspringen ist eine bewusste
+  Entscheidung des Piloten, und die Gruppe darf ihm nicht vorher unter den
+  Augen weglaufen.
 - App-Header, Gruppenname und Navigation bleiben stehen; ausschließlich die
   Item-Liste scrollt. Das wird durch die Flex-Struktur und nicht durch
   `position: sticky` erreicht.
@@ -59,8 +67,16 @@ Iteration stehen separat in `design-qa.md`.
   um die Checkbox.
 - Der Default-Typ `action` erhält weder ein sichtbares Typ-Label noch einen
   farbigen linken Marker.
-- `verify` und `communication` bleiben sichtbar gekennzeichnet und erhalten
-  einen semantischen linken Farbmarker.
+- `verify`, `communication` und `optional` bleiben sichtbar gekennzeichnet und
+  erhalten einen semantischen linken Farbmarker.
+- `optional` kennzeichnet ein Item, das übersprungen werden darf. Es ist der
+  einzige Typ, der weniger statt mehr Aufmerksamkeit verlangt, und trägt daher
+  ein gedämpftes Grau-Blau statt einer Signalfarbe.
+- Ein `optional`-Item zählt nicht in die Fortschrittsanzeige. Der Balken misst
+  die Pflichtarbeit, die 100 Prozent sind daher ohne die optionalen Items
+  erreichbar. Abhaken und Speichern funktionieren wie bei jedem anderen Item.
+- Das Typ-Label folgt der Cockpit-Sprache, nicht dem Datenfeld: `communication`
+  wird als `ATC` angezeigt.
 - `Review required` ist ein neutraler Zusatzstatus und bekommt keine eigene
   Signalfarbe.
 - Labels wie `Condition:` und `Note:` enden mit Doppelpunkt und haben dieselbe

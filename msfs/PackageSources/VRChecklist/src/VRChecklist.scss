@@ -9,6 +9,7 @@
   --checklist-complete: #6fd39a;
   --checklist-verify: #ffd166;
   --checklist-communication: #b7a2ff;
+  --checklist-optional: #8fa3b5;
 
   position: relative;
 
@@ -253,6 +254,7 @@
   display: flex;
   flex: 1 1 0;
   align-items: center;
+  justify-content: center;
 
   width: 50%;
   min-width: 0;
@@ -265,7 +267,7 @@
   color: var(--checklist-muted);
   background: rgba(21, 30, 40, 0.78);
   font: inherit;
-  text-align: left;
+  text-align: center;
   cursor: pointer;
   outline: none !important;
   box-shadow: none !important;
@@ -274,7 +276,6 @@
 
 .section-navigation__button--next.abstract-button {
   margin-left: 12px;
-  text-align: right;
 }
 
 .section-navigation__button.abstract-button:hover,
@@ -300,31 +301,15 @@
   background-color: rgba(21, 30, 40, 0.78) !important;
 }
 
-.section-navigation__arrow {
-  flex: 0 0 auto;
-  color: var(--checklist-accent);
-  font-size: 1.55em;
-  font-weight: 500;
-  line-height: 1;
-}
-
-.section-navigation__button--previous .section-navigation__arrow {
-  margin-right: 14px;
-}
-
-.section-navigation__button--next .section-navigation__arrow {
-  margin-left: 14px;
-}
-
+/*
+ * The text block stays as wide as its content so that it centers in the
+ * button. It may still shrink so long names keep their ellipsis.
+ */
 .section-navigation__text {
   display: flex;
-  flex: 1 1 auto;
+  flex: 0 1 auto;
   align-items: baseline;
   min-width: 0;
-}
-
-.section-navigation__button--next .section-navigation__text {
-  justify-content: flex-end;
 }
 
 .section-navigation__number {
@@ -406,6 +391,18 @@
 
 .checklist-item--communication.abstract-button {
   --item-accent: var(--checklist-communication);
+
+  padding-left: 15px;
+  border-left: 7px solid var(--item-accent);
+}
+
+/*
+ * Optional items are the one kind that says "less", not "more". Their marker
+ * stays a muted grey-blue so it reads as a note next to the signal colours of
+ * verify and communication.
+ */
+.checklist-item--optional.abstract-button {
+  --item-accent: var(--checklist-optional);
 
   padding-left: 15px;
   border-left: 7px solid var(--item-accent);
@@ -607,6 +604,10 @@
   color: var(--checklist-verify);
 }
 
+.checklist-item__kind--optional {
+  color: var(--checklist-optional);
+}
+
 .checklist-item__review-note {
   display: flex;
   flex-wrap: wrap;
@@ -643,14 +644,6 @@
     margin-left: 10px;
   }
 
-  .section-navigation__button--previous .section-navigation__arrow {
-    margin-right: 12px;
-  }
-
-  .section-navigation__button--next .section-navigation__arrow {
-    margin-left: 12px;
-  }
-
   .checklist-section__items > .checklist-item {
     margin-bottom: 7px;
   }
@@ -662,7 +655,8 @@
   }
 
   .checklist-item--verify.abstract-button,
-  .checklist-item--communication.abstract-button {
+  .checklist-item--communication.abstract-button,
+  .checklist-item--optional.abstract-button {
     padding-left: 13px;
     border-left-width: 6px;
   }
@@ -764,20 +758,13 @@
     margin-left: 8px;
   }
 
-  .section-navigation__button--previous .section-navigation__arrow {
-    margin-right: 9px;
-  }
-
-  .section-navigation__button--next .section-navigation__arrow {
-    margin-left: 9px;
-  }
-
   .checklist-item.abstract-button {
     padding: 8px 10px 8px 19px;
   }
 
   .checklist-item--verify.abstract-button,
-  .checklist-item--communication.abstract-button {
+  .checklist-item--communication.abstract-button,
+  .checklist-item--optional.abstract-button {
     padding-left: 13px;
   }
 

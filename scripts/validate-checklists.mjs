@@ -285,7 +285,7 @@ for (const fileName of fileNames) {
       assertSingleLineString(item.challenge, `${reference}.challenge`);
       assertSingleLineString(item.response, `${reference}.response`);
       assert(
-        ["action", "verify", "communication"].includes(item.kind),
+        ["action", "verify", "communication", "optional"].includes(item.kind),
         `${reference} has invalid kind ${item.kind}`
       );
       if (item.speech !== undefined) {

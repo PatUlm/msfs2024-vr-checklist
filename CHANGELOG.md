@@ -5,6 +5,24 @@ Changelog, and the project uses Semantic Versioning.
 
 ## [Unreleased]
 
+### Added
+
+- A fourth item kind `optional` marks an item that may be skipped. It carries an
+  `Optional` badge and a muted grey-blue left marker rather than a signal
+  colour. Optional items stay out of the `x / y` progress count, so the bar
+  measures the mandatory work and reaches 100 % without them. The automatic
+  section advance still waits for them, because skipping one is the pilot's call
+  to make.
+
+### Changed
+
+- Items of kind `communication` now carry the badge `ATC` instead of
+  `Communication`. Only the label changed; the checklist data keeps the kind
+  `communication`.
+- The previous and next buttons dropped their direction arrows and centre
+  number and name instead. This frees up space that matters in VR and calms the
+  bar down; numbered sections carry the ordering.
+
 ## [0.2.0] - 2026-08-27
 
 ### Added

@@ -44,7 +44,7 @@ interface ChecklistItem {
   id: string;
   challenge: string;
   response: string;
-  kind: "action" | "verify" | "communication";
+  kind: "action" | "verify" | "communication" | "optional";
   condition?: string;
   alternatives?: ChecklistAlternative[];
   notes?: string[];
@@ -113,6 +113,17 @@ interface StoredChecklistProgress {
   completedItemKeys: string[];
   savedAt: number;
 }
+
+/*
+ * The badge text of an item kind. The data keeps the semantic kind
+ * `communication`, the flight deck says `ATC`.
+ */
+const ITEM_KIND_LABELS: Record<ChecklistItem["kind"], string> = {
+  action: "Action",
+  verify: "Verify",
+  communication: "ATC",
+  optional: "Optional",
+};
 
 const AIRCRAFT_REFRESH_INTERVAL_MS = 10000;
 const CHECKLIST_PROGRESS_DATASTORE_KEY = "vr-checklist.progress.v4";
@@ -295,6 +306,13 @@ function matchesAircraft(
 class ChecklistRuntimeState {
   public readonly sectionItemsRefs: NodeReference<HTMLDivElement>[];
   public readonly itemStates = new Map<string, Subject<boolean>>();
+
+  /*
+   * Only these items drive progress and the automatic section advance. An
+   * `optional` item may be ticked and is stored like any other, but skipping
+   * it must neither hold the section back nor keep the bar below 100 %.
+   */
+  public readonly requiredItemKeys = new Set<string>();
   public readonly activeSectionIndex = Subject.create(0);
   public readonly completedCount = Subject.create(0);
   public readonly totalItemCount: number;
@@ -305,25 +323,26 @@ class ChecklistRuntimeState {
     this.sectionItemsRefs = checklist.sections.map(() =>
       FSComponent.createRef<HTMLDivElement>()
     );
-    this.totalItemCount = checklist.sections.reduce(
-      (total, section) => total + section.items.length,
-      0
-    );
+
+    for (const section of checklist.sections) {
+      for (const item of section.items) {
+        const itemKey = this.getItemKey(section.id, item.id);
+        this.itemStates.set(itemKey, Subject.create(false));
+
+        if (item.kind !== "optional") {
+          this.requiredItemKeys.add(itemKey);
+        }
+      }
+    }
+
+    this.totalItemCount = this.requiredItemKeys.size;
     this.progressText = this.completedCount.map(
       (completed) => `${completed} / ${this.totalItemCount}`
     );
     this.progressWidth = this.completedCount.map(
-      (completed) => `${Math.round((completed / this.totalItemCount) * 100)}%`
+      (completed) =>
+        `${Math.round((completed / Math.max(1, this.totalItemCount)) * 100)}%`
     );
-
-    for (const section of checklist.sections) {
-      for (const item of section.items) {
-        this.itemStates.set(
-          this.getItemKey(section.id, item.id),
-          Subject.create(false)
-        );
-      }
-    }
   }
 
   public getItemKey(sectionId: string, itemId: string): string {
@@ -342,9 +361,15 @@ class ChecklistRuntimeState {
   }
 
   public updateCompletedCount(): void {
-    this.completedCount.set(
-      Array.from(this.itemStates.values()).filter((state) => state.get()).length
-    );
+    let completed = 0;
+
+    for (const itemKey of this.requiredItemKeys) {
+      if (this.itemStates.get(itemKey)?.get() === true) {
+        completed += 1;
+      }
+    }
+
+    this.completedCount.set(completed);
   }
 
   public reset(): void {
@@ -999,6 +1024,12 @@ class VRChecklistView extends AppView<RequiredProps<AppViewProps, "bus">> {
     }
   }
 
+  /*
+   * The automatic advance waits for every item of the section, `optional` ones
+   * included. Skipping an optional item is a deliberate call, and the app must
+   * not take the section off screen before the pilot has made it. Only the
+   * progress count ignores optional items; this handover does not.
+   */
   private isSectionComplete(
     runtime: ChecklistRuntimeState,
     section: ChecklistSection
@@ -1093,11 +1124,6 @@ class VRChecklistView extends AppView<RequiredProps<AppViewProps, "bus">> {
               : "No previous section"
           }
         >
-          {previousSection ? (
-            <span class="section-navigation__arrow" aria-hidden="true">
-              ←
-            </span>
-          ) : null}
           <span class="section-navigation__text">
             {previousSection ? (
               <span class="section-navigation__number">
@@ -1132,11 +1158,6 @@ class VRChecklistView extends AppView<RequiredProps<AppViewProps, "bus">> {
               {nextSection?.title ?? "Complete"}
             </span>
           </span>
-          {nextSection ? (
-            <span class="section-navigation__arrow" aria-hidden="true">
-              →
-            </span>
-          ) : null}
         </Button>
       </nav>
     );
@@ -1183,7 +1204,7 @@ class VRChecklistView extends AppView<RequiredProps<AppViewProps, "bus">> {
                 <span
                   class={`checklist-item__kind checklist-item__kind--${item.kind}`}
                 >
-                  {item.kind}
+                  {ITEM_KIND_LABELS[item.kind]}
                 </span>
               )}
 

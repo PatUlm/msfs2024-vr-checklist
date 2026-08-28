@@ -67,11 +67,12 @@ Observed identities used by the match rules:
 - G36: `TT:ATCCOM.AC_MODEL_BE36.0.text |
   TT:ATCCOM.ATC_NAME_BEECHCFRAFT.0.text | Beechcraft Bonanza`
 
-### Navigation endpoint placeholders
+### Navigation button content
 
-The disabled `Start` and `Complete` navigation placeholders no longer render
-direction arrows, while navigation buttons with real section targets keep their
-arrows and alignment. Both endpoints were accepted in release 0.1.6.
+Direction arrows were dropped from both navigation buttons, and number and name
+are now centred. The earlier arrow behaviour accepted in release 0.1.6 is
+therefore obsolete. Open in VR: how a long section name behaves in the shrunken
+text box.
 
 ## Lifecycle regression follow-up
 

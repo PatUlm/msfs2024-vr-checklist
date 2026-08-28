@@ -138,7 +138,7 @@
           "pattern": "^[^\\r\\n]+$"
         },
         "kind": {
-          "enum": ["action", "verify", "communication"]
+          "enum": ["action", "verify", "communication", "optional"]
         },
         "speech": {
           "type": "string",

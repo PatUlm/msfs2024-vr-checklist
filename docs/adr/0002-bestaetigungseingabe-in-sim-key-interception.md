@@ -1,7 +1,9 @@
 # ADR 0002: Bestätigungseingabe über In-Sim-Key-Interception
 
-- **Status:** Akzeptiert — in MSFS bestätigt am 2026-08-27 für Starrflügler.
-  Der Hubschraubertest steht aus und kann die Entscheidung kippen.
+- **Status:** Akzeptiert für Starrflügler, bestätigt in MSFS am 2026-08-27.
+  **Für Hubschrauber gefallen** am 2026-08-28: `LEAD POLE ON` ist in den
+  Steuerungen der MH-60 und der H125 nicht belegbar. Die Entscheidung selbst
+  bleibt, der gewählte Auslöser trägt die Flotte nicht; siehe „Nachtrag".
 - **Datum:** 2026-08-26, Eventwahl korrigiert am 2026-08-27
 - **Betrifft:** Phase 2
 - **Grundlage:** Fakten in
@@ -76,10 +78,44 @@ einer anderen ein reales System bedienen.
   keinen Unregister-Aufruf; eine nicht gesetzte Maske ist die einzige, die man
   nicht bereut.
 - Ein Druck kann mehrfach zustellen. Die App entprellt mit 60 ms und registriert
-  einen Key je JS-Kontext nur einmal.
+  einen Key sparsam. Jeder `FltLoad` markiert die Registrierung als veraltet;
+  erneuert wird sie erst nach `RTCEnd` beziehungsweise nach einem beobachteten
+  Ende von `GameState.loading`. Ob der Sim den Intercept tatsächlich verwirft
+  oder nur seine Zustellung verliert, bleibt mangels Unregister-Abfrage offen.
+  Der Rundweg DA42 → H125 → MH-60 → DA42 ist mit dieser Erneuerung in
+  `0.2.1-dev.20260828201431` bestätigt.
 - Das Event wird auch bei geschlossener EFB zugestellt. Die auslösende Logik ist
   gegen den Sichtbarkeitszustand der `AppView` gegated.
 - Der Nutzer muss die Belegung selbst in den MSFS-Steuerungen setzen. Das gehört
   in die Dokumentation und später in einen Hinweis in der App.
 - Der Mechanismus ist **benannt, aber nicht als API-Vertrag zugesagt**. Bei
   jedem Sim-Update erneut zu prüfen.
+
+## Nachtrag 2026-08-28: Der Auslöser trägt die Hubschrauber nicht
+
+`LEAD POLE ON` erscheint in den MSFS-Steuerungen nicht, wenn eine MH-60 oder
+eine H125 geladen ist. Es ist dort nicht belegbar, und damit ist auch nicht
+prüfbar, ob der Sim das Event in einem Hubschrauber erzeugt. Das
+Steuerungsmenü zeigt nur Actions der geladenen Flugzeugkategorie; eine
+Schleppstange gehört nicht dazu.
+
+Der Mechanismus der Key-Interception ist davon **nicht** betroffen — er ist für
+Starrflügler runtime-bestätigt. Gefallen ist allein das Kriterium für die
+Eventwahl: „real implementiert, aber vom eigenen Flugzeug nicht besessen"
+genügt nicht. Das Event muss zusätzlich **in der Kategorie des geflogenen
+Flugzeugs belegbar** sein — und diese beiden Forderungen stehen gegeneinander,
+sobald eine Flotte Flächenflugzeuge und Hubschrauber umfasst.
+
+Daraus folgt noch keine Kehrtwende. Offen und vor einer Entscheidung zu prüfen:
+
+1. Gibt es ein Event, das in **beiden** Kategorien belegbar und in beiden
+   folgenlos ist? Ein Kandidat aus dem Hubschrauber-Kontext, dessen System die
+   Flächenflugzeuge nicht besitzen, wäre gleichwertig brauchbar.
+2. Ist ein **zweiter Auslöser** je Kategorie der einfachere Weg? Die App fängt
+   beide ab; belegt wird jeweils der, den das Steuerungsmenü anbietet. Kosten:
+   der Nutzer belegt zwei Actions.
+
+Bleiben beide Wege verschlossen, greift die in diesem ADR notierte
+Rückfallebene DirectInput in einer Begleit-App — dann für Hubschrauber, nicht
+für die ganze Flotte. Die offenen Punkte stehen in
+[`../open-tests.md`](../open-tests.md).

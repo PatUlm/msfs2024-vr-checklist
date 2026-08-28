@@ -6,18 +6,12 @@ geprüft ist; das Ergebnis geht als Fakt nach
 
 ## Phase 2 — Bestätigungseingabe
 
-- [ ] `LEAD_POLE_ON` in der **H125** — kritisch, siehe unten
-- [ ] `LEAD_POLE_ON` in der **MH-60** — kritisch, siehe unten
-- [ ] `LEAD_POLE_ON` nach einem **VR-Wechsel** (erzeugt den App-Kontext neu)
-- [ ] `LEAD_POLE_ON` bei **fokussiertem Textfeld** in der EFB
-- [ ] Erzeugt ein Druck nach **frischem Simulatorstart** genau eine Zustellung?
-- [ ] Hakt ein Druck in einer **vollständigen Gruppe** wirklich nichts ab?
-
-Warum die Hubschrauber kritisch sind: Asobo hat 2022 bestätigt, dass
-`INTERCEPT_KEY_EVENT` in Hubschraubern nicht feuerte, ohne spätere
-Fix-Bestätigung. Fällt der Test, fällt
-[ADR 0002](adr/0002-bestaetigungseingabe-in-sim-key-interception.md) für die
-Hubschrauber und Phase 2 braucht für sie doch eine Begleit-App.
+- [ ] `LEAD POLE ON` nach einem **VR-Wechsel** (erzeugt den App-Kontext neu)
+- [ ] Findet sich ein Auslöser, der **auch in Hubschraubern belegbar** und dort
+      folgenlos ist, oder braucht die Flotte zwei Auslöser? Siehe den Nachtrag
+      in [ADR 0002](adr/0002-bestaetigungseingabe-in-sim-key-interception.md).
+- [ ] Hakt ein Druck in einer **vollständigen Gruppe** wirklich nichts ab? Die
+      App protokolliert diesen Fall jetzt ausdrücklich.
 
 ## Phase 3 — Begleit-App
 
@@ -28,3 +22,14 @@ Hubschrauber und Phase 2 braucht für sie doch eine Begleit-App.
 - [ ] Lebensdauer der Listener-Registrierung bei `AppBootMode.COLD` und
       `AppSuspendMode.SLEEP`, samt FPS-Wirkung einer Änderung
 - [ ] WASAPI Shared Mode gegen das VR-Audiogerät bei laufender MSFS-Session
+
+## Erledigt am 2026-08-28
+
+- Hubschrauber: **nicht prüfbar** und damit gefallen. `LEAD POLE ON` ist in den
+  Steuerungen der MH-60 und der H125 nicht belegbar.
+- Fokussiertes Textfeld: **entfällt**. Die EFB-App hat kein Eingabefeld, und das
+  Event wirkt ohnehin nur bei offener App.
+- Zustellungen je Druck nach frischem Simulatorstart: beantwortet. Ein Druck
+  stellt auch bei genau **einer** Registrierung mehrfach zu; die Entprellung
+  greift. Fakt in [`msfs-sdk-reference.md`](msfs-sdk-reference.md), Abschnitt
+  „Eingaben".

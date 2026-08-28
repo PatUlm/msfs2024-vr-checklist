@@ -334,17 +334,56 @@ Herleitung in [`phase-2-3-research.md`](phase-2-3-research.md), Abschnitt 2.
   über Tastatur und über HOTAS. Registrierung im Konstruktor der `AppView`
   genügt, `AppBootMode.COLD` steht nicht entgegen. Payload eines Drucks:
   `value0 = value1 = value2 = 0`, kein Down/Up-Flag.
-- **[FORUM]** **Es gibt keinen Unregister-Aufruf.** Ein gesetzter Intercept
-  gilt bis zum Ende der View. **DO:** Nur mit `passThrough = true` abfangen,
-  also nie maskieren — eine nicht gesetzte Maske ist die einzige, die man nicht
-  bereut.
-- **[RT]** **Ein Druck kann mehrfach zustellen.** Jede erneute Registrierung
-  desselben Keys in derselben Sitzung fügt eine Zustellung hinzu, und jedes
-  `Ignore Cache + Reload` sowie jeder VR-Wechsel registriert erneut. Duplikate
-  liegen 0 bis 3 ms auseinander. **DO:** Entprellen und einen Key je JS-Kontext
-  nur einmal registrieren.
+- **[FORUM]** **Es gibt keinen Unregister-Aufruf.** Ein gesetzter Intercept soll
+  bis zum Ende der View gelten. Der Laufzeitnachweis über mehrere Flüge zeigt
+  jedoch, dass die Zustellung trotzdem verstummen kann. **DO:** Nur mit
+  `passThrough = true` abfangen, also nie maskieren — eine nicht gesetzte Maske
+  ist die einzige, die man nicht bereut.
+- **[RT]** **Ein Druck stellt mehrfach zu, auch bei genau einer Registrierung.**
+  Mit 0.2.1 nach frischem Simulatorstart und einer einzigen Registrierung
+  beobachtet: drei zusätzliche Zustellungen je Druck, 0 bis 2 ms auseinander.
+  Jede erneute Registrierung desselben Keys fügt weitere hinzu, und jedes
+  `Ignore Cache + Reload` sowie jeder VR-Wechsel registriert erneut. **DO:**
+  Entprellen; die Entprellung ist kein Ausgleich für zu viele Registrierungen,
+  sondern der Normalfall. **DO:** Trotzdem sparsam registrieren.
 - **[RT]** Das Event wird **auch bei geschlossener EFB** zugestellt. **DO:** Die
-  auslösende Logik gegen den Sichtbarkeitszustand der `AppView` gaten.
+  auslösende Logik gegen den Sichtbarkeitszustand der `AppView` gaten. Mit
+  0.2.1 bestätigt: Bei geschlossener App wirkt der Druck nicht, das ist das
+  gewollte Verhalten.
+- **[RT]** **Eine Erneuerung nach dem ersten `FltLoaded` ist zu früh.** Beim
+  Start eines Fluges folgen darauf noch `CustomFlight.FLT`, `FlightStart`, ein
+  weiterer `apron.flt`-Load und `RTCStart` / `RTCEnd`. Mit
+  `0.2.1-dev.20260828194559` war die Registrierung nach dem ersten
+  `apron.flt/FltLoaded` im Log bestätigt, nach dem abschließenden `RTCEnd` kam
+  dennoch kein Druck mehr an. **DO:** Jeden `FltLoad` als mögliche
+  Invalidierung behandeln und erst nach `RTCEnd` erneuern. Das Ende eines
+  tatsächlich beobachteten `GameState.loading` ist der zusätzliche
+  Abschluss-Pfad.
+- **[RT]** Die Erneuerung nach `RTCEnd` ist mit
+  `0.2.1-dev.20260828201431` für den vollständigen Rundweg gestarteter Flüge
+  DA42 → H125 → MH-60 → DA42 bestätigt. Nach jedem `RTCEnd` wurde neu
+  registriert; drei abschließende Drücke auf den belegten HOTAS-Knopf
+  bestätigten genau drei DA42-Items. Jeweils eine weitere Zustellung nach
+  0 bis 1 ms wurde korrekt entprellt.
+- **[OPEN]** Ob der Sim dabei den Intercept selbst verwirft oder nur dessen
+  Zustellung verliert, ist nicht unterscheidbar. Es gibt weder Unregister noch
+  eine Zustandsabfrage. Bericht und Gegenmaßnahme in
+  [`design-qa.md`](design-qa.md).
+
+**Die Belegung durch den Nutzer.**
+
+- **[RT]** Der Anzeigename der Action im Steuerungsmenü ist der Eventname ohne
+  Unterstriche: `LEAD_POLE_ON` erscheint als **`LEAD POLE ON`**. **DO:** Für
+  eine Bindeanleitung genau diese Schreibweise als Suchbegriff angeben. Ob das
+  für jede Action und jede Sprache gilt, ist an einem Event belegt, nicht
+  allgemein.
+- **[NEG]** **In den Steuerungen eines Hubschraubers ist `LEAD POLE ON` nicht
+  auffindbar und damit nicht belegbar** (MH-60 und H125, 2026-08-28). Das
+  Steuerungsmenü zeigt nur Actions, die zur geladenen Flugzeugkategorie passen;
+  eine Schleppstange gehört nicht dazu. **DON'T:** Ein Event wählen, das nur in
+  einer Kategorie belegbar ist, und erwarten, dass es flottenweit trägt. Folge
+  für Phase 2 in
+  [ADR 0002](adr/0002-bestaetigungseingabe-in-sim-key-interception.md).
 
 **Die Wahl des Events** ist der eigentlich schwierige Teil.
 
@@ -387,7 +426,8 @@ Herleitung in [`phase-2-3-research.md`](phase-2-3-research.md), Abschnitt 2.
   Zuordnung als Ersatz raten.
 
 **Belegungen des Nutzers auslesen.** Der Anzeigename im Steuerungsmenü lässt
-sich aus dem SDK nicht auflösen; das locPak fehlt dort.
+sich aus dem SDK nicht auflösen; das locPak fehlt dort. Für unser Event ist er
+per Laufzeitbeobachtung bekannt, siehe oben.
 
 - **[RT]** Die Belegungen einer Steam-Installation liegen als XML unter
   `Steam/userdata/<SteamID>/2537590/remote/inputprofile_*`, ein Profil je Gerät,

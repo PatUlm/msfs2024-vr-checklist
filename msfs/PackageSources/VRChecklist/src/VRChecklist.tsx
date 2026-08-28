@@ -178,9 +178,14 @@ const CONFIRM_KEY_EVENT = "LEAD_POLE_ON";
 const CONFIRM_KEY_DEBOUNCE_MS = 60;
 
 /*
- * Key events this JavaScript context has already asked to intercept. A second
- * app instance in the same context must not register them again, for the same
- * reason the debounce exists.
+ * Key events this JavaScript context has asked to intercept since the last
+ * flight transition. A second app instance in the same context must not
+ * register them again, for the same reason the debounce exists.
+ *
+ * Every `FltLoad` clears the guard because one flight start contains several
+ * loads and a registration made after the first one did not survive the later
+ * ones. The intercept is renewed only once the ready-to-cockpit sequence ends,
+ * or when an observed `GameState.loading` ends. See docs/design-qa.md.
  */
 const interceptedKeyEvents = new Set<string>();
 
@@ -410,6 +415,7 @@ class VRChecklistView extends AppView<RequiredProps<AppViewProps, "bus">> {
    * CONFIRM_KEY_EVENT.
    */
   private readonly eventBus: EventBus;
+  private keyEventManager: KeyEventManager | undefined;
   private keyEventSubscription: Subscription | undefined;
   private lastConfirmAt = 0;
 
@@ -459,29 +465,19 @@ class VRChecklistView extends AppView<RequiredProps<AppViewProps, "bus">> {
   }
 
   /*
-   * Intercepts the configured sim key events. Registration happens once per
-   * app context: there is no unregister call, and an intercept survives this
-   * view, so re-registering after a VR switch that recreates the context is
-   * harmless. Whether the sim routes `keyIntercepted` into an EFB view at all
-   * is the open point this logging is meant to answer.
+   * Subscribes to the intercepted key events and asks for the first
+   * interception. The bus subscription is made once per app instance; the
+   * interception itself is renewed per flight, see `ensureKeyInterception`.
    */
   private setupConfirmationInput(): void {
     KeyEventManager.getManager(this.eventBus)
       .then((manager) => {
-        if (!interceptedKeyEvents.has(CONFIRM_KEY_EVENT)) {
-          manager.interceptKey(CONFIRM_KEY_EVENT, true);
-          interceptedKeyEvents.add(CONFIRM_KEY_EVENT);
-        }
-
+        this.keyEventManager = manager;
         this.keyEventSubscription = this.eventBus
           .getSubscriber<KeyEvents>()
           .on("key_intercept")
           .handle((data: KeyEventData) => this.handleKeyIntercept(data));
-
-        console.info(
-          `[VR Checklist] Key event interception active for ` +
-            `${CONFIRM_KEY_EVENT}.`
-        );
+        this.ensureKeyInterception("app start");
       })
       .catch((error) =>
         console.error(
@@ -490,8 +486,47 @@ class VRChecklistView extends AppView<RequiredProps<AppViewProps, "bus">> {
       );
   }
 
+  /*
+   * Asks the sim to intercept the confirmation key event unless this
+   * JavaScript context already did so for the current flight. There is no
+   * unregister call, so a repeated registration only adds another delivery of
+   * the same press, which the debounce absorbs. Missing a registration the sim
+   * has dropped loses the input entirely, which is the worse of the two.
+   */
+  private ensureKeyInterception(reason: string): void {
+    const manager = this.keyEventManager;
+
+    if (!manager || interceptedKeyEvents.has(CONFIRM_KEY_EVENT)) {
+      return;
+    }
+
+    manager.interceptKey(CONFIRM_KEY_EVENT, true);
+    interceptedKeyEvents.add(CONFIRM_KEY_EVENT);
+    console.info(
+      `[VR Checklist] Key event interception active for ` +
+        `${CONFIRM_KEY_EVENT} (${reason}).`
+    );
+  }
+
+  private invalidateKeyInterception(reason: string): void {
+    if (interceptedKeyEvents.delete(CONFIRM_KEY_EVENT)) {
+      console.info(
+        `[VR Checklist] Key event interception marked stale for ` +
+          `${CONFIRM_KEY_EVENT} (${reason}).`
+      );
+    }
+  }
+
   private handleKeyIntercept(data: KeyEventData): void {
-    if (data.key !== CONFIRM_KEY_EVENT || !this.isViewActive) {
+    if (data.key !== CONFIRM_KEY_EVENT) {
+      return;
+    }
+
+    if (!this.isViewActive) {
+      console.info(
+        `[VR Checklist] Key event ${data.key} ignored: the app view is not ` +
+          `active.`
+      );
       return;
     }
 
@@ -518,6 +553,9 @@ class VRChecklistView extends AppView<RequiredProps<AppViewProps, "bus">> {
     const runtime = this.getSelectedRuntime();
 
     if (!runtime) {
+      console.info(
+        `[VR Checklist] Confirmation without effect: no checklist selected.`
+      );
       return;
     }
 
@@ -525,6 +563,9 @@ class VRChecklistView extends AppView<RequiredProps<AppViewProps, "bus">> {
     const section = runtime.checklist.sections[sectionIndex];
 
     if (!section) {
+      console.info(
+        `[VR Checklist] Confirmation without effect: no section on screen.`
+      );
       return;
     }
 
@@ -533,9 +574,16 @@ class VRChecklistView extends AppView<RequiredProps<AppViewProps, "bus">> {
     );
 
     if (!openItem) {
+      console.info(
+        `[VR Checklist] Confirmation without effect: section ` +
+          `${section.title} is complete.`
+      );
       return;
     }
 
+    console.info(
+      `[VR Checklist] Confirmed ${section.title} / ${openItem.challenge}.`
+    );
     this.toggleItem(
       runtime,
       section,
@@ -943,6 +991,7 @@ class VRChecklistView extends AppView<RequiredProps<AppViewProps, "bus">> {
       gameState === GameState.loading &&
       previousGameState !== GameState.loading
     ) {
+      this.invalidateKeyInterception("GameState.loading");
       this.resetForFlightTransition("GameState.loading");
       this.scheduleAircraftRefresh(AIRCRAFT_REFRESH_INTERVAL_MS);
       return;
@@ -952,6 +1001,10 @@ class VRChecklistView extends AppView<RequiredProps<AppViewProps, "bus">> {
       this.scheduleAircraftRefresh(
         previousGameState === GameState.loading ? 300 : 0
       );
+
+      if (previousGameState === GameState.loading) {
+        this.ensureKeyInterception("GameState ready");
+      }
     }
   }
 
@@ -985,6 +1038,20 @@ class VRChecklistView extends AppView<RequiredProps<AppViewProps, "bus">> {
         (payload.flt_path ? ` for ${payload.flt_path}` : "")
     );
 
+    /*
+     * A flight start contains several loads. The first attempted fix renewed
+     * the intercept after the first `FltLoaded`; a later load invalidated it
+     * again. Mark every load stale and renew only after the final observed
+     * ready-to-cockpit boundary.
+     */
+    if (
+      flowEventId === FlowEventId.FlightEnd ||
+      flowEventId === FlowEventId.BackToMainMenu ||
+      flowEventId === FlowEventId.FltLoad
+    ) {
+      this.invalidateKeyInterception(`FlowApi.${flowEventName}`);
+    }
+
     if (flowEventId === FlowEventId.FltLoad) {
       this.resetForFlightTransition(`FlowApi.${flowEventName}`);
       return;
@@ -995,6 +1062,10 @@ class VRChecklistView extends AppView<RequiredProps<AppViewProps, "bus">> {
       flowEventId === FlowEventId.FlightStart
     ) {
       this.scheduleAircraftRefresh(300);
+    }
+
+    if (flowEventId === FlowEventId.RTCEnd) {
+      this.ensureKeyInterception(`FlowApi.${flowEventName}`);
     }
   }
 

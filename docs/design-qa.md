@@ -71,8 +71,8 @@ Observed identities used by the match rules:
 
 Direction arrows were dropped from both navigation buttons, and number and name
 are now centred. The earlier arrow behaviour accepted in release 0.1.6 is
-therefore obsolete. Open in VR: how a long section name behaves in the shrunken
-text box.
+therefore obsolete. The VR check of a long section name is still open, see
+“Offen in VR nach Release 0.2.1”.
 
 ## Lifecycle regression follow-up
 
@@ -283,3 +283,55 @@ transitions:
   which direction.
 - `Instance <id> discards the stored progress: <reason>` — expected on an
   aircraft change and after a restart, not during a plain display-mode change.
+
+## Bug: Bestätigungstaste verstummt nach einem Flugzeugwechsel
+
+Gemeldet am 2026-08-28 gegen Release 0.2.1, mit
+`0.2.1-dev.20260828201431` **in MSFS behoben und bestätigt**.
+
+**Erwartet:** Ein belegter Druck auf `LEAD POLE ON` hakt bei offener App das
+nächste offene Item ab, solange die Sitzung läuft.
+
+**Beobachtet:** Nach einem Flug in der DA42 funktionierten die Drücke. Danach
+wurden H125 und MH-60 geladen und wieder die DA42. Seitdem kam kein Druck mehr
+an, während die App weiterarbeitete: dieselbe Instanz, Flow-API-Listener aktiv,
+korrekt wieder die DA42-Checkliste ausgewählt.
+
+**Erster Bericht.** Vor dem Wechsel kamen je Druck mehrere Zustellungen, von
+der Entprellung als Duplikate verworfen. Danach kam kein einziges Key-Event mehr.
+Im selben Durchlauf war allerdings der Coherent Debugger neu gestartet worden;
+Flugwechsel und Debugger waren deshalb noch nicht auseinandergehalten.
+
+**Fehlgeschlagener Gegenversuch mit `0.2.1-dev.20260828194559`.** Die App blieb
+über den gesamten Lauf dieselbe Instanz. Die Auswahl anderer Flugzeuge ohne
+einen gestarteten Flug störte die Eingabe nicht. Nach tatsächlich gestarteten
+Flügen in H125 und MH-60 und der Rückkehr in einen gestarteten DA42-Flug blieb
+hingegen wieder jedes Key-Event aus.
+
+Der Lauf zeigt zugleich, warum die erste Gegenmaßnahme nicht genügte. Nach
+`FlightEnd` registrierte sie beim ersten `apron.flt/FltLoaded` neu. Danach
+folgten aber noch `CustomFlight.FLT`, `FlightStart`, ein weiterer
+`apron.flt`-Load und erst dann `RTCStart` / `RTCEnd`. Die Registrierungszeile war
+vor diesen späteren Loads vorhanden; nach `RTCEnd` kam kein Druck mehr an. Eine
+Erneuerung beim ersten `FltLoaded` oder bei `FlightStart` ist damit nachweislich
+zu früh.
+
+**Korrigierte Gegenmaßnahme.** Jetzt markiert jeder `FltLoad` die Registrierung
+als veraltet. Erneuert wird sie erst nach `RTCEnd`; das Ende eines tatsächlich
+beobachteten `GameState.loading` ist der zusätzliche Abschluss-Pfad.
+`onResume` registriert nicht mehr auf Verdacht während einer laufenden
+Ladesequenz. Ob der Sim den Intercept selbst verwirft oder nur dessen Zustellung
+verliert, bleibt ohne Zustandsabfrage offen.
+
+**Verifikation.** Der vollständige Rundweg DA42 → H125 → MH-60 → DA42 wurde mit
+gestarteten Flügen wiederholt. Nach jedem `RTCEnd` erschien die erneute
+Registrierung. Die drei abschließenden Drücke auf `EVO R 22` erzeugten genau
+drei `Confirmed`-Zeilen für die ersten drei DA42-Items. Jeweils eine zusätzliche
+Zustellung nach 0 bis 1 ms wurde von der 60-ms-Entprellung verworfen. Die App
+blieb dabei dieselbe Instanz.
+
+## Offen in VR nach Release 0.2.1
+
+- Der lange Gruppenname in der geschrumpften Navigationsschaltfläche. Für 0.2.1
+  war VR nicht gestartet; die Prüfung steht weiter aus.
+- Der `optional`-Typ wurde am 2026-08-28 in Nicht-VR abgenommen.

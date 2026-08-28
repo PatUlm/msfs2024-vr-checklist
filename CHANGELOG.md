@@ -22,6 +22,16 @@ Changelog, and the project uses Semantic Versioning.
 - The previous and next buttons dropped their direction arrows and centre
   number and name instead. This frees up space that matters in VR and calms the
   bar down; numbered sections carry the ordering.
+- DA42 radio items name the station alone — `ATIS`, `Clearance`, `Ground`,
+  `Tower` — because the `ATC` badge already supplies that context. The spoken
+  text is unchanged.
+- The DA42 items `Gear/Fire Warning`, `Engine Warm-Up` and `ECU Test [1+2]` are
+  `optional`.
+
+### Fixed
+
+- The DA42 item `Flight Plan` is an `action`, not a `verify`. It therefore loses
+  the type badge and the coloured left marker.
 
 ## [0.2.0] - 2026-08-27
 

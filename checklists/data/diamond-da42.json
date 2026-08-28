@@ -145,7 +145,7 @@
         },
         {
           "id": "atis",
-          "challenge": "ATC – ATIS",
+          "challenge": "ATIS",
           "response": "Get QNH",
           "kind": "communication",
           "speech": "A T I S: Get Q N H."
@@ -166,7 +166,7 @@
         },
         {
           "id": "ifr-clearance",
-          "challenge": "ATC – Clearance",
+          "challenge": "Clearance",
           "response": "Request IFR clearance",
           "kind": "communication",
           "speech": "A T C clearance: Request I F R clearance."
@@ -183,7 +183,7 @@
           "id": "flight-plan",
           "challenge": "Flight Plan",
           "response": "As required",
-          "kind": "verify"
+          "kind": "action"
         },
         {
           "id": "autopilot",
@@ -197,21 +197,21 @@
           "id": "gear-fire-warning",
           "challenge": "Gear/Fire Warning",
           "response": "Test",
-          "kind": "verify",
+          "kind": "optional",
           "speech": "Gear and fire warning: Test."
         },
         {
           "id": "engine-warm-up",
           "challenge": "Engine Warm-Up",
           "response": "1,400–1,500 RPM",
-          "kind": "action",
+          "kind": "optional",
           "speech": "Engine warm-up: Set 1,400 to 1,500 R P M."
         },
         {
           "id": "ecu-test",
           "challenge": "ECU Test [1+2]",
           "response": "Hold for 25 s",
-          "kind": "verify",
+          "kind": "optional",
           "condition": "Until CAP clears",
           "speech": "E C U test one and two: Hold for 25 seconds until the CAP indication clears.",
           "notes": ["Use click spot"]
@@ -224,7 +224,7 @@
       "items": [
         {
           "id": "pushback-request",
-          "challenge": "ATC – Ground",
+          "challenge": "Ground",
           "response": "Request pushback",
           "kind": "communication",
           "speech": "A T C ground: Request pushback."
@@ -249,7 +249,7 @@
         },
         {
           "id": "taxi-clearance",
-          "challenge": "ATC – Ground",
+          "challenge": "Ground",
           "response": "Request taxi to runway",
           "kind": "communication",
           "speech": "A T C ground: Request taxi to the runway."
@@ -270,7 +270,7 @@
       "items": [
         {
           "id": "departure-request",
-          "challenge": "ATC – Tower",
+          "challenge": "Tower",
           "response": "Request departure",
           "kind": "communication",
           "speech": "A T C tower: Request departure."

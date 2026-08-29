@@ -4,7 +4,6 @@
 - **Datum:** 2026-08-26
 - **Betrifft:** Phasenzuschnitt in `ROADMAP.md`
 - **Grundlage:** [ADR 0002](0002-bestaetigungseingabe-in-sim-key-interception.md)
-  und [`../phase-2-3-research.md`](../phase-2-3-research.md), Abschnitt 2
 
 ## Kontext
 
@@ -63,11 +62,9 @@ Abschlussereignis braucht.
   Status „Vorgeschlagen" beziehungsweise mit offenen Punkten.
 - Der Laufzeitnachweis des CommBus-Kanals kann bei Gelegenheit vorgezogen
   werden, ohne dass Phase 2 daran hängt.
-- Roadmap und Produktdokumentation verwenden diesen Phasenzuschnitt. Die
-  abgeschlossene Rechercheaufgabe und ihre Ergebnisse stehen in
-  [`../phase-2-3-research.md`](../phase-2-3-research.md).
-- Wenn der Nachweis aus
-  [ADR 0002](0002-bestaetigungseingabe-in-sim-key-interception.md) **scheitert**,
-  fällt dieser Zuschnitt mit ihm: Dann braucht das Abhaken wieder eine externe
-  App, und Phase 2 wird neu geschnitten. Dieses ADR ist in dem Fall durch ein
-  Nachfolge-ADR zu ersetzen.
+- Roadmap und Produktdokumentation verwenden diesen Phasenzuschnitt.
+- Der Zuschnitt bleibt davon abhängig, dass sich für die benötigte Flotte ein
+  geeigneter In-Sim-Auslöser findet. Für Hubschrauber ist das noch offen; siehe
+  [ADR 0002](0002-bestaetigungseingabe-in-sim-key-interception.md). Scheitern
+  dort beide vorgesehenen Wege, wird Phase 2 mit einem Nachfolge-ADR neu
+  geschnitten.

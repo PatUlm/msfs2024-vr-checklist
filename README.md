@@ -269,8 +269,8 @@ werden soll.
 - `AGENTS.md`: dauerhafte Arbeitsregeln für neue Agent-Sessions
 - `CLAUDE.md`: Weiterleitung auf `AGENTS.md` für Werkzeuge, die diese Datei
   nicht automatisch laden
-- `docs/msfs-sdk-reference.md`: zentrale technische SDK-Referenz mit bestätigten
-  Fakten, Do's, Don'ts und nachgewiesen wirkungslosen Pfaden
+- `docs/msfs-sdk-reference.md`: zentrale, knappe Sammlung dauerhaft relevanter
+  MSFS-SDK- und Laufzeit-Lessons
 - `docs/design-decisions.md`: akzeptierte UI- und Interaktionsentscheidungen
 - `docs/design-qa.md`: offene visuelle Nachweise und Referenzen für den nächsten
   UI- oder VR-Teststand
@@ -278,10 +278,9 @@ werden soll.
 - `docs/phase-3-requirements.md`: verbindlicher Produktumfang der geplanten
   Begleit-App
 - `docs/release.md`: reproduzierbarer Release- und Community2024-Installationsflow
-- `docs/phase-2-3-research.md`: technische Recherche zu Phase 2 und Phase 3 mit
-  Kandidaten, Belegen und Lizenzlagen
-- `docs/adr/`: getroffene Architekturentscheidungen mit ihren verworfenen
-  Alternativen und ihrem Status
+- `docs/phase-2-3-research.md`: historischer Wegweiser zu den Ergebnissen der
+  abgeschlossenen Phase-2/3-Recherche
+- `docs/adr/`: getroffene Architekturentscheidungen mit Konsequenzen und Status
 - `docs/assets/`: versionierte, dauerhaft referenzierte Design-Screenshots
 
 ## Offizielle Referenzen

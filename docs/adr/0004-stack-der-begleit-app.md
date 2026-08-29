@@ -1,114 +1,55 @@
 # ADR 0004: Stack der Begleit-App — .NET 10 mit Avalonia
 
-- **Status:** Akzeptiert, mit zwei offenen Punkten
+- **Status:** Akzeptiert, offene Umsetzung
 - **Datum:** 2026-08-26
-- **Betrifft:** Phase 3 (nach [ADR 0005](0005-phase-2-auf-die-efb-app-verkuerzen.md))
-- **Grundlage:** [`../phase-2-3-research.md`](../phase-2-3-research.md),
-  Abschnitt 9
+- **Betrifft:** Phase 3
+- **Technische Grundlage:**
+  [`../msfs-sdk-reference.md`](../msfs-sdk-reference.md#commbus-und-externe-begleit-app)
 
 ## Kontext
 
-Die Begleit-App soll als SimConnect-Client mit MSFS reden, eine ruhige lesbare
-Item- und Fortschrittsanzeige plus Tray und Einstellungsfenster bieten und
-später Sprachausgabe auf ein *wählbares* Windows-Audiogerät abspielen. Harte
-Randbedingungen: alles Open Source, **keine Visual-Studio-Lizenz vorhanden**,
-Entwicklung im WSL2-Repository, kleine Artefakte, keine GPU-Last neben MSFS.
-
-Zwei Kriterien haben sich durch die anderen Entscheidungen abgeschwächt: Zur
-Laufzeit ist **keine ONNX-Inferenz** nötig, weil vorab gerendert wird
-([ADR 0006](0006-tts-vorab-synthese.md)), und eine **Global-Input-Bibliothek**
-entfällt voraussichtlich ganz
-([ADR 0002](0002-bestaetigungseingabe-in-sim-key-interception.md)). Dafür ist
-das Kriterium **SimConnect-Bindung mit CommBus** zum wichtigsten geworden
-([ADR 0003](0003-transportkanal-commbus-ueber-simconnect.md)).
+Die Begleit-App benötigt eine ruhige Windows-Oberfläche mit Tray,
+SimConnect/CommBus, gerätegenauer Audioausgabe und Einstellungen. Sie soll aus
+dem WSL2-Repository ohne Visual-Studio-IDE gebaut werden können und neben MSFS
+keine unnötige GPU- oder CPU-Last erzeugen.
 
 ## Entscheidung
 
-**.NET 10 LTS mit Avalonia.** Im Detail:
-
-- SimConnect per **eigenem P/Invoke** gegen die native `SimConnect.dll`, nicht
-  über den Managed-Wrapper.
-- **NAudio** für Geräteauswahl und Wiedergabe, WASAPI im Shared Mode.
-- **`CredWrite`/`CredRead`** für Geheimnisse.
-- **Kein NativeAOT.**
+- **.NET 10 LTS mit Avalonia** für Anwendung und Oberfläche.
+- Eigenes **P/Invoke gegen die native `SimConnect.dll`**, nicht der
+  Managed-Wrapper aus dem SDK.
+- **NAudio** mit WASAPI Shared Mode für Geräteauswahl und Wiedergabe.
+- **`CredWrite`/`CredRead`** für gegebenenfalls benötigte Geheimnisse.
+- Kein NativeAOT.
 
 ## Begründung
 
-- Durchgehend MIT lizenziert.
-- Build allein mit der `dotnet` CLI, ohne jede C++-Toolchain, und
-  `dotnet publish -r win-x64` läuft aus WSL2.
-- Artefakt rund 24 bis 42 MiB, Retained-Mode-UI, **kein GPU-Prozess**.
-- Avalonia bringt `TrayIcon` mit und führt Windows als „Full support".
-- NAudio liefert über `MMDeviceEnumerator` und die Persistierung per
-  `MMDevice.ID` die präziseste gerätegenaue Audioausgabe im Feld — das ist für
-  „Ansage auf das VR-Headset, während MSFS spielt" der entscheidende Punkt.
-- Die native `SimConnect.dll` exportiert 117 undekorierte
-  `extern "C"`-Funktionen, einschließlich aller drei CommBus-Funktionen.
-  P/Invoke ist damit trivial.
-
-## Verworfene Alternativen
-
-- **Node und TypeScript mit Electron.** Hätte die einzige Schwachstelle des
-  .NET-Wegs vermieden: `node-simconnect` 4.2.0 implementiert Client Data Areas
-  **und** CommBus in reinem TypeScript, über die Named Pipe, ohne
-  `SimConnect.dll`, ohne Compiler und ohne EULA-Frage — und es wäre ein Stack für
-  EFB-App und Begleit-App. Verworfen wegen 330 bis 400 MB Artefakt, rund 211 MiB
-  Speicher über sechs Prozesse, einem GPU-Prozess, der auch bei
-  `disableHardwareAcceleration()` bestehen bleibt, unverifiziertem Gerätetreffer
-  über `setSinkId` und LGPL-3.0 im Kern. Bleibt die naheliegende Ausweichoption,
-  falls die SimConnect-Anbindung in .NET Probleme macht.
-- **Rust.** Sauber lizenziert und klein, aber `simconnect-sdk` 0.2.3 deckt laut
-  eigener `FEATURES.md` Client Data Areas gar nicht ab und kennt kein CommBus —
-  der beschlossene Transportweg wäre Eigenentwicklung. Dazu: Slint kostet im
-  freien Weg GPL-3.0 für die ganze Anwendung, `egui`/`eframe` bringt
-  GPU-Rendering mit, und der `-msvc`-Pfad führt in die Lizenzgrauzone der
-  Build-Tools.
-- **Python.** Scheitert am Kernkriterium: **kein Freezer cross-kompiliert von
-  WSL2 nach Windows**, ein Windows-Build-Schritt wäre zwingend. Beide
-  SimConnect-Bindings sind unmaintained, eines davon AGPL-3.0. Dazu 250 bis
-  300 MB entpackt und LGPL-Pflichten über PySide6.
-- **WinUI 3.** `Microsoft.WindowsAppSDK` steht **nicht** unter MIT, sondern unter
-  einem proprietären Microsoft-EULA, obwohl das Repository MIT ist. Der
-  CLI-Weg ruht auf einem Alpha-Template.
-- **Tauri v2.** Prerequisites verlangen ausdrücklich „Microsoft C++ Build
-  Tools". Build-Blocker.
-- **`Microsoft.FlightSimulator.SimConnect.dll`.** Unter .NET 8, 9 und 10 nicht
-  ladbar. PE-Analyse: COR20-Flags `0x10` (`ILONLY=false`,
-  `NATIVE_ENTRYPOINT=true`), Section `.nep`, Target `.NETFramework 4.6.1` — eine
-  Mixed-Mode-C++/CLI-Assembly. Der Ausweg .NET Framework 4.8 bricht
-  Single-File-Publish.
-- **NativeAOT.** Prerequisite ist wörtlich „Visual Studio 2022 or later,
-  including the Desktop development with C++ workload"; Cross-OS-Publishing ist
-  nicht unterstützt. Ohne NativeAOT braucht der .NET-Weg nirgends einen
-  C++-Compiler — deshalb bleibt es weg.
-- **`PasswordVault`** für Geheimnisse: für Full-Trust-Desktop-Apps als defekt
-  beschrieben (`0x80070490`) und auf 20 Credentials begrenzt.
-- **Dear PyGui**, **PyQt6**, **flet**: GPU-Nutzung, GPL-oder-Kauf beziehungsweise
-  Windows-Build mit C++-Workload.
+- Der Stack ist offen lizenziert, CLI-basiert und benötigt zur Laufzeit keinen
+  GPU-Prozess.
+- Avalonia deckt Fenster und Tray ab; NAudio erlaubt die Auswahl eines
+  konkreten Windows-Audiogeräts für das VR-Headset.
+- P/Invoke bindet genau die benötigten SimConnect- und CommBus-Funktionen an,
+  ohne vom inkompatiblen Managed-Wrapper abhängig zu sein.
 
 ## Konsequenzen
 
-- **Die `SimConnect.dll` wird nicht in ein eigenes Auslieferungspaket gelegt.**
-  Der MSFS-SDK-EULA verbietet in §2(e) „share, publish, distribute, or lend the
-  Software (except for any distributable code…)", ohne „distributable code" zu
-  definieren; „SimConnect" kommt im EULA nicht vor. Gegenläufig liefert das SDK
-  eine `SimConnect.msi` mit. Wortlautsicher ist nur, die DLL nicht selbst zu
-  verteilen — der Nutzer installiert sie über die mitgelieferte MSI, oder wir
-  weichen auf `node-simconnect` aus.
-- Randnotiz: §1(g) desselben EULA verbietet die Nutzung des SDK für „AI or
-  machine learning". Die Sprachausgabe berührt das SDK nicht, der Satz ist aber
-  notiert.
-- Audioausgabe im **Shared Mode mit Default-Periode**, kein Exclusive Mode und
-  **kein `IAudioClient3`-Low-Latency-Pfad** — der würde alle Apps am selben
-  Endpoint auf die kleine Periode ziehen und damit MSFS mitziehen. Gerät über
-  `IMMDevice::GetId()` persistieren, nie über den FriendlyName. Stream lazy
-  öffnen und nach kurzer Idle-Zeit schließen, damit VR-Start und
-  Headset-Abstecken überlebt werden.
-- Ein `dotnet` SDK ist in dieser WSL2-Umgebung noch nicht installiert.
+- `SimConnect.dll` wird wegen der unklaren Weitergaberegel im SDK-EULA nicht in
+  ein eigenes Paket aufgenommen. Der Nutzer verwendet die mit MSFS gelieferte
+  Installation; Details stehen in der SDK-Referenz.
+- Audio läuft im Shared Mode mit Standardperiode. Exclusive Mode und ein
+  systemweit wirksamer Low-Latency-Pfad sind ausgeschlossen.
+- Das Ausgabegerät wird über seine stabile Geräte-ID, nicht über den sichtbaren
+  Namen gespeichert. Audiostreams werden nur bei Bedarf geöffnet.
+- CommBus und WASAPI müssen vor der produktiven Umsetzung anhand der Punkte in
+  [`../open-tests.md`](../open-tests.md) in MSFS bestätigt werden.
 
-## Offene Umsetzung
+## Verworfene Alternativen
 
-- Die Artefaktgröße von 24 bis 42 MiB ist aus verifizierten Einzelkomponenten
-  gerechnet, nicht gemessen; ein Publish hat noch nicht stattgefunden.
-- Der Laufzeitnachweis für WASAPI Shared Mode gegen das VR-Gerät steht in
-  [`../open-tests.md`](../open-tests.md).
+- **Electron/TypeScript:** vermeidet die native SimConnect-DLL, ist aber für
+  diese kleine Begleit-App deutlich schwerer und ressourcenintensiver.
+- **Rust:** klein und offen, aber ohne fertige CommBus-Abdeckung im bewerteten
+  Stack und mit zusätzlicher UI-/Toolchain-Komplexität.
+- **Python:** kein geeigneter Cross-Build von WSL2 nach Windows und ungünstige
+  Paketgröße.
+- **WinUI 3, Tauri und NativeAOT:** benötigen proprietäre oder zusätzliche
+  Windows-/C++-Buildvoraussetzungen, die den Projektbedingungen widersprechen.

@@ -3,8 +3,6 @@
 - **Status:** Akzeptiert
 - **Datum:** 2026-08-26
 - **Betrifft:** Phase 2, Phase 3 und jede künftige Abhängigkeitswahl
-- **Grundlage:** [`../phase-2-3-research.md`](../phase-2-3-research.md),
-  Abschnitte 3.6 und 9.4
 
 ## Kontext
 

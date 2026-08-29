@@ -28,7 +28,7 @@ spätere Kehrtwende bekommt ein neues ADR, das das alte ersetzt.
 | [0003](0003-transportkanal-commbus-ueber-simconnect.md) | Transportkanal über den CommBus mit SimConnect | Vorgeschlagen | Phase 3 |
 | [0004](0004-stack-der-begleit-app.md) | Stack der Begleit-App: .NET 10 mit Avalonia | Akzeptiert, offene Umsetzung | Phase 3 |
 | [0005](0005-phase-2-auf-die-efb-app-verkuerzen.md) | Phase 2 auf die EFB-App verkürzen | Akzeptiert | Phasenzuschnitt |
-| [0006](0006-tts-vorab-synthese.md) | Sprachausgabe als Vorab-Synthese mit Cache | Akzeptiert | Phase 3 |
+| [0006](0006-tts-vorab-synthese.md) | Sprachausgabe als Vorab-Synthese | Akzeptiert | Phase 3 |
 | [0007](0007-ablage-der-gerenderten-audiodateien.md) | Gerenderte Audiodateien liegen im Repository | Akzeptiert | Phase 3 |
 | [0008](0008-stimme-und-tts-anbieter.md) | Stimme und TTS-Anbieter | **Offen** | Phase 3 |
 | [0009](0009-fortschritt-als-geteilter-sitzungszustand.md) | Checklistenfortschritt als geteilter Sitzungszustand | Akzeptiert | Phase 1 |

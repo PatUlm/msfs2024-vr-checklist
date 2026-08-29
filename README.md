@@ -15,11 +15,13 @@ Aktuell verfügbar:
 - genau eine sichtbare Gruppe mit Vor-/Zurück-Navigation
 - automatischer Wechsel nach Abschluss einer Gruppe
 - Fortschrittsanzeige und Reset beim Laden eines neuen Fluges
-- semantische Darstellung von Action-, Verify- und Communication-Items
+- semantische Darstellung von Action-, Verify-, Communication- und
+  Optional-Items
 - automatische Auswahl der Checkliste anhand des geladenen Flugzeugmodells
 - zentrierter Leerzustand mit Diagnosewerten, wenn keine passende Checkliste
   vorhanden ist
-- minimale Zwei-Gruppen-Checkliste für die Beechcraft Bonanza G36
+- flugzeugspezifische Checklisten für Airbus H125, Beechcraft Bonanza G36,
+  Diamond DA42 und Sikorsky MH-60
 - kleine SemVer-basierte Entwicklungskennung am unteren rechten Rand
 
 ## Bestätigungstaste belegen
@@ -43,19 +45,6 @@ Zwei Einschränkungen:
   MH-60 und der H125 erscheint `LEAD POLE ON` deshalb nicht und ist dort nicht
   belegbar; der Stand dazu steht in
   [docs/adr/0002](docs/adr/0002-bestaetigungseingabe-in-sim-key-interception.md).
-
-## Bekannte Einschränkungen
-
-- Die MSFS-EFB-Aktion `VALIDATE` wird in SDK 1.7.3 nicht an diese Custom-App
-  weitergereicht. Enter, Numpad Enter und ein physisches Gamepad wurden über
-  DOM-, Input-Stack- und `AppView`-Interaction-Pfade ohne eingehenden Callback
-  getestet. Deshalb ist aktuell kein wirkungsloser Eingabe-Listener aktiv. Die
-  Ursache ist inzwischen belegt: Alle `KEY_EFB_*`-Aktionen tragen in der
-  SDK-Input-Datenbank das Tag `norebind_kbmpad` und sind für Tastatur, Maus und
-  Pad überhaupt nicht belegbar. Die schnelle Bestätigung entsteht stattdessen in
-  Phase 2 über ein frei belegbares Sim-Key-Event, das die EFB-App direkt
-  abfängt; siehe
-  [ADR 0002](docs/adr/0002-bestaetigungseingabe-in-sim-key-interception.md).
 
 ## Entwicklungsmodell
 
@@ -124,20 +113,23 @@ msfs/PackageSources/vendor/               kopiertes MSFS-SDK-Paket
 scripts/                                  Validierung und One-Way-Deployment
 ```
 
-`node_modules/`, `dist/` und Ausgaben des MSFS Project Editors werden nicht
-versioniert.
+`node_modules/`, das generierte `msfs/PackageSources/VRChecklist/dist/` und
+Ausgaben des MSFS Project Editors werden nicht versioniert. Das kopierte
+`msfs/PackageSources/efb_api/dist/` ist dagegen ein bewusst versionierter Teil
+der SDK-Vorlage und wird nicht lokal neu erzeugt.
 
 ## Checklistendaten
 
 Die JSON-Dateien unter `checklists/data/` sind die einzige Quelle für
 Checklist-Inhalte:
 
-- `diamond-da42.json`: 7 Abschnitte mit 52 Einträgen
-- `beechcraft-bonanza-g36.json`: 2 Abschnitte mit 10 Einträgen
-- `sikorsky-mh-60.json`: 5 Abschnitte mit 32 Einträgen
+- `airbus-h125.json`: Airbus H125
+- `beechcraft-bonanza-g36.json`: Beechcraft Bonanza G36
+- `diamond-da42.json`: Diamond DA42
+- `sikorsky-mh-60.json`: Sikorsky MH-60
 - `checklist.schema.json`: gemeinsamer Datenvertrag
 
-Die App importiert alle drei JSON-Dateien über eine zentrale Registry; es
+Die App importiert alle vier Checklistendateien über eine zentrale Registry; es
 existiert keine zweite Liste mit Checklist-Inhalten im App-Code. Explizite
 `aircraft.msfsMatches`-Regeln ordnen die SimVars `ATC MODEL`,
 `ATC TYPE` und `TITLE` einer Checkliste zu. Die Regeln unterstützen kontrollierte
@@ -278,6 +270,8 @@ werden soll.
 - `docs/phase-3-requirements.md`: verbindlicher Produktumfang der geplanten
   Begleit-App
 - `docs/release.md`: reproduzierbarer Release- und Community2024-Installationsflow
+- `docs/third-party-licenses.md`: direkte Abhängigkeiten, Lizenzstand und
+  Primärquellen
 - `docs/phase-2-3-research.md`: historischer Wegweiser zu den Ergebnissen der
   abgeschlossenen Phase-2/3-Recherche
 - `docs/adr/`: getroffene Architekturentscheidungen mit Konsequenzen und Status

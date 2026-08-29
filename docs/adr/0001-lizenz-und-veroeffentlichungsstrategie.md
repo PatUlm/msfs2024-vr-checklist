@@ -13,11 +13,15 @@ MSFS-Paket samt Begleit-App weitergegeben wird, etwa über flightsim.to.
 Die Recherche hat gezeigt, dass diese Frage nicht am Ende steht, sondern am
 Anfang: Sie entscheidet über die Auswahl der TTS-Modelle, der Stimmen und
 einiger Bibliotheken. Mehrere naheliegende Bausteine sind nicht das, was ihr
-Etikett verspricht — `sherpa-onnx` deklariert Apache-2.0, linkt aber espeak-ng
-unter GPL-3.0 ein; `rhasspy/piper-voices` trägt den Tag `license: mit`, während
-einzelne Stimmen unter CC BY-NC-SA oder einer reinen Forschungslizenz stehen;
-`msfs-simconnect-api-wrapper` deklariert auf npm CC0 und erlaubt in der
-`LICENSE.md` nur nicht-kommerzielle Nutzung.
+Etikett verspricht — [`sherpa-onnx`](https://github.com/k2-fsa/sherpa-onnx/blob/master/CMakeLists.txt)
+deklariert Apache-2.0, bindet für TTS aber
+[`espeak-ng`](https://github.com/espeak-ng/espeak-ng/blob/master/COPYING) unter
+GPL-3.0 ein; [`rhasspy/piper-voices`](https://huggingface.co/rhasspy/piper-voices)
+trägt den Tag `license: mit`, während einzelne Stimmen eigene Datensatzlizenzen
+haben; `msfs-simconnect-api-wrapper` deklariert auf npm CC0 und erlaubt in
+seiner
+[`LICENSE.md`](https://github.com/Pomax/msfs-simconnect-api-wrapper/blob/master/LICENSE.md)
+nur nicht-kommerzielle Nutzung.
 
 Eine Entscheidung war also nötig, bevor irgendeine Abhängigkeit gewählt wird.
 
@@ -34,6 +38,10 @@ offen**. Daraus folgt als Auswahlregel:
    nicht ausgeliefert werden.
 4. Die Lizenz jeder Abhängigkeit wird an der Quelle geprüft und dokumentiert,
    nicht aus dem Paketmanager-Feld übernommen.
+
+Der aktuelle Nachweis für direkte Abhängigkeiten und ausgelieferte
+Drittkomponenten steht in
+[`../third-party-licenses.md`](../third-party-licenses.md).
 
 ## Begründung
 
@@ -64,12 +72,20 @@ Haltung praktisch nichts.
 - `sherpa-onnx` ist als **Auslieferungsbestandteil ausgeschlossen**, als
   Entwicklerwerkzeug beim Vorab-Rendern erlaubt.
 - Von `en_US-lessac-medium` abgeleitete Piper-Stimmen sind ausgeschlossen; die
-  Blizzard-2013-Lizenz verbietet ausdrücklich Sprachsynthese-Produkte und die
-  Weitergabe von Derivaten. Das betrifft auch nominell CC-BY-Stimmen, die von
-  Lessac feingetunt wurden.
+  im
+  [Modellnachweis](https://huggingface.co/rhasspy/piper-voices/blob/main/en/en_US/lessac/medium/MODEL_CARD)
+  verlinkte Blizzard-2013-Lizenz verbietet ausdrücklich
+  Sprachsynthese-Produkte und die Weitergabe von Derivaten. Das betrifft auch
+  nominell CC-BY-Stimmen, die von Lessac feingetunt wurden.
 - `msfs-simconnect-api-wrapper` ist ausgeschlossen.
 - Eine `LICENSE`-Datei wird noch nicht angelegt. Die Lizenzen der verwendeten
   Dritt-Komponenten werden aber ab jetzt mitgeführt, damit eine Veröffentlichung
   keine Nachrecherche auslöst.
-- DECtalk ist unabhängig von dieser Entscheidung ausgeschlossen: Die
-  veröffentlichten Quellen enthalten **keine Lizenzerteilung**.
+- Solange keine Projektlizenz beschlossen ist, trägt das eigene npm-Paket
+  `license: UNLICENSED` und `private: true`. Die Lizenzangaben der kopierten
+  Microsoft-/Asobo-Komponenten bleiben davon unberührt.
+- DECtalk ist unabhängig von dieser Entscheidung ausgeschlossen: Der
+  veröffentlichte
+  [`LICENCE`-Text](https://github.com/dectalk/dectalk/blob/develop/LICENCE)
+  enthält **keine Lizenzerteilung**, sondern verlangt eine gesonderte gültige
+  Lizenz des Rechteinhabers.

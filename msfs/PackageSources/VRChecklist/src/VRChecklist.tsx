@@ -142,28 +142,14 @@ const FLOW_API_EVENT_NAME = "__FLOW_API__";
  * including a HOTAS button; the app never learns which key or button was
  * pressed, only that this event fired.
  *
- * Why this one. The obvious choice would be an event the SDK documents as
- * unused, and `AUTOCOORD_ON` was exactly that — but it is refuted: bound
- * conflict-free to a key and to a HOTAS button it never produced an event,
- * while a working event bound in the same session kept arriving. An action
- * without effect is apparently never emitted at all, which makes the whole
- * class useless as a trigger.
- *
- * `LEAD_POLE_ON` takes the opposite route: it is really implemented and
- * therefore emitted, but it drives the tow pole of a glider tug, which none of
- * our four aircraft has. It stays without effect in a DA42, G36, H125 or MH-60
- * — without a mask, which matters because an intercept cannot be unregistered.
- *
- * The other candidates proven to arrive were rejected for a reason each.
- * `SPRAY_ON` is bound by the H125 itself, through the Bind_Key_Events
- * procedure in its interior model behavior. `GRAPPLE_HOOK_ON` drives a cargo
- * hook, which the MH-60 may well carry. `SKYDIVE_DOORLIGHTS_JUMP` is the
- * remaining safe alternative. The rescue hoist of the MH-60 runs on its own
- * HOIST_* events and is unaffected either way.
+ * `LEAD_POLE_ON` is confirmed for the fixed-wing aircraft. It is not offered
+ * in the H125 and MH-60 control categories, so the helicopter trigger remains
+ * unresolved. The choice, rejected alternatives and runtime constraints live
+ * in docs/adr/0002-bestaetigungseingabe-in-sim-key-interception.md and
+ * docs/msfs-sdk-reference.md#sim-key-events-in-einer-custom-efb-app.
  *
  * It is intercepted with pass-through, so the sim still receives it and
- * nothing is masked. See
- * docs/adr/0002-bestaetigungseingabe-in-sim-key-interception.md.
+ * nothing is masked.
  */
 const CONFIRM_KEY_EVENT = "LEAD_POLE_ON";
 
@@ -185,7 +171,8 @@ const CONFIRM_KEY_DEBOUNCE_MS = 60;
  * Every `FltLoad` clears the guard because one flight start contains several
  * loads and a registration made after the first one did not survive the later
  * ones. The intercept is renewed only once the ready-to-cockpit sequence ends,
- * or when an observed `GameState.loading` ends. See docs/design-qa.md.
+ * or when an observed `GameState.loading` ends. See
+ * docs/msfs-sdk-reference.md#sim-key-events-in-einer-custom-efb-app.
  */
 const interceptedKeyEvents = new Set<string>();
 
@@ -313,9 +300,9 @@ class ChecklistRuntimeState {
   public readonly itemStates = new Map<string, Subject<boolean>>();
 
   /*
-   * Only these items drive progress and the automatic section advance. An
-   * `optional` item may be ticked and is stored like any other, but skipping
-   * it must neither hold the section back nor keep the bar below 100 %.
+   * Only these items drive the progress count. An `optional` item may be
+   * ticked and is stored like any other; it stays out of the count but still
+   * holds back automatic section advance until the pilot handles it.
    */
   public readonly requiredItemKeys = new Set<string>();
   public readonly activeSectionIndex = Subject.create(0);

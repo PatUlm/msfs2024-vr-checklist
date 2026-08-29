@@ -31,7 +31,9 @@ Beispiel für eine kombinierte Regel:
 
 Die erste TTS-Sprache ist Englisch. Für einfache Einträge bildet die App den gesprochenen Text aus `<challenge>: <response>`. Das optionale Feld `speech` überschreibt diesen Fallback mit einem vollständig formulierten Satz, wenn Bedingungen, Alternativen, Abkürzungen oder Aussprache sonst nicht zuverlässig wiedergegeben würden.
 
-Unklare Inhalte werden mit `needsReview: true` markiert. `reviewNote` beschreibt konkret, was noch geprüft werden muss, damit die App diesen Hinweis später sichtbar in der Checklistenansicht darstellen kann.
+Unklare Inhalte werden mit `needsReview: true` markiert. `reviewNote` beschreibt
+konkret, was noch geprüft werden muss; die App stellt diesen Hinweis sichtbar
+in der Checklistenansicht dar.
 
 ## IDs und Reihenfolge
 
@@ -41,10 +43,10 @@ IDs werden nach ihrer erstmaligen Vergabe nicht automatisch aus dem Anzeigetext 
 
 Die Reihenfolge wird ausschließlich durch die JSON-Arrays festgelegt: `sections[]` bestimmt die Abschnittsreihenfolge, `items[]` die Eintragsreihenfolge. Ein separates `order`-Feld ist nicht vorgesehen.
 
-Die strukturellen Invarianten lassen sich ohne zusätzliche Abhängigkeiten prüfen:
+Die strukturellen Invarianten werden über den projektweiten Task geprüft:
 
-```powershell
-node scripts/validate-checklists.mjs
+```bash
+task validate
 ```
 
 Quelldokumente unter `checklists/source/` dienen ausschließlich als lokale Referenz und werden nicht von Git versioniert. Die JSON-Dateien in diesem Verzeichnis sind die prüfbaren, versionierbaren Daten für die Anwendung.

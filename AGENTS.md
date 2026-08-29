@@ -28,6 +28,10 @@ gehören nach `docs/design-qa.md`.
   alte ersetzt.
 - Vor Änderungen an Checklistendaten sind `checklists/data/README.md` und
   `checklists/data/style-guide.md` zu lesen.
+- Neue oder aktualisierte direkte Abhängigkeiten und ausgelieferte
+  Drittkomponenten müssen im selben Arbeitsgang in
+  `docs/third-party-licenses.md` mit Version, Lizenz und Primärquelle
+  nachgeführt werden.
 - Jede abgeschlossene **nutzerwirksame** Änderung muss im selben Arbeitsgang das
   englische `CHANGELOG.md` aktualisieren. Noch nicht veröffentlichte Änderungen
   stehen unter `## [Unreleased]`. Bei einem Release werden sie nach
@@ -90,9 +94,12 @@ gehören nach `docs/design-qa.md`.
 - Das Windows-Staging unter
   `/mnt/c/dev/msfs2024-vr-checklist-staging` ist ein One-Way-Deployment-Ziel und
   darf nicht als Quelle zurück in das Repository synchronisiert werden.
-- `node_modules/`, `dist/` sowie `Packages/`, `PackagesMetadata/` und
-  `_PackageInt/` sind generiert und werden nicht manuell bearbeitet oder
-  versioniert. Ausnahme: Die vorab gerenderten Sprachausgabedateien unter
+- `node_modules/`, `msfs/PackageSources/VRChecklist/dist/` sowie `Packages/`,
+  `PackagesMetadata/` und `_PackageInt/` sind generiert und werden nicht
+  manuell bearbeitet oder versioniert. Das kopierte
+  `msfs/PackageSources/efb_api/dist/` ist dagegen Teil der bewusst versionierten
+  SDK-Vorlage und wird nicht lokal neu erzeugt. Ausnahme: Die vorab gerenderten
+  Sprachausgabedateien unter
   `assets/` werden bewusst versioniert, damit die Auslieferung ohne TTS-Modell
   und ohne Phonemizer auskommt; die Begründung steht in
   `docs/adr/0007-ablage-der-gerenderten-audiodateien.md`.

@@ -15,7 +15,7 @@ aufgebaut und benannt sein.
 - Bei `communication`-Items lautet die Challenge `COM: <Funkstelle>`, zum
   Beispiel `COM: ATIS`, `COM: Clearance`, `COM: Ground` oder `COM: Tower`. Das
   `COM:` benennt das zu bedienende Funkgerät — COM 1 oder COM 2 ist auf diese
-  Station zu stellen —, nicht die Wortart „Communication". Es steht damit in
+  Station zu stellen —, nicht die Wortart „Communication“. Es steht damit in
   derselben Logik wie jede andere Challenge, die ein System benennt, und
   wiederholt das Typ-Label `ATC` nicht, das die Art der Handlung markiert.
 - Ein überspringbares Item bekommt den Kind `optional`. Seine Optionalität wird

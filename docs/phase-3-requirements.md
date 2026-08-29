@@ -16,10 +16,13 @@ Status: **Geplant — beginnt nach der Abnahme von Phase 2.**
 - Zustandsänderungen der EFB-App erscheinen ohne merkbare Verzögerung in der
   Begleit-App. Der Rückkanal überträgt nur Änderungen und ein eigenes Ereignis
   für den Übergang zur vollständig erledigten Checkliste.
-- Der aktuelle Checklisteneintrag kann optional aus vorab gerenderten
-  Audiodateien vorgelesen werden. Die erste Sprache ist Englisch; die
-  Klangprofile sind `Clean`, `Intercom` und `Radio`. Weitere Sprachen sind nicht
-  Teil dieses Meilensteins.
+- Der aktuelle Checklisteneintrag ist das nächste offene Item der im EFB
+  sichtbaren Gruppe. Bei aktiviertem Sprachmodus wird er genau einmal
+  vorgelesen, wenn er sich durch Abhaken, Wiederöffnen oder einen
+  Gruppenwechsel tatsächlich ändert. Eine erneute Übertragung desselben
+  Zustands, etwa nach einem Reconnect, wiederholt die Ansage nicht. Die erste
+  Sprache ist Englisch; die Klangprofile sind `Clean`, `Intercom` und `Radio`.
+  Weitere Sprachen sind nicht Teil dieses Meilensteins.
 - Der Nutzer wählt das Windows-Ausgabegerät, damit die Ansage gezielt im
   VR-Headset wiedergegeben werden kann.
 - Beim Übergang von unvollständig zu vollständig wird genau einmal
@@ -59,6 +62,8 @@ Override ist Teil des kanonischen Datenvertrags in
 - Die Audioausgabe erreicht bei laufendem MSFS das gewählte Gerät, ohne MSFS
   stummzuschalten oder dessen Audiopuffer-Periode zu verkleinern.
 - Ohne laufende Begleit-App verhält sich die EFB-App unverändert.
+- Derselbe aktuelle Eintrag wird bei wiederholter Zustandsübertragung oder
+  erneutem Verbindungsaufbau nicht ein zweites Mal angesagt.
 - Die noch fehlenden Nachweise unter „Phase 3“ in
   [`open-tests.md`](open-tests.md) sind geführt.
 

@@ -15,7 +15,9 @@ stehen in den jeweils verlinkten Dokumenten.
   abgenommen ([ADR 0002](docs/adr/0002-bestaetigungseingabe-in-sim-key-interception.md)).
 - [ ] **Phase 3 – Begleit-App und Sprachausgabe:** Transportdurchstich,
   Status-App, Audio-Nachweis mit Dummy-Datei und danach die produktive,
-  vorab gerenderte Sprachausgabe sind in dieser Reihenfolge geplant; die
-  TTS-Anbieterwahl blockiert den Phasenstart nicht
+  vorab gerenderte Sprachausgabe folgen in dieser Reihenfolge. Der minimale
+  CommBus-Client hat den bidirektionalen Transport in MSFS bestätigt; als
+  Nächstes folgt die Status-App. Die TTS-Anbieterwahl blockiert den Phasenstart
+  nicht
   ([Produktanforderungen](docs/phase-3-requirements.md),
   [Architekturentscheidungen](docs/adr/README.md)).

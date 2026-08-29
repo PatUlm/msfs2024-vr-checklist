@@ -171,6 +171,11 @@ Der verwendete Mechanismus besteht aus
   verwenden. Das SDK enthält die Funktionen
   `SimConnect_CallCommBusEvent`, `SimConnect_SubscribeToCommBusEvent` und
   `SimConnect_UnsubscribeFromCommBusEvent` sowie ein bidirektionales Sample.
+- **[RT]** Ein externer .NET-10-Client mit eigenem P/Invoke erreicht die
+  geöffnete Custom-EFB-App über ein selbst benanntes CommBus-Event; die EFB-App
+  kann auf einem zweiten Event an denselben SimConnect-Client antworten. Der
+  bidirektionale Ping/Pong-Durchstich wurde mit EFB-Entwicklungsstand
+  `0.2.4-dev.20260829151430` bestätigt.
 - **[SDK]** Nachrichten in Richtung SimConnect-Client können über
   `dwEntryNumber`/`dwOutOf` gechunkt eintreffen; die Client-Seite muss sie
   zusammensetzen.
@@ -179,7 +184,11 @@ Der verwendete Mechanismus besteht aus
   Fortsetzen verarbeitet; bei zu großem Stau kann der Simulator einfrieren.
   **DO:** Nur Zustandsänderungen senden und den Kanal ratenbegrenzen.
 - **[SDK]** Die verwendeten TypeScript-Pakete deklarieren die CommBus-API nicht.
-  Die EFB-Seite braucht deshalb eine kleine eigene Ambient-Deklaration.
+  Die EFB-Seite braucht deshalb eine kleine eigene Ambient-Deklaration. Der
+  JavaScript-Helper ist außerdem nicht implizit verfügbar: Beide offiziellen
+  CommBus-/Flow-Samples laden zuerst `/JS/Services/CommBus.js` und registrieren
+  den Listener erst danach. **DO:** Das Skript mit Lade-Callback einbinden,
+  bevor `RegisterCommBusListener` verwendet wird.
 - **[NEG]** Der Managed-Wrapper
   `Microsoft.FlightSimulator.SimConnect.dll` aus SDK 1.7.3 ist unter modernen
   .NET-Versionen nicht ladbar; es handelt sich um eine Mixed-Mode-C++/CLI-
@@ -197,9 +206,10 @@ Der verwendete Mechanismus besteht aus
   Socket-Erzeugungen bestätigt. Kein Reconnect-Loop und keine
   localhost-Verbindung ohne ausdrückliche neue Entscheidung.
 
-Der bidirektionale CommBus-Pfad im Custom-EFB-Kontext ist noch nicht als Ganzes
-laufzeitbestätigt. Der konkrete Testumfang steht ausschließlich in
-[`open-tests.md`](open-tests.md), die vorläufige Entscheidung in
+Der bidirektionale CommBus-Pfad im Custom-EFB-Kontext ist bestätigt. Nutzlast,
+Pausenverhalten und EFB-Lifecycle bleiben gesonderte Laufzeitfragen; ihr
+konkreter Testumfang steht ausschließlich in [`open-tests.md`](open-tests.md),
+die vorläufige Entscheidung in
 [ADR 0003](adr/0003-transportkanal-commbus-ueber-simconnect.md).
 
 ## Coherent GT und EFB-Rendering

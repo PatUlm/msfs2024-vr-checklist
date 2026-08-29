@@ -49,9 +49,9 @@ Zwei Einschränkungen:
 ## Entwicklungsmodell
 
 Das Linux-native WSL2-Repository ist die einzige editierbare Source of Truth.
-Build und TypeScript-Entwicklung laufen ausschließlich unter WSL2. Ein
-deterministisches One-Way-Deployment überträgt nur die für den MSFS Project
-Editor benötigten Dateien in ein Windows-lokales Staging.
+Build und Entwicklung laufen aus WSL2. Deterministische One-Way-Deployments
+übertragen die EFB-Eingaben für den MSFS Project Editor und die gebauten
+Companion-Dateien in getrennte Windows-lokale Staging-Verzeichnisse.
 
 Das installierte SDK und dessen Samples bleiben strikt read-only. Die benötigten
 Dateien des offiziellen EFB Template Samples aus SDK 1.7.3 wurden unter `msfs/`
@@ -63,6 +63,8 @@ Verifizierte Werkzeuge:
 - Node.js `v24.19.0`
 - npm `11.17.0`
 - Task `v3.37.2`
+- Docker `29.7.2`
+- .NET SDK `10.0.302` im fest versionierten Build-Container
 
 ## Einstieg
 
@@ -89,6 +91,9 @@ Alle projektweiten Abläufe beginnen im Repository-Root:
 | `task validate`                           | Prüft alle versionierten Checklistendaten       |
 | `task build`                              | Validiert die Daten und baut die EFB-App        |
 | `task watch`                              | Startet den Watch-Build für die EFB-App         |
+| `task companion:build`                    | Baut den Windows-CommBus-Transporttest           |
+| `task companion:test`                     | Prüft dessen Chunk-Zusammensetzung               |
+| `task companion:deploy`                   | Deployed den Transporttest ins Windows-Staging   |
 | `task deploy`                             | Baut und deployed ins Windows-Staging           |
 | `task release`                            | Erzeugt das in `VERSION` deklarierte Release     |
 | `task community:install`                  | Installiert das aktuelle Release in `Community2024` |
@@ -99,12 +104,45 @@ Die `package.json` unter `msfs/PackageSources/VRChecklist/` bleibt für rein
 Frontend-spezifische npm-Skripte zuständig. Nichttriviale projektweite Logik
 liegt unter `scripts/`.
 
+## Phase-3-Transportdurchstich
+
+Der erste Phase-3-Baustein ist ein kleiner, frameworkabhängiger .NET-10-
+Konsolenclient. Er sendet über SimConnect das CommBus-Event
+`VRChecklist.Transport.Ping.v1` an die EFB-App und erwartet deren Antwort auf
+`VRChecklist.Transport.Pong.v1`. Damit lassen sich beide Transportrichtungen
+nachweisen, bevor eine Avalonia-Oberfläche oder Audioausgabe entsteht.
+
+Build und Deployment aus dem Repository-Root:
+
+```bash
+task companion:deploy
+```
+
+Der Build verwendet ein per Digest fixiertes offizielles .NET-SDK-Image und
+kopiert `SimConnect.dll` nicht. Für den Laufzeittest werden zuerst die EFB-App
+deployed, im Project Editor **Build All In Project** ausgeführt und im Coherent
+Debugger **Ignore Cache + Reload** gewählt. Anschließend bleibt die EFB-App
+geöffnet. Der Client wird in Windows PowerShell aus seinem eigenen Staging
+gestartet; ein Zugriff auf das WSL-Dateisystem ist nicht nötig:
+
+```powershell
+$env:VR_CHECKLIST_SIMCONNECT_DIR = 'C:\MSFS 2024 SDK\SimConnect SDK\lib'
+dotnet C:\dev\msfs2024-vr-checklist-companion-staging\VRChecklist.TransportProbe.dll
+```
+
+Ein erfolgreicher Durchstich endet mit `Bidirectional CommBus probe succeeded`
+und nennt die antwortende EFB-Version und Instanz. Das Companion-Staging wird
+wie das EFB-Staging ausschließlich aus dem WSL-Repository befüllt und nie als
+Quelle zurücksynchronisiert. Die SDK-DLL dient nur dem lokalen Entwicklungstest
+und wird nicht in ein Projekt- oder Releasepaket aufgenommen.
+
 ## Verzeichnisstruktur
 
 ```text
 assets/branding/                         editierbare Branding-Quellen
 VERSION                                  kanonische SemVer-Projektversion
 checklists/data/                         kanonische Checklistendaten
+companion/src/                           Windows-Projekte der Begleit-App
 msfs/VRChecklistProject.xml              MSFS-DevMode-Projekt
 msfs/PackageDefinitions/                 Paketdefinition und ContentInfo
 msfs/PackageSources/VRChecklist/          TypeScript/SCSS-App und Build

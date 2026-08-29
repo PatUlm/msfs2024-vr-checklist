@@ -5,6 +5,13 @@ dotenv:
 
 vars:
   APP_DIR: msfs/PackageSources/VRChecklist
+  COMPANION_PROBE_PROJECT: companion/src/VRChecklist.TransportProbe/VRChecklist.TransportProbe.csproj
+  DOTNET_SDK_IMAGE: mcr.microsoft.com/dotnet/sdk@sha256:72dd743782f2ae7e5476fd64f6a460045e3998dc862218b80e6944cba79a01b0
+  HOST_UID:
+    sh: id -u
+  HOST_GID:
+    sh: id -g
+  COMPANION_STAGING_DIR: '{{default "/mnt/c/dev/msfs2024-vr-checklist-companion-staging" .VR_CHECKLIST_COMPANION_STAGING_DIR}}'
   STAGING_DIR: '{{default "/mnt/c/dev/msfs2024-vr-checklist-staging" .STAGING_DIR}}'
   MSFS_SDK_ROOT: '{{default "/mnt/c/MSFS 2024 SDK" .VR_CHECKLIST_MSFS_SDK_ROOT}}'
   COMMUNITY_DIR: '{{default "" .VR_CHECKLIST_COMMUNITY_DIR}}'
@@ -58,6 +65,47 @@ tasks:
     cmds:
       - npm run watch
 
+  companion:build:
+    desc: Build the Windows CommBus transport probe with the pinned .NET SDK
+    cmds:
+      - >-
+        docker run --rm
+        --user "{{.HOST_UID}}:{{.HOST_GID}}"
+        --env DOTNET_CLI_HOME=/tmp/dotnet-home
+        --env NUGET_PACKAGES=/tmp/nuget
+        --volume "{{.ROOT_DIR}}:/src"
+        --workdir /src
+        "{{.DOTNET_SDK_IMAGE}}"
+        dotnet build "{{.COMPANION_PROBE_PROJECT}}"
+        --configuration Release
+        --nologo
+
+  companion:test:
+    desc: Run the CommBus transport probe self-tests
+    cmds:
+      - >-
+        docker run --rm
+        --user "{{.HOST_UID}}:{{.HOST_GID}}"
+        --env DOTNET_CLI_HOME=/tmp/dotnet-home
+        --env NUGET_PACKAGES=/tmp/nuget
+        --volume "{{.ROOT_DIR}}:/src"
+        --workdir /src
+        "{{.DOTNET_SDK_IMAGE}}"
+        dotnet run
+        --project "{{.COMPANION_PROBE_PROJECT}}"
+        --configuration Release
+        --no-build
+        --no-restore
+        --
+        --self-test
+
+  companion:deploy:
+    desc: Build and deploy the transport probe to Windows staging
+    deps:
+      - companion:build
+    cmds:
+      - node scripts/deploy-companion-windows.mjs "{{.COMPANION_STAGING_DIR}}"
+
   deploy:
     desc: Build and deploy managed inputs to the Windows MSFS staging
     deps:
@@ -107,4 +155,6 @@ tasks:
     desc: Run the complete local validation and build
     cmds:
       - task: build
+      - task: companion:build
+      - task: companion:test
       - task: test:release

@@ -12,6 +12,10 @@ dist/
 !msfs/PackageSources/efb_api/dist/
 !msfs/PackageSources/efb_api/dist/**
 
+# .NET companion-app build output.
+companion/**/bin/
+companion/**/obj/
+
 # MSFS Project Editor output. The Windows staging remains generated state.
 msfs/Packages/
 msfs/PackagesMetadata/

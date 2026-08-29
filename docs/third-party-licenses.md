@@ -17,11 +17,13 @@ hier aufgeführten Drittkomponente.
 | `@efb/efb-api` | 1.0.3 | MIT | kopiertes [`package.json`](../msfs/PackageSources/efb_api/package.json) aus MSFS SDK 1.7.3 |
 | `@microsoft/msfs-sdk` | 2.1.1 | MIT | vendortes Paket und [Microsoft MSFS Avionics Mirror](https://github.com/microsoft/msfs-avionics-mirror) |
 | `@microsoft/msfs-types` | 1.14.6 | MIT | [Microsoft MSFS Avionics Mirror](https://github.com/microsoft/msfs-avionics-mirror) |
+| .NET Runtime | 10.0 | MIT | [dotnet/runtime](https://github.com/dotnet/runtime/blob/main/LICENSE.TXT) |
 
 `@microsoft/msfs-sdk` wird beim App-Build als Simulator-Global behandelt;
 `@microsoft/msfs-types` liefert ausschließlich Typen. Die EFB-API wird aus der
 bewusst versionierten SDK-Kopie unter `msfs/PackageSources/efb_api/dist/`
-bezogen.
+bezogen. Der Phase-3-Transporttest ist frameworkabhängig und liefert die
+.NET-Laufzeit nicht mit aus.
 
 ## Direkte Build-Abhängigkeiten
 
@@ -44,9 +46,10 @@ ausgeliefert.
 | `postcss-url` | 10.1.3 | MIT | [Repository](https://github.com/postcss/postcss-url) |
 | `prettier` | 2.8.8 | MIT | [Repository](https://github.com/prettier/prettier) |
 | `typescript` | 5.6.3 | Apache-2.0 | [Repository](https://github.com/microsoft/TypeScript) |
+| .NET SDK Build-Container | 10.0.302 | MIT | [Microsoft Artifact Registry](https://mcr.microsoft.com/en-us/artifact/mar/dotnet/sdk/tag/10.0.302) und [dotnet/sdk](https://github.com/dotnet/sdk/blob/main/LICENSE.TXT) |
 
-Geplante Phase-3-Komponenten sind noch keine Projektabhängigkeiten. Ihre
-Auswahl- und Rechteprüfung bleibt Gegenstand von
+Weitere geplante Phase-3-Komponenten sind noch keine Projektabhängigkeiten.
+Ihre Auswahl- und Rechteprüfung bleibt Gegenstand von
 [ADR 0001](adr/0001-lizenz-und-veroeffentlichungsstrategie.md) und
 [ADR 0008](adr/0008-stimme-und-tts-anbieter.md); nach ihrer Aufnahme werden sie
 hier ergänzt.

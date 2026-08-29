@@ -6,7 +6,8 @@ Windows-Begleit-App. Technische Entscheidungen stehen in den
 [SDK-Referenz](msfs-sdk-reference.md), noch zu führende Laufzeitnachweise in
 [open-tests.md](open-tests.md).
 
-Status: **Geplant — beginnt nach der Abnahme von Phase 2.**
+Status: **In Umsetzung — der bidirektionale Transportdurchstich ist in MSFS
+bestätigt; als Nächstes folgt die Status-App.**
 
 ## Umsetzungsreihenfolge
 

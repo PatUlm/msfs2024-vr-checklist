@@ -1,7 +1,7 @@
 # ADR 0004: Stack der Begleit-App — .NET 10 mit Avalonia
 
-- **Status:** Akzeptiert, offene Umsetzung
-- **Datum:** 2026-08-26
+- **Status:** Akzeptiert — Umsetzung begonnen
+- **Datum:** 2026-08-26, Umsetzung begonnen am 2026-08-29
 - **Betrifft:** Phase 3
 - **Technische Grundlage:**
   [`../msfs-sdk-reference.md`](../msfs-sdk-reference.md#commbus-und-externe-begleit-app)

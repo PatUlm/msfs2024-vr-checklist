@@ -1,7 +1,8 @@
 # ADR 0003: Transportkanal über den CommBus mit SimConnect
 
-- **Status:** Vorgeschlagen — Laufzeitnachweis im Custom-EFB-Kontext ausstehend
-- **Datum:** 2026-08-26
+- **Status:** Vorgeschlagen — bidirektionaler Durchstich bestätigt,
+  Lifecycle-Nachweise ausstehend
+- **Datum:** 2026-08-26, Transportdurchstich bestätigt am 2026-08-29
 - **Betrifft:** Phase 3
 - **Technische Grundlage:**
   [`../msfs-sdk-reference.md`](../msfs-sdk-reference.md#commbus-und-externe-begleit-app)
@@ -37,8 +38,9 @@ ist nicht vorgesehen.
   berücksichtigen.
 - Die EFB-Seite braucht eine eigene Ambient-Deklaration für die nicht
   typisierte CommBus-API.
-- Die Entscheidung bleibt vorgeschlagen, bis beide Richtungen und der
-  EFB-Lifecycle in MSFS bestätigt sind. Die Nachweise stehen ausschließlich in
+- Beide Richtungen sind im Custom-EFB-Kontext bestätigt. Die Entscheidung
+  bleibt vorgeschlagen, bis auch der EFB-Lifecycle in MSFS bestätigt ist. Die
+  verbleibenden Nachweise stehen ausschließlich in
   [`../open-tests.md`](../open-tests.md).
 
 ## Verworfene Alternativen

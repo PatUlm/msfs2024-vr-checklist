@@ -94,6 +94,10 @@ gehören nach `docs/design-qa.md`.
 - Das Windows-Staging unter
   `/mnt/c/dev/msfs2024-vr-checklist-staging` ist ein One-Way-Deployment-Ziel und
   darf nicht als Quelle zurück in das Repository synchronisiert werden.
+- Das Companion-Staging unter
+  `/mnt/c/dev/msfs2024-vr-checklist-companion-staging` folgt derselben
+  One-Way-Regel. Es enthält ausschließlich gebaute Windows-Artefakte aus
+  `companion/` und ist ebenfalls keine Source of Truth.
 - `node_modules/`, `msfs/PackageSources/VRChecklist/dist/` sowie `Packages/`,
   `PackagesMetadata/` und `_PackageInt/` sind generiert und werden nicht
   manuell bearbeitet oder versioniert. Das kopierte
@@ -123,6 +127,8 @@ gehören nach `docs/design-qa.md`.
 - Nach jeder app-wirksamen Code-, UI- oder Checklistendaten-Änderung muss nach
   der erfolgreichen Prüfung automatisch `task deploy` ausgeführt werden. Reine
   Dokumentationsänderungen lösen keinen unnötigen Deployment-Build aus.
+- Nach Änderungen am Windows-Companion muss zusätzlich automatisch
+  `task companion:deploy` ausgeführt werden.
 - Nach jedem Deployment ist die tatsächlich ins Windows-Staging geschriebene
   App-Version zu ermitteln und dem Benutzer ausdrücklich zu nennen. Nicht
   lediglich eine Version aus einem früheren lokalen Build angeben.

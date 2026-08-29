@@ -92,6 +92,13 @@ interface FlowEventPayload {
   flt_path?: string;
 }
 
+interface TransportProbePing {
+  protocolVersion: 1;
+  type: "ping";
+  requestId: string;
+  sentAt: string;
+}
+
 /*
  * The shared progress record. It is the single source of truth for checklist
  * progress inside one simulator session: every state change writes it, and
@@ -135,6 +142,9 @@ const OBSOLETE_DATASTORE_KEYS = [
 ];
 const SIMULATION_TIME_TOLERANCE_SECONDS = 5;
 const FLOW_API_EVENT_NAME = "__FLOW_API__";
+const COMM_BUS_SCRIPT_PATH = "/JS/Services/CommBus.js";
+const TRANSPORT_PROBE_PING_EVENT = "VRChecklist.Transport.Ping.v1";
+const TRANSPORT_PROBE_PONG_EVENT = "VRChecklist.Transport.Pong.v1";
 
 /*
  * The sim key event that confirms the next open item of the section on screen.
@@ -388,6 +398,7 @@ class VRChecklistView extends AppView<RequiredProps<AppViewProps, "bus">> {
   private readonly isVrMode = Subject.create(false);
   private readonly gameStateSubscription: Subscription;
   private readonly flowApiListener: ViewListener.ViewListener;
+  private commBusListener: CommBusListener | undefined;
 
   /*
    * The MSFS EFB action VALIDATE stays out of this app. Under SDK 1.7.3 a
@@ -411,6 +422,7 @@ class VRChecklistView extends AppView<RequiredProps<AppViewProps, "bus">> {
   private currentVrMode: boolean | undefined;
   private aircraftRefreshTimer: number | undefined;
   private isViewActive = false;
+  private isViewClosed = false;
 
   /*
    * Identifies this app instance in the log. MSFS may recreate the EFB app
@@ -428,6 +440,9 @@ class VRChecklistView extends AppView<RequiredProps<AppViewProps, "bus">> {
   private readonly handleViewportResize = (): void => this.refreshVrMode();
   private readonly handleFlowEvent = (data: string): void => {
     this.processFlowEvent(data);
+  };
+  private readonly handleTransportProbePing = (data: string): void => {
+    this.processTransportProbePing(data);
   };
 
   public constructor(props: RequiredProps<AppViewProps, "bus">) {
@@ -448,7 +463,92 @@ class VRChecklistView extends AppView<RequiredProps<AppViewProps, "bus">> {
       () => console.info("[VR Checklist] Flow API listener registered.")
     );
     this.flowApiListener.on(FLOW_API_EVENT_NAME, this.handleFlowEvent);
+    this.loadTransportProbe();
     this.setupConfirmationInput();
+  }
+
+  /*
+   * Phase 3 starts with the narrowest possible CommBus proof. The external
+   * console client sends one named ping and the EFB answers on a second named
+   * event. No checklist state depends on this diagnostic path; an unavailable
+   * listener therefore cannot affect the normal EFB workflow.
+   */
+  private loadTransportProbe(): void {
+    try {
+      Include.addScript(COMM_BUS_SCRIPT_PATH, () =>
+        this.setupTransportProbe()
+      );
+    } catch (error) {
+      console.error("[VR Checklist] Unable to load CommBus.js", error);
+    }
+  }
+
+  private setupTransportProbe(): void {
+    if (this.isViewClosed || this.commBusListener !== undefined) {
+      return;
+    }
+
+    try {
+      if (typeof RegisterCommBusListener !== "function") {
+        throw new Error("RegisterCommBusListener is not available.");
+      }
+
+      this.commBusListener = RegisterCommBusListener(() => {
+        console.info("[VR Checklist] Transport probe listener registered.");
+      });
+      this.commBusListener.on(
+        TRANSPORT_PROBE_PING_EVENT,
+        this.handleTransportProbePing
+      );
+    } catch (error) {
+      console.error(
+        "[VR Checklist] Transport probe listener unavailable",
+        error
+      );
+    }
+  }
+
+  private processTransportProbePing(data: string): void {
+    let ping: TransportProbePing;
+
+    try {
+      const candidate = JSON.parse(data) as Partial<TransportProbePing>;
+
+      if (
+        candidate.protocolVersion !== 1 ||
+        candidate.type !== "ping" ||
+        typeof candidate.requestId !== "string" ||
+        candidate.requestId.length === 0 ||
+        typeof candidate.sentAt !== "string"
+      ) {
+        throw new Error("Unexpected transport probe payload.");
+      }
+
+      ping = candidate as TransportProbePing;
+    } catch (error) {
+      console.error("[VR Checklist] Invalid transport probe ping", data, error);
+      return;
+    }
+
+    try {
+      this.commBusListener?.callSimConnect(
+        TRANSPORT_PROBE_PONG_EVENT,
+        JSON.stringify({
+          protocolVersion: 1,
+          type: "pong",
+          requestId: ping.requestId,
+          pingSentAt: ping.sentAt,
+          receivedAt: new Date().toISOString(),
+          efbVersion: APP_VERSION,
+          instanceId: this.instanceId,
+        })
+      );
+      console.info(
+        `[VR Checklist] Transport probe answered for ${ping.requestId}.`
+      );
+    } catch (error) {
+      console.error("[VR Checklist] Unable to answer transport probe", error);
+    }
   }
 
   /*
@@ -1403,6 +1503,7 @@ class VRChecklistView extends AppView<RequiredProps<AppViewProps, "bus">> {
   public onClose(): void {
     console.info(`[VR Checklist] Instance ${this.instanceId} closed.`);
     this.isViewActive = false;
+    this.isViewClosed = true;
     window.removeEventListener("resize", this.handleViewportResize);
     this.cancelAircraftRefresh();
 
@@ -1410,6 +1511,11 @@ class VRChecklistView extends AppView<RequiredProps<AppViewProps, "bus">> {
     // The intercepts themselves stay set: the sim has no unregister call.
     // Only this view's subscription is released.
     this.keyEventSubscription?.destroy();
+    this.commBusListener?.off(
+      TRANSPORT_PROBE_PING_EVENT,
+      this.handleTransportProbePing
+    );
+    this.commBusListener?.unregister();
     this.flowApiListener.off(FLOW_API_EVENT_NAME, this.handleFlowEvent);
     this.flowApiListener.unregister();
     super.onClose();

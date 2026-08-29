@@ -8,9 +8,6 @@ Produktentscheidung.
 
 ## Phase 3 — Begleit-App
 
-- [ ] Zustellung eines selbst benannten CommBus-Events von einem externen
-  SimConnect-Client an die EFB-App nachweisen.
-- [ ] Rückweg von der EFB-App zum externen SimConnect-Client nachweisen.
 - [ ] Maximale CommBus-Nutzlast und tatsächliches Chunk-Verhalten bestimmen.
 - [ ] Lebensdauer der CommBus-Registrierung bei `AppBootMode.COLD` und
   `AppSuspendMode.SLEEP` einschließlich der FPS-Wirkung einer Änderung messen.

@@ -49,7 +49,20 @@ gehören nach `docs/design-qa.md`.
   Dokumentation dürfen bei der jeweiligen fachlichen Änderung bleiben.
 - Jeder eindeutige Release-Commit `chore(release): publish version X.Y.Z` erhält
   einen annotierten Git-Tag `vX.Y.Z`, der exakt auf diesen Commit zeigt.
-- Commit und Push erfolgen nur auf ausdrücklichen Wunsch des Benutzers.
+- Das Repository folgt **Trunk-Based Development** auf `master`. Änderungen
+  werden als kleine, fachlich geschlossene und jederzeit lauffähige Inkremente
+  umgesetzt; langlebige Feature-Branches und große Sammel-Commits werden
+  vermieden.
+- Ein Inkrement gilt erst als abgeschlossen, wenn die vorgeschriebenen lokalen
+  Prüfungen erfolgreich sind, notwendige Deployments ausgeführt wurden und ein
+  für die Korrektheit erforderlicher MSFS-Laufzeitnachweis vorliegt. Reine
+  Dokumentationsänderungen benötigen weiterhin kein Deployment.
+- Jedes abgeschlossene Inkrement wird zeitnah committed und bleibt nicht ohne
+  sachlichen Grund als fertiger Working-Tree-Diff liegen. Diese Regel ist die
+  dauerhafte Erlaubnis für solche Abschluss-Commits; eine erneute Nachfrage ist
+  nicht nötig. Unfertige oder nicht lauffähige Zwischenstände werden nicht als
+  vermeintlich fertige Inkremente committed.
+- Pushes erfolgen weiterhin nur auf ausdrücklichen Wunsch des Benutzers.
 
 ## MSFS-spezifische Lessons learned
 

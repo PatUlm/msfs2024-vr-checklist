@@ -8,8 +8,6 @@ Produktentscheidung.
 
 ## Phase 2 — Bestätigungseingabe
 
-- [ ] Einen in Starrflüglern und Hubschraubern belegbaren, dort jeweils
-  folgenlosen Auslöser oder zwei geeignete Auslöser je Kategorie nachweisen.
 - [ ] Nachweisen, dass ein Druck in einer bereits vollständigen Gruppe keine
   weitere Zustandsänderung auslöst.
 

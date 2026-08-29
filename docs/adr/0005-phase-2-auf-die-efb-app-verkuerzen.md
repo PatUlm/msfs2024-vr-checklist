@@ -63,8 +63,6 @@ Abschlussereignis braucht.
 - Der Laufzeitnachweis des CommBus-Kanals kann bei Gelegenheit vorgezogen
   werden, ohne dass Phase 2 daran hängt.
 - Roadmap und Produktdokumentation verwenden diesen Phasenzuschnitt.
-- Der Zuschnitt bleibt davon abhängig, dass sich für die benötigte Flotte ein
-  geeigneter In-Sim-Auslöser findet. Für Hubschrauber ist das noch offen; siehe
-  [ADR 0002](0002-bestaetigungseingabe-in-sim-key-interception.md). Scheitern
-  dort beide vorgesehenen Wege, wird Phase 2 mit einem Nachfolge-ADR neu
-  geschnitten.
+- Der für den Zuschnitt nötige gemeinsame In-Sim-Auslöser ist für G36, DA42,
+  H125 und MH-60 gefunden; siehe
+  [ADR 0002](0002-bestaetigungseingabe-in-sim-key-interception.md).

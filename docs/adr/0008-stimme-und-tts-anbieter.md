@@ -1,7 +1,7 @@
 # ADR 0008: Stimme und TTS-Anbieter
 
-- **Status:** Offen — wird beim Übergang zu Phase 3 entschieden
-- **Datum:** 2026-08-26
+- **Status:** Offen — vor der Erzeugung der produktiven Sprachassets zu entscheiden
+- **Datum:** 2026-08-26, Entscheidungszeitpunkt präzisiert am 2026-08-29
 - **Betrifft:** Phase 3
 
 ## Kontext
@@ -12,6 +12,11 @@ Stimme und die ausdrückliche Erlaubnis, erzeugte Audiodateien als Teil des
 Produkts weiterzugeben. Durch die Vorab-Synthese aus
 [ADR 0006](0006-tts-vorab-synthese.md) sind Laufzeitgröße und
 Inferenzgeschwindigkeit keine Auswahlkriterien.
+
+Die Entscheidung ist kein Startkriterium für Phase 3. Transport,
+Zustandsanzeige und der einmalige Abschlussimpuls werden zuerst mit einer
+selbst erstellten Dummy-Audiodatei nachgewiesen. Stimme und Anbieter müssen erst
+feststehen, bevor die produktiven Ansagen gerendert werden.
 
 ## Entscheidungskriterien
 
@@ -41,4 +46,5 @@ praktischem Bedarf an einer dedizierten GPU sind ausgeschlossen.
 
 Wenn der Hörvergleich keinen klaren Sieger ergibt, ist Piper
 `en_US-ljspeech-high` der konservative Standard. Diese Neigung ist keine
-Entscheidung und wird vor Phase 3 nicht weiter dokumentarisch verfeinert.
+Entscheidung und wird vor der Umsetzung der produktiven Audioausbaustufe nicht
+weiter dokumentarisch verfeinert.

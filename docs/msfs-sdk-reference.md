@@ -132,6 +132,11 @@ Der verwendete Mechanismus besteht aus
   abweichen; für `LEAD_POLE_ON` lautet er `LEAD POLE ON`. Vor einem Eingabetest
   muss die Action belegt und nicht doppelt belegt sein. MSFS kann mehrere
   Eingabeprofile desselben Geräts gleichzeitig kombinieren.
+- **[RT]** `PLASMA_OFF` wird in G36, DA42, H125 und MH-60 als `SET PLASMA OFF`
+  angeboten und nach der jeweiligen Flugladefolge im EFB-JavaScript zugestellt.
+  Die beobachtete doppelte Zustellung eines Drucks entspricht der allgemeinen
+  Mehrfachzustellung und braucht neben der bestehenden Entprellung keinen
+  Sonderpfad.
 - **[NEG]** Ein laut Dokumentation unbenutztes Event ist kein guter
   konfliktfreier Auslöser: `AUTOCOORD_ON` wurde trotz Belegung nicht erzeugt.
   Ein Auslöser muss real implementiert, im aktuellen Input-Kontext aktiv und
@@ -141,6 +146,17 @@ Der verwendete Mechanismus besteht aus
   Flugzeugkategorie. Ein flottenweiter Auslöser muss deshalb nicht nur folgenlos,
   sondern in jeder benötigten Kategorie belegbar sein; siehe
   [ADR 0002](adr/0002-bestaetigungseingabe-in-sim-key-interception.md).
+- **[SDK]** Das Input-Profile-System belegt keinen Weg, aus einem reinen
+  EFB-Paket eine neue globale Controls-Action anzumelden. Das EFB-Sample aus
+  SDK 1.7.3 kopiert nur die gebaute App in `html_ui/efb_ui/efb_apps`; das
+  InputProfiles-Sample ordnet bereits vorhandene Actions konkreten Geräten und
+  Kategorien zu. Eigene Actions werden in der offiziellen Dokumentation nur
+  für Aircraft Specific Input Profiles aus Model-Behavior-Input-Events eines
+  Flugzeugknotens in eine ActionDB übernommen. Auch die DevSupport-Antworten
+  vom Juli 2026 behandeln ausschließlich diesen flugzeuggebundenen Weg.
+  **DON'T:** Ein transversales oder kategorieweises Input-Profil als
+  Registrierung einer neuen EFB-Action behandeln. Der flottenweite EFB-Fall
+  bleibt ohne zugesagten SDK-Vertrag; siehe [ADR 0002](adr/0002-bestaetigungseingabe-in-sim-key-interception.md).
 - **[NEG]** Die EFB-Aktion `VALIDATE` ist über DOM-`keydown`,
   `InputStackListener` und `routeGamepadInteractionEvent` nicht als frei
   belegbarer Eingang erreichbar. Alle `KEY_EFB_*`-Actions tragen im SDK das Tag
@@ -214,5 +230,11 @@ laufzeitbestätigt. Der konkrete Testumfang steht ausschließlich in
 - [JavaScript Flow API](https://docs.flightsimulator.com/msfs2024/html/6_Programming_APIs/JavaScript/Flow_API/Flow_API.htm)
 - [Simulation Variables](https://docs.flightsimulator.com/msfs2024/flighting/programming-apis/simvars/simulation-variables/)
 - [Key Events](https://docs.flightsimulator.com/msfs2024/flighting/programming-apis/key-events/key-events-index/)
+- [Aircraft Engine Events](https://docs.flightsimulator.com/msfs2024/retail/programming-apis/key-events/aircraft-engine-events/)
+- [Miscellaneous Events](https://docs.flightsimulator.com/msfs2024/retail/programming-apis/key-events/miscellaneous-events/)
+- [Input Profiles](https://docs.flightsimulator.com/msfs2024/retail/content-configuration/input/input-profiles/)
+- [Aircraft Specific Input Profiles](https://docs.flightsimulator.com/msfs2024/retail/content-configuration/input/aircraft-specific-input-profiles/)
+- [DevSupport: Custom control bindings](https://devsupport.flightsimulator.com/t/custom-control-bindings/17465)
+- [DevSupport: Custom Control Binding menu not appearing](https://devsupport.flightsimulator.com/t/custom-control-binding-menu-not-appearing/18141)
 - [Project Editor](https://docs.flightsimulator.com/msfs2024/flighting/devmode/editors/project-editor/the-project-editor/)
 - Installiertes SDK 1.7.3 und dessen Samples (read-only)

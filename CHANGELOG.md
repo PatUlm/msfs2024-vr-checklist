@@ -7,6 +7,15 @@ Changelog, and the project uses Semantic Versioning.
 
 ## [Unreleased]
 
+## [0.2.4] - 2026-08-29
+
+### Changed
+
+- Replaced the user-bindable `LEAD POLE ON` confirmation action with
+  `SET PLASMA OFF`, making the same HOTAS or keyboard confirmation path
+  available in the G36, DA42, H125 and MH-60. Existing bindings must be
+  reassigned in the MSFS controls.
+
 ## [0.2.2] - 2026-08-28
 
 ### Changed

@@ -30,9 +30,9 @@ Die App hakt das nächste offene Item ab, wenn ein bestimmtes Sim-Key-Event
 feuert. Belegt wird es in MSFS unter **Steuerungen**; die Suche dort erwartet den
 Anzeigenamen der Action, nicht den Eventnamen:
 
-| Eventname      | Anzeigename in den Steuerungen |
-| -------------- | ------------------------------ |
-| `LEAD_POLE_ON` | `LEAD POLE ON`                 |
+| Eventname    | Anzeigename in den Steuerungen |
+| ------------ | ------------------------------ |
+| `PLASMA_OFF` | `SET PLASMA OFF`               |
 
 Der Anzeigename ist der Eventname ohne Unterstriche. Bei einer anderen
 Sim-Sprache kann er abweichen; eine hier ergänzte Zeile erspart dann die Suche.
@@ -41,9 +41,9 @@ Zwei Einschränkungen:
 
 - Der Druck wirkt nur, solange die Checklisten-App im EFB offen ist. Das ist
   beabsichtigt.
-- Das Steuerungsmenü zeigt nur Actions der geladenen Flugzeugkategorie. In der
-  MH-60 und der H125 erscheint `LEAD POLE ON` deshalb nicht und ist dort nicht
-  belegbar; der Stand dazu steht in
+- Die Action wird mit Pass-through abgefangen. In G36, DA42, H125 und MH-60
+  bedient sie kein bekanntes System; für andere Flugzeuge ist das nicht
+  zugesagt. Der Stand dazu steht in
   [docs/adr/0002](docs/adr/0002-bestaetigungseingabe-in-sim-key-interception.md).
 
 ## Entwicklungsmodell

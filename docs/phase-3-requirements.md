@@ -8,6 +8,47 @@ Windows-Begleit-App. Technische Entscheidungen stehen in den
 
 Status: **Geplant — beginnt nach der Abnahme von Phase 2.**
 
+## Umsetzungsreihenfolge
+
+Phase 3 wird in vier aufeinander aufbauenden Ausbaustufen umgesetzt. Das sind
+keine getrennten Produktphasen; der verbindliche Gesamtumfang und die
+Abnahmekriterien weiter unten bleiben bestehen.
+
+1. **Transportdurchstich:** Ein möglichst kleiner Konsolenclient verwendet das
+   in [ADR 0004](adr/0004-stack-der-begleit-app.md) vorgesehene P/Invoke und
+   weist ein selbst benanntes CommBus-Event in beide Richtungen zwischen
+   SimConnect und EFB-App nach. Erst nach diesem Laufzeitnachweis wird die
+   Oberfläche ausgebaut.
+2. **Status-App:** Die Avalonia-App zeigt Simulatorverbindung und empfangenen
+   EFB-Zustand getrennt. Eine aktive SimConnect-Verbindung allein gilt nicht als
+   Nachweis, dass die EFB-App bereits ausgeführt wurde oder aktuell Nachrichten
+   empfangen kann.
+3. **Audio-Nachweis:** Eine selbst erstellte Dummy-Audiodatei wird beim
+   eindeutigen Übergang zur vollständig erledigten Checkliste genau einmal über
+   das Windows-Standardgerät abgespielt. Die Wahl von Stimme und TTS-Anbieter
+   ist dafür ausdrücklich keine Voraussetzung.
+4. **Produktive Audioausgabe:** Gerätewahl und WASAPI Shared Mode werden mit dem
+   VR-Audiogerät bestätigt. Erst danach werden Stimme, Anbieter und Klangprofile
+   entschieden und die produktiven Sprachassets vorab gerendert.
+
+Der Transport verwendet ein versioniertes Nachrichtenprotokoll. Ein
+vollständiger Zustandssnapshot enthält mindestens Protokollversion, EFB-Version,
+Sitzungs-ID, Flugzeugidentität, Checklisten-ID und -Revision, aktive Gruppe,
+nächstes offenes Item, erledigte und gesamte Pflichtitems, Abschlusszustand und
+eine monoton steigende Sequenznummer. Beim ersten Kontakt und nach einem
+Reconnect wird ein vollständiger Snapshot übertragen; danach genügen
+Zustandsänderungen. Bestätigung, Sitzungs-ID und Sequenznummer verhindern, dass
+ein alter oder wiederholter Zustand einen Abschlussimpuls erneut auslöst.
+
+Die erste Oberfläche unterscheidet mindestens:
+
+- `Simulator: Disconnected`, `Connecting`, `Connected` oder `Error`;
+- `Checklist: Waiting for EFB` oder `State received`;
+- Version der Begleit-App und die von der EFB-App gemeldete Version;
+- Flugzeug, Checkliste, aktive Gruppe, nächstes offenes Item und
+  Pflichtfortschritt als Anzahl und Prozentwert;
+- Protokoll- oder Versionsinkompatibilitäten sowie Transportfehler.
+
 ## Funktionsumfang
 
 - Die lokale Begleit-App zeigt Flugzeug, Checkliste, aktive Gruppe, nächstes

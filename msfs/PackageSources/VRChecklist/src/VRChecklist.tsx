@@ -142,16 +142,16 @@ const FLOW_API_EVENT_NAME = "__FLOW_API__";
  * including a HOTAS button; the app never learns which key or button was
  * pressed, only that this event fired.
  *
- * `LEAD_POLE_ON` is confirmed for the fixed-wing aircraft. It is not offered
- * in the H125 and MH-60 control categories, so the helicopter trigger remains
- * unresolved. The choice, rejected alternatives and runtime constraints live
- * in docs/adr/0002-bestaetigungseingabe-in-sim-key-interception.md and
+ * `PLASMA_OFF` is offered as SET PLASMA OFF and confirmed to reach this EFB
+ * context in G36, DA42, H125 and MH-60. The choice, rejected alternatives and
+ * runtime constraints live in
+ * docs/adr/0002-bestaetigungseingabe-in-sim-key-interception.md and
  * docs/msfs-sdk-reference.md#sim-key-events-in-einer-custom-efb-app.
  *
  * It is intercepted with pass-through, so the sim still receives it and
  * nothing is masked.
  */
-const CONFIRM_KEY_EVENT = "LEAD_POLE_ON";
+const CONFIRM_KEY_EVENT = "PLASMA_OFF";
 
 /*
  * Shortest gap between two presses that count as two confirmations. It exists

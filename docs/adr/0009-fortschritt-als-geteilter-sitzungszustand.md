@@ -8,7 +8,7 @@
   [`../design-decisions.md`](../design-decisions.md) und
   [`../msfs-sdk-reference.md`](../msfs-sdk-reference.md)
 - **Grundlage:** Bugreport „VR und Nicht-VR halten getrennten
-  Checklistenzustand" in [`../design-qa.md`](../design-qa.md)
+  Checklistenzustand" gegen Release 0.1.6
 
 ## Kontext
 
@@ -97,8 +97,8 @@ Bedingungen:
   ist nicht belegt, dass eine Instanz beim Darstellungswechsel überhaupt einen
   dieser Hooks bekommt. Damit bliebe die Korrektheit an einer unbelegten
   Lifecycle-Annahme hängen — dem Fehler, der zu diesem Bug geführt hat.
-- **Erst diagnostizieren, dann entscheiden**, wie in `design-qa.md` als
-  nächster Schritt festgehalten. Teilweise übernommen statt verworfen: Die
+- **Erst diagnostizieren, dann entscheiden**, wie ursprünglich vorgesehen.
+  Teilweise übernommen statt verworfen: Die
   Entscheidung braucht die Diagnose nicht mehr, weil sie unter allen drei
   Hypothesen trägt. Das eng begrenzte Logging wird trotzdem eingebaut, damit
   der Verifikationslauf die offenen Fragen mitbeantwortet.
@@ -138,8 +138,8 @@ Bedingungen:
   Darstellungswechsel erzeugt. Sie ist für die Korrektheit ohne Belang — genau
   das ist der Zweck dieser Entscheidung — und wird beantwortet, sobald jemand
   die Zeilen `App instance … created/resumed/paused/closed` aus einem Lauf
-  mitliest. Bis dahin bleibt der Punkt in
-  [`../msfs-sdk-reference.md`](../msfs-sdk-reference.md) als **[OPEN]** stehen.
+  mitliest. Der ausstehende Nachweis steht in
+  [`../open-tests.md`](../open-tests.md).
 - **Die Diagnosezeilen bleiben im Code.** Sie fallen nur bei
   Zustandsübergängen an, nicht periodisch und nicht pro Frame, und sind der
   einzige Weg, die Zählfrage später ohne neuen Build zu beantworten.

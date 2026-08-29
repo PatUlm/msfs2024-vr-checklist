@@ -90,16 +90,6 @@ Kein WASM-Modul, kein zusätzliches Paket, kein C-Compiler.
 
 ## Offene Nachweise
 
-1. Kommt ein von SimConnect mit `BROADCAST_TO_JS` gesendeter, **selbst
-   benannter** Event in der residenten EFB-App an?
-2. Wie sendet die EFB-App zurück? Existiert `RegisterCommBusListener`
-   beziehungsweise `Include.addScript("/JS/Services/CommBus.js")` im
-   EFB-Kontext? Dokumentiert ist nur `COMM_BUS_WASM_CALLBACK`.
-3. Maximale Nutzlast pro Aufruf und tatsächliche Chunk-Größe — nirgends
-   dokumentiert.
-4. **Lebensdauer der Registrierung.** Die App läuft mit `AppBootMode.COLD` und
-   `AppSuspendMode.SLEEP`, und der Listener entsteht im `AppView`-Konstruktor.
-   Vor dem ersten Öffnen der App existiert damit **kein Empfänger**. Für einen
-   Kanal, der ohne Benutzerinteraktion bereitstehen soll, muss die Registrierung
-   nach `App.install()` wandern oder der BootMode wechseln — beides mit
-   FPS-Wirkung, die zu messen ist.
+Die Entscheidung bleibt `Vorgeschlagen`, bis der bidirektionale Kanal und sein
+Lifecycle in MSFS bestätigt sind. Die einzelnen Nachweise werden ausschließlich
+in [`../open-tests.md`](../open-tests.md) gepflegt.

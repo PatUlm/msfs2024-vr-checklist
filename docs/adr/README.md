@@ -10,9 +10,11 @@ Arbeitsteilung, damit nichts doppelt gepflegt wird:
 - `msfs-sdk-reference.md` sagt **was gilt** — Fakten über SDK, Laufzeit und
   Paketierung, mit Nachweisstufe.
 - `phase-2-3-research.md` sagt **warum wir das wissen** — Kandidaten, Belege,
-  Lizenzlage, offene Nachweise.
+  Lizenzlage und verworfene Wege.
 - Die ADRs hier sagen **wie wir uns entschieden haben** — Kontext, Optionen,
   Entscheidung, Konsequenzen, Status.
+- `open-tests.md` sagt **was noch nachzuweisen ist** — als einzige lebende
+  Testliste.
 
 Ein ADR mit Status `Vorgeschlagen` hängt noch an einem Laufzeitnachweis. Er
 wechselt auf `Akzeptiert` oder `Verworfen`, sobald der Nachweis geführt ist;
@@ -25,7 +27,7 @@ eine spätere Kehrtwende bekommt ein neues ADR, das das alte ersetzt.
 | [0001](0001-lizenz-und-veroeffentlichungsstrategie.md) | Lizenz- und Veröffentlichungsstrategie: vorerst privat, Option offen | Akzeptiert | alle Phasen |
 | [0002](0002-bestaetigungseingabe-in-sim-key-interception.md) | Bestätigungseingabe über In-Sim-Key-Interception | Akzeptiert für Starrflügler, Hubschrauber offen | Phase 2 |
 | [0003](0003-transportkanal-commbus-ueber-simconnect.md) | Transportkanal über den CommBus mit SimConnect | Vorgeschlagen | Phase 3 |
-| [0004](0004-stack-der-begleit-app.md) | Stack der Begleit-App: .NET 10 mit Avalonia | Akzeptiert, offene Punkte | Phase 3 |
+| [0004](0004-stack-der-begleit-app.md) | Stack der Begleit-App: .NET 10 mit Avalonia | Akzeptiert, offene Umsetzung | Phase 3 |
 | [0005](0005-phase-2-auf-die-efb-app-verkuerzen.md) | Phase 2 auf die EFB-App verkürzen | Akzeptiert | Phasenzuschnitt |
 | [0006](0006-tts-vorab-synthese.md) | Sprachausgabe als Vorab-Synthese mit Cache | Akzeptiert | Phase 3 |
 | [0007](0007-ablage-der-gerenderten-audiodateien.md) | Gerenderte Audiodateien liegen im Repository | Akzeptiert | Phase 3 |
@@ -37,18 +39,6 @@ Recherche-Session. 0009 kam am 2026-08-27 aus dem Bugreport zum getrennten
 Zustand in VR und Nicht-VR hinzu, ersetzt die Einmal-Übergabe aus 0.1.5 und ist
 am selben Tag in MSFS nachgewiesen worden.
 
-## Was als Nächstes den Status ändert
-
-- **0002** ist am 2026-08-27 in der DA42 nachgewiesen: `keyIntercepted` erreicht
-  eine EFB-App. Offen bleibt der Test in **H125 und MH-60**; fällt der, fällt
-  **0005** für die Hubschrauber mit ihm und Phase 2 wird für sie neu
-  geschnitten.
-- **0003** hängt an zwei kleinen Nachweisen im Simulator, die unabhängig von
-  Phase 2 vorgezogen werden können.
-- **0008** wird beim Übergang zu Phase 3 entschieden, nach einem Hörvergleich
-  mit den echten Checklistensätzen und der Klärung, ob die
-  Nutzungsbedingungen des jeweiligen Anbieters die Weitergabe der erzeugten
-  Audiodateien erlauben.
-
-Die offenen Laufzeitnachweise stehen gesammelt in
-[`../phase-2-3-research.md`](../phase-2-3-research.md), Abschnitt 11.
+Noch ausstehende Laufzeitnachweise stehen ausschließlich in
+[`../open-tests.md`](../open-tests.md). Die offene Produktentscheidung zu
+Stimme und Anbieter bleibt in [ADR 0008](0008-stimme-und-tts-anbieter.md).

@@ -106,12 +106,9 @@ das Kriterium **SimConnect-Bindung mit CommBus** zum wichtigsten geworden
   Headset-Abstecken überlebt werden.
 - Ein `dotnet` SDK ist in dieser WSL2-Umgebung noch nicht installiert.
 
-## Offene Punkte
+## Offene Umsetzung
 
-1. Ob `SimConnect.NET` 0.2.2 (MIT, Beta) die drei CommBus-Funktionen abdeckt.
-   Falls nicht, eigenes P/Invoke — die Exports sind belegt vorhanden.
-2. Die Artefaktgröße von 24 bis 42 MiB ist aus verifizierten Einzelkomponenten
-   gerechnet, nicht gemessen; ein Publish hat noch nicht stattgefunden.
-3. WASAPI Shared Mode gegen das VR-Gerät bei laufender MSFS-Session: HRESULT
-   protokollieren. Dass MSFS 2024 den Exclusive Mode belegt, ist **nicht**
-   belegt, aber auch nicht ausgeschlossen.
+- Die Artefaktgröße von 24 bis 42 MiB ist aus verifizierten Einzelkomponenten
+  gerechnet, nicht gemessen; ein Publish hat noch nicht stattgefunden.
+- Der Laufzeitnachweis für WASAPI Shared Mode gegen das VR-Gerät steht in
+  [`../open-tests.md`](../open-tests.md).

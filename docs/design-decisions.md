@@ -225,18 +225,6 @@ Iteration stehen separat in `design-qa.md`.
   `assets/branding/`. App-Build und MSFS-Staging beziehen ihre Ausgaben aus
   diesem gemeinsamen Ursprung.
 
-## Sprachausgabe
-
-- Die erste TTS-Sprache der App ist Englisch.
-- Beim Übergang vom unvollständigen in den vollständig erledigten Zustand einer
-  Checkliste wird einmalig `Checklist completed` gesprochen.
-- Ein Reset oder das bloße Laden einer bereits leeren Checkliste darf diese
-  Ansage nicht auslösen. Wird ein abgeschlossenes Item wieder geöffnet und die
-  Checkliste danach erneut vervollständigt, ist eine neue Ansage zulässig.
-- Die Ansage entsteht in der Begleit-App und wird durch das eigene
-  Abschluss-Ereignis des Rückkanals ausgelöst. Die EFB-App entscheidet damit
-  weiterhin allein, wann die Checkliste vollständig erledigt ist.
-
 ## Referenzen
 
 - [`assets/default-item-reference.png`](assets/default-item-reference.png) ist

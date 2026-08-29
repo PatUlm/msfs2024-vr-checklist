@@ -1,34 +1,35 @@
-# Offene Tests
+# Offene Laufzeitnachweise
 
-Was in MSFS noch nachzuweisen ist. Ein Punkt verschwindet hier, sobald er
-geprüft ist; das Ergebnis geht als Fakt nach
-[`msfs-sdk-reference.md`](msfs-sdk-reference.md).
+Diese Datei ist die einzige lebende Liste noch ausstehender Tests in MSFS.
+Jeder Punkt ist ein Einzeiler und wird nach der Prüfung entfernt; das belastbare
+Ergebnis geht als Fakt nach
+[`msfs-sdk-reference.md`](msfs-sdk-reference.md) oder in die zuständige
+Produktentscheidung.
 
 ## Phase 2 — Bestätigungseingabe
 
-- [ ] Findet sich ein Auslöser, der **auch in Hubschraubern belegbar** und dort
-      folgenlos ist, oder braucht die Flotte zwei Auslöser? Siehe den Nachtrag
-      in [ADR 0002](adr/0002-bestaetigungseingabe-in-sim-key-interception.md).
-- [ ] Hakt ein Druck in einer **vollständigen Gruppe** wirklich nichts ab? Die
-      App protokolliert diesen Fall jetzt ausdrücklich.
+- [ ] Einen in Starrflüglern und Hubschraubern belegbaren, dort jeweils
+  folgenlosen Auslöser oder zwei geeignete Auslöser je Kategorie nachweisen.
+- [ ] Nachweisen, dass ein Druck in einer bereits vollständigen Gruppe keine
+  weitere Zustandsänderung auslöst.
 
 ## Phase 3 — Begleit-App
 
-- [ ] Kommt ein selbst benanntes **CommBus**-Event von einem externen
-      SimConnect-Client in der EFB-App an?
-- [ ] Wie sendet die EFB-App über denselben Kanal zurück?
-- [ ] Maximale CommBus-Nutzlast und Chunk-Verhalten
-- [ ] Lebensdauer der Listener-Registrierung bei `AppBootMode.COLD` und
-      `AppSuspendMode.SLEEP`, samt FPS-Wirkung einer Änderung
-- [ ] WASAPI Shared Mode gegen das VR-Audiogerät bei laufender MSFS-Session
+- [ ] Zustellung eines selbst benannten CommBus-Events von einem externen
+  SimConnect-Client an die EFB-App nachweisen.
+- [ ] Rückweg von der EFB-App zum externen SimConnect-Client nachweisen.
+- [ ] Maximale CommBus-Nutzlast und tatsächliches Chunk-Verhalten bestimmen.
+- [ ] Lebensdauer der CommBus-Registrierung bei `AppBootMode.COLD` und
+  `AppSuspendMode.SLEEP` einschließlich der FPS-Wirkung einer Änderung messen.
+- [ ] CommBus-Registrierung und -Zustellung über Nicht-VR → VR → Nicht-VR
+  nachweisen.
+- [ ] Anzahl und Lifecycle der EFB-App-Instanzen bei einem Darstellungswechsel
+  anhand der vorhandenen Diagnosezeilen bestimmen.
+- [ ] Queue-Verhalten und Ratenbegrenzung des CommBus bei pausierter Simulation
+  nachweisen.
+- [ ] WASAPI Shared Mode gegen das VR-Audiogerät bei laufendem MSFS nachweisen.
 
-## Erledigt am 2026-08-28
+## Bedingte Rückfallebene
 
-- Hubschrauber: **nicht prüfbar** und damit gefallen. `LEAD POLE ON` ist in den
-  Steuerungen der MH-60 und der H125 nicht belegbar.
-- Fokussiertes Textfeld: **entfällt**. Die EFB-App hat kein Eingabefeld, und das
-  Event wirkt ohnehin nur bei offener App.
-- Zustellungen je Druck nach frischem Simulatorstart: beantwortet. Ein Druck
-  stellt auch bei genau **einer** Registrierung mehrfach zu; die Entprellung
-  greift. Fakt in [`msfs-sdk-reference.md`](msfs-sdk-reference.md), Abschnitt
-  „Eingaben".
+- [ ] Nur falls ein eigenes WASM-Modul benötigt wird: Laden eines mit der
+  rekonstruierten SDK-Clang-Toolchain gebauten Moduls in MSFS nachweisen.

@@ -3,8 +3,8 @@
 Dieses Dokument ist die zentrale technische Referenz für das Verhalten des
 MSFS-2024-SDK, der EFB-API und der Coherent-GT-Laufzeit in diesem Projekt. Es
 bündelt Wissen, das zuvor über `AGENTS.md`, `README.md`,
-`docs/design-decisions.md`, `docs/design-qa.md`, `docs/vr-test-preparation.md`,
-`docs/release.md`, `CHANGELOG.md` und Quellcodekommentare verteilt war.
+`docs/design-decisions.md`, `docs/design-qa.md`, `docs/release.md`,
+`CHANGELOG.md` und Quellcodekommentare verteilt war.
 
 Geltungsbereich sind ausschließlich SDK-, Laufzeit- und Paketierungsfragen.
 Produktentscheidungen stehen weiter in `design-decisions.md`, offene visuelle
@@ -145,7 +145,8 @@ Source ändern → task deploy → Build All In Project → Ignore Cache + Reloa
   **DON'T:** Korrektheit an die Ein-Instanz-Annahme binden; siehe
   [ADR 0009](adr/0009-fortschritt-als-geteilter-sitzungszustand.md). Die
   Instanz-ID im Log (`App instance … created/resumed/paused/closed`) beantwortet
-  die Frage beim nächsten Teststand.
+  die Frage beim nächsten Teststand; der Nachweis steht in
+  [`open-tests.md`](open-tests.md).
 
 ## Laufzeit-Globals und Typen
 
@@ -286,8 +287,8 @@ Source ändern → task deploy → Build All In Project → Ignore Cache + Reloa
   gleichzeitig lebende Instanzen gegenseitig.
 - **[DO]** Den maßgeblichen Zustand nicht an eine Annahme über den
   EFB-App-Lifecycle binden. **DON'T:** Eine befristete Einmal-Übergabe bauen,
-  die voraussetzt, dass genau eine Instanz lebt — siehe den Bugreport zum
-  getrennten VR-/Nicht-VR-Zustand in `design-qa.md`.
+  die voraussetzt, dass genau eine Instanz lebt — siehe
+  [ADR 0009](adr/0009-fortschritt-als-geteilter-sitzungszustand.md).
 - **[RT]** Wirksame Absicherungen im Projekt, mit 0.1.7 einzeln in MSFS
   bestätigt:
   1. Flugzeugidentität, Checklisten-ID und Checklistenrevision müssen
@@ -370,10 +371,10 @@ Herleitung in [`phase-2-3-research.md`](phase-2-3-research.md), Abschnitt 2.
   registriert; drei abschließende Drücke auf den belegten HOTAS-Knopf
   bestätigten genau drei DA42-Items. Jeweils eine weitere Zustellung nach
   0 bis 1 ms wurde korrekt entprellt.
-- **[OPEN]** Ob der Sim dabei den Intercept selbst verwirft oder nur dessen
-  Zustellung verliert, ist nicht unterscheidbar. Es gibt weder Unregister noch
-  eine Zustandsabfrage. Bericht und Gegenmaßnahme in
-  [`design-qa.md`](design-qa.md).
+- **[RT]** Ob der Sim dabei den Intercept selbst verwirft oder nur dessen
+  Zustellung verliert, ist mangels Unregister und Zustandsabfrage nicht
+  unterscheidbar. Die bestätigte Gegenmaßnahme steht in
+  [ADR 0002](adr/0002-bestaetigungseingabe-in-sim-key-interception.md).
 
 **Die Belegung durch den Nutzer.**
 
@@ -600,39 +601,18 @@ Nur relevant, falls je ein eigenes WASM-Modul gebraucht wird.
 - **DO:** Event-first arbeiten. Keine Logik pro Render-Frame.
 - **DO:** Periodische Arbeit nur als begründeten, langsamen Fallback zulassen und
   bei nicht sichtbarer App vollständig stoppen.
-- **[RT]** Im Projekt existiert genau ein solcher Timer (zehn Sekunden,
-  Flugzeugauswahl) sowie ein kurzlebiger Timeout für die Snapshot-Übergabe.
+- **[RT]** Im Projekt existiert genau ein wiederkehrend geplanter Timer: der
+  zehnsekündige Fallback für Flugzeugauswahl und Zustandsabgleich. Der kurze
+  Timeout für den automatischen Gruppenwechsel entsteht nur nach einer
+  Nutzeraktion.
 - MSFS-Framerate ist ein eigenständiges Qualitätskriterium; ein bequemeres
   Verhalten darf nicht unbemerkt zu ihren Lasten gehen.
 
-## Offene Punkte
+## Offene Nachweise
 
-- **[OPEN]** Wie viele EFB-App-Instanzen ein Darstellungswechsel erzeugt, ist
-  weiterhin nicht gemessen. Der Punkt ist für die Fortschrittslogik ohne Belang,
-  seit sie nicht mehr an der Ein-Instanz-Annahme hängt
-  ([ADR 0009](adr/0009-fortschritt-als-geteilter-sitzungszustand.md)); die
-  Zeilen `App instance … created/resumed/paused/closed` im Log beantworten ihn
-  bei Gelegenheit ohne neuen Build. **DON'T:** Ihn vor der Messung als geklärt
-  behandeln.
-- **[OPEN]** Der bidirektionale Kanal zwischen EFB-App und einer lokalen
-  Begleit-App ist als Phase 3 geplant, aber weder implementiert noch
-  verifiziert. Der **Transportweg ist inzwischen dokumentiert belegt** und
-  braucht kein WASM-Modul; die Fakten stehen oben unter
-  „Kommunikationskanal zu einer externen Anwendung", die Kandidatenbewertung in
-  `phase-2-3-research.md`. Offen bleiben vier Nachweise: ob ein selbst benannter
-  CommBus-Event von SimConnect in der EFB-App ankommt, wie die EFB-App
-  zurücksendet, die maximale Nutzlast, und die Lebensdauer der Registrierung bei
-  `AppBootMode.COLD` mit `AppSuspendMode.SLEEP` — vor dem ersten Öffnen der App
-  existiert derzeit **kein** Empfänger.
-- **[OPEN]** Die Bestätigung des ersten offenen Items soll durch ein bewusst
-  eigenes Ereignis ausgelöst werden, nicht durch die nicht erreichbare
-  EFB-Aktion `VALIDATE`. Als erster Kandidat wird der In-Sim-Weg über
-  `INTERCEPT_KEY_EVENT` geprüft (siehe oben); erst wenn der fällt, kommt eine
-  systemweite Erkennung in der Begleit-App in Betracht, dann vorzugsweise
-  DirectInput auf einen HOTAS-Knopf mit `DISCL_BACKGROUND` statt eines
-  Tastaturhooks.
-- **[OPEN]** Ein Eingabepfad für `VALIDATE` in Custom-Apps existiert unter
-  SDK 1.7.3 nicht; siehe oben.
+Noch nicht geführte Laufzeitnachweise stehen ausschließlich als Einzeiler in
+[`open-tests.md`](open-tests.md). `[OPEN]` markiert hier nur die zugehörige
+technische Unsicherheit; der Testumfang wird nicht doppelt gepflegt.
 
 ## Quellen
 

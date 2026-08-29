@@ -7,6 +7,12 @@ Changelog, and the project uses Semantic Versioning.
 
 ### Documented
 
+- Reorganized the project documentation around one source of truth per fact:
+  the roadmap is now a concise milestone list, Phase 3 product requirements
+  have their own document, open runtime proofs live only in `open-tests.md`,
+  and superseded planning and VR-test narratives were retired after their
+  lasting results were preserved in the SDK reference, design decisions, and
+  ADRs.
 - Corrected the Phase 2 roadmap to record the completed VR acceptance, the
   failed helicopter binding attempt, and the two remaining acceptance items.
 - The release 0.2.2 VR acceptance pass confirms that `LEAD POLE ON` continues

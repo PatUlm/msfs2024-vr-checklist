@@ -19,8 +19,9 @@ gehören nach `docs/design-qa.md`.
 - Vor UI-Arbeiten sind `docs/design-decisions.md` und
   `docs/design-qa.md` zu lesen. Ändere dokumentierte Designentscheidungen nicht
   stillschweigend.
-- Vor Arbeiten am nächsten VR-Teststand ist zusätzlich
-  `docs/vr-test-preparation.md` zu lesen.
+- Vor Arbeiten am nächsten VR-Teststand sind zusätzlich die offenen visuellen
+  Nachweise in `docs/design-qa.md` und die Laufzeitnachweise in
+  `docs/open-tests.md` zu lesen.
 - Vor Arbeiten, die vom MSFS-SDK, der EFB-API, dem Flug-Lifecycle, SimVars,
   Coherent GT oder der Paketierung abhängen, ist `docs/msfs-sdk-reference.md` zu
   lesen. Dort stehen die bestätigten Fakten, Do's und Don'ts einschließlich der
@@ -65,9 +66,10 @@ gehören nach `docs/design-qa.md`.
   im Simulator reproduziert; empfangene Events, Reihenfolge und Payloads werden
   dokumentiert. Erst danach wird das Reset-, Persistenz- oder Lifecycle-Verhalten
   an einen im Custom-EFB-Kontext bestätigten Pfad gebunden.
-- Recherchequellen, Laufzeitnachweise und weiterhin offene Unsicherheiten werden
-  in der passenden dauerhaften Dokumentation beziehungsweise in
-  `docs/design-qa.md` festgehalten.
+- Recherchequellen und Herleitungen stehen in `docs/phase-2-3-research.md`,
+  bestätigte Laufzeitfakten in `docs/msfs-sdk-reference.md`, noch zu führende
+  Laufzeitnachweise in `docs/open-tests.md` und offene visuelle Abweichungen in
+  `docs/design-qa.md`.
 - Dauerhaft gültige SDK-Erkenntnisse gehören zusätzlich nach
   `docs/msfs-sdk-reference.md`, damit sie nicht erneut über mehrere Dokumente
   verstreuen. Jede Aussage dort trägt ihre Nachweisstufe.
@@ -76,7 +78,9 @@ gehören nach `docs/design-qa.md`.
   sagt **warum wir es wissen** einschließlich der verworfenen Kandidaten, und
   die ADRs unter `docs/adr/` sagen **wie wir uns entschieden haben**. Ein ADR mit
   Status `Vorgeschlagen` oder `Offen` hängt noch an einem Nachweis. Noch nicht
-  geführte Laufzeitnachweise stehen als Einzeiler in `docs/open-tests.md`.
+  geführte Laufzeitnachweise stehen als Einzeiler in `docs/open-tests.md`;
+  verbindliche Produktanforderungen für Phase 3 in
+  `docs/phase-3-requirements.md`.
 - **Ein Fakt hat genau einen Ort.** Andere Dokumente verweisen darauf, statt ihn
   zu wiederholen. Wer eine Erkenntnis an mehreren Stellen ablegt, macht jede
   spätere Korrektur zu einer Suche und lässt zwangsläufig eine Stelle veralten.

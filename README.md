@@ -54,8 +54,8 @@ Zwei Einschränkungen:
   SDK-Input-Datenbank das Tag `norebind_kbmpad` und sind für Tastatur, Maus und
   Pad überhaupt nicht belegbar. Die schnelle Bestätigung entsteht stattdessen in
   Phase 2 über ein frei belegbares Sim-Key-Event, das die EFB-App direkt
-  abfängt; siehe [ROADMAP.md](ROADMAP.md) und
-  [docs/adr/](docs/adr/).
+  abfängt; siehe
+  [ADR 0002](docs/adr/0002-bestaetigungseingabe-in-sim-key-interception.md).
 
 ## Entwicklungsmodell
 
@@ -216,16 +216,12 @@ Synchronisation vom Windows-Staging zurück in das Repository.
 ## Releases und Community-Installation
 
 Windows-spezifische SDK-, Release- und `Community2024`-Pfade werden lokal in
-einer ignorierten Root-`.env` konfiguriert; `.env.example` ist die versionierte
-Vorlage. Ein produktives, versioniertes Paket wird ohne Source Maps gebaut mit:
+einer ignorierten Root-`.env` konfiguriert. Ein produktives, versioniertes Paket
+wird gebaut mit:
 
 ```bash
 task release
 ```
-
-Der zugehörige Commit `chore(release): publish version X.Y.Z` wird mit einem
-annotierten Git-Tag `vX.Y.Z` markiert. Der Tag zeigt exakt auf den Commit, der
-`VERSION`, Paketmetadaten und Changelog für diesen Release festschreibt.
 
 Die aktuelle, zuvor erzeugte Version wird bei beendetem MSFS installiert mit:
 
@@ -233,10 +229,8 @@ Die aktuelle, zuvor erzeugte Version wird bei beendetem MSFS installiert mit:
 task community:install
 ```
 
-Für einen gezielten Rollback kann weiterhin eine vorhandene Artefaktversion
-angegeben werden, beispielsweise `task community:install VERSION=2026.08`. Der
-vollständige Ablauf, das gemeinsame Versionsmodell und die Sicherheitsprüfungen
-sind in
+Der vollständige Ablauf, Rollbacks, das gemeinsame Versionsmodell und die
+Sicherheitsprüfungen sind ausschließlich in
 [`docs/release.md`](docs/release.md) dokumentiert.
 
 ## Packaging und Test in MSFS 2024
@@ -271,22 +265,23 @@ werden soll.
 
 ## Design- und Agentendokumentation
 
+- `ROADMAP.md`: knappe Meilensteine und aktueller Projektstand
 - `AGENTS.md`: dauerhafte Arbeitsregeln für neue Agent-Sessions
 - `CLAUDE.md`: Weiterleitung auf `AGENTS.md` für Werkzeuge, die diese Datei
   nicht automatisch laden
 - `docs/msfs-sdk-reference.md`: zentrale technische SDK-Referenz mit bestätigten
   Fakten, Do's, Don'ts und nachgewiesen wirkungslosen Pfaden
 - `docs/design-decisions.md`: akzeptierte UI- und Interaktionsentscheidungen
-- `docs/design-qa.md`: visuelle Nachweise, Abweichungen und nächste Iteration
-- `docs/vr-test-preparation.md`: Scope und technische Vorarbeit für den ersten
-  VR-Teststand
+- `docs/design-qa.md`: offene visuelle Nachweise und Referenzen für den nächsten
+  UI- oder VR-Teststand
+- `docs/open-tests.md`: einzige lebende Liste offener Laufzeitnachweise
+- `docs/phase-3-requirements.md`: verbindlicher Produktumfang der geplanten
+  Begleit-App
 - `docs/release.md`: reproduzierbarer Release- und Community2024-Installationsflow
 - `docs/phase-2-3-research.md`: technische Recherche zu Phase 2 und Phase 3 mit
-  Kandidaten, Belegen, Lizenzlagen und offenen Laufzeitnachweisen
+  Kandidaten, Belegen und Lizenzlagen
 - `docs/adr/`: getroffene Architekturentscheidungen mit ihren verworfenen
   Alternativen und ihrem Status
-- `docs/phase-2-tech-stack-plan.md`: der abgeschlossene Research-Auftrag, nur
-  noch als Verweis auf die drei Dokumente, die ihn ersetzen
 - `docs/assets/`: versionierte, dauerhaft referenzierte Design-Screenshots
 
 ## Offizielle Referenzen

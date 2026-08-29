@@ -2,8 +2,6 @@
 
 Ergebnis der Recherche-Session vom 2026-08-26 zum Abhaken per Tastendruck, zum
 Kanal zwischen EFB-App und einer lokalen Begleit-App und zur Sprachausgabe.
-Grundlage war der inzwischen abgeschlossene Auftrag in
-[`phase-2-tech-stack-plan.md`](phase-2-tech-stack-plan.md).
 
 Zwei Ergebnisse haben den Phasenzuschnitt verändert: Der Tastendruck kann die
 EFB-App direkt erreichen, und der Transportweg für den Rückkanal ist
@@ -18,7 +16,9 @@ belegt ist, was nicht, und was gegen die jeweils naheliegende Alternative
 spricht. Die daraus abgeleiteten **normativen Aussagen** stehen kurz in
 [`msfs-sdk-reference.md`](msfs-sdk-reference.md); die **getroffenen
 Entscheidungen** stehen in den ADRs unter [`adr/`](adr/). Hier wird nichts
-entschieden.
+entschieden. Als `[OPEN]` markierte Stellen halten den Wissensstand der
+Recherche fest; die einzige aktuelle Liste ausstehender Laufzeitnachweise ist
+[`open-tests.md`](open-tests.md).
 
 ## Nachweisstufen
 
@@ -386,7 +386,7 @@ den Steuerungsoptionen frei belegbar". Tag-Verteilung: leer 2279, `main` 196,
 
 | Kandidat | Context | Tag | Bewertung |
 | --- | --- | --- | --- |
-| `AUTOCOORD_ON` / `_OFF` / `_SET` | AIRCRAFT | – | **Beste Wahl.** `[DOC]` „Not used in the simulation." Frei belegbar. Achtung: `AUTOCOORD_TOGGLE` **hat** eine Wirkung (Y-Achse invertieren) — nicht nehmen. |
+| `AUTOCOORD_ON` / `_OFF` / `_SET` | AIRCRAFT | – | Ursprünglich stärkster Kandidat, später im Laufzeittest widerlegt: Ein wirkungsloses Event wird nicht erzeugt. Siehe 2.7. |
 | `EXTERNAL_SYSTEM_TOGGLE` | AIRCRAFT | – | `[DOC]` „Generic key event to toggle a value on/off" — ausdrücklich generisch. Restrisiko: ein Flugzeug könnte es in Model Behaviours nutzen. |
 | `ATC_MENU_1` … `_9` | ATC | – | Stärkster Praxisnachweis (BeyondATC), aber Nebenwirkung im offenen ATC-Menü; braucht dann Maskierung. |
 | `ATC_MENU_0` | ATC | – | **Nicht nehmen** — von BeyondATC maskiert. |
@@ -396,11 +396,11 @@ den Steuerungsoptionen frei belegbar". Tag-Verteilung: leer 2279, `main` 196,
 | `ROTOR_BRAKE*` | HELICOPTER | – | Real implementiert; für H125 und MH-60 ausgeschlossen. |
 | `KNEEBOARD`, `OVERLAYMENU`, `PANEL_SELECT_1/2`, `LOD_ZOOM_*` … | **DEBUG** | – | Laut Doku funktionslos, aber Context `DEBUG`. Ob sie im Retail-UI erscheinen: `[OPEN]`. Nur Reserve. |
 
-**Empfehlung: `AUTOCOORD_ON` mit `passThrough = true`.** Bei einem
-funktionslosen Event brauchen wir keine Maskierung — und weil es keinen
-Unregister gibt, ist eine nicht gesetzte Maske die einzige, die man nicht
-bereuen kann. Damit ist auch ein Konflikt mit BeyondATC oder dem Flugzeug
-konstruktiv ausgeschlossen.
+**Ergebnis des späteren Laufzeittests:** `AUTOCOORD_ON` ist ungeeignet, weil ein
+wirkungsloses Event nicht erzeugt wird. Die weiterhin gültige Folgerung ist
+`passThrough = true`: Weil es keinen Unregister-Aufruf gibt, wird ein
+abgefangenes Event nie maskiert. Die endgültige Wahl und ihre Grenzen stehen in
+2.7 und [ADR 0002](adr/0002-bestaetigungseingabe-in-sim-key-interception.md).
 
 **Eine eigene Action ist keine Option.** `[DOC]` Transversal Input Profiles
 binden nur *vorhandene* Actions aus der Core-ActionDB; Aircraft-Specific
@@ -550,6 +550,9 @@ Hier nur, was die Kandidatenbewertung aus 2.2 korrigiert:
   `GRAPPLE_HOOK_ON`, `LEAD_POLE_ON`, `SKYDIVE_DOORLIGHTS_JUMP`.
 - Gewählt ist `LEAD_POLE_ON`. `SPRAY_ON` scheidet aus, weil die H125 es selbst
   bindet; `GRAPPLE_HOOK_ON`, weil die MH-60 einen Lastenhaken führen kann.
+- Der spätere Hubschraubertest am 2026-08-28 zeigte die verbleibende Grenze:
+  `LEAD POLE ON` wird in den Steuerungen von H125 und MH-60 nicht angeboten.
+  Der Mechanismus trägt Starrflügler, die flottenweite Auslöserwahl bleibt offen.
 
 
 ## 3. Sprachausgabe (Phase 3)
@@ -1285,45 +1288,30 @@ Drei belegte Befunde, die zusammen die Entscheidung prägen:
 - Tray-Eignung von Eto.Forms, Uno, wxPython und Photino.
 - Cold-Start-Zahlen für PyInstaller mit PySide6.
 
-## 10. Zusammenfassung: was jetzt entschieden werden muss
+## 10. Ergebnis der Recherche
 
-| Nr. | Komponente | Aussichtsreichste Option | Hauptalternative | Was daran hängt |
-| --- | --- | --- | --- | --- |
-| 1 | **Bestätigungseingabe** | `INTERCEPT_KEY_EVENT` in der EFB-App auf `AUTOCOORD_ON`, `passThrough = true` | DirectInput auf einen HOTAS-Knopf in der Begleit-App | Ob Phase 2 für das Abhaken überhaupt eine externe App braucht |
-| 2 | **Transportkanal** | CommBus über SimConnect (`BROADCAST_TO_JS`) | localhost-WebSocket, mit Regeländerung | Rückkanal für die Fortschrittsanzeige und den Phase-3-Trigger |
-| 3 | **Begleit-App-Stack** | .NET 10 mit Avalonia, SimConnect per P/Invoke | Node und TypeScript mit `node-simconnect` | Ob wir die `SimConnect.dll` anfassen müssen (EULA) und wie groß das Artefakt wird |
-| 4 | **TTS-Strategie** | Vorab-Synthese, Kokoro-82M oder Piper `ljspeech-high` | Echtzeit über sherpa-onnx; Nullvariante WinRT | Lizenzprofil der ganzen Auslieferung |
-| 5 | **Funk- und Audio-Kette** | eigene Biquad-Kette mit den DCS-SRS-Parametern, NAudio | FFmpeg als separater Prozess | – |
-| 6 | **Lizenz- und Veröffentlichungsstrategie** | – | – | **Entscheidet Nr. 4 mit**: solange nichts verteilt wird, sind alle Copyleft-Fragen theoretisch |
+- Die Bestätigungseingabe läuft für Starrflügler über ein in der EFB-App
+  abgefangenes Sim-Key-Event; die flottenweite Auslöserwahl bleibt offen
+  ([ADR 0002](adr/0002-bestaetigungseingabe-in-sim-key-interception.md)).
+- Der CommBus über SimConnect ist der vorgeschlagene Transportkanal und hängt
+  noch an Laufzeitnachweisen
+  ([ADR 0003](adr/0003-transportkanal-commbus-ueber-simconnect.md)).
+- .NET 10 mit Avalonia ist der gewählte Stack der Begleit-App
+  ([ADR 0004](adr/0004-stack-der-begleit-app.md)).
+- Begleit-App, Rückkanal und Sprachausgabe bilden gemeinsam Phase 3
+  ([ADR 0005](adr/0005-phase-2-auf-die-efb-app-verkuerzen.md)).
+- Die Sprachausgabe wird vorab gerendert und unter `assets/` versioniert
+  ([ADR 0006](adr/0006-tts-vorab-synthese.md),
+  [ADR 0007](adr/0007-ablage-der-gerenderten-audiodateien.md)).
+- Stimme und Anbieter werden erst nach Hörvergleich und Rechteprüfung gewählt
+  ([ADR 0008](adr/0008-stimme-und-tts-anbieter.md)).
 
----
-
-## 11. Offene Laufzeitnachweise, gesammelt
-
-Nach Priorität. Die ersten beiden entscheiden die Architektur von Phase 2.
-
-1. ~~**Feuert `keyIntercepted` in einer EFB-App?**~~ **Geführt am 2026-08-27**
-   in der DA42, siehe 2.8. Offen bleibt der Test mit **H125 und MH-60** wegen
-   des Hubschrauber-Bugs aus Topic 4906.
-2. **Kommt ein selbst benannter CommBus-Event von SimConnect in der EFB-App an,
-   und wie sendet die EFB-App zurück?** Siehe 1.8, Punkte 1 und 2.
-3. **Lebensdauer der Listener-Registrierung** bei `AppBootMode.COLD` und
-   `AppSuspendMode.SLEEP`, inklusive FPS-Wirkung einer Änderung. Siehe 1.8,
-   Punkt 4.
-4. **Verhalten nach dem VR-Wechsel**, der den App-Kontext neu erzeugt — müssen
-   Intercepts und Listener neu gesetzt werden?
-5. **Maximale CommBus-Nutzlast** und Chunk-Verhalten.
-6. **WASAPI Shared Mode gegen das VR-Gerät** bei laufender MSFS-Session,
-   HRESULT protokollieren.
-7. **A/B-Hörtest** der Kandidatenstimmen mit den echten Checklistensätzen — für
-   „welches kleine CPU-Modell klingt am besten" existiert keine belastbare
-   Rangliste.
-8. Nur falls K2 gebraucht wird: **lädt ein mit den rekonstruierten clang-Flags
-   gebautes WASM-Modul** im Simulator?
+Die aktuellen offenen Laufzeitnachweise stehen ausschließlich in
+[`open-tests.md`](open-tests.md).
 
 ---
 
-## 12. Quellen
+## 11. Quellen
 
 ### Installiertes SDK 1.7.3 (read-only)
 
@@ -1420,4 +1408,4 @@ EFB**), 16727 (Textfelder), 16832, 17010 und 18345 (`EnumerateControllers`),
   `:2630`, `:2677`; `msfssdk.d.ts:18712-18787`, `:50163`
 - `msfs/PackageSources/VRChecklist/node_modules/@microsoft/msfs-types/js/common.d.ts:115`,
   `:508`, `:528`
-- `docs/msfs-sdk-reference.md`, `docs/phase-2-tech-stack-plan.md`
+- `docs/msfs-sdk-reference.md`, `docs/open-tests.md`

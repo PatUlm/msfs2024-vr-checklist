@@ -2,8 +2,7 @@
 
 - **Status:** Akzeptiert
 - **Datum:** 2026-08-26
-- **Betrifft:** Phasenzuschnitt in `ROADMAP.md` und
-  `docs/phase-2-tech-stack-plan.md`
+- **Betrifft:** Phasenzuschnitt in `ROADMAP.md`
 - **Grundlage:** [ADR 0002](0002-bestaetigungseingabe-in-sim-key-interception.md)
   und [`../phase-2-3-research.md`](../phase-2-3-research.md), Abschnitt 2
 
@@ -64,10 +63,9 @@ Abschlussereignis braucht.
   Status „Vorgeschlagen" beziehungsweise mit offenen Punkten.
 - Der Laufzeitnachweis des CommBus-Kanals kann bei Gelegenheit vorgezogen
   werden, ohne dass Phase 2 daran hängt.
-- `ROADMAP.md`, `docs/phase-2-tech-stack-plan.md` und `README.md` sind auf diesen
-  Zuschnitt zu ziehen. Der Plan trägt bisher den Titel „Tech-Stack- und
-  TTS-Evaluationsplan für Phase 2 und Phase 3"; seine Rechercheaufgabe ist mit
-  [`../phase-2-3-research.md`](../phase-2-3-research.md) erledigt.
+- Roadmap und Produktdokumentation verwenden diesen Phasenzuschnitt. Die
+  abgeschlossene Rechercheaufgabe und ihre Ergebnisse stehen in
+  [`../phase-2-3-research.md`](../phase-2-3-research.md).
 - Wenn der Nachweis aus
   [ADR 0002](0002-bestaetigungseingabe-in-sim-key-interception.md) **scheitert**,
   fällt dieser Zuschnitt mit ihm: Dann braucht das Abhaken wieder eine externe

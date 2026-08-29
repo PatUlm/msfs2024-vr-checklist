@@ -4,8 +4,7 @@ Dieses Dokument enthält ausschließlich offene visuelle Abweichungen und die
 Referenzen für den nächsten UI- oder VR-Teststand. Dauerhaft akzeptierte
 Entscheidungen stehen in [`design-decisions.md`](design-decisions.md), technische
 Laufzeitfakten in [`msfs-sdk-reference.md`](msfs-sdk-reference.md), behobene
-Untersuchungen bleiben über die Git-Historie und das `CHANGELOG.md`
-nachvollziehbar.
+Untersuchungen bleiben über die Git-Historie nachvollziehbar.
 
 ## Offene visuelle Nachweise
 

@@ -32,14 +32,17 @@ gehören nach `docs/design-qa.md`.
   alte ersetzt.
 - Vor Änderungen an Checklistendaten sind `checklists/data/README.md` und
   `checklists/data/style-guide.md` zu lesen.
-- Jede abgeschlossene Änderung muss im selben Arbeitsgang das englische
-  `CHANGELOG.md` aktualisieren. Noch nicht veröffentlichte Änderungen stehen
-  unter `## [Unreleased]`. Bei einem Release werden sie nach
+- Jede abgeschlossene **nutzerwirksame** Änderung muss im selben Arbeitsgang das
+  englische `CHANGELOG.md` aktualisieren. Noch nicht veröffentlichte Änderungen
+  stehen unter `## [Unreleased]`. Bei einem Release werden sie nach
   `## [MAJOR.MINOR.PATCH] - YYYY-MM-DD` verschoben; datumsbasierte Überschriften
   ohne Version werden nicht verwendet.
-- Das `CHANGELOG.md` hält **nutzerwirksame Änderungen** fest. Dokumentationsarbeit
-  ist ein Eintrag, nicht einer je berührter Datei; Zwischenstände einer
-  laufenden Untersuchung gehören gar nicht hinein.
+- Das `CHANGELOG.md` hält ausschließlich Änderungen fest, die Benutzer in der
+  ausgelieferten App, den Checklisten oder der Distribution wahrnehmen. Reine
+  Änderungen an Dokumentation, Tests, QA-Nachweisen, Forschung, ADRs,
+  Agentenregeln sowie internen Build- und Release-Abläufen erzeugen keinen
+  Eintrag. Begleitende Dokumentation zu einer Produktänderung bekommt keinen
+  eigenen Eintrag; beschrieben wird nur die nutzerwirksame Produktänderung.
 - Commits sind, soweit sinnvoll möglich, nach fachlichem Kontext zu trennen.
   Checklistendaten, Anwendungscode und allgemeine Dokumentation gehören
   beispielsweise in getrennte Commits. Unmittelbar zugehörige Tests und

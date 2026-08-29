@@ -6,11 +6,6 @@ Ergebnis geht als Fakt nach
 [`msfs-sdk-reference.md`](msfs-sdk-reference.md) oder in die zuständige
 Produktentscheidung.
 
-## Phase 2 — Bestätigungseingabe
-
-- [ ] Nachweisen, dass ein Druck in einer bereits vollständigen Gruppe keine
-  weitere Zustandsänderung auslöst.
-
 ## Phase 3 — Begleit-App
 
 - [ ] Zustellung eines selbst benannten CommBus-Events von einem externen

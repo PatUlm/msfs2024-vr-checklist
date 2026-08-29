@@ -6,12 +6,6 @@ Entscheidungen stehen in [`design-decisions.md`](design-decisions.md), technisch
 Laufzeitfakten in [`msfs-sdk-reference.md`](msfs-sdk-reference.md), behobene
 Untersuchungen bleiben über die Git-Historie nachvollziehbar.
 
-## Offene visuelle Nachweise
-
-- [ ] Die aktuelle links/rechts angeordnete App-Icon-Komposition im kleinen
-  EFB-Raster erneut in VR prüfen; das ursprüngliche Motiv sowie Normal-, Hover-
-  und Selected-Zustand der korrigierten Variante sind bereits akzeptiert.
-
 ## Akzeptierte Laufzeitreferenz
 
 - [`assets/vr-g36-accepted-layout.png`](assets/vr-g36-accepted-layout.png) zeigt

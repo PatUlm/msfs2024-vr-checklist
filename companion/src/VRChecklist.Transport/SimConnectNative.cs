@@ -10,6 +10,7 @@ internal static class SimConnectNative
     internal const uint BroadcastToJs = 1U << 0;
 
     private const string LibraryName = "SimConnect.dll";
+    private const string PathConfigurationFileName = "simconnect-path.txt";
 
     static SimConnectNative()
     {
@@ -35,6 +36,18 @@ internal static class SimConnectNative
 
         var directory = Environment.GetEnvironmentVariable(
             "VR_CHECKLIST_SIMCONNECT_DIR");
+
+        if (string.IsNullOrWhiteSpace(directory))
+        {
+            var configurationPath = Path.Combine(
+                AppContext.BaseDirectory,
+                PathConfigurationFileName);
+
+            if (File.Exists(configurationPath))
+            {
+                directory = File.ReadAllText(configurationPath).Trim();
+            }
+        }
 
         return string.IsNullOrWhiteSpace(directory)
             ? nint.Zero

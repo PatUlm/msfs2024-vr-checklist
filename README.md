@@ -91,13 +91,15 @@ Alle projektweiten Abläufe beginnen im Repository-Root:
 | `task validate`                           | Prüft alle versionierten Checklistendaten       |
 | `task build`                              | Validiert die Daten und baut die EFB-App        |
 | `task watch`                              | Startet den Watch-Build für die EFB-App         |
-| `task companion:build`                    | Baut den Windows-CommBus-Transporttest           |
-| `task companion:test`                     | Prüft dessen Chunk-Zusammensetzung               |
-| `task companion:deploy`                   | Deployed den Transporttest ins Windows-Staging   |
+| `task companion:build`                    | Baut Windows-App und Transporttest               |
+| `task companion:test`                     | Prüft die Transportlogik                         |
+| `task companion:deploy`                   | Deployed App und Test ins Windows-Staging        |
 | `task deploy`                             | Baut und deployed ins Windows-Staging           |
 | `task release`                            | Erzeugt das in `VERSION` deklarierte Release     |
 | `task community:install`                  | Installiert das aktuelle Release in `Community2024` |
 | `task community:install VERSION=x.y.z`    | Installiert gezielt ein vorhandenes Release      |
+| `task companion:install`                  | Installiert die Companion-EXE eines Releases     |
+| `task release:install`                    | Installiert MSFS-Paket und Companion-EXE          |
 | `task check`                              | Führt die vollständige lokale Prüfung aus       |
 
 Die `package.json` unter `msfs/PackageSources/VRChecklist/` bleibt für rein
@@ -132,7 +134,7 @@ WSL-Dateisystem ist nicht nötig:
 
 ```powershell
 $env:VR_CHECKLIST_SIMCONNECT_DIR = 'C:\MSFS 2024 SDK\SimConnect SDK\lib'
-dotnet C:\dev\msfs2024-vr-checklist-companion-staging\VRChecklist.Companion.dll
+& 'C:\dev\msfs2024-vr-checklist-companion-staging\VRChecklist.Companion.exe'
 ```
 
 Der frühere Konsolen-Durchstich bleibt als Diagnosewerkzeug unter
@@ -250,18 +252,20 @@ Synchronisation vom Windows-Staging zurück in das Repository.
 
 ## Releases und Community-Installation
 
-Windows-spezifische SDK-, Release- und `Community2024`-Pfade werden lokal in
-einer ignorierten Root-`.env` konfiguriert. Ein produktives, versioniertes Paket
-wird gebaut mit:
+Windows-spezifische SDK-, Release-, Companion-Installations- und
+`Community2024`-Pfade werden lokal in einer ignorierten Root-`.env`
+konfiguriert. Ein gemeinsames, produktives und versioniertes Release wird
+gebaut mit:
 
 ```bash
 task release
 ```
 
-Die aktuelle, zuvor erzeugte Version wird bei beendetem MSFS installiert mit:
+Die aktuelle, zuvor erzeugte Version wird bei beendetem MSFS vollständig
+installiert mit:
 
 ```bash
-task community:install
+task release:install
 ```
 
 Der vollständige Ablauf, Rollbacks, das gemeinsame Versionsmodell und die

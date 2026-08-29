@@ -77,6 +77,7 @@ async function pathExists(path) {
 
 async function assertSourceBuild() {
   const requiredBuildFiles = [
+    [appBuildRoot, "VRChecklist.Companion.exe"],
     [appBuildRoot, "VRChecklist.Companion.dll"],
     [appBuildRoot, "VRChecklist.Companion.deps.json"],
     [appBuildRoot, "VRChecklist.Companion.runtimeconfig.json"],
@@ -181,6 +182,10 @@ try {
   await writeFile(
     join(tempRoot, "VERSION"),
     await readFile(join(repositoryRoot, "VERSION"), "utf8")
+  );
+  await cp(
+    join(repositoryRoot, "docs", "third-party-licenses.md"),
+    join(tempRoot, "THIRD-PARTY-NOTICES.md")
   );
   try {
     await rm(stagingRoot, { force: true, recursive: true });

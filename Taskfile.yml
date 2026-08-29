@@ -13,6 +13,7 @@ vars:
   HOST_GID:
     sh: id -g
   COMPANION_STAGING_DIR: '{{default "/mnt/c/dev/msfs2024-vr-checklist-companion-staging" .VR_CHECKLIST_COMPANION_STAGING_DIR}}'
+  COMPANION_INSTALL_DIR: '{{default "" .VR_CHECKLIST_COMPANION_INSTALL_DIR}}'
   STAGING_DIR: '{{default "/mnt/c/dev/msfs2024-vr-checklist-staging" .STAGING_DIR}}'
   MSFS_SDK_ROOT: '{{default "/mnt/c/MSFS 2024 SDK" .VR_CHECKLIST_MSFS_SDK_ROOT}}'
   COMMUNITY_DIR: '{{default "" .VR_CHECKLIST_COMMUNITY_DIR}}'
@@ -140,12 +141,14 @@ tasks:
     env:
       VR_CHECKLIST_RELEASE_VERSION: "{{.PROJECT_VERSION}}"
       VR_CHECKLIST_RELEASE_STAGING_DIR: "{{.STAGING_DIR}}"
+      VR_CHECKLIST_RELEASE_COMPANION_STAGING_DIR: "{{.COMPANION_STAGING_DIR}}"
       VR_CHECKLIST_RELEASE_OUTPUT_DIR: "{{.RELEASE_DIR}}"
       VR_CHECKLIST_RELEASE_SDK_ROOT: "{{.MSFS_SDK_ROOT}}"
     cmds:
       - node scripts/release-package.mjs validate-version
       - task: test:release
       - task: release:deploy
+      - task: companion:deploy
       - node scripts/release-package.mjs build
 
   community:install:
@@ -156,6 +159,26 @@ tasks:
       VR_CHECKLIST_RELEASE_COMMUNITY_DIR: "{{.COMMUNITY_DIR}}"
     cmds:
       - node scripts/release-package.mjs install
+
+  companion:install:
+    desc: Install the companion EXE from the current or specified release
+    env:
+      VR_CHECKLIST_RELEASE_VERSION: '{{default .PROJECT_VERSION .VERSION}}'
+      VR_CHECKLIST_RELEASE_OUTPUT_DIR: "{{.RELEASE_DIR}}"
+      VR_CHECKLIST_RELEASE_COMPANION_INSTALL_DIR: "{{.COMPANION_INSTALL_DIR}}"
+      VR_CHECKLIST_RELEASE_SIMCONNECT_DIR: "{{.MSFS_SDK_ROOT}}/SimConnect SDK/lib"
+    cmds:
+      - node scripts/release-package.mjs install-companion
+
+  release:install:
+    desc: Install the MSFS package and companion EXE from a release
+    cmds:
+      - task: community:install
+        vars:
+          VERSION: '{{default .PROJECT_VERSION .VERSION}}'
+      - task: companion:install
+        vars:
+          VERSION: '{{default .PROJECT_VERSION .VERSION}}'
 
   check:
     desc: Run the complete local validation and build

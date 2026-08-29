@@ -2,6 +2,7 @@
 
 import {
   buildRelease,
+  installCompanionRelease,
   installRelease,
   readProjectVersion,
   validateProjectVersionSources,
@@ -31,11 +32,13 @@ if (command === "current-version") {
   const result = await buildRelease({
     version,
     stagingDirectory: process.env.VR_CHECKLIST_RELEASE_STAGING_DIR,
+    companionStagingDirectory:
+      process.env.VR_CHECKLIST_RELEASE_COMPANION_STAGING_DIR,
     releaseDirectory: process.env.VR_CHECKLIST_RELEASE_OUTPUT_DIR,
     sdkRoot: process.env.VR_CHECKLIST_RELEASE_SDK_ROOT,
   });
   console.log(
-    `Created release ${version} (MSFS package ${result.packageVersion}) at ${result.releaseTarget}`
+    `Created release ${version} (MSFS package ${result.packageVersion}, companion ${result.companionVersion}) at ${result.releaseTarget}`
   );
 } else if (command === "install") {
   const result = await installRelease({
@@ -46,8 +49,18 @@ if (command === "current-version") {
   console.log(
     `Installed release ${version} (MSFS package ${result.packageVersion}) to ${result.installTarget}`
   );
+} else if (command === "install-companion") {
+  const result = await installCompanionRelease({
+    version,
+    releaseDirectory: process.env.VR_CHECKLIST_RELEASE_OUTPUT_DIR,
+    installDirectory: process.env.VR_CHECKLIST_RELEASE_COMPANION_INSTALL_DIR,
+    simConnectDirectory: process.env.VR_CHECKLIST_RELEASE_SIMCONNECT_DIR,
+  });
+  console.log(
+    `Installed companion ${result.companionVersion} to ${result.installTarget}`
+  );
 } else {
   throw new Error(
-    "Usage: release-package.mjs current-version|validate-version|build|install (configuration is read from the task environment)."
+    "Usage: release-package.mjs current-version|validate-version|build|install|install-companion (configuration is read from the task environment)."
   );
 }

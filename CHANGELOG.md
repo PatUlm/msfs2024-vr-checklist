@@ -16,7 +16,8 @@ Changelog, and the project uses Semantic Versioning.
   retries, then turns green and `Connected` without flashing an intermediate
   disconnected state or alternating retry text. The window and detail card
   also end directly after their content rather than reserving empty space below
-  progress.
+  progress. It is delivered as a directly launchable Windows EXE alongside the
+  MSFS package and can be installed from the same versioned release.
 
 ## [0.2.4] - 2026-08-29
 

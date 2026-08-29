@@ -14,9 +14,14 @@ import { basename, dirname, join, relative, resolve, sep } from "node:path";
 import { spawn } from "node:child_process";
 
 export const packageName = "patulm-vr-checklist";
+export const companionName = "VRChecklist.Companion";
+export const companionInstallDirectoryName = "VRChecklist Companion";
 export const stagingDirectoryName = "msfs2024-vr-checklist-staging";
+export const companionStagingDirectoryName =
+  "msfs2024-vr-checklist-companion-staging";
 export const releaseDirectoryName = "msfs2024-vr-checklist-releases";
 export const communityDirectoryName = "Community2024";
+const companionInstallMarkerName = ".vr-checklist-companion-install.json";
 
 const semanticVersionPattern =
   /^(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)$/;
@@ -107,6 +112,26 @@ export function assertManagedWindowsDirectory(path, expectedName, label) {
   if (basename(resolvedPath) !== expectedName) {
     throw new Error(
       `${label} must be named ${expectedName}: ${resolvedPath}`
+    );
+  }
+
+  return resolvedPath;
+}
+
+export function assertCompanionInstallDirectory(path) {
+  const resolvedPath = assertManagedWindowsDirectory(
+    path,
+    companionInstallDirectoryName,
+    "Companion install directory"
+  );
+
+  if (
+    !/^\/mnt\/[a-z]\/Users\/[^/]+\/AppData\/Local\/Programs\/VRChecklist Companion$/i.test(
+      resolvedPath
+    )
+  ) {
+    throw new Error(
+      `Companion install directory must be below a Windows user's AppData/Local/Programs directory: ${resolvedPath}`
     );
   }
 
@@ -272,6 +297,62 @@ export async function verifyPackage(packageRoot, expectedReleaseVersion) {
   };
 }
 
+export async function verifyCompanion(
+  companionRoot,
+  expectedReleaseVersion
+) {
+  const resolvedRoot = resolve(companionRoot);
+  const rootStats = await lstat(resolvedRoot);
+  if (!rootStats.isDirectory() || rootStats.isSymbolicLink()) {
+    throw new Error(`Companion root must be a real directory: ${resolvedRoot}`);
+  }
+
+  const files = await listPackageFiles(resolvedRoot);
+  const requiredFiles = [
+    `${companionName}.exe`,
+    `${companionName}.dll`,
+    `${companionName}.deps.json`,
+    `${companionName}.runtimeconfig.json`,
+    "THIRD-PARTY-NOTICES.md",
+    "VERSION",
+  ];
+
+  for (const requiredFile of requiredFiles) {
+    if (!files.includes(requiredFile)) {
+      throw new Error(`Required companion file is missing: ${requiredFile}`);
+    }
+  }
+
+  const forbiddenFile = files.find((file) => {
+    const lowerCaseFile = file.toLowerCase();
+    return (
+      lowerCaseFile.endsWith(".pdb") ||
+      lowerCaseFile.split("/").at(-1) === "simconnect.dll"
+    );
+  });
+  if (forbiddenFile) {
+    throw new Error(`Companion package contains a forbidden file: ${forbiddenFile}`);
+  }
+
+  const companionVersion = (
+    await readFile(join(resolvedRoot, "VERSION"), "utf8")
+  ).trim();
+  validateArtifactVersion(companionVersion);
+  if (
+    expectedReleaseVersion &&
+    companionVersion !== expectedReleaseVersion
+  ) {
+    throw new Error(
+      `Companion version ${companionVersion} does not match release ${expectedReleaseVersion}.`
+    );
+  }
+
+  return {
+    fileCount: files.length,
+    version: companionVersion,
+  };
+}
+
 async function runPackageTool(executable, projectFile) {
   await new Promise((resolvePromise, reject) => {
     const child = spawn(
@@ -299,6 +380,7 @@ async function runPackageTool(executable, projectFile) {
 export async function buildRelease({
   version,
   stagingDirectory,
+  companionStagingDirectory,
   releaseDirectory,
   sdkRoot,
 }) {
@@ -312,6 +394,11 @@ export async function buildRelease({
     releaseDirectory,
     releaseDirectoryName,
     "Release directory"
+  );
+  const companionStagingRoot = assertManagedWindowsDirectory(
+    companionStagingDirectory,
+    companionStagingDirectoryName,
+    "Companion staging directory"
   );
   const resolvedSdkRoot = resolve(sdkRoot ?? "");
   if (!/^\/mnt\/[a-z](?:\/|$)/i.test(resolvedSdkRoot)) {
@@ -342,6 +429,10 @@ export async function buildRelease({
       `MSFS package version ${verification.manifest.package_version} does not match release ${version}.`
     );
   }
+  const companionVerification = await verifyCompanion(
+    companionStagingRoot,
+    version
+  );
 
   await mkdir(releaseRoot, { recursive: true });
   const temporaryTarget = join(releaseRoot, `.${version}.release-${process.pid}`);
@@ -352,14 +443,36 @@ export async function buildRelease({
     await cp(packageOutput, join(temporaryTarget, packageName), {
       recursive: true,
     });
+    await cp(
+      companionStagingRoot,
+      join(temporaryTarget, companionName),
+      {
+        recursive: true,
+        filter: (source) => {
+          const sourceRelativePath = relative(companionStagingRoot, source);
+          if (!sourceRelativePath) {
+            return true;
+          }
+
+          const [topLevelName] = sourceRelativePath.split(sep);
+          return (
+            topLevelName !== "tools" &&
+            topLevelName !== ".vr-checklist-companion-staging.json"
+          );
+        },
+      }
+    );
+    await verifyCompanion(join(temporaryTarget, companionName), version);
     await writeFile(
       join(temporaryTarget, "release.json"),
       `${JSON.stringify(
         {
-          schemaVersion: 1,
+          schemaVersion: 2,
           packageName,
+          companionName,
           releaseVersion: version,
           packageVersion: verification.manifest.package_version,
+          companionVersion: companionVerification.version,
           createdAt: new Date().toISOString(),
         },
         null,
@@ -372,6 +485,7 @@ export async function buildRelease({
   }
 
   return {
+    companionVersion: companionVerification.version,
     packageVersion: verification.manifest.package_version,
     releaseTarget,
   };
@@ -402,7 +516,7 @@ export async function installRelease({
   const releaseTarget = join(releaseRoot, version);
   const metadata = await readJson(join(releaseTarget, "release.json"));
   if (
-    metadata.schemaVersion !== 1 ||
+    ![1, 2].includes(metadata.schemaVersion) ||
     metadata.packageName !== packageName ||
     metadata.releaseVersion !== version
   ) {
@@ -457,5 +571,141 @@ export async function installRelease({
   return {
     installTarget,
     packageVersion: verification.manifest.package_version,
+  };
+}
+
+export async function installCompanionRelease({
+  version,
+  releaseDirectory,
+  installDirectory,
+  simConnectDirectory,
+}) {
+  validateReleaseVersion(version);
+  const releaseRoot = assertManagedWindowsDirectory(
+    releaseDirectory,
+    releaseDirectoryName,
+    "Release directory"
+  );
+  const installTarget = assertCompanionInstallDirectory(installDirectory);
+  const releaseTarget = join(releaseRoot, version);
+  const metadata = await readJson(join(releaseTarget, "release.json"));
+  if (
+    metadata.schemaVersion !== 2 ||
+    metadata.companionName !== companionName ||
+    metadata.releaseVersion !== version ||
+    metadata.companionVersion !== version
+  ) {
+    throw new Error(
+      `Release metadata has no matching companion app for version ${version}.`
+    );
+  }
+
+  const releaseCompanion = join(releaseTarget, companionName);
+  await verifyCompanion(releaseCompanion, version);
+
+  let simConnectWindowsPath;
+  if (simConnectDirectory) {
+    const resolvedSimConnectDirectory = resolve(simConnectDirectory);
+    if (!/^\/mnt\/[a-z](?:\/|$)/i.test(resolvedSimConnectDirectory)) {
+      throw new Error(
+        `SimConnect directory must be on a mounted Windows drive: ${simConnectDirectory}`
+      );
+    }
+    if (!(await pathExists(join(resolvedSimConnectDirectory, "SimConnect.dll")))) {
+      throw new Error(
+        `SimConnect.dll is missing from configured directory: ${resolvedSimConnectDirectory}`
+      );
+    }
+    simConnectWindowsPath = toWindowsPath(resolvedSimConnectDirectory);
+  }
+
+  if (await pathExists(installTarget)) {
+    const installStats = await lstat(installTarget);
+    if (!installStats.isDirectory() || installStats.isSymbolicLink()) {
+      throw new Error(
+        `Companion install target must be a real directory: ${installTarget}`
+      );
+    }
+
+    const entries = await readdir(installTarget);
+    if (entries.length > 0) {
+      const markerPath = join(installTarget, companionInstallMarkerName);
+      if (!(await pathExists(markerPath))) {
+        throw new Error(
+          `Refusing to replace non-empty, unmanaged companion install directory: ${installTarget}`
+        );
+      }
+      const existingMarker = await readJson(markerPath);
+      if (
+        existingMarker.managedBy !== "msfs2024-vr-checklist" ||
+        existingMarker.schemaVersion !== 1
+      ) {
+        throw new Error(
+          `Companion install marker is not owned by this project: ${markerPath}`
+        );
+      }
+    }
+  }
+
+  const installParent = dirname(installTarget);
+  const temporaryTarget = join(
+    installParent,
+    `.${companionInstallDirectoryName}.install-${process.pid}`
+  );
+  const backupTarget = join(
+    installParent,
+    `.${companionInstallDirectoryName}.backup-${process.pid}`
+  );
+  await mkdir(installParent, { recursive: true });
+  await rm(temporaryTarget, { force: true, recursive: true });
+  await rm(backupTarget, { force: true, recursive: true });
+
+  let previousInstallMoved = false;
+  try {
+    await cp(releaseCompanion, temporaryTarget, { recursive: true });
+    if (simConnectWindowsPath) {
+      await writeFile(
+        join(temporaryTarget, "simconnect-path.txt"),
+        `${simConnectWindowsPath}\n`
+      );
+    }
+    await writeFile(
+      join(temporaryTarget, companionInstallMarkerName),
+      `${JSON.stringify(
+        {
+          managedBy: "msfs2024-vr-checklist",
+          schemaVersion: 1,
+          version,
+        },
+        null,
+        2
+      )}\n`
+    );
+    await verifyCompanion(temporaryTarget, version);
+
+    if (await pathExists(installTarget)) {
+      await rename(installTarget, backupTarget);
+      previousInstallMoved = true;
+    }
+
+    await rename(temporaryTarget, installTarget);
+    previousInstallMoved = false;
+    await rm(backupTarget, { force: true, recursive: true });
+  } catch (error) {
+    if (previousInstallMoved && !(await pathExists(installTarget))) {
+      await rename(backupTarget, installTarget);
+      previousInstallMoved = false;
+    }
+    throw error;
+  } finally {
+    await rm(temporaryTarget, { force: true, recursive: true });
+    if (!previousInstallMoved) {
+      await rm(backupTarget, { force: true, recursive: true });
+    }
+  }
+
+  return {
+    installTarget,
+    companionVersion: version,
   };
 }

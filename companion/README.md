@@ -22,3 +22,8 @@ Build und Windows-Deployment werden aus dem Repository-Root mit
 `task companion:deploy` gestartet. Das verwaltete Ziel ist standardmäßig
 `/mnt/c/dev/msfs2024-vr-checklist-companion-staging`; Laufzeitanleitung und
 Voraussetzungen stehen im Root-[README](../README.md).
+
+Ein Release enthält die frameworkabhängige `VRChecklist.Companion.exe` mit
+ihren Laufzeitdateien, aber ohne `SimConnect.dll`. `task companion:install`
+installiert sie unter dem konfigurierten Windows-Benutzerprofil und hinterlegt
+den lokalen SimConnect-Pfad für den direkten EXE-Start.

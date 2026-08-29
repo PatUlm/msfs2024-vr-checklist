@@ -5,12 +5,15 @@ import { dirname, join, resolve } from "node:path";
 import { after, test } from "node:test";
 import { fileURLToPath } from "node:url";
 import {
+  assertCompanionInstallDirectory,
   assertManagedWindowsDirectory,
+  companionName,
   readProjectVersion,
   toWindowsPath,
   validateArtifactVersion,
   validateProjectVersionSources,
   validateReleaseVersion,
+  verifyCompanion,
   verifyPackage,
 } from "./lib/msfs-release.mjs";
 
@@ -71,6 +74,19 @@ test("managed paths stay on an explicitly named Windows directory", () => {
         "Release directory"
       ),
     /mounted Windows drive/
+  );
+  assert.equal(
+    assertCompanionInstallDirectory(
+      "/mnt/c/Users/pilot/AppData/Local/Programs/VRChecklist Companion"
+    ),
+    "/mnt/c/Users/pilot/AppData/Local/Programs/VRChecklist Companion"
+  );
+  assert.throws(
+    () =>
+      assertCompanionInstallDirectory(
+        "/mnt/c/dev/VRChecklist Companion"
+      ),
+    /AppData\/Local\/Programs/
   );
 });
 
@@ -149,5 +165,31 @@ test("package verification checks layout, release version, and source maps", asy
   await assert.rejects(
     () => verifyPackage(packageRoot, "0.1.1"),
     /contains a source map/
+  );
+});
+
+test("companion verification requires an EXE and excludes SimConnect", async () => {
+  const root = join(tmpdir(), `vr-checklist-companion-test-${process.pid}`);
+  temporaryRoots.push(root);
+  await mkdir(root, { recursive: true });
+
+  for (const fileName of [
+    `${companionName}.exe`,
+    `${companionName}.dll`,
+    `${companionName}.deps.json`,
+    `${companionName}.runtimeconfig.json`,
+    "THIRD-PARTY-NOTICES.md",
+  ]) {
+    await writeFile(join(root, fileName), fileName);
+  }
+  await writeFile(join(root, "VERSION"), "0.3.0\n");
+
+  const result = await verifyCompanion(root, "0.3.0");
+  assert.equal(result.version, "0.3.0");
+
+  await writeFile(join(root, "SimConnect.dll"), "not redistributable");
+  await assert.rejects(
+    () => verifyCompanion(root, "0.3.0"),
+    /forbidden file: SimConnect\.dll/
   );
 });

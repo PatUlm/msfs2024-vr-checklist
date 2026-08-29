@@ -18,6 +18,7 @@ Zu konfigurieren sind:
 
 ```dotenv
 VR_CHECKLIST_MSFS_SDK_ROOT="/mnt/c/MSFS 2024 SDK"
+VR_CHECKLIST_COMPANION_INSTALL_DIR="/mnt/c/Users/USER/AppData/Local/Programs/VRChecklist Companion"
 VR_CHECKLIST_COMMUNITY_DIR="/mnt/c/Users/USER/AppData/Roaming/Microsoft Flight Simulator 2024/Packages/Community2024"
 VR_CHECKLIST_RELEASE_DIR="/mnt/c/dev/msfs2024-vr-checklist-releases"
 ```
@@ -26,7 +27,9 @@ Das Release-Verzeichnis muss den schützenden Namen
 `msfs2024-vr-checklist-releases` tragen. Als Installationsziel ist ausschließlich
 der MSFS-2024-Ordner `Community2024` zulässig. Damit kann der Task weder einen
 beliebigen Ordner spiegeln noch versehentlich den gesamten Packages-Baum
-ersetzen.
+ersetzen. Das Companion-Ziel ist zusätzlich auf
+`AppData/Local/Programs/VRChecklist Companion` innerhalb eines Windows-
+Benutzerprofils beschränkt.
 
 ## Versionsmodell
 
@@ -36,6 +39,7 @@ identisch verwendet für:
 
 - die sichtbare Versionszeile eines Release-Builds,
 - `package_version` im MSFS-Manifest und damit die Anzeige in My Library,
+- die `VERSION` der Companion-EXE,
 - den Namen und die Metadaten des unveränderlichen Release-Artefakts.
 
 Die Versionswerte in der MSFS-Paketdefinition und den npm-Metadaten werden als
@@ -73,16 +77,25 @@ Der Task führt nacheinander aus:
    eingebetteter Release-Version und fehlenden Source Maps.
 7. Kopie in ein versioniertes, unveränderliches Artefakt.
 
+Zusätzlich baut und prüft der Task die frameworkabhängige Windows-EXE, deployed
+sie ins getrennte Companion-Staging und nimmt sie ohne die nicht
+weiterverteilte `SimConnect.dll` in dasselbe Release auf.
+
 Für `VERSION=0.1.2` entsteht standardmäßig:
 
 ```text
 C:\dev\msfs2024-vr-checklist-releases\0.1.2\
 ├── release.json
-└── patulm-vr-checklist\
-    ├── manifest.json
-    ├── layout.json
-    ├── ContentInfo\
-    └── html_ui\
+├── patulm-vr-checklist\
+│   ├── manifest.json
+│   ├── layout.json
+│   ├── ContentInfo\
+│   └── html_ui\
+└── VRChecklist.Companion\
+    ├── VRChecklist.Companion.exe
+    ├── VRChecklist.Companion.dll
+    ├── THIRD-PARTY-NOTICES.md
+    └── VERSION
 ```
 
 Existiert dieselbe Release-Version bereits, bricht der Task ab. Ein
@@ -118,6 +131,29 @@ Beim nächsten normalen Simulatorstart ist die Community-Version ohne DevMode
 verfügbar. Wird das gleichnamige Projekt später im DevMode gebaut und gemountet,
 hat die DevMode-Version im VFS Vorrang. Das installierte Community-Paket muss
 daher für normale Entwicklungsiterationen nicht deaktiviert werden.
+
+## Companion-EXE installieren
+
+Die Companion-App wird aus demselben Release sicher in das konfigurierte
+Benutzerverzeichnis installiert. Der Task legt dort keine Kopie von
+`SimConnect.dll` ab, sondern nur eine lokale Pfadkonfiguration zur DLL des
+installierten SDKs an:
+
+```bash
+task companion:install
+```
+
+Beide Release-Bestandteile werden nacheinander installiert mit:
+
+```bash
+task release:install
+```
+
+Danach lässt sich
+`%LOCALAPPDATA%\Programs\VRChecklist Companion\VRChecklist.Companion.exe`
+direkt starten. Die App bleibt frameworkabhängig und benötigt die installierte
+.NET-10-Laufzeit. Ein bereits laufender Companion-Prozess muss vor
+einem Update beendet werden.
 
 ## Branding-Dateien
 

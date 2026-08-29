@@ -1,0 +1,104 @@
+<Window
+    x:Class="VRChecklist.Companion.MainWindow"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    Title="VR Checklist"
+    Width="720"
+    SizeToContent="Height"
+    MinWidth="600"
+    Background="#10151D"
+    FontFamily="Segoe UI">
+  <Window.Styles>
+    <Style Selector="TextBlock.section-label">
+      <Setter Property="Foreground" Value="#8E9AAA" />
+      <Setter Property="FontSize" Value="13" />
+    </Style>
+    <Style Selector="TextBlock.value">
+      <Setter Property="Foreground" Value="#F3F6FA" />
+      <Setter Property="FontSize" Value="18" />
+      <Setter Property="TextWrapping" Value="Wrap" />
+    </Style>
+    <Style Selector="Border.card">
+      <Setter Property="Background" Value="#18212C" />
+      <Setter Property="BorderBrush" Value="#273646" />
+      <Setter Property="BorderThickness" Value="1" />
+      <Setter Property="CornerRadius" Value="10" />
+      <Setter Property="Padding" Value="18" />
+    </Style>
+  </Window.Styles>
+
+  <Grid Margin="28" RowDefinitions="Auto,Auto,Auto,Auto" RowSpacing="20">
+    <StackPanel Grid.Row="0" Spacing="3">
+      <TextBlock Foreground="#F3F6FA" FontSize="28" FontWeight="SemiBold"
+                 Text="VR Checklist" />
+      <TextBlock Foreground="#8E9AAA" FontSize="14"
+                 Text="Companion status" />
+    </StackPanel>
+
+    <Grid Grid.Row="1" ColumnDefinitions="*,*" ColumnSpacing="14">
+      <Border Grid.Column="0" Classes="card">
+        <StackPanel Spacing="7">
+          <TextBlock Classes="section-label" Text="SIMULATOR" />
+          <StackPanel Orientation="Horizontal" Spacing="10">
+            <Ellipse Width="12" Height="12" VerticalAlignment="Center"
+                     Fill="{Binding SimulatorStatusColor}" />
+            <TextBlock Classes="value" FontWeight="SemiBold"
+                       Text="{Binding SimulatorStatus}" />
+          </StackPanel>
+          <TextBlock Foreground="#AAB4C0" TextWrapping="Wrap"
+                     Text="{Binding SimulatorDetail}" />
+        </StackPanel>
+      </Border>
+      <Border Grid.Column="1" Classes="card">
+        <StackPanel Spacing="7">
+          <TextBlock Classes="section-label" Text="CHECKLIST" />
+          <TextBlock Classes="value" FontWeight="SemiBold"
+                     Text="{Binding ChecklistStatus}" />
+          <TextBlock Foreground="#AAB4C0" TextWrapping="Wrap"
+                     Text="{Binding ChecklistDetail}" />
+        </StackPanel>
+      </Border>
+    </Grid>
+
+    <Border Grid.Row="2" Classes="card" VerticalAlignment="Top">
+      <Grid RowDefinitions="Auto,Auto,Auto,Auto,Auto" RowSpacing="15">
+        <Grid Grid.Row="0" ColumnDefinitions="150,*">
+          <TextBlock Classes="section-label" VerticalAlignment="Center"
+                     Text="AIRCRAFT" />
+          <TextBlock Grid.Column="1" Classes="value" Text="{Binding Aircraft}" />
+        </Grid>
+        <Grid Grid.Row="1" ColumnDefinitions="150,*">
+          <TextBlock Classes="section-label" VerticalAlignment="Center"
+                     Text="CHECKLIST" />
+          <TextBlock Grid.Column="1" Classes="value" Text="{Binding Checklist}" />
+        </Grid>
+        <Grid Grid.Row="2" ColumnDefinitions="150,*">
+          <TextBlock Classes="section-label" VerticalAlignment="Center"
+                     Text="ACTIVE GROUP" />
+          <TextBlock Grid.Column="1" Classes="value" Text="{Binding ActiveGroup}" />
+        </Grid>
+        <Grid Grid.Row="3" ColumnDefinitions="150,*">
+          <TextBlock Classes="section-label" VerticalAlignment="Center"
+                     Text="NEXT ITEM" />
+          <TextBlock Grid.Column="1" Classes="value" Text="{Binding NextItem}" />
+        </Grid>
+        <Grid Grid.Row="4" ColumnDefinitions="150,*" RowDefinitions="Auto,Auto"
+              RowSpacing="8">
+          <TextBlock Classes="section-label" VerticalAlignment="Center"
+                     Text="PROGRESS" />
+          <TextBlock Grid.Column="1" Classes="value" Text="{Binding Progress}" />
+          <ProgressBar Grid.Row="1" Grid.Column="1" Height="8"
+                       Minimum="0" Maximum="100"
+                       Value="{Binding ProgressPercent}" />
+        </Grid>
+      </Grid>
+    </Border>
+
+    <Grid Grid.Row="3" ColumnDefinitions="*,Auto">
+      <TextBlock Foreground="#718095" FontSize="12"
+                 Text="{Binding EfbVersion, StringFormat='EFB {0}'}" />
+      <TextBlock Grid.Column="1" Foreground="#718095" FontSize="12"
+                 Text="{Binding CompanionVersion, StringFormat='Companion {0}'}" />
+    </Grid>
+  </Grid>
+</Window>

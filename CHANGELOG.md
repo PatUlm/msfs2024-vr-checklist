@@ -7,6 +7,17 @@ Changelog, and the project uses Semantic Versioning.
 
 ## [Unreleased]
 
+### Added
+
+- Added a Windows companion status app that distinguishes the SimConnect
+  connection from receipt of EFB checklist state and shows the aircraft,
+  checklist, active group, next open item, mandatory progress and both app
+  versions. Its simulator indicator stays yellow and `Connecting` while it
+  retries, then turns green and `Connected` without flashing an intermediate
+  disconnected state or alternating retry text. The window and detail card
+  also end directly after their content rather than reserving empty space below
+  progress.
+
 ## [0.2.4] - 2026-08-29
 
 ### Changed

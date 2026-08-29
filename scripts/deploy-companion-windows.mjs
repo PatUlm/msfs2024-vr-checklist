@@ -21,7 +21,17 @@ const marker = {
 
 const scriptDirectory = dirname(fileURLToPath(import.meta.url));
 const repositoryRoot = resolve(scriptDirectory, "..");
-const buildRoot = join(
+const appBuildRoot = join(
+  repositoryRoot,
+  "companion",
+  "src",
+  "VRChecklist.Companion",
+  "bin",
+  "Release",
+  "net10.0",
+  "win-x64"
+);
+const probeBuildRoot = join(
   repositoryRoot,
   "companion",
   "src",
@@ -33,6 +43,9 @@ const buildRoot = join(
 const stagingArgument =
   process.argv[2] ??
   "/mnt/c/dev/msfs2024-vr-checklist-companion-staging";
+const recoverInterruptedDeployment = process.argv.includes(
+  "--recover-interrupted"
+);
 const stagingRoot = resolve(stagingArgument);
 
 function assertSafeStagingRoot() {
@@ -64,12 +77,15 @@ async function pathExists(path) {
 
 async function assertSourceBuild() {
   const requiredBuildFiles = [
-    "VRChecklist.TransportProbe.dll",
-    "VRChecklist.TransportProbe.deps.json",
-    "VRChecklist.TransportProbe.runtimeconfig.json",
+    [appBuildRoot, "VRChecklist.Companion.dll"],
+    [appBuildRoot, "VRChecklist.Companion.deps.json"],
+    [appBuildRoot, "VRChecklist.Companion.runtimeconfig.json"],
+    [probeBuildRoot, "VRChecklist.TransportProbe.dll"],
+    [probeBuildRoot, "VRChecklist.TransportProbe.deps.json"],
+    [probeBuildRoot, "VRChecklist.TransportProbe.runtimeconfig.json"],
   ];
 
-  for (const fileName of requiredBuildFiles) {
+  for (const [buildRoot, fileName] of requiredBuildFiles) {
     const requiredFile = join(buildRoot, fileName);
 
     if (!(await pathExists(requiredFile))) {
@@ -80,16 +96,34 @@ async function assertSourceBuild() {
 
 async function assertManagedOrEmptyTarget() {
   if (!(await pathExists(stagingRoot))) {
-    return;
+    return false;
   }
 
   const entries = await readdir(stagingRoot);
   if (entries.length === 0) {
-    return;
+    return false;
   }
 
   const markerPath = join(stagingRoot, markerFileName);
   if (!(await pathExists(markerPath))) {
+    if (recoverInterruptedDeployment) {
+      const recoverySignature = [
+        "VRChecklist.Companion.dll",
+        "VRChecklist.Transport.dll",
+        "Avalonia.Base.dll",
+      ];
+
+      if (
+        recoverySignature.every((fileName) => entries.includes(fileName))
+      ) {
+        await writeFile(markerPath, `${JSON.stringify(marker, null, 2)}\n`);
+        console.warn(
+          `Recovered the marker after an interrupted deployment: ${markerPath}`
+        );
+        return true;
+      }
+    }
+
     throw new Error(
       `Refusing to replace non-empty, unmanaged staging directory: ${stagingRoot}`
     );
@@ -104,11 +138,17 @@ async function assertManagedOrEmptyTarget() {
       `Staging marker is not owned by this project: ${markerPath}`
     );
   }
+
+  return true;
+}
+
+function includeRuntimeFile(source) {
+  return !source.toLowerCase().endsWith(".pdb");
 }
 
 assertSafeStagingRoot();
 await assertSourceBuild();
-await assertManagedOrEmptyTarget();
+const targetWasManaged = await assertManagedOrEmptyTarget();
 
 await mkdir(dirname(stagingRoot), { recursive: true });
 
@@ -119,7 +159,21 @@ const tempRoot = join(
 await rm(tempRoot, { force: true, recursive: true });
 
 try {
-  await cp(buildRoot, tempRoot, { recursive: true });
+  await cp(appBuildRoot, tempRoot, {
+    recursive: true,
+    filter: includeRuntimeFile,
+  });
+  await mkdir(join(tempRoot, "tools", "transport-probe"), {
+    recursive: true,
+  });
+  await cp(
+    probeBuildRoot,
+    join(tempRoot, "tools", "transport-probe"),
+    {
+      recursive: true,
+      filter: includeRuntimeFile,
+    }
+  );
   await writeFile(
     join(tempRoot, markerFileName),
     `${JSON.stringify(marker, null, 2)}\n`
@@ -128,10 +182,24 @@ try {
     join(tempRoot, "VERSION"),
     await readFile(join(repositoryRoot, "VERSION"), "utf8")
   );
-  await rm(stagingRoot, { force: true, recursive: true });
+  try {
+    await rm(stagingRoot, { force: true, recursive: true });
+  } catch (error) {
+    if (targetWasManaged && (await pathExists(stagingRoot))) {
+      await writeFile(
+        join(stagingRoot, markerFileName),
+        `${JSON.stringify(marker, null, 2)}\n`
+      );
+    }
+
+    throw error;
+  }
   await rename(tempRoot, stagingRoot);
 } finally {
   await rm(tempRoot, { force: true, recursive: true });
 }
 
-console.log(`Deployed companion transport probe to ${stagingRoot}`);
+const deployedVersion = (
+  await readFile(join(stagingRoot, "VERSION"), "utf8")
+).trim();
+console.log(`Deployed companion app version ${deployedVersion} to ${stagingRoot}`);

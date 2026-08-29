@@ -1,14 +1,14 @@
 using System.Text;
 
-namespace VRChecklist.TransportProbe;
+namespace VRChecklist.Transport;
 
-internal sealed class CommBusMessageAssembler
+public sealed class CommBusMessageAssembler
 {
     private readonly MemoryStream buffer = new();
     private uint expectedParts;
     private uint nextPart;
 
-    internal string? Append(uint entryNumber, uint outOf, ReadOnlySpan<byte> data)
+    public string? Append(uint entryNumber, uint outOf, ReadOnlySpan<byte> data)
     {
         if (outOf == 0 || entryNumber >= outOf)
         {

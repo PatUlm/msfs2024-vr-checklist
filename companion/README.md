@@ -9,13 +9,14 @@ gemeinsam genutzte Audioassets liegen weiterhin auf Repository-Ebene.
 ```text
 companion/
   src/
-    VRChecklist.TransportProbe/   minimaler bidirektionaler CommBus-Nachweis
+    VRChecklist.Companion/        Avalonia-Status-App
+    VRChecklist.Transport/        gemeinsamer SimConnect-/CommBus-Transport
+    VRChecklist.TransportProbe/   bidirektionales Diagnosewerkzeug
 ```
 
-Nach dem Laufzeitnachweis können die Avalonia-App und eine gemeinsam genutzte
-Transportbibliothek als weitere Projekte unter `src/` ergänzt werden. Tests
-liegen dann parallel unter `tests/`. Der Diagnoseclient wird nicht voreilig zur
-Produktoberfläche ausgebaut.
+Die Status-App und das Diagnosewerkzeug teilen sich ausschließlich den
+Transport und den versionierten Snapshot-Vertrag. Der Probe bleibt eine kleine
+Konsolenanwendung; Produktzustände werden in der Avalonia-App dargestellt.
 
 Build und Windows-Deployment werden aus dem Repository-Root mit
 `task companion:deploy` gestartet. Das verwaltete Ziel ist standardmäßig

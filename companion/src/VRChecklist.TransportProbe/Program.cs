@@ -1,7 +1,6 @@
 using System.Diagnostics;
-using System.Runtime.InteropServices;
-using System.Text;
 using System.Text.Json;
+using VRChecklist.Transport;
 
 namespace VRChecklist.TransportProbe;
 
@@ -28,8 +27,7 @@ internal static class Program
 
         try
         {
-            using var probe = new TransportProbe();
-            return probe.Run();
+            return RunProbe();
         }
         catch (DllNotFoundException error)
         {
@@ -46,239 +44,112 @@ internal static class Program
         }
     }
 
-    private sealed class TransportProbe : IDisposable
+    private static int RunProbe()
     {
-        private readonly EventWaitHandle simConnectSignal =
-            new(false, EventResetMode.AutoReset);
-        private readonly ManualResetEvent cancelSignal = new(false);
-        private readonly CommBusMessageAssembler assembler = new();
-        private readonly SimConnectNative.DispatchProc dispatch;
-        private readonly string requestId = Guid.NewGuid().ToString("N");
-        private nint connection;
-        private bool pongReceived;
-        private Exception? dispatchError;
-
-        internal TransportProbe()
+        using var cancellation = new CancellationTokenSource();
+        ConsoleCancelEventHandler? cancelHandler = null;
+        cancelHandler = (_, eventArgs) =>
         {
-            dispatch = Dispatch;
-            Console.CancelKeyPress += HandleCancelKeyPress;
-        }
+            eventArgs.Cancel = true;
+            cancellation.Cancel();
+        };
+        Console.CancelKeyPress += cancelHandler;
 
-        internal int Run()
+        try
         {
-            SimConnectNative.EnsureResolverRegistered();
-            Open();
+            using var client = new CommBusClient("VR Checklist transport probe");
+            var requestId = Guid.NewGuid().ToString("N");
+            var pongReceived = false;
 
-            ThrowIfFailed(
-                SimConnectNative.SubscribeToCommBusEvent(
-                    connection,
-                    PongEventId,
-                    PongEvent),
-                "subscribe to the EFB response event");
-
-            var payload = JsonSerializer.Serialize(new
+            client.Connect();
+            Console.WriteLine("Connected to MSFS 2024 through SimConnect.");
+            client.Subscribe(PongEventId, PongEvent, message =>
             {
-                protocolVersion = 1,
-                type = "ping",
-                requestId,
-                sentAt = DateTimeOffset.UtcNow.ToString("O"),
+                if (IsMatchingPong(message, requestId, out var result))
+                {
+                    Console.WriteLine(result);
+                    pongReceived = true;
+                }
+                else
+                {
+                    Console.Error.WriteLine("Ignored an unrelated or invalid EFB response.");
+                }
             });
-            var bytes = Encoding.UTF8.GetBytes(payload + '\0');
 
-            ThrowIfFailed(
-                SimConnectNative.CallCommBusEvent(
-                    connection,
-                    PingEvent,
-                    SimConnectNative.BroadcastToJs,
-                    checked((uint)bytes.Length),
-                    bytes),
-                "send the EFB ping event");
+            client.Send(
+                PingEvent,
+                JsonSerializer.Serialize(new
+                {
+                    protocolVersion = 1,
+                    type = "ping",
+                    requestId,
+                    sentAt = DateTimeOffset.UtcNow.ToString("O"),
+                }));
 
             Console.WriteLine($"Ping {requestId} sent; waiting for the EFB response...");
             var stopwatch = Stopwatch.StartNew();
 
             while (!pongReceived)
             {
-                var remaining = ResponseTimeout - stopwatch.Elapsed;
-
-                if (remaining <= TimeSpan.Zero)
+                if (stopwatch.Elapsed >= ResponseTimeout)
                 {
                     Console.Error.WriteLine(
                         "No matching EFB response arrived within 30 seconds.");
                     return 4;
                 }
 
-                var signaled = WaitHandle.WaitAny(
-                    [simConnectSignal, cancelSignal],
-                    remaining);
+                var remaining = ResponseTimeout - stopwatch.Elapsed;
 
-                if (signaled == 1)
+                if (!client.Pump(cancellation.Token, remaining))
                 {
-                    Console.Error.WriteLine("Cancelled.");
-                    return 130;
-                }
-
-                if (signaled == WaitHandle.WaitTimeout)
-                {
-                    continue;
-                }
-
-                ThrowIfFailed(
-                    SimConnectNative.CallDispatch(connection, dispatch, nint.Zero),
-                    "dispatch SimConnect messages");
-
-                if (dispatchError is not null)
-                {
-                    throw new InvalidDataException(
-                        "Unable to process a SimConnect message.",
-                        dispatchError);
+                    Console.Error.WriteLine(
+                        "No matching EFB response arrived within 30 seconds.");
+                    return 4;
                 }
             }
 
             return 0;
         }
-
-        private void Open()
+        catch (OperationCanceledException)
         {
-            var safeHandle = simConnectSignal.SafeWaitHandle;
-            var addedReference = false;
-
-            try
-            {
-                safeHandle.DangerousAddRef(ref addedReference);
-                ThrowIfFailed(
-                    SimConnectNative.Open(
-                        out connection,
-                        "VR Checklist transport probe",
-                        nint.Zero,
-                        0,
-                        safeHandle.DangerousGetHandle(),
-                        0),
-                    "connect to MSFS 2024");
-            }
-            finally
-            {
-                if (addedReference)
-                {
-                    safeHandle.DangerousRelease();
-                }
-            }
-
-            Console.WriteLine("Connected to MSFS 2024 through SimConnect.");
+            Console.Error.WriteLine("Cancelled.");
+            return 130;
         }
-
-        private void Dispatch(nint data, uint dataSize, nint context)
+        finally
         {
-            try
-            {
-                DispatchCore(data, dataSize);
-            }
-            catch (Exception error)
-            {
-                dispatchError = error;
-            }
+            Console.CancelKeyPress -= cancelHandler;
         }
+    }
 
-        private void DispatchCore(nint data, uint dataSize)
-        {
-            var header = Marshal.PtrToStructure<SimConnectReceiveHeader>(data);
+    private static bool IsMatchingPong(
+        string message,
+        string requestId,
+        out string result)
+    {
+        result = string.Empty;
 
-            if (header.Id == SimConnectNative.ReceiveIdQuit)
-            {
-                Console.Error.WriteLine("MSFS 2024 closed the SimConnect connection.");
-                cancelSignal.Set();
-                return;
-            }
-
-            if (header.Id != SimConnectNative.ReceiveIdCommBus)
-            {
-                return;
-            }
-
-            var commBus = Marshal.PtrToStructure<SimConnectCommBusHeader>(data);
-
-            if (commBus.EventId != PongEventId)
-            {
-                return;
-            }
-
-            var payloadOffset = Marshal.SizeOf<SimConnectCommBusHeader>();
-            var packetSize = Math.Min(dataSize, commBus.Size);
-
-            if (packetSize < payloadOffset)
-            {
-                throw new InvalidDataException("Truncated CommBus response header.");
-            }
-
-            var payloadLength = checked((int)packetSize - payloadOffset);
-            var payload = new byte[payloadLength];
-            Marshal.Copy(data + payloadOffset, payload, 0, payloadLength);
-            var message = assembler.Append(
-                commBus.EntryNumber,
-                commBus.OutOf,
-                payload);
-
-            if (message is not null)
-            {
-                HandlePong(message);
-            }
-        }
-
-        private void HandlePong(string message)
+        try
         {
             using var document = JsonDocument.Parse(message);
             var root = document.RootElement;
 
-            if (
-                !root.TryGetProperty("protocolVersion", out var version) ||
-                version.GetInt32() != 1 ||
-                !root.TryGetProperty("type", out var type) ||
-                type.GetString() != "pong" ||
-                !root.TryGetProperty("requestId", out var receivedRequestId) ||
-                receivedRequestId.GetString() != requestId)
+            if (root.GetProperty("protocolVersion").GetInt32() != 1 ||
+                root.GetProperty("type").GetString() != "pong" ||
+                root.GetProperty("requestId").GetString() != requestId)
             {
-                Console.Error.WriteLine("Ignored an unrelated or invalid EFB response.");
-                return;
+                return false;
             }
 
-            var efbVersion = root.GetProperty("efbVersion").GetString();
-            var instanceId = root.GetProperty("instanceId").GetString();
-            Console.WriteLine(
+            result =
                 $"Bidirectional CommBus probe succeeded. " +
-                $"EFB version: {efbVersion}; instance: {instanceId}.");
-            pongReceived = true;
+                $"EFB version: {root.GetProperty("efbVersion").GetString()}; " +
+                $"instance: {root.GetProperty("instanceId").GetString()}.";
+            return true;
         }
-
-        private static void ThrowIfFailed(int result, string operation)
+        catch (Exception error) when (
+            error is JsonException or InvalidOperationException or KeyNotFoundException)
         {
-            if (result < 0)
-            {
-                Marshal.ThrowExceptionForHR(result);
-                throw new InvalidOperationException($"Unable to {operation}.");
-            }
-        }
-
-        private void HandleCancelKeyPress(object? sender, ConsoleCancelEventArgs eventArgs)
-        {
-            eventArgs.Cancel = true;
-            cancelSignal.Set();
-        }
-
-        public void Dispose()
-        {
-            Console.CancelKeyPress -= HandleCancelKeyPress;
-
-            if (connection != nint.Zero)
-            {
-                _ = SimConnectNative.UnsubscribeToCommBusEvent(
-                    connection,
-                    PongEventId);
-                _ = SimConnectNative.Close(connection);
-                connection = nint.Zero;
-            }
-
-            cancelSignal.Dispose();
-            simConnectSignal.Dispose();
+            return false;
         }
     }
 }

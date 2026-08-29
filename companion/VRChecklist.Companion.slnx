@@ -1,0 +1,5 @@
+<Solution>
+  <Project Path="src/VRChecklist.Companion/VRChecklist.Companion.csproj" />
+  <Project Path="src/VRChecklist.Transport/VRChecklist.Transport.csproj" />
+  <Project Path="src/VRChecklist.TransportProbe/VRChecklist.TransportProbe.csproj" />
+</Solution>

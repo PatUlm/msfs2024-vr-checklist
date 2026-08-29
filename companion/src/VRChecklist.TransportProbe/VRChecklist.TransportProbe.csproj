@@ -8,4 +8,7 @@
     <UseAppHost>false</UseAppHost>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
   </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="../VRChecklist.Transport/VRChecklist.Transport.csproj" />
+  </ItemGroup>
 </Project>

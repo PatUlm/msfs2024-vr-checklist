@@ -99,6 +99,12 @@ interface TransportProbePing {
   sentAt: string;
 }
 
+interface ChecklistStateRequest {
+  protocolVersion: 1;
+  type: "stateRequest";
+  requestId: string;
+}
+
 /*
  * The shared progress record. It is the single source of truth for checklist
  * progress inside one simulator session: every state change writes it, and
@@ -111,7 +117,9 @@ interface TransportProbePing {
  * failed compatibility check, not with a timeout.
  */
 interface StoredChecklistProgress {
-  schemaVersion: 4;
+  schemaVersion: 5;
+  sessionId: string;
+  sequence: number;
   checklistId: string;
   checklistRevision: string;
   aircraftIdentityKey: string;
@@ -133,11 +141,12 @@ const ITEM_KIND_LABELS: Record<ChecklistItem["kind"], string> = {
 };
 
 const AIRCRAFT_REFRESH_INTERVAL_MS = 10000;
-const CHECKLIST_PROGRESS_DATASTORE_KEY = "vr-checklist.progress.v4";
+const CHECKLIST_PROGRESS_DATASTORE_KEY = "vr-checklist.progress.v5";
 const OBSOLETE_DATASTORE_KEYS = [
   "vr-checklist.progress.v1",
   "vr-checklist.progress.v2",
   "vr-checklist.progress.v3",
+  "vr-checklist.progress.v4",
   "vr-checklist.lifecycle-diagnostics.v1",
 ];
 const SIMULATION_TIME_TOLERANCE_SECONDS = 5;
@@ -145,6 +154,8 @@ const FLOW_API_EVENT_NAME = "__FLOW_API__";
 const COMM_BUS_SCRIPT_PATH = "/JS/Services/CommBus.js";
 const TRANSPORT_PROBE_PING_EVENT = "VRChecklist.Transport.Ping.v1";
 const TRANSPORT_PROBE_PONG_EVENT = "VRChecklist.Transport.Pong.v1";
+const CHECKLIST_STATE_REQUEST_EVENT = "VRChecklist.State.Request.v1";
+const CHECKLIST_STATE_SNAPSHOT_EVENT = "VRChecklist.State.Snapshot.v1";
 
 /*
  * The sim key event that confirms the next open item of the section on screen.
@@ -296,6 +307,12 @@ function createInstanceId(): string {
   return `${Date.now().toString(36)}-${instanceCounter}`;
 }
 
+function createSessionId(): string {
+  return `${Date.now().toString(36)}-${Math.random()
+    .toString(36)
+    .slice(2, 10)}`;
+}
+
 function matchesAircraft(
   checklist: Checklist,
   identity: AircraftIdentity
@@ -419,6 +436,13 @@ class VRChecklistView extends AppView<RequiredProps<AppViewProps, "bus">> {
 
   private previousGameState: GameState | undefined;
   private currentAircraftIdentityKey = "";
+  private currentAircraftIdentity: AircraftIdentity = {
+    atcModel: "",
+    atcType: "",
+    title: "",
+  };
+  private currentSessionId = createSessionId();
+  private stateSequence = 0;
   private currentVrMode: boolean | undefined;
   private aircraftRefreshTimer: number | undefined;
   private isViewActive = false;
@@ -444,6 +468,9 @@ class VRChecklistView extends AppView<RequiredProps<AppViewProps, "bus">> {
   private readonly handleTransportProbePing = (data: string): void => {
     this.processTransportProbePing(data);
   };
+  private readonly handleChecklistStateRequest = (data: string): void => {
+    this.processChecklistStateRequest(data);
+  };
 
   public constructor(props: RequiredProps<AppViewProps, "bus">) {
     super(props);
@@ -463,7 +490,7 @@ class VRChecklistView extends AppView<RequiredProps<AppViewProps, "bus">> {
       () => console.info("[VR Checklist] Flow API listener registered.")
     );
     this.flowApiListener.on(FLOW_API_EVENT_NAME, this.handleFlowEvent);
-    this.loadTransportProbe();
+    this.loadCommBusTransport();
     this.setupConfirmationInput();
   }
 
@@ -473,17 +500,17 @@ class VRChecklistView extends AppView<RequiredProps<AppViewProps, "bus">> {
    * event. No checklist state depends on this diagnostic path; an unavailable
    * listener therefore cannot affect the normal EFB workflow.
    */
-  private loadTransportProbe(): void {
+  private loadCommBusTransport(): void {
     try {
       Include.addScript(COMM_BUS_SCRIPT_PATH, () =>
-        this.setupTransportProbe()
+        this.setupCommBusTransport()
       );
     } catch (error) {
       console.error("[VR Checklist] Unable to load CommBus.js", error);
     }
   }
 
-  private setupTransportProbe(): void {
+  private setupCommBusTransport(): void {
     if (this.isViewClosed || this.commBusListener !== undefined) {
       return;
     }
@@ -500,11 +527,110 @@ class VRChecklistView extends AppView<RequiredProps<AppViewProps, "bus">> {
         TRANSPORT_PROBE_PING_EVENT,
         this.handleTransportProbePing
       );
+      this.commBusListener.on(
+        CHECKLIST_STATE_REQUEST_EVENT,
+        this.handleChecklistStateRequest
+      );
+      this.publishChecklistState();
     } catch (error) {
       console.error(
         "[VR Checklist] Transport probe listener unavailable",
         error
       );
+    }
+  }
+
+  private processChecklistStateRequest(data: string): void {
+    let request: ChecklistStateRequest;
+
+    try {
+      const candidate = JSON.parse(data) as Partial<ChecklistStateRequest>;
+
+      if (
+        candidate.protocolVersion !== 1 ||
+        candidate.type !== "stateRequest" ||
+        typeof candidate.requestId !== "string" ||
+        candidate.requestId.length === 0
+      ) {
+        throw new Error("Unexpected checklist state request payload.");
+      }
+
+      request = candidate as ChecklistStateRequest;
+    } catch (error) {
+      console.error("[VR Checklist] Invalid checklist state request", data, error);
+      return;
+    }
+
+    this.publishChecklistState(request.requestId);
+  }
+
+  private publishChecklistState(requestId?: string): void {
+    const listener = this.commBusListener;
+
+    if (!listener) {
+      return;
+    }
+
+    if (this.stateSequence === 0) {
+      this.stateSequence = 1;
+    }
+
+    const runtime = this.getSelectedRuntime();
+    const section = runtime?.checklist.sections[runtime.activeSectionIndex.get()];
+    const nextOpenItem = section?.items.find(
+      (item) => !runtime?.getItemState(section.id, item.id).get()
+    );
+    const completedRequiredItems = runtime?.completedCount.get() ?? 0;
+    const totalRequiredItems = runtime?.totalItemCount ?? 0;
+
+    try {
+      listener.callSimConnect(
+        CHECKLIST_STATE_SNAPSHOT_EVENT,
+        JSON.stringify({
+          protocolVersion: 1,
+          type: "stateSnapshot",
+          requestId,
+          sessionId: this.currentSessionId,
+          sequence: this.stateSequence,
+          sentAt: new Date().toISOString(),
+          efbVersion: APP_VERSION,
+          instanceId: this.instanceId,
+          aircraft: {
+            atcModel: this.currentAircraftIdentity.atcModel,
+            atcType: this.currentAircraftIdentity.atcType,
+            title: this.currentAircraftIdentity.title,
+            displayName: runtime?.checklist.aircraft.model ?? null,
+          },
+          checklist: runtime
+            ? {
+                id: runtime.checklist.id,
+                revision: runtime.checklist.revision,
+                title: runtime.checklist.title,
+              }
+            : null,
+          activeGroup: section
+            ? {
+                id: section.id,
+                title: section.title,
+                index: runtime?.activeSectionIndex.get() ?? 0,
+              }
+            : null,
+          nextOpenItem: nextOpenItem
+            ? {
+                id: nextOpenItem.id,
+                challenge: nextOpenItem.challenge,
+                response: nextOpenItem.response,
+              }
+            : null,
+          completedRequiredItems,
+          totalRequiredItems,
+          isComplete:
+            totalRequiredItems > 0 &&
+            completedRequiredItems === totalRequiredItems,
+        })
+      );
+    } catch (error) {
+      console.error("[VR Checklist] Unable to publish checklist state", error);
     }
   }
 
@@ -808,9 +934,12 @@ class VRChecklistView extends AppView<RequiredProps<AppViewProps, "bus">> {
       return;
     }
 
-    const savedAt = Date.now();
+    const savedAt = Math.max(Date.now(), this.lastPersistedAt + 1);
+    this.stateSequence += 1;
     const progress: StoredChecklistProgress = {
-      schemaVersion: 4,
+      schemaVersion: 5,
+      sessionId: this.currentSessionId,
+      sequence: this.stateSequence,
       checklistId: runtime.checklist.id,
       checklistRevision: runtime.checklist.revision,
       aircraftIdentityKey: this.currentAircraftIdentityKey,
@@ -828,6 +957,10 @@ class VRChecklistView extends AppView<RequiredProps<AppViewProps, "bus">> {
     } catch (error) {
       console.error("[VR Checklist] Unable to store progress", error);
     }
+
+    // Companion state is observational and must never block the EFB workflow,
+    // even if the shared DataStore is temporarily unavailable.
+    this.publishChecklistState();
   }
 
   /*
@@ -904,7 +1037,7 @@ class VRChecklistView extends AppView<RequiredProps<AppViewProps, "bus">> {
     runtime: ChecklistRuntimeState,
     candidate: Partial<StoredChecklistProgress>
   ): string | undefined {
-    if (candidate.schemaVersion !== 4) {
+    if (candidate.schemaVersion !== 5) {
       return `schema version ${String(candidate.schemaVersion)}`;
     }
 
@@ -921,6 +1054,11 @@ class VRChecklistView extends AppView<RequiredProps<AppViewProps, "bus">> {
     }
 
     if (
+      typeof candidate.sessionId !== "string" ||
+      candidate.sessionId.length === 0 ||
+      typeof candidate.sequence !== "number" ||
+      !Number.isSafeInteger(candidate.sequence) ||
+      candidate.sequence < 1 ||
       typeof candidate.savedAt !== "number" ||
       typeof candidate.activeSectionIndex !== "number" ||
       !Array.isArray(candidate.completedItemKeys) ||
@@ -952,6 +1090,8 @@ class VRChecklistView extends AppView<RequiredProps<AppViewProps, "bus">> {
     runtime: ChecklistRuntimeState,
     progress: StoredChecklistProgress
   ): void {
+    this.currentSessionId = progress.sessionId;
+    this.stateSequence = Math.max(this.stateSequence, progress.sequence);
     const completedItemKeys = new Set(progress.completedItemKeys);
 
     for (const [itemKey, itemState] of runtime.itemStates) {
@@ -971,6 +1111,7 @@ class VRChecklistView extends AppView<RequiredProps<AppViewProps, "bus">> {
         `${completedItemKeys.size} completed items from the shared progress ` +
         `record.`
     );
+    this.publishChecklistState();
   }
 
   private refreshSelectedChecklist(): void {
@@ -984,6 +1125,7 @@ class VRChecklistView extends AppView<RequiredProps<AppViewProps, "bus">> {
     this.refreshVrMode();
 
     const identity = this.readCurrentAircraftIdentity();
+    this.currentAircraftIdentity = identity;
     this.updateAircraftDiagnostics(identity);
 
     const normalizedIdentity = normalizeAircraftIdentity(identity);
@@ -1048,6 +1190,11 @@ class VRChecklistView extends AppView<RequiredProps<AppViewProps, "bus">> {
     // Runs on every pass, not only when the selection changed: this is the
     // path that picks up progress written by another app instance.
     this.reconcileSelectedChecklistProgress();
+
+    if ((identityChanged || checklistChanged) && !checklist) {
+      this.stateSequence += 1;
+      this.publishChecklistState();
+    }
   }
 
   private scheduleAircraftRefresh(delay = 0): void {
@@ -1161,11 +1308,15 @@ class VRChecklistView extends AppView<RequiredProps<AppViewProps, "bus">> {
     this.resetAllChecklists();
     this.clearStoredChecklistProgress();
     this.currentAircraftIdentityKey = "";
+    this.currentAircraftIdentity = { atcModel: "", atcType: "", title: "" };
+    this.currentSessionId = createSessionId();
+    this.stateSequence = 1;
     this.selectedChecklistId.set(null);
     this.updateAircraftDiagnostics({ atcModel: "", atcType: "", title: "" });
     console.info(
       `[VR Checklist] Flight transition detected by ${source}; progress reset.`
     );
+    this.publishChecklistState();
   }
 
   private resetAllChecklists(): void {
@@ -1514,6 +1665,10 @@ class VRChecklistView extends AppView<RequiredProps<AppViewProps, "bus">> {
     this.commBusListener?.off(
       TRANSPORT_PROBE_PING_EVENT,
       this.handleTransportProbePing
+    );
+    this.commBusListener?.off(
+      CHECKLIST_STATE_REQUEST_EVENT,
+      this.handleChecklistStateRequest
     );
     this.commBusListener?.unregister();
     this.flowApiListener.off(FLOW_API_EVENT_NAME, this.handleFlowEvent);

@@ -6,8 +6,8 @@ Windows-Begleit-App. Technische Entscheidungen stehen in den
 [SDK-Referenz](msfs-sdk-reference.md), noch zu führende Laufzeitnachweise in
 [open-tests.md](open-tests.md).
 
-Status: **In Umsetzung — der bidirektionale Transportdurchstich ist in MSFS
-bestätigt; als Nächstes folgt die Status-App.**
+Status: **In Umsetzung — Transportdurchstich und Status-App sind in MSFS
+bestätigt; als Nächstes folgt der Audio-Nachweis mit einer Dummy-Datei.**
 
 ## Umsetzungsreihenfolge
 
@@ -43,7 +43,7 @@ ein alter oder wiederholter Zustand einen Abschlussimpuls erneut auslöst.
 
 Die erste Oberfläche unterscheidet mindestens:
 
-- `Simulator: Disconnected`, `Connecting`, `Connected` oder `Error`;
+- `Simulator: Connecting` mit gelbem oder `Connected` mit grünem Statuspunkt;
 - `Checklist: Waiting for EFB` oder `State received`;
 - Version der Begleit-App und die von der EFB-App gemeldete Version;
 - Flugzeug, Checkliste, aktive Gruppe, nächstes offenes Item und

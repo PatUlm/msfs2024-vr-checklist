@@ -104,13 +104,18 @@ Die `package.json` unter `msfs/PackageSources/VRChecklist/` bleibt für rein
 Frontend-spezifische npm-Skripte zuständig. Nichttriviale projektweite Logik
 liegt unter `scripts/`.
 
-## Phase-3-Transportdurchstich
+## Phase-3-Begleit-App
 
-Der erste Phase-3-Baustein ist ein kleiner, frameworkabhängiger .NET-10-
-Konsolenclient. Er sendet über SimConnect das CommBus-Event
-`VRChecklist.Transport.Ping.v1` an die EFB-App und erwartet deren Antwort auf
-`VRChecklist.Transport.Pong.v1`. Damit lassen sich beide Transportrichtungen
-nachweisen, bevor eine Avalonia-Oberfläche oder Audioausgabe entsteht.
+Die frameworkabhängige .NET-10-/Avalonia-App verbindet sich über SimConnect mit
+dem CommBus. Simulatorverbindung und empfangener EFB-Zustand bleiben getrennte
+Statusangaben; nach dem ersten Kontakt und jedem Reconnect fordert die App einen
+vollständigen, versionierten Snapshot an. Änderungen an Flugzeug, Checkliste,
+aktiver Gruppe, nächstem offenen Item und Pflichtfortschritt werden danach
+ereignisgesteuert übertragen.
+
+Die Status-App ist mit gelbem Verbindungsaufbau, grüner SimConnect-Verbindung,
+vollständigem EFB-Snapshot, einer Zustandsänderung und Reconnect in MSFS
+bestätigt.
 
 Build und Deployment aus dem Repository-Root:
 
@@ -121,20 +126,20 @@ task companion:deploy
 Der Build verwendet ein per Digest fixiertes offizielles .NET-SDK-Image und
 kopiert `SimConnect.dll` nicht. Für den Laufzeittest werden zuerst die EFB-App
 deployed, im Project Editor **Build All In Project** ausgeführt und im Coherent
-Debugger **Ignore Cache + Reload** gewählt. Anschließend bleibt die EFB-App
-geöffnet. Der Client wird in Windows PowerShell aus seinem eigenen Staging
-gestartet; ein Zugriff auf das WSL-Dateisystem ist nicht nötig:
+Debugger **Ignore Cache + Reload** gewählt. Anschließend wird die Begleit-App in
+Windows PowerShell aus ihrem eigenen Staging gestartet; ein Zugriff auf das
+WSL-Dateisystem ist nicht nötig:
 
 ```powershell
 $env:VR_CHECKLIST_SIMCONNECT_DIR = 'C:\MSFS 2024 SDK\SimConnect SDK\lib'
-dotnet C:\dev\msfs2024-vr-checklist-companion-staging\VRChecklist.TransportProbe.dll
+dotnet C:\dev\msfs2024-vr-checklist-companion-staging\VRChecklist.Companion.dll
 ```
 
-Ein erfolgreicher Durchstich endet mit `Bidirectional CommBus probe succeeded`
-und nennt die antwortende EFB-Version und Instanz. Das Companion-Staging wird
-wie das EFB-Staging ausschließlich aus dem WSL-Repository befüllt und nie als
-Quelle zurücksynchronisiert. Die SDK-DLL dient nur dem lokalen Entwicklungstest
-und wird nicht in ein Projekt- oder Releasepaket aufgenommen.
+Der frühere Konsolen-Durchstich bleibt als Diagnosewerkzeug unter
+`tools\transport-probe` im Staging erhalten. Das Companion-Staging wird wie das
+EFB-Staging ausschließlich aus dem WSL-Repository befüllt und nie als Quelle
+zurücksynchronisiert. Die SDK-DLL dient nur dem lokalen Entwicklungstest und
+wird nicht in ein Projekt- oder Releasepaket aufgenommen.
 
 ## Verzeichnisstruktur
 

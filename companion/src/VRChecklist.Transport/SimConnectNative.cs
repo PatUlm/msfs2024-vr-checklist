@@ -1,7 +1,7 @@
 using System.Reflection;
 using System.Runtime.InteropServices;
 
-namespace VRChecklist.TransportProbe;
+namespace VRChecklist.Transport;
 
 internal static class SimConnectNative
 {
@@ -20,8 +20,7 @@ internal static class SimConnectNative
 
     internal static void EnsureResolverRegistered()
     {
-        // Calling this method runs the static constructor before the first
-        // P/Invoke and makes the optional SDK path resolver deterministic.
+        // Force the static constructor before the first P/Invoke.
     }
 
     private static nint ResolveLibrary(
@@ -37,13 +36,9 @@ internal static class SimConnectNative
         var directory = Environment.GetEnvironmentVariable(
             "VR_CHECKLIST_SIMCONNECT_DIR");
 
-        if (!string.IsNullOrWhiteSpace(directory))
-        {
-            var path = Path.Combine(directory, LibraryName);
-            return NativeLibrary.Load(path);
-        }
-
-        return nint.Zero;
+        return string.IsNullOrWhiteSpace(directory)
+            ? nint.Zero
+            : NativeLibrary.Load(Path.Combine(directory, LibraryName));
     }
 
     [UnmanagedFunctionPointer(CallingConvention.StdCall)]

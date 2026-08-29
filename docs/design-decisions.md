@@ -158,6 +158,25 @@ Iteration stehen separat in `design-qa.md`.
 - Ein bequemeres Verhalten darf nicht unbemerkt zulasten der MSFS-Framerate
   gehen. Performance und FPS-Verträglichkeit sind explizite Qualitätskriterien.
 
+## Verbindungsstatus der Begleit-App
+
+- Der Simulatorstatus kennt sichtbar nur `Connecting` und `Connected`.
+  Fehlgeschlagene Verbindungsversuche bleiben `Connecting`, weil die App im
+  Hintergrund weiter verbindet; ein Wechsel zu `Disconnected` oder `Error`
+  zwischen den Versuchen erzeugt nur visuelle Unruhe.
+- Auch der Detailtext bleibt während aller Verbindungsversuche unverändert bei
+  `Waiting for MSFS 2024.`. Technisch gleichwertige Retry-Phasen bekommen keine
+  wechselnden Formulierungen.
+- Ein gelber Kreis kennzeichnet `Connecting`, ein grüner Kreis `Connected`.
+  Der Text bleibt zusätzlich sichtbar, damit die Farbe nie allein den Zustand
+  vermittelt.
+- Der getrennte Checklistenstatus zeigt weiterhin, ob tatsächlich ein
+  EFB-Snapshot empfangen wurde. Eine SimConnect-Verbindung allein reicht dafür
+  nicht aus.
+- Die Detailkarte endet nach der Fortschrittsanzeige auf Inhaltshöhe. Bei einem
+  höheren Inhalt wächst das Fenster mit; eine flexible Restzeile erzeugt weder
+  scheinbares Innenpadding noch einen leeren Bereich vor dem Footer.
+
 ## Checklistensprache
 
 - Komponenten- oder Triebwerksnummern sind Teil der Challenge; die Response

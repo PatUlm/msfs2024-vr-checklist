@@ -30,7 +30,7 @@ Backlog dupliziert diese Listen nicht.
 
 ## 2. Companion-Selbsttests in den Release-Task aufnehmen
 
-- [ ] `task release` so verdrahten, dass `companion:test` vor der Paketierung
+- [x] `task release` so verdrahten, dass `companion:test` vor der Paketierung
   zwingend erfolgreich läuft.
 - **Problem:** Der Release-Task führt derzeit den Companion-Build und die
   Release-Tests aus, überspringt aber die Transport-Selbsttests. Ein

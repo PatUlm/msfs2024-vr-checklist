@@ -149,6 +149,7 @@ tasks:
       - task: test:release
       - task: release:deploy
       - task: companion:deploy
+      - task: companion:test
       - node scripts/release-package.mjs build
 
   community:install:

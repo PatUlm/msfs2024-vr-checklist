@@ -17,22 +17,6 @@ Offene visuelle Abweichungen bleiben ausschließlich in `design-qa.md`, noch
 ausstehende MSFS-Laufzeitnachweise ausschließlich in `open-tests.md`. Dieser
 Backlog dupliziert diese Listen nicht.
 
-## Dispatch-Fehlervertrag des CommBus-Clients härten
-
-- [ ] Festlegen und implementieren, ob ein fehlerhaftes CommBus-Paket den
-  aktuellen Client bewusst beendet oder nach Assembler-Reset übersprungen wird.
-  `dispatchError` darf in keinem Fall unbeabsichtigt über spätere Pump-Aufrufe
-  kleben bleiben.
-- **Problem:** Jede Exception im Dispatch wird derzeit als fataler Pump-Fehler
-  gespeichert. Der aktuelle Service reconnectet daraufhin vollständig; ein
-  anderer Aufrufer, der die Exception abfängt und weiterpumpt, erhält denselben
-  Fehler dauerhaft.
-- **Abnahme:** Der gewählte Vertrag ist im Code erkennbar, durch den bestehenden
-  Selbsttestpfad abgedeckt und verliert keine nachfolgende gültige Nachricht.
-  Ein absichtlich beschädigtes Paket kann die Companion-App nicht dauerhaft
-  stilllegen. `task check` und `task companion:deploy` ausführen sowie die
-  deployte Version nennen.
-
 ## Thread-Affinität und Shutdown absichern
 
 - [ ] Den Single-Worker-Vertrag von `CommBusClient` dokumentieren oder durch

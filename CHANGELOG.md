@@ -9,6 +9,9 @@ Changelog, and the project uses Semantic Versioning.
 
 ### Fixed
 
+- Kept the Windows companion connected after a malformed CommBus packet and
+  allowed the next valid checklist update through instead of turning the
+  packet error into a reconnect loop.
 - Hardened Windows companion snapshot validation so incomplete checklist,
   group or item records appear as protocol errors instead of partial status
   data.

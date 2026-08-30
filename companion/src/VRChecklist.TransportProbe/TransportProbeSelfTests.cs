@@ -44,6 +44,8 @@ internal static class TransportProbeSelfTests
             ("resets the assembler after a malformed sequence", ResetsAssemblerAfterMalformedSequence),
             ("accepts a new chunk sequence", AcceptsNewChunkSequence),
             ("rejects outOf zero", RejectsOutOfZero),
+            ("skips a malformed dispatch and processes the next message", SkipsMalformedDispatch),
+            ("consumes a fatal dispatch error once", ConsumesFatalDispatchErrorOnce),
             ("parses a checklist state snapshot", ParsesChecklistStateSnapshot),
             ("rejects malformed snapshot JSON", RejectsMalformedSnapshotJson),
             ("rejects incompatible snapshot protocols", RejectsIncompatibleChecklistStateSnapshot),
@@ -288,6 +290,35 @@ internal static class TransportProbeSelfTests
         Assert(
             assembler.Append(0, 1, "recovered\0"u8) == "recovered",
             "The assembler did not recover after outOf zero.");
+    }
+
+    private static void SkipsMalformedDispatch()
+    {
+        var guard = new CommBusDispatchGuard();
+        var processed = false;
+
+        guard.Invoke(() => throw new InvalidDataException("malformed packet"));
+        guard.Invoke(() => processed = true);
+
+        Assert(processed, "A valid message after a malformed packet was not processed.");
+        Assert(
+            guard.TakeFatalError() is null,
+            "A malformed packet was incorrectly retained as a fatal dispatch error.");
+    }
+
+    private static void ConsumesFatalDispatchErrorOnce()
+    {
+        var expected = new InvalidOperationException("unexpected handler failure");
+        var guard = new CommBusDispatchGuard();
+
+        guard.Invoke(() => throw expected);
+
+        Assert(
+            ReferenceEquals(guard.TakeFatalError(), expected),
+            "The fatal dispatch error was not returned.");
+        Assert(
+            guard.TakeFatalError() is null,
+            "The fatal dispatch error leaked into a later pump.");
     }
 
     private static ChecklistStateSnapshot ParseSnapshot(string sessionId, long sequence) =>

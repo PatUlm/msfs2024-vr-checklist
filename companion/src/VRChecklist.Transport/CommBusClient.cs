@@ -9,8 +9,8 @@ public sealed class CommBusClient : IDisposable
         new(false, EventResetMode.AutoReset);
     private readonly Dictionary<uint, Subscription> subscriptions = [];
     private readonly SimConnectNative.DispatchProc dispatch;
+    private readonly CommBusDispatchGuard dispatchGuard = new();
     private nint connection;
-    private Exception? dispatchError;
     private bool disconnected;
 
     public CommBusClient(string clientName)
@@ -109,9 +109,19 @@ public sealed class CommBusClient : IDisposable
             return false;
         }
 
-        ThrowIfFailed(
-            SimConnectNative.CallDispatch(connection, dispatch, nint.Zero),
-            "dispatch SimConnect messages");
+        int dispatchResult;
+        Exception? dispatchError;
+
+        try
+        {
+            dispatchResult = SimConnectNative.CallDispatch(connection, dispatch, nint.Zero);
+        }
+        finally
+        {
+            dispatchError = dispatchGuard.TakeFatalError();
+        }
+
+        ThrowIfFailed(dispatchResult, "dispatch SimConnect messages");
 
         if (dispatchError is not null)
         {
@@ -130,18 +140,16 @@ public sealed class CommBusClient : IDisposable
 
     private void Dispatch(nint data, uint dataSize, nint context)
     {
-        try
-        {
-            DispatchCore(data, dataSize);
-        }
-        catch (Exception error)
-        {
-            dispatchError = error;
-        }
+        dispatchGuard.Invoke(() => DispatchCore(data, dataSize));
     }
 
     private void DispatchCore(nint data, uint dataSize)
     {
+        if (dataSize < Marshal.SizeOf<SimConnectReceiveHeader>())
+        {
+            throw new InvalidDataException("Truncated SimConnect response header.");
+        }
+
         var header = Marshal.PtrToStructure<SimConnectReceiveHeader>(data);
 
         if (header.Id == SimConnectNative.ReceiveIdQuit)
@@ -153,6 +161,11 @@ public sealed class CommBusClient : IDisposable
         if (header.Id != SimConnectNative.ReceiveIdCommBus)
         {
             return;
+        }
+
+        if (dataSize < Marshal.SizeOf<SimConnectCommBusHeader>())
+        {
+            throw new InvalidDataException("Truncated CommBus response header.");
         }
 
         var commBus = Marshal.PtrToStructure<SimConnectCommBusHeader>(data);

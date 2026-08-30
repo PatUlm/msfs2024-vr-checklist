@@ -16,6 +16,7 @@ import {
   verifyCompanion,
   verifyPackage,
 } from "./lib/msfs-release.mjs";
+import { validateReleaseNotes } from "./lib/release-notes.mjs";
 
 const temporaryRoots = [];
 const repositoryRoot = resolve(dirname(fileURLToPath(import.meta.url)), "..");
@@ -45,6 +46,87 @@ test("project version sources match the canonical VERSION file", async () => {
   assert.equal(
     await validateProjectVersionSources(repositoryRoot),
     await readProjectVersion(repositoryRoot)
+  );
+});
+
+test("companion release notes are complete and match changelog metadata", () => {
+  const changelog = [
+    "## [Unreleased]",
+    "",
+    "## [0.3.1] - 2026-08-30",
+    "",
+    "## [0.3.0] - 2026-08-29",
+    "",
+    "## [0.2.4] - 2026-08-29",
+    "",
+    "## [0.2.0] - 2026-08-27",
+  ].join("\n");
+  const document = {
+    schemaVersion: 1,
+    companionSince: "0.3.0",
+    releases: [
+      {
+        version: "0.3.1",
+        date: "2026-08-30",
+        highlight: "Current companion release.",
+        features: [],
+        fixes: ["Keeps snapshots current."],
+      },
+      {
+        version: "0.3.0",
+        date: "2026-08-29",
+        highlight: "First companion release.",
+        features: ["Shows checklist state."],
+        fixes: [],
+      },
+    ],
+  };
+
+  assert.equal(validateReleaseNotes(document, changelog, "0.3.1"), document);
+  const documentWithOlderMilestone = {
+    ...document,
+    releases: [
+      ...document.releases,
+      {
+        version: "0.2.0",
+        date: "2026-08-27",
+        highlight: "Older product milestone.",
+        features: ["Adds in-sim confirmation."],
+        fixes: [],
+      },
+    ],
+  };
+  assert.equal(
+    validateReleaseNotes(documentWithOlderMilestone, changelog, "0.3.1"),
+    documentWithOlderMilestone
+  );
+  assert.throws(
+    () =>
+      validateReleaseNotes(
+        { ...document, releases: document.releases.slice(0, 1) },
+        changelog,
+        "0.3.1"
+      ),
+    /every release since 0\.3\.0/
+  );
+  assert.throws(
+    () =>
+      validateReleaseNotes(
+        {
+          ...document,
+          releases: [
+            { ...document.releases[0], date: "2026-02-30" },
+            document.releases[1],
+          ],
+        },
+        changelog,
+        "0.3.1"
+      ),
+    /real calendar date/
+  );
+  assert.throws(
+    () => validateReleaseNotes(document, changelog, "0.3.2"),
+    /do not match VERSION/
   );
 });
 

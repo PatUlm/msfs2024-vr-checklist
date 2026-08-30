@@ -17,31 +17,6 @@ Offene visuelle Abweichungen bleiben ausschließlich in `design-qa.md`, noch
 ausstehende MSFS-Laufzeitnachweise ausschließlich in `open-tests.md`. Dieser
 Backlog dupliziert diese Listen nicht.
 
-## Offline-Release-Notes in die Companion-App integrieren
-
-- [ ] In der Companion-App einen Button `Release Notes` und eine dazugehörige
-  Ansicht oder ein Dialogfenster umsetzen.
-- [ ] Eine eigene, versionierte und app-lesbare Release-Notes-Quelle unter
-  `companion/` anlegen. Das konkrete Format wird im Inkrement festgelegt und
-  erhält eine Validierung für SemVer, Kalenderdatum, eindeutige Versionen,
-  Hauptmerkmal und geordnete Einzeiler.
-- [ ] Die bisher veröffentlichten Companion-Stände aus `CHANGELOG.md` so weit
-  zurückführen, dass mindestens jede ausgelieferte Companion-Version enthalten
-  ist. Die neueste Version steht zuerst.
-- **Darstellung:** Jede Version zeigt SemVer und Veröffentlichungsdatum. Das
-  Hauptmerkmal steht als kurzer Text vor der Liste; danach folgen Features und
-  Fehlerkorrekturen als knappe Bulletpoint-Einzeiler in abnehmender Wichtigkeit.
-  Die Ansicht funktioniert vollständig offline.
-- **Quellenvertrag:** `CHANGELOG.md` bleibt die vollständige englische Historie
-  nutzerwirksamer Änderungen. Die separate Release-Notes-Quelle ist die
-  kuratierte Darstellung für die Companion-App. Release-Prüfungen verhindern
-  abweichende Versionen oder Datumswerte.
-- **Abnahme:** Button, Navigation beziehungsweise Schließen, lange Listen,
-  Textumbruch und Sortierung werden in der gebauten Windows-App geprüft.
-  `task check` und `task companion:deploy` ausführen, die tatsächlich deployte
-  Version nennen und die neue Funktion unter `CHANGELOG.md`/`[Unreleased]`
-  eintragen. Dieses Inkrement wird vor dem Audio-Nachweis abgeschlossen.
-
 ## Protokollvalidierung und vorhandene Selbsttests erweitern
 
 - [ ] `ChecklistStateProtocol.ParseSnapshot` auch für die Pflichtfelder

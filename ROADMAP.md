@@ -17,8 +17,9 @@ stehen in den jeweils verlinkten Dokumenten.
   Status-App, Offline-Release-Notes, Audio-Nachweis mit Dummy-Datei und danach
   die produktive, vorab gerenderte Sprachausgabe folgen in dieser Reihenfolge.
   Der minimale CommBus-Client hat den bidirektionalen Transport in MSFS
-  bestätigt. Die Status-App ist in MSFS bestätigt; als Nächstes folgen die
-  Release Notes. Die TTS-Anbieterwahl blockiert den Phasenstart nicht
+  bestätigt. Status-App und Offline-Release-Notes sind umgesetzt; als Nächstes
+  folgen die priorisierten Korrekturen und Härtungen vor dem Audio-Nachweis. Die
+  TTS-Anbieterwahl blockiert den Phasenstart nicht
   ([Produktanforderungen](docs/phase-3-requirements.md),
   [Architekturentscheidungen](docs/adr/README.md)). Vor dem Audioausbau werden
   die priorisierten Korrekturen und Härtungen aus dem

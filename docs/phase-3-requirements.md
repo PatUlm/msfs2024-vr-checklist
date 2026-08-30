@@ -7,8 +7,9 @@ Windows-Begleit-App. Technische Entscheidungen stehen in den
 [open-tests.md](open-tests.md).
 
 Status: **In Umsetzung — Transportdurchstich und Status-App sind in MSFS
-bestätigt; als Nächstes folgen die Release Notes in der Companion-App und danach
-der Audio-Nachweis mit einer Dummy-Datei.**
+bestätigt, die Offline-Release-Notes sind umgesetzt; als Nächstes werden die
+priorisierten Härtungen vor dem Audio-Nachweis mit einer Dummy-Datei
+abgeschlossen.**
 
 ## Umsetzungsreihenfolge
 

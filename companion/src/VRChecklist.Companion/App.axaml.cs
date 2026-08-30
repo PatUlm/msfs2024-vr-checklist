@@ -16,7 +16,7 @@ public sealed partial class App : Application
         {
             connectionService = new ChecklistConnectionService();
             var viewModel = new MainWindowViewModel(connectionService);
-            desktop.MainWindow = new MainWindow
+            desktop.MainWindow = new MainWindow(ReleaseNotesCatalog.Load())
             {
                 DataContext = viewModel,
             };

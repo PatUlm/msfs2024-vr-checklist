@@ -1,0 +1,45 @@
+{
+  "schemaVersion": 1,
+  "companionSince": "0.3.0",
+  "releases": [
+    {
+      "version": "0.3.1",
+      "date": "2026-08-30",
+      "highlight": "Checklist state now reaches the companion app with less avoidable CommBus traffic.",
+      "features": [],
+      "fixes": [
+        "Rate-limited spontaneous checklist snapshots and coalesced bursts to the latest state.",
+        "Reset checklist progress when switching between aircraft identities that share a checklist."
+      ]
+    },
+    {
+      "version": "0.3.0",
+      "date": "2026-08-29",
+      "highlight": "The first Windows companion app shows live checklist status from MSFS 2024.",
+      "features": [
+        "Distinguishes the simulator connection from receipt of EFB checklist state.",
+        "Shows aircraft, checklist, active group, next open item, progress and both app versions.",
+        "Ships as a directly launchable Windows EXE alongside the MSFS package."
+      ],
+      "fixes": []
+    },
+    {
+      "version": "0.2.0",
+      "date": "2026-08-27",
+      "highlight": "Checklist items can be confirmed from a keyboard or HOTAS button.",
+      "features": [
+        "Confirms the next open item in the visible group through a user-bound MSFS control."
+      ],
+      "fixes": []
+    },
+    {
+      "version": "0.1.0",
+      "date": "2026-08-24",
+      "highlight": "The first native, offline VR Checklist app runs inside the MSFS 2024 EFB.",
+      "features": [
+        "Introduced automatic aircraft selection and VR-first checklists for the G36, DA42 and MH-60."
+      ],
+      "fixes": []
+    }
+  ]
+}

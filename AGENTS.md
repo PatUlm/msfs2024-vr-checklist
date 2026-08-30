@@ -43,6 +43,12 @@ gehören nach `docs/design-qa.md`.
   Agentenregeln sowie internen Build- und Release-Abläufen erzeugen keinen
   Eintrag. Begleitende Dokumentation zu einer Produktänderung bekommt keinen
   eigenen Eintrag; beschrieben wird nur die nutzerwirksame Produktänderung.
+- Fehler, die während Entwicklung oder Review einer noch unveröffentlichten
+  Änderung gefunden und vor ihrer Veröffentlichung behoben werden, erhalten
+  keinen eigenen `Fixed`-Eintrag. Der zugehörige Feature-Eintrag beschreibt nur
+  das fertige, auslieferbare Ergebnis. Ein eigener `Fixed`-Eintrag entsteht erst,
+  wenn bereits veröffentlichtes Verhalten oder ein unabhängiger bestehender
+  Fehler korrigiert wird.
 - Sobald die Release-Notes-Funktion der Companion-App umgesetzt ist, wird bei
   jedem Release zusätzlich ihre app-lesbare Release-Notes-Quelle aktualisiert.
   Das Changelog bleibt die vollständige chronologische Änderungshistorie; die

@@ -10,6 +10,7 @@ import {
 } from "./lib/msfs-release.mjs";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
+import { validateReleaseNotesFiles } from "./lib/release-notes.mjs";
 
 const command = process.argv[2];
 const scriptDirectory = dirname(fileURLToPath(import.meta.url));
@@ -27,6 +28,7 @@ if (command === "current-version") {
     );
   }
   await validateProjectVersionSources(repositoryRoot);
+  await validateReleaseNotesFiles(repositoryRoot);
   console.log(`Release version: ${version}`);
 } else if (command === "build") {
   const result = await buildRelease({

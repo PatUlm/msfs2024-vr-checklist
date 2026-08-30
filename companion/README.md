@@ -8,6 +8,7 @@ gemeinsam genutzte Audioassets liegen weiterhin auf Repository-Ebene.
 
 ```text
 companion/
+  release-notes.json             app-lesbare Offline-Release-Notes
   src/
     VRChecklist.Companion/        Avalonia-Status-App
     VRChecklist.Transport/        gemeinsamer SimConnect-/CommBus-Transport
@@ -17,6 +18,14 @@ companion/
 Die Status-App und das Diagnosewerkzeug teilen sich ausschließlich den
 Transport und den versionierten Snapshot-Vertrag. Der Probe bleibt eine kleine
 Konsolenanwendung; Produktzustände werden in der Avalonia-App dargestellt.
+
+`release-notes.json` ist die kuratierte, in die Companion-App eingebettete
+Quelle für die Offline-Ansicht. Schema 1 führt die Version, das ISO-Kalenderdatum,
+ein hervorgehobenes Hauptmerkmal sowie geordnete Feature- und Fehlerlisten je
+Release. `task validate:release-notes` prüft Format, Sortierung und vollständige
+Abdeckung aller in `CHANGELOG.md` veröffentlichten Versionen seit Einführung
+der Companion-App; ältere Produktmeilensteine dürfen zusätzlich enthalten sein.
+Die neueste Version muss außerdem mit `VERSION` übereinstimmen.
 
 Build und Windows-Deployment werden aus dem Repository-Root mit
 `task companion:deploy` gestartet. Das verwaltete Ziel ist standardmäßig

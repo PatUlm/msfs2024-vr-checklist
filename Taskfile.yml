@@ -45,6 +45,11 @@ tasks:
     cmds:
       - node scripts/validate-checklists.mjs
 
+  validate:release-notes:
+    desc: Validate companion release notes against release metadata
+    cmds:
+      - node scripts/validate-release-notes.mjs
+
   build:
     desc: Validate checklist data and build the EFB app
     deps:
@@ -75,6 +80,8 @@ tasks:
 
   companion:build:
     desc: Build the Windows companion app and transport probe with the pinned .NET SDK
+    deps:
+      - validate:release-notes
     cmds:
       - >-
         docker run --rm

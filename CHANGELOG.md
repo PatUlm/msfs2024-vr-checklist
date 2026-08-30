@@ -7,6 +7,12 @@ Changelog, and the project uses Semantic Versioning.
 
 ## [Unreleased]
 
+### Added
+
+- Added fully offline release notes to the Windows companion app, with a
+  dedicated button and a versioned history showing each release date, its main
+  highlight, features and fixes.
+
 ## [0.3.1] - 2026-08-30
 
 ### Fixed

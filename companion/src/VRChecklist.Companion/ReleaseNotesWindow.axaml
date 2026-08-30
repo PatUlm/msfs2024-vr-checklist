@@ -1,0 +1,114 @@
+<Window
+    x:Class="VRChecklist.Companion.ReleaseNotesWindow"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:vm="using:VRChecklist.Companion"
+    x:DataType="vm:ReleaseNotesViewModel"
+    Title="VR Checklist — Release Notes"
+    Width="720"
+    Height="680"
+    MinWidth="560"
+    MinHeight="460"
+    Background="#10151D"
+    FontFamily="Segoe UI">
+  <Window.Styles>
+    <Style Selector="Border.release-card">
+      <Setter Property="Background" Value="#18212C" />
+      <Setter Property="BorderBrush" Value="#273646" />
+      <Setter Property="BorderThickness" Value="1" />
+      <Setter Property="CornerRadius" Value="10" />
+      <Setter Property="Padding" Value="20" />
+      <Setter Property="Margin" Value="0,0,0,14" />
+    </Style>
+    <Style Selector="TextBlock.category-heading">
+      <Setter Property="Foreground" Value="#8E9AAA" />
+      <Setter Property="FontSize" Value="13" />
+      <Setter Property="FontWeight" Value="SemiBold" />
+      <Setter Property="Margin" Value="0,4,0,2" />
+    </Style>
+    <Style Selector="Button.close-button">
+      <Setter Property="Padding" Value="22,9" />
+      <Setter Property="Background" Value="#223246" />
+      <Setter Property="BorderBrush" Value="#36516D" />
+      <Setter Property="Foreground" Value="#F3F6FA" />
+    </Style>
+    <Style Selector="Button.close-button:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+      <Setter Property="Background" Value="#2E4660" />
+      <Setter Property="BorderBrush" Value="#5DA9FF" />
+      <Setter Property="TextElement.Foreground" Value="#FFFFFF" />
+    </Style>
+    <Style Selector="Button.close-button:pressed /template/ ContentPresenter#PART_ContentPresenter">
+      <Setter Property="Background" Value="#18293B" />
+      <Setter Property="BorderBrush" Value="#5DA9FF" />
+      <Setter Property="TextElement.Foreground" Value="#FFFFFF" />
+    </Style>
+  </Window.Styles>
+
+  <Grid Margin="28" RowDefinitions="Auto,*,Auto" RowSpacing="18">
+    <StackPanel Grid.Row="0" Spacing="4">
+      <TextBlock Foreground="#F3F6FA" FontSize="28" FontWeight="SemiBold"
+                 Text="Release Notes" />
+      <TextBlock Foreground="#AAB4C0" FontSize="14" TextWrapping="Wrap"
+                 Text="What changed in each installed companion release. Available offline." />
+    </StackPanel>
+
+    <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto"
+                  HorizontalScrollBarVisibility="Disabled">
+      <ItemsControl ItemsSource="{Binding Releases}">
+        <ItemsControl.ItemTemplate>
+          <DataTemplate x:DataType="vm:ReleaseNotesReleaseViewModel">
+            <Border Classes="release-card">
+              <StackPanel Spacing="10">
+                <Grid ColumnDefinitions="*,Auto" ColumnSpacing="16">
+                  <TextBlock Foreground="#F3F6FA" FontSize="22"
+                             FontWeight="SemiBold"
+                             Text="{Binding Version, StringFormat='Version {0}'}" />
+                  <TextBlock Grid.Column="1" Foreground="#8E9AAA"
+                             FontSize="14" VerticalAlignment="Center"
+                             Text="{Binding Date}" />
+                </Grid>
+
+                <TextBlock Foreground="#DCE5EF" FontSize="16"
+                           FontWeight="SemiBold" TextWrapping="Wrap"
+                           Text="{Binding Highlight}" />
+
+                <StackPanel IsVisible="{Binding HasFeatures}" Spacing="5">
+                  <TextBlock Classes="category-heading" Text="FEATURES" />
+                  <ItemsControl ItemsSource="{Binding Features}">
+                    <ItemsControl.ItemTemplate>
+                      <DataTemplate x:DataType="vm:ReleaseNoteLine">
+                        <Grid ColumnDefinitions="16,*">
+                          <TextBlock Foreground="#5DA9FF" Text="•" />
+                          <TextBlock Grid.Column="1" Foreground="#C4CEDA"
+                                     TextWrapping="Wrap" Text="{Binding Text}" />
+                        </Grid>
+                      </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                  </ItemsControl>
+                </StackPanel>
+
+                <StackPanel IsVisible="{Binding HasFixes}" Spacing="5">
+                  <TextBlock Classes="category-heading" Text="FIXES" />
+                  <ItemsControl ItemsSource="{Binding Fixes}">
+                    <ItemsControl.ItemTemplate>
+                      <DataTemplate x:DataType="vm:ReleaseNoteLine">
+                        <Grid ColumnDefinitions="16,*">
+                          <TextBlock Foreground="#5DA9FF" Text="•" />
+                          <TextBlock Grid.Column="1" Foreground="#C4CEDA"
+                                     TextWrapping="Wrap" Text="{Binding Text}" />
+                        </Grid>
+                      </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                  </ItemsControl>
+                </StackPanel>
+              </StackPanel>
+            </Border>
+          </DataTemplate>
+        </ItemsControl.ItemTemplate>
+      </ItemsControl>
+    </ScrollViewer>
+
+    <Button Grid.Row="2" Classes="close-button" HorizontalAlignment="Right"
+            Content="Close" Click="OnCloseClick" />
+  </Grid>
+</Window>

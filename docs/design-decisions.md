@@ -193,6 +193,10 @@ Iteration stehen separat in `design-qa.md`.
   das Changelog bleibt die vollständige chronologische Historie
   nutzerwirksamer Änderungen. Version und Datum dürfen zwischen beiden Quellen
   nicht auseinanderlaufen.
+- Die Buttons `Release Notes` und `Close` behalten in Grund-, Hover- und
+  Pressed-Zustand hellen Text auf einer dunkelblauen Fläche. Hover hellt die
+  Fläche sichtbar auf; Fluent-Theme-Standardfarben dürfen den Textkontrast
+  nicht überschreiben.
 
 ## Checklistensprache
 

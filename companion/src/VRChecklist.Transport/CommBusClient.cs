@@ -10,6 +10,7 @@ public sealed class CommBusClient : IDisposable
     private readonly Dictionary<uint, Subscription> subscriptions = [];
     private readonly SimConnectNative.DispatchProc dispatch;
     private readonly CommBusDispatchGuard dispatchGuard = new();
+    private readonly CommBusThreadAffinityGuard threadAffinity = new();
     private nint connection;
     private bool disconnected;
 
@@ -23,6 +24,7 @@ public sealed class CommBusClient : IDisposable
 
     public void Connect()
     {
+        threadAffinity.Enter();
         ObjectDisposedException.ThrowIf(simConnectSignal.SafeWaitHandle.IsClosed, this);
 
         if (connection != nint.Zero)
@@ -58,6 +60,7 @@ public sealed class CommBusClient : IDisposable
 
     public void Subscribe(uint eventId, string eventName, Action<string> handler)
     {
+        threadAffinity.Enter();
         EnsureConnected();
 
         if (subscriptions.ContainsKey(eventId))
@@ -73,6 +76,7 @@ public sealed class CommBusClient : IDisposable
 
     public void Send(string eventName, string payload)
     {
+        threadAffinity.Enter();
         EnsureConnected();
         var bytes = Encoding.UTF8.GetBytes(payload + '\0');
         ThrowIfFailed(
@@ -92,6 +96,7 @@ public sealed class CommBusClient : IDisposable
 
     public bool Pump(CancellationToken cancellationToken, TimeSpan timeout)
     {
+        threadAffinity.Enter();
         EnsureConnected();
 
         var signaled = WaitHandle.WaitAny(
@@ -216,6 +221,8 @@ public sealed class CommBusClient : IDisposable
 
     public void Dispose()
     {
+        threadAffinity.Enter();
+
         foreach (var eventId in subscriptions.Keys)
         {
             if (connection != nint.Zero)

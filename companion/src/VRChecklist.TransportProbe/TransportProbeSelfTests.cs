@@ -1,6 +1,7 @@
 using System.Text;
 using System.Text.Json;
 using System.Text.Json.Nodes;
+using VRChecklist.Companion;
 using VRChecklist.Transport;
 
 namespace VRChecklist.TransportProbe;
@@ -46,6 +47,10 @@ internal static class TransportProbeSelfTests
             ("rejects outOf zero", RejectsOutOfZero),
             ("skips a malformed dispatch and processes the next message", SkipsMalformedDispatch),
             ("consumes a fatal dispatch error once", ConsumesFatalDispatchErrorOnce),
+            ("enforces CommBus single-worker affinity", EnforcesCommBusSingleWorkerAffinity),
+            ("stops the companion worker normally", StopsCompanionWorkerNormally),
+            ("stops after a delayed connection attempt", StopsAfterDelayedConnectionAttempt),
+            ("stops after a delayed pump", StopsAfterDelayedPump),
             ("parses a checklist state snapshot", ParsesChecklistStateSnapshot),
             ("rejects malformed snapshot JSON", RejectsMalformedSnapshotJson),
             ("rejects incompatible snapshot protocols", RejectsIncompatibleChecklistStateSnapshot),
@@ -321,6 +326,107 @@ internal static class TransportProbeSelfTests
             "The fatal dispatch error leaked into a later pump.");
     }
 
+    private static void EnforcesCommBusSingleWorkerAffinity()
+    {
+        var guard = new CommBusThreadAffinityGuard();
+        guard.Enter();
+
+        var error = Task.Run(() =>
+        {
+            try
+            {
+                guard.Enter();
+                return null;
+            }
+            catch (Exception caught)
+            {
+                return caught;
+            }
+        }).GetAwaiter().GetResult();
+
+        Assert(
+            error is InvalidOperationException,
+            "A second worker thread was allowed to use the CommBus client.");
+    }
+
+    private static void StopsCompanionWorkerNormally()
+    {
+        using var pumpEntered = new ManualResetEventSlim();
+        var client = new BlockingChecklistCommBusClient(
+            pumpEntered: pumpEntered,
+            honorPumpCancellation: true);
+        var service = CreateConnectionService(client, TimeSpan.FromSeconds(1));
+        service.Start();
+
+        Assert(pumpEntered.Wait(TimeSpan.FromSeconds(1)), "The worker did not enter Pump.");
+        service.Dispose();
+
+        Assert(service.WorkerCompletion.IsCompleted, "Normal shutdown did not join the worker.");
+        Assert(client.Disposed, "Normal shutdown did not dispose the CommBus client.");
+        Assert(
+            client.CancellationAccessError is null,
+            "Normal shutdown disposed cancellation state before Pump stopped.");
+    }
+
+    private static void StopsAfterDelayedConnectionAttempt()
+    {
+        using var connectEntered = new ManualResetEventSlim();
+        using var releaseConnect = new ManualResetEventSlim();
+        var client = new BlockingChecklistCommBusClient(
+            connectEntered: connectEntered,
+            releaseConnect: releaseConnect);
+        var service = CreateConnectionService(client, TimeSpan.FromMilliseconds(20));
+        service.Start();
+
+        Assert(
+            connectEntered.Wait(TimeSpan.FromSeconds(1)),
+            "The worker did not enter Connect.");
+        service.Dispose();
+        Assert(
+            !service.WorkerCompletion.IsCompleted,
+            "Shutdown unexpectedly waited indefinitely for Connect.");
+
+        releaseConnect.Set();
+        Assert(
+            service.WorkerCompletion.Wait(TimeSpan.FromSeconds(1)),
+            "The worker did not stop after Connect returned.");
+        Assert(client.Disposed, "Shutdown during Connect did not dispose the CommBus client.");
+        Assert(client.SubscribeCalls == 0, "The cancelled worker subscribed after Connect returned.");
+        Assert(client.SendCalls == 0, "The cancelled worker sent a request after Connect returned.");
+        Assert(client.PumpCalls == 0, "The cancelled worker entered Pump after Connect returned.");
+    }
+
+    private static void StopsAfterDelayedPump()
+    {
+        using var pumpEntered = new ManualResetEventSlim();
+        using var releasePump = new ManualResetEventSlim();
+        var client = new BlockingChecklistCommBusClient(
+            pumpEntered: pumpEntered,
+            releasePump: releasePump);
+        var service = CreateConnectionService(client, TimeSpan.FromMilliseconds(20));
+        service.Start();
+
+        Assert(pumpEntered.Wait(TimeSpan.FromSeconds(1)), "The worker did not enter Pump.");
+        service.Dispose();
+        Assert(
+            !service.WorkerCompletion.IsCompleted,
+            "Shutdown unexpectedly waited indefinitely for Pump.");
+
+        releasePump.Set();
+        Assert(
+            service.WorkerCompletion.Wait(TimeSpan.FromSeconds(1)),
+            "The worker did not stop after Pump returned.");
+        Assert(client.Disposed, "Shutdown during Pump did not dispose the CommBus client.");
+        Assert(
+            client.CancellationAccessError is null,
+            "Shutdown disposed cancellation state while Pump still used it.");
+    }
+
+    private static ChecklistConnectionService CreateConnectionService(
+        IChecklistCommBusClient client,
+        TimeSpan shutdownWait) =>
+        new(() => client, () => true, shutdownWait);
+
     private static ChecklistStateSnapshot ParseSnapshot(string sessionId, long sequence) =>
         ChecklistStateProtocol.ParseSnapshot(SnapshotWith(snapshot =>
         {
@@ -373,6 +479,72 @@ internal static class TransportProbeSelfTests
         if (!condition)
         {
             throw new InvalidOperationException(message);
+        }
+    }
+
+    private sealed class BlockingChecklistCommBusClient(
+        ManualResetEventSlim? connectEntered = null,
+        ManualResetEventSlim? releaseConnect = null,
+        ManualResetEventSlim? pumpEntered = null,
+        ManualResetEventSlim? releasePump = null,
+        bool honorPumpCancellation = false) : IChecklistCommBusClient
+    {
+        private int disposed;
+        private int pumpCalls;
+        private int sendCalls;
+        private int subscribeCalls;
+
+        internal bool Disposed => Volatile.Read(ref disposed) != 0;
+        internal int PumpCalls => Volatile.Read(ref pumpCalls);
+        internal int SendCalls => Volatile.Read(ref sendCalls);
+        internal int SubscribeCalls => Volatile.Read(ref subscribeCalls);
+        internal Exception? CancellationAccessError { get; private set; }
+
+        public void Connect()
+        {
+            connectEntered?.Set();
+            releaseConnect?.Wait();
+        }
+
+        public void Subscribe(uint eventId, string eventName, Action<string> handler)
+        {
+            Interlocked.Increment(ref subscribeCalls);
+        }
+
+        public void Send(string eventName, string payload)
+        {
+            Interlocked.Increment(ref sendCalls);
+        }
+
+        public void Pump(CancellationToken cancellationToken)
+        {
+            Interlocked.Increment(ref pumpCalls);
+            pumpEntered?.Set();
+
+            if (honorPumpCancellation)
+            {
+                cancellationToken.WaitHandle.WaitOne();
+            }
+            else
+            {
+                releasePump?.Wait();
+            }
+
+            try
+            {
+                _ = cancellationToken.WaitHandle;
+            }
+            catch (Exception error)
+            {
+                CancellationAccessError = error;
+            }
+
+            cancellationToken.ThrowIfCancellationRequested();
+        }
+
+        public void Dispose()
+        {
+            Interlocked.Exchange(ref disposed, 1);
         }
     }
 }

@@ -17,22 +17,6 @@ Offene visuelle Abweichungen bleiben ausschließlich in `design-qa.md`, noch
 ausstehende MSFS-Laufzeitnachweise ausschließlich in `open-tests.md`. Dieser
 Backlog dupliziert diese Listen nicht.
 
-## Thread-Affinität und Shutdown absichern
-
-- [ ] Den Single-Worker-Vertrag von `CommBusClient` dokumentieren oder durch
-  geeignete Guards absichern.
-- [ ] `ChecklistConnectionService.Dispose` so gestalten, dass die
-  `CancellationTokenSource` nicht freigegeben wird, solange der Worker nach dem
-  Zwei-Sekunden-Wait noch darauf zugreifen kann.
-- **Problem:** Der aktuelle Einsatz ist single-threaded, die öffentliche API
-  drückt diesen Vertrag jedoch nicht aus. Blockiert ein nativer Dispatch länger
-  als das Shutdown-Wait, besteht ein seltener Dispose-Race.
-- **Abnahme:** Normaler Exit, Exit während des Verbindungsaufbaus und Exit
-  während eines Pump-Aufrufs sind definiert und hängen nicht. Die Fälle werden
-  soweit ohne native MSFS-Verbindung möglich im Selbsttestpfad abgedeckt;
-  anschließend `task check` und `task companion:deploy` ausführen sowie die
-  deployte Version nennen.
-
 ## Ausgelieferte Drittkomponenten explizit inventarisieren
 
 - [ ] Das tatsächliche Companion-Release gegen

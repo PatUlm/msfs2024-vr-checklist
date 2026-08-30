@@ -9,6 +9,8 @@ Changelog, and the project uses Semantic Versioning.
 
 ### Fixed
 
+- Prevented rare Windows companion shutdown races when SimConnect connection or
+  dispatch calls outlast the bounded exit wait.
 - Kept the Windows companion connected after a malformed CommBus packet and
   allowed the next valid checklist update through instead of turning the
   packet error into a reconnect loop.

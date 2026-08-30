@@ -9,6 +9,8 @@
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="../VRChecklist.Companion/ChecklistConnectionService.cs"
+             Link="ChecklistConnectionService.cs" />
     <ProjectReference Include="../VRChecklist.Transport/VRChecklist.Transport.csproj" />
   </ItemGroup>
 </Project>

@@ -7,6 +7,8 @@ Changelog, and the project uses Semantic Versioning.
 
 ## [Unreleased]
 
+## [0.4.1] - 2026-08-30
+
 ### Added
 
 - Added an explicit H125 day-or-night instrument-lighting selection after

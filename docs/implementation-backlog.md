@@ -17,24 +17,6 @@ Offene visuelle Abweichungen bleiben ausschließlich in `design-qa.md`, noch
 ausstehende MSFS-Laufzeitnachweise ausschließlich in `open-tests.md`. Dieser
 Backlog dupliziert diese Listen nicht.
 
-## Protokollvalidierung und vorhandene Selbsttests erweitern
-
-- [ ] `ChecklistStateProtocol.ParseSnapshot` auch für die Pflichtfelder
-  verschachtelter Checklist-, Gruppen- und Item-Datensätze vollständig
-  validieren.
-- [ ] Den bestehenden `--self-test`-Pfad mindestens um malformed Snapshots,
-  `CompletedRequiredItems > TotalRequiredItems`, Sequenzen kleiner eins,
-  leere Pflichtfelder, Assembler-Reset, neue Sequenzen, `outOf == 0`,
-  Session-/Sequenz-Deduplizierung und Fortschritt `0 / 0` ergänzen.
-- **Festlegung:** Für die kleine Companion-App wird kein separates xUnit-,
-  NUnit- oder anderes Testprojekt eingeführt. Der leichte, deterministische
-  Konsolen-Selbsttest bleibt der vorgesehene Testweg. Diese Festlegung ist neu
-  zu bewerten, falls Umfang oder Isolation der Tests deutlich wachsen.
-- **Abnahme:** Jeder Fall liefert bei einem isolierten Fehler eine eindeutige
-  Meldung und einen Exitcode ungleich null. `task check` und bei Änderungen am
-  Companion `task companion:deploy` ausführen sowie die deployte Version
-  nennen.
-
 ## Dispatch-Fehlervertrag des CommBus-Clients härten
 
 - [ ] Festlegen und implementieren, ob ein fehlerhaftes CommBus-Paket den

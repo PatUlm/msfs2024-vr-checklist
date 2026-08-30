@@ -24,6 +24,11 @@ public static class ChecklistStateProtocol
             payload,
             JsonOptions) ?? throw new InvalidDataException("The EFB state snapshot is empty.");
 
+        if (snapshot.ProtocolVersion < 1)
+        {
+            throw new InvalidDataException("The EFB state snapshot is malformed.");
+        }
+
         if (snapshot.ProtocolVersion != Version)
         {
             throw new ChecklistProtocolException(
@@ -37,6 +42,9 @@ public static class ChecklistStateProtocol
             string.IsNullOrWhiteSpace(snapshot.EfbVersion) ||
             string.IsNullOrWhiteSpace(snapshot.InstanceId) ||
             snapshot.Aircraft is null ||
+            !IsValid(snapshot.Checklist) ||
+            !IsValid(snapshot.ActiveGroup) ||
+            !IsValid(snapshot.NextOpenItem) ||
             snapshot.CompletedRequiredItems < 0 ||
             snapshot.TotalRequiredItems < 0 ||
             snapshot.CompletedRequiredItems > snapshot.TotalRequiredItems)
@@ -46,6 +54,24 @@ public static class ChecklistStateProtocol
 
         return snapshot;
     }
+
+    private static bool IsValid(ChecklistIdentity? checklist) =>
+        checklist is null ||
+        (!string.IsNullOrWhiteSpace(checklist.Id) &&
+         !string.IsNullOrWhiteSpace(checklist.Revision) &&
+         !string.IsNullOrWhiteSpace(checklist.Title));
+
+    private static bool IsValid(ChecklistGroup? group) =>
+        group is null ||
+        (!string.IsNullOrWhiteSpace(group.Id) &&
+         !string.IsNullOrWhiteSpace(group.Title) &&
+         group.Index >= 0);
+
+    private static bool IsValid(ChecklistItemState? item) =>
+        item is null ||
+        (!string.IsNullOrWhiteSpace(item.Id) &&
+         !string.IsNullOrWhiteSpace(item.Challenge) &&
+         !string.IsNullOrWhiteSpace(item.Response));
 }
 
 public sealed record ChecklistStateRequest(
@@ -76,10 +102,19 @@ public sealed record AircraftState(
     string Title,
     string? DisplayName);
 
-public sealed record ChecklistIdentity(string Id, string Revision, string Title);
+public sealed record ChecklistIdentity(
+    [property: JsonRequired] string Id,
+    [property: JsonRequired] string Revision,
+    [property: JsonRequired] string Title);
 
-public sealed record ChecklistGroup(string Id, string Title, int Index);
+public sealed record ChecklistGroup(
+    [property: JsonRequired] string Id,
+    [property: JsonRequired] string Title,
+    [property: JsonRequired] int Index);
 
-public sealed record ChecklistItemState(string Id, string Challenge, string Response);
+public sealed record ChecklistItemState(
+    [property: JsonRequired] string Id,
+    [property: JsonRequired] string Challenge,
+    [property: JsonRequired] string Response);
 
 public sealed class ChecklistProtocolException(string message) : Exception(message);

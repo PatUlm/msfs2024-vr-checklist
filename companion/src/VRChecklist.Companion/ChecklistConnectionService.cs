@@ -14,9 +14,8 @@ public sealed class ChecklistConnectionService : IDisposable
     private static readonly TimeSpan RetryDelay = TimeSpan.FromSeconds(3);
     private const string ConnectingDetail = "Waiting for MSFS 2024.";
     private readonly CancellationTokenSource cancellation = new();
+    private readonly ChecklistSnapshotSequenceTracker snapshotSequence = new();
     private Task? worker;
-    private string? currentSessionId;
-    private long currentSequence;
 
     public event Action<SimulatorConnectionStatus, string?>? ConnectionChanged;
     public event Action<ChecklistStateSnapshot, bool>? SnapshotReceived;
@@ -119,17 +118,16 @@ public sealed class ChecklistConnectionService : IDisposable
             return;
         }
 
-        if (snapshot.SessionId == currentSessionId && snapshot.Sequence < currentSequence)
+        var disposition = snapshotSequence.Observe(snapshot);
+
+        if (disposition == ChecklistSnapshotDisposition.Stale)
         {
             return;
         }
 
-        var isRepeated =
-            snapshot.SessionId == currentSessionId &&
-            snapshot.Sequence == currentSequence;
-        currentSessionId = snapshot.SessionId;
-        currentSequence = snapshot.Sequence;
-        SnapshotReceived?.Invoke(snapshot, isRepeated);
+        SnapshotReceived?.Invoke(
+            snapshot,
+            disposition == ChecklistSnapshotDisposition.Repeated);
     }
 
     public void Dispose()

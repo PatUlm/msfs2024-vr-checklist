@@ -148,11 +148,9 @@ public sealed class MainWindowViewModel : INotifyPropertyChanged
         NextItem = snapshot.NextOpenItem is null
             ? snapshot.IsComplete ? "Checklist completed" : "—"
             : $"{snapshot.NextOpenItem.Challenge}: {snapshot.NextOpenItem.Response}";
-        Progress =
-            $"{snapshot.CompletedRequiredItems} / {snapshot.TotalRequiredItems}";
-        ProgressPercent = snapshot.TotalRequiredItems == 0
-            ? 0
-            : 100d * snapshot.CompletedRequiredItems / snapshot.TotalRequiredItems;
+        var checklistProgress = ChecklistProgress.FromSnapshot(snapshot);
+        Progress = checklistProgress.Label;
+        ProgressPercent = checklistProgress.Percent;
         EfbVersion = snapshot.EfbVersion;
     }
 

@@ -7,6 +7,12 @@ Changelog, and the project uses Semantic Versioning.
 
 ## [Unreleased]
 
+### Fixed
+
+- Hardened Windows companion snapshot validation so incomplete checklist,
+  group or item records appear as protocol errors instead of partial status
+  data.
+
 ## [0.4.1] - 2026-08-30
 
 ### Added

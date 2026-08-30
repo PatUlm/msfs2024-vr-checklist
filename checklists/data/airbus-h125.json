@@ -11,12 +11,24 @@
       }
     ]
   },
-  "revision": "2026-08-25",
+  "revision": "2026-08-30",
   "sections": [
     {
       "id": "before-start",
       "title": "Before Start",
       "items": [
+        {
+          "id": "rotor-brake",
+          "challenge": "Rotor Brake",
+          "response": "Released",
+          "kind": "action"
+        },
+        {
+          "id": "twist-grip",
+          "challenge": "Twist Grip",
+          "response": "IDLE",
+          "kind": "action"
+        },
         {
           "id": "battery-master",
           "challenge": "Battery / Master",
@@ -25,7 +37,26 @@
           "speech": "Battery and master: On."
         },
         {
-          "id": "fuel-pump",
+          "id": "instrument-lighting",
+          "challenge": "Instrument Lighting",
+          "response": "Day",
+          "kind": "action",
+          "alternatives": [
+            {
+              "when": "Night Flight",
+              "response": "Night"
+            }
+          ],
+          "speech": "Instrument lighting: Day. Alternative for a night flight: Night."
+        }
+      ]
+    },
+    {
+      "id": "engine-start",
+      "title": "Engine Start",
+      "items": [
+        {
+          "id": "fuel-pump-on",
           "challenge": "Fuel Pump",
           "response": "On",
           "kind": "action"
@@ -37,27 +68,34 @@
           "kind": "action"
         },
         {
-          "id": "twist-grip",
-          "challenge": "Twist Grip",
-          "response": "IDLE",
-          "kind": "action"
-        },
-        {
-          "id": "rotor-brake",
-          "challenge": "Rotor Brake",
-          "response": "Off",
-          "kind": "action"
-        }
-      ]
-    },
-    {
-      "id": "engine-start",
-      "title": "Engine Start",
-      "items": [
-        {
           "id": "starter-switch",
           "challenge": "Starter Switch",
           "response": "Start",
+          "kind": "action"
+        },
+        {
+          "id": "engine-n1",
+          "challenge": "Engine N1",
+          "response": "≥ 67 %",
+          "kind": "verify",
+          "speech": "Engine N one: At least 67 percent."
+        },
+        {
+          "id": "generator",
+          "challenge": "Generator",
+          "response": "On",
+          "kind": "action"
+        },
+        {
+          "id": "pitot-heat",
+          "challenge": "Pitot Heat",
+          "response": "On",
+          "kind": "action"
+        },
+        {
+          "id": "fuel-pump",
+          "challenge": "Fuel Pump",
+          "response": "Off",
           "kind": "action"
         },
         {
@@ -67,39 +105,8 @@
           "kind": "action"
         },
         {
-          "id": "engine-n1",
-          "challenge": "Engine N1",
-          "response": "≥ 60 %",
-          "kind": "verify",
-          "speech": "Engine N one: At least 60 percent."
-        },
-        {
-          "id": "fuel-pump",
-          "challenge": "Fuel Pump",
-          "response": "Off",
-          "kind": "action"
-        },
-        {
-          "id": "generator",
-          "challenge": "Generator",
-          "response": "On",
-          "kind": "action"
-        },
-        {
-          "id": "horn",
-          "challenge": "Horn",
-          "response": "On",
-          "kind": "action"
-        },
-        {
           "id": "avionics",
           "challenge": "Avionics",
-          "response": "On",
-          "kind": "action"
-        },
-        {
-          "id": "pitot-heat",
-          "challenge": "Pitot Heat",
           "response": "On",
           "kind": "action"
         },
@@ -111,12 +118,30 @@
           "speech": "Twist grip: Move from idle to flight."
         },
         {
-          "id": "landing-taxi-light",
-          "challenge": "Landing/Taxi Light",
+          "id": "horn",
+          "challenge": "Horn",
           "response": "On",
           "kind": "action",
-          "condition": "Optional",
-          "speech": "Landing or taxi light: On, if desired."
+          "condition": "Rotor RPM ≥ 340",
+          "speech": "Horn: On when rotor R P M is at least 340."
+        }
+      ]
+    },
+    {
+      "id": "before-taxi",
+      "title": "Before Taxi",
+      "items": [
+        {
+          "id": "taxi-light",
+          "challenge": "Taxi Light",
+          "response": "On",
+          "kind": "action"
+        },
+        {
+          "id": "landing-light",
+          "challenge": "Landing Light",
+          "response": "As required",
+          "kind": "action"
         }
       ]
     },
@@ -150,12 +175,18 @@
           "kind": "action"
         },
         {
-          "id": "landing-taxi-light",
-          "challenge": "Landing/Taxi Light",
+          "id": "taxi-light",
+          "challenge": "Taxi Light",
+          "response": "Off",
+          "kind": "action"
+        },
+        {
+          "id": "landing-light",
+          "challenge": "Landing Light",
           "response": "Off",
           "kind": "action",
           "condition": "If used",
-          "speech": "Landing or taxi light: Off, if used."
+          "speech": "Landing light: Off, if used."
         },
         {
           "id": "avionics",

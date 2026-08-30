@@ -7,6 +7,23 @@ Changelog, and the project uses Semantic Versioning.
 
 ## [Unreleased]
 
+### Added
+
+- Added an explicit H125 day-or-night instrument-lighting selection after
+  battery activation and a dedicated `Before Taxi` group with a mandatory taxi
+  light reminder and separate landing-light choice.
+
+### Changed
+
+- Reordered the compact H125 prestart and engine-start flow to follow the
+  published AS350 B3e normal procedures more closely.
+
+### Fixed
+
+- Moved H125 horn activation after the twist grip reaches `FLIGHT`, gated it at
+  340 rotor RPM, and corrected the generator threshold from 60 to 67 percent
+  N1.
+
 ## [0.4.0] - 2026-08-30
 
 ### Added

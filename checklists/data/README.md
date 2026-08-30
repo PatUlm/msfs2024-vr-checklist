@@ -51,6 +51,11 @@ task validate
 
 Quelldokumente unter `checklists/source/` dienen ausschließlich als lokale Referenz und werden nicht von Git versioniert. Die JSON-Dateien in diesem Verzeichnis sind die prüfbaren, versionierbaren Daten für die Anwendung.
 
+Nachvollziehbare, eng begrenzte Auszüge aus öffentlich zugänglichen Quellen
+liegen versioniert unter `checklists/references/`. Sie dokumentieren Herkunft und
+Ableitung der Checklistendaten, sind aber weder eine zweite Datenquelle der App
+noch ein Ersatz für das jeweils gültige Flughandbuch.
+
 ## Inhaltliche Herkunft
 
 - Die lokalen ODS-Referenzen für DA42 und MH-60 liegen ausschließlich unter
@@ -61,6 +66,9 @@ Quelldokumente unter `checklists/source/` dienen ausschließlich als lokale Refe
   [AS350/H125-Operatorcheckliste](https://aviapages.com/media/2022/03/14/Checklist_H125.pdf):
   Pitot Heat folgt auf Generator und Avionik und liegt vor dem Übergang des
   Twist Grip auf `FLIGHT`.
+- Die für Prestart, Motorstart, Run-up und Shutdown relevanten H125-Verfahren
+  sind mit Seitenangaben und Herkunftsnachweis unter
+  [`../references/h125/`](../references/h125/) festgehalten.
 - Der kompakte H125-Shutdown stützt sich auf den veröffentlichten
   [AS350-B3e-Flight-Manual-Auszug](https://data.ntsb.gov/Docket/Document/docBLOB?FileExtension=.PDF&FileName=Excerpts+from+AS350+Flight+Manual%2C+Revisions+2+%26+3+-+Normal+Procedures-Master.PDF&ID=40431411):
   Twist Grip auf `IDLE`, 30 Sekunden Cool-down, anschließend die verwendeten

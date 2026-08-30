@@ -7,6 +7,8 @@ Changelog, and the project uses Semantic Versioning.
 
 ## [Unreleased]
 
+## [0.4.2] - 2026-08-30
+
 ### Fixed
 
 - Prevented rare Windows companion shutdown races when SimConnect connection or

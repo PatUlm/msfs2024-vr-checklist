@@ -3,6 +3,17 @@
   "companionSince": "0.3.0",
   "releases": [
     {
+      "version": "0.4.2",
+      "date": "2026-08-30",
+      "highlight": "The Windows companion now handles malformed simulator data and shutdown races more reliably.",
+      "features": [],
+      "fixes": [
+        "Keeps receiving checklist updates after a malformed CommBus packet instead of entering a reconnect loop.",
+        "Reports incomplete checklist, group or item snapshots as protocol errors instead of partial status data.",
+        "Prevents rare shutdown races when SimConnect calls outlast the bounded exit wait."
+      ]
+    },
+    {
       "version": "0.4.1",
       "date": "2026-08-30",
       "highlight": "The H125 startup and lighting flow now follows the published aircraft procedures more closely.",

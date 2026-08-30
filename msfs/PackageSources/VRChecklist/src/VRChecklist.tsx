@@ -109,9 +109,7 @@ interface ChecklistStateRequest {
 /*
  * The shared progress record. It is the single source of truth for checklist
  * progress inside one simulator session: every state change writes it, and
- * every app instance adopts a record it did not write itself. That covers a
- * recreated EFB app context as well as two app instances living side by side,
- * without either case needing its own mechanism.
+ * a recreated or resumed EFB context adopts the latest compatible record.
  *
  * The record is deliberately not time-limited. Its lifetime ends with an
  * explicit reset (`FltLoad`, GameState.loading, aircraft/checklist change) or
@@ -188,8 +186,8 @@ const CONFIRM_KEY_DEBOUNCE_MS = 60;
 
 /*
  * Key events this JavaScript context has asked to intercept since the last
- * flight transition. A second app instance in the same context must not
- * register them again, for the same reason the debounce exists.
+ * flight transition. A recreated view in the same context must not register
+ * them again, for the same reason the debounce exists.
  *
  * Every `FltLoad` clears the guard because one flight start contains several
  * loads and a registration made after the first one did not survive the later
@@ -304,8 +302,8 @@ let instanceCounter = 0;
 
 function createInstanceId(): string {
   instanceCounter += 1;
-  // Two app instances can live in separate JS contexts, where a plain counter
-  // would hand out the same number twice. The creation time separates them.
+  // The creation time keeps diagnostics distinguishable across recreated
+  // JavaScript contexts, where the module-local counter starts again.
   return `${Date.now().toString(36)}-${instanceCounter}`;
 }
 
@@ -455,16 +453,14 @@ class VRChecklistView extends AppView<RequiredProps<AppViewProps, "bus">> {
   private isViewClosed = false;
 
   /*
-   * Identifies this app instance in the log. MSFS may recreate the EFB app
-   * context, and it is not established that only one instance is alive at a
-   * time, so the lifecycle log has to stay attributable per instance.
+   * Identifies this app context in the log so lifecycle diagnostics remain
+   * attributable when MSFS recreates it.
    */
   private readonly instanceId = createInstanceId();
 
   /*
-   * `savedAt` of the last record this instance wrote. A stored record with a
-   * newer timestamp was written by someone else and is adopted; our own record
-   * is skipped. This is what keeps two instances from overwriting each other.
+   * `savedAt` of the last record this context wrote or adopted. A newer stored
+   * record is adopted; an already known record is skipped.
    */
   private lastPersistedAt = 0;
   private readonly handleViewportResize = (): void => this.refreshVrMode();
@@ -868,9 +864,9 @@ class VRChecklistView extends AppView<RequiredProps<AppViewProps, "bus">> {
           `${this.instanceId}: ${isInVr ? "VR" : "non-VR"}`
       );
 
-      // A display-mode change is the moment another instance's progress may
-      // have become the current one. Reconcile immediately instead of waiting
-      // for the slow aircraft fallback.
+      // A display-mode change may activate a recreated or previously resident
+      // context. Reconcile immediately instead of waiting for the slow aircraft
+      // fallback.
       this.reconcileSelectedChecklistProgress();
     } catch (error) {
       console.error("[VR Checklist] Unable to read E:IS IN VR", error);
@@ -1201,7 +1197,7 @@ class VRChecklistView extends AppView<RequiredProps<AppViewProps, "bus">> {
     }
 
     // Runs on every pass, not only when the selection changed: this is the
-    // path that picks up progress written by another app instance.
+    // path that picks up progress preserved by an earlier active context.
     this.reconcileSelectedChecklistProgress();
 
     if ((identityChanged || checklistChanged) && !checklist) {
@@ -1379,8 +1375,8 @@ class VRChecklistView extends AppView<RequiredProps<AppViewProps, "bus">> {
 
   /*
    * A section change made in this app instance. `showSection` itself stays
-   * free of side effects so that adopting a stored record does not write one
-   * back — two instances would otherwise keep answering each other.
+   * free of side effects so that adopting a stored record does not write it
+   * back unnecessarily.
    */
   private changeSection(
     runtime: ChecklistRuntimeState,

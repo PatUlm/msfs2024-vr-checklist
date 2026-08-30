@@ -106,14 +106,13 @@ Iteration stehen separat in `design-qa.md`.
   Entscheidung auf `FlightEnd` vorziehen.
 - Ein Wechsel zwischen VR und Nicht-VR ist kein neuer Flug und darf den
   Fortschritt nicht zurücksetzen.
-- Der Fortschritt ist ein **geteilter Zustand der Simulatorsitzung**, kein
-  Zustand einer App-Instanz. Maßgeblich ist ein Datensatz im SDK-`DataStore`:
-  Jedes Abhaken und jeder Abschnittswechsel schreibt ihn, und jede App-Instanz
-  gleicht sich mit ihm ab, sobald sie eine Änderung verpasst haben kann. Ob
-  MSFS beim Darstellungswechsel den App-Kontext neu erzeugt, die App resident
-  hält oder zwei Instanzen nebeneinander betreibt, ändert das Ergebnis dadurch
-  nicht. Die Begründung steht in
-  [`adr/0009-fortschritt-als-geteilter-sitzungszustand.md`](adr/0009-fortschritt-als-geteilter-sitzungszustand.md).
+- Der Fortschritt wird über den SDK-`DataStore` zwischen resident gehaltenen
+  oder nacheinander aktiven EFB-Kontexten derselben Simulatorsitzung übergeben.
+  Jedes Abhaken und jeder Abschnittswechsel schreibt den vollständigen
+  Datensatz; ein neu erzeugter oder wieder aktivierter Kontext übernimmt den
+  letzten kompatiblen Stand. Gleichzeitig schreibende Instanzen sind keine
+  unbelegte Produktanforderung. Die Begründung steht in
+  [`adr/0009-fortschritt-ueber-efb-kontextwechsel.md`](adr/0009-fortschritt-ueber-efb-kontextwechsel.md).
 - Der Datensatz hat bewusst **keine Frist**. Er endet an fachlichen
   Bedingungen: `FltLoad` und der Ladezustand löschen ihn, Flugzeugidentität,
   Checklisten-ID und Checklistenrevision müssen übereinstimmen, und ein

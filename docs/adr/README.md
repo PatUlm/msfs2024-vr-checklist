@@ -31,7 +31,7 @@ spätere Kehrtwende bekommt ein neues ADR, das das alte ersetzt.
 | [0006](0006-tts-vorab-synthese.md) | Sprachausgabe als Vorab-Synthese | Akzeptiert | Phase 3 |
 | [0007](0007-ablage-der-gerenderten-audiodateien.md) | Gerenderte Audiodateien liegen im Repository | Akzeptiert | Phase 3 |
 | [0008](0008-stimme-und-tts-anbieter.md) | Stimme und TTS-Anbieter | **Offen — vor produktiven Sprachassets** | Phase 3 |
-| [0009](0009-fortschritt-als-geteilter-sitzungszustand.md) | Checklistenfortschritt als geteilter Sitzungszustand | Akzeptiert | Phase 1 |
+| [0009](0009-fortschritt-ueber-efb-kontextwechsel.md) | Checklistenfortschritt über EFB-Kontextwechsel ohne unbelegte Multi-Writer-Annahme | Akzeptiert | Phase 1 |
 
 Noch ausstehende Laufzeitnachweise stehen ausschließlich in
 [`../open-tests.md`](../open-tests.md). Die offene Produktentscheidung zu

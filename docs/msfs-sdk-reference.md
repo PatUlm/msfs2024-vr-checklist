@@ -53,8 +53,9 @@ wiederholen.
   `onResume()` erneut aufgerufen wird. Ein View- oder Game-State-Übergang allein
   ist deshalb kein verlässliches Signal für einen neuen Flug.
 - **[RT]** Beim Wechsel zwischen VR und Nicht-VR kann MSFS den EFB-App-Kontext
-  neu erzeugen; reiner In-Memory-Zustand geht dann verloren. Ob zeitweise eine
-  oder mehrere Instanzen leben, darf für die Korrektheit keine Rolle spielen.
+  neu erzeugen; reiner In-Memory-Zustand geht dann verloren. Anzahl und
+  zeitliche Überlappung der Kontexte sind nicht bestätigt und begründen keine
+  vorsorgliche Multi-Writer-Anforderung.
 - **[RT]** Der SDK-`DataStore` überlebt sowohl die Neuerzeugung des
   EFB-Kontexts als auch einen zeitnahen vollständigen Simulatorneustart.
   **DON'T:** Ihn als flüchtigen Sitzungsspeicher behandeln oder seine
@@ -62,7 +63,7 @@ wiederholen.
 - **DO:** Fachlichen Zustand instanzunabhängig führen und an explizite
   Reset-Bedingungen binden. Die Produktentscheidung für den
   Checklistenfortschritt steht in
-  [ADR 0009](adr/0009-fortschritt-als-geteilter-sitzungszustand.md).
+  [ADR 0009](adr/0009-fortschritt-ueber-efb-kontextwechsel.md).
 - **[RT]** `E:IS IN VR` ist die verlässliche Quelle für den Darstellungsmodus.
   Ein VR-Wechsel ist kein neuer Flug und sendet kein `FltLoad`; er darf den
   Fortschritt nicht zurücksetzen.

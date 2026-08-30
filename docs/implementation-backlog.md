@@ -1,81 +1,23 @@
 # Priorisierter Umsetzungs-Backlog
 
-Dieses Dokument enthält die aktuell vereinbarten Code-, Build- und
-Qualitätsarbeiten in ihrer Umsetzungsreihenfolge. Die nächste Arbeitssession
-beginnt beim ersten noch offenen Punkt und schließt möglichst jeweils ein
-kleines, lauffähiges Inkrement einschließlich der nach `AGENTS.md` notwendigen
-Prüfungen, Deployments, Dokumentation und Commits ab.
+Dieses Dokument enthält ausschließlich die noch offenen Code-, Build- und
+Qualitätsarbeiten. Die unnummerierten Abschnitte stehen in ihrer
+Umsetzungsreihenfolge; die nächste Arbeitssession beginnt beim ersten Abschnitt
+und schließt möglichst jeweils ein kleines, lauffähiges Inkrement
+einschließlich der nach `AGENTS.md` notwendigen Prüfungen, Deployments,
+Dokumentation und Commits ab.
+
+Vollständig erledigte Abschnitte werden entfernt und nicht dauerhaft abgehakt.
+Checkboxen halten nur den Zwischenstand mehrteiliger offener Arbeiten fest;
+sobald die gesamte Abnahme erfüllt ist, wird der zugehörige Abschnitt gelöscht.
+Erledigte Arbeit bleibt über Git-Historie, Changelog und die jeweils zuständige
+Projektdokumentation nachvollziehbar.
 
 Offene visuelle Abweichungen bleiben ausschließlich in `design-qa.md`, noch
 ausstehende MSFS-Laufzeitnachweise ausschließlich in `open-tests.md`. Dieser
 Backlog dupliziert diese Listen nicht.
 
-## 1. Fortschritt bei jedem Flugzeugwechsel zurücksetzen
-
-- [x] In `VRChecklistView.refreshSelectedChecklist` nicht nur einen Wechsel der
-  Checklist-ID, sondern jede geänderte normalisierte Flugzeugidentität als
-  Reset-Bedingung behandeln.
-- **Problem:** Mehrere Identitäten können dieselbe Checkliste auswählen, etwa
-  die drei DA42-Match-Regeln. Der aktuelle Pfad setzt dann den Runtime-Zustand
-  nicht zurück, sondern speichert ihn unter der neuen Identität erneut.
-- **Auswirkung:** Ein Flugzeug- oder Variantenwechsel kann erledigte Items
-  vorübergehend übernehmen und widerspricht der Produktentscheidung, dass ein
-  Flugzeugwechsel den Fortschritt immer zurücksetzt.
-- **Abnahme:** Wechsel zwischen zwei Identitäten mit gleicher Checklist-ID
-  setzt Items, Fortschritt und aktive Gruppe zurück; ein reiner VR-Wechsel und
-  eine unveränderte Identität behalten den Zustand. `task check` und
-  `task deploy` ausführen, die tatsächlich deployte Version nennen und den
-  Reset in MSFS gezielt nachweisen. Die nutzerwirksame Korrektur unter
-  `CHANGELOG.md`/`[Unreleased]` eintragen.
-
-## 2. Companion-Selbsttests in den Release-Task aufnehmen
-
-- [x] `task release` so verdrahten, dass `companion:test` vor der Paketierung
-  zwingend erfolgreich läuft.
-- **Problem:** Der Release-Task führt derzeit den Companion-Build und die
-  Release-Tests aus, überspringt aber die Transport-Selbsttests. Ein
-  kompilierender Protokollfehler könnte dadurch mit dem Release-Befehl
-  paketiert werden.
-- **Abnahme:** Ein isolierter `task release` erreicht die vorhandenen
-  Transport-Selbsttests vor der Erzeugung des unveränderlichen Artefakts. Die
-  Task-Abhängigkeiten vermeiden unnötige doppelte Builds. Als interne
-  Build-/Release-Korrektur benötigt dieser Punkt keinen Changelog-Eintrag und
-  kein Deployment.
-
-## 3. Avalonia Compiled Bindings aktivieren
-
-- [x] `AvaloniaUseCompiledBindingsByDefault` aktivieren und den notwendigen
-  `x:DataType`-Vertrag für `MainWindow` ergänzen.
-- **Problem:** Die Bindings in `MainWindow.axaml` sind trotz globalem
-  `TreatWarningsAsErrors` ausschließlich reflektionsbasiert. Tippfehler werden
-  daher erst als leere Laufzeitanzeige sichtbar.
-- **Abnahme:** Der Release-Build bleibt mit null Warnungen erfolgreich; ein
-  absichtlich falscher Binding-Pfad wird vor Abschluss des Inkrements einmal
-  lokal als Buildfehler bestätigt und wieder entfernt. Anschließend
-  `task check` und wegen der Companion-Änderung `task companion:deploy`
-  ausführen sowie die tatsächlich deployte Version nennen. Kein eigener
-  Changelog-Eintrag, solange sich das sichtbare Verhalten nicht ändert.
-
-## 4. npm-Buildabhängigkeiten kontrolliert aktualisieren
-
-- [x] Die gelockten Entwicklungsabhängigkeiten aktualisieren und notwendige
-  direkte Versionsänderungen in `docs/third-party-licenses.md` nachführen.
-- **Ausgangsstand vom 2026-08-29:** `npm audit --package-lock-only` meldet neun
-  Findings, davon sieben mit hoher und zwei mit mittlerer Einstufung, in
-  `brace-expansion`, `esbuild`, `immutable`, `minimatch`, `nanoid`, `picomatch`
-  und `postcss`. `npm audit --package-lock-only --omit=dev` meldet keine
-  Laufzeit-Findings; der aktuelle NuGet-Audit meldet ebenfalls keine bekannte
-  Schwachstelle.
-- **Einordnung:** Es handelt sich um Build-/Entwicklungsrisiken, nicht um eine
-  bekannte Schwachstelle des ausgelieferten EFB-Bundles. Das esbuild-Update
-  überschreitet laut Audit den aktuellen unterstützten Versionsbereich und ist
-  deshalb nicht als ungeprüftes `npm audit fix --force` auszuführen.
-- **Abnahme:** `npm audit --package-lock-only` ist sauber oder jede bewusst
-  verbleibende Meldung ist mit Reichweite und Folgeaktion hier dokumentiert.
-  `task check` bestätigt den Build. Ohne nutzerwirksame Änderung entstehen kein
-  Changelog-Eintrag und kein Deployment.
-
-## 5. Snapshot-Versand ratenbegrenzen und zusammenfassen
+## Snapshot-Versand ratenbegrenzen und zusammenfassen
 
 - [ ] Zustandsgetriebene CommBus-Snapshots mit einer kleinen, expliziten
   Ratenbegrenzung beziehungsweise einem Latest-State-Coalescing versehen.
@@ -92,7 +34,7 @@ Backlog dupliziert diese Listen nicht.
   Punkt in `open-tests.md` in MSFS prüfen. Nutzerwirksame
   Zuverlässigkeitsänderungen im Changelog beschreiben.
 
-## 6. Offline-Release-Notes in die Companion-App integrieren
+## Offline-Release-Notes in die Companion-App integrieren
 
 - [ ] In der Companion-App einen Button `Release Notes` und eine dazugehörige
   Ansicht oder ein Dialogfenster umsetzen.
@@ -117,7 +59,7 @@ Backlog dupliziert diese Listen nicht.
   Version nennen und die neue Funktion unter `CHANGELOG.md`/`[Unreleased]`
   eintragen. Dieses Inkrement wird vor dem Audio-Nachweis abgeschlossen.
 
-## 7. Protokollvalidierung und vorhandene Selbsttests erweitern
+## Protokollvalidierung und vorhandene Selbsttests erweitern
 
 - [ ] `ChecklistStateProtocol.ParseSnapshot` auch für die Pflichtfelder
   verschachtelter Checklist-, Gruppen- und Item-Datensätze vollständig
@@ -135,7 +77,7 @@ Backlog dupliziert diese Listen nicht.
   Companion `task companion:deploy` ausführen sowie die deployte Version
   nennen.
 
-## 8. Dispatch-Fehlervertrag des CommBus-Clients härten
+## Dispatch-Fehlervertrag des CommBus-Clients härten
 
 - [ ] Festlegen und implementieren, ob ein fehlerhaftes CommBus-Paket den
   aktuellen Client bewusst beendet oder nach Assembler-Reset übersprungen wird.
@@ -151,7 +93,7 @@ Backlog dupliziert diese Listen nicht.
   stilllegen. `task check` und `task companion:deploy` ausführen sowie die
   deployte Version nennen.
 
-## 9. Thread-Affinität und Shutdown absichern
+## Thread-Affinität und Shutdown absichern
 
 - [ ] Den Single-Worker-Vertrag von `CommBusClient` dokumentieren oder durch
   geeignete Guards absichern.
@@ -167,7 +109,7 @@ Backlog dupliziert diese Listen nicht.
   anschließend `task check` und `task companion:deploy` ausführen sowie die
   deployte Version nennen.
 
-## 10. Ausgelieferte Drittkomponenten explizit inventarisieren
+## Ausgelieferte Drittkomponenten explizit inventarisieren
 
 - [ ] Das tatsächliche Companion-Release gegen
   `docs/third-party-licenses.md` abgleichen und ausgelieferte transitive
@@ -178,7 +120,7 @@ Backlog dupliziert diese Listen nicht.
   dokumentierten Lizenz zugeordnet. Als reine Dokumentations-/Compliance-
   Änderung entstehen kein Changelog-Eintrag und kein Deployment.
 
-## 11. `VRChecklistView` nur bei fachlichem Anlass zerlegen
+## `VRChecklistView` nur bei fachlichem Anlass zerlegen
 
 - [ ] Bei der nächsten größeren Änderung an Transport, Persistenz oder
   Rendering prüfen, ob genau der betroffene Verantwortungsbereich ohne

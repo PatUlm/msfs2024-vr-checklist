@@ -9,6 +9,9 @@ Changelog, and the project uses Semantic Versioning.
 
 ### Fixed
 
+- Rate-limited spontaneous EFB checklist snapshots and coalesced bursts to the
+  latest state, preventing avoidable CommBus backlog while keeping requested
+  reconnect snapshots immediate.
 - Reset completed items, progress and the active group when switching between
   aircraft identities that use the same checklist.
 

@@ -67,6 +67,12 @@ tasks:
     cmds:
       - npm run watch
 
+  test:app:
+    desc: Run the EFB app unit tests
+    dir: "{{.APP_DIR}}"
+    cmds:
+      - npm test
+
   companion:build:
     desc: Build the Windows companion app and transport probe with the pinned .NET SDK
     cmds:
@@ -185,6 +191,7 @@ tasks:
     desc: Run the complete local validation and build
     cmds:
       - task: build
+      - task: test:app
       - task: companion:build
       - task: companion:test
       - task: test:release

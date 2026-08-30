@@ -15,8 +15,6 @@ Produktentscheidung.
   nachweisen.
 - [ ] Anzahl und Lifecycle der EFB-App-Instanzen bei einem Darstellungswechsel
   anhand der vorhandenen Diagnosezeilen bestimmen.
-- [ ] Queue-Verhalten und Ratenbegrenzung des CommBus bei pausierter Simulation
-  nachweisen.
 - [ ] WASAPI Shared Mode gegen das VR-Audiogerät bei laufendem MSFS nachweisen.
 
 ## Bedingte Rückfallebene

@@ -29,6 +29,7 @@ import airbusH125Data from "../../../../checklists/data/airbus-h125.json";
 import beechcraftBonanzaG36Data from "../../../../checklists/data/beechcraft-bonanza-g36.json";
 import diamondDa42Data from "../../../../checklists/data/diamond-da42.json";
 import sikorskyMh60Data from "../../../../checklists/data/sikorsky-mh-60.json";
+import { SnapshotRateLimiter } from "./SnapshotRateLimiter";
 
 import "./VRChecklist.scss";
 
@@ -156,6 +157,7 @@ const TRANSPORT_PROBE_PING_EVENT = "VRChecklist.Transport.Ping.v1";
 const TRANSPORT_PROBE_PONG_EVENT = "VRChecklist.Transport.Pong.v1";
 const CHECKLIST_STATE_REQUEST_EVENT = "VRChecklist.State.Request.v1";
 const CHECKLIST_STATE_SNAPSHOT_EVENT = "VRChecklist.State.Snapshot.v1";
+const CHECKLIST_STATE_MIN_PUBLISH_INTERVAL_MS = 250;
 
 /*
  * The sim key event that confirms the next open item of the section on screen.
@@ -416,6 +418,10 @@ class VRChecklistView extends AppView<RequiredProps<AppViewProps, "bus">> {
   private readonly gameStateSubscription: Subscription;
   private readonly flowApiListener: ViewListener.ViewListener;
   private commBusListener: CommBusListener | undefined;
+  private readonly stateSnapshotRateLimiter = new SnapshotRateLimiter({
+    intervalMs: CHECKLIST_STATE_MIN_PUBLISH_INTERVAL_MS,
+    publish: () => this.publishChecklistState(),
+  });
 
   /*
    * The MSFS EFB action VALIDATE stays out of this app. Under SDK 1.7.3 a
@@ -531,7 +537,7 @@ class VRChecklistView extends AppView<RequiredProps<AppViewProps, "bus">> {
         CHECKLIST_STATE_REQUEST_EVENT,
         this.handleChecklistStateRequest
       );
-      this.publishChecklistState();
+      this.scheduleChecklistStatePublish();
     } catch (error) {
       console.error(
         "[VR Checklist] Transport probe listener unavailable",
@@ -561,7 +567,17 @@ class VRChecklistView extends AppView<RequiredProps<AppViewProps, "bus">> {
       return;
     }
 
-    this.publishChecklistState(request.requestId);
+    this.stateSnapshotRateLimiter.publishImmediately(() =>
+      this.publishChecklistState(request.requestId)
+    );
+  }
+
+  private scheduleChecklistStatePublish(): void {
+    if (!this.commBusListener) {
+      return;
+    }
+
+    this.stateSnapshotRateLimiter.requestPublish();
   }
 
   private publishChecklistState(requestId?: string): void {
@@ -693,9 +709,7 @@ class VRChecklistView extends AppView<RequiredProps<AppViewProps, "bus">> {
         this.ensureKeyInterception("app start");
       })
       .catch((error) =>
-        console.error(
-          `[VR Checklist] Key event manager unavailable: ${error}`
-        )
+        console.error(`[VR Checklist] Key event manager unavailable: ${error}`)
       );
   }
 
@@ -960,7 +974,7 @@ class VRChecklistView extends AppView<RequiredProps<AppViewProps, "bus">> {
 
     // Companion state is observational and must never block the EFB workflow,
     // even if the shared DataStore is temporarily unavailable.
-    this.publishChecklistState();
+    this.scheduleChecklistStatePublish();
   }
 
   /*
@@ -1111,7 +1125,7 @@ class VRChecklistView extends AppView<RequiredProps<AppViewProps, "bus">> {
         `${completedItemKeys.size} completed items from the shared progress ` +
         `record.`
     );
-    this.publishChecklistState();
+    this.scheduleChecklistStatePublish();
   }
 
   private refreshSelectedChecklist(): void {
@@ -1192,7 +1206,7 @@ class VRChecklistView extends AppView<RequiredProps<AppViewProps, "bus">> {
 
     if ((identityChanged || checklistChanged) && !checklist) {
       this.stateSequence += 1;
-      this.publishChecklistState();
+      this.scheduleChecklistStatePublish();
     }
   }
 
@@ -1315,7 +1329,7 @@ class VRChecklistView extends AppView<RequiredProps<AppViewProps, "bus">> {
     console.info(
       `[VR Checklist] Flight transition detected by ${source}; progress reset.`
     );
-    this.publishChecklistState();
+    this.scheduleChecklistStatePublish();
   }
 
   private resetAllChecklists(): void {
@@ -1656,6 +1670,7 @@ class VRChecklistView extends AppView<RequiredProps<AppViewProps, "bus">> {
     this.isViewClosed = true;
     window.removeEventListener("resize", this.handleViewportResize);
     this.cancelAircraftRefresh();
+    this.stateSnapshotRateLimiter.dispose();
 
     this.gameStateSubscription.destroy();
     // The intercepts themselves stay set: the sim has no unregister call.

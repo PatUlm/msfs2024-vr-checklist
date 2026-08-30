@@ -17,23 +17,6 @@ Offene visuelle Abweichungen bleiben ausschließlich in `design-qa.md`, noch
 ausstehende MSFS-Laufzeitnachweise ausschließlich in `open-tests.md`. Dieser
 Backlog dupliziert diese Listen nicht.
 
-## Snapshot-Versand ratenbegrenzen und zusammenfassen
-
-- [ ] Zustandsgetriebene CommBus-Snapshots mit einer kleinen, expliziten
-  Ratenbegrenzung beziehungsweise einem Latest-State-Coalescing versehen.
-  Direkte Antworten auf eine `stateRequest` bleiben unverzüglich und behalten
-  deren `requestId`.
-- **Problem:** Der EFB-Kanal sendet aktuell jeden Zustand unmittelbar. Das ist
-  bei menschlichem Interaktionstempo praktisch begrenzt, erfüllt aber die
-  dokumentierte SDK-DO-Regel und das Phase-3-Abnahmekriterium nicht explizit;
-  an Abschnittsgrenzen entstehen zudem zwei zeitnahe Snapshots.
-- **Abnahme:** Änderungen gehen ohne merkbare Verzögerung an den Companion,
-  Bursts werden auf den neuesten Zustand zusammengefasst und eine explizite
-  Anfrage erhält zuverlässig genau eine zuordenbare Antwort. `task check` und
-  `task deploy` ausführen, die deployte Version nennen und den zugehörigen
-  Punkt in `open-tests.md` in MSFS prüfen. Nutzerwirksame
-  Zuverlässigkeitsänderungen im Changelog beschreiben.
-
 ## Offline-Release-Notes in die Companion-App integrieren
 
 - [ ] In der Companion-App einen Button `Release Notes` und eine dazugehörige

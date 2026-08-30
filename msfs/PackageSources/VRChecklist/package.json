@@ -9,6 +9,7 @@
     "clean": "npm run clean:dist",
     "clean:dist": "node -e \"require('node:fs').rmSync('dist',{recursive:true,force:true})\"",
     "rebuild": "npm run clean:dist && npm run build",
+    "test": "node --test src/SnapshotRateLimiter.test.mjs",
     "watch": "cross-env SERVING_MODE=WATCH node ./build.js"
   },
   "dependencies": {

@@ -179,10 +179,17 @@ Der verwendete Mechanismus besteht aus
 - **[SDK]** Nachrichten in Richtung SimConnect-Client können über
   `dwEntryNumber`/`dwOutOf` gechunkt eintreffen; die Client-Seite muss sie
   zusammensetzen.
-- **[SDK]** Bei pausierter Simulation laufen SimConnect und WASM weiter,
-  JavaScript jedoch nicht. Events an JavaScript werden aufgestaut und erst beim
+- **[SDK]** In Pausezuständen, die JavaScript anhalten, laufen SimConnect und
+  WASM weiter. Events an JavaScript werden dann aufgestaut und erst beim
   Fortsetzen verarbeitet; bei zu großem Stau kann der Simulator einfrieren.
   **DO:** Nur Zustandsänderungen senden und den Kanal ratenbegrenzen.
+- **[RT]** Der im Test verwendete Ingame-Pausezustand hält zwar das Flugzeug
+  an, lässt den Custom-EFB-JavaScript-Kontext aber weiterlaufen: Die Checkliste
+  blieb vollständig bedienbar, ein EFB-Timer lief weiter und eine während der
+  Pause neu gestartete Begleit-App erhielt ihren aktuellen Snapshot ohne
+  Rückstau. Der SDK-Hinweis gilt damit nicht pauschal für jede sichtbare
+  Ingame-Pause. **DON'T:** Aus einem angehaltenen Flugzeug auf angehaltenes
+  EFB-JavaScript schließen.
 - **[SDK]** Die verwendeten TypeScript-Pakete deklarieren die CommBus-API nicht.
   Die EFB-Seite braucht deshalb eine kleine eigene Ambient-Deklaration. Der
   JavaScript-Helper ist außerdem nicht implizit verfügbar: Beide offiziellen

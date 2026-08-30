@@ -2,6 +2,8 @@
     x:Class="VRChecklist.Companion.MainWindow"
     xmlns="https://github.com/avaloniaui"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:vm="using:VRChecklist.Companion"
+    x:DataType="vm:MainWindowViewModel"
     Title="VR Checklist"
     Width="720"
     SizeToContent="Height"

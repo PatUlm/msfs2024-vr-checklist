@@ -44,7 +44,7 @@ Backlog dupliziert diese Listen nicht.
 
 ## 3. Avalonia Compiled Bindings aktivieren
 
-- [ ] `AvaloniaUseCompiledBindingsByDefault` aktivieren und den notwendigen
+- [x] `AvaloniaUseCompiledBindingsByDefault` aktivieren und den notwendigen
   `x:DataType`-Vertrag für `MainWindow` ergänzen.
 - **Problem:** Die Bindings in `MainWindow.axaml` sind trotz globalem
   `TreatWarningsAsErrors` ausschließlich reflektionsbasiert. Tippfehler werden

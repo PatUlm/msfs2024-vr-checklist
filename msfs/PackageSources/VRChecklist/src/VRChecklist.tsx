@@ -113,8 +113,8 @@ interface ChecklistStateRequest {
  * without either case needing its own mechanism.
  *
  * The record is deliberately not time-limited. Its lifetime ends with an
- * explicit reset (`FltLoad`, GameState.loading, checklist change) or with a
- * failed compatibility check, not with a timeout.
+ * explicit reset (`FltLoad`, GameState.loading, aircraft/checklist change) or
+ * with a failed compatibility check, not with a timeout.
  */
 interface StoredChecklistProgress {
   schemaVersion: 5;
@@ -1146,15 +1146,14 @@ class VRChecklistView extends AppView<RequiredProps<AppViewProps, "bus">> {
     const checklistChanged = checklistId !== previousChecklistId;
 
     if (identityChanged || checklistChanged) {
-      if (checklistChanged) {
-        this.resetAllChecklists();
+      this.resetAllChecklists();
 
-        // Leaving a checklist ends its progress. Arriving at one must not
-        // clear the record: a freshly created app context reaches this branch
-        // as well, and its record is exactly what has to be adopted below.
-        if (previousChecklistId !== null) {
-          this.clearStoredChecklistProgress();
-        }
+      // Leaving an aircraft identity or checklist ends its progress. Arriving
+      // at one must not clear the record: a freshly created app context reaches
+      // this branch with no previous checklist as well, and its record is
+      // exactly what has to be adopted below.
+      if (previousChecklistId !== null) {
+        this.clearStoredChecklistProgress();
       }
 
       this.currentAircraftIdentityKey = aircraftIdentityKey;

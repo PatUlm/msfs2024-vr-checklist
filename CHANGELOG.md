@@ -7,6 +7,11 @@ Changelog, and the project uses Semantic Versioning.
 
 ## [Unreleased]
 
+### Fixed
+
+- Reset completed items, progress and the active group when switching between
+  aircraft identities that use the same checklist.
+
 ## [0.3.0] - 2026-08-29
 
 ### Added

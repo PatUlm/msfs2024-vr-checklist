@@ -12,7 +12,7 @@ Backlog dupliziert diese Listen nicht.
 
 ## 1. Fortschritt bei jedem Flugzeugwechsel zurücksetzen
 
-- [ ] In `VRChecklistView.refreshSelectedChecklist` nicht nur einen Wechsel der
+- [x] In `VRChecklistView.refreshSelectedChecklist` nicht nur einen Wechsel der
   Checklist-ID, sondern jede geänderte normalisierte Flugzeugidentität als
   Reset-Bedingung behandeln.
 - **Problem:** Mehrere Identitäten können dieselbe Checkliste auswählen, etwa

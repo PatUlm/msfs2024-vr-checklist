@@ -14,10 +14,12 @@ stehen in den jeweils verlinkten Dokumenten.
   G36, DA42, H125 und MH-60; die Bestätigungseingabe ist seit 2026-08-29
   abgenommen ([ADR 0002](docs/adr/0002-bestaetigungseingabe-in-sim-key-interception.md)).
 - [ ] **Phase 3 – Begleit-App und Sprachausgabe:** Transportdurchstich,
-  Status-App, Audio-Nachweis mit Dummy-Datei und danach die produktive,
-  vorab gerenderte Sprachausgabe folgen in dieser Reihenfolge. Der minimale
-  CommBus-Client hat den bidirektionalen Transport in MSFS bestätigt. Die
-  Status-App ist in MSFS bestätigt; als Nächstes folgt der Audio-Nachweis mit
-  einer Dummy-Datei. Die TTS-Anbieterwahl blockiert den Phasenstart nicht
+  Status-App, Offline-Release-Notes, Audio-Nachweis mit Dummy-Datei und danach
+  die produktive, vorab gerenderte Sprachausgabe folgen in dieser Reihenfolge.
+  Der minimale CommBus-Client hat den bidirektionalen Transport in MSFS
+  bestätigt. Die Status-App ist in MSFS bestätigt; als Nächstes folgen die
+  Release Notes. Die TTS-Anbieterwahl blockiert den Phasenstart nicht
   ([Produktanforderungen](docs/phase-3-requirements.md),
-  [Architekturentscheidungen](docs/adr/README.md)).
+  [Architekturentscheidungen](docs/adr/README.md)). Vor dem Audioausbau werden
+  die priorisierten Korrekturen und Härtungen aus dem
+  [Umsetzungs-Backlog](docs/implementation-backlog.md) abgearbeitet.

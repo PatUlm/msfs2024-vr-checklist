@@ -7,11 +7,12 @@ Windows-Begleit-App. Technische Entscheidungen stehen in den
 [open-tests.md](open-tests.md).
 
 Status: **In Umsetzung — Transportdurchstich und Status-App sind in MSFS
-bestätigt; als Nächstes folgt der Audio-Nachweis mit einer Dummy-Datei.**
+bestätigt; als Nächstes folgen die Release Notes in der Companion-App und danach
+der Audio-Nachweis mit einer Dummy-Datei.**
 
 ## Umsetzungsreihenfolge
 
-Phase 3 wird in vier aufeinander aufbauenden Ausbaustufen umgesetzt. Das sind
+Phase 3 wird in fünf aufeinander aufbauenden Ausbaustufen umgesetzt. Das sind
 keine getrennten Produktphasen; der verbindliche Gesamtumfang und die
 Abnahmekriterien weiter unten bleiben bestehen.
 
@@ -24,11 +25,16 @@ Abnahmekriterien weiter unten bleiben bestehen.
    EFB-Zustand getrennt. Eine aktive SimConnect-Verbindung allein gilt nicht als
    Nachweis, dass die EFB-App bereits ausgeführt wurde oder aktuell Nachrichten
    empfangen kann.
-3. **Audio-Nachweis:** Eine selbst erstellte Dummy-Audiodatei wird beim
+3. **Release Notes:** Ein Button `Release Notes` öffnet in der Companion-App
+   eine lokal mitgelieferte, nach Versionen gegliederte Änderungshistorie. Jede
+   Version zeigt ihr Veröffentlichungsdatum, stellt ihr Hauptmerkmal als kurzen
+   Text voran und führt danach Features und Fehlerkorrekturen als knappe,
+   innerhalb der Version nach Wichtigkeit sortierte Einzeiler auf.
+4. **Audio-Nachweis:** Eine selbst erstellte Dummy-Audiodatei wird beim
    eindeutigen Übergang zur vollständig erledigten Checkliste genau einmal über
    das Windows-Standardgerät abgespielt. Die Wahl von Stimme und TTS-Anbieter
    ist dafür ausdrücklich keine Voraussetzung.
-4. **Produktive Audioausgabe:** Gerätewahl und WASAPI Shared Mode werden mit dem
+5. **Produktive Audioausgabe:** Gerätewahl und WASAPI Shared Mode werden mit dem
    VR-Audiogerät bestätigt. Erst danach werden Stimme, Anbieter und Klangprofile
    entschieden und die produktiven Sprachassets vorab gerendert.
 
@@ -55,6 +61,13 @@ Die erste Oberfläche unterscheidet mindestens:
 - Die lokale Begleit-App zeigt Flugzeug, Checkliste, aktive Gruppe, nächstes
   offenes Item und Fortschritt als ruhige Oberfläche mit Tray-Icon und
   Einstellungsfenster, nicht als Logausgabe.
+- Ein sichtbarer Button `Release Notes` öffnet die mit der App ausgelieferten
+  Hinweise ohne Netzwerkzugriff. Die neueste Version steht zuerst. Eine eigene,
+  app-lesbare und versionierte Release-Notes-Quelle ergänzt das englische
+  `CHANGELOG.md`: Das Changelog bleibt vollständig und chronologisch, während
+  die Release Notes für Nutzer redaktionell verdichtet und nach Wichtigkeit
+  geordnet sind. Version und Datum müssen mit den Release-Metadaten
+  übereinstimmen.
 - Zustandsänderungen der EFB-App erscheinen ohne merkbare Verzögerung in der
   Begleit-App. Der Rückkanal überträgt nur Änderungen und ein eigenes Ereignis
   für den Übergang zur vollständig erledigten Checkliste.
@@ -99,6 +112,10 @@ Override ist Teil des kanonischen Datenvertrags in
 
 - Neustart von MSFS, Flugwechsel und Neustart der Begleit-App führen in jeder
   Reihenfolge zu einem definierten Zustand ohne manuelles Aufräumen.
+- Die Release Notes sind vollständig offline verfügbar, zeigen mindestens die
+  ausgelieferten Companion-Versionen und ordnen innerhalb jeder Version zuerst
+  das Hauptmerkmal, danach alle übrigen Features und Fehlerkorrekturen nach
+  abnehmender Wichtigkeit.
 - Beide Transportrichtungen arbeiten ereignisgesteuert und ratenbegrenzt; es
   entsteht kein Polling und keine messbare Belastung der MSFS-Framerate.
 - Die Audioausgabe erreicht bei laufendem MSFS das gewählte Gerät, ohne MSFS

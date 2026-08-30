@@ -314,6 +314,8 @@ werden soll.
 - `docs/design-qa.md`: offene visuelle Nachweise und Referenzen für den nächsten
   UI- oder VR-Teststand
 - `docs/open-tests.md`: einzige lebende Liste offener Laufzeitnachweise
+- `docs/implementation-backlog.md`: priorisierte Code-, Build- und
+  Qualitätsarbeiten für die nächsten Umsetzungssessions
 - `docs/phase-3-requirements.md`: verbindlicher Produktumfang der geplanten
   Begleit-App
 - `docs/release.md`: reproduzierbarer Release- und Community2024-Installationsflow

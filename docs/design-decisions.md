@@ -177,6 +177,23 @@ Iteration stehen separat in `design-qa.md`.
   höheren Inhalt wächst das Fenster mit; eine flexible Restzeile erzeugt weder
   scheinbares Innenpadding noch einen leeren Bereich vor dem Footer.
 
+## Release Notes der Begleit-App
+
+- Die Companion-App bietet einen sichtbar benannten Button `Release Notes`.
+- Die Ansicht ist vollständig offline und zeigt die neueste Version zuerst.
+  Jede Version trägt neben ihrer SemVer-Version ausdrücklich das
+  Veröffentlichungsdatum, damit das Alter des installierten Stands ohne externe
+  Recherche erkennbar ist.
+- Das wichtigste Merkmal einer Version darf als kurzer einleitender Text vor
+  der Liste stehen. Danach folgen alle weiteren Features und Fehlerkorrekturen
+  als knappe Bulletpoint-Einzeiler, innerhalb der Version nach abnehmender
+  Wichtigkeit sortiert.
+- Die Release Notes ersetzen das englische `CHANGELOG.md` nicht. Eine eigene,
+  app-lesbare Quelle dient der kuratierten Darstellung in der Companion-App;
+  das Changelog bleibt die vollständige chronologische Historie
+  nutzerwirksamer Änderungen. Version und Datum dürfen zwischen beiden Quellen
+  nicht auseinanderlaufen.
+
 ## Checklistensprache
 
 - Komponenten- oder Triebwerksnummern sind Teil der Challenge; die Response

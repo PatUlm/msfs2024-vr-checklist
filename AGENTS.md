@@ -43,6 +43,12 @@ gehören nach `docs/design-qa.md`.
   Agentenregeln sowie internen Build- und Release-Abläufen erzeugen keinen
   Eintrag. Begleitende Dokumentation zu einer Produktänderung bekommt keinen
   eigenen Eintrag; beschrieben wird nur die nutzerwirksame Produktänderung.
+- Sobald die Release-Notes-Funktion der Companion-App umgesetzt ist, wird bei
+  jedem Release zusätzlich ihre app-lesbare Release-Notes-Quelle aktualisiert.
+  Das Changelog bleibt die vollständige chronologische Änderungshistorie; die
+  Release Notes sind die nach Wichtigkeit geordnete, nutzerorientierte
+  Darstellung mit Version, Datum, hervorgehobenem Hauptmerkmal und knappen
+  Einzeilern für Features und Fehlerkorrekturen.
 - Commits sind, soweit sinnvoll möglich, nach fachlichem Kontext zu trennen.
   Checklistendaten, Anwendungscode und allgemeine Dokumentation gehören
   beispielsweise in getrennte Commits. Unmittelbar zugehörige Tests und
@@ -62,6 +68,13 @@ gehören nach `docs/design-qa.md`.
   dauerhafte Erlaubnis für solche Abschluss-Commits; eine erneute Nachfrage ist
   nicht nötig. Unfertige oder nicht lauffähige Zwischenstände werden nicht als
   vermeintlich fertige Inkremente committed.
+- Vor jedem Commit führt der Benutzer den Review durch und stellt die dabei
+  freigegebenen Dateien in den Git-Index. Das Staging gilt als fachliche
+  Freigabe; der Agent führt auf dieser Basis keinen erneuten Review des staged
+  Diffs durch. Sobald alle zum Inkrement gehörenden Änderungen gestaged sind,
+  darf und soll der Agent ohne weitere Rückfrage committen. Der Agent fügt
+  Dateien nur dann selbst zum Index hinzu, wenn der Benutzer dies ausdrücklich
+  verlangt.
 - Pushes erfolgen weiterhin nur auf ausdrücklichen Wunsch des Benutzers.
 
 ## MSFS-spezifische Lessons learned

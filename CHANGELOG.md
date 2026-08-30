@@ -7,6 +7,8 @@ Changelog, and the project uses Semantic Versioning.
 
 ## [Unreleased]
 
+## [0.3.1] - 2026-08-30
+
 ### Fixed
 
 - Rate-limited spontaneous EFB checklist snapshots and coalesced bursts to the

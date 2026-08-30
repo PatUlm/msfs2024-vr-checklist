@@ -39,17 +39,17 @@ ausgeliefert.
 | Komponente | Gelockte Version | Lizenz | Primärquelle |
 | --- | --- | --- | --- |
 | `@fal-works/esbuild-plugin-global-externals` | 2.1.2 | MIT | [Repository](https://github.com/fal-works/esbuild-plugin-global-externals) |
-| `@jgoz/esbuild-plugin-typecheck` | 3.1.3 | MIT | [Repository](https://github.com/jgoz/esbuild-plugins) |
-| `@types/node` | 18.19.67 | MIT | [DefinitelyTyped](https://github.com/DefinitelyTyped/DefinitelyTyped) |
+| `@jgoz/esbuild-plugin-typecheck` | 4.0.4 | MIT | [Repository](https://github.com/jgoz/esbuild-plugins) |
+| `@types/node` | 18.19.130 | MIT | [DefinitelyTyped](https://github.com/DefinitelyTyped/DefinitelyTyped) |
 | `cross-env` | 7.0.3 | MIT | [Repository](https://github.com/kentcdodds/cross-env) |
-| `dotenv` | 16.4.6 | BSD-2-Clause | [Repository](https://github.com/motdotla/dotenv) |
-| `esbuild` | 0.21.5 | MIT | [Repository](https://github.com/evanw/esbuild) |
+| `dotenv` | 16.6.1 | BSD-2-Clause | [Repository](https://github.com/motdotla/dotenv) |
+| `esbuild` | 0.28.2 | MIT | [Repository](https://github.com/evanw/esbuild) |
 | `esbuild-copy-static-files` | 0.1.0 | MIT | [Repository](https://github.com/nickjj/esbuild-copy-static-files) |
 | `esbuild-plugin-copy` | 2.1.1 | MIT | [Repository](https://github.com/LinbuduLab/esbuild-plugins) |
-| `esbuild-sass-plugin` | 3.3.1 | MIT | [Repository](https://github.com/glromeo/esbuild-sass-plugin) |
-| `postcss` | 8.4.49 | MIT | [Repository](https://github.com/postcss/postcss) |
+| `esbuild-sass-plugin` | 3.7.0 | MIT | [Repository](https://github.com/glromeo/esbuild-sass-plugin) |
+| `postcss` | 8.5.26 | MIT | [Repository](https://github.com/postcss/postcss) |
 | `postcss-prefix-selector` | 1.16.1 | MIT | [Repository](https://github.com/RadValentin/postcss-prefix-selector) |
-| `postcss-url` | 10.1.3 | MIT | [Repository](https://github.com/postcss/postcss-url) |
+| `postcss-url` | 10.1.4 | MIT | [Repository](https://github.com/postcss/postcss-url) |
 | `prettier` | 2.8.8 | MIT | [Repository](https://github.com/prettier/prettier) |
 | `typescript` | 5.6.3 | Apache-2.0 | [Repository](https://github.com/microsoft/TypeScript) |
 | .NET SDK Build-Container | 10.0.302 | MIT | [Microsoft Artifact Registry](https://mcr.microsoft.com/en-us/artifact/mar/dotnet/sdk/tag/10.0.302) und [dotnet/sdk](https://github.com/dotnet/sdk/blob/main/LICENSE.TXT) |

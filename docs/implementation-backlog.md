@@ -58,7 +58,7 @@ Backlog dupliziert diese Listen nicht.
 
 ## 4. npm-Buildabhängigkeiten kontrolliert aktualisieren
 
-- [ ] Die gelockten Entwicklungsabhängigkeiten aktualisieren und notwendige
+- [x] Die gelockten Entwicklungsabhängigkeiten aktualisieren und notwendige
   direkte Versionsänderungen in `docs/third-party-licenses.md` nachführen.
 - **Ausgangsstand vom 2026-08-29:** `npm audit --package-lock-only` meldet neun
   Findings, davon sieben mit hoher und zwei mit mittlerer Einstufung, in

@@ -17,17 +17,6 @@ Offene visuelle Abweichungen bleiben ausschließlich in `design-qa.md`, noch
 ausstehende MSFS-Laufzeitnachweise ausschließlich in `open-tests.md`. Dieser
 Backlog dupliziert diese Listen nicht.
 
-## Ausgelieferte Drittkomponenten explizit inventarisieren
-
-- [ ] Das tatsächliche Companion-Release gegen
-  `docs/third-party-licenses.md` abgleichen und ausgelieferte transitive
-  Komponenten wie `Avalonia.Remote.Protocol.dll` entweder einzeln oder durch
-  eine eindeutig formulierte Komponentenfamilie samt Version und Primärquelle
-  abdecken.
-- **Abnahme:** Jede ausgelieferte Drittkomponente ist nachvollziehbar einer
-  dokumentierten Lizenz zugeordnet. Als reine Dokumentations-/Compliance-
-  Änderung entstehen kein Changelog-Eintrag und kein Deployment.
-
 ## `VRChecklistView` nur bei fachlichem Anlass zerlegen
 
 - [ ] Bei der nächsten größeren Änderung an Transport, Persistenz oder

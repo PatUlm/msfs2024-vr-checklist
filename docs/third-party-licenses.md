@@ -18,7 +18,7 @@ hier aufgeführten Drittkomponente.
 | `@microsoft/msfs-sdk` | 2.1.1 | MIT | vendortes Paket und [Microsoft MSFS Avionics Mirror](https://github.com/microsoft/msfs-avionics-mirror) |
 | `@microsoft/msfs-types` | 1.14.6 | MIT | [Microsoft MSFS Avionics Mirror](https://github.com/microsoft/msfs-avionics-mirror) |
 | .NET Runtime | 10.0 | MIT | [dotnet/runtime](https://github.com/dotnet/runtime/blob/main/LICENSE.TXT) |
-| Avalonia UI (`Avalonia`, `Avalonia.HarfBuzz`, `Avalonia.Skia`, `Avalonia.Win32`, `Avalonia.Themes.Fluent`) | 12.1.1 | MIT | [Avalonia license](https://github.com/AvaloniaUI/Avalonia/blob/master/licence.md) |
+| Avalonia UI Runtime-Familie (`Avalonia`, `Avalonia.HarfBuzz`, `Avalonia.Remote.Protocol`, `Avalonia.Skia`, `Avalonia.Themes.Fluent`, `Avalonia.Win32` einschließlich aller daraus ausgelieferten `Avalonia*.dll`) | 12.1.1 | MIT | [Avalonia license](https://github.com/AvaloniaUI/Avalonia/blob/master/licence.md) |
 | SkiaSharp einschließlich Win32-Native-Assets | 3.119.4 | MIT | [SkiaSharp license](https://github.com/mono/SkiaSharp/blob/main/LICENSE.md) |
 | HarfBuzzSharp einschließlich Win32-Native-Assets | 8.3.1.3 | MIT | [SkiaSharp license](https://github.com/mono/SkiaSharp/blob/main/LICENSE.md) |
 | Avalonia ANGLE Windows Natives | 2.1.27548.20260419 | BSD-3-Clause | [ANGLE license](https://github.com/google/angle/blob/main/LICENSE) |
@@ -29,7 +29,11 @@ hier aufgeführten Drittkomponente.
 bewusst versionierten SDK-Kopie unter `msfs/PackageSources/efb_api/dist/`
 bezogen. Begleit-App und Phase-3-Transporttest sind frameworkabhängig und
 liefern die .NET-Laufzeit nicht mit aus. Das NuGet-Lockfile der Begleit-App
-fixiert auch die ausgelieferten nativen Grafik- und Textkomponenten.
+fixiert auch die ausgelieferten nativen Grafik- und Textkomponenten. Die
+Runtime-Familien in dieser Tabelle wurden gegen die Paketzuordnung in
+`VRChecklist.Companion.deps.json` und die Dateien des Companion-Releases
+`0.4.1` abgeglichen. Projekteigene `VRChecklist.*`-Assemblies und Metadaten sind
+keine Drittkomponenten; Debugsymbole werden nicht ausgeliefert.
 
 ## Direkte Build-Abhängigkeiten
 

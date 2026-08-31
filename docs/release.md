@@ -122,10 +122,28 @@ Das bereits erzeugte historische CalVer-Artefakt `2026.08` bleibt ebenfalls
 gezielt installierbar; neue Release-Builds akzeptieren ausschließlich SemVer.
 
 Vor dem Austausch werden Metadaten, Paketinhalt und eingebettete App-Version
-erneut geprüft. Die neue Version wird zuerst vollständig in einen temporären
-Ordner neben dem Ziel kopiert. Erst danach wird ausschließlich
-`Community2024/patulm-vr-checklist` atomar ersetzt; bei einem Fehler vor dem
-Abschluss wird die vorherige Installation wiederhergestellt.
+erneut geprüft. Anschließend wird neben dem Ziel zunächst ein temporärer
+nativer Windows-Verzeichnislink auf das unveränderliche Release-Paket erzeugt
+und sein aufgelöstes Ziel erneut geprüft. Erst danach wird ausschließlich
+`Community2024/patulm-vr-checklist` atomar durch den Link ersetzt; bei einem
+Fehler vor dem Abschluss wird die vorherige Installation wiederhergestellt.
+Unter WSL2 entsteht dabei eine Windows-Junction, die ohne Administratorrechte
+von MSFS wie ein normales Verzeichnis gelesen wird. Für Version `0.4.2` zeigt
+sie beispielsweise auf:
+
+```text
+C:\dev\msfs2024-vr-checklist-releases\0.4.2\patulm-vr-checklist
+```
+
+Der Installer lässt die Junction ausdrücklich von Windows erzeugen. Ein direkt
+unter WSL auf `/mnt/c` angelegter Node-/Linux-Symlink verwendet dagegen den
+WSL-spezifischen Reparse-Tag `IO_REPARSE_TAG_LX_SYMLINK`; Windows erkennt ihn
+nicht als Junction und erhält daraus weder `LinkType` noch `Target`.
+
+Ein verlinktes Release bleibt damit zugleich die installierte Quelle und darf
+erst gelöscht werden, nachdem `community:install` auf eine andere Version
+umgestellt oder das Community-Paket entfernt wurde. Ein Rollback mit
+`VERSION=...` tauscht nur den Link aus und dupliziert keine Paketdateien.
 
 Beim nächsten normalen Simulatorstart ist die Community-Version ohne DevMode
 verfügbar. Wird das gleichnamige Projekt später im DevMode gebaut und gemountet,

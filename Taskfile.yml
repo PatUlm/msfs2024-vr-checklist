@@ -166,7 +166,7 @@ tasks:
       - node scripts/release-package.mjs build
 
   community:install:
-    desc: Install the current or specified release into Community2024
+    desc: Link the current or specified release into Community2024
     env:
       VR_CHECKLIST_RELEASE_VERSION: '{{default .PROJECT_VERSION .VERSION}}'
       VR_CHECKLIST_RELEASE_OUTPUT_DIR: "{{.RELEASE_DIR}}"

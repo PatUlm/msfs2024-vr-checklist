@@ -49,7 +49,7 @@ if (command === "current-version") {
     communityDirectory: process.env.VR_CHECKLIST_RELEASE_COMMUNITY_DIR,
   });
   console.log(
-    `Installed release ${version} (MSFS package ${result.packageVersion}) to ${result.installTarget}`
+    `Linked release ${version} (MSFS package ${result.packageVersion}) from ${result.linkTarget} to ${result.installTarget}`
   );
 } else if (command === "install-companion") {
   const result = await installCompanionRelease({

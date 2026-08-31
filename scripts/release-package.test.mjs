@@ -1,5 +1,13 @@
 import assert from "node:assert/strict";
-import { mkdir, rm, writeFile } from "node:fs/promises";
+import {
+  lstat,
+  mkdir,
+  readFile,
+  realpath,
+  rm,
+  symlink,
+  writeFile,
+} from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { dirname, join, resolve } from "node:path";
 import { after, test } from "node:test";
@@ -8,6 +16,7 @@ import {
   assertCompanionInstallDirectory,
   assertManagedWindowsDirectory,
   companionName,
+  installDirectoryLink,
   readProjectVersion,
   toWindowsPath,
   validateArtifactVersion,
@@ -178,6 +187,72 @@ test("WSL paths are converted for FsPackageTool", () => {
     "C:\\dev\\VR Checklist\\Project.xml"
   );
   assert.throws(() => toWindowsPath("/tmp/Project.xml"), /non-Windows mount/);
+});
+
+test("directory link installation replaces a copy without duplicating files", async () => {
+  const root = join(tmpdir(), `vr-checklist-link-test-${process.pid}`);
+  temporaryRoots.push(root);
+  const sourceDirectory = join(root, "releases", "0.4.2", "package");
+  const installTarget = join(root, "Community2024", "package");
+  const temporaryTarget = join(root, "Community2024", ".package.install");
+  const backupTarget = join(root, ".package.backup");
+
+  await mkdir(sourceDirectory, { recursive: true });
+  await writeFile(join(sourceDirectory, "VERSION"), "0.4.2\n");
+  await mkdir(installTarget, { recursive: true });
+  await writeFile(join(installTarget, "VERSION"), "old copy\n");
+
+  await installDirectoryLink({
+    sourceDirectory,
+    installTarget,
+    temporaryTarget,
+    backupTarget,
+    createDirectoryLink: (source, link) => symlink(source, link, "dir"),
+    verifyLinkedDirectory: async (linkedDirectory) => {
+      assert.equal(
+        await readFile(join(linkedDirectory, "VERSION"), "utf8"),
+        "0.4.2\n"
+      );
+    },
+  });
+
+  assert.equal((await lstat(installTarget)).isSymbolicLink(), true);
+  assert.equal(await realpath(installTarget), await realpath(sourceDirectory));
+  assert.equal(await readFile(join(installTarget, "VERSION"), "utf8"), "0.4.2\n");
+});
+
+test("directory link installation keeps the current install when link verification fails", async () => {
+  const root = join(tmpdir(), `vr-checklist-link-rollback-test-${process.pid}`);
+  temporaryRoots.push(root);
+  const sourceDirectory = join(root, "releases", "0.4.2", "package");
+  const installTarget = join(root, "Community2024", "package");
+  const temporaryTarget = join(root, "Community2024", ".package.install");
+  const backupTarget = join(root, ".package.backup");
+
+  await mkdir(sourceDirectory, { recursive: true });
+  await mkdir(installTarget, { recursive: true });
+  await writeFile(join(installTarget, "VERSION"), "current install\n");
+
+  await assert.rejects(
+    () =>
+      installDirectoryLink({
+        sourceDirectory,
+        installTarget,
+        temporaryTarget,
+        backupTarget,
+        createDirectoryLink: (source, link) => symlink(source, link, "dir"),
+        verifyLinkedDirectory: async () => {
+          throw new Error("verification failed");
+        },
+      }),
+    /verification failed/
+  );
+
+  assert.equal((await lstat(installTarget)).isDirectory(), true);
+  assert.equal(
+    await readFile(join(installTarget, "VERSION"), "utf8"),
+    "current install\n"
+  );
 });
 
 test("package verification checks layout, release version, and source maps", async () => {

@@ -5,6 +5,7 @@ import {
   mkdir,
   readFile,
   readdir,
+  realpath,
   rename,
   rm,
   stat,
@@ -158,8 +159,119 @@ async function pathExists(path) {
   }
 }
 
+async function pathEntryExists(path) {
+  try {
+    await lstat(path);
+    return true;
+  } catch (error) {
+    if (error?.code === "ENOENT") {
+      return false;
+    }
+    throw error;
+  }
+}
+
 async function readJson(path) {
   return JSON.parse(await readFile(path, "utf8"));
+}
+
+async function createWindowsDirectoryJunction(sourceDirectory, linkPath) {
+  const linkWindowsPath = toWindowsPath(linkPath);
+  const sourceWindowsPath = toWindowsPath(sourceDirectory);
+
+  await new Promise((resolvePromise, reject) => {
+    const child = spawn(
+      "cmd.exe",
+      ["/d", "/c", "mklink", "/J", linkWindowsPath, sourceWindowsPath],
+      {
+        cwd: dirname(linkPath),
+        stdio: ["ignore", "pipe", "pipe"],
+      }
+    );
+    let errorOutput = "";
+
+    child.stdout.on("data", (chunk) => {
+      errorOutput += chunk;
+    });
+    child.stderr.on("data", (chunk) => {
+      errorOutput += chunk;
+    });
+    child.once("error", reject);
+    child.once("exit", (code, signal) => {
+      if (code === 0) {
+        resolvePromise();
+        return;
+      }
+
+      reject(
+        new Error(
+          `Windows junction creation failed${
+            signal ? ` with signal ${signal}` : ` with exit code ${code}`
+          }: ${errorOutput.trim() || "no error output"}`
+        )
+      );
+    });
+  });
+}
+
+export async function installDirectoryLink({
+  sourceDirectory,
+  installTarget,
+  temporaryTarget,
+  backupTarget,
+  createDirectoryLink = createWindowsDirectoryJunction,
+  verifyLinkedDirectory = async () => {},
+}) {
+  await rm(temporaryTarget, { force: true, recursive: true });
+  await rm(backupTarget, { force: true, recursive: true });
+
+  let previousInstallMoved = false;
+  let linkedInstallPlaced = false;
+  try {
+    await createDirectoryLink(sourceDirectory, temporaryTarget);
+    const temporaryLinkStats = await lstat(temporaryTarget);
+    if (!temporaryLinkStats.isSymbolicLink()) {
+      throw new Error(
+        `Temporary install entry is not a directory link: ${temporaryTarget}`
+      );
+    }
+
+    const [resolvedLinkTarget, resolvedSourceDirectory] = await Promise.all([
+      realpath(temporaryTarget),
+      realpath(sourceDirectory),
+    ]);
+    if (resolvedLinkTarget !== resolvedSourceDirectory) {
+      throw new Error(
+        `Temporary install link resolves to an unexpected target: ${resolvedLinkTarget}`
+      );
+    }
+    await verifyLinkedDirectory(resolvedLinkTarget);
+
+    if (await pathEntryExists(installTarget)) {
+      await rename(installTarget, backupTarget);
+      previousInstallMoved = true;
+    }
+
+    await rename(temporaryTarget, installTarget);
+    linkedInstallPlaced = true;
+    await rm(backupTarget, { force: true, recursive: true });
+    previousInstallMoved = false;
+  } catch (error) {
+    if (linkedInstallPlaced) {
+      await rm(installTarget, { force: true, recursive: true });
+      linkedInstallPlaced = false;
+    }
+    if (previousInstallMoved && !(await pathEntryExists(installTarget))) {
+      await rename(backupTarget, installTarget);
+      previousInstallMoved = false;
+    }
+    throw error;
+  } finally {
+    await rm(temporaryTarget, { force: true, recursive: true });
+    if (!previousInstallMoved) {
+      await rm(backupTarget, { force: true, recursive: true });
+    }
+  }
 }
 
 async function listPackageFiles(root, current = root) {
@@ -539,37 +651,18 @@ export async function installRelease({
     `.${packageName}.backup-${process.pid}`
   );
 
-  await rm(temporaryTarget, { force: true, recursive: true });
-  await rm(backupTarget, { force: true, recursive: true });
-
-  let previousInstallMoved = false;
-  try {
-    await cp(releasePackage, temporaryTarget, { recursive: true });
-    await verifyPackage(temporaryTarget, version);
-
-    if (await pathExists(installTarget)) {
-      await rename(installTarget, backupTarget);
-      previousInstallMoved = true;
-    }
-
-    await rename(temporaryTarget, installTarget);
-    previousInstallMoved = false;
-    await rm(backupTarget, { force: true, recursive: true });
-  } catch (error) {
-    if (previousInstallMoved && !(await pathExists(installTarget))) {
-      await rename(backupTarget, installTarget);
-      previousInstallMoved = false;
-    }
-    throw error;
-  } finally {
-    await rm(temporaryTarget, { force: true, recursive: true });
-    if (!previousInstallMoved) {
-      await rm(backupTarget, { force: true, recursive: true });
-    }
-  }
+  await installDirectoryLink({
+    sourceDirectory: releasePackage,
+    installTarget,
+    temporaryTarget,
+    backupTarget,
+    verifyLinkedDirectory: (linkedDirectory) =>
+      verifyPackage(linkedDirectory, version),
+  });
 
   return {
     installTarget,
+    linkTarget: releasePackage,
     packageVersion: verification.manifest.package_version,
   };
 }

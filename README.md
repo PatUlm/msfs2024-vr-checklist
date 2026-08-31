@@ -96,8 +96,8 @@ Alle projektweiten Abläufe beginnen im Repository-Root:
 | `task companion:deploy`                   | Deployed App und Test ins Windows-Staging        |
 | `task deploy`                             | Baut und deployed ins Windows-Staging           |
 | `task release`                            | Erzeugt das in `VERSION` deklarierte Release     |
-| `task community:install`                  | Installiert das aktuelle Release in `Community2024` |
-| `task community:install VERSION=x.y.z`    | Installiert gezielt ein vorhandenes Release      |
+| `task community:install`                  | Verlinkt das aktuelle Release in `Community2024` |
+| `task community:install VERSION=x.y.z`    | Verlinkt gezielt ein vorhandenes Release         |
 | `task companion:install`                  | Installiert die Companion-EXE eines Releases     |
 | `task release:install`                    | Installiert MSFS-Paket und Companion-EXE          |
 | `task check`                              | Führt die vollständige lokale Prüfung aus       |

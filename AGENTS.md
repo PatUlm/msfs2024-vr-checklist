@@ -81,6 +81,13 @@ gehören nach `docs/design-qa.md`.
   darf und soll der Agent ohne weitere Rückfrage committen. Der Agent fügt
   Dateien nur dann selbst zum Index hinzu, wenn der Benutzer dies ausdrücklich
   verlangt.
+- Ausnahme: Bei einem ausdrücklich beauftragten reinen Release-Schritt müssen
+  die mechanischen Release-Metadaten nach bereits freigegebenen fachlichen
+  Änderungen nicht erneut vom Benutzer reviewt oder gestaged werden. Der Agent
+  darf Versionsspiegelungen, Changelog und app-lesbare Release Notes nach den
+  erfolgreichen Release-Prüfungen selbst stagen, als eindeutigen Release-Commit
+  committen und taggen. Neue fachliche Änderungen sind von dieser Ausnahme
+  nicht erfasst.
 - Pushes erfolgen weiterhin nur auf ausdrücklichen Wunsch des Benutzers.
 
 ## MSFS-spezifische Lessons learned

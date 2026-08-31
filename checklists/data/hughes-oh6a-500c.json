@@ -1,0 +1,289 @@
+{
+  "schemaVersion": 1,
+  "id": "hughes-oh6a-500c",
+  "title": "Hughes OH-6A / 500C",
+  "aircraft": {
+    "manufacturer": "Hughes",
+    "model": "OH-6A / 500C",
+    "msfsMatches": [
+      {
+        "title": { "contains": "OH6A" }
+      },
+      {
+        "title": { "contains": "H500C" }
+      }
+    ]
+  },
+  "revision": "2026-08-31",
+  "sections": [
+    {
+      "id": "before-start",
+      "title": "Before Start",
+      "items": [
+        {
+          "id": "rotor-brake",
+          "challenge": "Rotor Brake Handle",
+          "response": "Stowed",
+          "kind": "action"
+        },
+        {
+          "id": "cyclic",
+          "challenge": "Cyclic",
+          "response": "Neutral + Friction On",
+          "kind": "action"
+        },
+        {
+          "id": "collective",
+          "challenge": "Collective",
+          "response": "Full Down + Friction On",
+          "kind": "action"
+        },
+        {
+          "id": "twistgrip-throttle",
+          "challenge": "Twistgrip Throttle",
+          "response": "CUTOFF",
+          "kind": "action"
+        },
+        {
+          "id": "cabin-heat",
+          "challenge": "Cabin Heat",
+          "response": "Off",
+          "kind": "action",
+          "notes": [
+            "Bleed-air equipment must be off for engine start."
+          ]
+        },
+        {
+          "id": "fuel-shutoff-valve",
+          "challenge": "Fuel Shutoff Valve",
+          "response": "Open (In)",
+          "kind": "action"
+        },
+        {
+          "id": "electrical-power",
+          "challenge": "Electrical Power",
+          "response": "Battery",
+          "kind": "action"
+        },
+        {
+          "id": "ignition-key",
+          "challenge": "Ignition Key",
+          "response": "On",
+          "kind": "action"
+        }
+      ]
+    },
+    {
+      "id": "engine-start",
+      "title": "Engine Start",
+      "items": [
+        {
+          "id": "anti-collision-lights",
+          "challenge": "Anti-Collision Lights",
+          "response": "On",
+          "kind": "action"
+        },
+        {
+          "id": "rotors",
+          "challenge": "Rotors",
+          "response": "Clear",
+          "kind": "verify"
+        },
+        {
+          "id": "starter-ignition",
+          "challenge": "Starter / Ignition",
+          "response": "Press + Hold",
+          "kind": "action"
+        },
+        {
+          "id": "twistgrip-ground-idle",
+          "challenge": "Twistgrip Throttle",
+          "response": "GROUND IDLE",
+          "kind": "action",
+          "condition": "N1 12–15 % and TOT < 150 °C",
+          "speech": "Twistgrip throttle: Move to ground idle when N one is between 12 and 15 percent and turbine outlet temperature is below 150 degrees Celsius."
+        },
+        {
+          "id": "tot",
+          "challenge": "TOT",
+          "response": "Monitor",
+          "kind": "verify",
+          "speech": "Turbine outlet temperature: Monitor."
+        },
+        {
+          "id": "engine-oil-pressure",
+          "challenge": "Engine Oil Pressure",
+          "response": "50–130 psi",
+          "kind": "verify"
+        },
+        {
+          "id": "caution-warning-indicators",
+          "challenge": "Caution / Warning Indicators",
+          "response": "All Out",
+          "kind": "verify"
+        },
+        {
+          "id": "engine-idle-n1",
+          "challenge": "Engine Idle N1",
+          "response": "61–65 %",
+          "kind": "verify",
+          "alternatives": [
+            {
+              "when": "OH-6A / 250-C18",
+              "response": "62–67 %"
+            }
+          ],
+          "speech": "Engine idle N one: 61 to 65 percent. Alternative for the O H 6 A with a 250 C 18 engine: 62 to 67 percent."
+        },
+        {
+          "id": "n2-rotor-rpm",
+          "challenge": "N2 and Rotor RPM",
+          "response": "Needles Superimposed",
+          "kind": "verify",
+          "speech": "N two and rotor R P M: Needles superimposed."
+        },
+        {
+          "id": "generator",
+          "challenge": "Generator",
+          "response": "On",
+          "kind": "action"
+        },
+        {
+          "id": "avionics",
+          "challenge": "Avionics",
+          "response": "On + Check",
+          "kind": "action"
+        },
+        {
+          "id": "twistgrip-full-open",
+          "challenge": "Twistgrip Throttle",
+          "response": "FULL OPEN",
+          "kind": "action"
+        },
+        {
+          "id": "n2",
+          "challenge": "N2",
+          "response": "104 %",
+          "kind": "verify",
+          "speech": "N two: 104 percent."
+        }
+      ]
+    },
+    {
+      "id": "before-takeoff",
+      "title": "Before Takeoff",
+      "items": [
+        {
+          "id": "cabin-doors",
+          "challenge": "Cabin Doors",
+          "response": "Closed + Safelocked",
+          "kind": "verify"
+        },
+        {
+          "id": "collective-friction",
+          "challenge": "Collective Friction",
+          "response": "Released",
+          "kind": "action"
+        },
+        {
+          "id": "instruments",
+          "challenge": "Instruments",
+          "response": "All in Green",
+          "kind": "verify"
+        },
+        {
+          "id": "pitot-heat",
+          "challenge": "Pitot Heat",
+          "response": "As required",
+          "kind": "action",
+          "condition": "Usually OAT < 5 °C",
+          "speech": "Pitot heat: As required, usually when outside air temperature is below 5 degrees Celsius."
+        }
+      ]
+    },
+    {
+      "id": "shutdown",
+      "title": "Shutdown",
+      "items": [
+        {
+          "id": "collective",
+          "challenge": "Collective",
+          "response": "Full Down + Friction On",
+          "kind": "action"
+        },
+        {
+          "id": "cyclic",
+          "challenge": "Cyclic",
+          "response": "Neutral + Friction On",
+          "kind": "action"
+        },
+        {
+          "id": "twistgrip-idle",
+          "challenge": "Twistgrip Throttle",
+          "response": "IDLE",
+          "kind": "action"
+        },
+        {
+          "id": "engine-cool-down",
+          "challenge": "Engine Cool-Down",
+          "response": "2 min",
+          "kind": "verify",
+          "speech": "Engine cool-down: Wait 2 minutes."
+        },
+        {
+          "id": "bleed-air-electrical-equipment",
+          "challenge": "Bleed Air / Electrical Equipment",
+          "response": "Off",
+          "kind": "action"
+        },
+        {
+          "id": "pedals",
+          "challenge": "Pedals",
+          "response": "Centered",
+          "kind": "action"
+        },
+        {
+          "id": "twistgrip-cutoff",
+          "challenge": "Twistgrip Throttle",
+          "response": "CUTOFF",
+          "kind": "action"
+        },
+        {
+          "id": "generator-avionics",
+          "challenge": "Generator / Avionics",
+          "response": "Off",
+          "kind": "action"
+        },
+        {
+          "id": "rotor-brake",
+          "challenge": "Rotor Brake",
+          "response": "Apply",
+          "kind": "action",
+          "condition": "Rotor RPM ≤ 235",
+          "notes": [
+            "Release during the last rotor revolution."
+          ],
+          "speech": "Rotor brake: Apply at 235 rotor R P M or less, then release during the last rotor revolution."
+        },
+        {
+          "id": "rotor-brake-handle",
+          "challenge": "Rotor Brake Handle",
+          "response": "Stowed",
+          "kind": "verify"
+        },
+        {
+          "id": "anti-collision-lights",
+          "challenge": "Anti-Collision Lights",
+          "response": "Off",
+          "kind": "action"
+        },
+        {
+          "id": "electrical-power",
+          "challenge": "Electrical Power",
+          "response": "Off",
+          "kind": "action"
+        }
+      ]
+    }
+  ]
+}

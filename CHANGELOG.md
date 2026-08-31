@@ -7,6 +7,11 @@ Changelog, and the project uses Semantic Versioning.
 
 ## [Unreleased]
 
+### Added
+
+- Added a compact common startup, before-takeoff and shutdown checklist for
+  Taog's Hangar's OH-6A Cayuse and Hughes 500C variants.
+
 ## [0.4.2] - 2026-08-30
 
 ### Fixed

@@ -6,6 +6,14 @@ Ergebnis geht als Fakt nach
 [`msfs-sdk-reference.md`](msfs-sdk-reference.md) oder in die zuständige
 Produktentscheidung.
 
+## Checklisten
+
+- [ ] Taog's Hangar OH-6A und H500C: `ATC MODEL`, `ATC TYPE` und `TITLE`
+  erfassen und die vorläufigen `TITLE`-Matchregeln für beide Varianten
+  bestätigen oder korrigieren.
+- [ ] `SET PLASMA OFF` als Checklist-Bestätigung im Taog's-Hangar OH-6A/H500C
+  nachweisen.
+
 ## Phase 3 — Begleit-App
 
 - [ ] Maximale CommBus-Nutzlast und tatsächliches Chunk-Verhalten bestimmen.

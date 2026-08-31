@@ -69,6 +69,10 @@ noch ein Ersatz für das jeweils gültige Flughandbuch.
 - Die für Prestart, Motorstart, Run-up und Shutdown relevanten H125-Verfahren
   sind mit Seitenangaben und Herkunftsnachweis unter
   [`../references/h125/`](../references/h125/) festgehalten.
+- Die kompakte OH-6A-/H500C-Checkliste ist aus der Expert-Checkliste im
+  veröffentlichten Taog's-Hangar-Flughandbuch abgeleitet. Herkunft,
+  Variantenabgrenzung und bewusste Auslassungen stehen unter
+  [`../references/oh6a-h500c/`](../references/oh6a-h500c/).
 - Der kompakte H125-Shutdown stützt sich auf den veröffentlichten
   [AS350-B3e-Flight-Manual-Auszug](https://data.ntsb.gov/Docket/Document/docBLOB?FileExtension=.PDF&FileName=Excerpts+from+AS350+Flight+Manual%2C+Revisions+2+%26+3+-+Normal+Procedures-Master.PDF&ID=40431411):
   Twist Grip auf `IDLE`, 30 Sekunden Cool-down, anschließend die verwendeten

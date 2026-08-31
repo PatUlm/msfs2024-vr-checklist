@@ -3,6 +3,15 @@
   "companionSince": "0.3.0",
   "releases": [
     {
+      "version": "0.5.0",
+      "date": "2026-08-31",
+      "highlight": "A compact checklist is now available for Taog's Hangar's OH-6A Cayuse and Hughes 500C.",
+      "features": [
+        "Adds a compact common startup, before-takeoff and shutdown checklist for the OH-6A Cayuse and Hughes 500C variants."
+      ],
+      "fixes": []
+    },
+    {
       "version": "0.4.2",
       "date": "2026-08-30",
       "highlight": "The Windows companion now handles malformed simulator data and shutdown races more reliably.",

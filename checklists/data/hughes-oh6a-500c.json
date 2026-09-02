@@ -83,12 +83,6 @@
           "speech": "Twistgrip throttle: Move to idle when engine N one is at least 20 percent."
         },
         {
-          "id": "caution-warning-indicators-start",
-          "challenge": "Caution / Warning Indicators",
-          "response": "All Out",
-          "kind": "action"
-        },
-        {
           "id": "starter-release",
           "challenge": "Starter",
           "response": "Release",
@@ -144,12 +138,6 @@
           "kind": "action"
         },
         {
-          "id": "pitot-heat",
-          "challenge": "Pitot Heat",
-          "response": "As required",
-          "kind": "action"
-        },
-        {
           "id": "landing-light",
           "challenge": "Landing Light",
           "response": "As required",
@@ -157,6 +145,12 @@
           "notes": [
             "Also used as taxi light."
           ]
+        },
+        {
+          "id": "pitot-heat",
+          "challenge": "Pitot Heat",
+          "response": "As required",
+          "kind": "action"
         }
       ]
     },

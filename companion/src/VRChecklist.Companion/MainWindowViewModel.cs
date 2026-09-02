@@ -83,6 +83,12 @@ public sealed class MainWindowViewModel : INotifyPropertyChanged
         private set => SetField(ref checklist, value);
     }
 
+    /// <summary>
+    /// Id of the checklist shown on the dashboard, or <c>null</c> while no
+    /// snapshot with a matching checklist has been received.
+    /// </summary>
+    public string? ChecklistId { get; private set; }
+
     public string ActiveGroup
     {
         get => activeGroup;
@@ -144,6 +150,7 @@ public sealed class MainWindowViewModel : INotifyPropertyChanged
                 snapshot.Aircraft.Title)
             ?? "Unknown aircraft";
         Checklist = snapshot.Checklist?.Title ?? "No checklist available";
+        ChecklistId = snapshot.Checklist?.Id;
         ActiveGroup = snapshot.ActiveGroup?.Title ?? "—";
         NextItem = snapshot.NextOpenItem is null
             ? snapshot.IsComplete ? "Checklist completed" : "—"

@@ -192,10 +192,35 @@ Iteration stehen separat in `design-qa.md`.
   das Changelog bleibt die vollständige chronologische Historie
   nutzerwirksamer Änderungen. Version und Datum dürfen zwischen beiden Quellen
   nicht auseinanderlaufen.
-- Die Buttons `Release Notes` und `Close` behalten in Grund-, Hover- und
-  Pressed-Zustand hellen Text auf einer dunkelblauen Fläche. Hover hellt die
-  Fläche sichtbar auf; Fluent-Theme-Standardfarben dürfen den Textkontrast
-  nicht überschreiben.
+- Alle Buttons der Begleit-App behalten in Grund-, Hover- und Pressed-Zustand
+  hellen Text auf einer dunkelblauen Fläche. Hover hellt die Fläche sichtbar
+  auf; Fluent-Theme-Standardfarben dürfen den Textkontrast nicht überschreiben.
+- Jeder Button trägt links neben seinem Text ein passendes Symbol (Liste mit
+  Haken, Dokument, Zwischenablage, Kreuz). Die Symbole sind eigene, in der App
+  abgelegte Geometrien; ein Icon-Font wird nicht vorausgesetzt. Das Symbol
+  ersetzt den Text nicht.
+
+## Checklistenansicht der Begleit-App
+
+- Der Button `Checklists` öffnet ein eigenständiges, nicht modales Fenster.
+  Das Dashboard bleibt bedienbar und aktualisiert sich weiter; ein erneuter
+  Klick holt das offene Fenster nach vorn, statt ein zweites zu öffnen.
+- Das Dropdown führt alle ausgelieferten Checklisten nach Titel sortiert. Beim
+  Öffnen ist die auf dem Dashboard angezeigte Checkliste vorausgewählt; ohne
+  passenden Snapshot die erste im Dropdown. Ein späterer Flugzeugwechsel
+  ändert eine bereits offene Auswahl nicht.
+- Der Inhalt wird direkt aus den Daten gerendert: eine Karte je Abschnitt,
+  darin je Item Challenge, gepunktete Führungslinie, Response und ein Badge für
+  `Verify`, `ATC` oder `Optional`; Bedingung, Alternativen, Notizen und
+  Review-Hinweise stehen eingerückt darunter. Ein Markdown-Renderer wird nicht
+  verwendet: Avalonia bringt keinen mit, und ein generisches Drittpaket brächte
+  eine unsichere Avalonia-12-Kompatibilität ohne gestalterischen Gewinn.
+- Ein Button `Copy` mit dem üblichen Zwischenablage-Symbol legt die gewählte
+  Checkliste als Markdown-artigen Text ab: `# Titel`, `## Abschnitt`,
+  `- [Verify] Challenge...Response`, darunter eingerückte Detailzeilen.
+  Kopierter Text taugt damit direkt als Review-Vorlage. Der Button meldet
+  `Copied` kurz im eigenen Label statt über einen Dialog. Textzeilen bleiben
+  zusätzlich einzeln markierbar.
 
 ## Checklistensprache
 

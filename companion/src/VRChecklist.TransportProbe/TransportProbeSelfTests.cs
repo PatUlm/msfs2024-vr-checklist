@@ -61,6 +61,9 @@ internal static class TransportProbeSelfTests
             ("deduplicates snapshots by session and sequence", DeduplicatesSnapshotsBySessionAndSequence),
             ("formats zero-of-zero progress", FormatsZeroOfZeroProgress),
             ("creates a checklist state request", CreatesChecklistStateRequest),
+            ("loads the embedded checklists sorted by title", LoadsEmbeddedChecklistsSortedByTitle),
+            ("rejects an embedded checklist without sections", RejectsChecklistWithoutSections),
+            ("formats a checklist as Markdown-like text", FormatsChecklistAsMarkdownLikeText),
         ];
 
         var failures = 0;
@@ -235,6 +238,94 @@ internal static class TransportProbeSelfTests
             request.Contains("\"type\":\"stateRequest\"", StringComparison.Ordinal) &&
             request.Contains("\"requestId\":\"request-1\"", StringComparison.Ordinal),
             "The checklist state request does not follow protocol v1.");
+    }
+
+    private static void LoadsEmbeddedChecklistsSortedByTitle()
+    {
+        var checklists = ChecklistCatalog.Load(typeof(TransportProbeSelfTests).Assembly);
+
+        Assert(checklists.Count >= 2, "Expected the shipped checklists to be embedded.");
+        Assert(
+            checklists.Select(checklist => checklist.Title)
+                .SequenceEqual(
+                    checklists.Select(checklist => checklist.Title)
+                        .OrderBy(title => title, StringComparer.OrdinalIgnoreCase)),
+            "Expected checklists to be sorted by title.");
+        Assert(
+            checklists.Any(checklist => checklist.Id == "hughes-oh6a-500c"),
+            "Expected the OH-6A/500C checklist to be embedded.");
+        Assert(
+            checklists.All(checklist =>
+                checklist.Sections.All(section => section.Items.Count > 0)),
+            "Expected every embedded section to contain items.");
+    }
+
+    private static void RejectsChecklistWithoutSections()
+    {
+        const string payload = """
+            {
+              "schemaVersion": 1,
+              "id": "empty",
+              "title": "Empty",
+              "revision": "2026-09-02",
+              "sections": []
+            }
+            """;
+        using var stream = new MemoryStream(Encoding.UTF8.GetBytes(payload));
+
+        ExpectThrows<InvalidDataException>(
+            () => ChecklistCatalog.Parse(stream, "empty.json"),
+            "Expected a checklist without sections to be rejected.");
+    }
+
+    private static void FormatsChecklistAsMarkdownLikeText()
+    {
+        var checklist = new ChecklistDocument(
+            "demo",
+            "Demo",
+            "2026-09-02",
+            [
+                new ChecklistSectionDocument(
+                    "engine-start",
+                    "Engine Start",
+                    [
+                        new ChecklistItemDocument(
+                            "twistgrip", "Twistgrip Throttle", "IDLE", "action",
+                            Condition: "Engine N1 ≥ 20 %",
+                            Alternatives: null,
+                            Notes: ["Advance gradually."],
+                            NeedsReview: null,
+                            ReviewNote: null),
+                        new ChecklistItemDocument(
+                            "indicators", "Caution / Warning Indicators", "All Out", "verify",
+                            Condition: null,
+                            Alternatives: [new ChecklistAlternativeDocument("cold start", "Check")],
+                            Notes: null,
+                            NeedsReview: true,
+                            ReviewNote: "Confirm in the sim."),
+                        new ChecklistItemDocument(
+                            "atis", "COM: ATIS", "Received", "communication",
+                            Condition: null, Alternatives: null, Notes: null,
+                            NeedsReview: null, ReviewNote: null),
+                    ]),
+            ]);
+
+        var text = ChecklistTextFormatter.ToPlainText(ChecklistTextFormatter.Format(checklist));
+
+        const string expected =
+            "# Demo\n" +
+            "Revision 2026-09-02\n" +
+            "\n" +
+            "## Engine Start\n" +
+            "\n" +
+            "- Twistgrip Throttle...IDLE\n" +
+            "  Engine N1 ≥ 20 %\n" +
+            "  Advance gradually.\n" +
+            "- [Verify] Caution / Warning Indicators...All Out\n" +
+            "  Alternative · cold start: Check\n" +
+            "  Review required: Confirm in the sim.\n" +
+            "- [ATC] COM: ATIS...Received\n";
+        Assert(text == expected, $"Unexpected checklist text:\n{text}");
     }
 
     private static void ReassemblesUtf8SplitAcrossChunks()

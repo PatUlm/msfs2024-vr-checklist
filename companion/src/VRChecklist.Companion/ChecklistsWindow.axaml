@@ -1,0 +1,168 @@
+<Window
+    x:Class="VRChecklist.Companion.ChecklistsWindow"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:vm="using:VRChecklist.Companion"
+    x:DataType="vm:ChecklistsViewModel"
+    Title="VR Checklist — Checklists"
+    Width="720"
+    Height="760"
+    MinWidth="560"
+    MinHeight="460"
+    Background="#10151D"
+    FontFamily="Segoe UI">
+  <Window.Styles>
+    <Style Selector="Border.section-card">
+      <Setter Property="Background" Value="#18212C" />
+      <Setter Property="BorderBrush" Value="#273646" />
+      <Setter Property="BorderThickness" Value="1" />
+      <Setter Property="CornerRadius" Value="10" />
+      <Setter Property="Padding" Value="20" />
+      <Setter Property="Margin" Value="0,0,0,14" />
+    </Style>
+    <Style Selector="TextBlock.section-heading">
+      <Setter Property="Foreground" Value="#8E9AAA" />
+      <Setter Property="FontSize" Value="13" />
+      <Setter Property="FontWeight" Value="SemiBold" />
+      <Setter Property="Margin" Value="0,0,0,6" />
+    </Style>
+    <Style Selector="SelectableTextBlock.challenge">
+      <Setter Property="Foreground" Value="#F3F6FA" />
+      <Setter Property="FontSize" Value="16" />
+      <Setter Property="TextWrapping" Value="Wrap" />
+      <Setter Property="VerticalAlignment" Value="Bottom" />
+    </Style>
+    <Style Selector="SelectableTextBlock.response">
+      <Setter Property="Foreground" Value="#F3F6FA" />
+      <Setter Property="FontSize" Value="16" />
+      <Setter Property="FontWeight" Value="SemiBold" />
+      <Setter Property="TextWrapping" Value="Wrap" />
+      <Setter Property="TextAlignment" Value="Right" />
+      <Setter Property="VerticalAlignment" Value="Bottom" />
+    </Style>
+    <Style Selector="Rectangle.leader">
+      <Setter Property="Height" Value="1" />
+      <Setter Property="Stroke" Value="#3A4A5C" />
+      <Setter Property="StrokeThickness" Value="1" />
+      <Setter Property="StrokeDashArray" Value="1,3" />
+      <Setter Property="VerticalAlignment" Value="Bottom" />
+      <Setter Property="Margin" Value="8,0,8,5" />
+      <Setter Property="MinWidth" Value="24" />
+    </Style>
+    <Style Selector="Border.kind-badge">
+      <Setter Property="Background" Value="#223246" />
+      <Setter Property="BorderBrush" Value="#36516D" />
+      <Setter Property="BorderThickness" Value="1" />
+      <Setter Property="CornerRadius" Value="5" />
+      <Setter Property="Padding" Value="7,2" />
+      <Setter Property="Margin" Value="12,0,0,2" />
+      <Setter Property="VerticalAlignment" Value="Bottom" />
+    </Style>
+    <Style Selector="Border.kind-badge TextBlock">
+      <Setter Property="Foreground" Value="#9CCBFF" />
+      <Setter Property="FontSize" Value="12" />
+      <Setter Property="FontWeight" Value="SemiBold" />
+    </Style>
+    <Style Selector="SelectableTextBlock.detail">
+      <Setter Property="Foreground" Value="#AAB4C0" />
+      <Setter Property="FontSize" Value="14" />
+      <Setter Property="TextWrapping" Value="Wrap" />
+    </Style>
+    <Style Selector="ComboBox.checklist-picker">
+      <Setter Property="MinHeight" Value="40" />
+      <Setter Property="FontSize" Value="16" />
+      <Setter Property="Background" Value="#223246" />
+      <Setter Property="BorderBrush" Value="#36516D" />
+      <Setter Property="Foreground" Value="#F3F6FA" />
+      <Setter Property="HorizontalAlignment" Value="Stretch" />
+    </Style>
+  </Window.Styles>
+
+  <Grid Margin="28" RowDefinitions="Auto,Auto,*,Auto" RowSpacing="18">
+    <StackPanel Grid.Row="0" Spacing="4">
+      <TextBlock Foreground="#F3F6FA" FontSize="28" FontWeight="SemiBold"
+                 Text="Checklists" />
+      <TextBlock Foreground="#AAB4C0" FontSize="14" TextWrapping="Wrap"
+                 Text="Every checklist shipped with this release." />
+    </StackPanel>
+
+    <Grid Grid.Row="1" ColumnDefinitions="*,Auto" ColumnSpacing="14">
+      <ComboBox Classes="checklist-picker"
+                ItemsSource="{Binding Checklists}"
+                SelectedItem="{Binding SelectedChecklist}">
+        <ComboBox.ItemTemplate>
+          <DataTemplate x:DataType="vm:ChecklistDocument">
+            <TextBlock Text="{Binding Title}" />
+          </DataTemplate>
+        </ComboBox.ItemTemplate>
+      </ComboBox>
+      <TextBlock Grid.Column="1" Foreground="#8E9AAA" FontSize="13"
+                 VerticalAlignment="Center" Text="{Binding Revision}" />
+    </Grid>
+
+    <ScrollViewer Grid.Row="2" VerticalScrollBarVisibility="Auto"
+                  HorizontalScrollBarVisibility="Disabled">
+      <ItemsControl ItemsSource="{Binding Sections}">
+        <ItemsControl.ItemTemplate>
+          <DataTemplate x:DataType="vm:ChecklistSectionViewModel">
+            <Border Classes="section-card">
+              <StackPanel Spacing="10">
+                <TextBlock Classes="section-heading"
+                           Text="{Binding Title, Converter={x:Static vm:TextConverters.Uppercase}}" />
+                <ItemsControl ItemsSource="{Binding Items}">
+                  <ItemsControl.ItemTemplate>
+                    <DataTemplate x:DataType="vm:ChecklistItemViewModel">
+                      <StackPanel Spacing="3" Margin="0,0,0,8">
+                        <Grid ColumnDefinitions="Auto,*,Auto,Auto">
+                          <SelectableTextBlock Classes="challenge"
+                                               Text="{Binding Challenge}" />
+                          <Rectangle Grid.Column="1" Classes="leader" />
+                          <SelectableTextBlock Grid.Column="2" Classes="response"
+                                               Text="{Binding Response}" />
+                          <Border Grid.Column="3" Classes="kind-badge"
+                                  IsVisible="{Binding HasKind}">
+                            <TextBlock Text="{Binding KindLabel}" />
+                          </Border>
+                        </Grid>
+                        <ItemsControl ItemsSource="{Binding Details}"
+                                      IsVisible="{Binding HasDetails}"
+                                      Margin="16,0,0,0">
+                          <ItemsControl.ItemTemplate>
+                            <DataTemplate x:DataType="vm:ChecklistDetailLine">
+                              <SelectableTextBlock Classes="detail">
+                                <Run Text="{Binding Label}" Foreground="#8E9AAA" />
+                                <Run Text="{Binding Text}" />
+                              </SelectableTextBlock>
+                            </DataTemplate>
+                          </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                      </StackPanel>
+                    </DataTemplate>
+                  </ItemsControl.ItemTemplate>
+                </ItemsControl>
+              </StackPanel>
+            </Border>
+          </DataTemplate>
+        </ItemsControl.ItemTemplate>
+      </ItemsControl>
+    </ScrollViewer>
+
+    <StackPanel Grid.Row="3" Orientation="Horizontal" Spacing="10"
+                HorizontalAlignment="Right">
+      <Button Classes="icon-button"
+              ToolTip.Tip="Copy the checklist as Markdown text"
+              Click="OnCopyClick">
+        <StackPanel>
+          <Path Data="{StaticResource IconCopy}" />
+          <TextBlock x:Name="CopyLabel" Text="Copy" />
+        </StackPanel>
+      </Button>
+      <Button Classes="icon-button" Click="OnCloseClick">
+        <StackPanel>
+          <Path Data="{StaticResource IconClose}" />
+          <TextBlock Text="Close" />
+        </StackPanel>
+      </Button>
+    </StackPanel>
+  </Grid>
+</Window>

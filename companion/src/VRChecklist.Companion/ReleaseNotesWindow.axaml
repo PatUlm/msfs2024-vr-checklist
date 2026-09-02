@@ -26,22 +26,6 @@
       <Setter Property="FontWeight" Value="SemiBold" />
       <Setter Property="Margin" Value="0,4,0,2" />
     </Style>
-    <Style Selector="Button.close-button">
-      <Setter Property="Padding" Value="22,9" />
-      <Setter Property="Background" Value="#223246" />
-      <Setter Property="BorderBrush" Value="#36516D" />
-      <Setter Property="Foreground" Value="#F3F6FA" />
-    </Style>
-    <Style Selector="Button.close-button:pointerover /template/ ContentPresenter#PART_ContentPresenter">
-      <Setter Property="Background" Value="#2E4660" />
-      <Setter Property="BorderBrush" Value="#5DA9FF" />
-      <Setter Property="TextElement.Foreground" Value="#FFFFFF" />
-    </Style>
-    <Style Selector="Button.close-button:pressed /template/ ContentPresenter#PART_ContentPresenter">
-      <Setter Property="Background" Value="#18293B" />
-      <Setter Property="BorderBrush" Value="#5DA9FF" />
-      <Setter Property="TextElement.Foreground" Value="#FFFFFF" />
-    </Style>
   </Window.Styles>
 
   <Grid Margin="28" RowDefinitions="Auto,*,Auto" RowSpacing="18">
@@ -108,7 +92,12 @@
       </ItemsControl>
     </ScrollViewer>
 
-    <Button Grid.Row="2" Classes="close-button" HorizontalAlignment="Right"
-            Content="Close" Click="OnCloseClick" />
+    <Button Grid.Row="2" Classes="icon-button" HorizontalAlignment="Right"
+            Click="OnCloseClick">
+      <StackPanel>
+        <Path Data="{StaticResource IconClose}" />
+        <TextBlock Text="Close" />
+      </StackPanel>
+    </Button>
   </Grid>
 </Window>

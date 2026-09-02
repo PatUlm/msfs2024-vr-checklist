@@ -7,6 +7,13 @@ Changelog, and the project uses Semantic Versioning.
 
 ## [Unreleased]
 
+### Added
+
+- Added a `Checklists` window to the Windows companion that lists every shipped
+  checklist by name, preselects the checklist shown on the dashboard, renders
+  its sections and items and copies the checklist as Markdown-like text with
+  one click.
+
 ### Changed
 
 - Replaced the OH-6A/H500C taxi light reminder with a position lights step

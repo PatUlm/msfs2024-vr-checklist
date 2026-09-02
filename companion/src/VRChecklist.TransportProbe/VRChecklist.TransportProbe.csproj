@@ -11,6 +11,16 @@
   <ItemGroup>
     <Compile Include="../VRChecklist.Companion/ChecklistConnectionService.cs"
              Link="ChecklistConnectionService.cs" />
+    <Compile Include="../VRChecklist.Companion/ChecklistCatalog.cs"
+             Link="ChecklistCatalog.cs" />
+    <Compile Include="../VRChecklist.Companion/ChecklistTextFormatter.cs"
+             Link="ChecklistTextFormatter.cs" />
     <ProjectReference Include="../VRChecklist.Transport/VRChecklist.Transport.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <!-- Same checklist resources as the companion so the self-tests exercise the shipped data. -->
+    <EmbeddedResource Include="../../../checklists/data/*.json"
+                      Exclude="../../../checklists/data/checklist.schema.json"
+                      LogicalName="VRChecklist.Companion.checklists.%(Filename)%(Extension)" />
   </ItemGroup>
 </Project>

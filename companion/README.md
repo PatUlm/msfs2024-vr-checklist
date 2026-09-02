@@ -27,6 +27,10 @@ Abdeckung aller in `CHANGELOG.md` veröffentlichten Versionen seit Einführung
 der Companion-App; ältere Produktmeilensteine dürfen zusätzlich enthalten sein.
 Die neueste Version muss außerdem mit `VERSION` übereinstimmen.
 
+Die Checklistenansicht der Status-App bettet die JSON-Dateien aus
+`../checklists/data/` zur Build-Zeit als Ressourcen ein. Die JSON-Dateien
+bleiben die einzige Quelle; die App rendert sie nur.
+
 Build und Windows-Deployment werden aus dem Repository-Root mit
 `task companion:deploy` gestartet. Das verwaltete Ziel ist standardmäßig
 `/mnt/c/dev/msfs2024-vr-checklist-companion-staging`; Laufzeitanleitung und

@@ -2,7 +2,44 @@
     x:Class="VRChecklist.Companion.App"
     xmlns="https://github.com/avaloniaui"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <Application.Resources>
+    <!-- 24x24 icon geometries, drawn for this app; no icon font dependency. -->
+    <StreamGeometry x:Key="IconChecklist">M2.5,6 L4.5,8 L8,4.5 L6.9,3.4 L4.5,5.8 L3.6,4.9 Z M10,5 H21.5 V7 H10 Z M2.5,13 L4.5,15 L8,11.5 L6.9,10.4 L4.5,12.8 L3.6,11.9 Z M10,12 H21.5 V14 H10 Z M2.5,20 L4.5,22 L8,18.5 L6.9,17.4 L4.5,19.8 L3.6,18.9 Z M10,19 H21.5 V21 H10 Z</StreamGeometry>
+    <StreamGeometry x:Key="IconReleaseNotes">M5,2 H14 L20,8 V22 H5 Z M7,4 V20 H18 V9 H13 V4 Z M9,12 H16 V14 H9 Z M9,16 H16 V18 H9 Z</StreamGeometry>
+    <StreamGeometry x:Key="IconCopy">M6,2 H16 A2,2 0 0 1 18,4 V14 H16 V4 H6 Z M4,6 H12 A2,2 0 0 1 14,8 V18 A2,2 0 0 1 12,20 H4 A2,2 0 0 1 2,18 V8 A2,2 0 0 1 4,6 Z M4,8 V18 H12 V8 Z</StreamGeometry>
+    <StreamGeometry x:Key="IconClose">M5.3,4 L12,10.7 L18.7,4 L20,5.3 L13.3,12 L20,18.7 L18.7,20 L12,13.3 L5.3,20 L4,18.7 L10.7,12 L4,5.3 Z</StreamGeometry>
+  </Application.Resources>
   <Application.Styles>
     <FluentTheme />
+    <Style Selector="Button.icon-button">
+      <Setter Property="Padding" Value="16,9" />
+      <Setter Property="Background" Value="#223246" />
+      <Setter Property="BorderBrush" Value="#36516D" />
+      <Setter Property="Foreground" Value="#F3F6FA" />
+    </Style>
+    <Style Selector="Button.icon-button:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+      <Setter Property="Background" Value="#2E4660" />
+      <Setter Property="BorderBrush" Value="#5DA9FF" />
+      <Setter Property="TextElement.Foreground" Value="#FFFFFF" />
+    </Style>
+    <Style Selector="Button.icon-button:pressed /template/ ContentPresenter#PART_ContentPresenter">
+      <Setter Property="Background" Value="#18293B" />
+      <Setter Property="BorderBrush" Value="#5DA9FF" />
+      <Setter Property="TextElement.Foreground" Value="#FFFFFF" />
+    </Style>
+    <Style Selector="Button.icon-button StackPanel">
+      <Setter Property="Orientation" Value="Horizontal" />
+      <Setter Property="Spacing" Value="8" />
+    </Style>
+    <Style Selector="Button.icon-button Path">
+      <Setter Property="Width" Value="16" />
+      <Setter Property="Height" Value="16" />
+      <Setter Property="Stretch" Value="Uniform" />
+      <Setter Property="Fill" Value="#F3F6FA" />
+      <Setter Property="VerticalAlignment" Value="Center" />
+    </Style>
+    <Style Selector="Button.icon-button TextBlock">
+      <Setter Property="VerticalAlignment" Value="Center" />
+    </Style>
   </Application.Styles>
 </Application>

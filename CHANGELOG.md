@@ -7,6 +7,8 @@ Changelog, and the project uses Semantic Versioning.
 
 ## [Unreleased]
 
+## [0.5.1] - 2026-09-02
+
 ### Changed
 
 - Streamlined the OH-6A/H500C checklist around the user-defined startup flow,

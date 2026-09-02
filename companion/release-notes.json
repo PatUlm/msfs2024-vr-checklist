@@ -3,6 +3,15 @@
   "companionSince": "0.3.0",
   "releases": [
     {
+      "version": "0.5.1",
+      "date": "2026-09-02",
+      "highlight": "The OH-6A/H500C checklist now follows the revised compact startup flow.",
+      "features": [
+        "Adds explicit starter release, cockpit-lighting and before-takeoff light reminders to the streamlined OH-6A/H500C flow."
+      ],
+      "fixes": []
+    },
+    {
       "version": "0.5.0",
       "date": "2026-08-31",
       "highlight": "A compact checklist is now available for Taog's Hangar's OH-6A Cayuse and Hughes 500C.",

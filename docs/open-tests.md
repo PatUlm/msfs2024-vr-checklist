@@ -14,6 +14,15 @@ Produktentscheidung.
 - [ ] `SET PLASMA OFF` als Checklist-Bestätigung im Taog's-Hangar OH-6A/H500C
   nachweisen.
 
+## Darstellung und EFB-Lifecycle
+
+- [ ] Seit Release 0.5.1 einmalig beobachtet: Im nachts in LOWI gestarteten
+  H500C-VR-Flug erschien die nach Flugstart geöffnete VR Checklist ohne das
+  geplante VR-Dichteprofil und dadurch zu klein; in der nächsten Dev-Session
+  reproduzieren und je EFB-Instanz `created`/`resumed`, `Display mode detected`
+  beziehungsweise Lesefehler für `E:IS IN VR` sowie das Vorhandensein der
+  Klasse `vr-checklist-app--vr` protokollieren.
+
 ## Phase 3 — Begleit-App
 
 - [ ] Maximale CommBus-Nutzlast und tatsächliches Chunk-Verhalten bestimmen.

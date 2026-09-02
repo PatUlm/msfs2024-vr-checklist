@@ -138,14 +138,14 @@
       "title": "Before Takeoff",
       "items": [
         {
-          "id": "pitot-heat",
-          "challenge": "Pitot Heat",
+          "id": "position-lights",
+          "challenge": "Position Lights",
           "response": "As required",
           "kind": "action"
         },
         {
-          "id": "taxi-light",
-          "challenge": "Taxi Light",
+          "id": "pitot-heat",
+          "challenge": "Pitot Heat",
           "response": "As required",
           "kind": "action"
         },
@@ -153,7 +153,10 @@
           "id": "landing-light",
           "challenge": "Landing Light",
           "response": "As required",
-          "kind": "action"
+          "kind": "action",
+          "notes": [
+            "Also used as taxi light."
+          ]
         }
       ]
     },
@@ -183,7 +186,7 @@
           "id": "engine-cool-down",
           "challenge": "Engine Cool-Down",
           "response": "2 min",
-          "kind": "verify",
+          "kind": "action",
           "speech": "Engine cool-down: Wait 2 minutes."
         },
         {

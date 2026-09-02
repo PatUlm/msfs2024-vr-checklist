@@ -11,7 +11,7 @@
       }
     ]
   },
-  "revision": "2026-08-30",
+  "revision": "2026-09-02",
   "sections": [
     {
       "id": "before-start",
@@ -159,7 +159,7 @@
           "id": "engine-cool-down",
           "challenge": "Engine Cool-Down",
           "response": "30 s",
-          "kind": "verify",
+          "kind": "action",
           "speech": "Engine cool-down: Wait 30 seconds."
         },
         {

@@ -7,6 +7,13 @@ Changelog, and the project uses Semantic Versioning.
 
 ## [Unreleased]
 
+### Changed
+
+- Replaced the OH-6A/H500C taxi light reminder with a position lights step
+  before takeoff and noted that the landing light doubles as taxi light.
+- Turned the engine cool-down step of the OH-6A/H500C and H125 shutdowns into a
+  regular action instead of a verification.
+
 ## [0.5.1] - 2026-09-02
 
 ### Changed

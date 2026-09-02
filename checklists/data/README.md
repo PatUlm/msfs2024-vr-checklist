@@ -61,6 +61,14 @@ noch ein Ersatz für das jeweils gültige Flughandbuch.
 - Die lokalen ODS-Referenzen für DA42 und MH-60 liegen ausschließlich unter
   `checklists/source/` und bleiben unversioniert. Die JSON-Dateien sind die
   daraus abgeleitete, kanonische Fassung.
+- Verhaltensänderungen der Miltech-MH-60 stehen im Changelog des
+  [Miltech Bug Trackers](https://bugs.miltechsimulations.com/) (Produkt
+  `MH60`), maschinenlesbar unter
+  `https://bugs.miltechsimulations.com/api/products` (Feld `changelog`, inkl.
+  `EXPERIMENTAL`-Builds). Das ältere Forum-Topic
+  [MH60 Release Notes](https://miltechsimulations.talkyard.net/-337/miltech-simulations-mh60-release-notes)
+  endet bei V1.1.0. Keybinds und Systembeschreibung:
+  [Miltech Documentation Hub](https://docs.miltechsimulations.com/miltech-simulations-mh60).
 - Die H125-Reihenfolge für den kompakten Motorstart stützt sich auf die
   veröffentlichte
   [AS350/H125-Operatorcheckliste](https://aviapages.com/media/2022/03/14/Checklist_H125.pdf):

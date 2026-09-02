@@ -7,12 +7,15 @@ Changelog, and the project uses Semantic Versioning.
 
 ## [Unreleased]
 
+## [0.6.0] - 2026-09-02
+
 ### Added
 
 - Added a `Checklists` window to the Windows companion that lists every shipped
   checklist by name, preselects the checklist shown on the dashboard, renders
   its sections and items and copies the checklist as Markdown-like text with
   one click.
+- Added icons to all Windows companion buttons.
 
 ### Changed
 

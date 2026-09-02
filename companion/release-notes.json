@@ -3,6 +3,18 @@
   "companionSince": "0.3.0",
   "releases": [
     {
+      "version": "0.6.0",
+      "date": "2026-09-02",
+      "highlight": "The companion now shows every shipped checklist in a Checklists window and copies it with one click.",
+      "features": [
+        "Adds a Checklists window with a checklist dropdown, the dashboard checklist preselected, and a Copy button that puts the checklist on the clipboard as Markdown-like text.",
+        "Gives every companion button an icon.",
+        "Moves the OH-6A/H500C before-takeoff lights to position lights and landing light with pitot heat last, and removes the duplicate caution and warning indicator check during engine start.",
+        "Turns the engine cool-down of the OH-6A/H500C and H125 shutdowns into a regular action."
+      ],
+      "fixes": []
+    },
+    {
       "version": "0.5.1",
       "date": "2026-09-02",
       "highlight": "The OH-6A/H500C checklist now follows the revised compact startup flow.",

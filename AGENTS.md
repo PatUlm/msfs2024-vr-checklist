@@ -28,6 +28,12 @@ gehören nach `docs/design-qa.md`.
   alte ersetzt.
 - Vor Änderungen an Checklistendaten sind `checklists/data/README.md` und
   `checklists/data/style-guide.md` zu lesen.
+- Quellen von Checklisten werden lokal in maschinenlesbarer Form vorgehalten.
+  Vor einer Prüfung oder einem Abgleich mit der ursprünglichen Checkliste ist
+  zuerst das Repository einschließlich der lokal ignorierten Quellen unter
+  `checklists/source/` zu prüfen. Eine externe Quelle wird nur herangezogen,
+  wenn die benötigte lokale Quelle fehlt oder die konkrete Frage nicht
+  beantwortet.
 - Neue oder aktualisierte direkte Abhängigkeiten und ausgelieferte
   Drittkomponenten müssen im selben Arbeitsgang in
   `docs/third-party-licenses.md` mit Version, Lizenz und Primärquelle
@@ -161,11 +167,18 @@ gehören nach `docs/design-qa.md`.
 - Projektweite Abläufe werden aus dem Repository-Root über `Taskfile.yml`
   gestartet; npm-Skripte sind nur für app-interne Frontend-Aufgaben bestimmt.
 - Nach einem frischen Clone: `task init`, `task install`, `task check`.
-- Nach Code- oder Datenänderungen muss mindestens `task check` erfolgreich
-  laufen.
-- Nach jeder app-wirksamen Code-, UI- oder Checklistendaten-Änderung muss nach
-  der erfolgreichen Prüfung automatisch `task deploy` ausgeführt werden. Reine
-  Dokumentationsänderungen lösen keinen unnötigen Deployment-Build aus.
+- Änderungen, deren fachlicher Inhalt noch mit dem Benutzer abgestimmt werden
+  muss oder zu denen Fragen offen sind, gelten als Zwischenstand. Vor der
+  nötigen Benutzerentscheidung werden nur gezielte Prüfungen ausgeführt, die
+  für die Abstimmung oder zur Vermeidung eines offensichtlich defekten
+  Zwischenstands erforderlich sind; `task check` und Deployments folgen noch
+  nicht.
+- Nach inhaltlich abgestimmten Code- oder Datenänderungen muss vor Abschluss des
+  Inkrements mindestens `task check` erfolgreich laufen.
+- Nach jeder inhaltlich abgestimmten app-wirksamen Code-, UI- oder
+  Checklistendaten-Änderung muss nach der erfolgreichen Prüfung automatisch
+  `task deploy` ausgeführt werden. Reine Dokumentationsänderungen lösen keinen
+  unnötigen Deployment-Build aus.
 - Nach Änderungen am Windows-Companion muss zusätzlich automatisch
   `task companion:deploy` ausgeführt werden.
 - Nach jedem Deployment ist die tatsächlich ins Windows-Staging geschriebene

@@ -7,6 +7,12 @@ Changelog, and the project uses Semantic Versioning.
 
 ## [Unreleased]
 
+### Changed
+
+- Streamlined the OH-6A/H500C checklist around the user-defined startup flow,
+  including explicit starter release, cockpit lighting and before-takeoff light
+  reminders.
+
 ## [0.5.0] - 2026-08-31
 
 ### Added

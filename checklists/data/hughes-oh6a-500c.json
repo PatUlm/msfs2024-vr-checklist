@@ -14,7 +14,7 @@
       }
     ]
   },
-  "revision": "2026-08-31",
+  "revision": "2026-09-02",
   "sections": [
     {
       "id": "before-start",
@@ -24,45 +24,30 @@
           "id": "rotor-brake",
           "challenge": "Rotor Brake Handle",
           "response": "Stowed",
-          "kind": "action"
-        },
-        {
-          "id": "cyclic",
-          "challenge": "Cyclic",
-          "response": "Neutral + Friction On",
-          "kind": "action"
+          "kind": "verify"
         },
         {
           "id": "collective",
           "challenge": "Collective",
-          "response": "Full Down + Friction On",
-          "kind": "action"
+          "response": "Full Down",
+          "kind": "verify"
         },
         {
           "id": "twistgrip-throttle",
           "challenge": "Twistgrip Throttle",
           "response": "CUTOFF",
-          "kind": "action"
-        },
-        {
-          "id": "cabin-heat",
-          "challenge": "Cabin Heat",
-          "response": "Off",
-          "kind": "action",
-          "notes": [
-            "Bleed-air equipment must be off for engine start."
-          ]
-        },
-        {
-          "id": "fuel-shutoff-valve",
-          "challenge": "Fuel Shutoff Valve",
-          "response": "Open (In)",
-          "kind": "action"
+          "kind": "verify"
         },
         {
           "id": "electrical-power",
           "challenge": "Electrical Power",
           "response": "Battery",
+          "kind": "action"
+        },
+        {
+          "id": "cockpit-lights",
+          "challenge": "Cabin / Panel / Instrument Lights",
+          "response": "As required",
           "kind": "action"
         },
         {
@@ -84,63 +69,42 @@
           "kind": "action"
         },
         {
-          "id": "rotors",
-          "challenge": "Rotors",
-          "response": "Clear",
-          "kind": "verify"
-        },
-        {
-          "id": "starter-ignition",
-          "challenge": "Starter / Ignition",
+          "id": "starter-press",
+          "challenge": "Starter",
           "response": "Press + Hold",
           "kind": "action"
         },
         {
-          "id": "twistgrip-ground-idle",
+          "id": "twistgrip-idle",
           "challenge": "Twistgrip Throttle",
-          "response": "GROUND IDLE",
+          "response": "IDLE",
           "kind": "action",
-          "condition": "N1 12–15 % and TOT < 150 °C",
-          "speech": "Twistgrip throttle: Move to ground idle when N one is between 12 and 15 percent and turbine outlet temperature is below 150 degrees Celsius."
+          "condition": "Engine N1 ≥ 20 %",
+          "speech": "Twistgrip throttle: Move to idle when engine N one is at least 20 percent."
         },
         {
-          "id": "tot",
-          "challenge": "TOT",
-          "response": "Monitor",
-          "kind": "verify",
-          "speech": "Turbine outlet temperature: Monitor."
-        },
-        {
-          "id": "engine-oil-pressure",
-          "challenge": "Engine Oil Pressure",
-          "response": "50–130 psi",
-          "kind": "verify"
-        },
-        {
-          "id": "caution-warning-indicators",
+          "id": "caution-warning-indicators-start",
           "challenge": "Caution / Warning Indicators",
           "response": "All Out",
-          "kind": "verify"
+          "kind": "action"
         },
         {
-          "id": "engine-idle-n1",
-          "challenge": "Engine Idle N1",
-          "response": "61–65 %",
-          "kind": "verify",
-          "alternatives": [
-            {
-              "when": "OH-6A / 250-C18",
-              "response": "62–67 %"
-            }
+          "id": "starter-release",
+          "challenge": "Starter",
+          "response": "Release",
+          "kind": "action",
+          "condition": "Engine N1 ≥ 61 %",
+          "speech": "Starter: Release when engine N one is at least 61 percent."
+        },
+        {
+          "id": "twistgrip-flight",
+          "challenge": "Twistgrip Throttle",
+          "response": "FLIGHT",
+          "kind": "action",
+          "notes": [
+            "Advance gradually."
           ],
-          "speech": "Engine idle N one: 61 to 65 percent. Alternative for the O H 6 A with a 250 C 18 engine: 62 to 67 percent."
-        },
-        {
-          "id": "n2-rotor-rpm",
-          "challenge": "N2 and Rotor RPM",
-          "response": "Needles Superimposed",
-          "kind": "verify",
-          "speech": "N two and rotor R P M: Needles superimposed."
+          "speech": "Twistgrip throttle: Flight. Advance gradually."
         },
         {
           "id": "generator",
@@ -151,21 +115,21 @@
         {
           "id": "avionics",
           "challenge": "Avionics",
-          "response": "On + Check",
+          "response": "On",
           "kind": "action"
         },
         {
-          "id": "twistgrip-full-open",
-          "challenge": "Twistgrip Throttle",
-          "response": "FULL OPEN",
-          "kind": "action"
-        },
-        {
-          "id": "n2",
-          "challenge": "N2",
+          "id": "set-n2",
+          "challenge": "Set N2",
           "response": "104 %",
-          "kind": "verify",
-          "speech": "N two: 104 percent."
+          "kind": "action",
+          "speech": "Set N two: 104 percent."
+        },
+        {
+          "id": "caution-warning-indicators-final",
+          "challenge": "Caution / Warning Indicators",
+          "response": "All Out",
+          "kind": "verify"
         }
       ]
     },
@@ -174,30 +138,22 @@
       "title": "Before Takeoff",
       "items": [
         {
-          "id": "cabin-doors",
-          "challenge": "Cabin Doors",
-          "response": "Closed + Safelocked",
-          "kind": "verify"
-        },
-        {
-          "id": "collective-friction",
-          "challenge": "Collective Friction",
-          "response": "Released",
-          "kind": "action"
-        },
-        {
-          "id": "instruments",
-          "challenge": "Instruments",
-          "response": "All in Green",
-          "kind": "verify"
-        },
-        {
           "id": "pitot-heat",
           "challenge": "Pitot Heat",
           "response": "As required",
-          "kind": "action",
-          "condition": "Usually OAT < 5 °C",
-          "speech": "Pitot heat: As required, usually when outside air temperature is below 5 degrees Celsius."
+          "kind": "action"
+        },
+        {
+          "id": "taxi-light",
+          "challenge": "Taxi Light",
+          "response": "As required",
+          "kind": "action"
+        },
+        {
+          "id": "landing-light",
+          "challenge": "Landing Light",
+          "response": "As required",
+          "kind": "action"
         }
       ]
     },

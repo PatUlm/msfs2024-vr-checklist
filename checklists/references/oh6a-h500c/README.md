@@ -19,11 +19,13 @@ Flughandbuch.
   Checks`, `Engine Start`, `Engine Run-up`, `Before Takeoff` und `Shutdown`
 
 Die App-Checkliste reduziert die ausführliche Expert-Checkliste des Add-ons auf
-einen gemeinsamen Start-, Takeoff- und Shutdown-Kern für OH-6A und H500C. Die
-unterschiedlichen stabilisierten Leerlaufbereiche bleiben als Variantenwert
-erhalten: 61–65 % N1 für H500C/250-C20 und 62–67 % N1 für OH-6A/250-C18.
-Variantenspezifische Systemtests und der H500C-Deceleration-Test sind in dieser
-ersten kompakten Fassung bewusst nicht enthalten.
+einen vom Benutzer festgelegten gemeinsamen Start-, Takeoff- und Shutdown-Kern
+für OH-6A und H500C. Die Beleuchtung fasst den Handbucheintrag `Lights (Cabin,
+Panel, Instruments) – AS REQUIRED` kompakt zusammen. Weder die interne
+Cockpitprüfung noch der Motorstart und Run-up des Handbuchs nennen eine Fuel
+Pump; deshalb enthält auch die kompakte Checkliste keinen solchen Schritt.
+Variantenspezifische Systemtests und der H500C-Deceleration-Test sind bewusst
+nicht enthalten.
 
 ## Identitätszuordnung
 

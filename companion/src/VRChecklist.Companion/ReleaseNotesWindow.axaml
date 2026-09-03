@@ -5,6 +5,7 @@
     xmlns:vm="using:VRChecklist.Companion"
     x:DataType="vm:ReleaseNotesViewModel"
     Title="VR Checklist — Release Notes"
+    Icon="avares://VRChecklist.Companion/Assets/app-icon.ico"
     Width="720"
     Height="680"
     MinWidth="560"

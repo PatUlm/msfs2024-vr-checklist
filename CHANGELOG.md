@@ -7,6 +7,12 @@ Changelog, and the project uses Semantic Versioning.
 
 ## [Unreleased]
 
+### Added
+
+- Gave the Windows companion the EFB checklist mark as application icon. The
+  EXE, taskbar and all companion windows now show it on a rounded dark tile
+  instead of the generic .NET icon.
+
 ## [0.6.1] - 2026-09-03
 
 ### Changed

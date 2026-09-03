@@ -5,6 +5,7 @@
     xmlns:vm="using:VRChecklist.Companion"
     x:DataType="vm:ChecklistsViewModel"
     Title="VR Checklist — Checklists"
+    Icon="avares://VRChecklist.Companion/Assets/app-icon.ico"
     Width="720"
     Height="760"
     MinWidth="560"

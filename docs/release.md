@@ -177,6 +177,9 @@ einem Update beendet werden.
 
 - EFB-App-Icon:
   `assets/branding/app-icon.svg`
+- Windows-Companion-Icon (Quelle und eingebettete ICO-Datei):
+  `assets/branding/app-icon-windows.svg`,
+  `assets/branding/app-icon-windows.ico`
 - editierbare Thumbnail-Quelle:
   `assets/branding/content-info-thumbnail.svg`
 - vom MSFS-Paket verwendetes Thumbnail:

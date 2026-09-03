@@ -285,6 +285,10 @@ Iteration stehen separat in `design-qa.md`.
   Oberfläche, Akzentfarbe und Bildmarke wie die App. Unter der zentrierten
   Bildmarke steht der Produktname `VR Checklist`; ein Versionswert wird nicht
   in das Bild eingebettet.
+- Die Windows-Begleit-App verwendet dieselbe Bildmarke als EXE- und
+  Fenster-Icon. Weil Windows Icons auch auf hellen Flächen zeigt, liegt die
+  Marke dort auf einer abgerundeten Kachel in der dunklen Thumbnail-Oberfläche
+  statt auf transparentem Hintergrund.
 - Die editierbaren Branding-Quellen liegen dauerhaft unter
   `assets/branding/`. App-Build und MSFS-Staging beziehen ihre Ausgaben aus
   diesem gemeinsamen Ursprung.

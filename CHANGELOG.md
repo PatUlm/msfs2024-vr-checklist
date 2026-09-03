@@ -7,6 +7,8 @@ Changelog, and the project uses Semantic Versioning.
 
 ## [Unreleased]
 
+## [0.6.2] - 2026-09-03
+
 ### Added
 
 - Gave the Windows companion the EFB checklist mark as application icon. The

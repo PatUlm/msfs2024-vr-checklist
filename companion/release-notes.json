@@ -3,6 +3,15 @@
   "companionSince": "0.3.0",
   "releases": [
     {
+      "version": "0.6.2",
+      "date": "2026-09-03",
+      "highlight": "The Windows companion now carries the EFB checklist mark as its application icon.",
+      "features": [
+        "Shows the EFB checklist mark on a rounded dark tile as EXE, taskbar and window icon instead of the generic .NET icon."
+      ],
+      "fixes": []
+    },
+    {
       "version": "0.6.1",
       "date": "2026-09-03",
       "highlight": "The OH-6A/H500C before-start flow now switches on the anti-collision lights early and tests the caution and warning lights before the ignition key.",

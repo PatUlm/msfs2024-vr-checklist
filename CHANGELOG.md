@@ -7,6 +7,14 @@ Changelog, and the project uses Semantic Versioning.
 
 ## [Unreleased]
 
+### Changed
+
+- Reordered the OH-6A/H500C before-start flow: anti-collision lights follow
+  the battery, a caution and warning lights test follows the cockpit lights
+  and the ignition key comes last. Noted that the H500C has no avionics switch
+  and replaced the throttle advance hint with the torque range to hold while
+  moving the twistgrip to FLIGHT.
+
 ## [0.6.0] - 2026-09-02
 
 ### Added

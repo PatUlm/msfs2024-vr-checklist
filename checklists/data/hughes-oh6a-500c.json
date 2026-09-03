@@ -14,7 +14,7 @@
       }
     ]
   },
-  "revision": "2026-09-02",
+  "revision": "2026-09-03",
   "sections": [
     {
       "id": "before-start",
@@ -45,10 +45,25 @@
           "kind": "action"
         },
         {
+          "id": "anti-collision-lights",
+          "challenge": "Anti-Collision Lights",
+          "response": "On",
+          "kind": "action"
+        },
+        {
           "id": "cockpit-lights",
           "challenge": "Cabin / Panel / Instrument Lights",
           "response": "As required",
           "kind": "action"
+        },
+        {
+          "id": "caution-warning-lights-test",
+          "challenge": "Caution / Warning Lights",
+          "response": "Press to Test",
+          "kind": "action",
+          "notes": [
+            "All indicators illuminate."
+          ]
         },
         {
           "id": "ignition-key",
@@ -62,12 +77,6 @@
       "id": "engine-start",
       "title": "Engine Start",
       "items": [
-        {
-          "id": "anti-collision-lights",
-          "challenge": "Anti-Collision Lights",
-          "response": "On",
-          "kind": "action"
-        },
         {
           "id": "starter-press",
           "challenge": "Starter",
@@ -96,9 +105,9 @@
           "response": "FLIGHT",
           "kind": "action",
           "notes": [
-            "Advance gradually."
+            "Keep torque at 20 to 25 psi (H500C) or 30 to 35 psi (OH-6A)."
           ],
-          "speech": "Twistgrip throttle: Flight. Advance gradually."
+          "speech": "Twistgrip throttle: Flight. Keep torque at 20 to 25 P S I in the H500C, or 30 to 35 P S I in the OH-6A."
         },
         {
           "id": "generator",
@@ -110,7 +119,10 @@
           "id": "avionics",
           "challenge": "Avionics",
           "response": "On",
-          "kind": "action"
+          "kind": "action",
+          "notes": [
+            "Not fitted in the H500C."
+          ]
         },
         {
           "id": "set-n2",

@@ -7,6 +7,8 @@ Changelog, and the project uses Semantic Versioning.
 
 ## [Unreleased]
 
+## [0.6.1] - 2026-09-03
+
 ### Changed
 
 - Reordered the OH-6A/H500C before-start flow: anti-collision lights follow

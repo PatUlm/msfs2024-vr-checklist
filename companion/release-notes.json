@@ -3,6 +3,17 @@
   "companionSince": "0.3.0",
   "releases": [
     {
+      "version": "0.6.1",
+      "date": "2026-09-03",
+      "highlight": "The OH-6A/H500C before-start flow now switches on the anti-collision lights early and tests the caution and warning lights before the ignition key.",
+      "features": [
+        "Reorders the OH-6A/H500C before-start flow: anti-collision lights after the battery, caution and warning lights test after the cockpit lights, ignition key last.",
+        "Notes that the H500C has no avionics switch.",
+        "Replaces the OH-6A/H500C throttle advance hint with the torque range to hold while moving the twistgrip to FLIGHT."
+      ],
+      "fixes": []
+    },
+    {
       "version": "0.6.0",
       "date": "2026-09-02",
       "highlight": "The companion now shows every shipped checklist in a Checklists window and copies it with one click.",

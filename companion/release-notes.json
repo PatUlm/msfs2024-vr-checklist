@@ -3,6 +3,16 @@
   "companionSince": "0.3.0",
   "releases": [
     {
+      "version": "0.7.0",
+      "date": "2026-09-04",
+      "highlight": "The Windows companion can save any checklist as a printable A4 PDF in the two-column layout of the source sheets and open it right away.",
+      "features": [
+        "Adds a PDF button to the checklist window: choose a file name, save the checklist as a compact A4 PDF with framed sections and kind-based row colours, and open it in the default PDF viewer.",
+        "Checklist titles now name only the aircraft, for example Diamond DA42 instead of Diamond DA42 – Checklist + ATC."
+      ],
+      "fixes": []
+    },
+    {
       "version": "0.6.2",
       "date": "2026-09-03",
       "highlight": "The Windows companion now carries the EFB checklist mark as its application icon.",

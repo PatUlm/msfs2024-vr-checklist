@@ -7,6 +7,8 @@ Changelog, and the project uses Semantic Versioning.
 
 ## [Unreleased]
 
+## [0.7.0] - 2026-09-04
+
 ### Added
 
 - Added a `PDF` button to the Windows companion checklist window. It saves the

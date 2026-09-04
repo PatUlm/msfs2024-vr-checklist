@@ -1,0 +1,227 @@
+{
+  "schemaVersion": 1,
+  "id": "airbus-a400m",
+  "title": "Airbus A400M",
+  "aircraft": {
+    "manufacturer": "Airbus",
+    "model": "A400M",
+    "msfsMatches": [
+      {
+        "title": { "contains": "A400M" }
+      }
+    ]
+  },
+  "revision": "2026-09-04",
+  "sections": [
+    {
+      "id": "electrical-power-up",
+      "title": "Electrical Power Up",
+      "items": [
+        {
+          "id": "bat-ext",
+          "challenge": "BAT EXT",
+          "response": "On",
+          "kind": "optional",
+          "condition": "If available",
+          "speech": "Bat ext, if available: On."
+        },
+        {
+          "id": "bat-1-2-ess",
+          "challenge": "BAT [1+2+ESS]",
+          "response": "On",
+          "kind": "action",
+          "speech": "Batteries one, two and essential: On."
+        },
+        {
+          "id": "nav-light",
+          "challenge": "NAV Light",
+          "response": "On",
+          "kind": "action"
+        },
+        {
+          "id": "apu",
+          "challenge": "APU",
+          "response": "Start",
+          "kind": "action"
+        },
+        {
+          "id": "apu-bleed",
+          "challenge": "APU Bleed",
+          "response": "On",
+          "kind": "action"
+        },
+        {
+          "id": "gadirs",
+          "challenge": "GADIRS [1+2+3]",
+          "response": "On",
+          "kind": "action",
+          "speech": "GADIRS one, two and three: On."
+        },
+        {
+          "id": "fuel-pumps",
+          "challenge": "Fuel Pumps",
+          "response": "On",
+          "kind": "action"
+        },
+        {
+          "id": "emer-light",
+          "challenge": "EMER Light",
+          "response": "ARM",
+          "kind": "action",
+          "speech": "Emergency light: Arm."
+        },
+        {
+          "id": "seat-belt-light",
+          "challenge": "Seat Belt Light",
+          "response": "On",
+          "kind": "action"
+        }
+      ]
+    },
+    {
+      "id": "fsm-init",
+      "title": "FSM Init",
+      "items": [
+        {
+          "id": "fuel-payload",
+          "challenge": "Fuel & Payload",
+          "response": "Import + Load in EFB",
+          "kind": "action",
+          "speech": "Fuel and payload: Import and load in the EFB.",
+          "needsReview": true,
+          "reviewNote": "FSM step not yet verified in the simulator; translated from the German draft."
+        },
+        {
+          "id": "init",
+          "challenge": "INIT",
+          "response": "Import",
+          "kind": "action",
+          "needsReview": true,
+          "reviewNote": "FSM step not yet verified in the simulator."
+        },
+        {
+          "id": "wind",
+          "challenge": "Wind",
+          "response": "Check",
+          "kind": "verify",
+          "needsReview": true,
+          "reviewNote": "FSM step not yet verified in the simulator."
+        },
+        {
+          "id": "position-monitor",
+          "challenge": "Position Monitor",
+          "response": "GPS Primary",
+          "kind": "verify",
+          "speech": "Position monitor: G P S primary.",
+          "needsReview": true,
+          "reviewNote": "FSM step not yet verified in the simulator."
+        },
+        {
+          "id": "irs",
+          "challenge": "IRS [1+2+3]",
+          "response": "NAV",
+          "kind": "action",
+          "speech": "I R S one, two and three: Nav.",
+          "needsReview": true,
+          "reviewNote": "FSM step not yet verified in the simulator."
+        },
+        {
+          "id": "flight-plan",
+          "challenge": "Flight Plan",
+          "response": "Insert",
+          "kind": "action",
+          "needsReview": true,
+          "reviewNote": "FSM step not yet verified in the simulator; the draft had no response, 'Insert' is a placeholder."
+        },
+        {
+          "id": "fuel-load",
+          "challenge": "Fuel & Load",
+          "response": "ZFW, ZFWCG, BLOCK = Fuel",
+          "kind": "action",
+          "speech": "Fuel and load: Enter zero fuel weight, zero fuel weight C G, and block equal to fuel.",
+          "needsReview": true,
+          "reviewNote": "FSM step not yet verified in the simulator."
+        },
+        {
+          "id": "to-perf",
+          "challenge": "T.O. Perf",
+          "response": "Compute + Insert",
+          "kind": "action",
+          "speech": "Takeoff performance: Compute and insert.",
+          "needsReview": true,
+          "reviewNote": "FSM step not yet verified in the simulator."
+        }
+      ]
+    },
+    {
+      "id": "engine-start",
+      "title": "Engine Start",
+      "items": [
+        {
+          "id": "beacon",
+          "challenge": "Beacon",
+          "response": "BRIGHT",
+          "kind": "action"
+        },
+        {
+          "id": "eng-mode",
+          "challenge": "ENG Mode",
+          "response": "IGN START",
+          "kind": "action",
+          "speech": "Engine mode: Ignition start."
+        },
+        {
+          "id": "eng-master-feather",
+          "challenge": "ENG Master [1+2+3+4]",
+          "response": "FEATHER",
+          "kind": "action",
+          "speech": "Engine masters one to four: Feather."
+        },
+        {
+          "id": "eng-master-run",
+          "challenge": "ENG Master [1+2+3+4]",
+          "response": "RUN",
+          "kind": "action",
+          "speech": "Engine masters one to four: Run."
+        }
+      ]
+    },
+    {
+      "id": "after-start",
+      "title": "After Start",
+      "items": [
+        {
+          "id": "eng-mode",
+          "challenge": "ENG Mode",
+          "response": "NORM",
+          "kind": "action",
+          "speech": "Engine mode: Norm."
+        },
+        {
+          "id": "apu-bleed",
+          "challenge": "APU Bleed",
+          "response": "Off",
+          "kind": "action"
+        },
+        {
+          "id": "apu-master",
+          "challenge": "APU Master",
+          "response": "Off",
+          "kind": "action"
+        },
+        {
+          "id": "bat-ext",
+          "challenge": "BAT EXT",
+          "response": "Off",
+          "kind": "action"
+        },
+        {
+          "id": "gpu",
+          "challenge": "GPU",
+          "response": "Disconnect",
+          "kind": "action"
+        }
+      ]
+    }
+  ]
+}

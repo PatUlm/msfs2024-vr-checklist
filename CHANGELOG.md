@@ -7,6 +7,12 @@ Changelog, and the project uses Semantic Versioning.
 
 ## [Unreleased]
 
+### Added
+
+- Added an `Airbus A400M` checklist with electrical power up, FSM init,
+  engine start and after start sections. The FSM init items are marked for
+  review until they are verified in the simulator.
+
 ## [0.7.0] - 2026-09-04
 
 ### Added

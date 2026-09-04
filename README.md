@@ -168,6 +168,7 @@ der SDK-Vorlage und wird nicht lokal neu erzeugt.
 Die JSON-Dateien unter `checklists/data/` sind die einzige Quelle für
 Checklist-Inhalte:
 
+- `airbus-a400m.json`: Airbus A400M
 - `airbus-h125.json`: Airbus H125
 - `beechcraft-bonanza-g36.json`: Beechcraft Bonanza G36
 - `diamond-da42.json`: Diamond DA42

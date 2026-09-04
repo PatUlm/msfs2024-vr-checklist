@@ -25,6 +25,7 @@ import {
   Subscription,
   VNode,
 } from "@microsoft/msfs-sdk";
+import airbusA400mData from "../../../../checklists/data/airbus-a400m.json";
 import airbusH125Data from "../../../../checklists/data/airbus-h125.json";
 import beechcraftBonanzaG36Data from "../../../../checklists/data/beechcraft-bonanza-g36.json";
 import diamondDa42Data from "../../../../checklists/data/diamond-da42.json";
@@ -239,6 +240,7 @@ const FLOW_EVENT_NAMES: Record<FlowEventId, string> = {
 };
 
 const checklists = [
+  airbusA400mData as Checklist,
   airbusH125Data as Checklist,
   beechcraftBonanzaG36Data as Checklist,
   diamondDa42Data as Checklist,

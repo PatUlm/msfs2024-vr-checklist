@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "id": "diamond-da42",
-  "title": "Diamond DA42 – Checklist + ATC",
+  "title": "Diamond DA42",
   "aircraft": {
     "manufacturer": "Diamond",
     "model": "DA42",
@@ -11,7 +11,7 @@
       { "atcModel": { "equals": "Diamond DA42" } }
     ]
   },
-  "revision": "2026-08-28",
+  "revision": "2026-09-04",
   "sections": [
     {
       "id": "before-engine-start",

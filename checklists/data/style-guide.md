@@ -4,6 +4,14 @@ Dieser Style Guide hält die sprachlichen Konventionen für alle JSON-Checkliste
 fest. Gleiche oder ähnliche Handlungen sollen flugzeugübergreifend gleich
 aufgebaut und benannt sein.
 
+## Titel
+
+- `title` nennt ausschließlich das Luftfahrzeug, also Hersteller und Muster,
+  zum Beispiel `Diamond DA42` oder `Sikorsky MH-60`.
+- Zusätze wie `Checklist`, `+ ATC` oder `Minimal` gehören nicht in den Titel.
+  Dass es sich um eine Checkliste handelt, ergänzen die Anzeigen und der
+  PDF-Dateiname selbst; Umfang und Herkunft stehen in der Dokumentation.
+
 ## Challenge und Response
 
 - Die Challenge benennt eindeutig das zu bedienende oder zu prüfende System.

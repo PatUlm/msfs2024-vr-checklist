@@ -7,6 +7,8 @@ Changelog, and the project uses Semantic Versioning.
 
 ## [Unreleased]
 
+## [0.7.1] - 2026-09-04
+
 ### Added
 
 - Added an `Airbus A400M` checklist with electrical power up, FSM init,

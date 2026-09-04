@@ -3,6 +3,15 @@
   "companionSince": "0.3.0",
   "releases": [
     {
+      "version": "0.7.1",
+      "date": "2026-09-04",
+      "highlight": "A first Airbus A400M checklist covers electrical power up, FSM init, engine start and after start.",
+      "features": [
+        "Adds an Airbus A400M checklist; the FSM init items are marked for review until they are verified in the simulator."
+      ],
+      "fixes": []
+    },
+    {
       "version": "0.7.0",
       "date": "2026-09-04",
       "highlight": "The Windows companion can save any checklist as a printable A4 PDF in the two-column layout of the source sheets and open it right away.",

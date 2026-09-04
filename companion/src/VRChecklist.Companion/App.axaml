@@ -7,6 +7,7 @@
     <StreamGeometry x:Key="IconChecklist">M2.5,6 L4.5,8 L8,4.5 L6.9,3.4 L4.5,5.8 L3.6,4.9 Z M10,5 H21.5 V7 H10 Z M2.5,13 L4.5,15 L8,11.5 L6.9,10.4 L4.5,12.8 L3.6,11.9 Z M10,12 H21.5 V14 H10 Z M2.5,20 L4.5,22 L8,18.5 L6.9,17.4 L4.5,19.8 L3.6,18.9 Z M10,19 H21.5 V21 H10 Z</StreamGeometry>
     <StreamGeometry x:Key="IconReleaseNotes">M5,2 H14 L20,8 V22 H5 Z M7,4 V20 H18 V9 H13 V4 Z M9,12 H16 V14 H9 Z M9,16 H16 V18 H9 Z</StreamGeometry>
     <StreamGeometry x:Key="IconCopy">M6,2 H16 A2,2 0 0 1 18,4 V14 H16 V4 H6 Z M4,6 H12 A2,2 0 0 1 14,8 V18 A2,2 0 0 1 12,20 H4 A2,2 0 0 1 2,18 V8 A2,2 0 0 1 4,6 Z M4,8 V18 H12 V8 Z</StreamGeometry>
+    <StreamGeometry x:Key="IconPdf">M11,3 H13 V13.2 L16.6,9.6 L18,11 L12,17 L6,11 L7.4,9.6 L11,13.2 Z M4,18 H20 V20 H4 Z</StreamGeometry>
     <StreamGeometry x:Key="IconClose">M5.3,4 L12,10.7 L18.7,4 L20,5.3 L13.3,12 L20,18.7 L18.7,20 L12,13.3 L5.3,20 L4,18.7 L10.7,12 L4,5.3 Z</StreamGeometry>
   </Application.Resources>
   <Application.Styles>

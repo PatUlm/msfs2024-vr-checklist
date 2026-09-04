@@ -221,6 +221,29 @@ Iteration stehen separat in `design-qa.md`.
   Kopierter Text taugt damit direkt als Review-Vorlage. Der Button meldet
   `Copied` kurz im eigenen Label statt über einen Dialog. Textzeilen bleiben
   zusätzlich einzeln markierbar.
+- Ein Button `PDF` mit Export-Symbol speichert die gewählte Checkliste über
+  den nativen Speichern-Dialog als A4-PDF und öffnet die Datei anschließend
+  mit dem Windows-Standard-PDF-Handler; ein bestimmter Viewer wird nicht
+  erzwungen. Vorgeschlagener Dateiname ist `<Titel> Checklist – <Revision>.pdf`;
+  das Wort `Checklist` kommt aus der App, weil der Titel laut Style Guide nur
+  das Luftfahrzeug nennt.
+- Das PDF folgt dem Layout der ODS-Quellblätter: zwei Spaltenpaare je Seite
+  mit Challenge 5,5 cm und Response 3,5 cm, grau gefüllter Gruppenkopf mit
+  weißer, horizontal und vertikal zentrierter Überschrift, Rahmenlinien um
+  jede Gruppe, Abschlusslinie unter dem letzten Item.
+  Bedingung, Alternativen und Notizen stehen klein und kursiv unter dem Item;
+  Review-Hinweise werden nicht gedruckt. Zeilen sind nach Kind eingefärbt:
+  `verify` hellblau, `communication` violett, `optional` grau, `action` ohne
+  Füllung. Gruppen fließen linke Spalte, rechte Spalte, nächste Seite und
+  werden nur geteilt, wenn sie eine ganze Spalte überschreiten. Beschriftungen
+  sind englisch.
+- Das PDF verwendet ausschließlich die 14 PDF-Standardschriften (Helvetica,
+  Helvetica-Bold, Helvetica-Oblique sowie Symbol für `≤`, `≥` und `→`) und
+  bettet keine Schrift ein; eine Checkliste bleibt so bei wenigen Kilobyte.
+  Ein Rendering über SkiaSharp wurde verworfen, weil dessen PDF-Backend
+  Schriften vollständig einbettet und die Datei dadurch auf über 1 MB wächst.
+  Der Writer ist ein bewusst kleiner eigener PDF-1.4-Schreiber ohne
+  zusätzliche Abhängigkeit.
 
 ## Checklistensprache
 

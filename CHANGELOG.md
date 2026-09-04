@@ -7,6 +7,20 @@ Changelog, and the project uses Semantic Versioning.
 
 ## [Unreleased]
 
+### Added
+
+- Added a `PDF` button to the Windows companion checklist window. It saves the
+  selected checklist as a printable A4 PDF in the two-column layout of the
+  checklist source sheets, with framed sections, kind-based row colours and
+  `<title> Checklist – <revision>.pdf` as suggested file name, and opens the
+  saved file with the default PDF viewer.
+
+### Changed
+
+- Checklist titles now name only the aircraft: `Diamond DA42` and
+  `Beechcraft Bonanza G36` replace the former titles with `Checklist + ATC`
+  and `Minimal Checklist` suffixes.
+
 ## [0.6.2] - 2026-09-03
 
 ### Added

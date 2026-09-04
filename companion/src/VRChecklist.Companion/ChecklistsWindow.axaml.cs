@@ -1,8 +1,10 @@
+using System.Diagnostics;
 using System.Globalization;
 using Avalonia.Controls;
 using Avalonia.Data.Converters;
 using Avalonia.Input.Platform;
 using Avalonia.Interactivity;
+using Avalonia.Platform.Storage;
 using Avalonia.Threading;
 
 namespace VRChecklist.Companion;
@@ -15,10 +17,12 @@ public static class TextConverters
 
 public sealed partial class ChecklistsWindow : Window
 {
-    private static readonly TimeSpan CopyFeedbackDuration = TimeSpan.FromSeconds(1.5);
+    private const string CopyIdleLabel = "Copy";
+    private const string PdfIdleLabel = "PDF";
+    private static readonly TimeSpan FeedbackDuration = TimeSpan.FromSeconds(1.5);
 
     private readonly ChecklistsViewModel viewModel;
-    private readonly DispatcherTimer copyFeedbackTimer;
+    private readonly DispatcherTimer feedbackTimer;
 
     public ChecklistsWindow()
         : this(ChecklistCatalog.Load(), preferredChecklistId: null)
@@ -32,17 +36,18 @@ public sealed partial class ChecklistsWindow : Window
         viewModel = new ChecklistsViewModel(checklists, preferredChecklistId);
         InitializeComponent();
         DataContext = viewModel;
-        copyFeedbackTimer = new DispatcherTimer { Interval = CopyFeedbackDuration };
-        copyFeedbackTimer.Tick += (_, _) =>
+        feedbackTimer = new DispatcherTimer { Interval = FeedbackDuration };
+        feedbackTimer.Tick += (_, _) =>
         {
-            copyFeedbackTimer.Stop();
-            CopyLabel.Text = "Copy";
+            feedbackTimer.Stop();
+            CopyLabel.Text = CopyIdleLabel;
+            PdfLabel.Text = PdfIdleLabel;
         };
     }
 
     protected override void OnClosed(EventArgs args)
     {
-        copyFeedbackTimer.Stop();
+        feedbackTimer.Stop();
         base.OnClosed(args);
     }
 
@@ -51,23 +56,78 @@ public sealed partial class ChecklistsWindow : Window
         var clipboard = Clipboard;
         if (clipboard is null)
         {
-            CopyLabel.Text = "Clipboard unavailable";
-            copyFeedbackTimer.Start();
+            ShowFeedback(CopyLabel, "Clipboard unavailable");
             return;
         }
 
         try
         {
             await clipboard.SetTextAsync(viewModel.ClipboardText);
-            CopyLabel.Text = "Copied";
+            ShowFeedback(CopyLabel, "Copied");
         }
         catch (Exception)
         {
-            CopyLabel.Text = "Copy failed";
+            ShowFeedback(CopyLabel, "Copy failed");
+        }
+    }
+
+    private async void OnPdfClick(object? sender, RoutedEventArgs args)
+    {
+        var checklist = viewModel.SelectedChecklist;
+        var file = await StorageProvider.SaveFilePickerAsync(new FilePickerSaveOptions
+        {
+            Title = "Save checklist as PDF",
+            SuggestedFileName = ChecklistPdfRenderer.SuggestFileName(checklist),
+            DefaultExtension = "pdf",
+            ShowOverwritePrompt = true,
+            FileTypeChoices = [FilePickerFileTypes.Pdf],
+        });
+        if (file is null)
+        {
+            return;
         }
 
-        copyFeedbackTimer.Stop();
-        copyFeedbackTimer.Start();
+        try
+        {
+            using var buffer = new MemoryStream();
+            ChecklistPdfRenderer.Render(checklist, buffer);
+            buffer.Position = 0;
+            await using var output = await file.OpenWriteAsync();
+            await buffer.CopyToAsync(output);
+        }
+        catch (Exception)
+        {
+            ShowFeedback(PdfLabel, "PDF failed");
+            return;
+        }
+
+        ShowFeedback(PdfLabel, OpenWithDefaultHandler(file) ? "Saved" : "Saved, open failed");
+    }
+
+    private static bool OpenWithDefaultHandler(IStorageFile file)
+    {
+        var path = file.TryGetLocalPath();
+        if (path is null)
+        {
+            return false;
+        }
+
+        try
+        {
+            using var process = Process.Start(new ProcessStartInfo(path) { UseShellExecute = true });
+            return true;
+        }
+        catch (Exception)
+        {
+            return false;
+        }
+    }
+
+    private void ShowFeedback(TextBlock label, string text)
+    {
+        label.Text = text;
+        feedbackTimer.Stop();
+        feedbackTimer.Start();
     }
 
     private void OnCloseClick(object? sender, RoutedEventArgs args) => Close();

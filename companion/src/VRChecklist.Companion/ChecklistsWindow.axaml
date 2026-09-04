@@ -158,6 +158,14 @@
           <TextBlock x:Name="CopyLabel" Text="Copy" />
         </StackPanel>
       </Button>
+      <Button Classes="icon-button"
+              ToolTip.Tip="Save the checklist as a printable PDF and open it"
+              Click="OnPdfClick">
+        <StackPanel>
+          <Path Data="{StaticResource IconPdf}" />
+          <TextBlock x:Name="PdfLabel" Text="PDF" />
+        </StackPanel>
+      </Button>
       <Button Classes="icon-button" Click="OnCloseClick">
         <StackPanel>
           <Path Data="{StaticResource IconClose}" />

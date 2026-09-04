@@ -227,9 +227,12 @@ die vorläufige Entscheidung in
   VR-relevante Zustände zusätzlich in VR geprüft werden.
 - **[SDK]/[RT]** App-Styles brauchen den Prefix
   `.efb-view.<AppVerzeichnisname>`; ohne ihn wirken Regeln global im EFB.
-- **[NEG]** Ein globaler CSS-Transform zum Gegenskalieren der größeren
-  VR-Darstellung destabilisiert Breiten und Interaktionsziele. Für VR ist ein
-  eigenes Dichteprofil zu verwenden.
+- **DON'T:** Die Darstellung mit einem globalen `transform: scale`
+  gegenskalieren. Ein Transform ändert die Layout-Box nicht: Breiten,
+  Scrollstrecken und Trefferflächen folgen dem unskalierten Layout, nicht der
+  sichtbaren Größe, und nicht ganzzahlige Faktoren rastern Text unscharf.
+  Skalierung erfolgt über die Layoutgrößen selbst, etwa Root-Schriftgröße
+  oder Custom Property.
 - **[RT]** Globale EFB-Regeln für `Button` und `.abstract-button` können lokale
   Hover-, Focus-, Selected- und Active-Zustände überstimmen. Alle Zustände sind
   mit der echten EFB-Komponente zu prüfen.

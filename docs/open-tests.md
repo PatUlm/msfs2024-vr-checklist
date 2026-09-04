@@ -16,12 +16,17 @@ Produktentscheidung.
 
 ## Darstellung und EFB-Lifecycle
 
-- [ ] Seit Release 0.5.1 einmalig beobachtet: Im nachts in LOWI gestarteten
-  H500C-VR-Flug erschien die nach Flugstart geöffnete VR Checklist ohne das
-  geplante VR-Dichteprofil und dadurch zu klein; in der nächsten Dev-Session
-  reproduzieren und je EFB-Instanz `created`/`resumed`, `Display mode detected`
-  beziehungsweise Lesefehler für `E:IS IN VR` sowie das Vorhandensein der
-  Klasse `vr-checklist-app--vr` protokollieren.
+- [ ] Seit Sim Update 6 (1.8.14.0, 2026-08-13) in H500C und MH-60
+  reproduzierbar: Das im Cockpit montierte EFB zeigt in VR weiterhin die von
+  MSFS vergrößerte Darstellung, das schwebende VR-Panel dagegen die normale
+  Skalierung; mit aktivem VR-Dichteprofil ist die App dort zu klein. In der
+  Diagnosezeile `Display mode detected` zusätzlich `window.innerWidth` und
+  `window.innerHeight` protokollieren und für montiert, schwebend und Nicht-VR
+  je EFB-Instanz festhalten. Ergebnis entscheidet, ob die Viewport-Größe als
+  Skalierungsgrundlage taugt (siehe `implementation-backlog.md`).
+- [ ] Im selben Teststand prüfen, ob Coherent GT CSS Custom Properties mit
+  `var()` und `calc()` für Längen auswertet; ohne Nachweis bleibt `em` über die
+  Root-Schriftgröße der einzige zentrale Skalierungsweg.
 
 ## Phase 3 — Begleit-App
 

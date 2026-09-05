@@ -17,23 +17,6 @@ Offene visuelle Abweichungen bleiben ausschließlich in `design-qa.md`, noch
 ausstehende MSFS-Laufzeitnachweise ausschließlich in `open-tests.md`. Dieser
 Backlog dupliziert diese Listen nicht.
 
-## `VRChecklistView` fachlich zerlegen
-
-- [ ] Vor dem nächsten Feature die derzeit rund 1.700 Zeilen große View in
-  klar benannte Verantwortungsbereiche zerlegen. Kandidaten sind Domänenmodell
-  und Flugzeug-Matching, Laufzeitzustand und Persistenz, CommBus-Transport,
-  Bestätigungseingabe sowie Rendering.
-- [ ] Die dabei isolierte zustandsbehaftete Logik mit gezielten Unit-Tests
-  absichern, insbesondere Persistenzabgleich, Lifecycle-Übergänge und
-  Flugzeugauswahl.
-- **Einordnung:** Die View bündelt zu viele unabhängige Aufgaben und erschwert
-  Review, Änderung und isolierte Tests. Das Refactoring ist der nächste
-  Code-Arbeitsschritt, aber nicht Teil der aktuellen ADR-Korrektur.
-- **Abnahme:** Das ausgelieferte Verhalten und das Coherent-Single-Bundle
-  bleiben unverändert. Erforderlich sind `task check`, `task deploy` sowie ein
-  MSFS-Nachweis für VR-Wechsel, Fortschrittserhalt, Flugwechsel-Reset,
-  Bestätigungseingabe und CommBus-Status.
-
 ## Querformat-Layout
 
 - [ ] Die Orientation-Einstellung des EFB vertauscht Breite und Höhe der

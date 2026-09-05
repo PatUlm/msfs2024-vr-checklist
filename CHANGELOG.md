@@ -7,6 +7,8 @@ Changelog, and the project uses Semantic Versioning.
 
 ## [Unreleased]
 
+## [0.8.0] - 2026-09-05
+
 ### Changed
 
 - The checklist now scales with the EFB layout area instead of using fixed

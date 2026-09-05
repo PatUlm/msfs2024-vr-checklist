@@ -3,6 +3,16 @@
   "companionSince": "0.3.0",
   "releases": [
     {
+      "version": "0.8.0",
+      "date": "2026-09-05",
+      "highlight": "The checklist scales with the EFB layout area: mounted tablet and detached panel show the same content in every EFB size, and Small, Medium and Large only change how large it appears.",
+      "features": [
+        "Outside VR, the mounted tablet uses the same compact layout as in VR, while the detached panel shows more content per screen.",
+        "All sizes follow one root font size derived from the EFB layout area instead of fixed pixel values."
+      ],
+      "fixes": []
+    },
+    {
       "version": "0.7.1",
       "date": "2026-09-04",
       "highlight": "A first Airbus A400M checklist covers electrical power up, FSM init, engine start and after start.",

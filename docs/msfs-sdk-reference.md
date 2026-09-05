@@ -133,8 +133,9 @@ Der verwendete Mechanismus besteht aus
   abweichen; für `LEAD_POLE_ON` lautet er `LEAD POLE ON`. Vor einem Eingabetest
   muss die Action belegt und nicht doppelt belegt sein. MSFS kann mehrere
   Eingabeprofile desselben Geräts gleichzeitig kombinieren.
-- **[RT]** `PLASMA_OFF` wird in G36, DA42, H125 und MH-60 als `SET PLASMA OFF`
-  angeboten und nach der jeweiligen Flugladefolge im EFB-JavaScript zugestellt.
+- **[RT]** `PLASMA_OFF` wird in G36, DA42, H125, MH-60 sowie Taog's Hangar
+  OH-6A und H500C als `SET PLASMA OFF` angeboten und nach der jeweiligen
+  Flugladefolge im EFB-JavaScript zugestellt.
   Die beobachtete doppelte Zustellung eines Drucks entspricht der allgemeinen
   Mehrfachzustellung und braucht neben der bestehenden Entprellung keinen
   Sonderpfad.

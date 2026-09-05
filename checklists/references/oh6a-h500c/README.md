@@ -30,7 +30,8 @@ nicht enthalten.
 ## Identitätszuordnung
 
 Das installierte Paket führt die Varianten als `OH6A` und `500C`; das
-Produktmanifest nennt `OH6A Hughes`. Die vorläufigen `TITLE`-Regeln verwenden
-daher die normalisierten Merkmale `OH6A` und `H500C`. Die tatsächlichen Werte
-von `ATC MODEL`, `ATC TYPE` und `TITLE` müssen für beide Varianten noch im
-Simulator bestätigt werden; diese Aufgabe steht in `docs/open-tests.md`.
+Produktmanifest nennt `OH6A Hughes`. Die `TITLE`-Regeln verwenden daher die
+normalisierten Merkmale `OH6A` und `H500C`. Beide Regeln sind am 2026-09-05
+im Simulator bestätigt; die H500C meldet `ATC MODEL` `H500C`, `ATC TYPE`
+`Hughes` und `TITLE` `H500C`. Die Bestätigungseingabe `SET PLASMA OFF`
+funktioniert in beiden Varianten.

@@ -3,6 +3,15 @@
   "companionSince": "0.3.0",
   "releases": [
     {
+      "version": "0.8.1",
+      "date": "2026-09-05",
+      "highlight": "The transport probe proves the CommBus channel with a checklist state request and reports the EFB version, instance, selected checklist and progress from the answering snapshot.",
+      "features": [
+        "The EFB app no longer answers the separate ping message, which no shipped component used."
+      ],
+      "fixes": []
+    },
+    {
       "version": "0.8.0",
       "date": "2026-09-05",
       "highlight": "The checklist scales with the EFB layout area: mounted tablet and detached panel show the same content in every EFB size, and Small, Medium and Large only change how large it appears.",

@@ -7,6 +7,8 @@ Changelog, and the project uses Semantic Versioning.
 
 ## [Unreleased]
 
+## [0.8.1] - 2026-09-05
+
 ### Changed
 
 - The transport probe console tool now proves the CommBus channel with a

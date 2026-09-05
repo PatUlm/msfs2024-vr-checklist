@@ -4,11 +4,7 @@ import {
   CHECKLIST_STATE_SNAPSHOT_EVENT,
   ChecklistStateSummary,
   createChecklistStateSnapshot,
-  createTransportProbePong,
   parseChecklistStateRequest,
-  parseTransportProbePing,
-  TRANSPORT_PROBE_PING_EVENT,
-  TRANSPORT_PROBE_PONG_EVENT,
   TransportSenderIdentity,
 } from "./CommBusProtocol";
 
@@ -23,10 +19,10 @@ export interface ChecklistCommBusTransportOptions {
 
 /*
  * The CommBus side of the companion link (ADR 0003). The external client
- * sends a named ping or state request and the EFB answers on a second named
- * event; state changes are published rate-limited. No checklist state depends
- * on this path; an unavailable listener therefore cannot affect the normal
- * EFB workflow.
+ * sends a named state request and the EFB answers on a second named event;
+ * state changes are published rate-limited. No checklist state depends on
+ * this path; an unavailable listener therefore cannot affect the normal EFB
+ * workflow.
  */
 export class ChecklistCommBusTransport {
   private readonly sender: TransportSenderIdentity;
@@ -37,9 +33,6 @@ export class ChecklistCommBusTransport {
   });
   private listener: CommBusListener | undefined;
   private isDisposed = false;
-  private readonly handleTransportProbePing = (data: string): void => {
-    this.processTransportProbePing(data);
-  };
   private readonly handleChecklistStateRequest = (data: string): void => {
     this.processChecklistStateRequest(data);
   };
@@ -73,7 +66,6 @@ export class ChecklistCommBusTransport {
   public dispose(): void {
     this.isDisposed = true;
     this.rateLimiter.dispose();
-    this.listener?.off(TRANSPORT_PROBE_PING_EVENT, this.handleTransportProbePing);
     this.listener?.off(
       CHECKLIST_STATE_REQUEST_EVENT,
       this.handleChecklistStateRequest
@@ -92,19 +84,15 @@ export class ChecklistCommBusTransport {
       }
 
       this.listener = RegisterCommBusListener(() => {
-        console.info("[VR Checklist] Transport probe listener registered.");
+        console.info("[VR Checklist] CommBus listener registered.");
       });
-      this.listener.on(TRANSPORT_PROBE_PING_EVENT, this.handleTransportProbePing);
       this.listener.on(
         CHECKLIST_STATE_REQUEST_EVENT,
         this.handleChecklistStateRequest
       );
       this.requestStatePublish();
     } catch (error) {
-      console.error(
-        "[VR Checklist] Transport probe listener unavailable",
-        error
-      );
+      console.error("[VR Checklist] CommBus listener unavailable", error);
     }
   }
 
@@ -141,29 +129,6 @@ export class ChecklistCommBusTransport {
       );
     } catch (error) {
       console.error("[VR Checklist] Unable to publish checklist state", error);
-    }
-  }
-
-  private processTransportProbePing(data: string): void {
-    let pong: string;
-    let requestId: string;
-
-    try {
-      const ping = parseTransportProbePing(data);
-      requestId = ping.requestId;
-      pong = JSON.stringify(
-        createTransportProbePong(ping, this.sender, new Date().toISOString())
-      );
-    } catch (error) {
-      console.error("[VR Checklist] Invalid transport probe ping", data, error);
-      return;
-    }
-
-    try {
-      this.listener?.callSimConnect(TRANSPORT_PROBE_PONG_EVENT, pong);
-      console.info(`[VR Checklist] Transport probe answered for ${requestId}.`);
-    } catch (error) {
-      console.error("[VR Checklist] Unable to answer transport probe", error);
     }
   }
 }

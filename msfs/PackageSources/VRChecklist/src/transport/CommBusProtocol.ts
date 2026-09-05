@@ -2,29 +2,14 @@
  * The CommBus message contract between the EFB app and the Windows companion
  * (ADR 0003). Parsing and message construction are pure so the contract can
  * be unit-tested; ChecklistCommBusTransport.ts owns the listener.
+ *
+ * The state request doubles as the transport probe: the response carries the
+ * request ID, the EFB version and the instance ID, so a console client can
+ * prove the bidirectional channel without a dedicated ping.
  */
 
-export const TRANSPORT_PROBE_PING_EVENT = "VRChecklist.Transport.Ping.v1";
-export const TRANSPORT_PROBE_PONG_EVENT = "VRChecklist.Transport.Pong.v1";
 export const CHECKLIST_STATE_REQUEST_EVENT = "VRChecklist.State.Request.v1";
 export const CHECKLIST_STATE_SNAPSHOT_EVENT = "VRChecklist.State.Snapshot.v1";
-
-export interface TransportProbePing {
-  protocolVersion: 1;
-  type: "ping";
-  requestId: string;
-  sentAt: string;
-}
-
-export interface TransportProbePong {
-  protocolVersion: 1;
-  type: "pong";
-  requestId: string;
-  pingSentAt: string;
-  receivedAt: string;
-  efbVersion: string;
-  instanceId: string;
-}
 
 export interface ChecklistStateRequest {
   protocolVersion: 1;
@@ -79,23 +64,6 @@ export interface TransportSenderIdentity {
   instanceId: string;
 }
 
-/** Throws when the payload is not a version-1 ping. */
-export function parseTransportProbePing(data: string): TransportProbePing {
-  const candidate = JSON.parse(data) as Partial<TransportProbePing>;
-
-  if (
-    candidate.protocolVersion !== 1 ||
-    candidate.type !== "ping" ||
-    typeof candidate.requestId !== "string" ||
-    candidate.requestId.length === 0 ||
-    typeof candidate.sentAt !== "string"
-  ) {
-    throw new Error("Unexpected transport probe payload.");
-  }
-
-  return candidate as TransportProbePing;
-}
-
 /** Throws when the payload is not a version-1 state request. */
 export function parseChecklistStateRequest(
   data: string
@@ -112,22 +80,6 @@ export function parseChecklistStateRequest(
   }
 
   return candidate as ChecklistStateRequest;
-}
-
-export function createTransportProbePong(
-  ping: TransportProbePing,
-  sender: TransportSenderIdentity,
-  receivedAt: string
-): TransportProbePong {
-  return {
-    protocolVersion: 1,
-    type: "pong",
-    requestId: ping.requestId,
-    pingSentAt: ping.sentAt,
-    receivedAt,
-    efbVersion: sender.efbVersion,
-    instanceId: sender.instanceId,
-  };
 }
 
 export function createChecklistStateSnapshot(

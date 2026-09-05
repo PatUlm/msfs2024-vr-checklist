@@ -241,14 +241,24 @@ die vorläufige Entscheidung in
   er wirft, wenn der Shell keinen Manager injiziert hat. Der Shell injiziert
   ihn nur in die `App`; eine `AppView` erhält ihn ausschließlich über die Prop
   `efbSettingsManager` aus `render()`.
-- **[RT]** EFB-Viewport in CSS-Pixeln (SU6 1.8.14.0, `devicePixelRatio` stets
-  1): Das im Cockpit montierte Tablet liefert in VR und Nicht-VR fest
-  468 × 696 und ignoriert Größe und Orientation. Das gelöste Panel liefert in
-  Nicht-VR 782 × 1049 (Small), 915 × 1234 (Medium), 1045 × 1414 (Large), in
-  VR 470 × 616, 543 × 718, 614 × 816. Small/Medium/Large skaliert also den
-  Viewport proportional, die Orientation vertauscht Breite und Höhe. Der
-  Viewport unterscheidet montiert und gelöst nur in Nicht-VR; in VR ist die
-  Breite nahezu gleich, der Unterschied liegt in der physischen Panelgröße.
+- **[RT]** EFB-Fenster und Layoutbox in CSS-Pixeln (SU6 1.8.14.0,
+  `devicePixelRatio` stets 1): Das montierte Tablet liefert in VR und Nicht-VR
+  fest ein Fenster von 468 × 696 und eine Layoutbox des App-Wurzelelements von
+  468 × 661, unabhängig von Größe und Orientation. Das gelöste Panel rahmt der
+  Shell ein: Die Layoutbox ist ohne Transform deutlich kleiner als das
+  Fenster. Nicht-VR: Fenster 782 × 1049 / 915 × 1234 / 1045 × 1414, Box
+  624 × 883 / 745 × 1053 / 863 × 1220 (Small/Medium/Large). VR: Fenster
+  470 × 616 / 543 × 718 / 614 × 816, Box bei Medium 401 × 569, also kleiner als
+  montiert. Small/Medium/Large skaliert proportional, die Orientation
+  vertauscht Breite und Höhe.
+- **DON'T:** `window.innerWidth`/`innerHeight` als Skalierungsbasis verwenden.
+  Maßgeblich ist `clientWidth`/`clientHeight` des eigenen Wurzelelements.
+- **[RT]** Beim Wechsel montiert ↔ gelöst feuert `resize` zweimal, solange die
+  Layoutbox noch die alte Größe hat. Die neue Box liegt erst danach vor,
+  gemessen innerhalb von 50 ms, ohne weiteres Event; die EFB-Einstellung
+  `mode` wechselt zeitgleich mit der Box. Bei `onResume` ist die Box noch
+  0 × 0. Nach `resize` und `onResume` ist die Box deshalb kurz verzögert
+  nachzumessen.
 - **DON'T:** Die EFB-Einstellung `mode` (2D/3D) als Zustandssignal für
   montiert/gelöst verwenden. Sie ist eine gespeicherte Nutzereinstellung und
   meldete im Test bei montiertem Tablet auch `2D`.

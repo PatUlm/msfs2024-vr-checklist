@@ -8,9 +8,8 @@ Untersuchungen bleiben über die Git-Historie nachvollziehbar.
 
 ## Akzeptierte Laufzeitreferenz
 
-- [`assets/vr-g36-accepted-layout.png`](assets/vr-g36-accepted-layout.png) zeigt
-  das am 2026-08-23 abgenommene kompakte VR-Layout in Originalauflösung
-  861 × 948 Pixel. Es ist eine Layout-, keine Inhaltsreferenz.
+- Es gibt kein Referenzbild für das Gesamtlayout. Ob ein Stand passt, wird
+  bei jedem VR-Teststand neu am Bild entschieden.
 - Release 0.2.2 bestätigte die zentrierten Navigationsbuttons mit langen
   DA42-Gruppennamen in VR.
 

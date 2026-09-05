@@ -4,22 +4,36 @@ Dieses Dokument beschreibt die dauerhaft akzeptierte Produktsprache der VR
 Checklist. Beobachtungen, noch nicht gelöste Abweichungen und die nächste
 Iteration stehen separat in `design-qa.md`.
 
-## VR-first Typografie und Dichte
+## Dichteprofile und Skalierung
 
-- Die Basisschrift der Checkliste beträgt außerhalb von VR 20 CSS-Pixel. Sie
-  bleibt damit auf dem dauerhaft eingebauten Cockpit-EFB auch aus normaler
-  Sitzposition gut lesbar.
-- Meldet die offizielle Umgebungsvariable `IS IN VR` den VR-Modus, verwendet die
-  App ein eigenes, moderat kompakteres Dichteprofil: 17 CSS-Pixel Basisschrift,
-  62 Pixel Navigationshöhe, 51 Pixel Mindesthöhe für einfache Items und
-  34 Pixel große Checkboxen. Die von MSFS vergrößerte VR-Darstellung wird nicht
-  mit einem globalen CSS-Transform gegenskaliert, damit Layoutbreiten und
+- Alle Größen des Stylesheets stehen in `em` und folgen einer einzigen
+  Root-Schriftgröße, die die App zur Laufzeit auf ihr Wurzelelement setzt.
+  Ein globaler CSS-Transform wird nicht verwendet, damit Layoutbreiten und
   Interaktionsziele stabil bleiben.
-- Außerhalb von VR hat ein einfaches Action-Item mindestens 60 Pixel Höhe und
-  eine 40 Pixel große Checkbox. Condition, Alternative, Note oder Review-Inhalt
-  dürfen das Item in beiden Dichteprofilen vertikal vergrößern.
-- Zwischen Items liegen außerhalb von VR 8 Pixel und in VR 7 Pixel Abstand;
-  beide Werte überschreiten den ursprünglich geforderten Mindestabstand.
+- Die Root-Schriftgröße ist die kurze Seite der Layoutbox der App geteilt
+  durch eine Profilkonstante, kontinuierlich und auf 0,1 px gerundet. Innerhalb
+  eines Profils zeigt die App dadurch immer denselben Ausschnitt, unabhängig
+  davon, ob das EFB montiert oder gelöst ist und welche EFB-Größe gewählt ist.
+  Small/Medium/Large ändern nur die physische Größe, nie den Inhalt; die App
+  wertet `efbSize` nicht aus. Mehr oder weniger sehen regelt der Benutzer über
+  EFB-Größe und Distanz.
+- Das VR-Profil zeigt 27,5 em Breite (Konstante 27,5; 17 px auf dem
+  montierten Tablet mit 468 px Layoutbox). Das Nicht-VR-Profil zeigt 39 em
+  (Konstante 39; 16 / 19,1 / 22,1 px auf dem gelösten Panel in Small / Medium
+  / Large).
+- Profilwahl: `E:IS IN VR` ergibt das VR-Profil. Ohne VR erhält eine Layoutbox
+  mit kurzer Seite unter 546 px, also das montierte Tablet, ebenfalls das
+  VR-Profil; das gelöste Panel erhält das Nicht-VR-Profil. Montiert gilt
+  damit in beiden Modi die VR-Ansicht, „etwas mehr sehen“ nur gelöst außerhalb
+  von VR.
+- Die Dichte der Items ist in beiden Profilen gleich: 3 em Mindesthöhe für
+  einfache Items, 2 em Checkbox, 3,65 em Navigationshöhe, 0,41 em Abstand
+  zwischen Items. Condition, Alternative, Note oder Review-Inhalt dürfen das
+  Item vertikal vergrößern. Im VR-Profil steht der Fortschrittsbalken unter
+  dem Flugzeugnamen, im Nicht-VR-Profil daneben.
+- Abgenommen am 2026-09-05 im H500C: VR montiert und schwebend Small / Medium
+  / Large, Nicht-VR montiert und gelöst Small / Medium / Large, einschließlich
+  der Schärfe dünner Rahmen bei rund 12,5 px Root-Schrift.
 - Lesbarkeit und robuste Interaktion sind wichtiger als die maximale Anzahl
   gleichzeitig sichtbarer Items.
 
@@ -323,6 +337,3 @@ Iteration stehen separat in `design-qa.md`.
   Action-Marker wurde durch eine spätere Entscheidung verworfen.
 - [`assets/action-bar-alignment.png`](assets/action-bar-alignment.png) hält die
   inzwischen behobene rechte Fehlflucht der Abschnittsnavigation fest.
-- [`assets/vr-g36-accepted-layout.png`](assets/vr-g36-accepted-layout.png) zeigt
-  das für den Abschluss von Phase 1 akzeptierte kompakte VR-Layout im
-  G36-Cockpit.

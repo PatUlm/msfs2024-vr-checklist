@@ -14,12 +14,6 @@ Produktentscheidung.
 - [ ] `SET PLASMA OFF` als Checklist-Bestätigung im Taog's-Hangar OH-6A/H500C
   nachweisen.
 
-## Darstellung und EFB-Lifecycle
-
-- [ ] Beim nächsten VR-Teststand prüfen, ob Coherent GT CSS Custom Properties mit
-  `var()` und `calc()` für Längen auswertet; ohne Nachweis bleibt `em` über die
-  Root-Schriftgröße der einzige zentrale Skalierungsweg.
-
 ## Phase 3 — Begleit-App
 
 - [ ] Maximale CommBus-Nutzlast und tatsächliches Chunk-Verhalten bestimmen.

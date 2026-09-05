@@ -1,22 +1,10 @@
 import assert from "node:assert/strict";
 import { test } from "node:test";
-import { Buffer } from "node:buffer";
-import { build } from "esbuild";
-import { fileURLToPath } from "node:url";
+import { importBundledModule } from "./testing/bundleModule.mjs";
 
-const entryPoint = fileURLToPath(new URL("./Scaling.ts", import.meta.url));
-const buildResult = await build({
-  entryPoints: [entryPoint],
-  bundle: true,
-  format: "esm",
-  platform: "browser",
-  target: "es2017",
-  write: false,
-});
-const moduleUrl = `data:text/javascript;base64,${Buffer.from(
-  buildResult.outputFiles[0].text
-).toString("base64")}`;
-const { resolveScaling } = await import(moduleUrl);
+const { resolveScaling } = await importBundledModule(
+  new URL("./Scaling.ts", import.meta.url)
+);
 
 // Layout boxes measured in MSFS, see docs/msfs-sdk-reference.md.
 test("mounted tablet in VR is the VR profile reference at 17 px", () => {

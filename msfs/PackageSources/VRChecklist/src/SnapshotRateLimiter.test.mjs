@@ -1,24 +1,10 @@
 import assert from "node:assert/strict";
 import { test } from "node:test";
-import { Buffer } from "node:buffer";
-import { build } from "esbuild";
-import { fileURLToPath } from "node:url";
+import { importBundledModule } from "./testing/bundleModule.mjs";
 
-const entryPoint = fileURLToPath(
+const { SnapshotRateLimiter } = await importBundledModule(
   new URL("./SnapshotRateLimiter.ts", import.meta.url)
 );
-const buildResult = await build({
-  entryPoints: [entryPoint],
-  bundle: true,
-  format: "esm",
-  platform: "browser",
-  target: "es2017",
-  write: false,
-});
-const moduleUrl = `data:text/javascript;base64,${Buffer.from(
-  buildResult.outputFiles[0].text
-).toString("base64")}`;
-const { SnapshotRateLimiter } = await import(moduleUrl);
 
 class FakeClock {
   now = 0;

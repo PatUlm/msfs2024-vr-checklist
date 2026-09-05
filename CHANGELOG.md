@@ -7,6 +7,13 @@ Changelog, and the project uses Semantic Versioning.
 
 ## [Unreleased]
 
+### Changed
+
+- The transport probe console tool now proves the CommBus channel with a
+  checklist state request and reports the EFB version, instance, selected
+  checklist and progress from the answering snapshot. The EFB app no longer
+  answers the separate ping message, which no shipped component used.
+
 ## [0.8.0] - 2026-09-05
 
 ### Changed

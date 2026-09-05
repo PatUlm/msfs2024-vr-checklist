@@ -1,14 +1,15 @@
 using System.Diagnostics;
-using System.Text.Json;
 using VRChecklist.Transport;
 
 namespace VRChecklist.TransportProbe;
 
+/*
+ * Console probe for the bidirectional CommBus channel. It sends one checklist
+ * state request and waits for the snapshot that answers it; the request ID in
+ * the snapshot proves the round trip without a dedicated ping message.
+ */
 internal static class Program
 {
-    private const string PingEvent = "VRChecklist.Transport.Ping.v1";
-    private const string PongEvent = "VRChecklist.Transport.Pong.v1";
-    private const uint PongEventId = 1;
     private static readonly TimeSpan ResponseTimeout = TimeSpan.FromSeconds(30);
 
     private static int Main(string[] args)
@@ -59,42 +60,41 @@ internal static class Program
         {
             using var client = new CommBusClient("VR Checklist transport probe");
             var requestId = Guid.NewGuid().ToString("N");
-            var pongReceived = false;
+            var snapshotReceived = false;
 
             client.Connect();
             Console.WriteLine("Connected to MSFS 2024 through SimConnect.");
-            client.Subscribe(PongEventId, PongEvent, message =>
-            {
-                if (IsMatchingPong(message, requestId, out var result))
+            client.Subscribe(
+                ChecklistStateProtocol.SnapshotEventId,
+                ChecklistStateProtocol.SnapshotEvent,
+                message =>
                 {
-                    Console.WriteLine(result);
-                    pongReceived = true;
-                }
-                else
-                {
-                    Console.Error.WriteLine("Ignored an unrelated or invalid EFB response.");
-                }
-            });
+                    if (TryDescribeMatchingSnapshot(message, requestId, out var result))
+                    {
+                        Console.WriteLine(result);
+                        snapshotReceived = true;
+                    }
+                    else
+                    {
+                        Console.Error.WriteLine(
+                            "Ignored an unsolicited, unrelated or invalid EFB snapshot.");
+                    }
+                });
 
             client.Send(
-                PingEvent,
-                JsonSerializer.Serialize(new
-                {
-                    protocolVersion = 1,
-                    type = "ping",
-                    requestId,
-                    sentAt = DateTimeOffset.UtcNow.ToString("O"),
-                }));
+                ChecklistStateProtocol.RequestEvent,
+                ChecklistStateProtocol.CreateRequest(requestId));
 
-            Console.WriteLine($"Ping {requestId} sent; waiting for the EFB response...");
+            Console.WriteLine(
+                $"State request {requestId} sent; waiting for the EFB snapshot...");
             var stopwatch = Stopwatch.StartNew();
 
-            while (!pongReceived)
+            while (!snapshotReceived)
             {
                 if (stopwatch.Elapsed >= ResponseTimeout)
                 {
                     Console.Error.WriteLine(
-                        "No matching EFB response arrived within 30 seconds.");
+                        "No matching EFB snapshot arrived within 30 seconds.");
                     return 4;
                 }
 
@@ -103,7 +103,7 @@ internal static class Program
                 if (!client.Pump(cancellation.Token, remaining))
                 {
                     Console.Error.WriteLine(
-                        "No matching EFB response arrived within 30 seconds.");
+                        "No matching EFB snapshot arrived within 30 seconds.");
                     return 4;
                 }
             }
@@ -121,7 +121,7 @@ internal static class Program
         }
     }
 
-    private static bool IsMatchingPong(
+    private static bool TryDescribeMatchingSnapshot(
         string message,
         string requestId,
         out string result)
@@ -130,24 +130,26 @@ internal static class Program
 
         try
         {
-            using var document = JsonDocument.Parse(message);
-            var root = document.RootElement;
+            var snapshot = ChecklistStateProtocol.ParseSnapshot(message);
 
-            if (root.GetProperty("protocolVersion").GetInt32() != 1 ||
-                root.GetProperty("type").GetString() != "pong" ||
-                root.GetProperty("requestId").GetString() != requestId)
+            if (snapshot.RequestId != requestId)
             {
                 return false;
             }
 
+            var checklist = snapshot.Checklist is null
+                ? "no checklist selected"
+                : $"checklist {snapshot.Checklist.Id} ({snapshot.Checklist.Revision})";
             result =
                 $"Bidirectional CommBus probe succeeded. " +
-                $"EFB version: {root.GetProperty("efbVersion").GetString()}; " +
-                $"instance: {root.GetProperty("instanceId").GetString()}.";
+                $"EFB version: {snapshot.EfbVersion}; " +
+                $"instance: {snapshot.InstanceId}; " +
+                $"{checklist}; " +
+                $"progress: {snapshot.CompletedRequiredItems}/{snapshot.TotalRequiredItems}.";
             return true;
         }
         catch (Exception error) when (
-            error is JsonException or InvalidOperationException or KeyNotFoundException)
+            error is InvalidDataException or ChecklistProtocolException or System.Text.Json.JsonException)
         {
             return false;
         }

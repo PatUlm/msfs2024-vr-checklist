@@ -41,19 +41,62 @@ Backlog dupliziert diese Listen nicht.
   nach Laufzeitnachweis aus `open-tests.md`: CSS Custom Property mit `calc()`
   oder Root-Schriftgröße mit `em`. Kein `transform: scale` (siehe `DON'T` in
   `msfs-sdk-reference.md`).
-- [ ] Auto-Skalierung aus `window.innerWidth`/`innerHeight` ableiten statt aus
-  `E:IS IN VR`; das heutige VR-Dichteprofil wird ein abgeleiteter Faktor. Die
-  Viewport-Größe liefert zugleich Hoch- oder Querformat. `E:IS IN VR` bleibt
-  nur Auslöser für den Fortschrittsabgleich beim Kontextwechsel.
+- [ ] Skalierungsfaktor = kurze Viewportseite / Profilkonstante, Profilwahl
+  nach der Tabelle unten. Die Viewport-Werte stehen in
+  `msfs-sdk-reference.md`. `E:IS IN VR` bleibt zusätzlich Auslöser für den
+  Fortschrittsabgleich beim Kontextwechsel.
+- **Entscheidung (2026-09-05):** Der Faktor ist kontinuierlich, nicht in
+  Stufen gerastert. Die Basisschrift wird per JS aus dem Viewport berechnet,
+  auf 0,1 px gerundet und als Root-Schriftgröße auf das App-Element gesetzt;
+  alle Stylesheet-Größen folgen in `em`. Neu berechnet wird nur bei `resume`,
+  `resize` und VR-Wechsel, nicht pro Frame. Eine Stufentabelle wäre mehr
+  Pflege ohne Performancegewinn, weil der Viewport nur zwischen den
+  gemessenen Werten springt. Zeigt der MSFS-Nachweis unscharfen Text, wird die
+  Rasterung an derselben Stelle ergänzt.
+- [ ] Querformat: Die Orientation-Einstellung vertauscht Breite und Höhe. Mit
+  der kurzen Seite als Basis bleibt die Textgröße gleich und es sind weniger
+  Zeilen sichtbar; ein eigenes Querformat-Layout ist ein späterer, getrennter
+  Schritt.
 - [ ] Danach: Einstellung `Auto` oder fester Prozentwert, persistent im
   `DataStore`, damit sie ohne laufende Begleit-App gilt. Offen ist, ob die
   Bedienung in der EFB-App, in der Begleit-App über CommBus oder an beiden
   Orten liegt.
-- **Einordnung:** Voraussetzung ist der Nachweis in `open-tests.md`, dass sich
-  montiertes und schwebendes EFB in der Viewport-Größe unterscheiden. Liefern
-  beide dieselben Werte, kann Auto-Skalierung den Unterschied nicht erkennen;
-  dann trägt nur der manuelle Faktor.
 - **Abnahme:** Die Designentscheidung zum VR-Dichteprofil in
-  `design-decisions.md` wird ersetzt. Erforderlich sind `task check`,
-  `task deploy` sowie ein MSFS-Nachweis für montiertes EFB, schwebendes
-  VR-Panel und Nicht-VR mit dem abgenommenen VR-Layout als Referenz.
+  `design-decisions.md` wird durch den Abschnitt „Dichteprofile“ ersetzt.
+  Erforderlich sind `task check`, `task deploy` sowie ein MSFS-Nachweis für
+  montiertes EFB, schwebendes VR-Panel und gelöstes Nicht-VR-Panel in Small
+  und Large mit dem abgenommenen VR-Layout als Referenz.
+
+### Dichteprofile (entschieden 2026-09-05)
+
+Die Skalierung ist viewport-proportional, wie bei den Microsoft-EFB-Apps:
+Innerhalb eines Profils zeigt die App immer denselben Ausschnitt, unabhängig
+davon, ob das EFB montiert oder gelöst ist und welche EFB-Größe gewählt wurde.
+Small/Medium/Large und die Distanz zum Panel ändern nur die physische Größe,
+nie den Inhalt. Die App wertet `efbSize` deshalb nicht aus; „mehr sehen“ deckt
+ausschließlich der manuelle Prozentfaktor ab. Dass das gelöste Panel bei
+gleichem Ausschnitt physisch größer wirkt als das montierte, regelt der
+Benutzer über EFB-Größe und Distanz, nicht die App.
+
+Ein Profil ist durch eine Konstante definiert: Basisschrift = kurze
+Viewportseite / Konstante. Die Referenz je Profil ist ein heute akzeptierter
+Zustand.
+
+| Profil | Ausschnitt | Referenz | Konstante |
+|---|---|---|---|
+| VR | die heutige VR-Ansicht mit großen Elementen | montiertes Tablet in VR, 17 px auf 468 | 27,5 |
+| Nicht-VR | etwas mehr Inhalt als VR | gelöstes Small-Panel in Nicht-VR, 20 px auf 782 | 39 |
+
+Profilwahl:
+
+| Situation | Erkennung | Profil |
+|---|---|---|
+| VR, montiert oder gelöst | `E:IS IN VR` | VR |
+| Nicht-VR, montiert | Viewportbreite unter der Schwelle zwischen 468 und 782 | VR |
+| Nicht-VR, gelöst | sonst | Nicht-VR |
+
+Das in Nicht-VR montierte Tablet erhält bewusst das VR-Profil (17 px statt
+heute 20 px auf 468): „Montiert immer die VR-Ansicht“ gilt in beiden Modi,
+„in Nicht-VR etwas mehr sehen“ nur für das gelöste Panel. Die Konstanten sind
+Startwerte und werden beim MSFS-Nachweis des Inkrements am Bild bestätigt
+oder angepasst.

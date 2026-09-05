@@ -233,6 +233,29 @@ die vorläufige Entscheidung in
   sichtbaren Größe, und nicht ganzzahlige Faktoren rastern Text unscharf.
   Skalierung erfolgt über die Layoutgrößen selbst, etwa Root-Schriftgröße
   oder Custom Property.
+- **[SDK]** Die EFB-Einstellung Small/Medium/Large (`efbSize`) ist kein
+  Layout-Signal für Apps: Der `EfbSettingsManager` reicht sie nur als
+  `Coherent.call("SET_SIZE", …)` an die Sim-Laufzeit durch, setzt weder CSS
+  noch Root-Schriftgröße, und keine Sample-App wertet sie aus. Lesbar ist sie
+  über den geschützten Getter `efbSettingsManager` von `App` und `AppView`;
+  er wirft, wenn der Shell keinen Manager injiziert hat. Der Shell injiziert
+  ihn nur in die `App`; eine `AppView` erhält ihn ausschließlich über die Prop
+  `efbSettingsManager` aus `render()`.
+- **[RT]** EFB-Viewport in CSS-Pixeln (SU6 1.8.14.0, `devicePixelRatio` stets
+  1): Das im Cockpit montierte Tablet liefert in VR und Nicht-VR fest
+  468 × 696 und ignoriert Größe und Orientation. Das gelöste Panel liefert in
+  Nicht-VR 782 × 1049 (Small), 915 × 1234 (Medium), 1045 × 1414 (Large), in
+  VR 470 × 616, 543 × 718, 614 × 816. Small/Medium/Large skaliert also den
+  Viewport proportional, die Orientation vertauscht Breite und Höhe. Der
+  Viewport unterscheidet montiert und gelöst nur in Nicht-VR; in VR ist die
+  Breite nahezu gleich, der Unterschied liegt in der physischen Panelgröße.
+- **DON'T:** Die EFB-Einstellung `mode` (2D/3D) als Zustandssignal für
+  montiert/gelöst verwenden. Sie ist eine gespeicherte Nutzereinstellung und
+  meldete im Test bei montiertem Tablet auch `2D`.
+- **[RT]** Der Wechsel in VR erzeugt einen neuen Coherent-Kontext mit neuer
+  App-Instanz; der bisherige Kontext liefert danach keine `paused`- oder
+  `resumed`-Zeilen mehr. Beim Debuggen in VR den neuen Eintrag unter
+  „Inspectable web views“ wählen.
 - **[RT]** Globale EFB-Regeln für `Button` und `.abstract-button` können lokale
   Hover-, Focus-, Selected- und Active-Zustände überstimmen. Alle Zustände sind
   mit der echten EFB-Komponente zu prüfen.

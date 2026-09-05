@@ -7,6 +7,11 @@ import {
   AppViewProps,
   Button,
   Efb,
+  EfbMode,
+  EfbSettingsManager,
+  EfbSettingsType,
+  EfbSizeSettingMode,
+  OrientationSettingMode,
   RequiredProps,
   TVNode,
 } from "@efb/efb-api";
@@ -23,6 +28,7 @@ import {
   SimVarValueType,
   Subject,
   Subscription,
+  UserSettingManager,
   VNode,
 } from "@microsoft/msfs-sdk";
 import airbusA400mData from "../../../../checklists/data/airbus-a400m.json";
@@ -405,6 +411,21 @@ class ChecklistRuntimeState {
   }
 }
 
+/*
+ * Resolves a numeric enum value to its name for a log line. The setting store
+ * may hand back the name as a string already; that is passed through.
+ */
+function describeEnumValue(
+  enumObject: Record<string, string | number>,
+  value: unknown
+): string {
+  if (typeof value === "number") {
+    const name = enumObject[value];
+    return typeof name === "string" ? name : String(value);
+  }
+  return String(value);
+}
+
 class VRChecklistView extends AppView<RequiredProps<AppViewProps, "bus">> {
   private readonly runtimes = checklists.map(
     (checklist) => new ChecklistRuntimeState(checklist)
@@ -467,7 +488,15 @@ class VRChecklistView extends AppView<RequiredProps<AppViewProps, "bus">> {
    * record is adopted; an already known record is skipped.
    */
   private lastPersistedAt = 0;
-  private readonly handleViewportResize = (): void => this.refreshVrMode();
+  private readonly handleViewportResize = (): void => {
+    // Mounted <-> floating EFB does not change E:IS IN VR, so the viewport is
+    // logged on every resize, not only on a display-mode change.
+    console.info(
+      `[VR Checklist] Viewport resized on instance ${this.instanceId}: ` +
+        this.describeViewport()
+    );
+    this.refreshVrMode();
+  };
   private readonly handleFlowEvent = (data: string): void => {
     this.processFlowEvent(data);
   };
@@ -865,7 +894,8 @@ class VRChecklistView extends AppView<RequiredProps<AppViewProps, "bus">> {
       this.isVrMode.set(isInVr);
       console.info(
         `[VR Checklist] Display mode detected on instance ` +
-          `${this.instanceId}: ${isInVr ? "VR" : "non-VR"}`
+          `${this.instanceId}: ${isInVr ? "VR" : "non-VR"}, ` +
+          this.describeViewport()
       );
 
       // A display-mode change may activate a recreated or previously resident
@@ -874,6 +904,39 @@ class VRChecklistView extends AppView<RequiredProps<AppViewProps, "bus">> {
       this.reconcileSelectedChecklistProgress();
     } catch (error) {
       console.error("[VR Checklist] Unable to read E:IS IN VR", error);
+    }
+  }
+
+  /*
+   * Diagnostic line for the open scaling proof in docs/open-tests.md: viewport
+   * in CSS pixels, device pixel ratio and the EFB shell settings (size,
+   * orientation, 2D/3D). Read-only; the app does not react to these settings,
+   * see the scaling section in docs/implementation-backlog.md.
+   */
+  private describeViewport(): string {
+    const viewport =
+      `viewport ${window.innerWidth}x${window.innerHeight} ` +
+      `@${window.devicePixelRatio}`;
+
+    try {
+      // The inherited getter throws when the App passed no manager. The cast
+      // restores the SDK manager interface: the linked efb_api typings do not
+      // resolve their `@microsoft/msfs-sdk` import, so the base class members
+      // are invisible to the type checker.
+      const settings = this
+        .efbSettingsManager as unknown as UserSettingManager<EfbSettingsType>;
+      const size = describeEnumValue(
+        EfbSizeSettingMode,
+        settings.getSetting("efbSize").get()
+      );
+      const orientation = describeEnumValue(
+        OrientationSettingMode,
+        settings.getSetting("orientationMode").get()
+      );
+      const mode = describeEnumValue(EfbMode, settings.getSetting("mode").get());
+      return `${viewport}, size=${size}, orientation=${orientation}, mode=${mode}`;
+    } catch (error) {
+      return `${viewport}, EFB settings unreadable (${String(error)})`;
     }
   }
 
@@ -1648,7 +1711,10 @@ class VRChecklistView extends AppView<RequiredProps<AppViewProps, "bus">> {
   public onResume(): void {
     super.onResume();
 
-    console.info(`[VR Checklist] Instance ${this.instanceId} resumed.`);
+    console.info(
+      `[VR Checklist] Instance ${this.instanceId} resumed, ` +
+        this.describeViewport()
+    );
     this.isViewActive = true;
     window.addEventListener("resize", this.handleViewportResize);
     // Reconciles through refreshSelectedChecklist: whatever happened while
@@ -1749,7 +1815,24 @@ class VRChecklist extends App {
   }
 
   public render(): TVNode<VRChecklistView> {
-    return <VRChecklistView bus={this.bus} />;
+    return (
+      <VRChecklistView
+        bus={this.bus}
+        efbSettingsManager={this.readEfbSettingsManager()}
+      />
+    );
+  }
+
+  // The shell injects the manager into the App only; the AppView getter
+  // resolves it solely from this prop. The App getter throws when nothing was
+  // injected, and diagnostics must not take the app down over that.
+  private readEfbSettingsManager(): EfbSettingsManager | undefined {
+    try {
+      return this.efbSettingsManager;
+    } catch (error) {
+      console.warn("[VR Checklist] EFB settings manager unavailable", error);
+      return undefined;
+    }
   }
 }
 

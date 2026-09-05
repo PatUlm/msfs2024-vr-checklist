@@ -16,15 +16,7 @@ Produktentscheidung.
 
 ## Darstellung und EFB-Lifecycle
 
-- [ ] Seit Sim Update 6 (1.8.14.0, 2026-08-13) in H500C und MH-60
-  reproduzierbar: Das im Cockpit montierte EFB zeigt in VR weiterhin die von
-  MSFS vergrößerte Darstellung, das schwebende VR-Panel dagegen die normale
-  Skalierung; mit aktivem VR-Dichteprofil ist die App dort zu klein. In der
-  Diagnosezeile `Display mode detected` zusätzlich `window.innerWidth` und
-  `window.innerHeight` protokollieren und für montiert, schwebend und Nicht-VR
-  je EFB-Instanz festhalten. Ergebnis entscheidet, ob die Viewport-Größe als
-  Skalierungsgrundlage taugt (siehe `implementation-backlog.md`).
-- [ ] Im selben Teststand prüfen, ob Coherent GT CSS Custom Properties mit
+- [ ] Beim nächsten VR-Teststand prüfen, ob Coherent GT CSS Custom Properties mit
   `var()` und `calc()` für Längen auswertet; ohne Nachweis bleibt `em` über die
   Root-Schriftgröße der einzige zentrale Skalierungsweg.
 
@@ -35,8 +27,10 @@ Produktentscheidung.
   `AppSuspendMode.SLEEP` einschließlich der FPS-Wirkung einer Änderung messen.
 - [ ] CommBus-Registrierung und -Zustellung über Nicht-VR → VR → Nicht-VR
   nachweisen.
-- [ ] Anzahl und Lifecycle der EFB-App-Instanzen bei einem Darstellungswechsel
-  anhand der vorhandenen Diagnosezeilen bestimmen.
+- [ ] Nach einem Wechsel VR → Nicht-VR prüfen, ob der beim VR-Eintritt
+  ersetzte Coherent-Kontext unter „Inspectable web views“ weiterlebt oder
+  verworfen wird; der VR-Eintritt selbst erzeugt nachweislich einen neuen
+  Kontext (siehe `msfs-sdk-reference.md`).
 - [ ] WASAPI Shared Mode gegen das VR-Audiogerät bei laufendem MSFS nachweisen.
 
 ## Bedingte Rückfallebene

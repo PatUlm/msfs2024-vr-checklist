@@ -7,6 +7,15 @@ Changelog, and the project uses Semantic Versioning.
 
 ## [Unreleased]
 
+### Changed
+
+- The checklist now scales with the EFB layout area instead of using fixed
+  pixel sizes. The mounted tablet and the detached panel show the same amount
+  of checklist content in every EFB size (Small, Medium, Large); the size
+  setting only changes how large the app appears. Outside VR, the mounted
+  tablet uses the same compact layout as in VR, and the detached panel shows
+  more content per screen than in VR.
+
 ## [0.7.1] - 2026-09-04
 
 ### Added

@@ -7,11 +7,8 @@ import {
   AppViewProps,
   Button,
   Efb,
-  EfbMode,
   EfbSettingsManager,
   EfbSettingsType,
-  EfbSizeSettingMode,
-  OrientationSettingMode,
   RequiredProps,
   TVNode,
 } from "@efb/efb-api";
@@ -37,6 +34,7 @@ import beechcraftBonanzaG36Data from "../../../../checklists/data/beechcraft-bon
 import diamondDa42Data from "../../../../checklists/data/diamond-da42.json";
 import hughesOh6a500cData from "../../../../checklists/data/hughes-oh6a-500c.json";
 import sikorskyMh60Data from "../../../../checklists/data/sikorsky-mh-60.json";
+import { resolveScaling } from "./Scaling";
 import { SnapshotRateLimiter } from "./SnapshotRateLimiter";
 
 import "./VRChecklist.scss";
@@ -148,6 +146,13 @@ const ITEM_KIND_LABELS: Record<ChecklistItem["kind"], string> = {
 };
 
 const AIRCRAFT_REFRESH_INTERVAL_MS = 10000;
+/*
+ * The EFB shell changes the layout box of the app after the window resize
+ * event, not with it (measured: within 50 ms, see docs/msfs-sdk-reference.md).
+ * After each trigger the box is therefore re-measured in this bounded sequence
+ * (cumulative 50, 150 and 400 ms); it stops by itself.
+ */
+const SCALING_SETTLE_STEPS_MS = [50, 100, 250];
 const CHECKLIST_PROGRESS_DATASTORE_KEY = "vr-checklist.progress.v5";
 const OBSOLETE_DATASTORE_KEYS = [
   "vr-checklist.progress.v1",
@@ -411,21 +416,6 @@ class ChecklistRuntimeState {
   }
 }
 
-/*
- * Resolves a numeric enum value to its name for a log line. The setting store
- * may hand back the name as a string already; that is passed through.
- */
-function describeEnumValue(
-  enumObject: Record<string, string | number>,
-  value: unknown
-): string {
-  if (typeof value === "number") {
-    const name = enumObject[value];
-    return typeof name === "string" ? name : String(value);
-  }
-  return String(value);
-}
-
 class VRChecklistView extends AppView<RequiredProps<AppViewProps, "bus">> {
   private readonly runtimes = checklists.map(
     (checklist) => new ChecklistRuntimeState(checklist)
@@ -437,7 +427,24 @@ class VRChecklistView extends AppView<RequiredProps<AppViewProps, "bus">> {
   private readonly aircraftIdentityText = Subject.create(
     "(leer) | (leer) | (leer)"
   );
-  private readonly isVrMode = Subject.create(false);
+  /*
+   * Density profile and root font size, see Scaling.ts. The initial values
+   * come from the viewport alone; onResume adds E:IS IN VR.
+   */
+  private readonly initialScaling = resolveScaling(
+    false,
+    window.innerWidth,
+    window.innerHeight
+  );
+  private readonly isVrProfile = Subject.create(
+    this.initialScaling.profile === "vr"
+  );
+  private readonly rootFontSize = Subject.create(
+    `${this.initialScaling.rootFontSizePx}px`
+  );
+  private readonly appRootRef = FSComponent.createRef<HTMLDivElement>();
+  private scalingSettleTimer: number | undefined;
+  private readonly modeSettingSubscription: Subscription | undefined;
   private readonly gameStateSubscription: Subscription;
   private readonly flowApiListener: ViewListener.ViewListener;
   private commBusListener: CommBusListener | undefined;
@@ -489,13 +496,8 @@ class VRChecklistView extends AppView<RequiredProps<AppViewProps, "bus">> {
    */
   private lastPersistedAt = 0;
   private readonly handleViewportResize = (): void => {
-    // Mounted <-> floating EFB does not change E:IS IN VR, so the viewport is
-    // logged on every resize, not only on a display-mode change.
-    console.info(
-      `[VR Checklist] Viewport resized on instance ${this.instanceId}: ` +
-        this.describeViewport()
-    );
     this.refreshVrMode();
+    this.scheduleScalingSettle();
   };
   private readonly handleFlowEvent = (data: string): void => {
     this.processFlowEvent(data);
@@ -527,6 +529,55 @@ class VRChecklistView extends AppView<RequiredProps<AppViewProps, "bus">> {
     this.flowApiListener.on(FLOW_API_EVENT_NAME, this.handleFlowEvent);
     this.loadCommBusTransport();
     this.setupConfirmationInput();
+    this.modeSettingSubscription = this.subscribeToEfbModeSetting();
+  }
+
+  /*
+   * The stored 2D/3D preference is no mounted/detached state signal (see the
+   * DON'T in docs/msfs-sdk-reference.md). It changed alongside the shell's
+   * container change in the log, so it only serves as one more trigger to
+   * re-measure the layout box.
+   */
+  private subscribeToEfbModeSetting(): Subscription | undefined {
+    try {
+      const settings = this
+        .efbSettingsManager as unknown as UserSettingManager<EfbSettingsType>;
+      return settings.getSetting("mode").sub(() => {
+        if (this.isViewActive) {
+          this.scheduleScalingSettle();
+        }
+      });
+    } catch (error) {
+      console.warn(
+        "[VR Checklist] EFB mode setting unavailable as scaling trigger",
+        error
+      );
+      return undefined;
+    }
+  }
+
+  private scheduleScalingSettle(): void {
+    this.cancelScalingSettle();
+    this.runScalingSettleStep(0);
+  }
+
+  private runScalingSettleStep(step: number): void {
+    if (!this.isViewActive || step >= SCALING_SETTLE_STEPS_MS.length) {
+      return;
+    }
+
+    this.scalingSettleTimer = window.setTimeout(() => {
+      this.scalingSettleTimer = undefined;
+      this.refreshVrMode();
+      this.runScalingSettleStep(step + 1);
+    }, SCALING_SETTLE_STEPS_MS[step]);
+  }
+
+  private cancelScalingSettle(): void {
+    if (this.scalingSettleTimer !== undefined) {
+      window.clearTimeout(this.scalingSettleTimer);
+      this.scalingSettleTimer = undefined;
+    }
   }
 
   /*
@@ -878,66 +929,78 @@ class VRChecklistView extends AppView<RequiredProps<AppViewProps, "bus">> {
       return;
     }
 
+    let isInVr = this.currentVrMode ?? false;
+
     try {
       // IS IN VR is an official read-only E: environment variable. A viewport
       // resize is the event-first trigger; the existing slow aircraft refresh
       // also covers a resident EFB that receives no useful resize event.
-      const isInVr = Boolean(
+      isInVr = Boolean(
         SimVar.GetSimVarValue("E:IS IN VR", SimVarValueType.Bool)
       );
 
-      if (isInVr === this.currentVrMode) {
-        return;
+      if (isInVr !== this.currentVrMode) {
+        this.currentVrMode = isInVr;
+        console.info(
+          `[VR Checklist] Display mode detected on instance ` +
+            `${this.instanceId}: ${isInVr ? "VR" : "non-VR"}`
+        );
+
+        // A display-mode change may activate a recreated or previously
+        // resident context. Reconcile immediately instead of waiting for the
+        // slow aircraft fallback.
+        this.reconcileSelectedChecklistProgress();
       }
-
-      this.currentVrMode = isInVr;
-      this.isVrMode.set(isInVr);
-      console.info(
-        `[VR Checklist] Display mode detected on instance ` +
-          `${this.instanceId}: ${isInVr ? "VR" : "non-VR"}, ` +
-          this.describeViewport()
-      );
-
-      // A display-mode change may activate a recreated or previously resident
-      // context. Reconcile immediately instead of waiting for the slow aircraft
-      // fallback.
-      this.reconcileSelectedChecklistProgress();
     } catch (error) {
       console.error("[VR Checklist] Unable to read E:IS IN VR", error);
     }
+
+    this.applyScaling(isInVr);
   }
 
   /*
-   * Diagnostic line for the open scaling proof in docs/open-tests.md: viewport
-   * in CSS pixels, device pixel ratio and the EFB shell settings (size,
-   * orientation, 2D/3D). Read-only; the app does not react to these settings,
-   * see the scaling section in docs/implementation-backlog.md.
+   * Sets density profile and root font size from the short viewport side, see
+   * Scaling.ts. Runs only on resume, resize, VR change and the slow aircraft
+   * fallback; unchanged results leave the DOM untouched.
    */
-  private describeViewport(): string {
-    const viewport =
-      `viewport ${window.innerWidth}x${window.innerHeight} ` +
-      `@${window.devicePixelRatio}`;
+  private applyScaling(isInVr: boolean): void {
+    const viewport = this.measureLayoutViewport();
+    const scaling = resolveScaling(isInVr, viewport.width, viewport.height);
+    const isVrProfile = scaling.profile === "vr";
+    const rootFontSize = `${scaling.rootFontSizePx}px`;
 
-    try {
-      // The inherited getter throws when the App passed no manager. The cast
-      // restores the SDK manager interface: the linked efb_api typings do not
-      // resolve their `@microsoft/msfs-sdk` import, so the base class members
-      // are invisible to the type checker.
-      const settings = this
-        .efbSettingsManager as unknown as UserSettingManager<EfbSettingsType>;
-      const size = describeEnumValue(
-        EfbSizeSettingMode,
-        settings.getSetting("efbSize").get()
-      );
-      const orientation = describeEnumValue(
-        OrientationSettingMode,
-        settings.getSetting("orientationMode").get()
-      );
-      const mode = describeEnumValue(EfbMode, settings.getSetting("mode").get());
-      return `${viewport}, size=${size}, orientation=${orientation}, mode=${mode}`;
-    } catch (error) {
-      return `${viewport}, EFB settings unreadable (${String(error)})`;
+    if (
+      isVrProfile === this.isVrProfile.get() &&
+      rootFontSize === this.rootFontSize.get()
+    ) {
+      return;
     }
+
+    this.isVrProfile.set(isVrProfile);
+    this.rootFontSize.set(rootFontSize);
+    console.info(
+      `[VR Checklist] Scaling on instance ${this.instanceId}: ` +
+        `profile ${scaling.profile}, root font ${rootFontSize}, ` +
+        `layout box ${viewport.width}x${viewport.height}`
+    );
+  }
+
+  /*
+   * The layout box of the app element is the scaling basis, not the window:
+   * the EFB shell frames the detached panel, so the box is smaller than the
+   * window (see docs/msfs-sdk-reference.md). The window is only the fallback
+   * before the element is laid out.
+   */
+  private measureLayoutViewport(): { width: number; height: number } {
+    const element = this.appRootRef.getOrDefault();
+    const width = element?.clientWidth ?? 0;
+    const height = element?.clientHeight ?? 0;
+
+    if (width > 0 && height > 0) {
+      return { width, height };
+    }
+
+    return { width: window.innerWidth, height: window.innerHeight };
   }
 
   private updateAircraftDiagnostics(identity: AircraftIdentity): void {
@@ -1711,15 +1774,14 @@ class VRChecklistView extends AppView<RequiredProps<AppViewProps, "bus">> {
   public onResume(): void {
     super.onResume();
 
-    console.info(
-      `[VR Checklist] Instance ${this.instanceId} resumed, ` +
-        this.describeViewport()
-    );
+    console.info(`[VR Checklist] Instance ${this.instanceId} resumed.`);
     this.isViewActive = true;
     window.addEventListener("resize", this.handleViewportResize);
     // Reconciles through refreshSelectedChecklist: whatever happened while
     // this instance was not visible is picked up here.
     this.scheduleAircraftRefresh();
+    // The layout box is still 0x0 at resume; the settle sequence measures it.
+    this.scheduleScalingSettle();
   }
 
   public onPause(): void {
@@ -1727,6 +1789,7 @@ class VRChecklistView extends AppView<RequiredProps<AppViewProps, "bus">> {
     this.isViewActive = false;
     window.removeEventListener("resize", this.handleViewportResize);
     this.cancelAircraftRefresh();
+    this.cancelScalingSettle();
     super.onPause();
   }
 
@@ -1736,6 +1799,8 @@ class VRChecklistView extends AppView<RequiredProps<AppViewProps, "bus">> {
     this.isViewClosed = true;
     window.removeEventListener("resize", this.handleViewportResize);
     this.cancelAircraftRefresh();
+    this.cancelScalingSettle();
+    this.modeSettingSubscription?.destroy();
     this.stateSnapshotRateLimiter.dispose();
 
     this.gameStateSubscription.destroy();
@@ -1759,10 +1824,12 @@ class VRChecklistView extends AppView<RequiredProps<AppViewProps, "bus">> {
   public render(): VNode {
     return (
       <div
+        ref={this.appRootRef}
         class={{
           "vr-checklist-app": true,
-          "vr-checklist-app--vr": this.isVrMode,
+          "vr-checklist-app--vr": this.isVrProfile,
         }}
+        style={{ "font-size": this.rootFontSize }}
       >
         {this.runtimes.map((runtime) => this.renderChecklist(runtime))}
 

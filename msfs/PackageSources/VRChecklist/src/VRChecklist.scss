@@ -1,3 +1,11 @@
+/*
+ * All lengths are in em and follow the root font size that the app sets on
+ * `.vr-checklist-app` from the short side of its layout box (see Scaling.ts).
+ * Each value is relative to the font size of the element it belongs to; the
+ * values were converted from the accepted VR layout at a 17 px root font. Do
+ * not reintroduce pixel sizes: the whole layout has to scale with that single
+ * font size.
+ */
 .vr-checklist-app {
   --checklist-bg: #0d131a;
   --checklist-surface: #151e28;
@@ -28,23 +36,17 @@
       transparent 36%
     ),
     var(--checklist-bg);
-  // Coherent GT does not reliably support modern CSS sizing functions.
-  font-size: 20px;
+  // Fallback only. The app overrides this with the computed root font size as
+  // an inline style; 17 px is the VR profile reference.
+  font-size: 17px;
   line-height: 1.35;
   scrollbar-color: var(--checklist-border) transparent;
 }
 
-.vr-checklist-app.vr-checklist-app--vr {
-  // MSFS enlarges the complete EFB presentation in VR. Keep the accepted 20 px
-  // baseline for 2D and the non-VR cockpit tablet, and compensate only the
-  // typography when the simulator explicitly reports VR mode.
-  font-size: 17px;
-}
-
 .checklist-version {
   position: absolute;
-  right: 18px;
-  bottom: 8px;
+  right: 2.118em;
+  bottom: 0.941em;
   z-index: 12;
 
   color: rgba(184, 197, 209, 0.5);
@@ -78,7 +80,7 @@
   justify-content: center;
   width: 100%;
   min-height: 0;
-  padding: 34px;
+  padding: 1.739em;
   box-sizing: border-box;
 
   color: var(--checklist-muted);
@@ -97,9 +99,9 @@
 
 .checklist-unavailable__diagnostics {
   position: absolute;
-  right: 34px;
-  bottom: 22px;
-  left: 34px;
+  right: 3.478em;
+  bottom: 2.251em;
+  left: 3.478em;
 
   color: rgba(184, 197, 209, 0.68);
   font-size: 0.5em;
@@ -111,7 +113,7 @@
 }
 
 .checklist-unavailable__diagnostic-label {
-  margin-right: 5px;
+  margin-right: 0.512em;
   color: rgba(184, 197, 209, 0.82);
   font-weight: 700;
 }
@@ -125,13 +127,13 @@
   align-items: center;
   justify-content: space-between;
 
-  min-height: 86px;
-  padding: 34px 34px 14px;
-  border-bottom: 1px solid var(--checklist-border);
+  min-height: 5.059em;
+  padding: 2em 2em 0.824em;
+  border-bottom: 0.059em solid var(--checklist-border);
   box-sizing: border-box;
 
   background: rgba(13, 19, 26, 0.97);
-  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.22);
+  box-shadow: 0 0.588em 1.412em rgba(0, 0, 0, 0.22);
 }
 
 .checklist-header__identity {
@@ -148,7 +150,7 @@
 }
 
 .checklist-header__manufacturer {
-  margin-left: 12px;
+  margin-left: 0.905em;
   color: var(--checklist-muted);
   font-size: 0.78em;
   font-weight: 700;
@@ -156,13 +158,13 @@
 
 .checklist-header__progress {
   display: flex;
-  flex: 0 1 320px;
+  flex: 0 1 18.824em;
   align-items: center;
-  min-width: 220px;
+  min-width: 12.941em;
 }
 
 .checklist-header__progress-label {
-  margin-right: 14px;
+  margin-right: 1.056em;
   color: var(--checklist-text);
   font-size: 0.78em;
   font-variant-numeric: tabular-nums;
@@ -172,8 +174,9 @@
 
 .checklist-header__progress-track {
   flex: 1;
-  height: 10px;
+  height: 0.588em;
   overflow: hidden;
+  // Pill radius, not a size: any value above half the track height works.
   border-radius: 999px;
   background: #2a3948;
 }
@@ -193,9 +196,9 @@
 
   width: 100%;
   min-height: 0;
-  max-width: 1280px;
+  max-width: 75.294em;
   margin: 0 auto;
-  padding: 30px 34px 0;
+  padding: 1.765em 2em 0;
   overflow: hidden;
   box-sizing: border-box;
 }
@@ -217,12 +220,12 @@
   z-index: 9;
   flex: 0 0 auto;
 
-  padding-bottom: 24px;
+  padding-bottom: 1.176em;
   background: transparent;
 }
 
 .checklist-section__header {
-  margin: 0 4px 20px;
+  margin: 0 0.235em 1em;
 }
 
 .checklist-section h2 {
@@ -237,7 +240,7 @@
 }
 
 .checklist-section__number {
-  margin-right: 16px;
+  margin-right: 0.607em;
   color: var(--checklist-accent);
   font: inherit;
   font-variant-numeric: tabular-nums;
@@ -258,10 +261,10 @@
 
   width: 50%;
   min-width: 0;
-  min-height: 72px;
-  padding: 11px 16px;
-  border: 1px solid var(--checklist-border);
-  border-radius: 9px;
+  min-height: 3.647em;
+  padding: 0.529em 0.824em;
+  border: 0.059em solid var(--checklist-border);
+  border-radius: 0.529em;
   box-sizing: border-box;
 
   color: var(--checklist-muted);
@@ -275,7 +278,7 @@
 }
 
 .section-navigation__button--next.abstract-button {
-  margin-left: 12px;
+  margin-left: 0.588em;
 }
 
 .section-navigation__button.abstract-button:hover,
@@ -314,7 +317,7 @@
 
 .section-navigation__number {
   flex: 0 0 auto;
-  margin-right: 10px;
+  margin-right: 0.588em;
   color: var(--checklist-accent);
   font-size: 1em;
   font-variant-numeric: tabular-nums;
@@ -337,11 +340,12 @@
   min-height: 0;
   // Coherent reserves about 10 px for its vertical scrollbar and renders the
   // item edge another few pixels inside the scroll container. Move that
-  // reserved 15 px into the existing right outer padding so the visible item
-  // and navigation edges keep the same 34 px distance on both sides.
-  margin-right: -15px;
-  padding-right: 4px;
-  padding-bottom: 54px;
+  // reserved space (15 px at the 17 px reference) into the existing right
+  // outer padding so the visible item and navigation edges keep the same
+  // distance on both sides.
+  margin-right: -0.882em;
+  padding-right: 0.235em;
+  padding-bottom: 3.176em;
   // Always reserve Coherent's scrollbar track so navigation and item width do
   // not change when a section starts or stops overflowing.
   overflow-y: scroll;
@@ -349,7 +353,7 @@
 }
 
 .checklist-section__items > .checklist-item {
-  margin-bottom: 8px;
+  margin-bottom: 0.412em;
 }
 
 .checklist-section__items > .checklist-item:last-child {
@@ -366,10 +370,10 @@
   align-items: flex-start;
 
   width: 100%;
-  min-height: 60px;
-  padding: 8px 10px 8px 21px;
-  border: 1px solid var(--checklist-border);
-  border-radius: 8px;
+  min-height: 3em;
+  padding: 0.412em 0.529em 0.412em 1.059em;
+  border: 0.059em solid var(--checklist-border);
+  border-radius: 0.412em;
   box-sizing: border-box;
 
   color: var(--checklist-text);
@@ -385,15 +389,15 @@
 .checklist-item--verify.abstract-button {
   --item-accent: var(--checklist-verify);
 
-  padding-left: 15px;
-  border-left: 7px solid var(--item-accent);
+  padding-left: 0.765em;
+  border-left: 0.353em solid var(--item-accent);
 }
 
 .checklist-item--communication.abstract-button {
   --item-accent: var(--checklist-communication);
 
-  padding-left: 15px;
-  border-left: 7px solid var(--item-accent);
+  padding-left: 0.765em;
+  border-left: 0.353em solid var(--item-accent);
 }
 
 /*
@@ -404,8 +408,8 @@
 .checklist-item--optional.abstract-button {
   --item-accent: var(--checklist-optional);
 
-  padding-left: 15px;
-  border-left: 7px solid var(--item-accent);
+  padding-left: 0.765em;
+  border-left: 0.353em solid var(--item-accent);
 }
 
 .checklist-item.abstract-button:hover,
@@ -442,7 +446,7 @@
   display: flex;
   flex: 1 1 auto;
   flex-direction: column;
-  width: calc(100% - 50px);
+  width: calc(100% - 2.471em);
   min-width: 0;
 }
 
@@ -450,7 +454,7 @@
   display: flex;
   align-items: center;
   min-width: 0;
-  min-height: 40px;
+  min-height: 2em;
 }
 
 .checklist-item__challenge {
@@ -459,19 +463,19 @@
 }
 
 .checklist-item__leader {
-  flex: 1 1 36px;
-  height: 4px;
-  min-width: 24px;
-  margin-right: 8px;
-  margin-left: 8px;
+  flex: 1 1 2.118em;
+  height: 0.235em;
+  min-width: 1.412em;
+  margin-right: 0.471em;
+  margin-left: 0.471em;
   background-image: radial-gradient(
     circle at center,
-    rgba(184, 197, 209, 0.78) 1.4px,
-    transparent 1.6px
+    rgba(184, 197, 209, 0.78) 0.082em,
+    transparent 0.094em
   );
   background-repeat: repeat-x;
   background-position: center;
-  background-size: 6px 4px;
+  background-size: 0.353em 0.235em;
 }
 
 .checklist-item__response {
@@ -488,16 +492,16 @@
 
 .checklist-item__checkbox {
   display: flex;
-  flex: 0 0 40px;
+  flex: 0 0 2em;
   align-items: center;
   justify-content: center;
 
-  width: 40px;
-  height: 40px;
-  margin-left: 10px;
+  width: 2em;
+  height: 2em;
+  margin-left: 0.471em;
   margin-top: 0;
-  border: 3px solid #8193a5;
-  border-radius: 7px;
+  border: 0.118em solid #8193a5;
+  border-radius: 0.353em;
   box-sizing: border-box;
 
   background: #0b1016;
@@ -506,20 +510,20 @@
 .checklist-item__checkmark {
   position: relative;
 
-  width: 22px;
-  height: 22px;
+  width: 1.059em;
+  height: 1.059em;
   opacity: 0;
 }
 
 .checklist-item__checkmark::before,
 .checklist-item__checkmark::after {
   position: absolute;
-  top: 9px;
-  left: 1px;
+  top: 0.471em;
+  left: 0.059em;
 
-  width: 20px;
-  height: 4px;
-  border-radius: 2px;
+  width: 0.941em;
+  height: 0.176em;
+  border-radius: 0.118em;
 
   background: #0a2417;
   content: "";
@@ -546,7 +550,7 @@
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  margin-top: 6px;
+  margin-top: 0.294em;
   margin-bottom: 0;
 }
 
@@ -554,8 +558,8 @@
   display: inline-flex;
   flex-wrap: wrap;
 
-  margin-right: 12px;
-  margin-bottom: 8px;
+  margin-right: 0.861em;
+  margin-bottom: 0.502em;
 
   color: var(--checklist-muted);
   font-size: 0.82em;
@@ -564,7 +568,7 @@
 
 .checklist-item__detail-label,
 .checklist-item__review-label {
-  margin-right: 5px;
+  margin-right: 0.359em;
   color: #dce4eb;
   font-size: 1em;
   font-weight: 800;
@@ -581,12 +585,12 @@
   flex: 0 0 auto;
   align-items: center;
 
-  margin-right: 12px;
-  margin-bottom: 8px;
-  min-height: 24px;
-  padding: 3px 7px;
-  border: 1px solid currentColor;
-  border-radius: 5px;
+  margin-right: 1.217em;
+  margin-bottom: 0.71em;
+  min-height: 2.028em;
+  padding: 0.203em 0.609em;
+  border: 0.101em solid currentColor;
+  border-radius: 0.406em;
   box-sizing: border-box;
 
   font-size: 0.58em;
@@ -612,10 +616,10 @@
   display: flex;
   flex-wrap: wrap;
 
-  margin-top: 10px;
-  padding: 10px 12px;
-  border: 1px solid rgba(184, 197, 209, 0.2);
-  border-radius: 6px;
+  margin-top: 0.574em;
+  padding: 0.574em 0.717em;
+  border: 0.072em solid rgba(184, 197, 209, 0.2);
+  border-radius: 0.43em;
   color: var(--checklist-text);
   background: rgba(184, 197, 209, 0.1);
   font-size: 0.82em;
@@ -626,153 +630,39 @@
   color: var(--checklist-muted);
 }
 
+/*
+ * VR density profile (see "Dichteprofile" in docs/implementation-backlog.md).
+ * The class marks the profile, not `E:IS IN VR`: the app applies it in VR and
+ * on the mounted tablet outside VR. The viewport is then only 27.5 em wide,
+ * so the header stacks and the outer spacing tightens. The non-VR profile
+ * (detached panel outside VR) is 39 em wide and keeps the base layout.
+ */
 .vr-checklist-app.vr-checklist-app--vr {
-  .checklist-section__sticky {
-    padding-bottom: 20px;
-  }
-
-  .checklist-section__header {
-    margin-bottom: 17px;
-  }
-
-  .section-navigation__button.abstract-button {
-    min-height: 62px;
-    padding: 9px 14px;
-  }
-
-  .section-navigation__button--next.abstract-button {
-    margin-left: 10px;
-  }
-
-  .checklist-section__items > .checklist-item {
-    margin-bottom: 7px;
-  }
-
-  .checklist-item.abstract-button {
-    min-height: 51px;
-    padding: 7px 9px 7px 18px;
-    border-radius: 7px;
-  }
-
-  .checklist-item--verify.abstract-button,
-  .checklist-item--communication.abstract-button,
-  .checklist-item--optional.abstract-button {
-    padding-left: 13px;
-    border-left-width: 6px;
-  }
-
-  .checklist-item__body {
-    width: calc(100% - 42px);
-  }
-
-  .checklist-item__main {
-    min-height: 34px;
-  }
-
-  .checklist-item__checkbox {
-    flex-basis: 34px;
-    width: 34px;
-    height: 34px;
-    margin-left: 8px;
-    border-width: 2px;
-    border-radius: 6px;
-  }
-
-  .checklist-item__checkmark {
-    width: 18px;
-    height: 18px;
-  }
-
-  .checklist-item__checkmark::before,
-  .checklist-item__checkmark::after {
-    top: 8px;
-    left: 1px;
-    width: 16px;
-    height: 3px;
-  }
-
-  .checklist-item__details {
-    margin-top: 5px;
-  }
-
-  .checklist-item__detail,
-  .checklist-item__kind {
-    margin-bottom: 7px;
-  }
-
-  .checklist-item__kind {
-    min-height: 20px;
-    padding: 2px 6px;
-    border-radius: 4px;
-  }
-
-  .checklist-item__review-note {
-    margin-top: 8px;
-    padding: 8px 10px;
-  }
-}
-
-@media (max-width: 720px) {
-  .vr-checklist-app {
-    font-size: 20px;
-  }
-
   .checklist-header {
     align-items: stretch;
     flex-direction: column;
-    padding: 36px 20px 15px;
+    padding: 2.118em 1.176em 0.882em;
   }
 
   .checklist-header__progress {
     flex: none;
     min-width: 0;
-    margin-top: 14px;
+    margin-top: 0.824em;
   }
 
   .checklist-content {
-    padding: 26px 18px 0;
+    padding: 1.529em 1.059em 0;
   }
 
   .checklist-section h2 {
     font-size: 1.35em;
   }
 
-  .section-navigation {
-    margin-bottom: 0;
-  }
-
-  .checklist-section__sticky {
-    padding-bottom: 20px;
+  .checklist-section__number {
+    margin-right: 0.697em;
   }
 
   .checklist-section__items {
-    padding-bottom: 46px;
-  }
-
-  .section-navigation__button.abstract-button {
-    min-height: 68px;
-    padding: 9px 11px;
-  }
-
-  .section-navigation__button--next.abstract-button {
-    margin-left: 8px;
-  }
-
-  .checklist-item.abstract-button {
-    padding: 8px 10px 8px 19px;
-  }
-
-  .checklist-item--verify.abstract-button,
-  .checklist-item--communication.abstract-button,
-  .checklist-item--optional.abstract-button {
-    padding-left: 13px;
-  }
-
-  .checklist-item__body {
-    width: calc(100% - 48px);
-  }
-
-  .checklist-item__checkbox {
-    margin-left: 8px;
+    padding-bottom: 2.706em;
   }
 }

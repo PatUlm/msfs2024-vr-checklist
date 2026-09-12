@@ -69,6 +69,7 @@ internal static class TransportProbeSelfTests
             ("loads the embedded checklists sorted by title", LoadsEmbeddedChecklistsSortedByTitle),
             ("rejects an embedded checklist without sections", RejectsChecklistWithoutSections),
             ("formats a checklist as Markdown-like text", FormatsChecklistAsMarkdownLikeText),
+            ("decodes the embedded completion clip", DecodesEmbeddedCompletionClip),
         ];
 
         var failures = 0;
@@ -201,6 +202,28 @@ internal static class TransportProbeSelfTests
                     isRepeated: false)
                 .Count == 0,
             "Losing the checklist announced a group.");
+    }
+
+    private static void DecodesEmbeddedCompletionClip()
+    {
+        var clip = OpusClip.LoadEmbeddedCompletion();
+
+        Assert(clip.WaveFormat.SampleRate == 48000, "The clip was not decoded at the Opus rate.");
+        Assert(
+            clip.Duration > TimeSpan.FromSeconds(1) && clip.Duration < TimeSpan.FromSeconds(5),
+            $"The clip duration {clip.Duration} is not a short announcement.");
+
+        using var pcm = clip.OpenRead();
+        var buffer = new byte[pcm.Length];
+        Assert(pcm.Read(buffer, 0, buffer.Length) == buffer.Length, "The clip did not read completely.");
+        var peak = 0;
+
+        for (var offset = 0; offset < buffer.Length; offset += sizeof(short))
+        {
+            peak = Math.Max(peak, Math.Abs((int)BitConverter.ToInt16(buffer, offset)));
+        }
+
+        Assert(peak > short.MaxValue / 10, "The decoded clip is silent.");
     }
 
     private static ChecklistStateSnapshot SnapshotWithGroups(

@@ -17,6 +17,10 @@
              Link="ChecklistTextFormatter.cs" />
     <Compile Include="../VRChecklist.Companion/CompletionSoundPlayer.cs"
              Link="CompletionSoundPlayer.cs" />
+    <Compile Include="../VRChecklist.Companion/OpusClip.cs"
+             Link="OpusClip.cs" />
+    <PackageReference Include="Concentus" Version="2.2.2" />
+    <PackageReference Include="Concentus.Oggfile" Version="1.0.7" />
     <PackageReference Include="NAudio.Wasapi" Version="3.1.0" />
     <ProjectReference Include="../VRChecklist.Transport/VRChecklist.Transport.csproj" />
   </ItemGroup>
@@ -26,7 +30,7 @@
                       Exclude="../../../checklists/data/checklist.schema.json"
                       LogicalName="VRChecklist.Companion.checklists.%(Filename)%(Extension)" />
     <!-- Same clip as the companion so the play-completion-sound flag proves the shipped audio path. -->
-    <EmbeddedResource Include="../../../assets/audio/checklist-completed.wav"
-                      LogicalName="VRChecklist.Companion.audio.checklist-completed.wav" />
+    <EmbeddedResource Include="../../../assets/audio/checklist-completed.opus"
+                      LogicalName="VRChecklist.Companion.audio.checklist-completed.opus" />
   </ItemGroup>
 </Project>

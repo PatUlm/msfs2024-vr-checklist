@@ -6,27 +6,27 @@ namespace VRChecklist.Companion;
 
 /*
  * Plays the embedded "Checklist completed" clip on the Windows default output
- * device through WASAPI in shared mode (ADR 0004). The clip is converted to
- * stereo float, the usual shared-mode mix format, so the audio engine mixes
- * it without touching the MSFS stream. A failed playback is reported through
- * the returned task; it must never affect the checklist workflow.
+ * device through WASAPI in shared mode (ADR 0004). The Opus clip is decoded
+ * once at construction and converted to stereo float, the usual shared-mode
+ * mix format, so the audio engine mixes it without touching the MSFS stream.
+ * A failed playback is reported through the returned task; it must never
+ * affect the checklist workflow.
  */
 [SupportedOSPlatform("windows")]
 public sealed class CompletionSoundPlayer : IDisposable
 {
-    public const string ResourceName = "VRChecklist.Companion.audio.checklist-completed.wav";
     private const int LatencyMilliseconds = 200;
-    private readonly byte[] clip;
+    private readonly OpusClip clip;
     private readonly object gate = new();
     private WasapiPlayer? output;
     private bool disposed;
 
     public CompletionSoundPlayer()
-        : this(LoadEmbeddedClip())
+        : this(OpusClip.LoadEmbeddedCompletion())
     {
     }
 
-    public CompletionSoundPlayer(byte[] clip)
+    public CompletionSoundPlayer(OpusClip clip)
     {
         ArgumentNullException.ThrowIfNull(clip);
         this.clip = clip;
@@ -48,7 +48,7 @@ public sealed class CompletionSoundPlayer : IDisposable
 
             try
             {
-                var reader = new WaveFileReader(new MemoryStream(clip, writable: false));
+                var reader = clip.OpenRead();
                 ISampleProvider samples = reader.ToSampleProvider();
 
                 if (samples.WaveFormat.Channels == 1)
@@ -119,14 +119,5 @@ public sealed class CompletionSoundPlayer : IDisposable
         {
             // A device that vanished while playing has nothing left to release.
         }
-    }
-
-    private static byte[] LoadEmbeddedClip()
-    {
-        using var stream = typeof(CompletionSoundPlayer).Assembly.GetManifestResourceStream(ResourceName)
-            ?? throw new InvalidOperationException($"Embedded audio clip '{ResourceName}' is missing.");
-        using var buffer = new MemoryStream();
-        stream.CopyTo(buffer);
-        return buffer.ToArray();
     }
 }

@@ -23,6 +23,8 @@ hier aufgeführten Drittkomponente.
 | HarfBuzzSharp einschließlich Win32-Native-Assets | 8.3.1.3 | MIT | [SkiaSharp license](https://github.com/mono/SkiaSharp/blob/main/LICENSE.md) |
 | Avalonia ANGLE Windows Natives | 2.1.27548.20260419 | BSD-3-Clause | [ANGLE license](https://github.com/google/angle/blob/main/LICENSE) |
 | MicroCom Runtime | 0.11.6 | MIT | [MicroCom license](https://github.com/AvaloniaUI/MicroCom/blob/master/licence.md) |
+| `Concentus` | 2.2.2 | BSD-3-Clause (Opus-Lizenz) | [Concentus license](https://github.com/lostromb/concentus/blob/master/LICENSE) |
+| `Concentus.Oggfile` | 1.0.7 | MIT | [Concentus.Oggfile](https://github.com/lostromb/concentus.oggfile) |
 | `NAudio.Core` | 3.1.0 | MIT | [NAudio license](https://github.com/naudio/NAudio/blob/master/license.txt) |
 | `NAudio.Wasapi` | 3.1.0 | MIT | [NAudio license](https://github.com/naudio/NAudio/blob/master/license.txt) |
 
@@ -62,8 +64,11 @@ ausgeliefert.
 
 Die Begleit-App nutzt von NAudio nur `NAudio.Wasapi` und dessen Abhängigkeit
 `NAudio.Core`; das Meta-Paket `NAudio` mit WinMM-, MIDI- und ASIO-Teilen wird
-nicht ausgeliefert. Die eingebettete Ansage `assets/audio/checklist-completed.wav`
-ist ein selbst gerenderter Platzhalter mit einer Windows-Systemstimme und keine
+nicht ausgeliefert. `Concentus` und `Concentus.Oggfile` dekodieren die
+Opus-Ansagen aus [ADR 0007](adr/0007-ablage-der-gerenderten-audiodateien.md)
+und bringen für .NET 10 keine weiteren Paketabhängigkeiten mit. Die
+eingebettete Ansage `assets/audio/checklist-completed.opus` ist ein selbst
+gerenderter Platzhalter mit einer Windows-Systemstimme und keine
 Drittkomponente. Stimme und TTS-Anbieter für die produktiven Sprachassets
 bleiben Gegenstand von
 [ADR 0001](adr/0001-lizenz-und-veroeffentlichungsstrategie.md) und

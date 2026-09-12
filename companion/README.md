@@ -31,9 +31,10 @@ Die Checklistenansicht der Status-App bettet die JSON-Dateien aus
 `../checklists/data/` zur Build-Zeit als Ressourcen ein. Die JSON-Dateien
 bleiben die einzige Quelle; die App rendert sie nur.
 
-Die Ansage `../assets/audio/checklist-completed.wav` wird ebenfalls eingebettet
-und über `NAudio.Wasapi` im Shared Mode auf dem Windows-Standardgerät
-abgespielt, sobald der Snapshot eine neu erledigte Gruppe meldet. Ohne MSFS
+Die Ansage `../assets/audio/checklist-completed.opus` wird ebenfalls
+eingebettet, beim Start mit Concentus dekodiert und über `NAudio.Wasapi` im
+Shared Mode auf dem Windows-Standardgerät abgespielt, sobald der Snapshot eine
+neu erledigte Gruppe meldet. Ohne MSFS
 prüft `VRChecklist.TransportProbe.dll --play-completion-sound` denselben
 Audiopfad einmal.
 

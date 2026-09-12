@@ -229,21 +229,11 @@
 }
 
 .checklist-section h2 {
-  display: flex;
-  align-items: baseline;
-
   margin: 0;
   font-size: 1.55em;
   font-weight: 800;
   letter-spacing: -0.015em;
   line-height: 1.1;
-}
-
-.checklist-section__number {
-  margin-right: 0.607em;
-  color: var(--checklist-accent);
-  font: inherit;
-  font-variant-numeric: tabular-nums;
 }
 
 .section-navigation {
@@ -315,13 +305,27 @@
   min-width: 0;
 }
 
-.section-navigation__number {
+/*
+ * Completed-group mark: a rotated L drawn with two borders in the complete
+ * colour. Hidden until the group is fully ticked; no font glyph is involved.
+ */
+.section-navigation__check {
+  display: none;
   flex: 0 0 auto;
-  margin-right: 0.588em;
-  color: var(--checklist-accent);
-  font-size: 1em;
-  font-variant-numeric: tabular-nums;
-  font-weight: 800;
+  align-self: center;
+
+  width: 0.529em;
+  height: 0.941em;
+  margin-top: -0.294em;
+  margin-right: 0.706em;
+  border-right: 0.176em solid var(--checklist-complete);
+  border-bottom: 0.176em solid var(--checklist-complete);
+  box-sizing: border-box;
+  transform: rotate(45deg);
+}
+
+.section-navigation__check--visible {
+  display: block;
 }
 
 .section-navigation__name {
@@ -656,10 +660,6 @@
 
   .checklist-section h2 {
     font-size: 1.35em;
-  }
-
-  .checklist-section__number {
-    margin-right: 0.697em;
   }
 
   .checklist-section__items {

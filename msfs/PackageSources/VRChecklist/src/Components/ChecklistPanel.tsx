@@ -23,6 +23,32 @@ export interface ChecklistPanelActions {
   changeSection(runtime: ChecklistRuntimeState, sectionIndex: number): void;
 }
 
+/*
+ * The green mark in front of a navigation target. It follows the same rule as
+ * the automatic advance: every item of the group, optional ones included, is
+ * ticked. Drawn with CSS borders, not a font glyph (see msfs-sdk-reference.md).
+ */
+function renderCompletionMark(
+  runtime: ChecklistRuntimeState,
+  sectionIndex: number
+): VNode | null {
+  const completion = runtime.sectionCompletion[sectionIndex];
+
+  if (!completion) {
+    return null;
+  }
+
+  return (
+    <span
+      class={{
+        "section-navigation__check": true,
+        "section-navigation__check--visible": completion,
+      }}
+      aria-hidden="true"
+    />
+  );
+}
+
 function renderNavigation(
   runtime: ChecklistRuntimeState,
   sectionIndex: number,
@@ -48,11 +74,7 @@ function renderNavigation(
         }
       >
         <span class="section-navigation__text">
-          {previousSection ? (
-            <span class="section-navigation__number">
-              {String(sectionIndex).padStart(2, "0")}
-            </span>
-          ) : null}
+          {renderCompletionMark(runtime, sectionIndex - 1)}
           <span class="section-navigation__name">
             {previousSection?.title ?? "Start"}
           </span>
@@ -72,11 +94,7 @@ function renderNavigation(
         }
       >
         <span class="section-navigation__text">
-          {nextSection ? (
-            <span class="section-navigation__number">
-              {String(sectionIndex + 2).padStart(2, "0")}
-            </span>
-          ) : null}
+          {renderCompletionMark(runtime, sectionIndex + 1)}
           <span class="section-navigation__name">
             {nextSection?.title ?? "Complete"}
           </span>
@@ -222,12 +240,7 @@ export function renderChecklistPanel(
           >
             <div class="checklist-section__sticky">
               <header class="checklist-section__header">
-                <h2>
-                  <span class="checklist-section__number">
-                    {String(sectionIndex + 1).padStart(2, "0")}
-                  </span>
-                  <span>{section.title}</span>
-                </h2>
+                <h2>{section.title}</h2>
               </header>
 
               {renderNavigation(runtime, sectionIndex, actions)}

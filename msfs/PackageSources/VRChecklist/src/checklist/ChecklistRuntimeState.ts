@@ -23,6 +23,8 @@ export class ChecklistRuntimeState {
   public readonly requiredItemKeys = new Set<string>();
   public readonly activeSectionIndex = Subject.create(0);
   public readonly completedCount = Subject.create(0);
+  /* One flag per section, true while every item of it is ticked. */
+  public readonly sectionCompletion: Subject<boolean>[];
   public readonly totalItemCount: number;
   public readonly progressText: MappedSubscribable<string>;
   public readonly progressWidth: MappedSubscribable<string>;
@@ -30,6 +32,9 @@ export class ChecklistRuntimeState {
   public constructor(public readonly checklist: Checklist) {
     this.sectionItemsRefs = checklist.sections.map(() =>
       FSComponent.createRef<HTMLDivElement>()
+    );
+    this.sectionCompletion = checklist.sections.map(() =>
+      Subject.create<boolean>(false)
     );
 
     for (const section of checklist.sections) {
@@ -96,6 +101,7 @@ export class ChecklistRuntimeState {
       .map(([itemKey]) => itemKey);
   }
 
+  /* Recomputes the progress count and the per-section completion flags. */
   public updateCompletedCount(): void {
     let completed = 0;
 
@@ -106,6 +112,15 @@ export class ChecklistRuntimeState {
     }
 
     this.completedCount.set(completed);
+    this.checklist.sections.forEach((section, index) => {
+      this.sectionCompletion[index].set(this.isSectionComplete(section));
+    });
+  }
+
+  public getCompletedSectionIds(): string[] {
+    return this.checklist.sections
+      .filter((_, index) => this.sectionCompletion[index].get())
+      .map((section) => section.id);
   }
 
   public scrollSectionItemsToTop(sectionIndex: number): void {
@@ -123,6 +138,10 @@ export class ChecklistRuntimeState {
 
     this.completedCount.set(0);
     this.activeSectionIndex.set(0);
+
+    for (const completion of this.sectionCompletion) {
+      completion.set(false);
+    }
 
     for (let index = 0; index < this.sectionItemsRefs.length; index += 1) {
       this.scrollSectionItemsToTop(index);

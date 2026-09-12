@@ -7,6 +7,18 @@ Changelog, and the project uses Semantic Versioning.
 
 ## [Unreleased]
 
+### Added
+
+- The navigation buttons show a green check mark in front of every group whose
+  items are all ticked, so completed groups are recognisable before they are
+  opened.
+
+### Changed
+
+- The group header and the navigation buttons no longer show group numbers.
+  Checklists always run in order, so the numbers added nothing and took space
+  from the group names.
+
 ## [0.8.3] - 2026-09-07
 
 ### Added

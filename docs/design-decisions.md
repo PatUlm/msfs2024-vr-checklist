@@ -40,22 +40,28 @@ Iteration stehen separat in `design-qa.md`.
 ## Seiten- und Abschnittsaufbau
 
 - Auf dem Bildschirm ist genau eine Checklistengruppe sichtbar.
-- Der aktuelle Gruppenname ist visuell dominant und zeigt Nummer und Titel auf
-  gemeinsamer Grundlinie.
+- Der aktuelle Gruppenname ist visuell dominant. Gruppennummern werden nicht
+  angezeigt: Die Checklisten sind immer fortlaufend, die Nummer trug keine
+  zusätzliche Information und kostete Platz in den Navigationsbuttons.
 - Darunter liegen zwei gleichwertige Navigationsbuttons mit jeweils 50 Prozent
-  Breite. Sie zeigen ausschließlich Nummer und Namen der vorherigen
-  beziehungsweise nächsten Gruppe; zusätzliche Texte wie `PREVIOUS` und `NEXT`
-  sowie Richtungspfeile sind visuell redundant. Der Verzicht auf die Pfeile
-  schafft Platz, der gerade in VR zählt, und lässt die Leiste ruhiger wirken.
-  Die Richtung selbst ist nachrangig, weil die Gruppen nummeriert sind; im
-  Zweifel steht der vorherige Button links und der nächste rechts.
+  Breite. Sie zeigen ausschließlich den Namen der vorherigen beziehungsweise
+  nächsten Gruppe; zusätzliche Texte wie `PREVIOUS` und `NEXT` sowie
+  Richtungspfeile sind visuell redundant. Der Verzicht auf die Pfeile schafft
+  Platz, der gerade in VR zählt, und lässt die Leiste ruhiger wirken. Die
+  Richtung selbst ist nachrangig, weil die Gruppen fortlaufend sind; der
+  vorherige Button steht links und der nächste rechts.
 - Die Gruppennamen in den Navigationsbuttons verwenden dieselbe Schriftgröße
   wie die Texte der Checklist-Items und bleiben dadurch in VR gleich gut lesbar.
-- Nummer und Name stehen mittig im Navigationsbutton, nicht an dessen
-  Außenkanten.
-- Vor einem vorhandenen Gruppenziel steht dessen zweistellige Nummer in Blau.
-  An den deaktivierten Listenenden bleiben stattdessen die unnummerierten
-  Platzhalter `Start` und `Complete` sichtbar.
+- Der Name steht mittig im Navigationsbutton, nicht an dessen Außenkanten. An
+  den deaktivierten Listenenden bleiben die Platzhalter `Start` und `Complete`
+  sichtbar.
+- Ist eine Gruppe vollständig erledigt, steht vor ihrem Namen im
+  Navigationsbutton ein grüner Haken in der Erledigt-Farbe der Items. Er
+  markiert die Gruppe als abgeschlossenen Arbeitsschritt, bevor der Pilot sie
+  öffnet. Der Haken wird wie der Item-Haken mit CSS gezeichnet, nicht als
+  Font-Glyphe, damit er in Coherent GT nicht von der Glyphenabdeckung der
+  Schrift abhängt. Er folgt derselben Regel wie der automatische Wechsel: Auch
+  ein offenes `optional`-Item hält ihn zurück.
 - Sind alle Items einer Gruppe erledigt, wechselt die App nach einer kurzen
   Bestätigungspause automatisch zur nächsten Gruppe. Auch ein offenes
   `optional`-Item hält den Wechsel auf: Es zu überspringen ist eine bewusste

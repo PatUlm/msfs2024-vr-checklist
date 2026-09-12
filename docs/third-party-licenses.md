@@ -23,6 +23,8 @@ hier aufgeführten Drittkomponente.
 | HarfBuzzSharp einschließlich Win32-Native-Assets | 8.3.1.3 | MIT | [SkiaSharp license](https://github.com/mono/SkiaSharp/blob/main/LICENSE.md) |
 | Avalonia ANGLE Windows Natives | 2.1.27548.20260419 | BSD-3-Clause | [ANGLE license](https://github.com/google/angle/blob/main/LICENSE) |
 | MicroCom Runtime | 0.11.6 | MIT | [MicroCom license](https://github.com/AvaloniaUI/MicroCom/blob/master/licence.md) |
+| `NAudio.Core` | 3.1.0 | MIT | [NAudio license](https://github.com/naudio/NAudio/blob/master/license.txt) |
+| `NAudio.Wasapi` | 3.1.0 | MIT | [NAudio license](https://github.com/naudio/NAudio/blob/master/license.txt) |
 
 `@microsoft/msfs-sdk` wird beim App-Build als Simulator-Global behandelt;
 `@microsoft/msfs-types` liefert ausschließlich Typen. Die EFB-API wird aus der
@@ -58,8 +60,12 @@ ausgeliefert.
 | `typescript` | 5.6.3 | Apache-2.0 | [Repository](https://github.com/microsoft/TypeScript) |
 | .NET SDK Build-Container | 10.0.302 | MIT | [Microsoft Artifact Registry](https://mcr.microsoft.com/en-us/artifact/mar/dotnet/sdk/tag/10.0.302) und [dotnet/sdk](https://github.com/dotnet/sdk/blob/main/LICENSE.TXT) |
 
-Weitere geplante Phase-3-Komponenten, insbesondere NAudio, sind noch keine
-Projektabhängigkeiten. Ihre Auswahl- und Rechteprüfung bleibt Gegenstand von
+Die Begleit-App nutzt von NAudio nur `NAudio.Wasapi` und dessen Abhängigkeit
+`NAudio.Core`; das Meta-Paket `NAudio` mit WinMM-, MIDI- und ASIO-Teilen wird
+nicht ausgeliefert. Die eingebettete Ansage `assets/audio/checklist-completed.wav`
+ist ein selbst gerenderter Platzhalter mit einer Windows-Systemstimme und keine
+Drittkomponente. Stimme und TTS-Anbieter für die produktiven Sprachassets
+bleiben Gegenstand von
 [ADR 0001](adr/0001-lizenz-und-veroeffentlichungsstrategie.md) und
 [ADR 0008](adr/0008-stimme-und-tts-anbieter.md); nach ihrer Aufnahme werden sie
 hier ergänzt.

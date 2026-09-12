@@ -180,6 +180,10 @@ public sealed class MainWindowViewModel : INotifyPropertyChanged
         EfbVersion = snapshot.EfbVersion;
     }
 
+    /* Audio problems are shown where transport errors appear; the state itself stays valid. */
+    public void ReportAudioError(string message) =>
+        Dispatcher.UIThread.Post(() => ChecklistDetail = $"Audio: {message}");
+
     private static string? FirstNonEmpty(params string[] values) =>
         values.FirstOrDefault(value => !string.IsNullOrWhiteSpace(value));
 

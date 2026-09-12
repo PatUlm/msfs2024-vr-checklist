@@ -15,6 +15,9 @@
              Link="ChecklistCatalog.cs" />
     <Compile Include="../VRChecklist.Companion/ChecklistTextFormatter.cs"
              Link="ChecklistTextFormatter.cs" />
+    <Compile Include="../VRChecklist.Companion/CompletionSoundPlayer.cs"
+             Link="CompletionSoundPlayer.cs" />
+    <PackageReference Include="NAudio.Wasapi" Version="3.1.0" />
     <ProjectReference Include="../VRChecklist.Transport/VRChecklist.Transport.csproj" />
   </ItemGroup>
   <ItemGroup>
@@ -22,5 +25,8 @@
     <EmbeddedResource Include="../../../checklists/data/*.json"
                       Exclude="../../../checklists/data/checklist.schema.json"
                       LogicalName="VRChecklist.Companion.checklists.%(Filename)%(Extension)" />
+    <!-- Same clip as the companion so the play-completion-sound flag proves the shipped audio path. -->
+    <EmbeddedResource Include="../../../assets/audio/checklist-completed.wav"
+                      LogicalName="VRChecklist.Companion.audio.checklist-completed.wav" />
   </ItemGroup>
 </Project>

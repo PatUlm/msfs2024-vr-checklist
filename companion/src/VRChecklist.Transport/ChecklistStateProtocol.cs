@@ -47,13 +47,23 @@ public static class ChecklistStateProtocol
             !IsValid(snapshot.NextOpenItem) ||
             snapshot.CompletedRequiredItems < 0 ||
             snapshot.TotalRequiredItems < 0 ||
-            snapshot.CompletedRequiredItems > snapshot.TotalRequiredItems)
+            snapshot.CompletedRequiredItems > snapshot.TotalRequiredItems ||
+            !IsValid(snapshot.CompletedGroupIds))
         {
             throw new InvalidDataException("The EFB state snapshot is malformed.");
         }
 
         return snapshot;
     }
+
+    /*
+     * The list is optional so that an EFB app from before the group
+     * completion feature still parses; the companion then announces nothing.
+     */
+    private static bool IsValid(IReadOnlyList<string>? completedGroupIds) =>
+        completedGroupIds is null ||
+        (completedGroupIds.All(id => !string.IsNullOrWhiteSpace(id)) &&
+         completedGroupIds.Distinct(StringComparer.Ordinal).Count() == completedGroupIds.Count);
 
     private static bool IsValid(ChecklistIdentity? checklist) =>
         checklist is null ||
@@ -94,7 +104,8 @@ public sealed record ChecklistStateSnapshot(
     ChecklistItemState? NextOpenItem,
     int CompletedRequiredItems,
     int TotalRequiredItems,
-    bool IsComplete);
+    bool IsComplete,
+    IReadOnlyList<string>? CompletedGroupIds = null);
 
 public sealed record AircraftState(
     string AtcModel,

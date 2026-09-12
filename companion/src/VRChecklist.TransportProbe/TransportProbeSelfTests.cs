@@ -32,7 +32,8 @@ internal static class TransportProbeSelfTests
           "nextOpenItem": { "id": "battery", "challenge": "Battery", "response": "On" },
           "completedRequiredItems": 2,
           "totalRequiredItems": 20,
-          "isComplete": false
+          "isComplete": false,
+          "completedGroupIds": []
         }
         """;
 
@@ -59,6 +60,10 @@ internal static class TransportProbeSelfTests
             ("rejects empty required snapshot fields", RejectsEmptyRequiredSnapshotFields),
             ("rejects malformed nested snapshot records", RejectsMalformedNestedSnapshotRecords),
             ("deduplicates snapshots by session and sequence", DeduplicatesSnapshotsBySessionAndSequence),
+            ("accepts a snapshot without completed group IDs", AcceptsSnapshotWithoutCompletedGroupIds),
+            ("rejects malformed completed group IDs", RejectsMalformedCompletedGroupIds),
+            ("announces each newly completed group once", AnnouncesEachNewlyCompletedGroupOnce),
+            ("baselines group completion per session and checklist", BaselinesGroupCompletionPerSessionAndChecklist),
             ("formats zero-of-zero progress", FormatsZeroOfZeroProgress),
             ("creates a checklist state request", CreatesChecklistStateRequest),
             ("loads the embedded checklists sorted by title", LoadsEmbeddedChecklistsSortedByTitle),
@@ -99,7 +104,124 @@ internal static class TransportProbeSelfTests
         Assert(snapshot.Sequence == 7, "The snapshot sequence was not parsed.");
         Assert(snapshot.Checklist?.Id == "diamond-da42", "The checklist ID was not parsed.");
         Assert(snapshot.NextOpenItem?.Challenge == "Battery", "The next item was not parsed.");
+        Assert(snapshot.CompletedGroupIds is { Count: 0 }, "The completed group IDs were not parsed.");
     }
+
+    private static void AcceptsSnapshotWithoutCompletedGroupIds()
+    {
+        var payload = SnapshotWith(snapshot => snapshot.Remove("completedGroupIds"));
+        var snapshot = ChecklistStateProtocol.ParseSnapshot(payload);
+
+        Assert(snapshot.CompletedGroupIds is null, "A missing group list was not kept as null.");
+        Assert(
+            new ChecklistGroupCompletionTracker().Observe(snapshot, isRepeated: false).Count == 0,
+            "An EFB without group completion data triggered an announcement.");
+    }
+
+    private static void RejectsMalformedCompletedGroupIds()
+    {
+        foreach (var (name, groupIds) in new (string, string[])[]
+        {
+            ("an empty ID", ["before-start", ""]),
+            ("a duplicate ID", ["before-start", "before-start"]),
+        })
+        {
+            var payload = SnapshotWith(snapshot =>
+                snapshot["completedGroupIds"] = new JsonArray(groupIds.Select(id => (JsonNode)id).ToArray()));
+
+            ExpectThrows<InvalidDataException>(
+                () => ChecklistStateProtocol.ParseSnapshot(payload),
+                $"A group list with {name} was accepted.");
+        }
+    }
+
+    private static void AnnouncesEachNewlyCompletedGroupOnce()
+    {
+        var tracker = new ChecklistGroupCompletionTracker();
+
+        Assert(
+            tracker.Observe(SnapshotWithGroups("session-1", 1, "before-start"), isRepeated: false).Count == 0,
+            "The first snapshot of a session announced an already completed group.");
+        Assert(
+            tracker.Observe(SnapshotWithGroups("session-1", 2, "before-start"), isRepeated: false).Count == 0,
+            "An unchanged group list triggered an announcement.");
+        Assert(
+            tracker.Observe(SnapshotWithGroups("session-1", 3, "before-start", "engine-start"), isRepeated: false)
+                .SequenceEqual(["engine-start"]),
+            "A newly completed group was not announced.");
+        Assert(
+            tracker.Observe(SnapshotWithGroups("session-1", 3, "before-start", "engine-start"), isRepeated: true).Count == 0,
+            "A repeated snapshot announced the group again.");
+        Assert(
+            tracker.Observe(SnapshotWithGroups("session-1", 4, "before-start"), isRepeated: false).Count == 0,
+            "Reopening an item in a completed group triggered an announcement.");
+        Assert(
+            tracker.Observe(SnapshotWithGroups("session-1", 5, "before-start", "engine-start"), isRepeated: false)
+                .SequenceEqual(["engine-start"]),
+            "Completing the reopened group again was not announced.");
+        Assert(
+            tracker.Observe(SnapshotWithGroups("session-1", 6), isRepeated: false).Count == 0,
+            "A checklist reset triggered an announcement.");
+        Assert(
+            tracker.Observe(SnapshotWithGroups("session-1", 7, "before-start", "engine-start"), isRepeated: false)
+                .SequenceEqual(["before-start", "engine-start"]),
+            "Groups completed after a reset were not announced in checklist order.");
+    }
+
+    private static void BaselinesGroupCompletionPerSessionAndChecklist()
+    {
+        var tracker = new ChecklistGroupCompletionTracker();
+
+        Assert(
+            tracker.Observe(SnapshotWithGroups("session-1", 1), isRepeated: false).Count == 0,
+            "An empty first snapshot announced a group.");
+        Assert(
+            tracker.Observe(SnapshotWithGroups("session-2", 1, "before-start"), isRepeated: false).Count == 0,
+            "A new flight session replayed a restored group completion.");
+        Assert(
+            tracker.Observe(
+                    SnapshotWithGroups("session-2", 2, ["before-start", "engine-start"], revision: "2"),
+                    isRepeated: false)
+                .Count == 0,
+            "A checklist revision change replayed a group completion.");
+        Assert(
+            tracker.Observe(
+                    SnapshotWithGroups("session-2", 3, ["before-start", "engine-start", "departure"], revision: "2"),
+                    isRepeated: false)
+                .SequenceEqual(["departure"]),
+            "A group completed after the checklist change was not announced.");
+        Assert(
+            tracker.Observe(
+                    ChecklistStateProtocol.ParseSnapshot(SnapshotWith(snapshot =>
+                    {
+                        snapshot["sessionId"] = "session-2";
+                        snapshot["sequence"] = 4;
+                        snapshot["checklist"] = null;
+                    })),
+                    isRepeated: false)
+                .Count == 0,
+            "Losing the checklist announced a group.");
+    }
+
+    private static ChecklistStateSnapshot SnapshotWithGroups(
+        string sessionId,
+        long sequence,
+        params string[] completedGroupIds) =>
+        SnapshotWithGroups(sessionId, sequence, completedGroupIds, revision: "1");
+
+    private static ChecklistStateSnapshot SnapshotWithGroups(
+        string sessionId,
+        long sequence,
+        string[] completedGroupIds,
+        string revision) =>
+        ChecklistStateProtocol.ParseSnapshot(SnapshotWith(snapshot =>
+        {
+            snapshot["sessionId"] = sessionId;
+            snapshot["sequence"] = sequence;
+            Nested(snapshot, "checklist")["revision"] = revision;
+            snapshot["completedGroupIds"] =
+                new JsonArray(completedGroupIds.Select(id => (JsonNode)id).ToArray());
+        }));
 
     private static void RejectsMalformedSnapshotJson()
     {

@@ -1,8 +1,8 @@
 # Windows-Begleit-App
 
 Dieser Verzeichnisbaum enthält die Windows-Seite von Phase 3. Die EFB-App und
-das MSFS-Paket bleiben getrennt unter `../msfs/`; Checklistendaten und später
-gemeinsam genutzte Audioassets liegen weiterhin auf Repository-Ebene.
+das MSFS-Paket bleiben getrennt unter `../msfs/`; Checklistendaten und
+Audioassets liegen weiterhin auf Repository-Ebene.
 
 ## Struktur
 
@@ -30,6 +30,12 @@ Die neueste Version muss außerdem mit `VERSION` übereinstimmen.
 Die Checklistenansicht der Status-App bettet die JSON-Dateien aus
 `../checklists/data/` zur Build-Zeit als Ressourcen ein. Die JSON-Dateien
 bleiben die einzige Quelle; die App rendert sie nur.
+
+Die Ansage `../assets/audio/checklist-completed.wav` wird ebenfalls eingebettet
+und über `NAudio.Wasapi` im Shared Mode auf dem Windows-Standardgerät
+abgespielt, sobald der Snapshot eine neu erledigte Gruppe meldet. Ohne MSFS
+prüft `VRChecklist.TransportProbe.dll --play-completion-sound` denselben
+Audiopfad einmal.
 
 Build und Windows-Deployment werden aus dem Repository-Root mit
 `task companion:deploy` gestartet. Das verwaltete Ziel ist standardmäßig

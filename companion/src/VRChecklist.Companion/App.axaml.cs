@@ -1,12 +1,14 @@
 using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
+using VRChecklist.Transport;
 
 namespace VRChecklist.Companion;
 
 public sealed partial class App : Application
 {
     private ChecklistConnectionService? connectionService;
+    private CompletionSoundPlayer? completionSound;
 
     public override void Initialize() => AvaloniaXamlLoader.Load(this);
 
@@ -22,10 +24,54 @@ public sealed partial class App : Application
             {
                 DataContext = viewModel,
             };
-            desktop.Exit += (_, _) => connectionService.Dispose();
+
+            if (OperatingSystem.IsWindows())
+            {
+                AnnounceGroupCompletion(connectionService, viewModel);
+            }
+
+            desktop.Exit += (_, _) =>
+            {
+                connectionService.Dispose();
+
+                if (OperatingSystem.IsWindows())
+                {
+                    completionSound?.Dispose();
+                }
+            };
             connectionService.Start();
         }
 
         base.OnFrameworkInitializationCompleted();
+    }
+
+    /*
+     * Every newly completed group plays the clip once. The tracker runs on
+     * the connection worker thread; playback failures only surface in the
+     * status line and never block the snapshot handling.
+     */
+    [System.Runtime.Versioning.SupportedOSPlatform("windows")]
+    private void AnnounceGroupCompletion(
+        ChecklistConnectionService service,
+        MainWindowViewModel viewModel)
+    {
+        var tracker = new ChecklistGroupCompletionTracker();
+        var player = new CompletionSoundPlayer();
+        completionSound = player;
+
+        service.SnapshotReceived += (snapshot, isRepeated) =>
+        {
+            if (tracker.Observe(snapshot, isRepeated).Count == 0)
+            {
+                return;
+            }
+
+            player.PlayAsync().ContinueWith(
+                playback => viewModel.ReportAudioError(
+                    playback.Exception?.InnerException?.Message ?? "Playback failed."),
+                CancellationToken.None,
+                TaskContinuationOptions.OnlyOnFaulted,
+                TaskScheduler.Default);
+        };
     }
 }

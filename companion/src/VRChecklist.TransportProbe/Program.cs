@@ -1,4 +1,5 @@
 using System.Diagnostics;
+using VRChecklist.Companion;
 using VRChecklist.Transport;
 
 namespace VRChecklist.TransportProbe;
@@ -7,10 +8,13 @@ namespace VRChecklist.TransportProbe;
  * Console probe for the bidirectional CommBus channel. It sends one checklist
  * state request and waits for the snapshot that answers it; the request ID in
  * the snapshot proves the round trip without a dedicated ping message.
+ * "--play-completion-sound" plays the companion's embedded clip once on the
+ * Windows default output device, without MSFS, to prove the audio path.
  */
 internal static class Program
 {
     private static readonly TimeSpan ResponseTimeout = TimeSpan.FromSeconds(30);
+    private static readonly TimeSpan PlaybackTimeout = TimeSpan.FromSeconds(15);
 
     private static int Main(string[] args)
     {
@@ -24,6 +28,11 @@ internal static class Program
             Console.Error.WriteLine(
                 "The transport probe must run on Windows next to MSFS 2024.");
             return 2;
+        }
+
+        if (args is ["--play-completion-sound"])
+        {
+            return PlayCompletionSound();
         }
 
         try
@@ -118,6 +127,36 @@ internal static class Program
         finally
         {
             Console.CancelKeyPress -= cancelHandler;
+        }
+    }
+
+    [System.Runtime.Versioning.SupportedOSPlatform("windows")]
+    private static int PlayCompletionSound()
+    {
+        try
+        {
+            using var player = new CompletionSoundPlayer();
+            var playback = player.PlayAsync();
+            Console.WriteLine("Playing the completion clip on the default output device...");
+
+            if (!playback.Wait(PlaybackTimeout))
+            {
+                Console.Error.WriteLine("Playback did not finish within 15 seconds.");
+                return 5;
+            }
+
+            Console.WriteLine("Completion clip played.");
+            return 0;
+        }
+        catch (AggregateException error)
+        {
+            Console.Error.WriteLine($"Playback failed: {error.InnerException?.Message ?? error.Message}");
+            return 5;
+        }
+        catch (Exception error)
+        {
+            Console.Error.WriteLine($"Playback failed: {error.Message}");
+            return 5;
         }
     }
 

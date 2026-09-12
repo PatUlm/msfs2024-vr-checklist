@@ -20,11 +20,14 @@
     <PackageReference Include="Avalonia.Skia" Version="12.1.1" />
     <PackageReference Include="Avalonia.Themes.Fluent" Version="12.1.1" />
     <PackageReference Include="Avalonia.Win32" Version="12.1.1" />
+    <PackageReference Include="NAudio.Wasapi" Version="3.1.0" />
     <ProjectReference Include="../VRChecklist.Transport/VRChecklist.Transport.csproj" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="../../release-notes.json"
                       LogicalName="VRChecklist.Companion.release-notes.json" />
+    <EmbeddedResource Include="../../../assets/audio/checklist-completed.wav"
+                      LogicalName="VRChecklist.Companion.audio.checklist-completed.wav" />
     <EmbeddedResource Include="../../../checklists/data/*.json"
                       Exclude="../../../checklists/data/checklist.schema.json"
                       LogicalName="VRChecklist.Companion.checklists.%(Filename)%(Extension)" />

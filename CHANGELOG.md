@@ -12,6 +12,13 @@ Changelog, and the project uses Semantic Versioning.
 - The navigation buttons show a green check mark in front of every group whose
   items are all ticked, so completed groups are recognisable before they are
   opened.
+- The companion app plays a "Checklist completed" announcement on the Windows
+  default output device each time a checklist group is fully ticked. The clip
+  is a placeholder rendered with a Windows system voice; the final voice is
+  still to be chosen. Repeated snapshots, reconnects, resets and a companion
+  start with groups already completed do not trigger the announcement.
+- The transport probe accepts `--play-completion-sound` to play the embedded
+  announcement once without MSFS.
 
 ### Changed
 

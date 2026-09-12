@@ -215,10 +215,10 @@ Der verwendete Mechanismus besteht aus
   Socket-Erzeugungen bestätigt. Kein Reconnect-Loop und keine
   localhost-Verbindung ohne ausdrückliche neue Entscheidung.
 
-Der bidirektionale CommBus-Pfad im Custom-EFB-Kontext ist bestätigt. Nutzlast,
+Der bidirektionale CommBus-Pfad im Custom-EFB-Kontext ist bestätigt.
 Pausenverhalten und EFB-Lifecycle bleiben gesonderte Laufzeitfragen; ihr
 konkreter Testumfang steht ausschließlich in [`open-tests.md`](open-tests.md),
-die vorläufige Entscheidung in
+die vorläufige Entscheidung und die bewusst kleine, ungemessene Nutzlast in
 [ADR 0003](adr/0003-transportkanal-commbus-ueber-simconnect.md).
 
 ## Coherent GT und EFB-Rendering

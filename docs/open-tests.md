@@ -15,4 +15,10 @@ Produktentscheidung.
 - [ ] CommBus-Registrierung und -Zustellung über Nicht-VR → VR → Nicht-VR
   nachweisen; dabei im Coherent Debugger beobachten, ob der beim VR-Eintritt
   ersetzte Kontext unter „Inspectable web views“ weiterlebt und weiter sendet.
+- [ ] Gruppenabschluss-Ansage nachweisen: Bei laufendem MSFS und Companion die
+  letzte offene Position einer Gruppe abhaken; der Companion spielt die Ansage
+  genau einmal auf dem Windows-Standardgerät, auch wenn die App direkt danach
+  automatisch zur nächsten Gruppe wechselt. Gegenproben: Item wieder öffnen und
+  erneut abhaken (neue Ansage), Companion bei erledigten Gruppen neu starten
+  (keine Ansage), Checkliste zurücksetzen (keine Ansage).
 - [ ] WASAPI Shared Mode gegen das VR-Audiogerät bei laufendem MSFS nachweisen.

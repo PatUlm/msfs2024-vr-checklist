@@ -7,9 +7,9 @@ Windows-Begleit-App. Technische Entscheidungen stehen in den
 [open-tests.md](open-tests.md).
 
 Status: **In Umsetzung — Transportdurchstich und Status-App sind in MSFS
-bestätigt, die Offline-Release-Notes sind umgesetzt; als Nächstes werden die
-priorisierten Härtungen vor dem Audio-Nachweis mit einer Dummy-Datei
-abgeschlossen.**
+bestätigt, die Offline-Release-Notes sind umgesetzt, der Audio-Nachweis mit
+einer Dummy-Datei ist implementiert und wartet auf den MSFS-Laufzeitnachweis
+aus [open-tests.md](open-tests.md).**
 
 ## Umsetzungsreihenfolge
 
@@ -32,7 +32,7 @@ Abnahmekriterien weiter unten bleiben bestehen.
    Text voran und führt danach Features und Fehlerkorrekturen als knappe,
    innerhalb der Version nach Wichtigkeit sortierte Einzeiler auf.
 4. **Audio-Nachweis:** Eine selbst erstellte Dummy-Audiodatei wird beim
-   eindeutigen Übergang zur vollständig erledigten Checkliste genau einmal über
+   eindeutigen Übergang einer Gruppe zu vollständig erledigt genau einmal über
    das Windows-Standardgerät abgespielt. Die Wahl von Stimme und TTS-Anbieter
    ist dafür ausdrücklich keine Voraussetzung.
 5. **Produktive Audioausgabe:** Gerätewahl und WASAPI Shared Mode werden mit dem
@@ -42,8 +42,9 @@ Abnahmekriterien weiter unten bleiben bestehen.
 Der Transport verwendet ein versioniertes Nachrichtenprotokoll. Ein
 vollständiger Zustandssnapshot enthält mindestens Protokollversion, EFB-Version,
 Sitzungs-ID, Flugzeugidentität, Checklisten-ID und -Revision, aktive Gruppe,
-nächstes offenes Item, erledigte und gesamte Pflichtitems, Abschlusszustand und
-eine monoton steigende Sequenznummer. Beim ersten Kontakt und nach einem
+nächstes offenes Item, erledigte und gesamte Pflichtitems, die IDs der
+vollständig erledigten Gruppen, Abschlusszustand und eine monoton steigende
+Sequenznummer. Beim ersten Kontakt und nach einem
 Reconnect wird ein vollständiger Snapshot übertragen; danach genügen
 Zustandsänderungen. Bestätigung, Sitzungs-ID und Sequenznummer verhindern, dass
 ein alter oder wiederholter Zustand einen Abschlussimpuls erneut auslöst.
@@ -70,8 +71,9 @@ Die erste Oberfläche unterscheidet mindestens:
   geordnet sind. Version und Datum müssen mit den Release-Metadaten
   übereinstimmen.
 - Zustandsänderungen der EFB-App erscheinen ohne merkbare Verzögerung in der
-  Begleit-App. Der Rückkanal überträgt nur Änderungen und ein eigenes Ereignis
-  für den Übergang zur vollständig erledigten Checkliste.
+  Begleit-App. Der Rückkanal überträgt nur Änderungen; der Abschluss einer
+  Gruppe ist aus der Liste der erledigten Gruppen im Snapshot ableitbar und
+  braucht kein eigenes Ereignis, das die Ratenbegrenzung verschlucken könnte.
 - Der aktuelle Checklisteneintrag ist das nächste offene Item der im EFB
   sichtbaren Gruppe. Bei aktiviertem Sprachmodus wird er genau einmal
   vorgelesen, wenn er sich durch Abhaken, Wiederöffnen oder einen
@@ -81,11 +83,13 @@ Die erste Oberfläche unterscheidet mindestens:
   Weitere Sprachen sind nicht Teil dieses Meilensteins.
 - Der Nutzer wählt das Windows-Ausgabegerät, damit die Ansage gezielt im
   VR-Headset wiedergegeben werden kann.
-- Beim Übergang von unvollständig zu vollständig wird genau einmal
-  `Checklist completed` gesprochen. Ein Reset oder das Laden einer bereits
-  leeren Checkliste löst keine Ansage aus. Wird ein abgeschlossenes Item wieder
-  geöffnet und die Checkliste danach erneut vervollständigt, ist eine neue
-  Ansage zulässig.
+- Jede Gruppe ist für den Piloten ein abgeschlossener Arbeitsschritt (`Before
+  Start`, `Engine Start`, `Departure`). Beim Übergang einer Gruppe von
+  unvollständig zu vollständig wird deshalb genau einmal `Checklist completed`
+  gesprochen. Ein Reset, das Laden einer bereits leeren Checkliste, ein
+  Reconnect und ein Start der Begleit-App bei bereits erledigten Gruppen lösen
+  keine Ansage aus. Wird ein Item einer erledigten Gruppe wieder geöffnet und
+  die Gruppe danach erneut vervollständigt, ist eine neue Ansage zulässig.
 - Fehler und Verbindungsstatus werden dezent angezeigt, ohne die Bedienung im
   EFB oder in VR zu stören.
 - Mikrofonaufnahme und Spracherkennung sind nicht Teil des Produkts.

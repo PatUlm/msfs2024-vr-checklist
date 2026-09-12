@@ -256,6 +256,7 @@ class VRChecklistView
         : null,
       completedRequiredItems: runtime?.completedCount.get() ?? 0,
       totalRequiredItems: runtime?.totalItemCount ?? 0,
+      completedGroupIds: runtime?.getCompletedSectionIds() ?? [],
     };
   }
 

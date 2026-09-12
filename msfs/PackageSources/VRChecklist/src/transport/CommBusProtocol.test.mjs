@@ -22,6 +22,7 @@ function summary(overrides = {}) {
     nextOpenItem: { id: "battery", challenge: "Battery", response: "ON" },
     completedRequiredItems: 2,
     totalRequiredItems: 10,
+    completedGroupIds: ["preflight"],
     ...overrides,
   };
 }
@@ -93,12 +94,14 @@ test("a snapshot without a selected checklist keeps the null fields", () => {
       nextOpenItem: null,
       completedRequiredItems: 0,
       totalRequiredItems: 0,
+      completedGroupIds: [],
     }),
     sender,
     "t",
     undefined
   );
   assert.equal(snapshot.checklist, null);
+  assert.deepEqual(snapshot.completedGroupIds, []);
   assert.equal(snapshot.activeGroup, null);
   assert.equal(snapshot.nextOpenItem, null);
   assert.equal(snapshot.aircraft.displayName, null);

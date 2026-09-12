@@ -47,6 +47,13 @@ export interface ChecklistStateSummary {
   } | null;
   completedRequiredItems: number;
   totalRequiredItems: number;
+  /*
+   * IDs of every group whose items are all ticked, optional ones included,
+   * in checklist order. The companion announces a group only when its ID
+   * newly appears here; the transient nextOpenItem would be coalesced by the
+   * rate limiter during the automatic advance.
+   */
+  completedGroupIds: string[];
 }
 
 export interface ChecklistStateSnapshot extends ChecklistStateSummary {
@@ -103,6 +110,7 @@ export function createChecklistStateSnapshot(
     nextOpenItem: summary.nextOpenItem,
     completedRequiredItems: summary.completedRequiredItems,
     totalRequiredItems: summary.totalRequiredItems,
+    completedGroupIds: summary.completedGroupIds,
     isComplete:
       summary.totalRequiredItems > 0 &&
       summary.completedRequiredItems === summary.totalRequiredItems,

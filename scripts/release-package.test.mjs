@@ -344,9 +344,12 @@ test("companion verification requires an EXE and excludes SimConnect", async () 
   const result = await verifyCompanion(root, "0.3.0");
   assert.equal(result.version, "0.3.0");
 
+  // Staging and installed copies carry the local SimConnect path; only the
+  // release artifact must not.
   await writeFile(join(root, "simconnect-path.txt"), "C:\\local\\path\n");
+  assert.equal((await verifyCompanion(root, "0.3.0")).version, "0.3.0");
   await assert.rejects(
-    () => verifyCompanion(root, "0.3.0"),
+    () => verifyCompanion(root, "0.3.0", { forbidLocalPaths: true }),
     /forbidden file: simconnect-path\.txt/
   );
   await rm(join(root, "simconnect-path.txt"));

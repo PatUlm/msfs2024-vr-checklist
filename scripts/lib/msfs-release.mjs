@@ -409,9 +409,14 @@ export async function verifyPackage(packageRoot, expectedReleaseVersion) {
   };
 }
 
+/*
+ * `forbidLocalPaths` applies to the release artifact only: the staging and
+ * the installed copy legitimately carry simconnect-path.txt.
+ */
 export async function verifyCompanion(
   companionRoot,
-  expectedReleaseVersion
+  expectedReleaseVersion,
+  { forbidLocalPaths = false } = {}
 ) {
   const resolvedRoot = resolve(companionRoot);
   const rootStats = await lstat(resolvedRoot);
@@ -441,7 +446,7 @@ export async function verifyCompanion(
     return (
       lowerCaseFile.endsWith(".pdb") ||
       fileName === "simconnect.dll" ||
-      fileName === "simconnect-path.txt"
+      (forbidLocalPaths && fileName === "simconnect-path.txt")
     );
   });
   if (forbiddenFile) {
@@ -579,7 +584,9 @@ export async function buildRelease({
         },
       }
     );
-    await verifyCompanion(join(temporaryTarget, companionName), version);
+    await verifyCompanion(join(temporaryTarget, companionName), version, {
+      forbidLocalPaths: true,
+    });
     await writeFile(
       join(temporaryTarget, "release.json"),
       `${JSON.stringify(

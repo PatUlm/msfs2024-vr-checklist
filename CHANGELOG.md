@@ -7,6 +7,23 @@ Changelog, and the project uses Semantic Versioning.
 
 ## [Unreleased]
 
+## [0.8.3] - 2026-09-07
+
+### Added
+
+- Added a `Copy` button to the companion dashboard for aircraft without
+  a matching checklist. It copies the original ATC MODEL, ATC TYPE and TITLE
+  values as labeled lines and briefly confirms success with `Copied`.
+
+## [0.8.2] - 2026-09-07
+
+### Added
+
+- Added a minimal, POH-based Cessna 152 checklist with automatic aircraft
+  selection, takeoff and landing flap settings, rotation and approach speeds,
+  normal climb and Vy guidance, and mixture reminders above 3,000 ft and before
+  landing. Speeds use knots indicated and the applicable V-speed abbreviations.
+
 ## [0.8.1] - 2026-09-05
 
 ### Changed

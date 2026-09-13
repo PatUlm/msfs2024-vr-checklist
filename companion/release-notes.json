@@ -3,6 +3,24 @@
   "companionSince": "0.3.0",
   "releases": [
     {
+      "version": "0.8.3",
+      "date": "2026-09-07",
+      "highlight": "Copy an unrecognized aircraft's model identifiers directly from the companion dashboard.",
+      "features": [
+        "A Copy button copies ATC MODEL, ATC TYPE and TITLE when the EFB reports no matching checklist, with brief Copied feedback."
+      ],
+      "fixes": []
+    },
+    {
+      "version": "0.8.2",
+      "date": "2026-09-07",
+      "highlight": "A minimal Cessna 152 checklist puts takeoff, climb and landing reminders at hand.",
+      "features": [
+        "Adds POH-based flap settings, rotation and approach speeds, normal climb and Vy guidance, and mixture reminders with automatic C152 selection."
+      ],
+      "fixes": []
+    },
+    {
       "version": "0.8.1",
       "date": "2026-09-05",
       "highlight": "The transport probe proves the CommBus channel with a checklist state request and reports the EFB version, instance, selected checklist and progress from the answering snapshot.",

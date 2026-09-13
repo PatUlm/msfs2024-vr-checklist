@@ -31,6 +31,11 @@ wiederholen.
 
 ## Paketierung und Testiteration
 
+- **[NEG]** Bei laufendem MSFS kann sich `fspackagetool.exe` an den
+  interaktiven Simulator hängen und bis zu dessen Ende warten, ohne das Paket
+  neu zu bauen. Beobachtet mit MSFS 1.8.16.0: Nach dem Beenden blieb das alte
+  Paket erhalten; erst der erneute Aufruf baute den neuen Stand.
+  **DO:** MSFS vor einem Kommandozeilen-Release-Build beenden.
 - **[RT]** Eine im DevMode gebaute Version desselben Pakets hat im VFS Vorrang
   vor der installierten Community-Version. Das Community-Paket muss für
   Entwicklungsiterationen nicht deaktiviert werden.

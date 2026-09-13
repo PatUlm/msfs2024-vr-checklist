@@ -58,6 +58,11 @@ Duplikat unbemerkt veröffentlicht wird.
 
 ## Release bauen
 
+MSFS 2024 vor dem Kommandozeilen-Build beenden. Ein an den interaktiven
+Simulator angehängter Package Tool-Prozess kann sonst auf dessen Ende warten,
+ohne einen Neubau auszuführen; siehe die
+[SDK-Referenz](msfs-sdk-reference.md#paketierung-und-testiteration).
+
 Der Release-Task verwendet immer die in `VERSION` deklarierte Version:
 
 ```bash

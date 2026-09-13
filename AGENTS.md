@@ -126,7 +126,13 @@ gehören nach `docs/design-qa.md`.
   eigenen Marker. `[NEG]` bleibt besonders für naheliegende, nachweislich
   ungeeignete Wege reserviert.
 - Noch ausstehende Laufzeitnachweise stehen ausschließlich als kurze Aufgaben
-  in `docs/open-tests.md` und werden nach ihrer Klärung entfernt. ADRs enthalten
+  in `docs/open-tests.md` und werden nach ihrer Klärung entfernt. Ein
+  Laufzeitnachweis prüft den Default-Fall eines Features, also den einen
+  Ablauf, den ein Pilot normalerweise auslöst. Grenz- und Gegenfälle werden
+  durch Unit- oder Self-Tests abgedeckt und nicht als weitere manuelle
+  Testschritte aufgeführt; Voraussetzung ist, dass programmiertes Verhalten
+  in der Regel funktioniert. Ein zusätzlicher manueller Schritt braucht einen
+  konkreten MSFS-Laufzeitgrund, den kein lokaler Test abdecken kann. ADRs enthalten
   Entscheidungen und Konsequenzen, aber keine zweite technische Referenz.
   `docs/phase-2-3-research.md` ist ein historisches Arbeitsdokument und wird
   nicht als fortlaufender Ablageort für neue Erkenntnisse verwendet.

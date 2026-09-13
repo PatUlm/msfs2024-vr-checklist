@@ -12,13 +12,12 @@ Untersuchungen bleiben über die Git-Historie nachvollziehbar.
   bei jedem VR-Teststand neu am Bild entschieden.
 - Release 0.2.2 bestätigte die zentrierten Navigationsbuttons mit langen
   DA42-Gruppennamen in VR.
+- Der Teststand vom 2026-09-13 bestätigte den grünen Gruppen-Haken in den
+  Navigationsbuttons und in der Gruppenüberschrift.
 
 ## Offene visuelle Nachweise
 
-- Der grüne Gruppen-Haken in den Navigationsbuttons ist ein mit zwei Borders
-  gezeichnetes, um 45 Grad gedrehtes L. Zu prüfen in Coherent GT: Größe und
-  vertikale Lage neben dem Gruppennamen, der Abstand zum Namen, und dass die
-  Ellipse langer Gruppennamen weiterhin funktioniert (DA42 als Referenz).
+- Derzeit keine.
 
 ## Historische Bildreferenzen
 

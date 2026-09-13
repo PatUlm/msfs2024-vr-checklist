@@ -20,3 +20,6 @@ companion/**/obj/
 msfs/Packages/
 msfs/PackagesMetadata/
 msfs/_PackageInt/
+
+# IDEs
+.idea/

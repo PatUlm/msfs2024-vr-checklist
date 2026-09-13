@@ -67,6 +67,11 @@ gehören nach `docs/design-qa.md`.
   Dokumentation dürfen bei der jeweiligen fachlichen Änderung bleiben.
 - Jeder eindeutige Release-Commit `chore(release): publish version X.Y.Z` erhält
   einen annotierten Git-Tag `vX.Y.Z`, der exakt auf diesen Commit zeigt.
+- Ein Release ist erst mit der lokalen Installation abgeschlossen: Nach dem
+  erfolgreichen Release-Build und dem Release-Commit wird `task release:install`
+  ausgeführt, damit Community2024 und die installierte Companion-EXE auf der
+  neuen Version stehen. Ein gebautes, aber nicht installiertes Release ist kein
+  fertiger Release-Schritt.
 - Das Repository folgt **Trunk-Based Development** auf `master`. Änderungen
   werden als kleine, fachlich geschlossene und jederzeit lauffähige Inkremente
   umgesetzt; langlebige Feature-Branches und große Sammel-Commits werden

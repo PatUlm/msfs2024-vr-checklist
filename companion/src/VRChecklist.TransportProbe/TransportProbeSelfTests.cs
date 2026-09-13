@@ -49,6 +49,7 @@ internal static class TransportProbeSelfTests
             ("skips a malformed dispatch and processes the next message", SkipsMalformedDispatch),
             ("consumes a fatal dispatch error once", ConsumesFatalDispatchErrorOnce),
             ("enforces CommBus single-worker affinity", EnforcesCommBusSingleWorkerAffinity),
+            ("reports a missing SimConnect.dll", ReportsMissingSimConnectLibrary),
             ("stops the companion worker normally", StopsCompanionWorkerNormally),
             ("stops after a delayed connection attempt", StopsAfterDelayedConnectionAttempt),
             ("stops after a delayed pump", StopsAfterDelayedPump),
@@ -64,6 +65,7 @@ internal static class TransportProbeSelfTests
             ("rejects malformed completed group IDs", RejectsMalformedCompletedGroupIds),
             ("announces each newly completed group once", AnnouncesEachNewlyCompletedGroupOnce),
             ("baselines group completion per session and checklist", BaselinesGroupCompletionPerSessionAndChecklist),
+            ("rebaselines group completion after a lost connection", RebaselinesGroupCompletionAfterLostConnection),
             ("formats zero-of-zero progress", FormatsZeroOfZeroProgress),
             ("creates a checklist state request", CreatesChecklistStateRequest),
             ("loads the embedded checklists sorted by title", LoadsEmbeddedChecklistsSortedByTitle),
@@ -202,6 +204,36 @@ internal static class TransportProbeSelfTests
                     isRepeated: false)
                 .Count == 0,
             "Losing the checklist announced a group.");
+    }
+
+    private static void RebaselinesGroupCompletionAfterLostConnection()
+    {
+        var tracker = new ChecklistGroupCompletionTracker();
+
+        Assert(
+            tracker.Observe(SnapshotWithGroups("session-1", 1), isRepeated: false).Count == 0,
+            "An empty first snapshot announced a group.");
+
+        // The group end at sequence 2 was never delivered.
+        tracker.ResetBaseline();
+
+        Assert(
+            tracker.Observe(SnapshotWithGroups("session-1", 3, "before-start"), isRepeated: false).Count == 0,
+            "A group completed during the lost connection was announced late.");
+        Assert(
+            tracker.Observe(SnapshotWithGroups("session-1", 4, "before-start", "engine-start"), isRepeated: false)
+                .SequenceEqual(["engine-start"]),
+            "A group completed after the reconnect was not announced.");
+
+        tracker.ResetBaseline();
+
+        Assert(
+            tracker.Observe(SnapshotWithGroups("session-1", 4, "before-start", "engine-start"), isRepeated: true).Count == 0,
+            "A repeated snapshot after a reconnect announced a group.");
+        Assert(
+            tracker.Observe(SnapshotWithGroups("session-1", 5, "before-start", "engine-start", "departure"), isRepeated: false)
+                .SequenceEqual(["departure"]),
+            "The baseline after a repeated reconnect snapshot was lost.");
     }
 
     private static void DecodesEmbeddedCompletionClip()
@@ -585,6 +617,30 @@ internal static class TransportProbeSelfTests
             "A second worker thread was allowed to use the CommBus client.");
     }
 
+    private static void ReportsMissingSimConnectLibrary()
+    {
+        using var reported = new ManualResetEventSlim();
+        string? detail = null;
+        var service = CreateConnectionService(
+            new MissingLibraryCommBusClient(),
+            TimeSpan.FromSeconds(1));
+        service.ConnectionChanged += (status, statusDetail) =>
+        {
+            if (status == SimulatorConnectionStatus.Connecting &&
+                statusDetail == ChecklistConnectionService.SimConnectMissingDetail)
+            {
+                detail = statusDetail;
+                reported.Set();
+            }
+        };
+
+        service.Start();
+        Assert(reported.Wait(TimeSpan.FromSeconds(1)), "A missing SimConnect.dll was reported as plain waiting.");
+        service.Dispose();
+
+        Assert(detail is not null, "The missing-library detail was not delivered.");
+    }
+
     private static void StopsCompanionWorkerNormally()
     {
         using var pumpEntered = new ManualResetEventSlim();
@@ -715,6 +771,27 @@ internal static class TransportProbeSelfTests
         if (!condition)
         {
             throw new InvalidOperationException(message);
+        }
+    }
+
+    private sealed class MissingLibraryCommBusClient : IChecklistCommBusClient
+    {
+        public void Connect() => throw new DllNotFoundException("SimConnect.dll");
+
+        public void Subscribe(uint eventId, string eventName, Action<string> handler)
+        {
+        }
+
+        public void Send(string eventName, string payload)
+        {
+        }
+
+        public void Pump(CancellationToken cancellationToken)
+        {
+        }
+
+        public void Dispose()
+        {
         }
     }
 

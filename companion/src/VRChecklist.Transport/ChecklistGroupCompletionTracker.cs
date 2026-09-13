@@ -6,13 +6,24 @@ namespace VRChecklist.Transport;
  * group end once. The first snapshot of a session or checklist only sets the
  * baseline: a companion started mid-flight, a reconnect or a restored EFB
  * state must not replay announcements for groups completed earlier. Repeated
- * snapshots (same session and sequence) never announce.
+ * snapshots (same session and sequence) never announce. After a lost
+ * connection the next snapshot is a baseline as well: a group completed while
+ * the companion was disconnected has missed its moment, and a late
+ * announcement would be misleading.
  */
 public sealed class ChecklistGroupCompletionTracker
 {
     private string? sessionId;
     private string? checklistKey;
     private HashSet<string> completedGroupIds = new(StringComparer.Ordinal);
+
+    /* Forgets the session so the next snapshot only sets the baseline. */
+    public void ResetBaseline()
+    {
+        sessionId = null;
+        checklistKey = null;
+        completedGroupIds = new HashSet<string>(StringComparer.Ordinal);
+    }
 
     public IReadOnlyList<string> Observe(ChecklistStateSnapshot snapshot, bool isRepeated)
     {

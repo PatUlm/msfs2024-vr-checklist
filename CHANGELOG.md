@@ -26,6 +26,11 @@ Changelog, and the project uses Semantic Versioning.
   Checklists always run in order, so the numbers added nothing and took space
   from the group names.
 
+### Fixed
+
+- The companion app reports a missing `SimConnect.dll` in its status line
+  instead of waiting for MSFS indefinitely.
+
 ## [0.8.3] - 2026-09-07
 
 ### Added

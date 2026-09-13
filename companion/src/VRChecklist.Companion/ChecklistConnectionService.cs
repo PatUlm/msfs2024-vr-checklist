@@ -14,6 +14,9 @@ public sealed class ChecklistConnectionService : IDisposable
     private static readonly TimeSpan RetryDelay = TimeSpan.FromSeconds(3);
     private static readonly TimeSpan ShutdownWait = TimeSpan.FromSeconds(2);
     private const string ConnectingDetail = "Waiting for MSFS 2024.";
+    internal const string SimConnectMissingDetail =
+        "SimConnect.dll not found. Set VR_CHECKLIST_SIMCONNECT_DIR or add " +
+        "simconnect-path.txt next to the EXE.";
     private readonly CancellationTokenSource cancellation = new();
     private readonly ChecklistSnapshotSequenceTracker snapshotSequence = new();
     private readonly Func<IChecklistCommBusClient> clientFactory;
@@ -72,12 +75,14 @@ public sealed class ChecklistConnectionService : IDisposable
             return;
         }
 
+        // Each failed attempt reports its own detail below; a missing
+        // SimConnect.dll must not be masked by the generic waiting message.
+        ConnectionChanged?.Invoke(
+            SimulatorConnectionStatus.Connecting,
+            ConnectingDetail);
+
         while (!cancellationToken.IsCancellationRequested)
         {
-            ConnectionChanged?.Invoke(
-                SimulatorConnectionStatus.Connecting,
-                ConnectingDetail);
-
             try
             {
                 using var client = clientFactory();
@@ -112,7 +117,7 @@ public sealed class ChecklistConnectionService : IDisposable
             {
                 ConnectionChanged?.Invoke(
                     SimulatorConnectionStatus.Connecting,
-                    ConnectingDetail);
+                    SimConnectMissingDetail);
             }
             catch (Exception error) when (
                 error is SimConnectDisconnectedException or

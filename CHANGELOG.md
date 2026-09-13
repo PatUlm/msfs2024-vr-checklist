@@ -28,6 +28,8 @@ Changelog, and the project uses Semantic Versioning.
 - The group header and the navigation buttons no longer show group numbers.
   Checklists always run in order, so the numbers added nothing and took space
   from the group names.
+- The companion app marks development builds with the same `-dev.<timestamp>`
+  suffix as the EFB app; releases keep the plain version.
 
 ### Fixed
 

@@ -26,8 +26,13 @@ public sealed class MainWindowViewModel : INotifyPropertyChanged
 
     public MainWindowViewModel(ChecklistConnectionService connectionService)
     {
+        // The informational version carries the "-dev.<timestamp>" marker of
+        // development builds; releases show the plain project version.
+        var assembly = Assembly.GetExecutingAssembly();
         CompanionVersion =
-            Assembly.GetExecutingAssembly().GetName().Version?.ToString(3) ?? "unknown";
+            assembly.GetCustomAttribute<AssemblyInformationalVersionAttribute>()?.InformationalVersion
+            ?? assembly.GetName().Version?.ToString(3)
+            ?? "unknown";
         connectionService.ConnectionChanged += (status, detail) =>
             Dispatcher.UIThread.Post(() => ApplyConnectionStatus(status, detail));
         connectionService.SnapshotReceived += (snapshot, isRepeated) =>

@@ -20,6 +20,11 @@ vars:
   RELEASE_DIR: '{{default "/mnt/c/dev/msfs2024-vr-checklist-releases" .VR_CHECKLIST_RELEASE_DIR}}'
   PROJECT_VERSION:
     sh: node scripts/release-package.mjs current-version
+  BUILD_TIMESTAMP:
+    sh: date -u +%Y%m%d%H%M%S
+  # Same rule as the EFB app build: a release passes VR_CHECKLIST_VERSION,
+  # every other build is marked as a development build.
+  COMPANION_VERSION: '{{if .VR_CHECKLIST_VERSION}}{{.VR_CHECKLIST_VERSION}}{{else}}{{.PROJECT_VERSION}}-dev.{{.BUILD_TIMESTAMP}}{{end}}'
 
 tasks:
   default:
@@ -97,6 +102,7 @@ tasks:
         --configuration Release
         --target Rebuild
         --nologo
+        -p:InformationalVersion={{.COMPANION_VERSION}}
 
   companion:test:
     desc: Run the CommBus transport probe self-tests
@@ -149,6 +155,13 @@ tasks:
     cmds:
       - task deploy
 
+  release:companion-deploy:
+    internal: true
+    env:
+      VR_CHECKLIST_VERSION: "{{.PROJECT_VERSION}}"
+    cmds:
+      - task companion:deploy
+
   release:
     desc: Build the production package declared in VERSION
     env:
@@ -161,7 +174,7 @@ tasks:
       - node scripts/release-package.mjs validate-version
       - task: test:release
       - task: release:deploy
-      - task: companion:deploy
+      - task: release:companion-deploy
       - task: companion:test
       - node scripts/release-package.mjs build
 

@@ -48,8 +48,9 @@ notwendige Spiegelungen gegen `VERSION` geprüft. Ein abweichender Wert lässt
 
 Entwicklungsbuilds bleiben eindeutig, indem sie die Projektversion um
 `-dev.YYYYMMDDHHMMSS` in UTC ergänzen. Beispiel:
-`0.1.2-dev.20260824153042`. Diese Kennung erscheint nur in der App; das
-Staging-Manifest behält die veröffentlichungsfähige dreiteilige Version.
+`0.1.2-dev.20260824153042`. Diese Kennung erscheint in der EFB-App und in der
+Begleit-App; Staging-Manifest und `VERSION`-Dateien behalten die
+veröffentlichungsfähige dreiteilige Version.
 
 Vor einer inhaltlich veränderten Veröffentlichung wird `VERSION` nach SemVer
 erhöht und in Paketdefinition, `package.json` sowie den beiden Root-Einträgen

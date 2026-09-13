@@ -7,6 +7,8 @@ Changelog, and the project uses Semantic Versioning.
 
 ## [Unreleased]
 
+## [0.9.0] - 2026-09-13
+
 ### Added
 
 - The group header and the navigation buttons show a green check mark in front

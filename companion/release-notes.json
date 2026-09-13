@@ -3,6 +3,21 @@
   "companionSince": "0.3.0",
   "releases": [
     {
+      "version": "0.9.0",
+      "date": "2026-09-13",
+      "highlight": "Completed checklist groups carry a green check mark in the EFB, and the companion announces every finished group with a spoken Checklist completed.",
+      "features": [
+        "The group header and the navigation buttons show a green check mark once every item of a group is ticked; group numbers are no longer shown.",
+        "The companion plays a Checklist completed announcement on the Windows default output device each time a group is fully ticked, using a placeholder system voice.",
+        "The companion status window marks the completed checklist and a completed active group with the same green check mark.",
+        "Development builds of the companion show a -dev timestamp suffix in the version; releases keep the plain version.",
+        "The transport probe plays the embedded announcement with --play-completion-sound without MSFS."
+      ],
+      "fixes": [
+        "The companion reports a missing SimConnect.dll in its status line instead of waiting for MSFS indefinitely."
+      ]
+    },
+    {
       "version": "0.8.3",
       "date": "2026-09-07",
       "highlight": "Copy an unrecognized aircraft's model identifiers directly from the companion dashboard.",

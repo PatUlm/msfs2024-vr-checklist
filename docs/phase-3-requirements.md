@@ -8,8 +8,8 @@ Windows-Begleit-App. Technische Entscheidungen stehen in den
 
 Status: **In Umsetzung — Transportdurchstich und Status-App sind in MSFS
 bestätigt, die Offline-Release-Notes sind umgesetzt, der Audio-Nachweis mit
-einer Dummy-Datei ist implementiert und wartet auf den MSFS-Laufzeitnachweis
-aus [open-tests.md](open-tests.md).**
+einer Dummy-Datei ist am 2026-09-13 in MSFS bestätigt; als Nächstes folgt die
+produktive Audioausgabe mit Gerätewahl.**
 
 ## Umsetzungsreihenfolge
 
@@ -55,7 +55,9 @@ Die erste Oberfläche unterscheidet mindestens:
 - `Checklist: Waiting for EFB` oder `State received`;
 - Version der Begleit-App und die von der EFB-App gemeldete Version;
 - Flugzeug, Checkliste, aktive Gruppe, nächstes offenes Item und
-  Pflichtfortschritt als Anzahl und Prozentwert;
+  Pflichtfortschritt als Anzahl und Prozentwert; eine vollständig erledigte
+  Checkliste und eine vollständig erledigte aktive Gruppe tragen wie im EFB
+  einen grünen Haken vor dem Namen;
 - Protokoll- oder Versionsinkompatibilitäten sowie Transportfehler.
 
 ## Funktionsumfang

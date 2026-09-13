@@ -102,12 +102,20 @@
         <Grid Grid.Row="1" ColumnDefinitions="150,*">
           <TextBlock Classes="section-label" VerticalAlignment="Center"
                      Text="CHECKLIST" />
-          <TextBlock Grid.Column="1" Classes="value" Text="{Binding Checklist}" />
+          <StackPanel Grid.Column="1" Orientation="Horizontal" Spacing="5">
+            <Path Classes="completion-check" Data="{StaticResource IconCheck}"
+                  IsVisible="{Binding IsChecklistCompleted}" />
+            <TextBlock Classes="value" Text="{Binding Checklist}" />
+          </StackPanel>
         </Grid>
         <Grid Grid.Row="2" ColumnDefinitions="150,*">
           <TextBlock Classes="section-label" VerticalAlignment="Center"
                      Text="ACTIVE GROUP" />
-          <TextBlock Grid.Column="1" Classes="value" Text="{Binding ActiveGroup}" />
+          <StackPanel Grid.Column="1" Orientation="Horizontal" Spacing="5">
+            <Path Classes="completion-check" Data="{StaticResource IconCheck}"
+                  IsVisible="{Binding IsActiveGroupCompleted}" />
+            <TextBlock Classes="value" Text="{Binding ActiveGroup}" />
+          </StackPanel>
         </Grid>
         <Grid Grid.Row="3" ColumnDefinitions="150,*">
           <TextBlock Classes="section-label" VerticalAlignment="Center"

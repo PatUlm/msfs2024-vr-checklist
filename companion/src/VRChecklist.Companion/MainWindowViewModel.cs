@@ -17,6 +17,8 @@ public sealed class MainWindowViewModel : INotifyPropertyChanged
     private string aircraftIdentityClipboardText = string.Empty;
     private string checklist = "—";
     private string activeGroup = "—";
+    private bool isChecklistCompleted;
+    private bool isActiveGroupCompleted;
     private string nextItem = "—";
     private string progress = "0 / 0";
     private double progressPercent;
@@ -109,6 +111,19 @@ public sealed class MainWindowViewModel : INotifyPropertyChanged
         private set => SetField(ref activeGroup, value);
     }
 
+    /* Both mirror the green group mark of the EFB: every item ticked. */
+    public bool IsChecklistCompleted
+    {
+        get => isChecklistCompleted;
+        private set => SetField(ref isChecklistCompleted, value);
+    }
+
+    public bool IsActiveGroupCompleted
+    {
+        get => isActiveGroupCompleted;
+        private set => SetField(ref isActiveGroupCompleted, value);
+    }
+
     public string NextItem
     {
         get => nextItem;
@@ -171,6 +186,9 @@ public sealed class MainWindowViewModel : INotifyPropertyChanged
                 ? $"ATC MODEL: {snapshot.Aircraft.AtcModel}\nATC TYPE: {snapshot.Aircraft.AtcType}\nTITLE: {snapshot.Aircraft.Title}"
                 : string.Empty;
         ActiveGroup = snapshot.ActiveGroup?.Title ?? "—";
+        IsChecklistCompleted = snapshot.Checklist is not null && snapshot.IsComplete;
+        IsActiveGroupCompleted = snapshot.ActiveGroup is not null &&
+            (snapshot.CompletedGroupIds?.Contains(snapshot.ActiveGroup.Id, StringComparer.Ordinal) ?? false);
         NextItem = snapshot.NextOpenItem is null
             ? snapshot.IsComplete ? "Checklist completed" : "—"
             : $"{snapshot.NextOpenItem.Challenge}: {snapshot.NextOpenItem.Response}";

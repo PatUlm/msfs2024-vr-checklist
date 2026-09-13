@@ -17,6 +17,9 @@ Changelog, and the project uses Semantic Versioning.
   is a placeholder rendered with a Windows system voice; the final voice is
   still to be chosen. Repeated snapshots, reconnects, resets and a companion
   start with groups already completed do not trigger the announcement.
+- The companion status window shows a green check mark in front of the
+  checklist once every required item is ticked, and in front of the active
+  group once all of its items are ticked.
 - The transport probe accepts `--play-completion-sound` to play the embedded
   announcement once without MSFS.
 

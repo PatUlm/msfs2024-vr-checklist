@@ -1,0 +1,116 @@
+{
+  "schemaVersion": 1,
+  "id": "cessna-152",
+  "title": "Cessna 152",
+  "aircraft": {
+    "manufacturer": "Cessna",
+    "model": "152",
+    "msfsMatches": [
+      {
+        "atcModel": {
+          "contains": "AC_MODEL C152"
+        }
+      }
+    ]
+  },
+  "revision": "2026-09-07",
+  "sections": [
+    {
+      "id": "departure",
+      "title": "Departure",
+      "items": [
+        {
+          "id": "flaps",
+          "challenge": "Flaps",
+          "response": "0°",
+          "kind": "action",
+          "speech": "Flaps: zero degrees."
+        },
+        {
+          "id": "rotation-speed",
+          "challenge": "Rotation Speed (Vr)",
+          "response": "50 kt",
+          "kind": "action",
+          "speech": "Rotation speed V R: 50 knots indicated. Lift the nose wheel.",
+          "notes": [
+            "All speeds are indicated airspeeds (IAS)."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "climb",
+      "title": "Climb",
+      "items": [
+        {
+          "id": "climb-speed",
+          "challenge": "Climb Speed",
+          "response": "75 kt",
+          "kind": "action",
+          "condition": "Flaps up",
+          "notes": [
+            "Normal climb: 70–80 kt.",
+            "Best rate (Vy): 67 kt at sea level; 61 kt at 10,000 ft."
+          ],
+          "speech": "Normal climb speed: 75 knots indicated, flaps up. Best rate of climb, V Y: 67 knots indicated at sea level, decreasing to 61 at 10,000 feet."
+        },
+        {
+          "id": "mixture",
+          "challenge": "Mixture",
+          "response": "Lean for maximum RPM",
+          "kind": "action",
+          "condition": "Above 3,000 ft",
+          "speech": "Above 3,000 feet, lean the mixture for maximum R P M."
+        }
+      ]
+    },
+    {
+      "id": "approach",
+      "title": "Approach",
+      "items": [
+        {
+          "id": "mixture",
+          "challenge": "Mixture",
+          "response": "Full rich",
+          "kind": "action"
+        },
+        {
+          "id": "flaps-approach",
+          "challenge": "Flaps",
+          "response": "10°",
+          "kind": "action",
+          "condition": "Below Vfe: 85 kt",
+          "notes": [
+            "Selected intermediate setting; POH: as desired."
+          ],
+          "speech": "Below 85 knots indicated, flaps: ten degrees as an intermediate setting."
+        }
+      ]
+    },
+    {
+      "id": "landing",
+      "title": "Landing",
+      "items": [
+        {
+          "id": "flaps-full",
+          "challenge": "Flaps",
+          "response": "30° (Full)",
+          "kind": "action",
+          "condition": "Below Vfe: 85 kt",
+          "speech": "Below 85 knots indicated, flaps: thirty degrees, full."
+        },
+        {
+          "id": "landing-speed",
+          "challenge": "Approach Speed (Vapp)",
+          "response": "60 kt",
+          "kind": "action",
+          "condition": "Final approach, flaps 30°",
+          "notes": [
+            "POH normal approach: 55–65 kt."
+          ],
+          "speech": "Final approach speed V app with flaps thirty degrees: 60 knots indicated."
+        }
+      ]
+    }
+  ]
+}

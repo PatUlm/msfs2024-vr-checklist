@@ -69,6 +69,17 @@ Beispiele:
 - Bereits etablierte Challenge-Namen werden für gleiche Vorgänge wiederverwendet.
   Neue Flugzeug-Checklisten orientieren sich zuerst an vorhandenen Einträgen,
   bevor neue Synonyme eingeführt werden.
+- Bei Geschwindigkeiten wird ein fachlich passendes Kürzel ergänzt, etwa
+  `Rotation Speed (Vr)`, `Climb Speed (Vy)` oder `Approach Speed (Vapp)`.
+  Grenzwerte in Bedingungen nennen ebenfalls ihr Kürzel, etwa `Vfe` für die
+  maximale Geschwindigkeit mit ausgefahrenen Klappen. Ein normaler Steigflug
+  wird nur dann als `Vy` bezeichnet, wenn tatsächlich die Geschwindigkeit für
+  die beste Steigrate gemeint ist; ein gewählter Anflugwert wird nicht ohne
+  Quellenbeleg zu `Vref` erklärt.
+- `kt` bezeichnet die Einheit Knoten, `KIAS` zusätzlich den Bezug auf die
+  angezeigte Fluggeschwindigkeit. Bei kompakter Anzeige in `kt` bleibt der
+  belegte Bezug auf IAS, TAS oder Ground Speed in Hinweisen beziehungsweise
+  Bedingungen und im Herkunftsnachweis erhalten.
 - Abkürzungen dürfen im sichtbaren Text stehen. Wenn die automatische
   Aussprache unklar wäre, erhält der Eintrag einen vollständig formulierten
   `speech`-Text.

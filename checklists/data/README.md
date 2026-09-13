@@ -58,6 +58,9 @@ noch ein Ersatz für das jeweils gültige Flughandbuch.
 
 ## Inhaltliche Herkunft
 
+- Die minimale Cessna-152-Checkliste ist mit dem originalen Cessna-POH
+  abgeglichen. Herkunft, Seitenangaben und die gewählten Werte innerhalb der
+  POH-Bereiche stehen unter [`../references/cessna-152/`](../references/cessna-152/).
 - Die lokalen ODS-Referenzen für DA42 und MH-60 liegen ausschließlich unter
   `checklists/source/` und bleiben unversioniert. Die JSON-Dateien sind die
   daraus abgeleitete, kanonische Fassung.

@@ -14,6 +14,7 @@ public sealed class MainWindowViewModel : INotifyPropertyChanged
     private string checklistStatus = "Waiting for EFB";
     private string checklistDetail = "Open VR Checklist in the simulator.";
     private string aircraft = "—";
+    private string aircraftIdentityClipboardText = string.Empty;
     private string checklist = "—";
     private string activeGroup = "—";
     private string nextItem = "—";
@@ -34,6 +35,7 @@ public sealed class MainWindowViewModel : INotifyPropertyChanged
             {
                 ChecklistStatus = "Error";
                 ChecklistDetail = message;
+                AircraftIdentityClipboardText = string.Empty;
             });
     }
 
@@ -83,6 +85,18 @@ public sealed class MainWindowViewModel : INotifyPropertyChanged
         private set => SetField(ref checklist, value);
     }
 
+    public string AircraftIdentityClipboardText
+    {
+        get => aircraftIdentityClipboardText;
+        private set
+        {
+            SetField(ref aircraftIdentityClipboardText, value);
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(CanCopyAircraftIdentity)));
+        }
+    }
+
+    public bool CanCopyAircraftIdentity => AircraftIdentityClipboardText.Length > 0;
+
     /// <summary>
     /// Id of the checklist shown on the dashboard, or <c>null</c> while no
     /// snapshot with a matching checklist has been received.
@@ -127,6 +141,7 @@ public sealed class MainWindowViewModel : INotifyPropertyChanged
         SimulatorStatus = isConnected ? "Connected" : "Connecting";
         SimulatorStatusColor = isConnected ? "#4FCB83" : "#E5B94B";
         SimulatorDetail = detail ?? string.Empty;
+        AircraftIdentityClipboardText = string.Empty;
 
         if (isConnected)
         {
@@ -151,6 +166,10 @@ public sealed class MainWindowViewModel : INotifyPropertyChanged
             ?? "Unknown aircraft";
         Checklist = snapshot.Checklist?.Title ?? "No checklist available";
         ChecklistId = snapshot.Checklist?.Id;
+        AircraftIdentityClipboardText = snapshot.Checklist is null &&
+            FirstNonEmpty(snapshot.Aircraft.AtcModel, snapshot.Aircraft.AtcType, snapshot.Aircraft.Title) is not null
+                ? $"ATC MODEL: {snapshot.Aircraft.AtcModel}\nATC TYPE: {snapshot.Aircraft.AtcType}\nTITLE: {snapshot.Aircraft.Title}"
+                : string.Empty;
         ActiveGroup = snapshot.ActiveGroup?.Title ?? "—";
         NextItem = snapshot.NextOpenItem is null
             ? snapshot.IsComplete ? "Checklist completed" : "—"

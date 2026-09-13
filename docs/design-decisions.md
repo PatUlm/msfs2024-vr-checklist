@@ -189,6 +189,12 @@ Iteration stehen separat in `design-qa.md`.
 - Die Detailkarte endet nach der Fortschrittsanzeige auf Inhaltshöhe. Bei einem
   höheren Inhalt wächst das Fenster mit; eine flexible Restzeile erzeugt weder
   scheinbares Innenpadding noch einen leeren Bereich vor dem Footer.
+- Meldet ein aktueller EFB-Snapshot keine passende Checkliste, erscheint unter
+  dem Flugzeugnamen `Copy` mit Zwischenablage-Symbol. Der Button kopiert
+  die unveränderten Werte als drei beschriftete Zeilen `ATC MODEL:`,
+  `ATC TYPE:` und `TITLE:` und meldet kurz `Copied` im eigenen Label. Ohne
+  Kennung, bei erkannter Checkliste, nach Verbindungswechseln oder einem
+  Protokollfehler ist er ausgeblendet, bis wieder ein passender Snapshot vorliegt.
 
 ## Release Notes der Begleit-App
 

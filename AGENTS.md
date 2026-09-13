@@ -80,13 +80,16 @@ gehören nach `docs/design-qa.md`.
   dauerhafte Erlaubnis für solche Abschluss-Commits; eine erneute Nachfrage ist
   nicht nötig. Unfertige oder nicht lauffähige Zwischenstände werden nicht als
   vermeintlich fertige Inkremente committed.
-- Vor jedem Commit führt der Benutzer den Review durch und stellt die dabei
-  freigegebenen Dateien in den Git-Index. Das Staging gilt als fachliche
-  Freigabe; der Agent führt auf dieser Basis keinen erneuten Review des staged
-  Diffs durch. Sobald alle zum Inkrement gehörenden Änderungen gestaged sind,
-  darf und soll der Agent ohne weitere Rückfrage committen. Der Agent fügt
-  Dateien nur dann selbst zum Index hinzu, wenn der Benutzer dies ausdrücklich
-  verlangt.
+- Der Benutzer reviewt und stagt fachliche Änderungen; Staging gilt als
+  Freigabe. Der Agent reviewt den staged Diff nicht erneut und committet nach
+  vollständiger Freigabe ohne Rückfrage. Selbst stagen darf er nur auf
+  ausdrücklichen Wunsch oder gemäß den folgenden Ausnahmen.
+- Review und Commit sind getrennte Schritte: Solange im Auftrag noch
+  reviewpflichtige Änderungen offen sind oder entstehen, keine Commits.
+  Im Commit-Schritt keine neuen reviewpflichtigen Änderungen beginnen.
+- Rein dokumentarische Abschlussarbeiten an freigegebenen Änderungen darf der
+  Agent selbst nachstagen und mitcommitten, etwa das Entfernen bestätigter
+  Testpunkte. Neue fachliche oder unbeteiligte Änderungen sind davon ausgenommen.
 - Ausnahme: Bei einem ausdrücklich beauftragten reinen Release-Schritt müssen
   die mechanischen Release-Metadaten nach bereits freigegebenen fachlichen
   Änderungen nicht erneut vom Benutzer reviewt oder gestaged werden. Der Agent

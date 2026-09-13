@@ -55,10 +55,11 @@ Iteration stehen separat in `design-qa.md`.
 - Der Name steht mittig im Navigationsbutton, nicht an dessen Außenkanten. An
   den deaktivierten Listenenden bleiben die Platzhalter `Start` und `Complete`
   sichtbar.
-- Ist eine Gruppe vollständig erledigt, steht vor ihrem Namen im
-  Navigationsbutton ein grüner Haken in der Erledigt-Farbe der Items. Er
-  markiert die Gruppe als abgeschlossenen Arbeitsschritt, bevor der Pilot sie
-  öffnet. Der Haken wird wie der Item-Haken mit CSS gezeichnet, nicht als
+- Ist eine Gruppe vollständig erledigt, steht vor ihrem Namen ein grüner Haken
+  in der Erledigt-Farbe der Items, sowohl im Navigationsbutton als auch in der
+  Gruppenüberschrift. Er markiert die Gruppe als abgeschlossenen
+  Arbeitsschritt, bevor der Pilot sie öffnet, und bestätigt sie beim
+  Zurückblättern. Der Haken wird wie der Item-Haken mit CSS gezeichnet, nicht als
   Font-Glyphe, damit er in Coherent GT nicht von der Glyphenabdeckung der
   Schrift abhängt. Er folgt derselben Regel wie der automatische Wechsel: Auch
   ein offenes `optional`-Item hält ihn zurück.

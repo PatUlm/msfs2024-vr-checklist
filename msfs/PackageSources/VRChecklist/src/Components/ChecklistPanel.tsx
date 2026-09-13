@@ -24,9 +24,10 @@ export interface ChecklistPanelActions {
 }
 
 /*
- * The green mark in front of a navigation target. It follows the same rule as
- * the automatic advance: every item of the group, optional ones included, is
- * ticked. Drawn with CSS borders, not a font glyph (see msfs-sdk-reference.md).
+ * The green mark in front of a group name, in the header as well as in the
+ * navigation targets. It follows the same rule as the automatic advance: every
+ * item of the group, optional ones included, is ticked. Drawn with CSS
+ * borders, not a font glyph (see msfs-sdk-reference.md).
  */
 function renderCompletionMark(
   runtime: ChecklistRuntimeState,
@@ -41,8 +42,8 @@ function renderCompletionMark(
   return (
     <span
       class={{
-        "section-navigation__check": true,
-        "section-navigation__check--visible": completion,
+        "completion-check": true,
+        "completion-check--visible": completion,
       }}
       aria-hidden="true"
     />
@@ -240,7 +241,10 @@ export function renderChecklistPanel(
           >
             <div class="checklist-section__sticky">
               <header class="checklist-section__header">
-                <h2>{section.title}</h2>
+                <h2>
+                  {renderCompletionMark(runtime, sectionIndex)}
+                  <span>{section.title}</span>
+                </h2>
               </header>
 
               {renderNavigation(runtime, sectionIndex, actions)}

@@ -9,9 +9,9 @@ Changelog, and the project uses Semantic Versioning.
 
 ### Added
 
-- The navigation buttons show a green check mark in front of every group whose
-  items are all ticked, so completed groups are recognisable before they are
-  opened.
+- The group header and the navigation buttons show a green check mark in front
+  of every group whose items are all ticked, so completed groups are
+  recognisable before they are opened and when paging back to them.
 - The companion app plays a "Checklist completed" announcement on the Windows
   default output device each time a checklist group is fully ticked. The clip
   is a placeholder rendered with a Windows system voice; the final voice is

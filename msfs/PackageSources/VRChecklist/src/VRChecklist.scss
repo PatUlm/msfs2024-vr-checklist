@@ -229,11 +229,38 @@
 }
 
 .checklist-section h2 {
+  display: flex;
+  align-items: baseline;
+
   margin: 0;
   font-size: 1.55em;
   font-weight: 800;
   letter-spacing: -0.015em;
   line-height: 1.1;
+}
+
+/*
+ * Completed-group mark: a rotated L drawn with two borders in the complete
+ * colour. Hidden until the group is fully ticked; no font glyph is involved.
+ * Sized in em so it scales with the header and the navigation buttons alike.
+ */
+.completion-check {
+  display: none;
+  flex: 0 0 auto;
+  align-self: center;
+
+  width: 0.529em;
+  height: 0.941em;
+  margin-top: -0.294em;
+  margin-right: 0.706em;
+  border-right: 0.176em solid var(--checklist-complete);
+  border-bottom: 0.176em solid var(--checklist-complete);
+  box-sizing: border-box;
+  transform: rotate(45deg);
+}
+
+.completion-check--visible {
+  display: block;
 }
 
 .section-navigation {
@@ -303,29 +330,6 @@
   flex: 0 1 auto;
   align-items: baseline;
   min-width: 0;
-}
-
-/*
- * Completed-group mark: a rotated L drawn with two borders in the complete
- * colour. Hidden until the group is fully ticked; no font glyph is involved.
- */
-.section-navigation__check {
-  display: none;
-  flex: 0 0 auto;
-  align-self: center;
-
-  width: 0.529em;
-  height: 0.941em;
-  margin-top: -0.294em;
-  margin-right: 0.706em;
-  border-right: 0.176em solid var(--checklist-complete);
-  border-bottom: 0.176em solid var(--checklist-complete);
-  box-sizing: border-box;
-  transform: rotate(45deg);
-}
-
-.section-navigation__check--visible {
-  display: block;
 }
 
 .section-navigation__name {

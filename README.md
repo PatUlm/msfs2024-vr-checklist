@@ -126,16 +126,15 @@ task companion:deploy
 ```
 
 Der Build verwendet ein per Digest fixiertes offizielles .NET-SDK-Image und
-kopiert `SimConnect.dll` nicht. Für den Laufzeittest werden zuerst die EFB-App
-deployed, im Project Editor **Build All In Project** ausgeführt und im Coherent
-Debugger **Ignore Cache + Reload** gewählt. Anschließend wird die Begleit-App in
-Windows PowerShell aus ihrem eigenen Staging gestartet; ein Zugriff auf das
-WSL-Dateisystem ist nicht nötig:
-
-```powershell
-$env:VR_CHECKLIST_SIMCONNECT_DIR = 'C:\MSFS 2024 SDK\SimConnect SDK\lib'
-& 'C:\dev\msfs2024-vr-checklist-companion-staging\VRChecklist.Companion.exe'
-```
+kopiert `SimConnect.dll` nicht. Das Deployment legt stattdessen neben der EXE
+und der Transport-Probe eine `simconnect-path.txt` mit dem SimConnect-Ordner
+des konfigurierten SDK ab, so wie es `task companion:install` für ein Release
+tut. Für den Laufzeittest werden zuerst die EFB-App deployed, im Project Editor
+**Build All In Project** ausgeführt und im Coherent Debugger **Ignore Cache +
+Reload** gewählt. Anschließend wird
+`C:\dev\msfs2024-vr-checklist-companion-staging\VRChecklist.Companion.exe`
+direkt gestartet. Die Umgebungsvariable `VR_CHECKLIST_SIMCONNECT_DIR` hat
+weiterhin Vorrang, falls ein anderer SimConnect-Ordner getestet werden soll.
 
 Der frühere Konsolen-Durchstich bleibt als Diagnosewerkzeug unter
 `tools\transport-probe` im Staging erhalten. Das Companion-Staging wird wie das

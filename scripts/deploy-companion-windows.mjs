@@ -10,6 +10,7 @@ import {
 } from "node:fs/promises";
 import { basename, dirname, isAbsolute, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
+import { toWindowsPath } from "./lib/msfs-release.mjs";
 
 const stagingDirectoryName =
   "msfs2024-vr-checklist-companion-staging";
@@ -40,13 +41,22 @@ const probeBuildRoot = join(
   "Release",
   "net10.0"
 );
+const positionalArguments = process.argv
+  .slice(2)
+  .filter((argument) => !argument.startsWith("--"));
 const stagingArgument =
-  process.argv[2] ??
+  positionalArguments[0] ??
   "/mnt/c/dev/msfs2024-vr-checklist-companion-staging";
+// Optional: the SDK directory holding SimConnect.dll. The staging never
+// contains the DLL itself (ADR 0004); like the release install it only gets a
+// simconnect-path.txt so the EXE and the probe start without an environment
+// variable.
+const simConnectArgument = positionalArguments[1];
 const recoverInterruptedDeployment = process.argv.includes(
   "--recover-interrupted"
 );
 const stagingRoot = resolve(stagingArgument);
+const simConnectPathFileName = "simconnect-path.txt";
 
 function assertSafeStagingRoot() {
   if (!isAbsolute(stagingArgument)) {
@@ -147,8 +157,30 @@ function includeRuntimeFile(source) {
   return !source.toLowerCase().endsWith(".pdb");
 }
 
+async function resolveSimConnectWindowsPath() {
+  if (!simConnectArgument) {
+    return undefined;
+  }
+
+  const simConnectRoot = resolve(simConnectArgument);
+  if (!/^\/mnt\/[a-z](?:\/|$)/i.test(simConnectRoot)) {
+    throw new Error(
+      `SimConnect directory must be on a mounted Windows drive: ${simConnectArgument}`
+    );
+  }
+
+  if (!(await pathExists(join(simConnectRoot, "SimConnect.dll")))) {
+    throw new Error(
+      `SimConnect.dll is missing from configured directory: ${simConnectRoot}`
+    );
+  }
+
+  return toWindowsPath(simConnectRoot);
+}
+
 assertSafeStagingRoot();
 await assertSourceBuild();
+const simConnectWindowsPath = await resolveSimConnectWindowsPath();
 const targetWasManaged = await assertManagedOrEmptyTarget();
 
 await mkdir(dirname(stagingRoot), { recursive: true });
@@ -175,6 +207,15 @@ try {
       filter: includeRuntimeFile,
     }
   );
+  if (simConnectWindowsPath) {
+    // Both executables resolve the DLL from their own base directory.
+    for (const directory of [tempRoot, join(tempRoot, "tools", "transport-probe")]) {
+      await writeFile(
+        join(directory, simConnectPathFileName),
+        `${simConnectWindowsPath}\n`
+      );
+    }
+  }
   await writeFile(
     join(tempRoot, markerFileName),
     `${JSON.stringify(marker, null, 2)}\n`

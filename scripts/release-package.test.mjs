@@ -344,6 +344,13 @@ test("companion verification requires an EXE and excludes SimConnect", async () 
   const result = await verifyCompanion(root, "0.3.0");
   assert.equal(result.version, "0.3.0");
 
+  await writeFile(join(root, "simconnect-path.txt"), "C:\\local\\path\n");
+  await assert.rejects(
+    () => verifyCompanion(root, "0.3.0"),
+    /forbidden file: simconnect-path\.txt/
+  );
+  await rm(join(root, "simconnect-path.txt"));
+
   await writeFile(join(root, "SimConnect.dll"), "not redistributable");
   await assert.rejects(
     () => verifyCompanion(root, "0.3.0"),

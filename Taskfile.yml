@@ -130,7 +130,7 @@ tasks:
     deps:
       - companion:build
     cmds:
-      - node scripts/deploy-companion-windows.mjs "{{.COMPANION_STAGING_DIR}}"
+      - node scripts/deploy-companion-windows.mjs "{{.COMPANION_STAGING_DIR}}" "{{.MSFS_SDK_ROOT}}/SimConnect SDK/lib"
 
   deploy:
     desc: Build and deploy managed inputs to the Windows MSFS staging

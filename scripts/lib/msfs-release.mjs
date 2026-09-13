@@ -437,9 +437,11 @@ export async function verifyCompanion(
 
   const forbiddenFile = files.find((file) => {
     const lowerCaseFile = file.toLowerCase();
+    const fileName = lowerCaseFile.split("/").at(-1);
     return (
       lowerCaseFile.endsWith(".pdb") ||
-      lowerCaseFile.split("/").at(-1) === "simconnect.dll"
+      fileName === "simconnect.dll" ||
+      fileName === "simconnect-path.txt"
     );
   });
   if (forbiddenFile) {
@@ -567,9 +569,12 @@ export async function buildRelease({
           }
 
           const [topLevelName] = sourceRelativePath.split(sep);
+          // simconnect-path.txt is a machine-local path written by the
+          // staging deploy; the install step writes its own for the release.
           return (
             topLevelName !== "tools" &&
-            topLevelName !== ".vr-checklist-companion-staging.json"
+            topLevelName !== ".vr-checklist-companion-staging.json" &&
+            topLevelName !== "simconnect-path.txt"
           );
         },
       }

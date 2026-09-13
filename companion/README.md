@@ -46,4 +46,6 @@ Voraussetzungen stehen im Root-[README](../README.md).
 Ein Release enthält die frameworkabhängige `VRChecklist.Companion.exe` mit
 ihren Laufzeitdateien, aber ohne `SimConnect.dll`. `task companion:install`
 installiert sie unter dem konfigurierten Windows-Benutzerprofil und hinterlegt
-den lokalen SimConnect-Pfad für den direkten EXE-Start.
+den lokalen SimConnect-Pfad in `simconnect-path.txt` für den direkten
+EXE-Start. `task companion:deploy` schreibt dieselbe Datei ins Staging; das
+Release-Paket nimmt sie nicht auf.

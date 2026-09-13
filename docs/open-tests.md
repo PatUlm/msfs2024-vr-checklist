@@ -8,18 +8,11 @@ Produktentscheidung.
 
 ## Phase 3 — Begleit-App
 
-- [ ] Maximale CommBus-Nutzlast und tatsächliches Chunk-Verhalten bestimmen.
-- [ ] Lebensdauer der CommBus-Registrierung bei `AppBootMode.COLD` und
-  `AppSuspendMode.SLEEP` einschließlich der FPS-Wirkung einer Änderung messen.
+- [ ] CommBus-Zustellung nach einem Wechsel zu einer anderen EFB-App und
+  Rückkehr nachweisen (`AppSuspendMode.SLEEP`): Item abhaken, App wechseln,
+  zurückkehren, erneut abhaken; prüfen, ob der Companion beide Änderungen
+  erhält oder der Listener in `onResume` neu registriert werden muss.
 - [ ] CommBus-Registrierung und -Zustellung über Nicht-VR → VR → Nicht-VR
-  nachweisen.
-- [ ] Nach einem Wechsel VR → Nicht-VR prüfen, ob der beim VR-Eintritt
-  ersetzte Coherent-Kontext unter „Inspectable web views“ weiterlebt oder
-  verworfen wird; der VR-Eintritt selbst erzeugt nachweislich einen neuen
-  Kontext (siehe `msfs-sdk-reference.md`).
+  nachweisen; dabei im Coherent Debugger beobachten, ob der beim VR-Eintritt
+  ersetzte Kontext unter „Inspectable web views“ weiterlebt und weiter sendet.
 - [ ] WASAPI Shared Mode gegen das VR-Audiogerät bei laufendem MSFS nachweisen.
-
-## Bedingte Rückfallebene
-
-- [ ] Nur falls ein eigenes WASM-Modul benötigt wird: Laden eines mit der
-  rekonstruierten SDK-Clang-Toolchain gebauten Moduls in MSFS nachweisen.

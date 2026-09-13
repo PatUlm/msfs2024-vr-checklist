@@ -38,6 +38,10 @@ ist nicht vorgesehen.
   berücksichtigen.
 - Die EFB-Seite braucht eine eigene Ambient-Deklaration für die nicht
   typisierte CommBus-API.
+- Die Nutzlast bleibt bewusst klein: Der Zustandssnapshot ist eine
+  Zusammenfassung ohne Item-Listen von etwa 1 KB, der State-Request umfasst
+  wenige Bytes. Die maximale CommBus-Nutzlast ist nicht gemessen. Sobald das
+  Protokoll große Nachrichten benötigt, ist dieser Nachweis vorher zu führen.
 - Beide Richtungen sind im Custom-EFB-Kontext bestätigt. Die Entscheidung
   bleibt vorgeschlagen, bis auch der EFB-Lifecycle in MSFS bestätigt ist. Die
   verbleibenden Nachweise stehen ausschließlich in

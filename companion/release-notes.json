@@ -3,6 +3,15 @@
   "companionSince": "0.3.0",
   "releases": [
     {
+      "version": "0.9.1",
+      "date": "2026-09-14",
+      "highlight": "Section navigation now sits above the group heading, keeping the heading next to its checklist items.",
+      "features": [
+        "Navigation buttons are about one third shorter while retaining their text size."
+      ],
+      "fixes": []
+    },
+    {
       "version": "0.9.0",
       "date": "2026-09-13",
       "highlight": "Completed checklist groups carry a green check mark in the EFB, and the companion announces every finished group with a spoken Checklist completed.",

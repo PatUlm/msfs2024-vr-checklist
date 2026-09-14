@@ -16,15 +16,11 @@ Untersuchungen bleiben über die Git-Historie nachvollziehbar.
   Navigationsbuttons und in der Gruppenüberschrift.
 - Der Teststand vom 2026-09-14 bestätigte außerhalb von VR die Navigation
   oberhalb der Gruppenüberschrift und die flacheren Buttons. Release 0.9.1
-  wurde ausdrücklich ohne zusätzlichen VR-Sichttest freigegeben; dieser
-  Nachweis bleibt offen.
+  wurde ausdrücklich ohne zusätzlichen VR-Sichttest freigegeben.
 
 ## Offene visuelle Nachweise
 
-- [ ] Navigation oberhalb der Gruppenüberschrift mit auf 2,47 em reduzierter
-  Buttonhöhe im EFB in VR prüfen: Reihenfolge und Abstände zur Item-Liste,
-  Lesbarkeit langer DA42-Gruppennamen einschließlich Erledigt-Haken sowie
-  Bedienbarkeit der flacheren Buttons.
+- Derzeit keine.
 
 ## Historische Bildreferenzen
 

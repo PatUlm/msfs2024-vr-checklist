@@ -7,6 +7,8 @@ Changelog, and the project uses Semantic Versioning.
 
 ## [Unreleased]
 
+## [0.9.1] - 2026-09-14
+
 ### Changed
 
 - Section navigation buttons now sit above the group heading, keeping the

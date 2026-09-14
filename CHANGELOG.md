@@ -7,6 +7,12 @@ Changelog, and the project uses Semantic Versioning.
 
 ## [Unreleased]
 
+### Changed
+
+- Section navigation buttons now sit above the group heading, keeping the
+  heading next to its checklist items. Buttons are about one third shorter
+  while retaining their text size.
+
 ## [0.9.0] - 2026-09-13
 
 ### Added

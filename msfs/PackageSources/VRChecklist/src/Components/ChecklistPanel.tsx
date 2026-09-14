@@ -240,14 +240,13 @@ export function renderChecklistPanel(
             id={`${checklist.id}-${section.id}`}
           >
             <div class="checklist-section__sticky">
+              {renderNavigation(runtime, sectionIndex, actions)}
               <header class="checklist-section__header">
                 <h2>
                   {renderCompletionMark(runtime, sectionIndex)}
                   <span>{section.title}</span>
                 </h2>
               </header>
-
-              {renderNavigation(runtime, sectionIndex, actions)}
             </div>
 
             <div

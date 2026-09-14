@@ -27,7 +27,7 @@ Iteration stehen separat in `design-qa.md`.
   damit in beiden Modi die VR-Ansicht, „etwas mehr sehen“ nur gelöst außerhalb
   von VR.
 - Die Dichte der Items ist in beiden Profilen gleich: 3 em Mindesthöhe für
-  einfache Items, 2 em Checkbox, 3,65 em Navigationshöhe, 0,41 em Abstand
+  einfache Items, 2 em Checkbox, 2,47 em Navigationshöhe, 0,41 em Abstand
   zwischen Items. Condition, Alternative, Note oder Review-Inhalt dürfen das
   Item vertikal vergrößern. Im VR-Profil steht der Fortschrittsbalken unter
   dem Flugzeugnamen, im Nicht-VR-Profil daneben.
@@ -43,8 +43,12 @@ Iteration stehen separat in `design-qa.md`.
 - Der aktuelle Gruppenname ist visuell dominant. Gruppennummern werden nicht
   angezeigt: Die Checklisten sind immer fortlaufend, die Nummer trug keine
   zusätzliche Information und kostete Platz in den Navigationsbuttons.
-- Darunter liegen zwei gleichwertige Navigationsbuttons mit jeweils 50 Prozent
-  Breite. Sie zeigen ausschließlich den Namen der vorherigen beziehungsweise
+- Oberhalb des Gruppennamens liegen zwei gleichwertige Navigationsbuttons mit
+  jeweils 50 Prozent Breite. Die Reihenfolge lautet Navigation, Gruppenname,
+  Item-Liste, damit die Überschrift direkt bei ihrer Checkliste steht. Die
+  Buttons sind mit 2,47 em Mindesthöhe rund ein Drittel flacher als zuvor;
+  ihre Schriftgröße bleibt erhalten.
+  Sie zeigen ausschließlich den Namen der vorherigen beziehungsweise
   nächsten Gruppe; zusätzliche Texte wie `PREVIOUS` und `NEXT` sowie
   Richtungspfeile sind visuell redundant. Der Verzicht auf die Pfeile schafft
   Platz, der gerade in VR zählt, und lässt die Leiste ruhiger wirken. Die

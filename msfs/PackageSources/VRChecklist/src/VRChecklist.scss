@@ -225,7 +225,7 @@
 }
 
 .checklist-section__header {
-  margin: 0 0.235em 1em;
+  margin: 1em 0.235em 0;
 }
 
 .checklist-section h2 {
@@ -278,8 +278,8 @@
 
   width: 50%;
   min-width: 0;
-  min-height: 3.647em;
-  padding: 0.529em 0.824em;
+  min-height: 2.471em;
+  padding: 0.353em 0.824em;
   border: 0.059em solid var(--checklist-border);
   border-radius: 0.529em;
   box-sizing: border-box;

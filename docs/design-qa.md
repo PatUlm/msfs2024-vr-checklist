@@ -14,10 +14,17 @@ Untersuchungen bleiben über die Git-Historie nachvollziehbar.
   DA42-Gruppennamen in VR.
 - Der Teststand vom 2026-09-13 bestätigte den grünen Gruppen-Haken in den
   Navigationsbuttons und in der Gruppenüberschrift.
+- Der Teststand vom 2026-09-14 bestätigte außerhalb von VR die Navigation
+  oberhalb der Gruppenüberschrift und die flacheren Buttons. Release 0.9.1
+  wurde ausdrücklich ohne zusätzlichen VR-Sichttest freigegeben; dieser
+  Nachweis bleibt offen.
 
 ## Offene visuelle Nachweise
 
-- Derzeit keine.
+- [ ] Navigation oberhalb der Gruppenüberschrift mit auf 2,47 em reduzierter
+  Buttonhöhe im EFB in VR prüfen: Reihenfolge und Abstände zur Item-Liste,
+  Lesbarkeit langer DA42-Gruppennamen einschließlich Erledigt-Haken sowie
+  Bedienbarkeit der flacheren Buttons.
 
 ## Historische Bildreferenzen
 

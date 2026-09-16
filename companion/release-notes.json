@@ -3,6 +3,18 @@
   "companionSince": "0.3.0",
   "releases": [
     {
+      "version": "0.10.0",
+      "date": "2026-09-16",
+      "highlight": "Choose where checklist announcements play, independently of the Windows default audio output.",
+      "features": [
+        "The Settings dialog remembers your chosen audio device across app restarts.",
+        "Recently selected devices appear first, with Windows default always at the top.",
+        "Test sound plays Checklist completed on the selected output without changing checklist progress.",
+        "Unavailable devices keep their selection until they reconnect or you choose another output."
+      ],
+      "fixes": []
+    },
+    {
       "version": "0.9.1",
       "date": "2026-09-14",
       "highlight": "Section navigation now sits above the group heading, keeping the heading next to its checklist items.",

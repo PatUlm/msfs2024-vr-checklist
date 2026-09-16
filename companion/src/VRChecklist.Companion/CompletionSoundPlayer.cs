@@ -1,4 +1,5 @@
 using System.Runtime.Versioning;
+using NAudio.CoreAudioApi;
 using NAudio.Wave;
 using NAudio.Wave.SampleProviders;
 
@@ -6,7 +7,8 @@ namespace VRChecklist.Companion;
 
 /*
  * Plays the embedded "Checklist completed" clip on the Windows default output
- * device through WASAPI in shared mode (ADR 0004). The Opus clip is decoded
+ * device or a selected endpoint through WASAPI in shared mode (ADR 0004).
+ * The Opus clip is decoded
  * once at construction and converted to stereo float, the usual shared-mode
  * mix format, so the audio engine mixes it without touching the MSFS stream.
  * A failed playback is reported through the returned task; it must never
@@ -17,8 +19,11 @@ public sealed class CompletionSoundPlayer : IDisposable
 {
     private const int LatencyMilliseconds = 200;
     private readonly OpusClip clip;
+    private readonly Func<string?> getDeviceId;
     private readonly object gate = new();
     private WasapiPlayer? output;
+    private MMDevice? outputEndpoint;
+    private WaveStream? outputReader;
     private bool disposed;
 
     public CompletionSoundPlayer()
@@ -26,10 +31,11 @@ public sealed class CompletionSoundPlayer : IDisposable
     {
     }
 
-    public CompletionSoundPlayer(OpusClip clip)
+    public CompletionSoundPlayer(OpusClip clip, Func<string?>? getDeviceId = null)
     {
         ArgumentNullException.ThrowIfNull(clip);
         this.clip = clip;
+        this.getDeviceId = getDeviceId ?? (() => null);
     }
 
     /*
@@ -49,6 +55,7 @@ public sealed class CompletionSoundPlayer : IDisposable
             try
             {
                 var reader = clip.OpenRead();
+                outputReader = reader;
                 ISampleProvider samples = reader.ToSampleProvider();
 
                 if (samples.WaveFormat.Channels == 1)
@@ -56,14 +63,23 @@ public sealed class CompletionSoundPlayer : IDisposable
                     samples = new MonoToStereoSampleProvider(samples);
                 }
 
+                using var enumerator = new MMDeviceEnumerator();
+                var deviceId = getDeviceId();
+                outputEndpoint = deviceId is null
+                    ? enumerator.GetDefaultAudioEndpoint(DataFlow.Render, Role.Console)
+                    : enumerator.GetDevice(deviceId);
+                if (outputEndpoint.State != DeviceState.Active)
+                {
+                    throw new InvalidOperationException("Selected audio output is unavailable.");
+                }
                 var device = new WasapiPlayerBuilder()
+                    .WithDevice(outputEndpoint)
                     .WithSharedMode()
                     .WithLatency(LatencyMilliseconds)
                     .Build();
+                output = device;
                 device.PlaybackStopped += (_, eventArgs) =>
                 {
-                    reader.Dispose();
-
                     if (eventArgs.Exception is null)
                     {
                         completion.TrySetResult();
@@ -72,13 +88,22 @@ public sealed class CompletionSoundPlayer : IDisposable
                     {
                         completion.TrySetException(eventArgs.Exception);
                     }
+
+                    // Never dispose/join the native playback thread inside its callback.
+                    _ = Task.Run(() =>
+                    {
+                        lock (gate)
+                        {
+                            if (ReferenceEquals(output, device)) StopCurrentOutput();
+                        }
+                    });
                 };
                 device.Init(new SampleToWaveProvider(samples));
                 device.Play();
-                output = device;
             }
             catch (Exception error)
             {
+                StopCurrentOutput();
                 completion.TrySetException(error);
             }
         }
@@ -105,19 +130,20 @@ public sealed class CompletionSoundPlayer : IDisposable
         var current = output;
         output = null;
 
-        if (current is null)
-        {
-            return;
-        }
-
         try
         {
-            current.Stop();
-            current.Dispose();
+            current?.Dispose();
         }
         catch (Exception)
         {
             // A device that vanished while playing has nothing left to release.
+        }
+        finally
+        {
+            outputReader?.Dispose();
+            outputReader = null;
+            outputEndpoint?.Dispose();
+            outputEndpoint = null;
         }
     }
 }

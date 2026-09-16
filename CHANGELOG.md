@@ -7,6 +7,16 @@ Changelog, and the project uses Semantic Versioning.
 
 ## [Unreleased]
 
+### Added
+
+- Added a modal companion settings dialog to select and remember a Windows
+  audio output independently of the system default. A test button in the
+  dialog plays "Checklist completed" on that output. Unavailable
+  devices keep their selection until they reconnect or another output is chosen.
+  Windows default stays first in the device list, followed by the most recently
+  selected outputs; this order is remembered across app restarts and explained
+  beside the device selection.
+
 ## [0.9.1] - 2026-09-14
 
 ### Changed

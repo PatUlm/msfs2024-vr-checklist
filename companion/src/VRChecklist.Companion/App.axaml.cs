@@ -18,17 +18,26 @@ public sealed partial class App : Application
         {
             connectionService = new ChecklistConnectionService();
             var viewModel = new MainWindowViewModel(connectionService);
-            desktop.MainWindow = new MainWindow(
+            var audioSettings = new AudioOutputSettings();
+            var window = new MainWindow(
                 ReleaseNotesCatalog.Load(),
                 ChecklistCatalog.Load())
             {
                 DataContext = viewModel,
             };
+            desktop.MainWindow = window;
 
             if (OperatingSystem.IsWindows())
             {
-                AnnounceGroupCompletion(connectionService, viewModel);
+                AnnounceGroupCompletion(connectionService, viewModel, audioSettings);
             }
+            window.AudioSettings = new AudioSettingsViewModel(
+                audioSettings,
+                () => OperatingSystem.IsWindows() ? AudioOutputDevices.Enumerate() : [],
+                () => Task.Run(() => OperatingSystem.IsWindows() && completionSound is { } player
+                    ? player.PlayAsync()
+                    : Task.FromException(new InvalidOperationException("Audio is unavailable."))));
+            if (audioSettings.LoadError is { } loadError) viewModel.ReportAudioError(loadError);
 
             desktop.Exit += (_, _) =>
             {
@@ -54,13 +63,15 @@ public sealed partial class App : Application
     [System.Runtime.Versioning.SupportedOSPlatform("windows")]
     private void AnnounceGroupCompletion(
         ChecklistConnectionService service,
-        MainWindowViewModel viewModel)
+        MainWindowViewModel viewModel,
+        AudioOutputSettings audioSettings)
     {
         CompletionSoundPlayer player;
 
         try
         {
-            player = new CompletionSoundPlayer();
+            player = new CompletionSoundPlayer(
+                OpusClip.LoadEmbeddedCompletion(), () => audioSettings.Current.DeviceId);
         }
         catch (Exception error)
         {

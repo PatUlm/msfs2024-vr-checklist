@@ -11,6 +11,8 @@ public sealed partial class MainWindow : Window
     private readonly IReadOnlyList<ChecklistDocument> checklists;
     private ReleaseNotesWindow? releaseNotesWindow;
     private ChecklistsWindow? checklistsWindow;
+    private SettingsWindow? settingsWindow;
+    public AudioSettingsViewModel? AudioSettings { get; set; }
     private readonly DispatcherTimer copyFeedbackTimer;
 
     public MainWindow()
@@ -37,6 +39,26 @@ public sealed partial class MainWindow : Window
     {
         copyFeedbackTimer.Stop();
         base.OnClosed(args);
+    }
+
+    private async void OnSettingsClick(object? sender, RoutedEventArgs args)
+    {
+        if (settingsWindow is not null)
+        {
+            settingsWindow.Activate();
+            return;
+        }
+        if (AudioSettings is null) return;
+        var window = new SettingsWindow(AudioSettings);
+        settingsWindow = window;
+        try
+        {
+            await window.ShowDialog(this);
+        }
+        finally
+        {
+            if (ReferenceEquals(settingsWindow, window)) settingsWindow = null;
+        }
     }
 
     private async void OnCopyAircraftIdentityClick(object? sender, RoutedEventArgs args)

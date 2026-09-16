@@ -1,0 +1,50 @@
+<Window
+    x:Class="VRChecklist.Companion.SettingsWindow"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:vm="using:VRChecklist.Companion"
+    x:DataType="vm:AudioSettingsViewModel"
+    Title="VR Checklist — Settings"
+    Icon="avares://VRChecklist.Companion/Assets/app-icon.ico"
+    Width="600" MinWidth="480" SizeToContent="Height"
+    WindowStartupLocation="CenterOwner"
+    Background="#10151D" FontFamily="Segoe UI"
+    RequestedThemeVariant="Dark">
+  <StackPanel Margin="28" Spacing="20">
+    <TextBlock Foreground="#F3F6FA" FontSize="28" FontWeight="SemiBold" Text="Settings" />
+    <Border Background="#18212C" BorderBrush="#273646" BorderThickness="1"
+            CornerRadius="10" Padding="20">
+      <StackPanel Spacing="14">
+        <TextBlock Foreground="#F3F6FA" FontSize="18" FontWeight="SemiBold" Text="Audio output" />
+        <TextBlock Foreground="#AAB4C0" TextWrapping="Wrap"
+                   Text="Choose where checklist announcements play. List sorted by recent use." />
+        <ComboBox ItemsSource="{Binding Devices}"
+                  SelectedItem="{Binding SelectedDevice, Mode=TwoWay}"
+                  IsEnabled="{Binding CanSelect}" DropDownOpened="OnOutputListOpened"
+                  HorizontalAlignment="Stretch" MinHeight="40" FontSize="16"
+                  Background="#223246" BorderBrush="#36516D" Foreground="#F3F6FA"
+                  AutomationProperties.Name="Audio output">
+          <ComboBox.ItemTemplate>
+            <DataTemplate x:DataType="vm:AudioOutputDevice">
+              <TextBlock Text="{Binding DisplayName}" TextWrapping="Wrap" />
+            </DataTemplate>
+          </ComboBox.ItemTemplate>
+        </ComboBox>
+        <Button Classes="icon-button" Click="OnTestSoundClick" IsEnabled="{Binding CanTest}">
+          <StackPanel>
+            <Path Data="{StaticResource IconSpeaker}" />
+            <TextBlock Text="Test sound" />
+          </StackPanel>
+        </Button>
+        <TextBlock Foreground="#AAB4C0" TextWrapping="Wrap" Text="{Binding Status}"
+                   IsVisible="{Binding HasStatus}" />
+      </StackPanel>
+    </Border>
+    <Button Classes="icon-button" HorizontalAlignment="Right" Click="OnCloseClick">
+      <StackPanel>
+        <Path Data="{StaticResource IconClose}" />
+        <TextBlock Text="Close" />
+      </StackPanel>
+    </Button>
+  </StackPanel>
+</Window>

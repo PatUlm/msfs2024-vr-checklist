@@ -207,6 +207,28 @@ Iteration stehen separat in `design-qa.md`.
   Kennung, bei erkannter Checkliste, nach Verbindungswechseln oder einem
   Protokollfehler ist er ausgeblendet, bis wieder ein passender Snapshot vorliegt.
 
+## Audioeinstellungen der Begleit-App
+
+- `Settings` öffnet einen modalen Dialog über dem Dashboard. Die kurzen
+  Einstellungen brauchen keine parallele Bedienung des Hauptfensters;
+  Simulatorverbindung und Sprachausgabe laufen im Hintergrund weiter.
+- `Audio output` bietet `Windows default` und die aktiven Windows-Ausgabegeräte.
+  Die Auswahl wird sofort gespeichert und gilt ab der nächsten Ansage.
+  `Test sound` steht ausschließlich im Settings-Dialog und spielt
+  `Checklist completed` auf dieser Auswahl ab, ohne den Checklistenfortschritt
+  zu ändern.
+- `Windows default` steht immer zuerst. Danach folgen Geräte nach der letzten
+  bewussten Auswahl, zuletzt gewählt zuerst; noch nie gewählte Geräte folgen
+  alphabetisch. Die Reihenfolge bleibt über Neustarts und Gerätewechsel hinweg
+  gespeichert. Der Wechsel auf `Windows default` erhält die Gerätehistorie.
+  Die neue Reihenfolge erscheint beim nächsten Öffnen der Liste.
+- Ein fehlendes Gerät bleibt mit dem Zusatz `(unavailable)` ausgewählt; es gibt
+  keinen stillen Wechsel auf ein anderes Gerät. Die Geräteliste aktualisiert
+  sich beim Öffnen und Aktivieren des Fensters sowie beim Öffnen des Dropdowns.
+  Ein wieder verfügbares Gerät wird über seine gespeicherte ID erkannt.
+- Speicher- und Wiedergabefehler erscheinen als Text im Settings-Dialog. Der
+  Checklistenablauf bleibt unabhängig davon bedienbar.
+
 ## Release Notes der Begleit-App
 
 - Die Companion-App bietet einen sichtbar benannten Button `Release Notes`.

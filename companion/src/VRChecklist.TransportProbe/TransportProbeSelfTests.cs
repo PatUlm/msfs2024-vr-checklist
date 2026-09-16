@@ -72,6 +72,12 @@ internal static class TransportProbeSelfTests
             ("rejects an embedded checklist without sections", RejectsChecklistWithoutSections),
             ("formats a checklist as Markdown-like text", FormatsChecklistAsMarkdownLikeText),
             ("decodes the embedded completion clip", DecodesEmbeddedCompletionClip),
+            ("persists audio endpoint IDs and restores Windows default", AudioSettingsSelfTests.PersistsEndpoint),
+            ("sorts audio outputs by recent selection with default first", AudioSettingsSelfTests.OrdersRecentOutputs),
+            ("loads older audio settings and normalizes device history", AudioSettingsSelfTests.MigratesAudioHistory),
+            ("keeps missing audio outputs selected and recovers by ID", AudioSettingsSelfTests.RecoversMissingEndpoint),
+            ("handles unreadable settings and failed saves", AudioSettingsSelfTests.HandlesSettingsFailures),
+            ("uses the saved output for test playback and handles failures", AudioSettingsSelfTests.TestsSelectedOutput),
         ];
 
         var failures = 0;

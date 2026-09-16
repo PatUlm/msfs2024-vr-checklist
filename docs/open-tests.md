@@ -15,4 +15,6 @@ Produktentscheidung.
 - [ ] CommBus-Registrierung und -Zustellung über Nicht-VR → VR → Nicht-VR
   nachweisen; dabei im Coherent Debugger beobachten, ob der beim VR-Eintritt
   ersetzte Kontext unter „Inspectable web views“ weiterlebt und weiter sendet.
-- [ ] WASAPI Shared Mode gegen das VR-Audiogerät bei laufendem MSFS nachweisen.
+- [ ] Im Companion unter `Settings` das VR-Headset explizit auswählen und bei
+  laufendem MSFS im selben Dialog `Test sound` drücken: `Checklist completed`
+  auf dem gewählten Gerät hören.

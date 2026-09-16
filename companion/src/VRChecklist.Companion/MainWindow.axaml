@@ -134,10 +134,16 @@
       </Grid>
     </Border>
 
-    <Grid Grid.Row="3" ColumnDefinitions="*,Auto">
-      <TextBlock Foreground="#718095" FontSize="12"
+    <Grid Grid.Row="3" ColumnDefinitions="*,Auto" RowDefinitions="Auto,Auto" RowSpacing="14">
+      <Button Grid.ColumnSpan="2" Classes="icon-button" Click="OnSettingsClick" HorizontalAlignment="Left">
+        <StackPanel>
+          <Path Data="{StaticResource IconSettings}" />
+          <TextBlock Text="Settings" />
+        </StackPanel>
+      </Button>
+      <TextBlock Grid.Row="1" Foreground="#718095" FontSize="12"
                  Text="{Binding EfbVersion, StringFormat='EFB {0}'}" />
-      <TextBlock Grid.Column="1" Foreground="#718095" FontSize="12"
+      <TextBlock Grid.Row="1" Grid.Column="1" Foreground="#718095" FontSize="12"
                  Text="{Binding CompanionVersion, StringFormat='Companion {0}'}" />
     </Grid>
   </Grid>

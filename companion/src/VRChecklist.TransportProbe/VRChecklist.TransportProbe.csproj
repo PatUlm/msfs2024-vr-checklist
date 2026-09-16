@@ -9,6 +9,9 @@
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="../VRChecklist.Companion/AudioOutputSettings.cs" Link="AudioOutputSettings.cs" />
+    <Compile Include="../VRChecklist.Companion/AudioOutputDevices.cs" Link="AudioOutputDevices.cs" />
+    <Compile Include="../VRChecklist.Companion/AudioSettingsViewModel.cs" Link="AudioSettingsViewModel.cs" />
     <Compile Include="../VRChecklist.Companion/ChecklistConnectionService.cs"
              Link="ChecklistConnectionService.cs" />
     <Compile Include="../VRChecklist.Companion/ChecklistCatalog.cs"

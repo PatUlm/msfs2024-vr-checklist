@@ -8,8 +8,10 @@ Windows-Begleit-App. Technische Entscheidungen stehen in den
 
 Status: **In Umsetzung — Transportdurchstich und Status-App sind in MSFS
 bestätigt, die Offline-Release-Notes sind umgesetzt, der Audio-Nachweis mit
-einer Dummy-Datei ist am 2026-09-13 in MSFS bestätigt; als Nächstes folgt die
-produktive Audioausgabe mit Gerätewahl.**
+einer Dummy-Datei ist am 2026-09-13 in MSFS bestätigt. WASAPI Shared Mode über
+das Windows-Standardgerät funktioniert bei laufendem MSFS in Nicht-VR und VR
+(Nutzerbestätigung vom 2026-09-16). Die explizite Gerätewahl ist umgesetzt;
+ihr MSFS-Nachweis steht noch aus.**
 
 ## Umsetzungsreihenfolge
 
@@ -35,7 +37,8 @@ Abnahmekriterien weiter unten bleiben bestehen.
    eindeutigen Übergang einer Gruppe zu vollständig erledigt genau einmal über
    das Windows-Standardgerät abgespielt. Die Wahl von Stimme und TTS-Anbieter
    ist dafür ausdrücklich keine Voraussetzung.
-5. **Produktive Audioausgabe:** Gerätewahl und WASAPI Shared Mode werden mit dem
+5. **Produktive Audioausgabe:** Die explizite Gerätewahl ergänzt den bereits in
+   Nicht-VR und VR bestätigten WASAPI-Shared-Mode-Pfad. Sie wird mit dem
    VR-Audiogerät bestätigt. Erst danach werden Stimme, Anbieter und Klangprofile
    entschieden und die produktiven Sprachassets vorab gerendert.
 

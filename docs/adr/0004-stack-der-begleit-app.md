@@ -1,6 +1,6 @@
 # ADR 0004: Stack der Begleit-App — .NET 10 mit Avalonia
 
-- **Status:** Akzeptiert — Status-App umgesetzt, Audio offen
+- **Status:** Akzeptiert — Status-App und grundlegende Audioausgabe umgesetzt
 - **Datum:** 2026-08-26, Status-App bestätigt am 2026-08-29
 - **Betrifft:** Phase 3
 - **Technische Grundlage:**
@@ -40,8 +40,8 @@ keine unnötige GPU- oder CPU-Last erzeugen.
   systemweit wirksamer Low-Latency-Pfad sind ausgeschlossen.
 - Das Ausgabegerät wird über seine stabile Geräte-ID, nicht über den sichtbaren
   Namen gespeichert. Audiostreams werden nur bei Bedarf geöffnet.
-- CommBus und WASAPI müssen vor der produktiven Umsetzung anhand der Punkte in
-  [`../open-tests.md`](../open-tests.md) in MSFS bestätigt werden.
+- Die verbleibenden Nachweise für CommBus-Lifecycle und explizite Gerätewahl
+  werden anhand der Punkte in [`../open-tests.md`](../open-tests.md) geführt.
 
 ## Verworfene Alternativen
 

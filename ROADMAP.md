@@ -13,14 +13,12 @@ stehen in den jeweils verlinkten Dokumenten.
 - [x] **Phase 2 – Bestätigung per Taste oder HOTAS:** `SET PLASMA OFF` erreicht
   G36, DA42, H125 und MH-60; die Bestätigungseingabe ist seit 2026-08-29
   abgenommen ([ADR 0002](docs/adr/0002-bestaetigungseingabe-in-sim-key-interception.md)).
-- [ ] **Phase 3 – Begleit-App und Sprachausgabe:** Transportdurchstich,
-  Status-App, Offline-Release-Notes, Audio-Nachweis mit Dummy-Datei und danach
-  die produktive, vorab gerenderte Sprachausgabe folgen in dieser Reihenfolge.
-  Der minimale CommBus-Client hat den bidirektionalen Transport in MSFS
-  bestätigt. Status-App und Offline-Release-Notes sind umgesetzt; als Nächstes
-  folgen die priorisierten Korrekturen und Härtungen vor dem Audio-Nachweis. Die
-  TTS-Anbieterwahl blockiert den Phasenstart nicht
+- [ ] **Phase 3 – Begleit-App und Sprachausgabe:** Transportdurchstich und
+  Status-App sind in MSFS bestätigt, Offline-Release-Notes sind umgesetzt.
+  Der Audio-Nachweis mit einer Dummy-Datei ist seit 2026-09-13 in MSFS bestätigt.
+  WASAPI Shared Mode über das Windows-Standardgerät ist in Nicht-VR und VR
+  bestätigt. Die explizite Audio-Gerätewahl ist umgesetzt; ihr MSFS-Nachweis
+  steht noch aus. Danach werden Stimme, TTS-Anbieter und Klangprofile
+  entschieden und die produktiven Sprachassets vorab gerendert
   ([Produktanforderungen](docs/phase-3-requirements.md),
-  [Architekturentscheidungen](docs/adr/README.md)). Vor dem Audioausbau werden
-  die priorisierten Korrekturen und Härtungen aus dem
-  [Umsetzungs-Backlog](docs/implementation-backlog.md) abgearbeitet.
+  [Architekturentscheidungen](docs/adr/README.md)).

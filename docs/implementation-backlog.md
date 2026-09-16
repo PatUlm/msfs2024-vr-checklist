@@ -16,11 +16,3 @@ Projektdokumentation nachvollziehbar.
 Offene visuelle Abweichungen bleiben ausschließlich in `design-qa.md`, noch
 ausstehende MSFS-Laufzeitnachweise ausschließlich in `open-tests.md`. Dieser
 Backlog dupliziert diese Listen nicht.
-
-## Querformat-Layout
-
-- [ ] Die Orientation-Einstellung des EFB vertauscht Breite und Höhe der
-  Layoutbox. Mit der kurzen Seite als Skalierungsbasis bleibt die Textgröße im
-  Querformat gleich und es sind weniger Zeilen sichtbar. Ob ein eigenes
-  Querformat-Layout nötig ist, wird erst nach einem MSFS-Nachweis im
-  Querformat entschieden.

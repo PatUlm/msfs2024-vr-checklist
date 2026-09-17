@@ -10,8 +10,10 @@ Status: **In Umsetzung — Transportdurchstich und Status-App sind in MSFS
 bestätigt, die Offline-Release-Notes sind umgesetzt, der Audio-Nachweis mit
 einer Dummy-Datei ist am 2026-09-13 in MSFS bestätigt. WASAPI Shared Mode über
 das Windows-Standardgerät funktioniert bei laufendem MSFS in Nicht-VR und VR
-(Nutzerbestätigung vom 2026-09-16). Die explizite Gerätewahl ist umgesetzt;
-ihr MSFS-Nachweis steht noch aus.**
+(Nutzerbestätigung vom 2026-09-16). Auch die explizite Gerätewahl ist bestätigt:
+`Checklist completed` ist bei laufendem MSFS über `Settings` → `Test sound`
+auf dem ausgewählten VR-Headset hörbar (Nutzerbestätigung vom 2026-09-17).
+Als Nächstes werden Stimme, Anbieter und Klangprofile entschieden.**
 
 ## Umsetzungsreihenfolge
 
@@ -38,9 +40,9 @@ Abnahmekriterien weiter unten bleiben bestehen.
    das Windows-Standardgerät abgespielt. Die Wahl von Stimme und TTS-Anbieter
    ist dafür ausdrücklich keine Voraussetzung.
 5. **Produktive Audioausgabe:** Die explizite Gerätewahl ergänzt den bereits in
-   Nicht-VR und VR bestätigten WASAPI-Shared-Mode-Pfad. Sie wird mit dem
-   VR-Audiogerät bestätigt. Erst danach werden Stimme, Anbieter und Klangprofile
-   entschieden und die produktiven Sprachassets vorab gerendert.
+   Nicht-VR und VR bestätigten WASAPI-Shared-Mode-Pfad und ist mit dem
+   VR-Audiogerät bestätigt. Nun werden Stimme, Anbieter und Klangprofile
+   entschieden und anschließend die produktiven Sprachassets vorab gerendert.
 
 Der Transport verwendet ein versioniertes Nachrichtenprotokoll. Ein
 vollständiger Zustandssnapshot enthält mindestens Protokollversion, EFB-Version,

@@ -12,7 +12,7 @@
       }
     ]
   },
-  "revision": "2026-09-04",
+  "revision": "2026-09-18",
   "sections": [
     {
       "id": "departure",
@@ -66,7 +66,8 @@
           "id": "approach-speed-95",
           "challenge": "Approach Speed",
           "response": "95 kt",
-          "kind": "action"
+          "kind": "action",
+          "speech": "Approach speed: 95 knots."
         },
         {
           "id": "flaps-approach",
@@ -78,7 +79,8 @@
           "id": "approach-speed-80",
           "challenge": "Landing Speed",
           "response": "80 kt",
-          "kind": "action"
+          "kind": "action",
+          "speech": "Landing speed: 80 knots."
         },
         {
           "id": "flaps-full",

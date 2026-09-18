@@ -11,7 +11,7 @@
       }
     ]
   },
-  "revision": "2026-09-02",
+  "revision": "2026-09-18",
   "sections": [
     {
       "id": "before-start",
@@ -27,7 +27,8 @@
           "id": "twist-grip",
           "challenge": "Twist Grip",
           "response": "IDLE",
-          "kind": "action"
+          "kind": "action",
+          "speech": "Twist grip: Idle."
         },
         {
           "id": "battery-master",
@@ -153,7 +154,8 @@
           "id": "twist-grip",
           "challenge": "Twist Grip",
           "response": "IDLE",
-          "kind": "action"
+          "kind": "action",
+          "speech": "Twist grip: Idle."
         },
         {
           "id": "engine-cool-down",

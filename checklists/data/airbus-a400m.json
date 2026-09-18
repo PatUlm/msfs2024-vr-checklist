@@ -11,7 +11,7 @@
       }
     ]
   },
-  "revision": "2026-09-04",
+  "revision": "2026-09-18",
   "sections": [
     {
       "id": "electrical-power-up",
@@ -36,19 +36,22 @@
           "id": "nav-light",
           "challenge": "NAV Light",
           "response": "On",
-          "kind": "action"
+          "kind": "action",
+          "speech": "Navigation light: On."
         },
         {
           "id": "apu",
           "challenge": "APU",
           "response": "Start",
-          "kind": "action"
+          "kind": "action",
+          "speech": "A P U: Start."
         },
         {
           "id": "apu-bleed",
           "challenge": "APU Bleed",
           "response": "On",
-          "kind": "action"
+          "kind": "action",
+          "speech": "A P U bleed: On."
         },
         {
           "id": "gadirs",
@@ -161,7 +164,8 @@
           "id": "beacon",
           "challenge": "Beacon",
           "response": "BRIGHT",
-          "kind": "action"
+          "kind": "action",
+          "speech": "Beacon: Bright."
         },
         {
           "id": "eng-mode",
@@ -201,25 +205,29 @@
           "id": "apu-bleed",
           "challenge": "APU Bleed",
           "response": "Off",
-          "kind": "action"
+          "kind": "action",
+          "speech": "A P U bleed: Off."
         },
         {
           "id": "apu-master",
           "challenge": "APU Master",
           "response": "Off",
-          "kind": "action"
+          "kind": "action",
+          "speech": "A P U master: Off."
         },
         {
           "id": "bat-ext",
           "challenge": "BAT EXT",
           "response": "Off",
-          "kind": "action"
+          "kind": "action",
+          "speech": "B A T E X T: Off."
         },
         {
           "id": "gpu",
           "challenge": "GPU",
           "response": "Disconnect",
-          "kind": "action"
+          "kind": "action",
+          "speech": "G P U: Disconnect."
         }
       ]
     }

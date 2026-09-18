@@ -14,7 +14,7 @@
       }
     ]
   },
-  "revision": "2026-09-03",
+  "revision": "2026-09-18",
   "sections": [
     {
       "id": "before-start",
@@ -36,7 +36,8 @@
           "id": "twistgrip-throttle",
           "challenge": "Twistgrip Throttle",
           "response": "CUTOFF",
-          "kind": "verify"
+          "kind": "verify",
+          "speech": "Twistgrip throttle: Cutoff."
         },
         {
           "id": "electrical-power",
@@ -54,13 +55,15 @@
           "id": "cockpit-lights",
           "challenge": "Cabin / Panel / Instrument Lights",
           "response": "As required",
-          "kind": "action"
+          "kind": "action",
+          "speech": "Cabin, panel and instrument lights: As required."
         },
         {
           "id": "caution-warning-lights-test",
           "challenge": "Caution / Warning Lights",
           "response": "Press to Test",
           "kind": "action",
+          "speech": "Caution and warning lights: Press to test.",
           "notes": [
             "All indicators illuminate."
           ]
@@ -81,7 +84,8 @@
           "id": "starter-press",
           "challenge": "Starter",
           "response": "Press + Hold",
-          "kind": "action"
+          "kind": "action",
+          "speech": "Starter: Press and hold."
         },
         {
           "id": "twistgrip-idle",
@@ -135,7 +139,8 @@
           "id": "caution-warning-indicators-final",
           "challenge": "Caution / Warning Indicators",
           "response": "All Out",
-          "kind": "verify"
+          "kind": "verify",
+          "speech": "Caution and warning indicators: All out."
         }
       ]
     },
@@ -174,19 +179,22 @@
           "id": "collective",
           "challenge": "Collective",
           "response": "Full Down + Friction On",
-          "kind": "action"
+          "kind": "action",
+          "speech": "Collective: Full down and friction on."
         },
         {
           "id": "cyclic",
           "challenge": "Cyclic",
           "response": "Neutral + Friction On",
-          "kind": "action"
+          "kind": "action",
+          "speech": "Cyclic: Neutral and friction on."
         },
         {
           "id": "twistgrip-idle",
           "challenge": "Twistgrip Throttle",
           "response": "IDLE",
-          "kind": "action"
+          "kind": "action",
+          "speech": "Twistgrip throttle: Idle."
         },
         {
           "id": "engine-cool-down",
@@ -199,7 +207,8 @@
           "id": "bleed-air-electrical-equipment",
           "challenge": "Bleed Air / Electrical Equipment",
           "response": "Off",
-          "kind": "action"
+          "kind": "action",
+          "speech": "Bleed air and electrical equipment: Off."
         },
         {
           "id": "pedals",
@@ -211,13 +220,15 @@
           "id": "twistgrip-cutoff",
           "challenge": "Twistgrip Throttle",
           "response": "CUTOFF",
-          "kind": "action"
+          "kind": "action",
+          "speech": "Twistgrip throttle: Cutoff."
         },
         {
           "id": "generator-avionics",
           "challenge": "Generator / Avionics",
           "response": "Off",
-          "kind": "action"
+          "kind": "action",
+          "speech": "Generator and avionics: Off."
         },
         {
           "id": "rotor-brake",

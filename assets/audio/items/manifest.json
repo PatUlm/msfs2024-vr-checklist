@@ -1,0 +1,1146 @@
+{
+  "schemaVersion": 1,
+  "checklists": [
+    {
+      "id": "airbus-a400m",
+      "revision": "2026-09-18",
+      "items": 26
+    },
+    {
+      "id": "airbus-h125",
+      "revision": "2026-09-18",
+      "items": 29
+    },
+    {
+      "id": "beechcraft-bonanza-g36",
+      "revision": "2026-09-18",
+      "items": 10
+    },
+    {
+      "id": "cessna-152",
+      "revision": "2026-09-07",
+      "items": 8
+    },
+    {
+      "id": "diamond-da42",
+      "revision": "2026-09-04",
+      "items": 52
+    },
+    {
+      "id": "hughes-oh6a-500c",
+      "revision": "2026-09-18",
+      "items": 31
+    },
+    {
+      "id": "sikorsky-mh-60",
+      "revision": "2026-08-25",
+      "items": 37
+    }
+  ],
+  "assets": [
+    {
+      "file": "item-e663ff6ea32c6869.opus",
+      "sha256": "1718c39c595e872fa7b61a689aed074ae39e5301a793e090dc8ed433daf7d1f6",
+      "recipeHash": "e663ff6ea32c686980637526f09033e8de7e459099d93a2a328fad9701fe485c"
+    },
+    {
+      "file": "item-c9f90f61593067d8.opus",
+      "sha256": "1dae08fed1188d8715235d51cebad361836d1166ec5ebe94375ece6f3228a366",
+      "recipeHash": "c9f90f61593067d8a770568cebc2d7ed8716ab5e425dabe35ce02584eddfe1da"
+    },
+    {
+      "file": "item-e8f849474de09563.opus",
+      "sha256": "b38861088ab6f2f6699954df8bd5c631684baec558a29051843fe411b33e51c7",
+      "recipeHash": "e8f849474de09563c4d97bbf318b24b520985543c461dd341f927500d252f5e5"
+    },
+    {
+      "file": "item-90d51444719e262f.opus",
+      "sha256": "8c67dfd1772256b0cd768556e1a0b03075cbca9893c2945f567fcb96fd09714d",
+      "recipeHash": "90d51444719e262fa47286fe79f2ff2f5ed7a2776a9acd26073d19fc194cca22"
+    },
+    {
+      "file": "item-a9ddf85bfd50d1e7.opus",
+      "sha256": "ea8155754bc9ca651f344d7502654f502d9bc82f0b384bd6118bf82bac512d05",
+      "recipeHash": "a9ddf85bfd50d1e739157c3dca33ce9c5c1d13bcf70a146fec8fcb5da50feea1"
+    },
+    {
+      "file": "item-3fb5ad116369b0a3.opus",
+      "sha256": "14f668a0e80d012f48c3a7ee4090cfc28f99367e5891962e2fc95a9e20a8ca85",
+      "recipeHash": "3fb5ad116369b0a3b4c7f98561bed731b75f2dc89f55fa8613a8a5c393153950"
+    },
+    {
+      "file": "item-47265ebb59272729.opus",
+      "sha256": "70b5e77bab84d72ad113d69aa280958840f49983dc9f44541ea8d367acb39c44",
+      "recipeHash": "47265ebb592727298ce34722b6960ef394420636fbf137df55a0f55feb737040"
+    },
+    {
+      "file": "item-702bc2c0c63856d9.opus",
+      "sha256": "8f481bca83fdcd620e3a150e3178aad0fc378ef09d6e4584ac044e57266be50f",
+      "recipeHash": "702bc2c0c63856d9915d4f5c0e3a7835358fca9de2bfa1cdee1cac8028140c42"
+    },
+    {
+      "file": "item-64e253b664647617.opus",
+      "sha256": "8706e0ae4429f60147ccb73f8083b0f17231cafa13d878005d93451e2915608c",
+      "recipeHash": "64e253b66464761793eb02532c56dc342b85d9d2b836490d0fd74997f3379fda"
+    },
+    {
+      "file": "item-8b8f05ae7c63ccdf.opus",
+      "sha256": "2fe1b89958653827e51015caef2fa8096fa3425ced6fb13e3b6fbc9731645d6f",
+      "recipeHash": "8b8f05ae7c63ccdf28d69dac4b96ae40645efef9d246d337ea046dfedb1149d9"
+    },
+    {
+      "file": "item-1452a96d98595601.opus",
+      "sha256": "fe09932ea3a2fc90fdd223447f402f83534d4309375a1dad7473c238700dc651",
+      "recipeHash": "1452a96d985956018437c1510320a3ee3a4439e8b46f042601a36eba06cfe26f"
+    },
+    {
+      "file": "item-42563736eb392366.opus",
+      "sha256": "2e642e1e87374b9f5309786a59ad856fb458187da1d3bac5371e49f89bb574b8",
+      "recipeHash": "42563736eb392366e1bd9b1abcc5ec3415981538cefec09f6496f24699570d1a"
+    },
+    {
+      "file": "item-3aaa0a04eb3411e9.opus",
+      "sha256": "f0d1506a8ca20963332d52576b2eaef5628d18721731264a309dfbc3dda3ef2a",
+      "recipeHash": "3aaa0a04eb3411e93614fb81d05dfceaa6609acad8e1e9e9efdaaf7ba27929c2"
+    },
+    {
+      "file": "item-810236153c2aba18.opus",
+      "sha256": "980dddc994cecd99a2f637505b44444408d13758403a3aa06b2188612a5e36c5",
+      "recipeHash": "810236153c2aba18035e453a64a88b986200c9888e7175cfe7ab8671838edb26"
+    },
+    {
+      "file": "item-6e84a2d793ee6c53.opus",
+      "sha256": "122e237bf2e26bf46699118f65d38b3cb796d06ac74a213ec110f2273a655b19",
+      "recipeHash": "6e84a2d793ee6c537b7681474ba273830b60257f35b9eb4cb08f682b54119345"
+    },
+    {
+      "file": "item-59c0d70a2c80d02b.opus",
+      "sha256": "9de9c7773453a3ad85e27ba62bede34d82871bc291e8719dfc7951bb59331035",
+      "recipeHash": "59c0d70a2c80d02b2c308649c0a99f263a31cf1e637c682fae7ac5533b102dc0"
+    },
+    {
+      "file": "item-bf2c960ab5cce781.opus",
+      "sha256": "e0a4162bb9ecaf398ea826c6ab381a68084e740072d237196abd2787c069af19",
+      "recipeHash": "bf2c960ab5cce78114182aec595134da2e3aa45fcea54556ebae8ea707e6249e"
+    },
+    {
+      "file": "item-33f7457a5c84fbc5.opus",
+      "sha256": "c9d24924d3a7f9e9a5cefad497bc4753595f7f1d74c4fd9e7c588b042c5abea0",
+      "recipeHash": "33f7457a5c84fbc50b0b043b991dd64bca48421e8fc6c980285d03f8d0073273"
+    },
+    {
+      "file": "item-4ca060a947de48d4.opus",
+      "sha256": "5a29dd19d22eead8a1d5c55e7be6218d13788f9efe78deacfa25e3f6923b8d00",
+      "recipeHash": "4ca060a947de48d4f4c191d9aa113022e0583dfb6f08b9045a81854705b8bdbc"
+    },
+    {
+      "file": "item-c2d7da8643724185.opus",
+      "sha256": "8a4ca1fee69dcf78c7878b2bbcdcafc2710223d9cd60c7fd5a65bf2dd2e5222e",
+      "recipeHash": "c2d7da86437241851d00497c0249a40a6c0f3ef3be9ea4a0e52bdab77be54589"
+    },
+    {
+      "file": "item-14f996c79455efd8.opus",
+      "sha256": "8513ff03bc6c7e2b5c447a6cde2f24ecaeeb6d241f443593f10f75d0fe7fec9f",
+      "recipeHash": "14f996c79455efd882e187f67e0bd5c20c67988cd50fc2df6f8da0f98ab6c492"
+    },
+    {
+      "file": "item-e6a392036bdd6a15.opus",
+      "sha256": "533ab359d8371c3bcede7031b5a3d430e8a914846cb85f23a035c2f92b16219d",
+      "recipeHash": "e6a392036bdd6a15ec2c50e529692880d28579630cd20310827bd7f79775a972"
+    },
+    {
+      "file": "item-9a2d670c34909323.opus",
+      "sha256": "4703a59bdc2f0302ff020ad868af9636605430e3f8c2ac026b8985f573322410",
+      "recipeHash": "9a2d670c349093237a0a0308e397c7e67a27b11efc85bc9dc2322597837c2a7c"
+    },
+    {
+      "file": "item-80b139215d5ad28e.opus",
+      "sha256": "d658a95f971510bfeba6978c19d09b1d059c45075ebac051d0b1025edc957763",
+      "recipeHash": "80b139215d5ad28e473da365eb914880ad5ab3810fd75ae4c6f88d611559ede0"
+    },
+    {
+      "file": "item-ddd38fcad2250ee7.opus",
+      "sha256": "9b6e294b21c789f9c4f5debf27b05b27e022f710299f2b13de2e4229ac948791",
+      "recipeHash": "ddd38fcad2250ee7557d212eadebd32e9009331b653c822e23f4e31c50300b68"
+    },
+    {
+      "file": "item-879b6169a04b8cd9.opus",
+      "sha256": "3d17c1b9bccde368daed8c0e77787d88fca085b5c77603c43909d6e074c4689b",
+      "recipeHash": "879b6169a04b8cd91657dc357c9c2df110b5079cd0447cc547b71a2733a0dee7"
+    },
+    {
+      "file": "item-53a895c9ba5d2f35.opus",
+      "sha256": "a44f4f19edeb01029eb3205d5e90b63636338d5a138393fc9a61a6a0db1e5bda",
+      "recipeHash": "53a895c9ba5d2f350170d6c5b20cdefa5ae02e3d4c8b0806b3ddc0cf46bef8ec"
+    },
+    {
+      "file": "item-21520dc54a72aff2.opus",
+      "sha256": "869e6c3bf425a1e5f2e4a378e0bb70f026d2d1aa8e857d8e4f62e20ef28dc015",
+      "recipeHash": "21520dc54a72aff29294ec5118fd5430fc1055013b0f7be50916c6b8dfd67b31"
+    },
+    {
+      "file": "item-21f234cf802f3dc2.opus",
+      "sha256": "8aad9d93974cbba7efbc148d029a04e818fa03d7089311c3b3715cad17196245",
+      "recipeHash": "21f234cf802f3dc261192770d9fef2d8be622f7ccf8937b0cb49e3474746355e"
+    },
+    {
+      "file": "item-9d23b4fbe21711dd.opus",
+      "sha256": "103f71010223a5f5b5c75548eb221febadcd990b2d057a7a78fd2a9009964a82",
+      "recipeHash": "9d23b4fbe21711dd13ddd6b3524cc771dbbc8ab9810a97d70a6680d71a3d51b3"
+    },
+    {
+      "file": "item-e5f299772cee2b6d.opus",
+      "sha256": "67e0f63351f56eef6a05532e76aa0cc5ad5de7e4b56b0f6362c4eb7175b9a913",
+      "recipeHash": "e5f299772cee2b6d5174682a4a30a75660ba97fcd97b4a4c6a007ea5dce98ec2"
+    },
+    {
+      "file": "item-aa0da4c931cfdd97.opus",
+      "sha256": "79b187b58c76d1530a6191db6afffcd6b6d1d2d6245fac44d1469ec8a0ad24ad",
+      "recipeHash": "aa0da4c931cfdd973f524384bfce0afb31b2a193db5801d92f245847ab00bb2a"
+    },
+    {
+      "file": "item-578dcf498c3d3371.opus",
+      "sha256": "dd7b90c69db66c9201b52899c2b6d6227db565eaff910632f09e414e322712a6",
+      "recipeHash": "578dcf498c3d3371083459fde42ca1fa25e81066fef65e796b5b61b360c1d798"
+    },
+    {
+      "file": "item-93f25396e111417c.opus",
+      "sha256": "2b9137ea6d71da3d58a767ba39c9ebb47771e2365e0b0a15fdb9e15b08d4bd76",
+      "recipeHash": "93f25396e111417ce4079f70f30245bdd42b01e18a985648f5942c37dd3ff6ec"
+    },
+    {
+      "file": "item-b02cd0283a8f10e2.opus",
+      "sha256": "ca1f6a71d21f43560bcdfa803a422c3261e09481fd14f2e8fbc447a5f6fa2b3f",
+      "recipeHash": "b02cd0283a8f10e2a3347fe94614289c2f33b90fa431994241c95e6a677dd122"
+    },
+    {
+      "file": "item-6fb88cd464cdf9fe.opus",
+      "sha256": "1d55b9b3ea2b29b5bd38687ca566ac5e453ee5472cc37792f4d9be9dc44150f0",
+      "recipeHash": "6fb88cd464cdf9fefa90088baa41fb9e9382e83d6c0a3e0ab9c3c6be057eeeef"
+    },
+    {
+      "file": "item-9795e5d21a0e8158.opus",
+      "sha256": "54a8c01b3d62f850dbb4246b77f12c74645ab25bef5dbbca0f34242c6839ebcd",
+      "recipeHash": "9795e5d21a0e81585f9cc733085fbaae1a4e5a9a73b58b798f23d2a4d7e512a4"
+    },
+    {
+      "file": "item-b47804612fd27de1.opus",
+      "sha256": "64f96f1816b6d5d7d8f73e4f38ee5d0e66ff9127e4ecde6e2c6fd9c1228f0804",
+      "recipeHash": "b47804612fd27de100d6bc0ea6cc00b442a7331768206a03928aa7bc496c7697"
+    },
+    {
+      "file": "item-bf896f246aad12c5.opus",
+      "sha256": "405ec6443e1c7f04ca9ee006fead25af46536d8df081d5f9f608eaa4100b6109",
+      "recipeHash": "bf896f246aad12c540181c1e4a0cbfd40d05ebfcdf78a3824f62127e3a14744d"
+    },
+    {
+      "file": "item-fac3134372310d76.opus",
+      "sha256": "e42983c8f06fe8e62390ae384f9133805da9744bfb1b717ef9c6da730bccdf71",
+      "recipeHash": "fac3134372310d76d7f89463ec7b23e151f1421e6a7f6ebae6b7dfc79eaf1f0d"
+    },
+    {
+      "file": "item-655fc8b120acb62f.opus",
+      "sha256": "954801d6a6f538d6e5933893c98dbe970ce7ecd2139bcbf462fad3b55289b7e9",
+      "recipeHash": "655fc8b120acb62f26f45361aaa476b89cf741647967dd802d6c357c11bfe0ad"
+    },
+    {
+      "file": "item-391d41bbd545670a.opus",
+      "sha256": "93793a607b08d4447a2d4b118d63bb6edcefc49bc4f3f9e6f910ebd6255c8306",
+      "recipeHash": "391d41bbd545670a27137f14e73f5bcd31766e64f421da1b03b5b858fc444b62"
+    },
+    {
+      "file": "item-154ac2c5f001a209.opus",
+      "sha256": "6aa8a4bfe852260b3f57a9590fbd30557ed9ed283f194bc5d726d7717b4b7f3a",
+      "recipeHash": "154ac2c5f001a20973ad75fc71250740e066c4dce5d56523212c00042417990c"
+    },
+    {
+      "file": "item-272dc0a3a4abeb3c.opus",
+      "sha256": "a6efb939e17d5d1a0a111d0558bc8806ee49c92a85db3f543a2cee5444fe5670",
+      "recipeHash": "272dc0a3a4abeb3c2fb3d7b2cac8bcb82f13213344aa7802d7eb9a78d89850e0"
+    },
+    {
+      "file": "item-4af9886c0e260790.opus",
+      "sha256": "5ec3aabd771ac9d03a94c643d84fdea6c1b6e86a5facf04e4271e625ebf3149a",
+      "recipeHash": "4af9886c0e26079054bdf9b4412c4969bde0985ee063736a29c02d76cb796ed5"
+    },
+    {
+      "file": "item-ef4265d72bbdb935.opus",
+      "sha256": "b8947ae98c764e666b51ad081c98348411bb39bbba35b7ab22af4cce36f29ee7",
+      "recipeHash": "ef4265d72bbdb9358212850173e0ede5df373c3799eb78d4683c1eeeb2eb8420"
+    },
+    {
+      "file": "item-ea53b7f54fe0c796.opus",
+      "sha256": "72c3ebd1a64fcbeec5b054d1fe31a4f7a356bd973717d04a6676e521a119ad7c",
+      "recipeHash": "ea53b7f54fe0c796e92a864c8c9353eed2fbacf71b75b6225cbdc955f909e432"
+    },
+    {
+      "file": "item-95bffeaf3ab246d9.opus",
+      "sha256": "56438f8208b2fa510a0bfd8b91f9d81dfb02be7dc7bcedf98e3d3272f370133a",
+      "recipeHash": "95bffeaf3ab246d924502c3e1865c68147c12d12eb9634fe122c339d73197ebb"
+    },
+    {
+      "file": "item-beb46700cee50881.opus",
+      "sha256": "71b1989c08f2c9b94b058b4ec7e54fa00b6135af10a04db32798319d80074ad7",
+      "recipeHash": "beb46700cee508811bc4bf6ad045a7ef98dbbcb34d055317e4def1146870de84"
+    },
+    {
+      "file": "item-da4502c08f1af126.opus",
+      "sha256": "070ff8fb88fdaf55c5b5092838c97989ed3ee80dfdfb26b45adfaccce452abd7",
+      "recipeHash": "da4502c08f1af126de8e5d7b6c9220d8126c38126b37bc1efed2568138806a02"
+    },
+    {
+      "file": "item-ff5210a9d1e8fa3c.opus",
+      "sha256": "6c235e6379deb424afbd62cebfdcae805e7e2af09c32546f1e802e170852556c",
+      "recipeHash": "ff5210a9d1e8fa3cb9047b29ec669307221b64e6f83a4f5b687b9e25f09769a9"
+    },
+    {
+      "file": "item-54c0ac988a022507.opus",
+      "sha256": "0fb5cf3b358bcf10e609e901c155f8f19ef5a5d5d0a4a919a7fdf8f577a706d3",
+      "recipeHash": "54c0ac988a022507435e8c57827bef9b53fab220970b2ed0ad021e75e3b9b518"
+    },
+    {
+      "file": "item-964d760031c8874c.opus",
+      "sha256": "1971ed9a1bb1da2602abd044c1c1a41069a35f8241e155a158cd4de6900e2029",
+      "recipeHash": "964d760031c8874c2fb4c30f5b91f0ed13e0fe91042cdc11a482f5591b3bbc16"
+    },
+    {
+      "file": "item-fd940f4f5da5be39.opus",
+      "sha256": "20d8ea34f069d1550b1d7e9cdec4ab5c0c7a9bfb30af1d52abcab93448598807",
+      "recipeHash": "fd940f4f5da5be39bf4edb0011d3a0ae496f457d4761967a31e10c3af1f2c0f4"
+    },
+    {
+      "file": "item-bf061d5075ce7b91.opus",
+      "sha256": "3f5b3038a9142b4b31a26faafaa1f50f806c101ca5cc10f4bc791fa6984af8cb",
+      "recipeHash": "bf061d5075ce7b91f6f5ddaf34c69246271d1104e6f969d0b3146a714d33d7d4"
+    },
+    {
+      "file": "item-aab972ddc4516086.opus",
+      "sha256": "a696e33bfa99985266dfa8d49c05637e6ae4161b547ccf6b830b1d3625018315",
+      "recipeHash": "aab972ddc45160865d10a231df4fd9899bd7563f47fab0b4773700afa7a38b59"
+    },
+    {
+      "file": "item-a23ffe51cdab561c.opus",
+      "sha256": "080727d60205e7e840a92684dd328f31a98b99d07b48d274ec34125868b8fdd1",
+      "recipeHash": "a23ffe51cdab561cc8564fa8e01df1d11b4af5af8d2e94b82f07250cd219a105"
+    },
+    {
+      "file": "item-3e7237aa3f1c058e.opus",
+      "sha256": "260ea2ce1b322c23c703e594791409fc0cb48647dc797551dc1a2f50b56ce1f6",
+      "recipeHash": "3e7237aa3f1c058ef62389ec34001696a5623d4b099b5ce7bccbe0a2a2474a2a"
+    },
+    {
+      "file": "item-bd1fba79c07c9903.opus",
+      "sha256": "0043a35f6d423161e9d42924b2b4c8229e892d73a4ce520850c4a4f773d35223",
+      "recipeHash": "bd1fba79c07c99034ec84147c13e62c2deb97956effa325cb543a05ca2538bbe"
+    },
+    {
+      "file": "item-03a3270022471f45.opus",
+      "sha256": "0b1f0287d0fcea526e5410bc7d8f6feffc32ae3725206ad31fe58775a9c4561a",
+      "recipeHash": "03a3270022471f45170b8451645d523c0c52245aaffc7f1e1bf2c72216312562"
+    },
+    {
+      "file": "item-01c590aa06307028.opus",
+      "sha256": "4084159b063e5ff79a24cf8253f0d53dca70e364dca3f3a2ba5d64a9b9dcaeec",
+      "recipeHash": "01c590aa063070283d7dd4a53053672490d3324eb3b6c1453b40c4820be754a3"
+    },
+    {
+      "file": "item-08dbe7a9f612e63b.opus",
+      "sha256": "eec3a8ab9366d655921bddf05e1dc64ac4a87e94365d88c696da68a8d3b8e9a0",
+      "recipeHash": "08dbe7a9f612e63bbbf54ae7627e6d95593f1fdfc05b80660f747a9067f88883"
+    },
+    {
+      "file": "item-d809cf3bb47b2f8f.opus",
+      "sha256": "14f2b7289d81dd827c4a228c4042d7a5d9dd98cf5b5574e2b8f3c079f4e2c1f9",
+      "recipeHash": "d809cf3bb47b2f8f806661e0484491ff56ffe2b0d6056d33ab1dac66c190cf7a"
+    },
+    {
+      "file": "item-db7509074065e80e.opus",
+      "sha256": "c95146a09d8a4e65c778aa6aed47694af6529633168aa356393c52394044b838",
+      "recipeHash": "db7509074065e80e10feeb4128f7e0dd9e5d03a8be0acbe937647b843846b304"
+    },
+    {
+      "file": "item-42ff37e6c2494ac4.opus",
+      "sha256": "912fac422fd9a26f39578d1544bd26503bde6f8c207139266ac121c0ab8a07f2",
+      "recipeHash": "42ff37e6c2494ac401d5a09c1003eb5e94bc9080c3e48a071c8366ba8c339c7e"
+    },
+    {
+      "file": "item-a9b44662537fc31e.opus",
+      "sha256": "458cf4e9ec5d71a8d53c91af3cd61cde3f435979cd4a66212c321151c98aa5c4",
+      "recipeHash": "a9b44662537fc31e4207874c4f15992b8be0a5bd4484b033834f390bd4baa0c8"
+    },
+    {
+      "file": "item-969058f91c6817ec.opus",
+      "sha256": "5b4dce3bb1cf721936bd2322684de91a74af9aad81874139c3e0e23e5ed2250f",
+      "recipeHash": "969058f91c6817ec887405a3b4657a470baa5591fd2b3478607b74e58cf9335b"
+    },
+    {
+      "file": "item-8c0be6cf2fce91e9.opus",
+      "sha256": "1590eee9a0118fd3608bfad19e9d0c107ee46bcf136c72acf7af546cc8960767",
+      "recipeHash": "8c0be6cf2fce91e98fb8b142359a1e20854cc78ba3471a8492f74a116b43f2f0"
+    },
+    {
+      "file": "item-68b6a2ab319697fa.opus",
+      "sha256": "d7cc14fbcee9a853a8096db6b0b0e0b97ab22c3990e56ef4cc1877417c26a669",
+      "recipeHash": "68b6a2ab319697fae12208e7ccf35430d20fe080f6b8136cd9b8d7a1e02180af"
+    },
+    {
+      "file": "item-7ee523f051cbd1b4.opus",
+      "sha256": "89e831da20f8586617be53e026b5986de6c9d4b4a4efaca6d927ff815b12aee8",
+      "recipeHash": "7ee523f051cbd1b4ee1bcb3132916c36997c231eebe06aa8287bab8aba450dfc"
+    },
+    {
+      "file": "item-0d1755b522a49428.opus",
+      "sha256": "87c44c2243aa9025cf317fb13b51971bb5d233fb9cc65133c57fc2ca3d505905",
+      "recipeHash": "0d1755b522a49428b6bb8e3bc42ad2b9f40488934667d643fc52d7fded86d893"
+    },
+    {
+      "file": "item-85ca952043804cb9.opus",
+      "sha256": "2da246f6e4ac9bf01be2bc45f393f6dfdb4e4fc93f0d4a278ce2bb4c4c5dedab",
+      "recipeHash": "85ca952043804cb927b09d6d41412499146c45b1938c278fa0752d3730e26abc"
+    },
+    {
+      "file": "item-e2ee9475db4a974b.opus",
+      "sha256": "86451af885449bdbc96c941c27609d4fdaf17ea4c15e95003c9b473d9773d1eb",
+      "recipeHash": "e2ee9475db4a974b3886818cd200c8f9e9b0f79b2380371a6669c3761049036b"
+    },
+    {
+      "file": "item-33490eb7f2366453.opus",
+      "sha256": "4db10adbf1418b55216699d522ac7a5698725c874e4ca74839ce6479057944d0",
+      "recipeHash": "33490eb7f2366453a775b972dbb4e0a9edb965e03c78824bfafea39f73ae329a"
+    },
+    {
+      "file": "item-363e84d28beb3836.opus",
+      "sha256": "709b95e78e8c339843f6340494999fa96cc4f6adca35ce2e81d66f1d9fdfdae2",
+      "recipeHash": "363e84d28beb38364f8c5a0c02eea88efd198be3cb7ef57d6988622fbdd2aa69"
+    },
+    {
+      "file": "item-256980bdfe775f8c.opus",
+      "sha256": "d983211b18ba92030d0ab981cfb31304770175d6fb69fe8a15ecd86a1ad13571",
+      "recipeHash": "256980bdfe775f8ccc0a5320ed1f505484b8cfc8e6882ecb65a6261213b3c45f"
+    },
+    {
+      "file": "item-2e5cf597559b0431.opus",
+      "sha256": "d2cee6bee28de92864d311c85ce8eff2b9cca7d16c33c5d22bbbe61f9455c3d5",
+      "recipeHash": "2e5cf597559b0431e7ab0254b8080f158854bbbbc50ed068523b6a22277a89d8"
+    },
+    {
+      "file": "item-793bc2e1fa7785da.opus",
+      "sha256": "c655a2c6c60524f784c5f0c31216ad7c055f8d8154e087265f5f3997b120d741",
+      "recipeHash": "793bc2e1fa7785da700b6f14f7ba6ca3e86aa49632ba82d6650f74694ef5869d"
+    },
+    {
+      "file": "item-5accb12259995970.opus",
+      "sha256": "c13b44952ce724d49b07156f0522006c35620c419ab5ec68a70255dcb50ecc4e",
+      "recipeHash": "5accb12259995970db1d3cc7518079e9376f98e36ff6b356a93e6d15b3aebc44"
+    },
+    {
+      "file": "item-ae15cd1f38e0d2ad.opus",
+      "sha256": "a84afba9f78fcf3a8637af0ccb5c937420df0bb014fa5622f51d75c9c1ea86b4",
+      "recipeHash": "ae15cd1f38e0d2ad9d15b5887d0d2f51e5825c64df3ebd4fa51fa9b8e292298c"
+    },
+    {
+      "file": "item-bec9cbc573a9dda1.opus",
+      "sha256": "0996b4a85216e589c9b67f62f99f1d4441b320bfb7b0a49ca51f6de562c64801",
+      "recipeHash": "bec9cbc573a9dda19ba917974a2d956de58a5d8b41af4af751505b9646d1dd6d"
+    },
+    {
+      "file": "item-f0d33d89dc0a9d69.opus",
+      "sha256": "75c683e8f0be4c65352917d5f986522d85c8033e9217b2731102521c2cb65774",
+      "recipeHash": "f0d33d89dc0a9d692354ccfcc2138cf5066f7849e282a043fc8909c347b3d2a4"
+    },
+    {
+      "file": "item-18435bae45f30991.opus",
+      "sha256": "477835b4163ebce0b3dbf4a5179fddcd5aee50d3d4b2ee3f9478f8f9b996966d",
+      "recipeHash": "18435bae45f30991eabe9fdcc11e541ef075d3a65e83ec0b5b86c7b8b9ef0352"
+    },
+    {
+      "file": "item-c13c824b1498deba.opus",
+      "sha256": "8c042b5daf397324d6e4e95f10c1235c78360100ec19dff36d6eafceff537e7a",
+      "recipeHash": "c13c824b1498deba5184597defb76db21b3c444ca25c8fef48bfaa492d9b88f2"
+    },
+    {
+      "file": "item-86a9ddb40abfd906.opus",
+      "sha256": "d4768c47dbd9e7f74fe68dcfdf4d6647c045a755c3055612882b8f9c8a0cdd66",
+      "recipeHash": "86a9ddb40abfd906446c9b7f21a99c5839834ca100172a20b94ec919ca386940"
+    },
+    {
+      "file": "item-edf459f3c7330ede.opus",
+      "sha256": "e9a3870ff6c8cea00c03bcecb1fa906ed80efc6bc6e0306521e0f87662c64b89",
+      "recipeHash": "edf459f3c7330ede2e7de159f4d7caf4338a87f31de02629470c31a22b4d3bf1"
+    },
+    {
+      "file": "item-8a9768d73567005d.opus",
+      "sha256": "6bcd8f9898a256698ddc4696c7b140df3e15b235709927c8fbf8e639606d6507",
+      "recipeHash": "8a9768d73567005d680502a33e59ae7f5fa2956eb4131681b622b4c07f1aecb2"
+    },
+    {
+      "file": "item-5587a24c4ecc5f51.opus",
+      "sha256": "59e703594c3ac25cd58dfb62317c52ced630884415be5b011da05c445bfbcf50",
+      "recipeHash": "5587a24c4ecc5f51e0ee6c44cb16cba75f1aef6230468df50099a0d576996fbe"
+    },
+    {
+      "file": "item-82bba4689712d96e.opus",
+      "sha256": "9e071b65352577659c8b9bf195079e34728ff4c69f19ac4f159f496070412a26",
+      "recipeHash": "82bba4689712d96e6b990445499152a999f853599ca99fda906352500c534658"
+    },
+    {
+      "file": "item-b0a5dfceafc66cc0.opus",
+      "sha256": "a314de815430c8092ea68598b3a38dc737ba61a06db02c9c238a393c1a8d372f",
+      "recipeHash": "b0a5dfceafc66cc05463337d17cb7354157dd517ea198b6f6629f151280bd828"
+    },
+    {
+      "file": "item-e3a714a531cfd052.opus",
+      "sha256": "ba60fd86aea2c8daed30c016d8fbdc3073682fc004b06fb3cdff473a29843b8f",
+      "recipeHash": "e3a714a531cfd05291a319eadb9b708ccd01baaf539a6a03b3adad1cbe3c3cac"
+    },
+    {
+      "file": "item-e80693bbff6e4615.opus",
+      "sha256": "f5c6468ce53073c2f4c0d86832ff742d693c20c71520cb340e5aff0449302b6b",
+      "recipeHash": "e80693bbff6e4615ff99b389332f52493a9780a22c3177177613c47391b27a51"
+    },
+    {
+      "file": "item-b5b1081ed1366858.opus",
+      "sha256": "8a0affeae949e4a546845d3921df4fc29eb93b00743ccbe7b9eb8f3b21ff6b9d",
+      "recipeHash": "b5b1081ed1366858bb82d3d999e432e330ad436868f804ee3a6bede17f765480"
+    },
+    {
+      "file": "item-be8c1b9aa011c98a.opus",
+      "sha256": "3cadaad28219f794be554068723174c7fd7f36e41796aa1c52bc83e1786fbd39",
+      "recipeHash": "be8c1b9aa011c98a8550477c8af8a279a6c7b528a1460bdbcc2ce3eea37fa8e9"
+    },
+    {
+      "file": "item-4297d67716b01714.opus",
+      "sha256": "5ef3dde4869dc6fe23ea927d45f8cc25dcc383f7600be2e77e2022ab5bd81b84",
+      "recipeHash": "4297d67716b0171458d77a5083aac66863b523598dc38348eee544597762f931"
+    },
+    {
+      "file": "item-5b21e7e9cc807236.opus",
+      "sha256": "c1dd770c20c57d29399fbdafbe42e971ffee4c4000db179dc17a4ae9fad75d3b",
+      "recipeHash": "5b21e7e9cc8072362248c6309e2bc56ba316fe2debed511afa0e988fe110b4d4"
+    },
+    {
+      "file": "item-6e7255cb8e3feb06.opus",
+      "sha256": "f7c5a1c1cd4fe355484eff3fcd5a4be6d13a2556997435ad4837a4a5f3d1e231",
+      "recipeHash": "6e7255cb8e3feb06fea5c7fc4e444ff800ca454c19fb39488880b96fcfac1aa9"
+    },
+    {
+      "file": "item-ffd9d3c39289dcdf.opus",
+      "sha256": "a2c2c58706d6d8d06b48c81b95091c5871aacc669089c897f08999cb4e55c152",
+      "recipeHash": "ffd9d3c39289dcdf431643ac6b3a04fd31960da2e86a033949fb8ef4e001eb23"
+    },
+    {
+      "file": "item-50a721a8f6c0217d.opus",
+      "sha256": "5eb3481a750e7ba53261518d956fbd71ebbe5f26114271b4a746b5864648ccc9",
+      "recipeHash": "50a721a8f6c0217d8ebe7939c2d746ed10cf57d0efe5e8a5760b7301882bd6cd"
+    },
+    {
+      "file": "item-4794b26fabe951c1.opus",
+      "sha256": "0e7dbc0694e386c05db5ce4799c923fe179891a6e64a096d0c35f0ce9441802e",
+      "recipeHash": "4794b26fabe951c1f49fa494ad1b2dcaad3b8f26a34ee386a02976730e33cb72"
+    },
+    {
+      "file": "item-5632c8d27bfde670.opus",
+      "sha256": "ba316d2a93b2e65e0169f60a67c297dcc8f99e324bce8e9ec2360089bf11215f",
+      "recipeHash": "5632c8d27bfde67019a28d1877fad9338cc16a90c13ef3acc0585b43b4ae07d1"
+    },
+    {
+      "file": "item-da0b1edca65f3355.opus",
+      "sha256": "be4d34f61d630dabc22124852380e35617508027cfab04a6490f807b1aaa240a",
+      "recipeHash": "da0b1edca65f33559c716fb393ad8816d694483cd2b57566cd7a2461e2ee9567"
+    },
+    {
+      "file": "item-f1f66fe619316b90.opus",
+      "sha256": "bcda91c1078d8f9e32c822421b752503a7f3fa7a9de7f68a88fd13541bffed3e",
+      "recipeHash": "f1f66fe619316b900ab154078f8ea87151200e10370626f1126880b2923936c6"
+    },
+    {
+      "file": "item-f82a70d4bcb4295d.opus",
+      "sha256": "35bbdfabc64d16f738155e44df124951721682eb6eebb42fbb786b603390cdff",
+      "recipeHash": "f82a70d4bcb4295d408e11a9efe6980fa656a04a0454fc6f3c7cdf9dc4d3070f"
+    },
+    {
+      "file": "item-3e82b09579777da0.opus",
+      "sha256": "3b6e6c9ebecfe963e1b27ca802dd18af3502ad3b75751222eacd813fa47d8e67",
+      "recipeHash": "3e82b09579777da0765da80c474635704b4f80fd63512b32db4a5b9893a69348"
+    },
+    {
+      "file": "item-31dbe0637abf4fb9.opus",
+      "sha256": "9b3337a2a7e870a47447d89e278552bbd75001d665bb6c2bbbd2e9e592cc6f76",
+      "recipeHash": "31dbe0637abf4fb9597c8514ac43a05777eb43d71810d3e5e6d2b4a9acf8c8d3"
+    },
+    {
+      "file": "item-bc64b1ee38c140ec.opus",
+      "sha256": "3c3232f970b45b1d31111ef6c34459d72e2081ef6d7e90035adb1a82cbd9b05a",
+      "recipeHash": "bc64b1ee38c140ecdb059cf950d738b31f0aea2dea9e137435b2d10736202574"
+    },
+    {
+      "file": "item-fb07289d1bc6d151.opus",
+      "sha256": "b3a76eb2f1d384164280423034934dccd3ef9cb06ba414038d3ad6531f25e364",
+      "recipeHash": "fb07289d1bc6d151562aeeab5c92fa9d071f706acc03d248e2b66a4e47899557"
+    },
+    {
+      "file": "item-ac19ebacf780ffae.opus",
+      "sha256": "5047c1cf636bed41d5b9f76c3dc8223233fad97a0106e232742ec259e8d05411",
+      "recipeHash": "ac19ebacf780ffae748208ae0863d83f46ee71f9c7b7414cbb0a2994bb24906e"
+    },
+    {
+      "file": "item-b1eecc1fe10aae6d.opus",
+      "sha256": "d27bc66d8e1aa760b15282a0311ed4abd3f5b975f91a92160a4c2d062d45d252",
+      "recipeHash": "b1eecc1fe10aae6d60ae53cc125991365c1fe97502a4be7be77f1603d16b5c82"
+    },
+    {
+      "file": "item-79ecdc75ed0a7ac0.opus",
+      "sha256": "14205d4d8a148ba367666b4fa2789185a00ce71a887e96d93e082d6317e633fb",
+      "recipeHash": "79ecdc75ed0a7ac0938451ba7c38a55d7eaaf3a54efb19483a66510fd7790960"
+    },
+    {
+      "file": "item-2e155b9d4d0c656f.opus",
+      "sha256": "f41c3d9f7a8cc1b46ca36f8a2bfd19839690698cc0fa15f19896bda9361a53d6",
+      "recipeHash": "2e155b9d4d0c656ff0af3bfde546e36156057a8bd8256a7a2fdb47d725e87828"
+    },
+    {
+      "file": "item-37a9edd355b586c2.opus",
+      "sha256": "1fdbe40a60dc2b54dd258f9c6d5ae843d03dfcecda4a63c63d7093c3117d8069",
+      "recipeHash": "37a9edd355b586c26f6c5b4748050dc51b06a394da2e2a62f453b6acbb0273e2"
+    },
+    {
+      "file": "item-43df26db534796ea.opus",
+      "sha256": "55652435891a7502648fb020d7a701f28edd3a492555e8671b8ce0e1c541dca9",
+      "recipeHash": "43df26db534796ea15351a8df2d76a6a1da6a5108da7ec185df4908fff98eeed"
+    },
+    {
+      "file": "item-26017ef5338f9f95.opus",
+      "sha256": "acd62ce9cd11881b3ba04b6119923ec1636ec47330d5519201544d0a8a5180ca",
+      "recipeHash": "26017ef5338f9f9533194edcc971c5c8cbeec57757937e29303020a6d5241d74"
+    },
+    {
+      "file": "item-d3e041daf3116979.opus",
+      "sha256": "aa5985d712d2031253f3e00d25b8ba6b1894756c5e13745ae3a9754cce4b4634",
+      "recipeHash": "d3e041daf31169791682f85aea8d26ac237afd8860ba102d9bf0a98ec766eb13"
+    },
+    {
+      "file": "item-df9be37d48b0040d.opus",
+      "sha256": "439c5e10d5f83b60853c25ae98585c1d126dc6ebdce3d2de2d36414b89e85241",
+      "recipeHash": "df9be37d48b0040d264893c24ae7ef1fb1fdf4bf00d072a0ea399dc14b716bde"
+    },
+    {
+      "file": "item-8f5953553490982e.opus",
+      "sha256": "5080438a5c12009aa85928307a6db138bbe610b2dc4de23452bfc6e284c8fc56",
+      "recipeHash": "8f5953553490982ee26d2912742c3da28c278380dc0472163276b8b3694ebc5d"
+    },
+    {
+      "file": "item-4f135b1a27532538.opus",
+      "sha256": "4324d52efa6bb2115f9ecfcd8548c1277369450787355a4cb888482e5ade7cf2",
+      "recipeHash": "4f135b1a2753253898995bdc0fb0eef18bfcd8ab46472eb1524eed0422c532f5"
+    },
+    {
+      "file": "item-794b7dbfed8622c9.opus",
+      "sha256": "4de573b81f2728958bacc9487b061d6cb5d16c1575d9e92e8b690272561472cc",
+      "recipeHash": "794b7dbfed8622c92c795624ae7eb921cb1125e8279a8b6341459d9870e8e3cb"
+    },
+    {
+      "file": "item-eb2b666d6acc6eed.opus",
+      "sha256": "3d7a68792cef151834f6c52515fb6d2b93108ba5233ea9a163714ef202020931",
+      "recipeHash": "eb2b666d6acc6eedd43e2a92c5121e5f467a1fdd772c55d31738cf3e47c38bb1"
+    },
+    {
+      "file": "item-16c6d7f6962d182e.opus",
+      "sha256": "ebcd6364797afc57760985efb554df822b5fcd7959e39d04d90ca8c55a6ce5d3",
+      "recipeHash": "16c6d7f6962d182e68d5669499fe44addafc4f1551e965d3718b33dc49821330"
+    },
+    {
+      "file": "item-069eab5b6d8aaa6c.opus",
+      "sha256": "e27b0cd632f781c44a05f48afd7c8c0c4153dbfd656d5d98f4aa2cbdc80c4226",
+      "recipeHash": "069eab5b6d8aaa6c6df90ebcb13c44fce92568565354ce485bcebc9736795d96"
+    },
+    {
+      "file": "item-946f4e7a085c14b2.opus",
+      "sha256": "c0079e2f025aa73441396162e275c06b3668d30815b002c450945a9acee7252c",
+      "recipeHash": "946f4e7a085c14b26f144d0509c7edb28c4e9d073915dbc5358fdc43597c8d52"
+    },
+    {
+      "file": "item-7e86d81edb643cf5.opus",
+      "sha256": "8bb4b09a3662293835efb0062b2c8d39e084b82a63b3fceeba96790da40feefe",
+      "recipeHash": "7e86d81edb643cf5cd5b8fae42ab06e3197d1e28d734500749fefa7efc8a3988"
+    },
+    {
+      "file": "item-f9b6e8cbf3bd18f5.opus",
+      "sha256": "71d688852155dd19a4f79861e19a31c82ebe41c48f9717c76e858cc959ebe3b6",
+      "recipeHash": "f9b6e8cbf3bd18f51ad21375d17cbfcffd14f826e5005e9924584880ead57705"
+    },
+    {
+      "file": "item-31d5074c8dca46b9.opus",
+      "sha256": "66d1cccde4adb47bc137a8f84b61383f0f9e40b66f94869fe955fd4c328c808b",
+      "recipeHash": "31d5074c8dca46b9ce22be12e615c49df621923c54fc34c7897612e6aafd4539"
+    },
+    {
+      "file": "item-c15e0e141724477e.opus",
+      "sha256": "ce1d55eef411065925a28077e45635989b1850a9e005ef65c438b0672d279090",
+      "recipeHash": "c15e0e141724477e6f355b0c00a874175d08867ab08f3210ecd0e4e0674deeea"
+    },
+    {
+      "file": "item-2957d68d085abb6a.opus",
+      "sha256": "2e4643bb279f32175c6f17397000bd38668645b463b6dba829428dd812e0fc3e",
+      "recipeHash": "2957d68d085abb6a10b7520a1eec4455feae5e400bd79a350b000746fbf941dc"
+    },
+    {
+      "file": "item-8cd61b6ec8ba2494.opus",
+      "sha256": "fedcf1273216df59f4cab93aafd8dd57256952fb606bb53cef838859cb24b4cd",
+      "recipeHash": "8cd61b6ec8ba2494ac3223da8102297803af5f4e1a3716f69a3c0c7785bf0978"
+    },
+    {
+      "file": "item-72e7eb9b3f76ac98.opus",
+      "sha256": "95643a8ed2fbc1b88c6b67fb281ee1bd2d2b1d04a915e95952c2af7650366cd9",
+      "recipeHash": "72e7eb9b3f76ac98871d4ee4260c25c7c97756952b8004b53b61b58f5534ce5c"
+    },
+    {
+      "file": "item-e05e65d0ddc0c652.opus",
+      "sha256": "b7617a6bce534de97bc4b2e10fcb5f38aaa2c244d5dc01f934a1f104d7b9cfa3",
+      "recipeHash": "e05e65d0ddc0c652a6c16725874c812f3a27835b4f1e8e33ea86f2aedb30386b"
+    },
+    {
+      "file": "item-3605bb945e60f8d6.opus",
+      "sha256": "c75352e6a06fc88710c51b8b0bfd638e299c869d0e52b42d082ee7a8128ff839",
+      "recipeHash": "3605bb945e60f8d66aaf2d40a7f313bac78e203057dc8556578205f8eaa8b296"
+    },
+    {
+      "file": "item-e9fda061036897c4.opus",
+      "sha256": "cc221147a7898260e3cfa7809232ef47f5df2d4d474d1ee844ff59ff45c0ee42",
+      "recipeHash": "e9fda061036897c4cf6270730d30a4d741eab349bee74015f92c0740969d6b19"
+    },
+    {
+      "file": "item-1a657e735d4eaea6.opus",
+      "sha256": "dd22101666c706a5989ea724ce9c1af8a3a564447fc3b2fc29bbf37745507487",
+      "recipeHash": "1a657e735d4eaea62913aa97a34d7aa6fd31543cd57d7e161694fe4959865790"
+    },
+    {
+      "file": "item-4137832b75aaee66.opus",
+      "sha256": "c5ba8491d7d32fb1f33384d247fa162a2a03c6d71d3ee4c0ec68e7a0609316ff",
+      "recipeHash": "4137832b75aaee66c701141c62dd258814c6fc34429153ed24b59daea3156ac2"
+    },
+    {
+      "file": "item-e993f8051e5e9ede.opus",
+      "sha256": "6200b0655afec1801cfff5c4d9adb8784275b3b322c0b2983e0578caaf67abff",
+      "recipeHash": "e993f8051e5e9eded091df435a90d40a456ba2df5b137d881245b41665cc8580"
+    },
+    {
+      "file": "item-304823893eec1703.opus",
+      "sha256": "9b3e23408d3c8cd220c3c6f05c6eed1f1731726bdac1f5b2dab0156d33c09cad",
+      "recipeHash": "304823893eec1703cf431fb8be3ffe0137d8a9153b701a817778114836ca7d13"
+    },
+    {
+      "file": "item-dfde2836e2fb9403.opus",
+      "sha256": "d00f7d1d364da0825402bf3ec21290c42a46dbf06983a50d6c5b91fcb5580b71",
+      "recipeHash": "dfde2836e2fb94032ad8be91827abe31dc7c7cc3018fd7572cbf3bd67c06c8ae"
+    },
+    {
+      "file": "item-cbb2d8c5bdfa70d5.opus",
+      "sha256": "80e952a4975350f51247c2ff2f48fc9c5f986a481b8450e9b6dba41c960ea163",
+      "recipeHash": "cbb2d8c5bdfa70d5e6ea457c9458496706e6a43eefc4c5963d0f3cf2ef3fecae"
+    },
+    {
+      "file": "item-46350bbd3495d580.opus",
+      "sha256": "aa9e356ff2c7b1b8883c093b72e2eb91dce86160ec1e8d48aa42992b65bd683c",
+      "recipeHash": "46350bbd3495d580c15233d0a5525e8493d676ca238acd2dc86ce13e137dee8c"
+    },
+    {
+      "file": "item-0dfb9a800934b02b.opus",
+      "sha256": "ac0f937f10c097c4ceac13f8a4b480e5da34479baa2d12525692a8c81f7c49b7",
+      "recipeHash": "0dfb9a800934b02b14f7660f68bd3ea83d202ee8b29abc60751bac1db57fd508"
+    },
+    {
+      "file": "item-acddaaa3b1763f9b.opus",
+      "sha256": "805bf3c2a99769ff447a31b93ad4a1fa6d6170dfb7a4e3f91da74a7fc9e62575",
+      "recipeHash": "acddaaa3b1763f9bb7bd0511093b8e29b6dc2a8eaafc193bdc1a3bde5a9aecd4"
+    },
+    {
+      "file": "item-1f63b53e5771deef.opus",
+      "sha256": "157f77fbe81c6e05d5f55f6074c8243f3d00a35692b6bc88ee5f521ca015514f",
+      "recipeHash": "1f63b53e5771deef9165ca185fd7d57e4ca18f919b76729a9b6028bed6dd6381"
+    },
+    {
+      "file": "item-c9cee4c58bf682fa.opus",
+      "sha256": "ae99d4d2b0c90b4a226ea7e295c22d66c34b5a036dd87625ed19f5621b37f9dd",
+      "recipeHash": "c9cee4c58bf682fa32f20b4598e801294c70418e5ad3a3fa9ecfc5d271a8338e"
+    },
+    {
+      "file": "item-600132335629d315.opus",
+      "sha256": "74def10b1c54febc9c1dd218443a5dd515421efff00d57b6a406650a1c3d40ac",
+      "recipeHash": "600132335629d315a18559bc76b98fcf2ede522b14bf8f7e42e1217578821c6d"
+    },
+    {
+      "file": "item-54dba3f65fd3f780.opus",
+      "sha256": "05865e7fce2f25cf2fce86ef82c9c88aac9894223349ec9b249e822c6a5db1ec",
+      "recipeHash": "54dba3f65fd3f7802e274f205dcb1232d79c7ea62ce355854e9f06ad55a4ca78"
+    },
+    {
+      "file": "item-a7b4d220f3b73587.opus",
+      "sha256": "da9b338c12de241932bf88bed26272106fe85ed908312bbb61c0bcea4b2012e3",
+      "recipeHash": "a7b4d220f3b73587ab70de97a3d3e2dd72b9fe919494d17c32f863fe20ea6b16"
+    },
+    {
+      "file": "item-3a03798f7418b24f.opus",
+      "sha256": "750ec5719ff826bd5d1cf2648166c2bb9d8105b0296e7c35eb1293f0e22a6709",
+      "recipeHash": "3a03798f7418b24ffcf49c8d58d9ddb4af5ef20f294e2ed69119b186ba15abf9"
+    },
+    {
+      "file": "item-aefeb483c9d46c26.opus",
+      "sha256": "359f2bd55d6ddce4c225507f6b81ea76aff8952dcd41cb733854f2917ca8b506",
+      "recipeHash": "aefeb483c9d46c2691124117864642d8ef112e741ff47aafb11c10ba69e1117d"
+    },
+    {
+      "file": "item-bde46bd41ba9f41c.opus",
+      "sha256": "814c5460439febc3497b059827fb54b09bd7af3fd5c25c412a48a28f932b63f0",
+      "recipeHash": "bde46bd41ba9f41c6b22a21c7cffb6b85428a922e5a42515bc37e7be3ae2254b"
+    },
+    {
+      "file": "item-d0c620f888e88c4b.opus",
+      "sha256": "26b96cd729884ab04170d2e92368669f9553182adde27ff12eea9291d9974fc6",
+      "recipeHash": "d0c620f888e88c4b5be28dca69d91872ba5066920a003ee97b46b8e23ab13f59"
+    },
+    {
+      "file": "item-af898ff8b31baaa8.opus",
+      "sha256": "41d398cf7fa2abce915424c20aedef39245732be63992d0bc159343eb25bad1c",
+      "recipeHash": "af898ff8b31baaa8be7c7e890f885131391b60538c82316ff7eccd7a5311606c"
+    },
+    {
+      "file": "item-394f59652f3daad6.opus",
+      "sha256": "c7b0329179eda11d9f4d0b0f174ffd62c825309c3d67083af16e642451f3fa14",
+      "recipeHash": "394f59652f3daad605727cb4b2b495aa12ad0be37b8a80e39a6557e685cb5853"
+    },
+    {
+      "file": "item-26411716abb33aaf.opus",
+      "sha256": "9556ceb57219c0d53fb5476459b414335d265a08bf599481e9cf66d6e155282e",
+      "recipeHash": "26411716abb33aafdc2b8118e19c75c0101ce828f66b87cf2f376c7f49d54898"
+    },
+    {
+      "file": "item-9fbff2ba9a4c2491.opus",
+      "sha256": "d07ca854f022d66dea967fc67de290080c94c22d1ffdab5df99023b080c67fb2",
+      "recipeHash": "9fbff2ba9a4c24913703b45d5d806c7d132e5366168f32561d2bd571c1e7e571"
+    },
+    {
+      "file": "item-b65832c839c3cf9d.opus",
+      "sha256": "3141dbf1dcb9248737e889a054d8cf6892520bf415132d9a44fc47c567cd38d5",
+      "recipeHash": "b65832c839c3cf9d10113d6586b2c2104a6b2f631e135e8bf8ce69a0fb9aae87"
+    },
+    {
+      "file": "item-20f358a9ee7a69a1.opus",
+      "sha256": "fba55f55bc60107164042183b036974246d00e773bb36ae7d932af3a040a96a5",
+      "recipeHash": "20f358a9ee7a69a15c8bef671672859dfbc3a9ee10aaef41c8416024914943f7"
+    },
+    {
+      "file": "item-22437de4de5994ab.opus",
+      "sha256": "ccf56bb192032205c9753c866a7e69c8e8d817196ed3a598123f811bcd09bb41",
+      "recipeHash": "22437de4de5994ab0b284978b28d816771750829331e186529a14a121888da2b"
+    },
+    {
+      "file": "item-3457bc2f17e8b8e5.opus",
+      "sha256": "789347a9c18c75379724f9be4e1e1b96d808380164d1a3f7260455f09a4fadd7",
+      "recipeHash": "3457bc2f17e8b8e5506a49213ca481d46c57b4570a7ecefd9e26682e3d2a98a7"
+    },
+    {
+      "file": "item-6e97399907e8d342.opus",
+      "sha256": "c2e224da98738f6e5f4e744d93d97053c2bad83d86929354ef219d30131562d6",
+      "recipeHash": "6e97399907e8d342d7a7091c09651a261829f6b7f4cfb65eddd7a7e7e2186085"
+    },
+    {
+      "file": "item-c00e4892ed00b65b.opus",
+      "sha256": "d1ccbbc63ae2dcde4425ee4017948e12426aff3e8d48bc2234280e52b54ae0fd",
+      "recipeHash": "c00e4892ed00b65b06d5831bbf82efa70b89ba40b3ea3e6fdef371ecf09c2cf6"
+    },
+    {
+      "file": "item-75ca372bd6e70b4e.opus",
+      "sha256": "77f8b780855ca4bcc63f86ac3780d33a698cf51859a62f287729e8c790d237fe",
+      "recipeHash": "75ca372bd6e70b4ee8af0236545b5384817b2f569e74a1c0578ad4836e42d7be"
+    },
+    {
+      "file": "item-3d48bd969cd24c95.opus",
+      "sha256": "b9541e0a5e05e263496ad88a38491bd675b95b2839e9e2f9cbdc5cf9a51735ff",
+      "recipeHash": "3d48bd969cd24c950623e7fdfed809f045101ca6ff218091b782677450e3eef5"
+    },
+    {
+      "file": "item-c5027d4ccdb78827.opus",
+      "sha256": "0711d866cb18324ce5962be8cb663ea6f509f9d6c34ecf835ef16fdaff090b29",
+      "recipeHash": "c5027d4ccdb788272a2e065e6552501252900768c494a7e04cc07137cd8d8776"
+    },
+    {
+      "file": "item-fc1ba945e640dcba.opus",
+      "sha256": "d217415969d8878d8449ecf83b91610e575eabd70a91641823607d4de066bfe9",
+      "recipeHash": "fc1ba945e640dcba5a191e22c0a16d54870b0e0f91fe7e1141bf68db5c55fe4e"
+    },
+    {
+      "file": "item-85a275d326aa8c33.opus",
+      "sha256": "7e42b60624d066554974ca051682d08543d65bfc4df23a463f0996f57bc035c6",
+      "recipeHash": "85a275d326aa8c337d35aabf963c6536be9d7976a2304b9905898b63cef5c789"
+    },
+    {
+      "file": "item-9a7cc08be52dd1ca.opus",
+      "sha256": "773086ab84344aac2e5ab5884973863b69dc97c5dc511f0cd603345edd154e60",
+      "recipeHash": "9a7cc08be52dd1ca7701e95f3b24bbc9b4bb549326da51968ca9afe2a218deba"
+    },
+    {
+      "file": "item-4aabf94be6c5af0f.opus",
+      "sha256": "d9c079bd10b91059a2c677e94d63cc0aa32de8990547c674b0eefd2f0c231f17",
+      "recipeHash": "4aabf94be6c5af0f56eece7e8035d8702c0155118020b1e14aef776ea2b6c95f"
+    },
+    {
+      "file": "item-4f1c13d5b9e5a25f.opus",
+      "sha256": "1fb597a4da002e0901cf50e3a927e581d2b62b189f3bfc6d7ba85d05402a4579",
+      "recipeHash": "4f1c13d5b9e5a25fc929d9f64416e00d1c987af50244a60bc36c96b03c3edb04"
+    },
+    {
+      "file": "item-05d5c4f7dca19c6c.opus",
+      "sha256": "07c0daf4be1ed15a5c632b4352c283933c82e8738ebeb6252748f888ccad9882",
+      "recipeHash": "05d5c4f7dca19c6cee44e5617d2297f7508ea68b6252ceb59437c11ec09a7dd1"
+    },
+    {
+      "file": "item-5065f9758b2183da.opus",
+      "sha256": "8ceccd16e2240973ae1221c75933cf3f4165cfc89ac030adb6739efa33084211",
+      "recipeHash": "5065f9758b2183da9c612d9807f250e9f33fefd9edf40e153e3987e807f7b334"
+    },
+    {
+      "file": "item-8446f2b620be477b.opus",
+      "sha256": "9c73ad143ba5694641b834e542a05711bd0ce31dcfa4f2971b3acd92bd12856a",
+      "recipeHash": "8446f2b620be477be213b34bfc9e390fcff8ea812dd2cb72f202b789f0d13d4a"
+    },
+    {
+      "file": "item-f757175825ab4569.opus",
+      "sha256": "aec1c960bc224d9235a652b74bb289c4e60ca1ffc6589014c1a064e77c77a486",
+      "recipeHash": "f757175825ab45696cec3345f45a80c26e9974a934b0eb1461429a567e65ec47"
+    },
+    {
+      "file": "item-5ff4dd14bc1aee72.opus",
+      "sha256": "72131f0541fca89d1473e5e24431a16d28a4467ce0187780a26a87a4170229e1",
+      "recipeHash": "5ff4dd14bc1aee728a38c2f6cf40edd1f3937da7864212ea73ea0f08e1a66293"
+    }
+  ],
+  "items": {
+    "airbus-a400m/electrical-power-up/bat-ext": "item-e663ff6ea32c6869.opus",
+    "airbus-a400m/electrical-power-up/bat-1-2-ess": "item-c9f90f61593067d8.opus",
+    "airbus-a400m/electrical-power-up/nav-light": "item-e8f849474de09563.opus",
+    "airbus-a400m/electrical-power-up/apu": "item-90d51444719e262f.opus",
+    "airbus-a400m/electrical-power-up/apu-bleed": "item-a9ddf85bfd50d1e7.opus",
+    "airbus-a400m/electrical-power-up/gadirs": "item-3fb5ad116369b0a3.opus",
+    "airbus-a400m/electrical-power-up/fuel-pumps": "item-47265ebb59272729.opus",
+    "airbus-a400m/electrical-power-up/emer-light": "item-702bc2c0c63856d9.opus",
+    "airbus-a400m/electrical-power-up/seat-belt-light": "item-64e253b664647617.opus",
+    "airbus-a400m/engine-start/beacon": "item-8b8f05ae7c63ccdf.opus",
+    "airbus-a400m/engine-start/eng-mode": "item-1452a96d98595601.opus",
+    "airbus-a400m/engine-start/eng-master-feather": "item-42563736eb392366.opus",
+    "airbus-a400m/engine-start/eng-master-run": "item-3aaa0a04eb3411e9.opus",
+    "airbus-a400m/after-start/eng-mode": "item-810236153c2aba18.opus",
+    "airbus-a400m/after-start/apu-bleed": "item-6e84a2d793ee6c53.opus",
+    "airbus-a400m/after-start/apu-master": "item-59c0d70a2c80d02b.opus",
+    "airbus-a400m/after-start/bat-ext": "item-bf2c960ab5cce781.opus",
+    "airbus-a400m/after-start/gpu": "item-33f7457a5c84fbc5.opus",
+    "airbus-h125/before-start/rotor-brake": "item-4ca060a947de48d4.opus",
+    "airbus-h125/before-start/twist-grip": "item-c2d7da8643724185.opus",
+    "airbus-h125/engine-shutdown/twist-grip": "item-c2d7da8643724185.opus",
+    "airbus-h125/before-start/battery-master": "item-14f996c79455efd8.opus",
+    "airbus-h125/before-start/instrument-lighting": "item-e6a392036bdd6a15.opus",
+    "airbus-h125/engine-start/fuel-pump-on": "item-9a2d670c34909323.opus",
+    "airbus-h125/engine-start/anti-collision-light": "item-80b139215d5ad28e.opus",
+    "airbus-h125/engine-start/starter-switch": "item-ddd38fcad2250ee7.opus",
+    "airbus-h125/engine-start/engine-n1": "item-879b6169a04b8cd9.opus",
+    "airbus-h125/engine-start/generator": "item-53a895c9ba5d2f35.opus",
+    "hughes-oh6a-500c/engine-start/generator": "item-53a895c9ba5d2f35.opus",
+    "airbus-h125/engine-start/pitot-heat": "item-21520dc54a72aff2.opus",
+    "sikorsky-mh-60/after-engine-start/pitot-heat": "item-21520dc54a72aff2.opus",
+    "airbus-h125/engine-start/fuel-pump": "item-21f234cf802f3dc2.opus",
+    "airbus-h125/engine-start/starter-switch-guard": "item-9d23b4fbe21711dd.opus",
+    "airbus-h125/engine-start/avionics": "item-e5f299772cee2b6d.opus",
+    "hughes-oh6a-500c/engine-start/avionics": "item-e5f299772cee2b6d.opus",
+    "airbus-h125/engine-start/twist-grip": "item-aa0da4c931cfdd97.opus",
+    "airbus-h125/engine-start/horn": "item-578dcf498c3d3371.opus",
+    "airbus-h125/before-taxi/taxi-light": "item-93f25396e111417c.opus",
+    "diamond-da42/taxi/taxi-light": "item-93f25396e111417c.opus",
+    "airbus-h125/before-taxi/landing-light": "item-b02cd0283a8f10e2.opus",
+    "hughes-oh6a-500c/before-takeoff/landing-light": "item-b02cd0283a8f10e2.opus",
+    "airbus-h125/engine-shutdown/engine-cool-down": "item-6fb88cd464cdf9fe.opus",
+    "airbus-h125/engine-shutdown/pitot-heat": "item-9795e5d21a0e8158.opus",
+    "airbus-h125/engine-shutdown/horn": "item-b47804612fd27de1.opus",
+    "airbus-h125/engine-shutdown/taxi-light": "item-bf896f246aad12c5.opus",
+    "airbus-h125/engine-shutdown/landing-light": "item-fac3134372310d76.opus",
+    "airbus-h125/engine-shutdown/avionics": "item-655fc8b120acb62f.opus",
+    "airbus-h125/engine-shutdown/starter-switch": "item-391d41bbd545670a.opus",
+    "airbus-h125/engine-shutdown/generator": "item-154ac2c5f001a209.opus",
+    "airbus-h125/engine-shutdown/rotor-brake": "item-272dc0a3a4abeb3c.opus",
+    "airbus-h125/engine-shutdown/anti-collision-light": "item-4af9886c0e260790.opus",
+    "airbus-h125/engine-shutdown/battery-master": "item-ef4265d72bbdb935.opus",
+    "beechcraft-bonanza-g36/departure/flaps": "item-ea53b7f54fe0c796.opus",
+    "beechcraft-bonanza-g36/departure/rotation-speed": "item-95bffeaf3ab246d9.opus",
+    "beechcraft-bonanza-g36/departure/climb-rate": "item-beb46700cee50881.opus",
+    "beechcraft-bonanza-g36/departure/gear": "item-da4502c08f1af126.opus",
+    "beechcraft-bonanza-g36/departure/climb-speed": "item-ff5210a9d1e8fa3c.opus",
+    "beechcraft-bonanza-g36/approach/gear": "item-54c0ac988a022507.opus",
+    "diamond-da42/before-engine-start/gear": "item-54c0ac988a022507.opus",
+    "beechcraft-bonanza-g36/approach/approach-speed-95": "item-964d760031c8874c.opus",
+    "beechcraft-bonanza-g36/approach/flaps-approach": "item-fd940f4f5da5be39.opus",
+    "beechcraft-bonanza-g36/approach/approach-speed-80": "item-bf061d5075ce7b91.opus",
+    "beechcraft-bonanza-g36/approach/flaps-full": "item-aab972ddc4516086.opus",
+    "cessna-152/departure/flaps": "item-a23ffe51cdab561c.opus",
+    "cessna-152/departure/rotation-speed": "item-3e7237aa3f1c058e.opus",
+    "cessna-152/climb/climb-speed": "item-bd1fba79c07c9903.opus",
+    "cessna-152/climb/mixture": "item-03a3270022471f45.opus",
+    "cessna-152/approach/mixture": "item-01c590aa06307028.opus",
+    "cessna-152/approach/flaps-approach": "item-08dbe7a9f612e63b.opus",
+    "cessna-152/landing/flaps-full": "item-d809cf3bb47b2f8f.opus",
+    "cessna-152/landing/landing-speed": "item-db7509074065e80e.opus",
+    "diamond-da42/before-engine-start/power-levers": "item-42ff37e6c2494ac4.opus",
+    "diamond-da42/before-engine-start/parking-brake": "item-a9b44662537fc31e.opus",
+    "diamond-da42/before-engine-start/flaps": "item-969058f91c6817ec.opus",
+    "diamond-da42/before-engine-start/trim": "item-8c0be6cf2fce91e9.opus",
+    "diamond-da42/before-engine-start/electric-master": "item-68b6a2ab319697fa.opus",
+    "diamond-da42/before-engine-start/strobe-lights": "item-7ee523f051cbd1b4.opus",
+    "diamond-da42/engine-start/fuel-quantity-temperature": "item-0d1755b522a49428.opus",
+    "diamond-da42/engine-start/engine-master-left": "item-85ca952043804cb9.opus",
+    "diamond-da42/engine-start/glow-annunciation-left": "item-e2ee9475db4a974b.opus",
+    "diamond-da42/engine-start/start-key-left": "item-33490eb7f2366453.opus",
+    "diamond-da42/engine-start/start-key-right": "item-33490eb7f2366453.opus",
+    "diamond-da42/engine-start/voltage-electrical-load": "item-363e84d28beb3836.opus",
+    "diamond-da42/engine-start/engine-master-right": "item-256980bdfe775f8c.opus",
+    "diamond-da42/engine-start/glow-annunciation-right": "item-2e5cf597559b0431.opus",
+    "diamond-da42/before-taxi/position-lights": "item-793bc2e1fa7785da.opus",
+    "diamond-da42/before-taxi/avionics-master": "item-5accb12259995970.opus",
+    "diamond-da42/before-taxi/atis": "item-ae15cd1f38e0d2ad.opus",
+    "diamond-da42/before-taxi/altimeters": "item-bec9cbc573a9dda1.opus",
+    "diamond-da42/before-taxi/cage": "item-f0d33d89dc0a9d69.opus",
+    "diamond-da42/before-taxi/ifr-clearance": "item-18435bae45f30991.opus",
+    "diamond-da42/before-taxi/transponder": "item-c13c824b1498deba.opus",
+    "diamond-da42/before-taxi/flight-plan": "item-86a9ddb40abfd906.opus",
+    "diamond-da42/before-taxi/autopilot": "item-edf459f3c7330ede.opus",
+    "diamond-da42/before-taxi/gear-fire-warning": "item-8a9768d73567005d.opus",
+    "diamond-da42/before-taxi/engine-warm-up": "item-5587a24c4ecc5f51.opus",
+    "diamond-da42/before-taxi/ecu-test": "item-82bba4689712d96e.opus",
+    "diamond-da42/taxi/pushback-request": "item-b0a5dfceafc66cc0.opus",
+    "diamond-da42/taxi/parking-brake": "item-e3a714a531cfd052.opus",
+    "diamond-da42/taxi/pushback": "item-e80693bbff6e4615.opus",
+    "diamond-da42/taxi/taxi-clearance": "item-b5b1081ed1366858.opus",
+    "diamond-da42/taxi/taxi-hold-short": "item-be8c1b9aa011c98a.opus",
+    "diamond-da42/line-up-and-wait/departure-request": "item-4297d67716b01714.opus",
+    "diamond-da42/line-up-and-wait/flaps": "item-5b21e7e9cc807236.opus",
+    "diamond-da42/line-up-and-wait/taxi-lights": "item-6e7255cb8e3feb06.opus",
+    "diamond-da42/line-up-and-wait/landing-lights": "item-ffd9d3c39289dcdf.opus",
+    "diamond-da42/line-up-and-wait/fuel-pumps": "item-50a721a8f6c0217d.opus",
+    "diamond-da42/line-up-and-wait/pitot-heat": "item-4794b26fabe951c1.opus",
+    "diamond-da42/line-up-and-wait/taxi-to-runway": "item-5632c8d27bfde670.opus",
+    "diamond-da42/line-up-and-wait/heading": "item-da0b1edca65f3355.opus",
+    "diamond-da42/take-off-and-climb/power-levers-takeoff": "item-f1f66fe619316b90.opus",
+    "diamond-da42/take-off-and-climb/rotation-speed": "item-f82a70d4bcb4295d.opus",
+    "diamond-da42/take-off-and-climb/gear": "item-3e82b09579777da0.opus",
+    "diamond-da42/take-off-and-climb/flaps": "item-31dbe0637abf4fb9.opus",
+    "diamond-da42/take-off-and-climb/climb-speed": "item-bc64b1ee38c140ec.opus",
+    "diamond-da42/take-off-and-climb/fuel-pumps": "item-fb07289d1bc6d151.opus",
+    "diamond-da42/take-off-and-climb/landing-lights": "item-ac19ebacf780ffae.opus",
+    "diamond-da42/take-off-and-climb/power-levers-climb": "item-b1eecc1fe10aae6d.opus",
+    "diamond-da42/approach/fuel-pumps": "item-79ecdc75ed0a7ac0.opus",
+    "diamond-da42/approach/landing-lights": "item-2e155b9d4d0c656f.opus",
+    "diamond-da42/approach/approach-speed": "item-37a9edd355b586c2.opus",
+    "hughes-oh6a-500c/before-start/rotor-brake": "item-43df26db534796ea.opus",
+    "hughes-oh6a-500c/shutdown/rotor-brake-handle": "item-43df26db534796ea.opus",
+    "hughes-oh6a-500c/before-start/collective": "item-26017ef5338f9f95.opus",
+    "hughes-oh6a-500c/before-start/twistgrip-throttle": "item-d3e041daf3116979.opus",
+    "hughes-oh6a-500c/shutdown/twistgrip-cutoff": "item-d3e041daf3116979.opus",
+    "hughes-oh6a-500c/before-start/electrical-power": "item-df9be37d48b0040d.opus",
+    "hughes-oh6a-500c/before-start/anti-collision-lights": "item-8f5953553490982e.opus",
+    "hughes-oh6a-500c/before-start/cockpit-lights": "item-4f135b1a27532538.opus",
+    "hughes-oh6a-500c/before-start/caution-warning-lights-test": "item-794b7dbfed8622c9.opus",
+    "hughes-oh6a-500c/before-start/ignition-key": "item-eb2b666d6acc6eed.opus",
+    "hughes-oh6a-500c/engine-start/starter-press": "item-16c6d7f6962d182e.opus",
+    "hughes-oh6a-500c/engine-start/twistgrip-idle": "item-069eab5b6d8aaa6c.opus",
+    "hughes-oh6a-500c/engine-start/starter-release": "item-946f4e7a085c14b2.opus",
+    "hughes-oh6a-500c/engine-start/twistgrip-flight": "item-7e86d81edb643cf5.opus",
+    "hughes-oh6a-500c/engine-start/set-n2": "item-f9b6e8cbf3bd18f5.opus",
+    "hughes-oh6a-500c/engine-start/caution-warning-indicators-final": "item-31d5074c8dca46b9.opus",
+    "hughes-oh6a-500c/before-takeoff/position-lights": "item-c15e0e141724477e.opus",
+    "hughes-oh6a-500c/before-takeoff/pitot-heat": "item-2957d68d085abb6a.opus",
+    "hughes-oh6a-500c/shutdown/collective": "item-8cd61b6ec8ba2494.opus",
+    "hughes-oh6a-500c/shutdown/cyclic": "item-72e7eb9b3f76ac98.opus",
+    "hughes-oh6a-500c/shutdown/twistgrip-idle": "item-e05e65d0ddc0c652.opus",
+    "hughes-oh6a-500c/shutdown/engine-cool-down": "item-3605bb945e60f8d6.opus",
+    "hughes-oh6a-500c/shutdown/bleed-air-electrical-equipment": "item-e9fda061036897c4.opus",
+    "hughes-oh6a-500c/shutdown/pedals": "item-1a657e735d4eaea6.opus",
+    "hughes-oh6a-500c/shutdown/generator-avionics": "item-4137832b75aaee66.opus",
+    "hughes-oh6a-500c/shutdown/rotor-brake": "item-e993f8051e5e9ede.opus",
+    "hughes-oh6a-500c/shutdown/anti-collision-lights": "item-304823893eec1703.opus",
+    "hughes-oh6a-500c/shutdown/electrical-power": "item-dfde2836e2fb9403.opus",
+    "sikorsky-mh-60/preparations/cargo-fuel": "item-cbb2d8c5bdfa70d5.opus",
+    "sikorsky-mh-60/preparations/battery": "item-46350bbd3495d580.opus",
+    "sikorsky-mh-60/preparations/strobe-lights": "item-0dfb9a800934b02b.opus",
+    "sikorsky-mh-60/preparations/console-lights": "item-acddaaa3b1763f9b.opus",
+    "sikorsky-mh-60/preparations/displays": "item-1f63b53e5771deef.opus",
+    "sikorsky-mh-60/apu/primary-fuel-pump": "item-c9cee4c58bf682fa.opus",
+    "sikorsky-mh-60/apu/fuel-boost-pumps": "item-600132335629d315.opus",
+    "sikorsky-mh-60/apu/apu-control": "item-54dba3f65fd3f780.opus",
+    "sikorsky-mh-60/apu/apu-indicator": "item-a7b4d220f3b73587.opus",
+    "sikorsky-mh-60/apu/apu-generator": "item-3a03798f7418b24f.opus",
+    "sikorsky-mh-60/apu/air-source-ecs": "item-aefeb483c9d46c26.opus",
+    "sikorsky-mh-60/before-engine-start/utility-hydraulic-pump": "item-bde46bd41ba9f41c.opus",
+    "sikorsky-mh-60/before-engine-start/engine-ignition": "item-d0c620f888e88c4b.opus",
+    "sikorsky-mh-60/before-engine-start/computer-power": "item-af898ff8b31baaa8.opus",
+    "sikorsky-mh-60/before-engine-start/egi-power": "item-394f59652f3daad6.opus",
+    "sikorsky-mh-60/before-engine-start/blade-fold-master": "item-26411716abb33aaf.opus",
+    "sikorsky-mh-60/before-engine-start/blade-fold": "item-9fbff2ba9a4c2491.opus",
+    "sikorsky-mh-60/before-engine-start/stabilator-auto-control": "item-b65832c839c3cf9d.opus",
+    "sikorsky-mh-60/before-engine-start/sas": "item-20f358a9ee7a69a1.opus",
+    "sikorsky-mh-60/before-engine-start/trim": "item-22437de4de5994ab.opus",
+    "sikorsky-mh-60/before-engine-start/auto-plt": "item-3457bc2f17e8b8e5.opus",
+    "sikorsky-mh-60/engine-start/fuel-selectors-crossfeed": "item-6e97399907e8d342.opus",
+    "sikorsky-mh-60/engine-start/engine-1-start": "item-c00e4892ed00b65b.opus",
+    "sikorsky-mh-60/engine-start/engine-1-ng-stable": "item-75ca372bd6e70b4e.opus",
+    "sikorsky-mh-60/engine-start/engine-2-start": "item-3d48bd969cd24c95.opus",
+    "sikorsky-mh-60/engine-start/engine-2-ng-stable": "item-c5027d4ccdb78827.opus",
+    "sikorsky-mh-60/engine-start/engines-fly": "item-fc1ba945e640dcba.opus",
+    "sikorsky-mh-60/engine-start/fuel-selectors-direct": "item-85a275d326aa8c33.opus",
+    "sikorsky-mh-60/after-engine-start/air-source-ecs": "item-9a7cc08be52dd1ca.opus",
+    "sikorsky-mh-60/after-engine-start/generators": "item-4aabf94be6c5af0f.opus",
+    "sikorsky-mh-60/after-engine-start/apu-generator": "item-4f1c13d5b9e5a25f.opus",
+    "sikorsky-mh-60/after-engine-start/apu-control": "item-05d5c4f7dca19c6c.opus",
+    "sikorsky-mh-60/after-engine-start/fuel-boost-pumps": "item-5065f9758b2183da.opus",
+    "sikorsky-mh-60/after-engine-start/utility-hydraulic-pump": "item-8446f2b620be477b.opus",
+    "sikorsky-mh-60/after-engine-start/primary-fuel-pump": "item-f757175825ab4569.opus",
+    "sikorsky-mh-60/after-engine-start/de-ice-master": "item-5ff4dd14bc1aee72.opus"
+  },
+  "excludedItems": [
+    {
+      "reference": "airbus-a400m/fsm-init/fuel-payload",
+      "text": "Fuel and payload: Import and load in the EFB.",
+      "reason": "FSM Init deferred by user until content is confirmed"
+    },
+    {
+      "reference": "airbus-a400m/fsm-init/init",
+      "text": "INIT: Import",
+      "reason": "FSM Init deferred by user until content is confirmed"
+    },
+    {
+      "reference": "airbus-a400m/fsm-init/wind",
+      "text": "Wind: Check",
+      "reason": "FSM Init deferred by user until content is confirmed"
+    },
+    {
+      "reference": "airbus-a400m/fsm-init/position-monitor",
+      "text": "Position monitor: G P S primary.",
+      "reason": "FSM Init deferred by user until content is confirmed"
+    },
+    {
+      "reference": "airbus-a400m/fsm-init/irs",
+      "text": "I R S one, two and three: Nav.",
+      "reason": "FSM Init deferred by user until content is confirmed"
+    },
+    {
+      "reference": "airbus-a400m/fsm-init/flight-plan",
+      "text": "Flight Plan: Insert",
+      "reason": "FSM Init deferred by user until content is confirmed"
+    },
+    {
+      "reference": "airbus-a400m/fsm-init/fuel-load",
+      "text": "Fuel and load: Enter zero fuel weight, zero fuel weight C G, and block equal to fuel.",
+      "reason": "FSM Init deferred by user until content is confirmed"
+    },
+    {
+      "reference": "airbus-a400m/fsm-init/to-perf",
+      "text": "Takeoff performance: Compute and insert.",
+      "reason": "FSM Init deferred by user until content is confirmed"
+    }
+  ]
+}

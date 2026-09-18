@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "file": "item-79ecdc75ed0a7ac0.opus",
+  "sha256": "14205d4d8a148ba367666b4fa2789185a00ce71a887e96d93e082d6317e633fb",
+  "recipeHash": "79ecdc75ed0a7ac0938451ba7c38a55d7eaaf3a54efb19483a66510fd7790960",
+  "recipe": {
+    "voiceId": "nPczCjzI2devNBz1zQrb",
+    "request": {
+      "text": "Fuel pumps, one and two: On at top of descent.",
+      "model_id": "eleven_multilingual_v2",
+      "voice_settings": {
+        "stability": 0.75,
+        "similarity_boost": 0.75,
+        "style": 0,
+        "use_speaker_boost": true,
+        "speed": 1
+      },
+      "seed": 9172026
+    },
+    "sourceFormat": "mp3_44100_128",
+    "profile": "clean",
+    "normalization": "loudnorm=I=-20:TP=-2:LRA=11",
+    "format": "ogg-opus-mono-48000-32k",
+    "revision": 1
+  },
+  "generatedAt": "2026-09-18T20:05:11.095Z",
+  "provider": "ElevenLabs",
+  "voice": "Brian",
+  "generationPlan": "paid",
+  "planEvidence": "Operator confirmed active Starter subscription before rendering.",
+  "requestId": "ioiczoCP2xrgt1giSgh8",
+  "characterCost": "23",
+  "ffmpegVersion": "ffmpeg version 7.0.2-static https://johnvansickle.com/ffmpeg/  Copyright (c) 2000-2024 the FFmpeg developers",
+  "licenseNotice": "../README.md"
+}

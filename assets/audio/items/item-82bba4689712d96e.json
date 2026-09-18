@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "file": "item-82bba4689712d96e.opus",
+  "sha256": "9e071b65352577659c8b9bf195079e34728ff4c69f19ac4f159f496070412a26",
+  "recipeHash": "82bba4689712d96e6b990445499152a999f853599ca99fda906352500c534658",
+  "recipe": {
+    "voiceId": "nPczCjzI2devNBz1zQrb",
+    "request": {
+      "text": "E C U test one and two: Hold for 25 seconds until the CAP indication clears.",
+      "model_id": "eleven_multilingual_v2",
+      "voice_settings": {
+        "stability": 0.75,
+        "similarity_boost": 0.75,
+        "style": 0,
+        "use_speaker_boost": true,
+        "speed": 1
+      },
+      "seed": 9172026
+    },
+    "sourceFormat": "mp3_44100_128",
+    "profile": "clean",
+    "normalization": "loudnorm=I=-20:TP=-2:LRA=11",
+    "format": "ogg-opus-mono-48000-32k",
+    "revision": 1
+  },
+  "generatedAt": "2026-09-18T20:04:48.491Z",
+  "provider": "ElevenLabs",
+  "voice": "Brian",
+  "generationPlan": "paid",
+  "planEvidence": "Operator confirmed active Starter subscription before rendering.",
+  "requestId": "TAzVNFltKZoeZzGiYVgF",
+  "characterCost": "38",
+  "ffmpegVersion": "ffmpeg version 7.0.2-static https://johnvansickle.com/ffmpeg/  Copyright (c) 2000-2024 the FFmpeg developers",
+  "licenseNotice": "../README.md"
+}

@@ -72,11 +72,13 @@ und bringen für .NET 10 keine weiteren Paketabhängigkeiten mit.
 
 | Komponente | Version / Stand | Lizenz / Bedingungen | Primärquelle |
 | --- | --- | --- | --- |
-| ElevenLabs Brian, Abschlussansage | eleven_multilingual_v2; erzeugt 2026-09-18 im bestätigten Starter-Plan | Bezahlte TTS-Ausgabe, gesonderte Anbieterbedingungen; keine pauschale MIT-Freigabe | [EU Terms](https://elevenlabs.io/terms-of-use-eu), [API Terms](https://elevenlabs.io/elevenapi-terms), [Veröffentlichung von Ausgaben](https://help.elevenlabs.io/hc/en-us/articles/13313564601361-Can-I-publish-the-content-I-generate-on-the-platform) |
+| ElevenLabs Brian, Abschluss- und Itemansagen | eleven_multilingual_v2; erzeugt 2026-09-18 im bestätigten Starter-Plan | Bezahlte TTS-Ausgabe, gesonderte Anbieterbedingungen; keine pauschale MIT-Freigabe | [EU Terms](https://elevenlabs.io/terms-of-use-eu), [API Terms](https://elevenlabs.io/elevenapi-terms), [Veröffentlichung von Ausgaben](https://help.elevenlabs.io/hc/en-us/articles/13313564601361-Can-I-publish-the-content-I-generate-on-the-platform) |
 | FFmpeg, nur lokales Renderwerkzeug | 7.0.2-static, mit libopus | GPL-3.0-or-later für den verwendeten Build; wird nicht ausgeliefert | [FFmpeg Legal](https://ffmpeg.org/legal.html), [Buildanbieter](https://johnvansickle.com/ffmpeg/) |
 
-Die Herkunft der einzigen Clean-Datei ist im
-[Audio-Manifest](../assets/audio/completion/manifest.json) dokumentiert.
+Die Herkunft der Clean-Dateien ist im
+[Abschlussmanifest](../assets/audio/completion/manifest.json) sowie in den
+[Item-Zuordnungen](../assets/audio/items/manifest.json) und den dortigen
+Dateimetadaten dokumentiert.
 Der Live-Radiofilter nutzt das bereits aufgeführte NAudio. Für die geplante
 externe Veröffentlichung muss die konkrete Audioasset-Lizenz gemäß
 [ADR 0008](adr/0008-stimme-und-tts-anbieter.md) separat festgelegt werden;

@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "file": "item-1f63b53e5771deef.opus",
+  "sha256": "157f77fbe81c6e05d5f55f6074c8243f3d00a35692b6bc88ee5f521ca015514f",
+  "recipeHash": "1f63b53e5771deef9165ca185fd7d57e4ca18f919b76729a9b6028bed6dd6381",
+  "recipe": {
+    "voiceId": "nPczCjzI2devNBz1zQrb",
+    "request": {
+      "text": "Displays: Set for day or night.",
+      "model_id": "eleven_multilingual_v2",
+      "voice_settings": {
+        "stability": 0.75,
+        "similarity_boost": 0.75,
+        "style": 0,
+        "use_speaker_boost": true,
+        "speed": 1
+      },
+      "seed": 9172026
+    },
+    "sourceFormat": "mp3_44100_128",
+    "profile": "clean",
+    "normalization": "loudnorm=I=-20:TP=-2:LRA=11",
+    "format": "ogg-opus-mono-48000-32k",
+    "revision": 1
+  },
+  "generatedAt": "2026-09-18T20:05:43.531Z",
+  "provider": "ElevenLabs",
+  "voice": "Brian",
+  "generationPlan": "paid",
+  "planEvidence": "Operator confirmed active Starter subscription before rendering.",
+  "requestId": "7mD83YGsOgu1Pkq8UJCt",
+  "characterCost": "16",
+  "ffmpegVersion": "ffmpeg version 7.0.2-static https://johnvansickle.com/ffmpeg/  Copyright (c) 2000-2024 the FFmpeg developers",
+  "licenseNotice": "../README.md"
+}

@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "file": "item-794b7dbfed8622c9.opus",
+  "sha256": "4de573b81f2728958bacc9487b061d6cb5d16c1575d9e92e8b690272561472cc",
+  "recipeHash": "794b7dbfed8622c92c795624ae7eb921cb1125e8279a8b6341459d9870e8e3cb",
+  "recipe": {
+    "voiceId": "nPczCjzI2devNBz1zQrb",
+    "request": {
+      "text": "Caution and warning lights: Press to test.",
+      "model_id": "eleven_multilingual_v2",
+      "voice_settings": {
+        "stability": 0.75,
+        "similarity_boost": 0.75,
+        "style": 0,
+        "use_speaker_boost": true,
+        "speed": 1
+      },
+      "seed": 9172026
+    },
+    "sourceFormat": "mp3_44100_128",
+    "profile": "clean",
+    "normalization": "loudnorm=I=-20:TP=-2:LRA=11",
+    "format": "ogg-opus-mono-48000-32k",
+    "revision": 1
+  },
+  "generatedAt": "2026-09-18T20:05:19.663Z",
+  "provider": "ElevenLabs",
+  "voice": "Brian",
+  "generationPlan": "paid",
+  "planEvidence": "Operator confirmed active Starter subscription before rendering.",
+  "requestId": "oAuVXah37AHnObDMIkvC",
+  "characterCost": "21",
+  "ffmpegVersion": "ffmpeg version 7.0.2-static https://johnvansickle.com/ffmpeg/  Copyright (c) 2000-2024 the FFmpeg developers",
+  "licenseNotice": "../README.md"
+}

@@ -41,3 +41,46 @@ external distribution license remains to be finalized before publication.
 - [EEA Terms of Service](https://elevenlabs.io/terms-of-use-eu)
 - [Prohibited Use Policy](https://elevenlabs.io/use-policy)
 - [Project decision](../../docs/adr/0008-stimme-und-tts-anbieter.md)
+
+## Preparing checklist speech
+
+`task audio:plan` reads the canonical checklist JSON and writes a complete
+JSON inventory plus a Markdown review list to `tmp/checklist-audio/`.
+Identical texts are planned once, retaining every item reference. A `speech`
+override takes precedence over the `<challenge>: <response>` fallback.
+
+The plan reports character volume and flags abbreviations, compact notation,
+and existing `needsReview` markers. These hints do not prove pronunciation
+errors. Corrections belong in the checklist data, not in the generated plan.
+Character volume is not a binding credit quote. The task works entirely
+offline and generates no audio; the existing completion clip is excluded.
+
+For the first item-audio generation, the eight A400M `fsm-init` entries are
+deferred by user decision. They remain in the canonical checklist, with their
+existing review markers, but are listed separately in `excludedItems` and have
+no planned speech-asset mapping. The plan's character totals count only included
+utterances. Revisit this exclusion after the contents have been confirmed.
+
+Generate the included item clips with
+`task audio:render-items -- --paid-plan-confirmed`. This uses the completion
+clip's Brian/model/render settings and writes clean Opus assets, per-clip
+provenance, and an item-to-file manifest under `items/`. It is an explicit
+developer operation and is never invoked by check, build, or deployment.
+These prepared assets are not yet wired into item playback.
+
+Existing paid assets are reused after checksum verification. Source responses
+are checkpointed under the ignored `tmp/checklist-audio/render-cache/` before
+encoding, allowing local encoding failures to resume without another TTS
+request. A `.pending` marker without a saved response stops retries: inspect
+the provider history first, because an interrupted request might already have
+consumed credits. No automatic retry, top-up, or subscription change occurs.
+
+### Accepted SAS pronunciation
+
+After comparing the alternatives, the user chose to retain
+`S A S one and two: On.` with Brian and `eleven_multilingual_v2`.
+The initial S was imperfect in the audition, but this version was preferred
+over hyphens, spelled-out letter names, commas, and phonetic control with
+Flash v2 and Eleven v3. This is an accepted pronunciation compromise, not an
+outstanding correction before rendering. No further SAS-specific spelling
+or model change is planned; the visible label remains `SAS [1+2]`.

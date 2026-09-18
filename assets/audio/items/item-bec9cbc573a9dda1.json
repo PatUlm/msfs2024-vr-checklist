@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "file": "item-bec9cbc573a9dda1.opus",
+  "sha256": "0996b4a85216e589c9b67f62f99f1d4441b320bfb7b0a49ca51f6de562c64801",
+  "recipeHash": "bec9cbc573a9dda19ba917974a2d956de58a5d8b41af4af751505b9646d1dd6d",
+  "recipe": {
+    "voiceId": "nPczCjzI2devNBz1zQrb",
+    "request": {
+      "text": "Altimeters one and two: Set Q N H from A T I S or M E T A R.",
+      "model_id": "eleven_multilingual_v2",
+      "voice_settings": {
+        "stability": 0.75,
+        "similarity_boost": 0.75,
+        "style": 0,
+        "use_speaker_boost": true,
+        "speed": 1
+      },
+      "seed": 9172026
+    },
+    "sourceFormat": "mp3_44100_128",
+    "profile": "clean",
+    "normalization": "loudnorm=I=-20:TP=-2:LRA=11",
+    "format": "ogg-opus-mono-48000-32k",
+    "revision": 1
+  },
+  "generatedAt": "2026-09-18T20:04:40.246Z",
+  "provider": "ElevenLabs",
+  "voice": "Brian",
+  "generationPlan": "paid",
+  "planEvidence": "Operator confirmed active Starter subscription before rendering.",
+  "requestId": "lJD2sx85TQ80L4CVJDxS",
+  "characterCost": "30",
+  "ffmpegVersion": "ffmpeg version 7.0.2-static https://johnvansickle.com/ffmpeg/  Copyright (c) 2000-2024 the FFmpeg developers",
+  "licenseNotice": "../README.md"
+}

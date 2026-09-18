@@ -48,8 +48,12 @@ Abnahmekriterien weiter unten bleiben bestehen.
    Nicht-VR und VR bestätigten WASAPI-Shared-Mode-Pfad und ist mit dem
    VR-Audiogerät bestätigt. ElevenLabs Brian ist als Hauptstimme gewählt.
    Abschlussansage und Test sound verwenden bereits Brian mit live schaltbarem
-   Radioeffekt. Das Vorlesen einzelner Items folgt als eigenes Inkrement;
-   für die Veröffentlichung gelten die Bedingungen aus ADR 0008.
+   Radioeffekt. Für das nächste Inkrement werden Clean-Itemansagen mit Brian
+   vorbereitet. Die acht ungeprüften A400M-Einträge unter `FSM Init` bleiben
+   auf Nutzerwunsch zunächst ohne Sprachasset; die Checklisteneinträge selbst
+   bleiben erhalten. Als Nächstes folgt die Anbindung der Itemansagen an den
+   Sprachmodus mit Unterdrückung wiederholter Zustandsmeldungen. Für die
+   Veröffentlichung gelten die Bedingungen aus ADR 0008.
 
 Der Transport verwendet ein versioniertes Nachrichtenprotokoll. Ein
 vollständiger Zustandssnapshot enthält mindestens Protokollversion, EFB-Version,

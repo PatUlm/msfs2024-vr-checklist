@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "file": "item-946f4e7a085c14b2.opus",
+  "sha256": "c0079e2f025aa73441396162e275c06b3668d30815b002c450945a9acee7252c",
+  "recipeHash": "946f4e7a085c14b26f144d0509c7edb28c4e9d073915dbc5358fdc43597c8d52",
+  "recipe": {
+    "voiceId": "nPczCjzI2devNBz1zQrb",
+    "request": {
+      "text": "Starter: Release when engine N one is at least 61 percent.",
+      "model_id": "eleven_multilingual_v2",
+      "voice_settings": {
+        "stability": 0.75,
+        "similarity_boost": 0.75,
+        "style": 0,
+        "use_speaker_boost": true,
+        "speed": 1
+      },
+      "seed": 9172026
+    },
+    "sourceFormat": "mp3_44100_128",
+    "profile": "clean",
+    "normalization": "loudnorm=I=-20:TP=-2:LRA=11",
+    "format": "ogg-opus-mono-48000-32k",
+    "revision": 1
+  },
+  "generatedAt": "2026-09-18T20:05:23.706Z",
+  "provider": "ElevenLabs",
+  "voice": "Brian",
+  "generationPlan": "paid",
+  "planEvidence": "Operator confirmed active Starter subscription before rendering.",
+  "requestId": "NnSBpJrTd3M6gDdzXaxF",
+  "characterCost": "29",
+  "ffmpegVersion": "ffmpeg version 7.0.2-static https://johnvansickle.com/ffmpeg/  Copyright (c) 2000-2024 the FFmpeg developers",
+  "licenseNotice": "../README.md"
+}

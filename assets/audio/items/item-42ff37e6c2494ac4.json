@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "file": "item-42ff37e6c2494ac4.opus",
+  "sha256": "912fac422fd9a26f39578d1544bd26503bde6f8c207139266ac121c0ab8a07f2",
+  "recipeHash": "42ff37e6c2494ac401d5a09c1003eb5e94bc9080c3e48a071c8366ba8c339c7e",
+  "recipe": {
+    "voiceId": "nPczCjzI2devNBz1zQrb",
+    "request": {
+      "text": "Power levers, one and two: Idle.",
+      "model_id": "eleven_multilingual_v2",
+      "voice_settings": {
+        "stability": 0.75,
+        "similarity_boost": 0.75,
+        "style": 0,
+        "use_speaker_boost": true,
+        "speed": 1
+      },
+      "seed": 9172026
+    },
+    "sourceFormat": "mp3_44100_128",
+    "profile": "clean",
+    "normalization": "loudnorm=I=-20:TP=-2:LRA=11",
+    "format": "ogg-opus-mono-48000-32k",
+    "revision": 1
+  },
+  "generatedAt": "2026-09-18T20:04:25.064Z",
+  "provider": "ElevenLabs",
+  "voice": "Brian",
+  "generationPlan": "paid",
+  "planEvidence": "Operator confirmed active Starter subscription before rendering.",
+  "requestId": "1OgJPGOLRq07uZSTsTj6",
+  "characterCost": "16",
+  "ffmpegVersion": "ffmpeg version 7.0.2-static https://johnvansickle.com/ffmpeg/  Copyright (c) 2000-2024 the FFmpeg developers",
+  "licenseNotice": "../README.md"
+}

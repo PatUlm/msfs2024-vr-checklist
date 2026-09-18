@@ -83,10 +83,27 @@ tasks:
     cmds:
       - npm test
 
+  audio:plan:
+    desc: Inventory unique checklist speech texts and pronunciation review hints offline
+    cmds:
+      - task: validate
+      - node scripts/plan-checklist-audio.mjs
+
   audio:render-completion:
     desc: Render the clean Brian completion clip (explicit paid ElevenLabs operation)
     cmds:
       - node scripts/render-completion-audio.mjs {{.CLI_ARGS}}
+
+  audio:render-items:
+    desc: Render planned clean Brian item clips (explicit paid ElevenLabs operation)
+    cmds:
+      - task: audio:plan
+      - node scripts/render-checklist-audio.mjs {{.CLI_ARGS}}
+
+  validate:audio:
+    desc: Validate item audio provenance, hashes, checklist mappings and exclusions
+    cmds:
+      - node scripts/validate-checklist-audio.mjs
 
   companion:build:
     desc: Build the Windows companion app and transport probe with the pinned .NET SDK
@@ -215,6 +232,7 @@ tasks:
   check:
     desc: Run the complete local validation and build
     cmds:
+      - task: validate:audio
       - task: build
       - task: test:app
       - task: companion:build

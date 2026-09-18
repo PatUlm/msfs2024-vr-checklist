@@ -30,9 +30,11 @@ spätere Kehrtwende bekommt ein neues ADR, das das alte ersetzt.
 | [0005](0005-phase-2-auf-die-efb-app-verkuerzen.md) | Phase 2 auf die EFB-App verkürzen | Akzeptiert | Phasenzuschnitt |
 | [0006](0006-tts-vorab-synthese.md) | Sprachausgabe als Vorab-Synthese | Akzeptiert | Phase 3 |
 | [0007](0007-ablage-der-gerenderten-audiodateien.md) | Gerenderte Audiodateien liegen im Repository | Akzeptiert | Phase 3 |
-| [0008](0008-stimme-und-tts-anbieter.md) | Stimme und TTS-Anbieter | **Offen — vor produktiven Sprachassets** | Phase 3 |
+| [0008](0008-stimme-und-tts-anbieter.md) | Stimme und TTS-Anbieter | Brian gewählt; Sarah als Alternative; externe Asset-Lizenz offen | Phase 3 |
 | [0009](0009-fortschritt-ueber-efb-kontextwechsel.md) | Checklistenfortschritt über EFB-Kontextwechsel ohne unbelegte Multi-Writer-Annahme | Akzeptiert | Phase 1 |
+| [0010](0010-radioeffekt-bei-der-wiedergabe.md) | Radioeffekt bei der Wiedergabe, eine Clean-Datei pro Ansage | Akzeptiert | Phase 3 |
 
 Noch ausstehende Laufzeitnachweise stehen ausschließlich in
-[`../open-tests.md`](../open-tests.md). Die offene Produktentscheidung zu
-Stimme und Anbieter bleibt in [ADR 0008](0008-stimme-und-tts-anbieter.md).
+[`../open-tests.md`](../open-tests.md). Stimmenwahl und die noch offenen
+Lizenzfragen stehen in [ADR 0008](0008-stimme-und-tts-anbieter.md); die
+Live-Verarbeitung regelt [ADR 0010](0010-radioeffekt-bei-der-wiedergabe.md).

@@ -4,6 +4,29 @@ namespace VRChecklist.TransportProbe;
 
 internal static class AudioSettingsSelfTests
 {
+    public static void PersistsRadioIndependently() => WithSettingsPath(path =>
+    {
+        File.WriteAllText(path, """{"DeviceId":"headset","DeviceName":"Headset"}""");
+        var settings = new AudioOutputSettings(path);
+        Require(settings.Current.RadioEnabled, "Old settings must enable radio by default.");
+        var vm = new AudioSettingsViewModel(settings, () => [new("headset", "Headset"), new("speaker", "Speakers")],
+            () => Task.CompletedTask);
+        vm.RefreshDevices();
+        vm.RadioEnabled = false;
+        vm.SelectedDevice = vm.Devices.Single(device => device.Id == "speaker");
+        var restored = new AudioOutputSettings(path);
+        Require(!restored.Current.RadioEnabled && restored.Current.DeviceId == "speaker",
+            "An output change or restart must not reset the radio choice.");
+        vm.RadioEnabled = true;
+        Require(settings.Current.DeviceId == "speaker" && new AudioOutputSettings(path).Current.RadioEnabled,
+            "Changing the effect must retain the output and persist immediately.");
+        File.Delete(path);
+        Directory.CreateDirectory(path);
+        vm.RadioEnabled = false;
+        Require(vm.RadioEnabled && vm.Status.Contains("Could not save", StringComparison.Ordinal),
+            "A failed radio save must keep the previous displayed and effective choice.");
+    });
+
     public static void PersistsEndpoint() => WithSettingsPath(path =>
     {
         var settings = new AudioOutputSettings(path);

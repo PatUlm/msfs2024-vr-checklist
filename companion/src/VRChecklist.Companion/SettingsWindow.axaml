@@ -30,6 +30,12 @@
             </DataTemplate>
           </ComboBox.ItemTemplate>
         </ComboBox>
+        <ToggleSwitch IsChecked="{Binding RadioEnabled, Mode=TwoWay}"
+                      OnContent="On" OffContent="Off" Content="Radio effect"
+                      Foreground="#F3F6FA" FontSize="16" MinHeight="44"
+                      AutomationProperties.Name="Radio effect" />
+        <TextBlock Foreground="#AAB4C0" TextWrapping="Wrap"
+                   Text="Switch off for a clean voice. You can change the effect while a sound is playing." />
         <Button Classes="icon-button" Click="OnTestSoundClick" IsEnabled="{Binding CanTest}">
           <StackPanel>
             <Path Data="{StaticResource IconSpeaker}" />

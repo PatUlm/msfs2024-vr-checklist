@@ -71,7 +71,8 @@ public sealed partial class App : Application
         try
         {
             player = new CompletionSoundPlayer(
-                OpusClip.LoadEmbeddedCompletion(), () => audioSettings.Current.DeviceId);
+                OpusClip.LoadEmbeddedCompletion(), () => audioSettings.Current.DeviceId,
+                () => audioSettings.Current.RadioEnabled);
         }
         catch (Exception error)
         {

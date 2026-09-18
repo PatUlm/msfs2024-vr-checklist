@@ -31,7 +31,7 @@ Die Checklistenansicht der Status-App bettet die JSON-Dateien aus
 `../checklists/data/` zur Build-Zeit als Ressourcen ein. Die JSON-Dateien
 bleiben die einzige Quelle; die App rendert sie nur.
 
-Die Ansage `../assets/audio/checklist-completed.opus` wird ebenfalls
+Die in `../assets/audio/completion/manifest.json` beschriebene Brian-Ansage wird ebenfalls
 eingebettet, beim Start mit Concentus dekodiert und über `NAudio.Wasapi` im
 Shared Mode auf dem gewählten Ausgabegerät abgespielt, sobald der Snapshot eine
 neu erledigte Gruppe meldet. Unter `Settings` bietet `Audio output` das
@@ -40,7 +40,12 @@ einen modalen Dialog; `Test sound` in diesem Dialog spielt
 `Checklist completed` auf der Auswahl ab, auch ohne MSFS und ohne Änderung des
 Checklistenfortschritts. `Windows default` steht immer zuerst, danach folgen
 zuletzt gewählte Geräte vor den übrigen, alphabetisch sortierten Ausgängen.
-Geräte-ID, letzter Anzeigename und Auswahlhistorie liegen
+`Radio effect` ist standardmäßig eingeschaltet und lässt sich auch während
+einer Ansage umschalten. Ausgeschaltet wird dieselbe Clean-Datei unverändert
+abgespielt; es gibt keine zweite TTS-Generierung und keinen Onlinezugriff.
+Herkunft und Renderablauf stehen unter [Audioassets](../assets/audio/README.md).
+Einzelne Checklisteneinträge werden in einem späteren Inkrement vertont.
+Geräte-ID, letzter Anzeigename, Auswahlhistorie und Radio-Einstellung liegen
 unter `%LOCALAPPDATA%\VRChecklist\audio-output.json`. Ein fehlendes Gerät bleibt
 ausgewählt, bis es wieder verfügbar ist oder eine andere Auswahl getroffen wird.
 Ohne MSFS

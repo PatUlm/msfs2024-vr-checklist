@@ -1,7 +1,8 @@
 # ADR 0007: Gerenderte Audiodateien liegen im Repository
 
 - **Status:** Akzeptiert — wirksam in Phase 3; am 2026-09-12 um das Format
-  Opus ergänzt
+  Opus ergänzt; Klangvarianten am 2026-09-18 durch
+  [ADR 0010](0010-radioeffekt-bei-der-wiedergabe.md) ersetzt
 - **Datum:** 2026-08-26
 - **Betrifft:** Phase 3 und die Repository-Regeln
 - **Grundlage:** [ADR 0006](0006-tts-vorab-synthese.md)
@@ -72,9 +73,10 @@ das Renderwerkzeug kein Opus liefert).
 
 - Die Ausnahme wird in `AGENTS.md` bei der Regel zu generierten Dateien
   ausdrücklich benannt, damit sie nicht als Versehen gelesen wird.
-- Dateinamen tragen einen Hash über `speech`-Text, Stimme und Klangprofil, damit
+- Dateinamen tragen einen Hash über `speech`-Text, Stimme und Clean-Renderrezept, damit
   eine Textänderung die betroffene Datei sichtbar invalidiert und der Diff
-  erkennbar bleibt.
+  erkennbar bleibt. Seit ADR 0010 wird nur Clean gespeichert; Radio wird live
+  angewendet. Die ursprüngliche Größenrechnung für drei Profile gilt nicht mehr.
 - Das Renderwerkzeug wird als `task`-Ziel geführt und schreibt ausschließlich
   nach `assets/`. Es läuft nicht als Teil von `task build` oder `task deploy`.
 - Sollte der Umfang später deutlich wachsen — etwa viele Flugzeuge, mehrere

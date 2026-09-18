@@ -1,6 +1,7 @@
 # ADR 0006: Sprachausgabe als Vorab-Synthese
 
-- **Status:** Akzeptiert — wirksam in Phase 3
+- **Status:** Akzeptiert — Klangvarianten am 2026-09-18 durch
+  [ADR 0010](0010-radioeffekt-bei-der-wiedergabe.md) ersetzt
 - **Datum:** 2026-08-26
 - **Betrifft:** Phase 3
 
@@ -29,10 +30,12 @@ Phonemizer und synthetisiert zur Laufzeit nichts.
 
 ## Konsequenzen
 
-- Text-, Stimmen- oder Profiländerungen erfordern ein gezieltes Neu-Rendern.
-  Dateinamen enthalten dafür einen Hash über Text, Stimme und Klangprofil.
-- `Clean`, `Intercom` und `Radio` werden offline vorbereitet; ihre konkreten
-  Filterparameter werden beim Hörvergleich in Phase 3 entschieden.
+- Text- oder Stimmenänderungen erfordern ein gezieltes Neu-Rendern.
+  Dateinamen enthalten dafür einen Hash über Text, Stimme und Clean-Renderrezept.
+- Die ursprüngliche Planung bereitete `Clean`, `Intercom` und `Radio` offline
+  vor. [ADR 0010](0010-radioeffekt-bei-der-wiedergabe.md) ersetzt diesen Teil:
+  nur Clean wird gerendert, Radio bei der Wiedergabe zugeschaltet; Intercom
+  entfällt. Filteränderungen erfordern keine neue Synthese.
 - Stimme und Anbieter bleiben Gegenstand von
   [ADR 0008](0008-stimme-und-tts-anbieter.md).
 - Die Ablage der Audiodateien regelt

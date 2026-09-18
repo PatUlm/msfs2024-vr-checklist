@@ -209,6 +209,11 @@ Iteration stehen separat in `design-qa.md`.
 
 ## Audioeinstellungen der Begleit-App
 
+- `Radio effect` schaltet den lokalen Radiofilter während der Wiedergabe ein
+  oder aus; ausgeschaltet bleibt die Clean-Aufnahme unverändert. Der Schalter
+  ist standardmäßig an, wird gespeichert und bleibt während `Test sound`
+  bedienbar. Pro Ansage gibt es nur eine Datei. Intercom entfällt; siehe
+  [ADR 0010](adr/0010-radioeffekt-bei-der-wiedergabe.md).
 - `Settings` öffnet einen modalen Dialog über dem Dashboard. Die kurzen
   Einstellungen brauchen keine parallele Bedienung des Hauptfensters;
   Simulatorverbindung und Sprachausgabe laufen im Hintergrund weiter.

@@ -20,6 +20,7 @@ public sealed class CompletionSoundPlayer : IDisposable
     private const int LatencyMilliseconds = 200;
     private readonly OpusClip clip;
     private readonly Func<string?> getDeviceId;
+    private readonly Func<bool> isRadioEnabled;
     private readonly object gate = new();
     private WasapiPlayer? output;
     private MMDevice? outputEndpoint;
@@ -31,11 +32,12 @@ public sealed class CompletionSoundPlayer : IDisposable
     {
     }
 
-    public CompletionSoundPlayer(OpusClip clip, Func<string?>? getDeviceId = null)
+    public CompletionSoundPlayer(OpusClip clip, Func<string?>? getDeviceId = null, Func<bool>? isRadioEnabled = null)
     {
         ArgumentNullException.ThrowIfNull(clip);
         this.clip = clip;
         this.getDeviceId = getDeviceId ?? (() => null);
+        this.isRadioEnabled = isRadioEnabled ?? (() => true);
     }
 
     /*
@@ -56,7 +58,7 @@ public sealed class CompletionSoundPlayer : IDisposable
             {
                 var reader = clip.OpenRead();
                 outputReader = reader;
-                ISampleProvider samples = reader.ToSampleProvider();
+                ISampleProvider samples = new RadioSampleProvider(reader.ToSampleProvider(), isRadioEnabled);
 
                 if (samples.WaveFormat.Channels == 1)
                 {

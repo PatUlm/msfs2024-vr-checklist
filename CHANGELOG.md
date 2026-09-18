@@ -7,6 +7,17 @@ Changelog, and the project uses Semantic Versioning.
 
 ## [Unreleased]
 
+### Added
+
+- Companion Settings now provides a remembered Radio effect switch, enabled
+  by default, that applies a radio filter during playback and can be toggled
+  while a sound is playing. Switching it off restores the clean voice.
+
+### Changed
+
+- Group completion and Test sound now use the natural English Brian voice
+  instead of the Windows system-voice placeholder.
+
 ## [0.10.0] - 2026-09-16
 
 ### Added

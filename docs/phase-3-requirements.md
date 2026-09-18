@@ -13,7 +13,12 @@ das Windows-Standardgerät funktioniert bei laufendem MSFS in Nicht-VR und VR
 (Nutzerbestätigung vom 2026-09-16). Auch die explizite Gerätewahl ist bestätigt:
 `Checklist completed` ist bei laufendem MSFS über `Settings` → `Test sound`
 auf dem ausgewählten VR-Headset hörbar (Nutzerbestätigung vom 2026-09-17).
-Als Nächstes werden Stimme, Anbieter und Klangprofile entschieden.**
+ElevenLabs Brian ist als Hauptstimme gewählt; Sarah bleibt die dokumentierte
+weibliche Alternative. Die Abschlussansage nutzt Brian aus einer neuen
+Starter-Generierung. Radio wird live zuschaltbar angewendet (ADR 0010).
+Die Audioqualität gilt unabhängig vom Ausgabegerät; separate Headset- oder
+In-Ear-Abnahmen sind nicht vorgesehen. Die konkrete Asset-Lizenz vor einer
+GitHub-Veröffentlichung bleibt offen (ADR 0008).**
 
 ## Umsetzungsreihenfolge
 
@@ -41,8 +46,10 @@ Abnahmekriterien weiter unten bleiben bestehen.
    ist dafür ausdrücklich keine Voraussetzung.
 5. **Produktive Audioausgabe:** Die explizite Gerätewahl ergänzt den bereits in
    Nicht-VR und VR bestätigten WASAPI-Shared-Mode-Pfad und ist mit dem
-   VR-Audiogerät bestätigt. Nun werden Stimme, Anbieter und Klangprofile
-   entschieden und anschließend die produktiven Sprachassets vorab gerendert.
+   VR-Audiogerät bestätigt. ElevenLabs Brian ist als Hauptstimme gewählt.
+   Abschlussansage und Test sound verwenden bereits Brian mit live schaltbarem
+   Radioeffekt. Das Vorlesen einzelner Items folgt als eigenes Inkrement;
+   für die Veröffentlichung gelten die Bedingungen aus ADR 0008.
 
 Der Transport verwendet ein versioniertes Nachrichtenprotokoll. Ein
 vollständiger Zustandssnapshot enthält mindestens Protokollversion, EFB-Version,
@@ -86,7 +93,8 @@ Die erste Oberfläche unterscheidet mindestens:
   vorgelesen, wenn er sich durch Abhaken, Wiederöffnen oder einen
   Gruppenwechsel tatsächlich ändert. Eine erneute Übertragung desselben
   Zustands, etwa nach einem Reconnect, wiederholt die Ansage nicht. Die erste
-  Sprache ist Englisch; die Klangprofile sind `Clean`, `Intercom` und `Radio`.
+  Sprache ist Englisch; ein gespeicherter Schalter `Radio effect` aktiviert
+  den Live-Radiofilter (standardmäßig an). Ausgeschaltet erklingt Clean.
   Weitere Sprachen sind nicht Teil dieses Meilensteins.
 - Der Nutzer wählt das Windows-Ausgabegerät, damit die Ansage gezielt im
   VR-Headset wiedergegeben werden kann.
@@ -148,5 +156,7 @@ Override ist Teil des kanonischen Datenvertrags in
   Laufzeit
 - [ADR 0007](adr/0007-ablage-der-gerenderten-audiodateien.md): gerenderte
   Audiodateien unter `assets/`
-- [ADR 0008](adr/0008-stimme-und-tts-anbieter.md): Stimme und Anbieter noch
-  offen
+- [ADR 0008](adr/0008-stimme-und-tts-anbieter.md): Brian als Hauptstimme,
+  Sarah als weibliche Alternative; konkrete Asset-Lizenz noch offen
+- [ADR 0010](adr/0010-radioeffekt-bei-der-wiedergabe.md): Clean-Audio mit
+  live schaltbarem Radioeffekt statt vorgerenderter Klangvarianten

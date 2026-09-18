@@ -29,6 +29,25 @@ public sealed class AudioSettingsViewModel : INotifyPropertyChanged
     public bool CanSelect => !isTesting;
     public bool HasStatus => !string.IsNullOrEmpty(status);
 
+    public bool RadioEnabled
+    {
+        get => settings.Current.RadioEnabled;
+        set
+        {
+            if (value == RadioEnabled) return;
+            try
+            {
+                settings.Save(settings.Current with { RadioEnabled = value });
+                if (!isTesting) Status = SelectionStatus;
+            }
+            catch (Exception error) when (error is IOException or UnauthorizedAccessException)
+            {
+                Status = "Could not save the radio effect. The previous setting is still active.";
+            }
+            Notify();
+        }
+    }
+
     public string Status
     {
         get => status;
@@ -51,7 +70,7 @@ public sealed class AudioSettingsViewModel : INotifyPropertyChanged
             }
             try
             {
-                settings.Save(new(value.Id, value.Id is null ? null : value.Name));
+                settings.Save(settings.Current with { DeviceId = value.Id, DeviceName = value.Id is null ? null : value.Name });
                 selectedDevice = value;
                 Status = SelectionStatus;
             }

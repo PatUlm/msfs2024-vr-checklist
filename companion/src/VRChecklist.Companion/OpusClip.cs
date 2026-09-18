@@ -1,6 +1,7 @@
 using Concentus;
 using Concentus.Oggfile;
 using NAudio.Wave;
+using System.Text.Json;
 
 namespace VRChecklist.Companion;
 
@@ -12,7 +13,6 @@ namespace VRChecklist.Companion;
  */
 public sealed class OpusClip
 {
-    public const string CompletionResourceName = "VRChecklist.Companion.audio.checklist-completed.opus";
     private const int SampleRate = 48000;
     private const int Channels = 1;
     private readonly byte[] pcm;
@@ -59,7 +59,16 @@ public sealed class OpusClip
         return new OpusClip(pcm.ToArray());
     }
 
-    public static OpusClip LoadEmbeddedCompletion() => LoadEmbedded(CompletionResourceName);
+    public static OpusClip LoadEmbeddedCompletion()
+    {
+        using var manifest = typeof(OpusClip).Assembly.GetManifestResourceStream(
+            "VRChecklist.Companion.audio.completion-manifest.json")
+            ?? throw new InvalidOperationException("Completion audio manifest is missing.");
+        using var document = JsonDocument.Parse(manifest);
+        var file = document.RootElement.GetProperty("file").GetString()
+            ?? throw new InvalidDataException("Completion audio filename is missing.");
+        return LoadEmbedded("VRChecklist.Companion.audio." + file);
+    }
 
     public static OpusClip LoadEmbedded(string resourceName)
     {

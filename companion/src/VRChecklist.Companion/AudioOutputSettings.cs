@@ -5,7 +5,8 @@ namespace VRChecklist.Companion;
 public sealed record AudioOutputPreference(
     string? DeviceId,
     string? DeviceName,
-    IReadOnlyList<string>? RecentDeviceIds = null);
+    IReadOnlyList<string>? RecentDeviceIds = null,
+    bool RadioEnabled = true);
 
 public sealed class AudioOutputSettings
 {
@@ -65,6 +66,6 @@ public sealed class AudioOutputSettings
             .Where(id => !string.IsNullOrWhiteSpace(id))
             .Distinct(StringComparer.Ordinal)
             .ToArray();
-        return new(deviceId, deviceId is null ? null : preference.DeviceName, recentIds);
+        return new(deviceId, deviceId is null ? null : preference.DeviceName, recentIds, preference.RadioEnabled);
     }
 }

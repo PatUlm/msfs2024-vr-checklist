@@ -211,6 +211,9 @@ gehören nach `docs/design-qa.md`.
 - Die dauerhaft akzeptierten UI- und Interaktionsentscheidungen stehen in
   `docs/design-decisions.md`; offene Abweichungen stehen in
   `docs/design-qa.md`.
+- Audioqualität gilt unabhängig vom Ausgabegerät. Keine zusätzlichen manuellen
+  Hörtests oder Abnahmen speziell für Headsets, In-Ears oder andere
+  Kopfhörertypen verlangen.
 - Die Oberfläche ist VR-first. Lesbarkeit und große Interaktionsziele haben
   Vorrang vor maximaler Informationsdichte.
 - Laufzeitlogik ist event-first und darf keine unnötige Arbeit pro Frame

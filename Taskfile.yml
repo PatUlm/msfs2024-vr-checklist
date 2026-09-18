@@ -83,6 +83,11 @@ tasks:
     cmds:
       - npm test
 
+  audio:render-completion:
+    desc: Render the clean Brian completion clip (explicit paid ElevenLabs operation)
+    cmds:
+      - node scripts/render-completion-audio.mjs {{.CLI_ARGS}}
+
   companion:build:
     desc: Build the Windows companion app and transport probe with the pinned .NET SDK
     deps:

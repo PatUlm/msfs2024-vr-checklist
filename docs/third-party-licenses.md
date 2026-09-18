@@ -66,11 +66,18 @@ Die Begleit-App nutzt von NAudio nur `NAudio.Wasapi` und dessen Abhängigkeit
 `NAudio.Core`; das Meta-Paket `NAudio` mit WinMM-, MIDI- und ASIO-Teilen wird
 nicht ausgeliefert. `Concentus` und `Concentus.Oggfile` dekodieren die
 Opus-Ansagen aus [ADR 0007](adr/0007-ablage-der-gerenderten-audiodateien.md)
-und bringen für .NET 10 keine weiteren Paketabhängigkeiten mit. Die
-eingebettete Ansage `assets/audio/checklist-completed.opus` ist ein selbst
-gerenderter Platzhalter mit einer Windows-Systemstimme und keine
-Drittkomponente. Stimme und TTS-Anbieter für die produktiven Sprachassets
-bleiben Gegenstand von
-[ADR 0001](adr/0001-lizenz-und-veroeffentlichungsstrategie.md) und
-[ADR 0008](adr/0008-stimme-und-tts-anbieter.md); nach ihrer Aufnahme werden sie
-hier ergänzt.
+und bringen für .NET 10 keine weiteren Paketabhängigkeiten mit.
+
+## Sprachasset und Renderwerkzeug
+
+| Komponente | Version / Stand | Lizenz / Bedingungen | Primärquelle |
+| --- | --- | --- | --- |
+| ElevenLabs Brian, Abschlussansage | eleven_multilingual_v2; erzeugt 2026-09-18 im bestätigten Starter-Plan | Bezahlte TTS-Ausgabe, gesonderte Anbieterbedingungen; keine pauschale MIT-Freigabe | [EU Terms](https://elevenlabs.io/terms-of-use-eu), [API Terms](https://elevenlabs.io/elevenapi-terms), [Veröffentlichung von Ausgaben](https://help.elevenlabs.io/hc/en-us/articles/13313564601361-Can-I-publish-the-content-I-generate-on-the-platform) |
+| FFmpeg, nur lokales Renderwerkzeug | 7.0.2-static, mit libopus | GPL-3.0-or-later für den verwendeten Build; wird nicht ausgeliefert | [FFmpeg Legal](https://ffmpeg.org/legal.html), [Buildanbieter](https://johnvansickle.com/ffmpeg/) |
+
+Die Herkunft der einzigen Clean-Datei ist im
+[Audio-Manifest](../assets/audio/completion/manifest.json) dokumentiert.
+Der Live-Radiofilter nutzt das bereits aufgeführte NAudio. Für die geplante
+externe Veröffentlichung muss die konkrete Audioasset-Lizenz gemäß
+[ADR 0008](adr/0008-stimme-und-tts-anbieter.md) separat festgelegt werden;
+die früheren Free-Tier-Hörproben werden nicht ausgeliefert.

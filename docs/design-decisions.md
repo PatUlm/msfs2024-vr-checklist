@@ -182,6 +182,14 @@ Iteration stehen separat in `design-qa.md`.
 - Ein bequemeres Verhalten darf nicht unbemerkt zulasten der MSFS-Framerate
   gehen. Performance und FPS-Verträglichkeit sind explizite Qualitätskriterien.
 
+## Fensterverhalten der Begleit-App
+
+- Normales Minimieren reicht aus: Die App bleibt über die Windows-Taskleiste
+  erreichbar; Simulatorverbindung und Audio laufen im Hintergrund weiter.
+- Schließen beendet die App vollständig. Es gibt kein Verbergen im Tray.
+- Ein Tray-Icon ist nicht vorgesehen. Die ursprünglich geplante Ergänzung
+  entfällt auf Nutzerentscheidung vom 2026-09-19.
+
 ## Verbindungsstatus der Begleit-App
 
 - Der Simulatorstatus kennt sichtbar nur `Connecting` und `Connected`.
@@ -208,6 +216,15 @@ Iteration stehen separat in `design-qa.md`.
   Protokollfehler ist er ausgeblendet, bis wieder ein passender Snapshot vorliegt.
 
 ## Audioeinstellungen der Begleit-App
+
+- Eine neu vollständig erledigte Gruppe löst einmal `Checklist completed`
+  aus. Initial empfangene oder nach einem Reconnect bereits erledigte Gruppen
+  lösen keine rückwirkende Abschlussansage aus. Wird ein Item wieder geöffnet
+  und die Gruppe erneut abgeschlossen, ist eine neue Abschlussansage zulässig.
+- Die EFB-App bleibt ohne Begleit-App vollständig bedienbar. Verbindungs- und
+  Audiofehler dürfen ihren Ablauf nicht blockieren. Die Begleit-App arbeitet
+  im Flug offline; Mikrofonaufnahme und Spracherkennung sind nicht Teil des
+  Produkts.
 
 - `Read checklist items` aktiviert das Vorlesen des aktuellen offenen Eintrags.
   Der Schalter ist standardmäßig an und wird gespeichert; eine explizit

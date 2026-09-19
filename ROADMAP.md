@@ -13,12 +13,19 @@ stehen in den jeweils verlinkten Dokumenten.
 - [x] **Phase 2 – Bestätigung per Taste oder HOTAS:** `SET PLASMA OFF` erreicht
   G36, DA42, H125 und MH-60; die Bestätigungseingabe ist seit 2026-08-29
   abgenommen ([ADR 0002](docs/adr/0002-bestaetigungseingabe-in-sim-key-interception.md)).
-- [ ] **Phase 3 – Begleit-App und Sprachausgabe:** Transportdurchstich und
-  Status-App sind in MSFS bestätigt, Offline-Release-Notes sind umgesetzt.
-  Der Audio-Nachweis mit einer Dummy-Datei ist seit 2026-09-13 in MSFS bestätigt.
-  WASAPI Shared Mode über das Windows-Standardgerät ist in Nicht-VR und VR
-  bestätigt. Die explizite Audio-Gerätewahl ist umgesetzt; ihr MSFS-Nachweis
-  steht noch aus. Danach werden Stimme, TTS-Anbieter und Klangprofile
-  entschieden und die produktiven Sprachassets vorab gerendert
-  ([Produktanforderungen](docs/phase-3-requirements.md),
-  [Architekturentscheidungen](docs/adr/README.md)).
+- [x] **Phase 3 – Begleit-App und Sprachausgabe:** Statusanzeige,
+  Offline-Release-Notes, Gerätewahl, Brian-Item- und Abschlussansagen sowie
+  Live-Radiofilter sind umgesetzt. Der VR-Kontextwechsel ist seit 2026-09-19
+  bestätigt; Release 0.11.1 enthält die Korrektur gegen wiederholte Ansagen.
+
+## Verbleibende Arbeiten
+
+- Zurückgestellt: acht A400M-`FSM Init`-Einträge inhaltlich prüfen und danach
+  vertonen; markiert in den [Checklistendaten](checklists/data/airbus-a400m.json).
+- Vor öffentlicher Veröffentlichung: Code- und Audio-Lizenz abschließend
+  festlegen, siehe [ADR 0001](docs/adr/0001-lizenz-und-veroeffentlichungsstrategie.md)
+  und [ADR 0008](docs/adr/0008-stimme-und-tts-anbieter.md).
+
+Ein weiterer Funktionsmeilenstein ist derzeit nicht festgelegt. Offene
+Laufzeitnachweise stehen in [docs/open-tests.md](docs/open-tests.md),
+visuelle Abweichungen in [docs/design-qa.md](docs/design-qa.md).

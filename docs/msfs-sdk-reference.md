@@ -9,8 +9,8 @@ Details werden nicht wiederholt.
 
 Produktentscheidungen stehen in [`design-decisions.md`](design-decisions.md)
 und den [ADRs](adr/README.md), offene Laufzeitnachweise ausschließlich in
-[`open-tests.md`](open-tests.md). Das frühere ausführliche Recherchedokument ist
-ein [historischer Überblick](phase-2-3-research.md), keine zweite Referenz.
+[`open-tests.md`](open-tests.md). Abgeschlossene Recherche- und Phasenpläne
+sind über die Git-Historie nachvollziehbar.
 
 Marker werden nur verwendet, wenn die Herkunft für die spätere Bewertung
 wichtig ist:

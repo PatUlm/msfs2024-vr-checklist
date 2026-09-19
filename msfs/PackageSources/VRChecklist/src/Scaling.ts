@@ -1,6 +1,6 @@
 /*
  * Viewport-proportional scaling, see "Dichteprofile" in
- * docs/implementation-backlog.md. The root font size of the app element is
+ * docs/design-decisions.md. The root font size of the app element is
  * the short side of its layout box divided by a profile constant; every
  * stylesheet length follows it in em, so every viewport of a profile shows
  * the same content and only the physical size differs. The basis is the

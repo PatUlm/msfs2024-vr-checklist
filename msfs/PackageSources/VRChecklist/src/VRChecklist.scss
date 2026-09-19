@@ -639,7 +639,7 @@
 }
 
 /*
- * VR density profile (see "Dichteprofile" in docs/implementation-backlog.md).
+ * VR density profile (see "Dichteprofile" in docs/design-decisions.md).
  * The class marks the profile, not `E:IS IN VR`: the app applies it in VR and
  * on the mounted tablet outside VR. The viewport is then only 27.5 em wide,
  * so the header stacks and the outer spacing tightens. The non-VR profile

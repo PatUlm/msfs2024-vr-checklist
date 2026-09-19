@@ -7,22 +7,37 @@ Checklist-Zeilen.
 
 ## Features
 
-Aktuell verfügbar:
+Die EFB-App:
 
-- native, offlinefähige MSFS-2024-EFB-App
-- versionierte und validierte Checklistendaten im JSON-Format
-- VR-first Oberfläche mit großen, vollständig anklickbaren Items
-- genau eine sichtbare Gruppe mit Vor-/Zurück-Navigation
-- automatischer Wechsel nach Abschluss einer Gruppe
-- Fortschrittsanzeige und Reset beim Laden eines neuen Fluges
-- semantische Darstellung von Action-, Verify-, Communication- und
-  Optional-Items
-- automatische Auswahl der Checkliste anhand des geladenen Flugzeugmodells
-- zentrierter Leerzustand mit Diagnosewerten, wenn keine passende Checkliste
-  vorhanden ist
-- flugzeugspezifische Checklisten für Airbus H125, Beechcraft Bonanza G36,
-  Diamond DA42 und Sikorsky MH-60
-- kleine SemVer-basierte Entwicklungskennung am unteren rechten Rand
+- arbeitet offline und bleibt ohne Begleit-App vollständig bedienbar;
+- wählt automatisch die zum Flugzeug passende, versionierte JSON-Checkliste;
+- bietet große, vollständig anklickbare Items und Bestätigung per Taste oder HOTAS;
+- zeigt eine Gruppe mit Vor-/Zurück-Navigation, automatischem Gruppenwechsel
+  und grünen Haken für vollständig erledigte Gruppen;
+- unterscheidet Action-, Verify-, ATC- und Optional-Items und zeigt den
+  Fortschritt der Pflichtitems;
+- erhält den Fortschritt beim Wechsel zwischen VR und Nicht-VR und setzt ihn
+  beim Laden eines neuen Fluges zurück;
+- zeigt Diagnosewerte für Flugzeuge ohne passende Checkliste.
+
+Die Windows-Begleit-App:
+
+- zeigt Simulatorverbindung, EFB-Status, Flugzeug, aktive Gruppe, nächstes Item
+  und Fortschritt;
+- liest das nächste offene Item auf Englisch mit Brian vor und meldet den
+  Gruppenabschluss mit `Checklist completed`;
+- bietet gespeicherte Einstellungen für `Read checklist items` und den live
+  angewendeten `Radio effect`, beide standardmäßig eingeschaltet;
+- lässt das Audio-Ausgabegerät unabhängig vom Windows-Standard wählen und
+  mit `Test sound` prüfen;
+- zeigt alle mitgelieferten Checklisten und erlaubt Textkopie sowie PDF-Export;
+- zeigt Release Notes vollständig offline und kann unbekannte
+  Flugzeugkennungen zur Ergänzung der Zuordnung kopieren.
+
+Mitgeliefert werden Checklisten für Airbus A400M, Airbus H125, Beechcraft
+Bonanza G36, Cessna 152, Diamond DA42, Hughes OH-6A/500C und Sikorsky MH-60.
+Die acht noch ungeprüften A400M-Einträge unter `FSM Init` sind sichtbar
+markiert und vorerst von den Sprachansagen ausgenommen.
 
 ## Bestätigungstaste belegen
 
@@ -92,7 +107,7 @@ Alle projektweiten Abläufe beginnen im Repository-Root:
 | `task build`                              | Validiert die Daten und baut die EFB-App        |
 | `task watch`                              | Startet den Watch-Build für die EFB-App         |
 | `task companion:build`                    | Baut Windows-App und Transporttest               |
-| `task companion:test`                     | Prüft die Transportlogik                         |
+| `task companion:test`                     | Prüft Transport, Audio und Companion-Verhalten   |
 | `task companion:deploy`                   | Deployed App und Test ins Windows-Staging        |
 | `task deploy`                             | Baut und deployed ins Windows-Staging           |
 | `task release`                            | Erzeugt das in `VERSION` deklarierte Release     |
@@ -106,7 +121,7 @@ Die `package.json` unter `msfs/PackageSources/VRChecklist/` bleibt für rein
 Frontend-spezifische npm-Skripte zuständig. Nichttriviale projektweite Logik
 liegt unter `scripts/`.
 
-## Phase-3-Begleit-App
+## Windows-Begleit-App
 
 Die frameworkabhängige .NET-10-/Avalonia-App verbindet sich über SimConnect mit
 dem CommBus. Simulatorverbindung und empfangener EFB-Zustand bleiben getrennte
@@ -115,9 +130,24 @@ vollständigen, versionierten Snapshot an. Änderungen an Flugzeug, Checkliste,
 aktiver Gruppe, nächstem offenen Item und Pflichtfortschritt werden danach
 ereignisgesteuert übertragen.
 
-Die Status-App ist mit gelbem Verbindungsaufbau, grüner SimConnect-Verbindung,
-vollständigem EFB-Snapshot, einer Zustandsänderung und Reconnect in MSFS
-bestätigt.
+Die Begleit-App verwendet vorab erzeugte, mitgelieferte Audiodateien. Sie
+arbeitet im Flug offline, enthält weder TTS-Modell noch API-Schlüssel und
+kontaktiert keinen TTS-Anbieter. Mikrofonaufnahme und Spracherkennung sind
+nicht Teil des Produkts. Fehler in Verbindung oder Audio blockieren die
+EFB-Bedienung nicht.
+
+`Read checklist items` steuert die Itemansagen; Gruppenabschluss und
+`Test sound` bleiben bei ausgeschaltetem Schalter verfügbar. Neue Items
+ersetzen veraltete Itemansagen. Eine laufende Abschlussansage endet vor der
+Ansage des inzwischen aktuellen Items. Wiederholte Zustandsmeldungen,
+Reconnects und VR-Kontextwechsel wiederholen dasselbe Item nicht.
+`Radio effect` verändert die Wiedergabe direkt; ausgeschaltet erklingt die
+unveränderte Clean-Aufnahme.
+
+Audioherkunft und Renderablauf stehen in [assets/audio/README.md](assets/audio/README.md).
+Das Projekt bleibt vorerst privat. Vor einer öffentlichen Veröffentlichung
+ist die konkrete Audio-Lizenz gemäß
+[ADR 0008](docs/adr/0008-stimme-und-tts-anbieter.md) festzulegen.
 
 Build und Deployment aus dem Repository-Root:
 
@@ -145,6 +175,7 @@ wird nicht in ein Projekt- oder Releasepaket aufgenommen.
 ## Verzeichnisstruktur
 
 ```text
+assets/audio/                            vorab gerenderte Offline-Sprachassets
 assets/branding/                         editierbare Branding-Quellen
 VERSION                                  kanonische SemVer-Projektversion
 checklists/data/                         kanonische Checklistendaten
@@ -170,11 +201,13 @@ Checklist-Inhalte:
 - `airbus-a400m.json`: Airbus A400M
 - `airbus-h125.json`: Airbus H125
 - `beechcraft-bonanza-g36.json`: Beechcraft Bonanza G36
+- `cessna-152.json`: Cessna 152
 - `diamond-da42.json`: Diamond DA42
+- `hughes-oh6a-500c.json`: Hughes OH-6A/500C
 - `sikorsky-mh-60.json`: Sikorsky MH-60
 - `checklist.schema.json`: gemeinsamer Datenvertrag
 
-Die App importiert alle vier Checklistendateien über eine zentrale Registry; es
+Die App importiert alle sieben Checklistendateien über eine zentrale Registry; es
 existiert keine zweite Liste mit Checklist-Inhalten im App-Code. Explizite
 `aircraft.msfsMatches`-Regeln ordnen die SimVars `ATC MODEL`,
 `ATC TYPE` und `TITLE` einer Checkliste zu. Die Regeln unterstützen kontrollierte
@@ -182,8 +215,8 @@ exakte und Teilstring-Vergleiche sowie gemeinsam erforderliche Felder.
 Unbekannte Flugzeuge zeigen alle drei Werte direkt im Leerzustand, damit neue
 Regeln gezielt ergänzt werden können. Das Schema unterstützt weiterhin die
 sichtbaren Felder
-`needsReview` und `reviewNote`; die aktuell versionierten Checklisten enthalten
-keine offenen Review-Markierungen.
+`needsReview` und `reviewNote`; die acht A400M-Einträge unter `FSM Init`
+sind noch zur inhaltlichen Prüfung markiert.
 
 Validierung ohne App-Build:
 
@@ -314,15 +347,11 @@ werden soll.
 - `docs/design-qa.md`: offene visuelle Nachweise und Referenzen für den nächsten
   UI- oder VR-Teststand
 - `docs/open-tests.md`: einzige lebende Liste offener Laufzeitnachweise
-- `docs/implementation-backlog.md`: priorisierte Code-, Build- und
+- `BACKLOG.md`: priorisierte Code-, Build- und
   Qualitätsarbeiten für die nächsten Umsetzungssessions
-- `docs/phase-3-requirements.md`: verbindlicher Produktumfang der geplanten
-  Begleit-App
 - `docs/release.md`: reproduzierbarer Release- und Community2024-Installationsflow
 - `docs/third-party-licenses.md`: direkte Abhängigkeiten, Lizenzstand und
   Primärquellen
-- `docs/phase-2-3-research.md`: historischer Wegweiser zu den Ergebnissen der
-  abgeschlossenen Phase-2/3-Recherche
 - `docs/adr/`: getroffene Architekturentscheidungen mit Konsequenzen und Status
 - `docs/assets/`: versionierte, dauerhaft referenzierte Design-Screenshots
 

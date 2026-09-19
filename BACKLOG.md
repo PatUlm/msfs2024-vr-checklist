@@ -13,6 +13,8 @@ sobald die gesamte Abnahme erfüllt ist, wird der zugehörige Abschnitt gelösch
 Erledigte Arbeit bleibt über Git-Historie, Changelog und die jeweils zuständige
 Projektdokumentation nachvollziehbar.
 
-Offene visuelle Abweichungen bleiben ausschließlich in `design-qa.md`, noch
-ausstehende MSFS-Laufzeitnachweise ausschließlich in `open-tests.md`. Dieser
+Offene visuelle Abweichungen bleiben ausschließlich in [docs/design-qa.md](docs/design-qa.md), noch
+ausstehende MSFS-Laufzeitnachweise ausschließlich in [docs/open-tests.md](docs/open-tests.md). Dieser
 Backlog dupliziert diese Listen nicht.
+
+Derzeit keine offenen Umsetzungsarbeiten.

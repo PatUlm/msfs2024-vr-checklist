@@ -31,6 +31,15 @@ ist nicht vorgesehen.
 
 ## Konsequenzen
 
+- Das versionierte Protokoll überträgt vollständige Zustandssnapshots beim
+  ersten Kontakt und nach einem Reconnect, danach bei Zustandsänderungen.
+  Sie enthalten EFB- und Protokollversion, Sitzungs- und Instanzkennung,
+  Sequenznummer, Flugzeug, Checkliste mit Revision, aktive Gruppe, nächstes
+  Item, Pflichtfortschritt, Abschlussstatus und IDs erledigter Gruppen.
+  Sitzungskennung und Sequenznummer dienen zum Erkennen alter oder wiederholter
+  Zustände; Gruppenabschlüsse werden aus dem Zustand abgeleitet, nicht aus
+  separaten Impulsen, die bei der Ratenbegrenzung verloren gehen könnten.
+
 - Die Implementierung muss Chunk-Reassembly, Ratenbegrenzung und das
   Pausenverhalten aus der
   [SDK-Referenz](../msfs-sdk-reference.md#commbus-und-externe-begleit-app)

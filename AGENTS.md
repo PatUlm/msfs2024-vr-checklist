@@ -139,8 +139,6 @@ gehören nach `docs/design-qa.md`.
   in der Regel funktioniert. Ein zusätzlicher manueller Schritt braucht einen
   konkreten MSFS-Laufzeitgrund, den kein lokaler Test abdecken kann. ADRs enthalten
   Entscheidungen und Konsequenzen, aber keine zweite technische Referenz.
-  `docs/phase-2-3-research.md` ist ein historisches Arbeitsdokument und wird
-  nicht als fortlaufender Ablageort für neue Erkenntnisse verwendet.
 - Reichen Referenz, SDK, offizielle Dokumentation und Samples nicht aus, dürfen
   das DevSupport-Forum und andere Primärquellen herangezogen werden.
   Community-Vermutungen gelten nicht als API-Vertrag.

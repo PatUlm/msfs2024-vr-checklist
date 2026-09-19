@@ -14,7 +14,7 @@
       }
     ]
   },
-  "revision": "2026-09-18",
+  "revision": "2026-09-19",
   "sections": [
     {
       "id": "before-start",
@@ -24,20 +24,22 @@
           "id": "rotor-brake",
           "challenge": "Rotor Brake Handle",
           "response": "Stowed",
-          "kind": "verify"
+          "kind": "verify",
+          "speech": "Verify Rotor Brake Handle: Stowed."
         },
         {
           "id": "collective",
           "challenge": "Collective",
           "response": "Full Down",
-          "kind": "verify"
+          "kind": "verify",
+          "speech": "Verify Collective: Full Down."
         },
         {
           "id": "twistgrip-throttle",
           "challenge": "Twistgrip Throttle",
           "response": "CUTOFF",
           "kind": "verify",
-          "speech": "Twistgrip throttle: Cutoff."
+          "speech": "Verify Twistgrip throttle: Cutoff."
         },
         {
           "id": "electrical-power",
@@ -140,7 +142,7 @@
           "challenge": "Caution / Warning Indicators",
           "response": "All Out",
           "kind": "verify",
-          "speech": "Caution and warning indicators: All out."
+          "speech": "Verify Caution and warning indicators: All out."
         }
       ]
     },
@@ -245,7 +247,8 @@
           "id": "rotor-brake-handle",
           "challenge": "Rotor Brake Handle",
           "response": "Stowed",
-          "kind": "verify"
+          "kind": "verify",
+          "speech": "Verify Rotor Brake Handle: Stowed."
         },
         {
           "id": "anti-collision-lights",

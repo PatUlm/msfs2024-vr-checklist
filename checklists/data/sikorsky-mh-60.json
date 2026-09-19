@@ -12,7 +12,7 @@
       }
     ]
   },
-  "revision": "2026-08-25",
+  "revision": "2026-09-19",
   "sections": [
     {
       "id": "preparations",
@@ -33,17 +33,17 @@
         },
         {
           "id": "strobe-lights",
-          "challenge": "Strobe Lights",
+          "challenge": "Anti-Collision Lights",
           "response": "Both + Day/Night",
           "kind": "action",
-          "speech": "Strobe lights: Set to both and select day or night."
+          "speech": "Anti-collision lights: Set to both and select day or night."
         },
         {
           "id": "console-lights",
-          "challenge": "Console Lights",
-          "response": "100 % Brightness",
+          "challenge": "Console and Instruments Lights",
+          "response": "As required",
           "kind": "action",
-          "speech": "Console lights: 100 percent brightness."
+          "speech": "Console and instruments lights: As required."
         },
         {
           "id": "displays",
@@ -74,17 +74,17 @@
         },
         {
           "id": "apu-control",
-          "challenge": "APU Control",
-          "response": "Start",
+          "challenge": "APU Control Switch",
+          "response": "On",
           "kind": "action",
-          "speech": "A P U control: Start."
+          "speech": "A P U control switch: On."
         },
         {
           "id": "apu-indicator",
           "challenge": "APU Indicator",
           "response": "On",
           "kind": "verify",
-          "speech": "A P U indicator: On."
+          "speech": "Verify A P U indicator: On."
         },
         {
           "id": "apu-generator",
@@ -197,7 +197,7 @@
           "challenge": "Engine 1 Ng",
           "response": "≥ 63 % and stable",
           "kind": "verify",
-          "speech": "Engine one N G: At least 63 percent and stable."
+          "speech": "Verify Engine one N G: At least 63 percent and stable."
         },
         {
           "id": "engine-2-start",
@@ -211,7 +211,7 @@
           "challenge": "Engine 2 Ng",
           "response": "≥ 63 % and stable",
           "kind": "verify",
-          "speech": "Engine two N G: At least 63 percent and stable."
+          "speech": "Verify Engine two N G: At least 63 percent and stable."
         },
         {
           "id": "engines-fly",
@@ -250,16 +250,16 @@
         {
           "id": "apu-generator",
           "challenge": "APU Generator",
-          "response": "Off (Reset)",
+          "response": "Off",
           "kind": "action",
-          "speech": "A P U generator: Off, then reset."
+          "speech": "A P U generator: Off."
         },
         {
           "id": "apu-control",
-          "challenge": "APU Control",
+          "challenge": "APU Control Switch",
           "response": "Off",
           "kind": "action",
-          "speech": "A P U control: Off."
+          "speech": "A P U control switch: Off."
         },
         {
           "id": "fuel-boost-pumps",

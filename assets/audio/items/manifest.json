@@ -3,17 +3,17 @@
   "checklists": [
     {
       "id": "airbus-a400m",
-      "revision": "2026-09-18",
+      "revision": "2026-09-19",
       "items": 26
     },
     {
       "id": "airbus-h125",
-      "revision": "2026-09-18",
+      "revision": "2026-09-19",
       "items": 29
     },
     {
       "id": "beechcraft-bonanza-g36",
-      "revision": "2026-09-18",
+      "revision": "2026-09-19",
       "items": 10
     },
     {
@@ -23,17 +23,17 @@
     },
     {
       "id": "diamond-da42",
-      "revision": "2026-09-04",
+      "revision": "2026-09-19",
       "items": 52
     },
     {
       "id": "hughes-oh6a-500c",
-      "revision": "2026-09-18",
+      "revision": "2026-09-19",
       "items": 31
     },
     {
       "id": "sikorsky-mh-60",
-      "revision": "2026-08-25",
+      "revision": "2026-09-19",
       "items": 37
     }
   ],
@@ -164,9 +164,9 @@
       "recipeHash": "ddd38fcad2250ee7557d212eadebd32e9009331b653c822e23f4e31c50300b68"
     },
     {
-      "file": "item-879b6169a04b8cd9.opus",
-      "sha256": "3d17c1b9bccde368daed8c0e77787d88fca085b5c77603c43909d6e074c4689b",
-      "recipeHash": "879b6169a04b8cd91657dc357c9c2df110b5079cd0447cc547b71a2733a0dee7"
+      "file": "item-b7cdc4c900dbf547.opus",
+      "sha256": "7f709874d02bdbc436e42e32dd534b8ea8f4dfd07a9696a172907fbbef5958ea",
+      "recipeHash": "b7cdc4c900dbf5473c7c44022cfa21941d1bfd7283c0ab0b0fa3dc52b9774295"
     },
     {
       "file": "item-53a895c9ba5d2f35.opus",
@@ -279,9 +279,9 @@
       "recipeHash": "95bffeaf3ab246d924502c3e1865c68147c12d12eb9634fe122c339d73197ebb"
     },
     {
-      "file": "item-beb46700cee50881.opus",
-      "sha256": "71b1989c08f2c9b94b058b4ec7e54fa00b6135af10a04db32798319d80074ad7",
-      "recipeHash": "beb46700cee508811bc4bf6ad045a7ef98dbbcb34d055317e4def1146870de84"
+      "file": "item-058c3d2714ad5819.opus",
+      "sha256": "64366acdd9c1e8e0fb81238d3f51655b52c0f9fb73e416e492718cd4a8f9e3ea",
+      "recipeHash": "058c3d2714ad581988b9877f1727e6de976dc003cb808fe199a0a5123298e8f7"
     },
     {
       "file": "item-da4502c08f1af126.opus",
@@ -389,9 +389,9 @@
       "recipeHash": "7ee523f051cbd1b4ee1bcb3132916c36997c231eebe06aa8287bab8aba450dfc"
     },
     {
-      "file": "item-0d1755b522a49428.opus",
-      "sha256": "87c44c2243aa9025cf317fb13b51971bb5d233fb9cc65133c57fc2ca3d505905",
-      "recipeHash": "0d1755b522a49428b6bb8e3bc42ad2b9f40488934667d643fc52d7fded86d893"
+      "file": "item-bc9e539f8bf2020a.opus",
+      "sha256": "4bbb215fb0bcc6537d1abbf7451139dc22b2e57327bf93a3edace0c1371b6f6b",
+      "recipeHash": "bc9e539f8bf2020aa23d209da281d34a4fcfc4798c96e90f2ad16abc5556d17b"
     },
     {
       "file": "item-85ca952043804cb9.opus",
@@ -399,9 +399,9 @@
       "recipeHash": "85ca952043804cb927b09d6d41412499146c45b1938c278fa0752d3730e26abc"
     },
     {
-      "file": "item-e2ee9475db4a974b.opus",
-      "sha256": "86451af885449bdbc96c941c27609d4fdaf17ea4c15e95003c9b473d9773d1eb",
-      "recipeHash": "e2ee9475db4a974b3886818cd200c8f9e9b0f79b2380371a6669c3761049036b"
+      "file": "item-d51fd929e627b99f.opus",
+      "sha256": "51090fa75f9166b60fa5b3029942692a1b69f0986abec4f5d0e0fbe9e4d2c94c",
+      "recipeHash": "d51fd929e627b99ffa336b02f5eca336d7c9da38827868ce5ab482b964d302d5"
     },
     {
       "file": "item-33490eb7f2366453.opus",
@@ -409,9 +409,9 @@
       "recipeHash": "33490eb7f2366453a775b972dbb4e0a9edb965e03c78824bfafea39f73ae329a"
     },
     {
-      "file": "item-363e84d28beb3836.opus",
-      "sha256": "709b95e78e8c339843f6340494999fa96cc4f6adca35ce2e81d66f1d9fdfdae2",
-      "recipeHash": "363e84d28beb38364f8c5a0c02eea88efd198be3cb7ef57d6988622fbdd2aa69"
+      "file": "item-8608f77d3d1da5e1.opus",
+      "sha256": "1d4dc2ccbad1602721c91b1a6f5da0f7c24d36b1f7cc790cf271d6d9211b4a81",
+      "recipeHash": "8608f77d3d1da5e19d83e76f54637007bd077145ed552b20c71a9cbfddce4461"
     },
     {
       "file": "item-256980bdfe775f8c.opus",
@@ -419,9 +419,9 @@
       "recipeHash": "256980bdfe775f8ccc0a5320ed1f505484b8cfc8e6882ecb65a6261213b3c45f"
     },
     {
-      "file": "item-2e5cf597559b0431.opus",
-      "sha256": "d2cee6bee28de92864d311c85ce8eff2b9cca7d16c33c5d22bbbe61f9455c3d5",
-      "recipeHash": "2e5cf597559b0431e7ab0254b8080f158854bbbbc50ed068523b6a22277a89d8"
+      "file": "item-696f037b71a0dbec.opus",
+      "sha256": "9cddda2642ef6dc90278637e610cc4d6012443d36224b3110fddd362c5e4669c",
+      "recipeHash": "696f037b71a0dbec3f462b16ae058dea9416fa93676fe33ede97c156de3e122d"
     },
     {
       "file": "item-793bc2e1fa7785da.opus",
@@ -604,19 +604,19 @@
       "recipeHash": "37a9edd355b586c26f6c5b4748050dc51b06a394da2e2a62f453b6acbb0273e2"
     },
     {
-      "file": "item-43df26db534796ea.opus",
-      "sha256": "55652435891a7502648fb020d7a701f28edd3a492555e8671b8ce0e1c541dca9",
-      "recipeHash": "43df26db534796ea15351a8df2d76a6a1da6a5108da7ec185df4908fff98eeed"
+      "file": "item-dc3d27f1afd3f8cb.opus",
+      "sha256": "bf2d6a83d234b8730fe42800837b75e9741f8b47a643962248a684ef7fb14a68",
+      "recipeHash": "dc3d27f1afd3f8cb3b7d2750c36c6a341c790c145b1e4b7554fec6af23b4f137"
     },
     {
-      "file": "item-26017ef5338f9f95.opus",
-      "sha256": "acd62ce9cd11881b3ba04b6119923ec1636ec47330d5519201544d0a8a5180ca",
-      "recipeHash": "26017ef5338f9f9533194edcc971c5c8cbeec57757937e29303020a6d5241d74"
+      "file": "item-2ee480ec02e685a2.opus",
+      "sha256": "09907e1f72e859a46b87ec32b6996fc8b77bd24ef8e77325b2ed7cdbf3d0ccd8",
+      "recipeHash": "2ee480ec02e685a2b7ffe6b891dcbb132c5d9696a0dccaca72a1874bc81868d6"
     },
     {
-      "file": "item-d3e041daf3116979.opus",
-      "sha256": "aa5985d712d2031253f3e00d25b8ba6b1894756c5e13745ae3a9754cce4b4634",
-      "recipeHash": "d3e041daf31169791682f85aea8d26ac237afd8860ba102d9bf0a98ec766eb13"
+      "file": "item-184c01586e1ba99d.opus",
+      "sha256": "48e27705ea1f668aac31db466e6484b9bfefcb3a39ec5d1bb42aa72cdb9253e8",
+      "recipeHash": "184c01586e1ba99dce7c09b6db6f2dc8dae7a0d2cca6a19692721e4c1e8fbbcb"
     },
     {
       "file": "item-df9be37d48b0040d.opus",
@@ -669,9 +669,9 @@
       "recipeHash": "f9b6e8cbf3bd18f51ad21375d17cbfcffd14f826e5005e9924584880ead57705"
     },
     {
-      "file": "item-31d5074c8dca46b9.opus",
-      "sha256": "66d1cccde4adb47bc137a8f84b61383f0f9e40b66f94869fe955fd4c328c808b",
-      "recipeHash": "31d5074c8dca46b9ce22be12e615c49df621923c54fc34c7897612e6aafd4539"
+      "file": "item-2f38732f98aef1a7.opus",
+      "sha256": "b851c3d821066d10067b9a49d1bc7e8a09905841e65966b3e58518ec439a741b",
+      "recipeHash": "2f38732f98aef1a73381e25df000b97052ac5022bee4fb2e8ad86002efcfa5f5"
     },
     {
       "file": "item-c15e0e141724477e.opus",
@@ -714,6 +714,11 @@
       "recipeHash": "1a657e735d4eaea62913aa97a34d7aa6fd31543cd57d7e161694fe4959865790"
     },
     {
+      "file": "item-d3e041daf3116979.opus",
+      "sha256": "aa5985d712d2031253f3e00d25b8ba6b1894756c5e13745ae3a9754cce4b4634",
+      "recipeHash": "d3e041daf31169791682f85aea8d26ac237afd8860ba102d9bf0a98ec766eb13"
+    },
+    {
       "file": "item-4137832b75aaee66.opus",
       "sha256": "c5ba8491d7d32fb1f33384d247fa162a2a03c6d71d3ee4c0ec68e7a0609316ff",
       "recipeHash": "4137832b75aaee66c701141c62dd258814c6fc34429153ed24b59daea3156ac2"
@@ -744,14 +749,14 @@
       "recipeHash": "46350bbd3495d580c15233d0a5525e8493d676ca238acd2dc86ce13e137dee8c"
     },
     {
-      "file": "item-0dfb9a800934b02b.opus",
-      "sha256": "ac0f937f10c097c4ceac13f8a4b480e5da34479baa2d12525692a8c81f7c49b7",
-      "recipeHash": "0dfb9a800934b02b14f7660f68bd3ea83d202ee8b29abc60751bac1db57fd508"
+      "file": "item-a19759cf049548fa.opus",
+      "sha256": "e5766d80143be4704898db28c46503534f1eaabbb12b3105f3aaedd70b966ab1",
+      "recipeHash": "a19759cf049548fa00f138d292a241c791e495340905d30f81460d5db03a2220"
     },
     {
-      "file": "item-acddaaa3b1763f9b.opus",
-      "sha256": "805bf3c2a99769ff447a31b93ad4a1fa6d6170dfb7a4e3f91da74a7fc9e62575",
-      "recipeHash": "acddaaa3b1763f9bb7bd0511093b8e29b6dc2a8eaafc193bdc1a3bde5a9aecd4"
+      "file": "item-99ea021294c82ffb.opus",
+      "sha256": "caa7b52ef9e5654172926e683b946b27c3666913a693425ad8409219679be963",
+      "recipeHash": "99ea021294c82ffb9efd0e17fd2faaacc6426006417341cf55e05be77fa0a6c8"
     },
     {
       "file": "item-1f63b53e5771deef.opus",
@@ -769,14 +774,14 @@
       "recipeHash": "600132335629d315a18559bc76b98fcf2ede522b14bf8f7e42e1217578821c6d"
     },
     {
-      "file": "item-54dba3f65fd3f780.opus",
-      "sha256": "05865e7fce2f25cf2fce86ef82c9c88aac9894223349ec9b249e822c6a5db1ec",
-      "recipeHash": "54dba3f65fd3f7802e274f205dcb1232d79c7ea62ce355854e9f06ad55a4ca78"
+      "file": "item-0aecbfdf5a9405b3.opus",
+      "sha256": "d3bd453a7448ac95f853d2fdd1b7821d032ac17fd8e08adf8563c3ad355cc711",
+      "recipeHash": "0aecbfdf5a9405b352a50430ce39d82293b744e93033c6c1ceba2c311156b964"
     },
     {
-      "file": "item-a7b4d220f3b73587.opus",
-      "sha256": "da9b338c12de241932bf88bed26272106fe85ed908312bbb61c0bcea4b2012e3",
-      "recipeHash": "a7b4d220f3b73587ab70de97a3d3e2dd72b9fe919494d17c32f863fe20ea6b16"
+      "file": "item-d973afe1f0d6296a.opus",
+      "sha256": "5d43235881f02f61397f0b4d1ced734910d60b03c26d127884cc8f7ed7bb3bb8",
+      "recipeHash": "d973afe1f0d6296a685e91886642d73ef3a23dba8d3075da0326f2b5f9e9f72e"
     },
     {
       "file": "item-3a03798f7418b24f.opus",
@@ -849,9 +854,9 @@
       "recipeHash": "c00e4892ed00b65b06d5831bbf82efa70b89ba40b3ea3e6fdef371ecf09c2cf6"
     },
     {
-      "file": "item-75ca372bd6e70b4e.opus",
-      "sha256": "77f8b780855ca4bcc63f86ac3780d33a698cf51859a62f287729e8c790d237fe",
-      "recipeHash": "75ca372bd6e70b4ee8af0236545b5384817b2f569e74a1c0578ad4836e42d7be"
+      "file": "item-f59ba2f698b5c1a7.opus",
+      "sha256": "5e85fd70d4d346ed2daf25a997f4fa988c5f2415ca62fcaefd20249aa8319f6e",
+      "recipeHash": "f59ba2f698b5c1a7920706564533aac2e8f3a83392f09b27c105fc96943bdca5"
     },
     {
       "file": "item-3d48bd969cd24c95.opus",
@@ -859,9 +864,9 @@
       "recipeHash": "3d48bd969cd24c950623e7fdfed809f045101ca6ff218091b782677450e3eef5"
     },
     {
-      "file": "item-c5027d4ccdb78827.opus",
-      "sha256": "0711d866cb18324ce5962be8cb663ea6f509f9d6c34ecf835ef16fdaff090b29",
-      "recipeHash": "c5027d4ccdb788272a2e065e6552501252900768c494a7e04cc07137cd8d8776"
+      "file": "item-23220ec81988ce7d.opus",
+      "sha256": "eb30c51e34f4e60024a33eec262664ed4a63d508187aca3231a6c59abb1d6a50",
+      "recipeHash": "23220ec81988ce7db9b3eec8591bd14b53ebf2c1bca85956f3c48eb48e6800df"
     },
     {
       "file": "item-fc1ba945e640dcba.opus",
@@ -884,14 +889,14 @@
       "recipeHash": "4aabf94be6c5af0f56eece7e8035d8702c0155118020b1e14aef776ea2b6c95f"
     },
     {
-      "file": "item-4f1c13d5b9e5a25f.opus",
-      "sha256": "1fb597a4da002e0901cf50e3a927e581d2b62b189f3bfc6d7ba85d05402a4579",
-      "recipeHash": "4f1c13d5b9e5a25fc929d9f64416e00d1c987af50244a60bc36c96b03c3edb04"
+      "file": "item-b920f59d0490bdea.opus",
+      "sha256": "e28857c75d2cf6b5f6f3b252b07278ab5647eb53d4da236af0183327ba998598",
+      "recipeHash": "b920f59d0490bdea1f098738b913151f3e958c8fdcb0b0af02504bf6872a6f94"
     },
     {
-      "file": "item-05d5c4f7dca19c6c.opus",
-      "sha256": "07c0daf4be1ed15a5c632b4352c283933c82e8738ebeb6252748f888ccad9882",
-      "recipeHash": "05d5c4f7dca19c6cee44e5617d2297f7508ea68b6252ceb59437c11ec09a7dd1"
+      "file": "item-3fb038b5e36fdd2f.opus",
+      "sha256": "866264184e5dc0aa95b6d51b7a6d4297febc9d9aa95f968430994d9b3b2a61e5",
+      "recipeHash": "3fb038b5e36fdd2f095adce046efbd82bba90aa94a653f519b41205d92e1c3de"
     },
     {
       "file": "item-5065f9758b2183da.opus",
@@ -941,7 +946,7 @@
     "airbus-h125/engine-start/fuel-pump-on": "item-9a2d670c34909323.opus",
     "airbus-h125/engine-start/anti-collision-light": "item-80b139215d5ad28e.opus",
     "airbus-h125/engine-start/starter-switch": "item-ddd38fcad2250ee7.opus",
-    "airbus-h125/engine-start/engine-n1": "item-879b6169a04b8cd9.opus",
+    "airbus-h125/engine-start/engine-n1": "item-b7cdc4c900dbf547.opus",
     "airbus-h125/engine-start/generator": "item-53a895c9ba5d2f35.opus",
     "hughes-oh6a-500c/engine-start/generator": "item-53a895c9ba5d2f35.opus",
     "airbus-h125/engine-start/pitot-heat": "item-21520dc54a72aff2.opus",
@@ -969,7 +974,7 @@
     "airbus-h125/engine-shutdown/battery-master": "item-ef4265d72bbdb935.opus",
     "beechcraft-bonanza-g36/departure/flaps": "item-ea53b7f54fe0c796.opus",
     "beechcraft-bonanza-g36/departure/rotation-speed": "item-95bffeaf3ab246d9.opus",
-    "beechcraft-bonanza-g36/departure/climb-rate": "item-beb46700cee50881.opus",
+    "beechcraft-bonanza-g36/departure/climb-rate": "item-058c3d2714ad5819.opus",
     "beechcraft-bonanza-g36/departure/gear": "item-da4502c08f1af126.opus",
     "beechcraft-bonanza-g36/departure/climb-speed": "item-ff5210a9d1e8fa3c.opus",
     "beechcraft-bonanza-g36/approach/gear": "item-54c0ac988a022507.opus",
@@ -992,14 +997,14 @@
     "diamond-da42/before-engine-start/trim": "item-8c0be6cf2fce91e9.opus",
     "diamond-da42/before-engine-start/electric-master": "item-68b6a2ab319697fa.opus",
     "diamond-da42/before-engine-start/strobe-lights": "item-7ee523f051cbd1b4.opus",
-    "diamond-da42/engine-start/fuel-quantity-temperature": "item-0d1755b522a49428.opus",
+    "diamond-da42/engine-start/fuel-quantity-temperature": "item-bc9e539f8bf2020a.opus",
     "diamond-da42/engine-start/engine-master-left": "item-85ca952043804cb9.opus",
-    "diamond-da42/engine-start/glow-annunciation-left": "item-e2ee9475db4a974b.opus",
+    "diamond-da42/engine-start/glow-annunciation-left": "item-d51fd929e627b99f.opus",
     "diamond-da42/engine-start/start-key-left": "item-33490eb7f2366453.opus",
     "diamond-da42/engine-start/start-key-right": "item-33490eb7f2366453.opus",
-    "diamond-da42/engine-start/voltage-electrical-load": "item-363e84d28beb3836.opus",
+    "diamond-da42/engine-start/voltage-electrical-load": "item-8608f77d3d1da5e1.opus",
     "diamond-da42/engine-start/engine-master-right": "item-256980bdfe775f8c.opus",
-    "diamond-da42/engine-start/glow-annunciation-right": "item-2e5cf597559b0431.opus",
+    "diamond-da42/engine-start/glow-annunciation-right": "item-696f037b71a0dbec.opus",
     "diamond-da42/before-taxi/position-lights": "item-793bc2e1fa7785da.opus",
     "diamond-da42/before-taxi/avionics-master": "item-5accb12259995970.opus",
     "diamond-da42/before-taxi/atis": "item-ae15cd1f38e0d2ad.opus",
@@ -1036,11 +1041,10 @@
     "diamond-da42/approach/fuel-pumps": "item-79ecdc75ed0a7ac0.opus",
     "diamond-da42/approach/landing-lights": "item-2e155b9d4d0c656f.opus",
     "diamond-da42/approach/approach-speed": "item-37a9edd355b586c2.opus",
-    "hughes-oh6a-500c/before-start/rotor-brake": "item-43df26db534796ea.opus",
-    "hughes-oh6a-500c/shutdown/rotor-brake-handle": "item-43df26db534796ea.opus",
-    "hughes-oh6a-500c/before-start/collective": "item-26017ef5338f9f95.opus",
-    "hughes-oh6a-500c/before-start/twistgrip-throttle": "item-d3e041daf3116979.opus",
-    "hughes-oh6a-500c/shutdown/twistgrip-cutoff": "item-d3e041daf3116979.opus",
+    "hughes-oh6a-500c/before-start/rotor-brake": "item-dc3d27f1afd3f8cb.opus",
+    "hughes-oh6a-500c/shutdown/rotor-brake-handle": "item-dc3d27f1afd3f8cb.opus",
+    "hughes-oh6a-500c/before-start/collective": "item-2ee480ec02e685a2.opus",
+    "hughes-oh6a-500c/before-start/twistgrip-throttle": "item-184c01586e1ba99d.opus",
     "hughes-oh6a-500c/before-start/electrical-power": "item-df9be37d48b0040d.opus",
     "hughes-oh6a-500c/before-start/anti-collision-lights": "item-8f5953553490982e.opus",
     "hughes-oh6a-500c/before-start/cockpit-lights": "item-4f135b1a27532538.opus",
@@ -1051,7 +1055,7 @@
     "hughes-oh6a-500c/engine-start/starter-release": "item-946f4e7a085c14b2.opus",
     "hughes-oh6a-500c/engine-start/twistgrip-flight": "item-7e86d81edb643cf5.opus",
     "hughes-oh6a-500c/engine-start/set-n2": "item-f9b6e8cbf3bd18f5.opus",
-    "hughes-oh6a-500c/engine-start/caution-warning-indicators-final": "item-31d5074c8dca46b9.opus",
+    "hughes-oh6a-500c/engine-start/caution-warning-indicators-final": "item-2f38732f98aef1a7.opus",
     "hughes-oh6a-500c/before-takeoff/position-lights": "item-c15e0e141724477e.opus",
     "hughes-oh6a-500c/before-takeoff/pitot-heat": "item-2957d68d085abb6a.opus",
     "hughes-oh6a-500c/shutdown/collective": "item-8cd61b6ec8ba2494.opus",
@@ -1060,19 +1064,20 @@
     "hughes-oh6a-500c/shutdown/engine-cool-down": "item-3605bb945e60f8d6.opus",
     "hughes-oh6a-500c/shutdown/bleed-air-electrical-equipment": "item-e9fda061036897c4.opus",
     "hughes-oh6a-500c/shutdown/pedals": "item-1a657e735d4eaea6.opus",
+    "hughes-oh6a-500c/shutdown/twistgrip-cutoff": "item-d3e041daf3116979.opus",
     "hughes-oh6a-500c/shutdown/generator-avionics": "item-4137832b75aaee66.opus",
     "hughes-oh6a-500c/shutdown/rotor-brake": "item-e993f8051e5e9ede.opus",
     "hughes-oh6a-500c/shutdown/anti-collision-lights": "item-304823893eec1703.opus",
     "hughes-oh6a-500c/shutdown/electrical-power": "item-dfde2836e2fb9403.opus",
     "sikorsky-mh-60/preparations/cargo-fuel": "item-cbb2d8c5bdfa70d5.opus",
     "sikorsky-mh-60/preparations/battery": "item-46350bbd3495d580.opus",
-    "sikorsky-mh-60/preparations/strobe-lights": "item-0dfb9a800934b02b.opus",
-    "sikorsky-mh-60/preparations/console-lights": "item-acddaaa3b1763f9b.opus",
+    "sikorsky-mh-60/preparations/strobe-lights": "item-a19759cf049548fa.opus",
+    "sikorsky-mh-60/preparations/console-lights": "item-99ea021294c82ffb.opus",
     "sikorsky-mh-60/preparations/displays": "item-1f63b53e5771deef.opus",
     "sikorsky-mh-60/apu/primary-fuel-pump": "item-c9cee4c58bf682fa.opus",
     "sikorsky-mh-60/apu/fuel-boost-pumps": "item-600132335629d315.opus",
-    "sikorsky-mh-60/apu/apu-control": "item-54dba3f65fd3f780.opus",
-    "sikorsky-mh-60/apu/apu-indicator": "item-a7b4d220f3b73587.opus",
+    "sikorsky-mh-60/apu/apu-control": "item-0aecbfdf5a9405b3.opus",
+    "sikorsky-mh-60/apu/apu-indicator": "item-d973afe1f0d6296a.opus",
     "sikorsky-mh-60/apu/apu-generator": "item-3a03798f7418b24f.opus",
     "sikorsky-mh-60/apu/air-source-ecs": "item-aefeb483c9d46c26.opus",
     "sikorsky-mh-60/before-engine-start/utility-hydraulic-pump": "item-bde46bd41ba9f41c.opus",
@@ -1087,15 +1092,15 @@
     "sikorsky-mh-60/before-engine-start/auto-plt": "item-3457bc2f17e8b8e5.opus",
     "sikorsky-mh-60/engine-start/fuel-selectors-crossfeed": "item-6e97399907e8d342.opus",
     "sikorsky-mh-60/engine-start/engine-1-start": "item-c00e4892ed00b65b.opus",
-    "sikorsky-mh-60/engine-start/engine-1-ng-stable": "item-75ca372bd6e70b4e.opus",
+    "sikorsky-mh-60/engine-start/engine-1-ng-stable": "item-f59ba2f698b5c1a7.opus",
     "sikorsky-mh-60/engine-start/engine-2-start": "item-3d48bd969cd24c95.opus",
-    "sikorsky-mh-60/engine-start/engine-2-ng-stable": "item-c5027d4ccdb78827.opus",
+    "sikorsky-mh-60/engine-start/engine-2-ng-stable": "item-23220ec81988ce7d.opus",
     "sikorsky-mh-60/engine-start/engines-fly": "item-fc1ba945e640dcba.opus",
     "sikorsky-mh-60/engine-start/fuel-selectors-direct": "item-85a275d326aa8c33.opus",
     "sikorsky-mh-60/after-engine-start/air-source-ecs": "item-9a7cc08be52dd1ca.opus",
     "sikorsky-mh-60/after-engine-start/generators": "item-4aabf94be6c5af0f.opus",
-    "sikorsky-mh-60/after-engine-start/apu-generator": "item-4f1c13d5b9e5a25f.opus",
-    "sikorsky-mh-60/after-engine-start/apu-control": "item-05d5c4f7dca19c6c.opus",
+    "sikorsky-mh-60/after-engine-start/apu-generator": "item-b920f59d0490bdea.opus",
+    "sikorsky-mh-60/after-engine-start/apu-control": "item-3fb038b5e36fdd2f.opus",
     "sikorsky-mh-60/after-engine-start/fuel-boost-pumps": "item-5065f9758b2183da.opus",
     "sikorsky-mh-60/after-engine-start/utility-hydraulic-pump": "item-8446f2b620be477b.opus",
     "sikorsky-mh-60/after-engine-start/primary-fuel-pump": "item-f757175825ab4569.opus",
@@ -1114,12 +1119,12 @@
     },
     {
       "reference": "airbus-a400m/fsm-init/wind",
-      "text": "Wind: Check",
+      "text": "Verify Wind: Check.",
       "reason": "FSM Init deferred by user until content is confirmed"
     },
     {
       "reference": "airbus-a400m/fsm-init/position-monitor",
-      "text": "Position monitor: G P S primary.",
+      "text": "Verify Position monitor: G P S primary.",
       "reason": "FSM Init deferred by user until content is confirmed"
     },
     {

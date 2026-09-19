@@ -11,7 +11,7 @@
       { "atcModel": { "equals": "Diamond DA42" } }
     ]
   },
-  "revision": "2026-09-04",
+  "revision": "2026-09-19",
   "sections": [
     {
       "id": "before-engine-start",
@@ -71,7 +71,8 @@
           "id": "fuel-quantity-temperature",
           "challenge": "Fuel Quantity and Temperature",
           "response": "Check",
-          "kind": "verify"
+          "kind": "verify",
+          "speech": "Verify Fuel Quantity and Temperature: Check."
         },
         {
           "id": "engine-master-left",
@@ -85,7 +86,7 @@
           "response": "Wait",
           "kind": "verify",
           "condition": "Until CAP clears",
-          "speech": "Left glow indication: Wait until it clears."
+          "speech": "Verify Left glow indication: Wait until it clears."
         },
         {
           "id": "start-key-left",
@@ -100,7 +101,7 @@
           "challenge": "Voltage and Electrical Load",
           "response": "Check",
           "kind": "verify",
-          "speech": "Voltage and electrical load: Check on E I S.",
+          "speech": "Verify Voltage and electrical load: Check on E I S.",
           "notes": ["On EIS"]
         },
         {
@@ -115,7 +116,7 @@
           "response": "Wait",
           "kind": "verify",
           "condition": "Until CAP clears",
-          "speech": "Right glow indication: Wait until it clears."
+          "speech": "Verify Right glow indication: Wait until it clears."
         },
         {
           "id": "start-key-right",

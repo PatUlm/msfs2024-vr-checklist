@@ -11,7 +11,7 @@
       }
     ]
   },
-  "revision": "2026-09-18",
+  "revision": "2026-09-19",
   "sections": [
     {
       "id": "before-start",
@@ -79,7 +79,7 @@
           "challenge": "Engine N1",
           "response": "≥ 67 %",
           "kind": "verify",
-          "speech": "Engine N one: At least 67 percent."
+          "speech": "Verify Engine N one: At least 67 percent."
         },
         {
           "id": "generator",

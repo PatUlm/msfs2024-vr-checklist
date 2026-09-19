@@ -36,6 +36,8 @@ for (const filename of await readdir(path.join(root, 'checklists/data'))) {
   for (const section of checklist.sections) {
     for (const item of section.items) {
       const ref = checklist.id + '/' + section.id + '/' + item.id;
+      if (item.kind === 'verify')
+        assert(item.speech?.startsWith('Verify '), ref + ': missing spoken Verify cue');
       if (checklist.id === 'airbus-a400m' && section.id === 'fsm-init') {
         excluded.add(ref);
         assert(!Object.hasOwn(manifest.items, ref), ref + ': excluded item mapped to audio');

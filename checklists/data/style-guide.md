@@ -83,3 +83,10 @@ Beispiele:
 - Abkürzungen dürfen im sichtbaren Text stehen. Wenn die automatische
   Aussprache unklar wäre, erhält der Eintrag einen vollständig formulierten
   `speech`-Text.
+
+## Gesprochene Prüfaufforderungen
+
+- Jeder Eintrag mit `kind: "verify"` erhält einen `speech`-Text, der mit
+  `Verify ` beginnt, zum Beispiel `Verify A P U indicator: On.`.
+  Die sichtbare Challenge bleibt der Systemname; das vorhandene Verify-Badge
+  kennzeichnet die Prüfhandlung in der Oberfläche.

@@ -66,7 +66,8 @@ Generate the included item clips with
 clip's Brian/model/render settings and writes clean Opus assets, per-clip
 provenance, and an item-to-file manifest under `items/`. It is an explicit
 developer operation and is never invoked by check, build, or deployment.
-These prepared assets are not yet wired into item playback.
+The companion embeds these assets and reads them when Read checklist items
+is enabled; the eight deferred A400M entries remain silent.
 
 Existing paid assets are reused after checksum verification. Source responses
 are checkpointed under the ignored `tmp/checklist-audio/render-cache/` before

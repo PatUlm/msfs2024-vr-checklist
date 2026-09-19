@@ -11,7 +11,7 @@
       }
     ]
   },
-  "revision": "2026-09-18",
+  "revision": "2026-09-19",
   "sections": [
     {
       "id": "electrical-power-up",
@@ -107,6 +107,7 @@
           "challenge": "Wind",
           "response": "Check",
           "kind": "verify",
+          "speech": "Verify Wind: Check.",
           "needsReview": true,
           "reviewNote": "FSM step not yet verified in the simulator."
         },
@@ -115,7 +116,7 @@
           "challenge": "Position Monitor",
           "response": "GPS Primary",
           "kind": "verify",
-          "speech": "Position monitor: G P S primary.",
+          "speech": "Verify Position monitor: G P S primary.",
           "needsReview": true,
           "reviewNote": "FSM step not yet verified in the simulator."
         },

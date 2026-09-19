@@ -6,7 +6,8 @@ public sealed record AudioOutputPreference(
     string? DeviceId,
     string? DeviceName,
     IReadOnlyList<string>? RecentDeviceIds = null,
-    bool RadioEnabled = true);
+    bool RadioEnabled = true,
+    bool ReadItemsEnabled = true);
 
 public sealed class AudioOutputSettings
 {
@@ -66,6 +67,6 @@ public sealed class AudioOutputSettings
             .Where(id => !string.IsNullOrWhiteSpace(id))
             .Distinct(StringComparer.Ordinal)
             .ToArray();
-        return new(deviceId, deviceId is null ? null : preference.DeviceName, recentIds, preference.RadioEnabled);
+        return new(deviceId, deviceId is null ? null : preference.DeviceName, recentIds, preference.RadioEnabled, preference.ReadItemsEnabled);
     }
 }

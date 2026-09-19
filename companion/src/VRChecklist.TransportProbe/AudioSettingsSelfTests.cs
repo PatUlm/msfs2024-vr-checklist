@@ -4,6 +4,38 @@ namespace VRChecklist.TransportProbe;
 
 internal static class AudioSettingsSelfTests
 {
+    public static void ReportsInterruptedTest() => WithSettingsPath(path =>
+    {
+        var vm = new AudioSettingsViewModel(new AudioOutputSettings(path), () => [],
+            () => Task.FromCanceled(new CancellationToken(true)));
+        vm.RefreshDevices();
+        vm.TestAsync().GetAwaiter().GetResult();
+        Require(vm.Status == "Test sound stopped before it finished." && vm.CanTest,
+            "Interrupted test was reported as successful or prevented another test.");
+    });
+
+    public static void PersistsItemSpeech() => WithSettingsPath(path =>
+    {
+        File.WriteAllText(path, """{"DeviceId":null,"RadioEnabled":true}""");
+        var settings = new AudioOutputSettings(path);
+        Require(settings.Current.ReadItemsEnabled, "Older settings without a speech preference must default to on.");
+        Require(new AudioOutputSettings(path + ".new").Current.ReadItemsEnabled, "First launch must enable item speech.");
+        settings.Save(settings.Current with { ReadItemsEnabled = false });
+        settings = new AudioOutputSettings(path);
+        Require(!settings.Current.ReadItemsEnabled, "Explicitly saved off must survive restart.");
+        var vm = new AudioSettingsViewModel(settings, () => [], () => Task.CompletedTask);
+        var notifications = 0;
+        vm.ReadItemsChanged += _ => notifications++;
+        vm.ReadItemsEnabled = true;
+        vm.RadioEnabled = false;
+        Require(new AudioOutputSettings(path).Current is { ReadItemsEnabled: true, RadioEnabled: false },
+            "Speech preference was lost after another setting changed.");
+        File.Delete(path);
+        Directory.CreateDirectory(path);
+        vm.ReadItemsEnabled = false;
+        Require(vm.ReadItemsEnabled && notifications == 1, "Failed save changed effective speech mode.");
+    });
+
     public static void PersistsRadioIndependently() => WithSettingsPath(path =>
     {
         File.WriteAllText(path, """{"DeviceId":"headset","DeviceName":"Headset"}""");

@@ -9,6 +9,8 @@
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="../VRChecklist.Companion/ItemAudioCatalog.cs" Link="ItemAudioCatalog.cs" />
+    <Compile Include="../VRChecklist.Companion/ChecklistSpeechController.cs" Link="ChecklistSpeechController.cs" />
     <Compile Include="../VRChecklist.Companion/AudioOutputSettings.cs" Link="AudioOutputSettings.cs" />
     <Compile Include="../VRChecklist.Companion/RadioSampleProvider.cs" Link="RadioSampleProvider.cs" />
     <Compile Include="../VRChecklist.Companion/AudioOutputDevices.cs" Link="AudioOutputDevices.cs" />
@@ -34,6 +36,10 @@
                       Exclude="../../../checklists/data/checklist.schema.json"
                       LogicalName="VRChecklist.Companion.checklists.%(Filename)%(Extension)" />
     <!-- Same clip as the companion so the play-completion-sound flag proves the shipped audio path. -->
+    <EmbeddedResource Include="../../../assets/audio/items/*.opus"
+                      LogicalName="VRChecklist.Companion.audio.%(Filename)%(Extension)" />
+    <EmbeddedResource Include="../../../assets/audio/items/manifest.json"
+                      LogicalName="VRChecklist.Companion.audio.items-manifest.json" />
     <EmbeddedResource Include="../../../assets/audio/completion/*.opus"
                       LogicalName="VRChecklist.Companion.audio.%(Filename)%(Extension)" />
     <EmbeddedResource Include="../../../assets/audio/completion/manifest.json"

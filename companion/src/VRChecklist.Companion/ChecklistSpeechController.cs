@@ -1,0 +1,166 @@
+using VRChecklist.Transport;
+
+namespace VRChecklist.Companion;
+
+// Serializes device operations and retains at most one pending item while a
+// completion/test clip is playing. No timers, polling, or unbounded speech queue.
+public sealed class ChecklistSpeechController(
+    Func<string?, Task> play,
+    Action stop,
+    Func<ChecklistStateSnapshot, string?> resolve,
+    Action<string> reportError,
+    bool enabled) : IDisposable
+{
+    private readonly object gate = new();
+    private readonly ChecklistGroupCompletionTracker groups = new();
+    private ChecklistStateSnapshot? current;
+    private string? lastKey;
+    private string? lastScope;
+    private string? pendingItem;
+    private bool itemEnabled = enabled;
+    private bool playing;
+    private bool completionPlaying;
+    private bool testPlaying;
+    private bool disposed;
+    private long generation;
+
+    public void Observe(ChecklistStateSnapshot snapshot, bool repeated)
+    {
+        lock (gate)
+        {
+            if (disposed) return;
+            current = snapshot;
+            var scope = snapshot.Checklist is { } checklist
+                ? $"{snapshot.SessionId}/{snapshot.Aircraft.AtcModel}/{snapshot.Aircraft.AtcType}/{snapshot.Aircraft.Title}/{checklist.Id}@{checklist.Revision}"
+                : null;
+            if (scope != lastScope)
+            {
+                pendingItem = null;
+                if (!testPlaying) CancelPlayback();
+                lastScope = scope;
+            }
+            var key = scope is null ? null : $"{scope}/{snapshot.ActiveGroup?.Id}/{snapshot.NextOpenItem?.Id}";
+            var changed = key != lastKey;
+            lastKey = key;
+            var completed = groups.Observe(snapshot, repeated).Count > 0;
+            // A settings test is local, not a simulator announcement. Continue
+            // tracking state, but never replace it with a group or flight event.
+            if (testPlaying)
+            {
+                if (changed) pendingItem = itemEnabled ? ResolveCurrent() : null;
+                return;
+            }
+            if (completed)
+            {
+                pendingItem = itemEnabled ? ResolveCurrent() : null;
+                Start(null);
+            }
+            else if (changed && !repeated)
+            {
+                var file = itemEnabled ? ResolveCurrent() : null;
+                if (completionPlaying) pendingItem = file;
+                else
+                {
+                    CancelPlayback();
+                    if (file is not null) Start(file);
+                }
+            }
+        }
+    }
+
+    public void SetEnabled(bool value)
+    {
+        lock (gate)
+        {
+            if (disposed || value == itemEnabled) return;
+            itemEnabled = value;
+            pendingItem = null;
+            if (!completionPlaying) CancelPlayback();
+            if (value)
+            {
+                var file = ResolveCurrent();
+                if (completionPlaying) pendingItem = file;
+                else if (file is not null) Start(file);
+            }
+        }
+    }
+
+    public void Disconnect()
+    {
+        lock (gate)
+        {
+            if (disposed) return;
+            current = null;
+            pendingItem = null;
+            groups.ResetBaseline();
+            // Keep the last item identity: a reconnect must not repeat it.
+            // Connection retries must not interrupt a local Settings test.
+            if (!testPlaying) CancelPlayback();
+        }
+    }
+
+    public Task TestAsync()
+    {
+        lock (gate)
+        {
+            if (disposed) return Task.FromException(new ObjectDisposedException(nameof(ChecklistSpeechController)));
+            pendingItem = null;
+            return Start(null, isTest: true);
+        }
+    }
+
+    private string? ResolveCurrent()
+    {
+        if (current is null) return null;
+        try { return resolve(current); }
+        catch (Exception error) { reportError(error.Message); return null; }
+    }
+
+    private Task Start(string? file, bool isTest = false)
+    {
+        CancelPlayback();
+        playing = true;
+        completionPlaying = file is null;
+        testPlaying = isTest;
+        var token = generation;
+        Task task;
+        try { task = play(file); }
+        catch (Exception error) { task = Task.FromException(error); }
+        _ = task.ContinueWith(finished =>
+        {
+            lock (gate)
+            {
+                if (disposed || token != generation) return;
+                playing = false;
+                completionPlaying = false;
+                testPlaying = false;
+                if (finished.IsFaulted)
+                    reportError(finished.Exception?.GetBaseException().Message ?? "Playback failed.");
+                var next = pendingItem;
+                pendingItem = null;
+                if (itemEnabled && next is not null) Start(next);
+            }
+        }, CancellationToken.None, TaskContinuationOptions.None, TaskScheduler.Default);
+        return task;
+    }
+
+    private void CancelPlayback()
+    {
+        generation++;
+        if (playing) stop();
+        playing = false;
+        completionPlaying = false;
+        testPlaying = false;
+    }
+
+    public void Dispose()
+    {
+        lock (gate)
+        {
+            if (disposed) return;
+            disposed = true;
+            pendingItem = null;
+            CancelPlayback();
+        }
+    }
+}

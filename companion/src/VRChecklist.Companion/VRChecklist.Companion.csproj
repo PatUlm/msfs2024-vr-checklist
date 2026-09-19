@@ -28,6 +28,10 @@
   <ItemGroup>
     <EmbeddedResource Include="../../release-notes.json"
                       LogicalName="VRChecklist.Companion.release-notes.json" />
+    <EmbeddedResource Include="../../../assets/audio/items/*.opus"
+                      LogicalName="VRChecklist.Companion.audio.%(Filename)%(Extension)" />
+    <EmbeddedResource Include="../../../assets/audio/items/manifest.json"
+                      LogicalName="VRChecklist.Companion.audio.items-manifest.json" />
     <EmbeddedResource Include="../../../assets/audio/completion/*.opus"
                       LogicalName="VRChecklist.Companion.audio.%(Filename)%(Extension)" />
     <EmbeddedResource Include="../../../assets/audio/completion/manifest.json"

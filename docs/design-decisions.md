@@ -209,6 +209,23 @@ Iteration stehen separat in `design-qa.md`.
 
 ## Audioeinstellungen der Begleit-App
 
+- `Read checklist items` aktiviert das Vorlesen des aktuellen offenen Eintrags.
+  Der Schalter ist standardmäßig an und wird gespeichert; eine explizit
+  gespeicherte Off-Auswahl bleibt erhalten. Einschalten liest den
+  bereits empfangenen aktuellen Eintrag; bei aktiviertem Start liest der erste
+  passende Snapshot den aktuellen Eintrag. Ausschalten stoppt Itemansagen,
+  während Gruppenabschluss und `Test sound` verfügbar bleiben.
+- Ein neuer aktueller Eintrag ersetzt eine laufende Itemansage. Eine
+  Abschlussansage läuft zu Ende; danach wird höchstens der neueste inzwischen
+  aktuelle Eintrag gelesen. Es gibt keine Warteschlange veralteter Items.
+  Wiederholte Snapshots und Reconnects lesen denselben Eintrag nicht erneut.
+  Verbindungsverlust und Protokollfehler stoppen die Wiedergabe; ein neuer
+  Flug oder Checklistenwechsel verwirft alte Ansagen.
+- Itemansagen verwenden dieselbe Gerätewahl und denselben Radiofilter.
+  Abweichende Checklistenrevisionen werden als Audiofehler gemeldet, statt
+  möglicherweise falsche Texte vorzulesen. Die acht vorerst ausgelassenen
+  A400M-Schritte unter `FSM Init` bleiben stumm.
+
 - `Radio effect` schaltet den lokalen Radiofilter während der Wiedergabe ein
   oder aus; ausgeschaltet bleibt die Clean-Aufnahme unverändert. Der Schalter
   ist standardmäßig an, wird gespeichert und bleibt während `Test sound`
@@ -221,7 +238,9 @@ Iteration stehen separat in `design-qa.md`.
   Die Auswahl wird sofort gespeichert und gilt ab der nächsten Ansage.
   `Test sound` steht ausschließlich im Settings-Dialog und spielt
   `Checklist completed` auf dieser Auswahl ab, ohne den Checklistenfortschritt
-  zu ändern.
+  zu ändern. Der Testton läuft unabhängig von Simulatorverbindung,
+  Verbindungsversuchen, Flugwechseln und Gruppenabschlussereignissen zu Ende.
+  Ein tatsächlicher Wiedergabeabbruch wird nicht als erfolgreicher Test gemeldet.
 - `Windows default` steht immer zuerst. Danach folgen Geräte nach der letzten
   bewussten Auswahl, zuletzt gewählt zuerst; noch nie gewählte Geräte folgen
   alphabetisch. Die Reihenfolge bleibt über Neustarts und Gerätewechsel hinweg

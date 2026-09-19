@@ -9,6 +9,7 @@ public sealed partial class App : Application
 {
     private ChecklistConnectionService? connectionService;
     private CompletionSoundPlayer? completionSound;
+    private ChecklistSpeechController? speech;
 
     public override void Initialize() => AvaloniaXamlLoader.Load(this);
 
@@ -29,19 +30,21 @@ public sealed partial class App : Application
 
             if (OperatingSystem.IsWindows())
             {
-                AnnounceGroupCompletion(connectionService, viewModel, audioSettings);
+                ConfigureSpeech(connectionService, viewModel, audioSettings);
             }
             window.AudioSettings = new AudioSettingsViewModel(
                 audioSettings,
                 () => OperatingSystem.IsWindows() ? AudioOutputDevices.Enumerate() : [],
-                () => Task.Run(() => OperatingSystem.IsWindows() && completionSound is { } player
-                    ? player.PlayAsync()
+                () => Task.Run(() => speech is { } controller
+                    ? controller.TestAsync()
                     : Task.FromException(new InvalidOperationException("Audio is unavailable."))));
+            window.AudioSettings.ReadItemsChanged += value => speech?.SetEnabled(value);
             if (audioSettings.LoadError is { } loadError) viewModel.ReportAudioError(loadError);
 
             desktop.Exit += (_, _) =>
             {
                 connectionService.Dispose();
+                speech?.Dispose();
 
                 if (OperatingSystem.IsWindows())
                 {
@@ -54,58 +57,35 @@ public sealed partial class App : Application
         base.OnFrameworkInitializationCompleted();
     }
 
-    /*
-     * Every newly completed group plays the clip once. The tracker runs on
-     * the connection worker thread, where both service events are raised in
-     * order. Audio failures, including a clip that fails to decode at start,
-     * only surface in the status line and never block the snapshot handling.
-     */
     [System.Runtime.Versioning.SupportedOSPlatform("windows")]
-    private void AnnounceGroupCompletion(
+    private void ConfigureSpeech(
         ChecklistConnectionService service,
         MainWindowViewModel viewModel,
         AudioOutputSettings audioSettings)
     {
-        CompletionSoundPlayer player;
-
         try
         {
-            player = new CompletionSoundPlayer(
-                OpusClip.LoadEmbeddedCompletion(), () => audioSettings.Current.DeviceId,
+            var completion = OpusClip.LoadEmbeddedCompletion();
+            var catalog = ItemAudioCatalog.Load();
+            var player = new CompletionSoundPlayer(
+                completion, () => audioSettings.Current.DeviceId,
                 () => audioSettings.Current.RadioEnabled);
+            completionSound = player;
+            var controller = new ChecklistSpeechController(
+                file => player.PlayAsync(file is null ? completion : catalog.GetClip(file)),
+                player.Stop, catalog.Resolve, viewModel.ReportAudioError,
+                audioSettings.Current.ReadItemsEnabled);
+            speech = controller;
+            service.ConnectionChanged += (status, _) =>
+            {
+                if (status != SimulatorConnectionStatus.Connected) controller.Disconnect();
+            };
+            service.ProtocolError += _ => controller.Disconnect();
+            service.SnapshotReceived += controller.Observe;
         }
         catch (Exception error)
         {
             viewModel.ReportAudioError(error.Message);
-            return;
         }
-
-        completionSound = player;
-        var tracker = new ChecklistGroupCompletionTracker();
-
-        // A lost connection may have swallowed a group end; the reconnect
-        // snapshot then only sets the baseline instead of announcing late.
-        service.ConnectionChanged += (status, _) =>
-        {
-            if (status != SimulatorConnectionStatus.Connected)
-            {
-                tracker.ResetBaseline();
-            }
-        };
-
-        service.SnapshotReceived += (snapshot, isRepeated) =>
-        {
-            if (tracker.Observe(snapshot, isRepeated).Count == 0)
-            {
-                return;
-            }
-
-            player.PlayAsync().ContinueWith(
-                playback => viewModel.ReportAudioError(
-                    playback.Exception?.InnerException?.Message ?? "Playback failed."),
-                CancellationToken.None,
-                TaskContinuationOptions.OnlyOnFaulted,
-                TaskScheduler.Default);
-        };
     }
 }

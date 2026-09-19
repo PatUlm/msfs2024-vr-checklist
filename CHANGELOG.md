@@ -9,12 +9,24 @@ Changelog, and the project uses Semantic Versioning.
 
 ### Added
 
+- Companion Settings offers a saved Read checklist items switch, enabled
+  by default, for offline
+  Brian announcements of the next open item. Advancing replaces outdated
+  speech; group completion finishes before the latest item is read. Repeated
+  snapshots and reconnects do not repeat the same item. The eight provisional
+  A400M FSM Init items remain silent. Test sound remains independent of
+  simulator connection and checklist changes.
+
 - Companion Settings now provides a remembered Radio effect switch, enabled
   by default, that applies a radio filter during playback and can be toggled
   while a sound is playing. Switching it off restores the clean voice.
 
 ### Changed
 
+- Updated MH-60 lighting labels and settings, APU control switch positions,
+  and APU generator shutdown; refreshed the affected Brian announcements
+  and added an explicit spoken “Verify” cue to verification items across
+  all checklists.
 - Group completion and Test sound now use the natural English Brian voice
   instead of the Windows system-voice placeholder.
 

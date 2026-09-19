@@ -15,7 +15,9 @@ das Windows-Standardgerät funktioniert bei laufendem MSFS in Nicht-VR und VR
 auf dem ausgewählten VR-Headset hörbar (Nutzerbestätigung vom 2026-09-17).
 ElevenLabs Brian ist als Hauptstimme gewählt; Sarah bleibt die dokumentierte
 weibliche Alternative. Die Abschlussansage nutzt Brian aus einer neuen
-Starter-Generierung. Radio wird live zuschaltbar angewendet (ADR 0010).
+Starter-Generierung. Radio wird live zuschaltbar angewendet (ADR 0010). Der normale
+Sprachablauf mit Item- und Abschlussansagen ist am 2026-09-19 im MH-60
+vom Nutzer bestätigt.
 Die Audioqualität gilt unabhängig vom Ausgabegerät; separate Headset- oder
 In-Ear-Abnahmen sind nicht vorgesehen. Die konkrete Asset-Lizenz vor einer
 GitHub-Veröffentlichung bleibt offen (ADR 0008).**
@@ -48,11 +50,11 @@ Abnahmekriterien weiter unten bleiben bestehen.
    Nicht-VR und VR bestätigten WASAPI-Shared-Mode-Pfad und ist mit dem
    VR-Audiogerät bestätigt. ElevenLabs Brian ist als Hauptstimme gewählt.
    Abschlussansage und Test sound verwenden bereits Brian mit live schaltbarem
-   Radioeffekt. Für das nächste Inkrement werden Clean-Itemansagen mit Brian
-   vorbereitet. Die acht ungeprüften A400M-Einträge unter `FSM Init` bleiben
+   Radioeffekt. Der gespeicherte Schalter `Read checklist items` aktiviert
+   jetzt das Offline-Vorlesen mit den vorbereiteten Brian-Itemansagen. Die acht ungeprüften A400M-Einträge unter `FSM Init` bleiben
    auf Nutzerwunsch zunächst ohne Sprachasset; die Checklisteneinträge selbst
-   bleiben erhalten. Als Nächstes folgt die Anbindung der Itemansagen an den
-   Sprachmodus mit Unterdrückung wiederholter Zustandsmeldungen. Für die
+   bleiben erhalten. Der Sprachmodus unterdrückt wiederholte Zustandsmeldungen
+   und ersetzt veraltete Itemansagen. Für die
    Veröffentlichung gelten die Bedingungen aus ADR 0008.
 
 Der Transport verwendet ein versioniertes Nachrichtenprotokoll. Ein

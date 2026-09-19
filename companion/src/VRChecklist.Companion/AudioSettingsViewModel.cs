@@ -48,6 +48,28 @@ public sealed class AudioSettingsViewModel : INotifyPropertyChanged
         }
     }
 
+    public event Action<bool>? ReadItemsChanged;
+
+    public bool ReadItemsEnabled
+    {
+        get => settings.Current.ReadItemsEnabled;
+        set
+        {
+            if (value == ReadItemsEnabled) return;
+            try
+            {
+                settings.Save(settings.Current with { ReadItemsEnabled = value });
+                ReadItemsChanged?.Invoke(value);
+                if (!isTesting) Status = SelectionStatus;
+            }
+            catch (Exception error) when (error is IOException or UnauthorizedAccessException)
+            {
+                Status = "Could not save item speech. The previous setting is still active.";
+            }
+            Notify();
+        }
+    }
+
     public string Status
     {
         get => status;
@@ -133,6 +155,10 @@ public sealed class AudioSettingsViewModel : INotifyPropertyChanged
         {
             await play();
             Status = "Test sound finished.";
+        }
+        catch (OperationCanceledException)
+        {
+            Status = "Test sound stopped before it finished.";
         }
         catch (Exception)
         {

@@ -38,14 +38,22 @@ neu erledigte Gruppe meldet. Unter `Settings` bietet `Audio output` das
 Windows-Standardgerät oder ein konkretes Windows-Ausgabegerät. `Settings` öffnet
 einen modalen Dialog; `Test sound` in diesem Dialog spielt
 `Checklist completed` auf der Auswahl ab, auch ohne MSFS und ohne Änderung des
-Checklistenfortschritts. `Windows default` steht immer zuerst, danach folgen
+Checklistenfortschritts. Simulator-Reconnects und Checklistenevents unterbrechen
+den Testton nicht; tatsächliche Abbrüche erscheinen ausdrücklich als Abbruch.
+`Windows default` steht immer zuerst, danach folgen
 zuletzt gewählte Geräte vor den übrigen, alphabetisch sortierten Ausgängen.
 `Radio effect` ist standardmäßig eingeschaltet und lässt sich auch während
 einer Ansage umschalten. Ausgeschaltet wird dieselbe Clean-Datei unverändert
 abgespielt; es gibt keine zweite TTS-Generierung und keinen Onlinezugriff.
 Herkunft und Renderablauf stehen unter [Audioassets](../assets/audio/README.md).
-Einzelne Checklisteneinträge werden in einem späteren Inkrement vertont.
-Geräte-ID, letzter Anzeigename, Auswahlhistorie und Radio-Einstellung liegen
+`Read checklist items` aktiviert die eingebetteten Brian-Itemansagen und ist
+standardmäßig eingeschaltet; eine gespeicherte Off-Auswahl bleibt erhalten. Einschalten liest den aktuellen Eintrag; anschließend
+wird bei einem tatsächlichen Itemwechsel angesagt. Schnelles Weiterklicken
+bricht veraltete Itemansagen ab. Gruppenabschluss und Test sound haben Vorrang;
+danach folgt nur das zuletzt aktuelle Item. Reconnects wiederholen denselben
+Eintrag nicht. Die acht A400M-FSM-Init-Schritte haben vorerst keine Ansage.
+Bei abweichenden Checklistenrevisionen erscheint ein Audiofehler.
+Geräte-ID, letzter Anzeigename, Auswahlhistorie sowie Radio- und Itemansage-Einstellung liegen
 unter `%LOCALAPPDATA%\VRChecklist\audio-output.json`. Ein fehlendes Gerät bleibt
 ausgewählt, bis es wieder verfügbar ist oder eine andere Auswahl getroffen wird.
 Ohne MSFS

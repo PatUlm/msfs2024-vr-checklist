@@ -6,10 +6,10 @@ using NAudio.Wave.SampleProviders;
 namespace VRChecklist.Companion;
 
 /*
- * Plays the embedded "Checklist completed" clip on the Windows default output
+ * Plays the completion or selected item clip on the Windows default output
  * device or a selected endpoint through WASAPI in shared mode (ADR 0004).
  * The Opus clip is decoded
- * once at construction and converted to stereo float, the usual shared-mode
+ * once when loaded and converted to stereo float, the usual shared-mode
  * mix format, so the audio engine mixes it without touching the MSFS stream.
  * A failed playback is reported through the returned task; it must never
  * affect the checklist workflow.
@@ -26,6 +26,7 @@ public sealed class CompletionSoundPlayer : IDisposable
     private MMDevice? outputEndpoint;
     private WaveStream? outputReader;
     private bool disposed;
+    private TaskCompletionSource? activeCompletion;
 
     public CompletionSoundPlayer()
         : this(OpusClip.LoadEmbeddedCompletion())
@@ -45,7 +46,9 @@ public sealed class CompletionSoundPlayer : IDisposable
      * still playing is cut off; two group ends within a second are rare and
      * the second announcement is the one that matters.
      */
-    public Task PlayAsync()
+    public Task PlayAsync() => PlayAsync(clip);
+
+    public Task PlayAsync(OpusClip announcement)
     {
         var completion = new TaskCompletionSource(TaskCreationOptions.RunContinuationsAsynchronously);
 
@@ -53,10 +56,11 @@ public sealed class CompletionSoundPlayer : IDisposable
         {
             ObjectDisposedException.ThrowIf(disposed, this);
             StopCurrentOutput();
+            activeCompletion = completion;
 
             try
             {
-                var reader = clip.OpenRead();
+                var reader = announcement.OpenRead();
                 outputReader = reader;
                 ISampleProvider samples = new RadioSampleProvider(reader.ToSampleProvider(), isRadioEnabled);
 
@@ -105,12 +109,17 @@ public sealed class CompletionSoundPlayer : IDisposable
             }
             catch (Exception error)
             {
-                StopCurrentOutput();
                 completion.TrySetException(error);
+                StopCurrentOutput();
             }
         }
 
         return completion.Task;
+    }
+
+    public void Stop()
+    {
+        lock (gate) StopCurrentOutput();
     }
 
     public void Dispose()
@@ -129,6 +138,8 @@ public sealed class CompletionSoundPlayer : IDisposable
 
     private void StopCurrentOutput()
     {
+        activeCompletion?.TrySetCanceled();
+        activeCompletion = null;
         var current = output;
         output = null;
 

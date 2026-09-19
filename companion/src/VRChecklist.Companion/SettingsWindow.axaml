@@ -30,6 +30,12 @@
             </DataTemplate>
           </ComboBox.ItemTemplate>
         </ComboBox>
+        <ToggleSwitch IsChecked="{Binding ReadItemsEnabled, Mode=TwoWay}"
+                      OnContent="On" OffContent="Off" Content="Read checklist items"
+                      Foreground="#F3F6FA" FontSize="16" MinHeight="44"
+                      AutomationProperties.Name="Read checklist items" />
+        <TextBlock Foreground="#AAB4C0" TextWrapping="Wrap"
+                   Text="Read the next open item as you work through the checklist. Group completion announcements remain enabled." />
         <ToggleSwitch IsChecked="{Binding RadioEnabled, Mode=TwoWay}"
                       OnContent="On" OffContent="Off" Content="Radio effect"
                       Foreground="#F3F6FA" FontSize="16" MinHeight="44"

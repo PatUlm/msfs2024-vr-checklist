@@ -7,11 +7,12 @@ Changelog, and the project uses Semantic Versioning.
 
 ## [Unreleased]
 
+## [0.11.0] - 2026-09-19
+
 ### Added
 
 - Companion Settings offers a saved Read checklist items switch, enabled
-  by default, for offline
-  Brian announcements of the next open item. Advancing replaces outdated
+  by default, for offline Brian announcements of the next open item. Advancing replaces outdated
   speech; group completion finishes before the latest item is read. Repeated
   snapshots and reconnects do not repeat the same item. The eight provisional
   A400M FSM Init items remain silent. Test sound remains independent of

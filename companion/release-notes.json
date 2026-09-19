@@ -3,6 +3,20 @@
   "companionSince": "0.3.0",
   "releases": [
     {
+      "version": "0.11.0",
+      "date": "2026-09-19",
+      "highlight": "Follow the checklist with natural English Brian announcements, entirely offline.",
+      "features": [
+        "Read checklist items is enabled by default and remembers your choice.",
+        "New items replace outdated speech; group completion finishes before the latest item is read.",
+        "The saved Radio effect switch applies a live radio filter; switching it off restores clean speech.",
+        "Group completion and Test sound now use Brian, with Test sound independent of simulator connection changes.",
+        "Updated MH-60 lighting and APU instructions; verification items include a spoken Verify cue.",
+        "The eight provisional A400M FSM Init steps remain silent."
+      ],
+      "fixes": []
+    },
+    {
       "version": "0.10.0",
       "date": "2026-09-16",
       "highlight": "Choose where checklist announcements play, independently of the Windows default audio output.",

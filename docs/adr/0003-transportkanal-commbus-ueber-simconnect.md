@@ -1,7 +1,6 @@
 # ADR 0003: Transportkanal über den CommBus mit SimConnect
 
-- **Status:** Vorgeschlagen — bidirektionaler Durchstich bestätigt,
-  Lifecycle-Nachweise ausstehend
+- **Status:** Akzeptiert — Lifecycle-Nachweise am 2026-09-19 abgeschlossen
 - **Datum:** 2026-08-26, Transportdurchstich bestätigt am 2026-08-29
 - **Betrifft:** Phase 3
 - **Technische Grundlage:**
@@ -16,7 +15,7 @@ Netzwerkverbindung auskommt.
 
 ## Entscheidung
 
-Der vorgesehene Kanal ist der **CommBus über SimConnect**. Ein externer
+Der Kanal ist der **CommBus über SimConnect**. Ein externer
 SimConnect-Client und der JavaScript-Kontext der EFB-App tauschen darüber
 benannte Events in beide Richtungen aus. Ein zusätzliches WASM-Modul oder Paket
 ist nicht vorgesehen.
@@ -42,10 +41,9 @@ ist nicht vorgesehen.
   Zusammenfassung ohne Item-Listen von etwa 1 KB, der State-Request umfasst
   wenige Bytes. Die maximale CommBus-Nutzlast ist nicht gemessen. Sobald das
   Protokoll große Nachrichten benötigt, ist dieser Nachweis vorher zu führen.
-- Beide Richtungen sind im Custom-EFB-Kontext bestätigt. Die Entscheidung
-  bleibt vorgeschlagen, bis auch der EFB-Lifecycle in MSFS bestätigt ist. Die
-  verbleibenden Nachweise stehen ausschließlich in
-  [`../open-tests.md`](../open-tests.md).
+- Beide Richtungen sowie die geprüften Pause-, Appwechsel- und
+  VR-Kontextwechselpfade sind im Custom-EFB-Kontext bestätigt; die
+  Geltungsbereiche stehen in der [SDK-Referenz](../msfs-sdk-reference.md).
 
 ## Verworfene Alternativen
 

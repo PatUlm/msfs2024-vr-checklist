@@ -7,6 +7,12 @@ Changelog, and the project uses Semantic Versioning.
 
 ## [Unreleased]
 
+### Fixed
+
+- Prevent a newly created EFB context from publishing its temporary empty state
+  before restoring checklist progress, which could repeat the current item
+  announcement when entering VR.
+
 ## [0.11.0] - 2026-09-19
 
 ### Added

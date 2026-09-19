@@ -58,9 +58,11 @@ wiederholen.
   `onResume()` erneut aufgerufen wird. Ein View- oder Game-State-Übergang allein
   ist deshalb kein verlässliches Signal für einen neuen Flug.
 - **[RT]** Beim Wechsel zwischen VR und Nicht-VR kann MSFS den EFB-App-Kontext
-  neu erzeugen; reiner In-Memory-Zustand geht dann verloren. Anzahl und
-  zeitliche Überlappung der Kontexte sind nicht bestätigt und begründen keine
-  vorsorgliche Multi-Writer-Anforderung.
+  neu erzeugen; reiner In-Memory-Zustand geht dann verloren. In Release 0.11.0
+  waren nach dem VR-Eintritt zwei EFB-Einträge im Coherent Debugger sichtbar
+  (Nutzerbeobachtung vom 2026-09-19). Das belegt weder gleichzeitiges Senden
+  noch gleichzeitige Schreibaktivität und begründet keine vorsorgliche
+  Multi-Writer-Anforderung.
 - **[RT]** Der SDK-`DataStore` überlebt sowohl die Neuerzeugung des
   EFB-Kontexts als auch einen zeitnahen vollständigen Simulatorneustart.
   **DON'T:** Ihn als flüchtigen Sitzungsspeicher behandeln oder seine
@@ -183,6 +185,20 @@ Der verwendete Mechanismus besteht aus
   kann auf einem zweiten Event an denselben SimConnect-Client antworten. Der
   bidirektionale Ping/Pong-Durchstich wurde mit EFB-Entwicklungsstand
   `0.2.4-dev.20260829151430` bestätigt.
+- **[RT]** Mit Release 0.11.0 erreicht eine Itemänderung den Companion auch
+  nach dem Wechsel zu einer anderen EFB-App und der Rückkehr
+  (`AppSuspendMode.SLEEP`; Nutzerbestätigung vom 2026-09-19).
+  **DO:** Für diesen Suspend/Resume-Pfad die bestehende Registrierung
+  beibehalten; keine zusätzliche Registrierung allein wegen des Appwechsels
+  einführen. Der Nachweis umfasst nicht den Wechsel zwischen VR und Nicht-VR.
+- **[RT]** Nicht-VR → VR → Nicht-VR ist mit EFB-Teststand
+  `0.11.0-dev.20260919093549` und Companion 0.11.0 bestätigt
+  (Nutzerbestätigung vom 2026-09-19): Fortschritt bleibt erhalten, der
+  Kontextwechsel wiederholt keine Ansage und anschließende Itemänderungen
+  werden zugestellt. **DO:** Neue EFB-Instanzen dürfen ihren ersten Snapshot
+  erst nach Flugzeugauswahl und Übernahme des gespeicherten Fortschritts
+  veröffentlichen. Ein vorläufiger leerer Zustand kann sonst die
+  Wiederholungsunterdrückung im Companion zurücksetzen.
 - **[SDK]** Nachrichten in Richtung SimConnect-Client können über
   `dwEntryNumber`/`dwOutOf` gechunkt eintreffen; die Client-Seite muss sie
   zusammensetzen.
@@ -221,9 +237,10 @@ Der verwendete Mechanismus besteht aus
   localhost-Verbindung ohne ausdrückliche neue Entscheidung.
 
 Der bidirektionale CommBus-Pfad im Custom-EFB-Kontext ist bestätigt.
-Pausenverhalten und EFB-Lifecycle bleiben gesonderte Laufzeitfragen; ihr
-konkreter Testumfang steht ausschließlich in [`open-tests.md`](open-tests.md),
-die vorläufige Entscheidung und die bewusst kleine, ungemessene Nutzlast in
+Die geprüften Pause-, Appwechsel- und VR-Kontextwechselpfade sind oben
+beschrieben. Neue offene Laufzeitfragen stehen ausschließlich in
+[`open-tests.md`](open-tests.md), die Entscheidung und die bewusst kleine,
+ungemessene Nutzlast in
 [ADR 0003](adr/0003-transportkanal-commbus-ueber-simconnect.md).
 
 ## Coherent GT und EFB-Rendering

@@ -13,6 +13,8 @@ const CHECKLIST_STATE_MIN_PUBLISH_INTERVAL_MS = 250;
 
 export interface ChecklistCommBusTransportOptions {
   sender: TransportSenderIdentity;
+  /** False until aircraft selection and stored progress have been reconciled. */
+  isStateReady: () => boolean;
   /** Called at publish time only, so every snapshot carries the newest state. */
   readState: () => ChecklistStateSummary;
 }
@@ -26,6 +28,7 @@ export interface ChecklistCommBusTransportOptions {
  */
 export class ChecklistCommBusTransport {
   private readonly sender: TransportSenderIdentity;
+  private readonly isStateReady: () => boolean;
   private readonly readState: () => ChecklistStateSummary;
   private readonly rateLimiter = new SnapshotRateLimiter({
     intervalMs: CHECKLIST_STATE_MIN_PUBLISH_INTERVAL_MS,
@@ -39,6 +42,7 @@ export class ChecklistCommBusTransport {
 
   public constructor(options: ChecklistCommBusTransportOptions) {
     this.sender = options.sender;
+    this.isStateReady = options.isStateReady;
     this.readState = options.readState;
   }
 
@@ -112,7 +116,7 @@ export class ChecklistCommBusTransport {
   private publishState(requestId?: string): void {
     const listener = this.listener;
 
-    if (!listener) {
+    if (!listener || !this.isStateReady()) {
       return;
     }
 

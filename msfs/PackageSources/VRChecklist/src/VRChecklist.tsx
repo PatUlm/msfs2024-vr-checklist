@@ -131,6 +131,7 @@ class VRChecklistView
   private currentAircraftIdentity: AircraftIdentity = EMPTY_AIRCRAFT_IDENTITY;
   private currentSessionId = createSessionId();
   private stateSequence = 0;
+  private hasInitializedChecklist = false;
   private currentVrMode: boolean | undefined;
   private aircraftRefreshTimer: number | undefined;
   private isViewActive = false;
@@ -165,6 +166,7 @@ class VRChecklistView
     });
     this.transport = new ChecklistCommBusTransport({
       sender: { efbVersion: APP_VERSION, instanceId: this.instanceId },
+      isStateReady: () => this.hasInitializedChecklist,
       readState: () => this.readChecklistStateSummary(),
     });
     this.confirmationInput = new ConfirmationInput({
@@ -612,8 +614,16 @@ class VRChecklistView
     // path that picks up progress preserved by an earlier active context.
     this.reconcileSelectedChecklistProgress();
 
+    // A new EFB context must not replace the companion's current session with
+    // its provisional empty state before adopting the shared progress record.
+    const firstInitialization = !this.hasInitializedChecklist;
+    this.hasInitializedChecklist = true;
+
     if ((identityChanged || checklistChanged) && !checklist) {
       this.stateSequence += 1;
+      this.transport.requestStatePublish();
+    }
+    if (firstInitialization) {
       this.transport.requestStatePublish();
     }
   }

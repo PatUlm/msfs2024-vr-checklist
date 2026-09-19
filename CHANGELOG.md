@@ -7,6 +7,8 @@ Changelog, and the project uses Semantic Versioning.
 
 ## [Unreleased]
 
+## [0.11.1] - 2026-09-19
+
 ### Fixed
 
 - Prevent a newly created EFB context from publishing its temporary empty state

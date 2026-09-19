@@ -3,6 +3,15 @@
   "companionSince": "0.3.0",
   "releases": [
     {
+      "version": "0.11.1",
+      "date": "2026-09-19",
+      "highlight": "Switch between VR and desktop without repeating the current checklist announcement.",
+      "features": [],
+      "fixes": [
+        "New EFB instances restore checklist progress before sending their first state to the companion."
+      ]
+    },
+    {
       "version": "0.11.0",
       "date": "2026-09-19",
       "highlight": "Follow the checklist with natural English Brian announcements, entirely offline.",

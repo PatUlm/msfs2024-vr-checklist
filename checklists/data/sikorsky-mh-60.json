@@ -194,7 +194,7 @@
         },
         {
           "id": "engine-1-ng-stable",
-          "challenge": "Engine 1 Ng",
+          "challenge": "Engine 1 NG",
           "response": "≥ 63 % and stable",
           "kind": "verify",
           "speech": "Verify Engine one N G: At least 63 percent and stable."
@@ -208,7 +208,7 @@
         },
         {
           "id": "engine-2-ng-stable",
-          "challenge": "Engine 2 Ng",
+          "challenge": "Engine 2 NG",
           "response": "≥ 63 % and stable",
           "kind": "verify",
           "speech": "Verify Engine two N G: At least 63 percent and stable."

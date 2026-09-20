@@ -7,6 +7,10 @@ Changelog, and the project uses Semantic Versioning.
 
 ## [Unreleased]
 
+### Fixed
+
+- Corrected the MH-60 engine speed labels from `Ng` to `NG`.
+
 ## [0.11.1] - 2026-09-19
 
 ### Fixed

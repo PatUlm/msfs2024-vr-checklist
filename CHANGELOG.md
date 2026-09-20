@@ -7,6 +7,10 @@ Changelog, and the project uses Semantic Versioning.
 
 ## [Unreleased]
 
+## [0.13.1] - 2026-09-20
+
+No user-visible changes.
+
 ## [0.13.0] - 2026-09-20
 
 ### Added

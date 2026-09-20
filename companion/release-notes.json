@@ -3,6 +3,15 @@
   "companionSince": "0.3.0",
   "releases": [
     {
+      "version": "0.13.1",
+      "date": "2026-09-20",
+      "highlight": "Maintenance release with no user-visible changes.",
+      "features": [
+        "Checklist appearance, controls, content, and speech remain unchanged."
+      ],
+      "fixes": []
+    },
+    {
       "version": "0.13.0",
       "date": "2026-09-20",
       "highlight": "Skip a flight phase from the EFB when your aircraft is already prepared.",

@@ -22,7 +22,7 @@ for (const file of (await readdir(source)).sort()) {
       // User-selected first render scope. Preserve excluded items separately so
       // a future playback manifest cannot accidentally map them to shared clips.
       if (checklist.id === 'airbus-a400m' && section.id === 'fsm-init') {
-        excludedItems.push({ reference, text, reason: 'FSM Init deferred by user until content is confirmed' });
+        excludedItems.push({ reference, text, reason: 'EFIS and FMS Setup deferred by user until content is confirmed' });
         continue;
       }
       const concerns = [];

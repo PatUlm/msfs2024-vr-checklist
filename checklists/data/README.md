@@ -105,8 +105,10 @@ noch ein Ersatz für das jeweils gültige Flughandbuch.
   Twist Grip auf `IDLE`, 30 Sekunden Cool-down, anschließend die verwendeten
   Systeme abschalten und die Rotorbremse erst bei höchstens 140 Rotor-RPM
   betätigen.
-- Die A400M-Checkliste ist ein vom Benutzer bereitgestellter Entwurf. Die
-  Einträge des Abschnitts `FSM Init` sind mit `needsReview` markiert, bis sie
+- Die A400M-Checkliste ist ein vom Benutzer bereitgestellter Entwurf; die
+  lokale Vorlage liegt unter `checklists/source/Airbus A400M 2026-09-19.md`.
+  Die Einträge des Abschnitts `EFIS and FMS Setup` (`fsm-init`) sind mit
+  `needsReview` markiert, bis sie
   im Simulator bestätigt sind; `Flight Plan` hatte im Entwurf keine Response.
   Die `msfsMatches`-Regel ist noch nicht im MSFS beobachtet.
 - Die G36-Checkliste ist bewusst eine minimale, unvollständige Referenz aus den

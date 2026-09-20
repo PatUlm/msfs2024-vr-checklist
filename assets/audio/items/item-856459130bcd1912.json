@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "file": "item-856459130bcd1912.opus",
+  "sha256": "0799b36cf3b9a10bce0b6f6c58714334d006c2cb1c17ef52941bad73cde04735",
+  "recipeHash": "856459130bcd19128f71c67f369c97ffafc99218bd481bab91dfd16ed601e140",
+  "recipe": {
+    "voiceId": "nPczCjzI2devNBz1zQrb",
+    "request": {
+      "text": "Engine masters one to four: Feather, one at a time. Wait for the white half box to disappear.",
+      "model_id": "eleven_multilingual_v2",
+      "voice_settings": {
+        "stability": 0.75,
+        "similarity_boost": 0.75,
+        "style": 0,
+        "use_speaker_boost": true,
+        "speed": 1
+      },
+      "seed": 9172026
+    },
+    "sourceFormat": "mp3_44100_128",
+    "profile": "clean",
+    "normalization": "loudnorm=I=-20:TP=-2:LRA=11",
+    "format": "ogg-opus-mono-48000-32k",
+    "revision": 1
+  },
+  "generatedAt": "2026-09-20T19:17:05.824Z",
+  "provider": "ElevenLabs",
+  "voice": "Brian",
+  "generationPlan": "paid",
+  "planEvidence": "Operator confirmed active Starter subscription before rendering.",
+  "requestId": "PFNgHdes4kTXl7zec6rh",
+  "characterCost": "46",
+  "ffmpegVersion": "ffmpeg version 7.0.2-static https://johnvansickle.com/ffmpeg/  Copyright (c) 2000-2024 the FFmpeg developers",
+  "licenseNotice": "../README.md"
+}

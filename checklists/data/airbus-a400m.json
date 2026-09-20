@@ -19,14 +19,6 @@
       "phase": "Engine Start",
       "items": [
         {
-          "id": "bat-ext",
-          "challenge": "BAT EXT",
-          "response": "On",
-          "kind": "optional",
-          "condition": "If available",
-          "speech": "Bat ext, if available: On."
-        },
-        {
           "id": "bat-1-2-ess",
           "challenge": "BAT [1+2+ESS]",
           "response": "On",
@@ -34,18 +26,27 @@
           "speech": "Batteries one, two and essential: On."
         },
         {
-          "id": "nav-light",
-          "challenge": "NAV Light",
+          "id": "bat-ext",
+          "challenge": "External Power",
+          "response": "On",
+          "kind": "optional",
+          "condition": "If available",
+          "speech": "External power, if available: On."
+        },
+        {
+          "id": "apu-master",
+          "challenge": "APU Master Switch",
           "response": "On",
           "kind": "action",
-          "speech": "Navigation light: On."
+          "speech": "A P U master switch: On."
         },
         {
           "id": "apu",
-          "challenge": "APU",
-          "response": "Start",
+          "challenge": "APU Start Switch",
+          "response": "Press",
           "kind": "action",
-          "speech": "A P U: Start."
+          "speech": "A P U start switch: Press at least three seconds after the master switch is on.",
+          "condition": "Minimum of 3 seconds after Master Switch On"
         },
         {
           "id": "apu-bleed",
@@ -56,35 +57,42 @@
         },
         {
           "id": "gadirs",
-          "challenge": "GADIRS [1+2+3]",
+          "challenge": "GADIRS",
+          "response": "All On",
+          "kind": "action",
+          "speech": "GADIRS: All on."
+        },
+        {
+          "id": "nav-light",
+          "challenge": "NAV Lights",
           "response": "On",
           "kind": "action",
-          "speech": "GADIRS one, two and three: On."
+          "speech": "Navigation lights: On."
         },
         {
           "id": "fuel-pumps",
           "challenge": "Fuel Pumps",
+          "response": "All On",
+          "kind": "action"
+        },
+        {
+          "id": "seat-belt-light",
+          "challenge": "Seat Belt Lights",
           "response": "On",
           "kind": "action"
         },
         {
           "id": "emer-light",
-          "challenge": "EMER Light",
-          "response": "ARM",
+          "challenge": "Emergency Exit Lights",
+          "response": "Armed",
           "kind": "action",
-          "speech": "Emergency light: Arm."
-        },
-        {
-          "id": "seat-belt-light",
-          "challenge": "Seat Belt Light",
-          "response": "On",
-          "kind": "action"
+          "speech": "Emergency exit lights: Armed."
         }
       ]
     },
     {
       "id": "fsm-init",
-      "title": "FSM Init",
+      "title": "EFIS and FMS Setup",
       "phase": "Engine Start",
       "items": [
         {
@@ -166,24 +174,34 @@
       "items": [
         {
           "id": "beacon",
-          "challenge": "Beacon",
-          "response": "BRIGHT",
+          "challenge": "Beacon Lights",
+          "response": "Both Bright",
           "kind": "action",
-          "speech": "Beacon: Bright."
+          "speech": "Beacon lights: Both bright."
+        },
+        {
+          "id": "parking-brake",
+          "challenge": "Parking Brake",
+          "response": "On",
+          "kind": "verify",
+          "speech": "Verify parking brake: On."
         },
         {
           "id": "eng-mode",
-          "challenge": "ENG Mode",
+          "challenge": "ENG Start Mode",
           "response": "IGN START",
           "kind": "action",
-          "speech": "Engine mode: Ignition start."
+          "speech": "Engine start mode: Ignition start."
         },
         {
           "id": "eng-master-feather",
           "challenge": "ENG Master [1+2+3+4]",
           "response": "FEATHER",
           "kind": "action",
-          "speech": "Engine masters one to four: Feather."
+          "speech": "Engine masters one to four: Feather, one at a time. Wait for the white half box to disappear.",
+          "notes": [
+            "One at a time. Wait for the white half box to disappear."
+          ]
         },
         {
           "id": "eng-master-run",
@@ -201,10 +219,10 @@
       "items": [
         {
           "id": "eng-mode",
-          "challenge": "ENG Mode",
+          "challenge": "ENG Start Mode",
           "response": "NORM",
           "kind": "action",
-          "speech": "Engine mode: Norm."
+          "speech": "Engine start mode: Normal."
         },
         {
           "id": "apu-bleed",
@@ -215,24 +233,63 @@
         },
         {
           "id": "apu-master",
-          "challenge": "APU Master",
+          "challenge": "APU Master Switch",
           "response": "Off",
           "kind": "action",
-          "speech": "A P U master: Off."
+          "speech": "A P U master switch: Off."
         },
         {
           "id": "bat-ext",
-          "challenge": "BAT EXT",
+          "challenge": "External Power",
           "response": "Off",
-          "kind": "action",
-          "speech": "B A T E X T: Off."
+          "kind": "optional",
+          "speech": "External power, if available: Off.",
+          "condition": "If available"
         },
         {
           "id": "gpu",
           "challenge": "GPU",
-          "response": "Disconnect",
+          "response": "Remove",
           "kind": "action",
-          "speech": "G P U: Disconnect."
+          "speech": "G P U: Remove. See Ground in the A four hundred M E F B.",
+          "notes": [
+            "See Ground in the A400M EFB."
+          ]
+        },
+        {
+          "id": "auto-brakes",
+          "challenge": "Auto Brakes",
+          "response": "HI/RTO",
+          "kind": "action",
+          "speech": "Auto brakes: High, rejected takeoff."
+        },
+        {
+          "id": "ground-spoilers",
+          "challenge": "Ground Spoilers",
+          "response": "Arm",
+          "kind": "verify",
+          "speech": "Verify ground spoilers: Arm."
+        },
+        {
+          "id": "flaps",
+          "challenge": "Flaps",
+          "response": "Set for TO",
+          "kind": "action",
+          "speech": "Flaps: Set for takeoff."
+        },
+        {
+          "id": "anti-ice",
+          "challenge": "ANTI ICE",
+          "response": "As Required",
+          "kind": "action",
+          "speech": "Anti ice: As required."
+        },
+        {
+          "id": "all-switches-info",
+          "challenge": "All Switches Info",
+          "response": "Off",
+          "kind": "verify",
+          "speech": "Verify all switches info: Off."
         }
       ]
     }

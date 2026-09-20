@@ -55,7 +55,7 @@ errors. Corrections belong in the checklist data, not in the generated plan.
 Character volume is not a binding credit quote. The task works entirely
 offline and generates no audio; the existing completion clip is excluded.
 
-For the first item-audio generation, the eight A400M `fsm-init` entries are
+The eight A400M `EFIS and FMS Setup` entries (stable ID `fsm-init`) are
 deferred by user decision. They remain in the canonical checklist, with their
 existing review markers, but are listed separately in `excludedItems` and have
 no planned speech-asset mapping. The plan's character totals count only included

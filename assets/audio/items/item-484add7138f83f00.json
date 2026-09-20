@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "file": "item-484add7138f83f00.opus",
+  "sha256": "aaf46ee22f3a1e26261204235a67adb7912ab71ada4da41d3d1acbb7c17278ec",
+  "recipeHash": "484add7138f83f00f35240956f136e91b5f61dccde26f9009d37c7987d413001",
+  "recipe": {
+    "voiceId": "nPczCjzI2devNBz1zQrb",
+    "request": {
+      "text": "Seat Belt Lights: On",
+      "model_id": "eleven_multilingual_v2",
+      "voice_settings": {
+        "stability": 0.75,
+        "similarity_boost": 0.75,
+        "style": 0,
+        "use_speaker_boost": true,
+        "speed": 1
+      },
+      "seed": 9172026
+    },
+    "sourceFormat": "mp3_44100_128",
+    "profile": "clean",
+    "normalization": "loudnorm=I=-20:TP=-2:LRA=11",
+    "format": "ogg-opus-mono-48000-32k",
+    "revision": 1
+  },
+  "generatedAt": "2026-09-20T19:17:00.916Z",
+  "provider": "ElevenLabs",
+  "voice": "Brian",
+  "generationPlan": "paid",
+  "planEvidence": "Operator confirmed active Starter subscription before rendering.",
+  "requestId": "4NZDNUzLDgzGX9xPHlqX",
+  "characterCost": "10",
+  "ffmpegVersion": "ffmpeg version 7.0.2-static https://johnvansickle.com/ffmpeg/  Copyright (c) 2000-2024 the FFmpeg developers",
+  "licenseNotice": "../README.md"
+}

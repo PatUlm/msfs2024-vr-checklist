@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "file": "item-a4c4dafe91abe7fa.opus",
+  "sha256": "d34f292e435fb812a5e1964c878efe016f853eb32c0affacc1b76c9ef48e665b",
+  "recipeHash": "a4c4dafe91abe7fa1bbb5ff45dcb1ef142891030640d8cd5fd9e12f60241b000",
+  "recipe": {
+    "voiceId": "nPczCjzI2devNBz1zQrb",
+    "request": {
+      "text": "Verify parking brake: On.",
+      "model_id": "eleven_multilingual_v2",
+      "voice_settings": {
+        "stability": 0.75,
+        "similarity_boost": 0.75,
+        "style": 0,
+        "use_speaker_boost": true,
+        "speed": 1
+      },
+      "seed": 9172026
+    },
+    "sourceFormat": "mp3_44100_128",
+    "profile": "clean",
+    "normalization": "loudnorm=I=-20:TP=-2:LRA=11",
+    "format": "ogg-opus-mono-48000-32k",
+    "revision": 1
+  },
+  "generatedAt": "2026-09-20T19:17:03.702Z",
+  "provider": "ElevenLabs",
+  "voice": "Brian",
+  "generationPlan": "paid",
+  "planEvidence": "Operator confirmed active Starter subscription before rendering.",
+  "requestId": "Sd2ic0V55vGPNxMBVjjK",
+  "characterCost": "12",
+  "ffmpegVersion": "ffmpeg version 7.0.2-static https://johnvansickle.com/ffmpeg/  Copyright (c) 2000-2024 the FFmpeg developers",
+  "licenseNotice": "../README.md"
+}

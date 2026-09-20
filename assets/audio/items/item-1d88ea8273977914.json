@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "file": "item-1d88ea8273977914.opus",
+  "sha256": "c78ea34f896a1df826be0cfc6d0bae49d07a1184f2f51acb9cebbb21134eda9b",
+  "recipeHash": "1d88ea8273977914ef4900fe9381ba001f4ee03db91d47a747cbb2140e899e8a",
+  "recipe": {
+    "voiceId": "nPczCjzI2devNBz1zQrb",
+    "request": {
+      "text": "Flaps: Set for takeoff.",
+      "model_id": "eleven_multilingual_v2",
+      "voice_settings": {
+        "stability": 0.75,
+        "similarity_boost": 0.75,
+        "style": 0,
+        "use_speaker_boost": true,
+        "speed": 1
+      },
+      "seed": 9172026
+    },
+    "sourceFormat": "mp3_44100_128",
+    "profile": "clean",
+    "normalization": "loudnorm=I=-20:TP=-2:LRA=11",
+    "format": "ogg-opus-mono-48000-32k",
+    "revision": 1
+  },
+  "generatedAt": "2026-09-20T19:17:12.654Z",
+  "provider": "ElevenLabs",
+  "voice": "Brian",
+  "generationPlan": "paid",
+  "planEvidence": "Operator confirmed active Starter subscription before rendering.",
+  "requestId": "QhTrTX0Am4UevIt0KjqY",
+  "characterCost": "12",
+  "ffmpegVersion": "ffmpeg version 7.0.2-static https://johnvansickle.com/ffmpeg/  Copyright (c) 2000-2024 the FFmpeg developers",
+  "licenseNotice": "../README.md"
+}

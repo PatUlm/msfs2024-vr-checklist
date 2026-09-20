@@ -7,6 +7,14 @@ Changelog, and the project uses Semantic Versioning.
 
 ## [Unreleased]
 
+### Changed
+
+- Expanded the A400M startup checklist with separate APU switches and start
+  timing, a parking brake check, engine-start guidance and after-start
+  configuration steps with explicit verification cues. Renamed the setup group
+  to EFIS and FMS Setup and refreshed the affected Brian announcements; its
+  eight provisional setup items retain their review markers and remain silent.
+
 ## [0.13.1] - 2026-09-20
 
 No user-visible changes.

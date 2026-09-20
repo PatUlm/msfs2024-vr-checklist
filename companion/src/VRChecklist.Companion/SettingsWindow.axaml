@@ -52,7 +52,7 @@
                    IsVisible="{Binding HasStatus}" />
       </StackPanel>
     </Border>
-    <Button Classes="icon-button" HorizontalAlignment="Right" Click="OnCloseClick">
+    <Button Classes="icon-button" HorizontalAlignment="Right" Click="OnCloseClick" IsCancel="True">
       <StackPanel>
         <Path Data="{StaticResource IconClose}" />
         <TextBlock Text="Close" />

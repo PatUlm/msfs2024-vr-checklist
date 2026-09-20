@@ -184,6 +184,10 @@ Iteration stehen separat in `design-qa.md`.
 
 ## Fensterverhalten der Begleit-App
 
+- `Escape` schließt das aktive Fenster `Checklists`, `Settings` oder
+  `Release Notes` wie dessen
+  `Close`-Button. Das Dashboard und die laufende Simulatorverbindung bleiben
+  dabei geöffnet.
 - Normales Minimieren reicht aus: Die App bleibt über die Windows-Taskleiste
   erreichbar; Simulatorverbindung und Audio laufen im Hintergrund weiter.
 - Schließen beendet die App vollständig. Es gibt kein Verbergen im Tray.

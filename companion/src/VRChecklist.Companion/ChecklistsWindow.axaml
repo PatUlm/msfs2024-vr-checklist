@@ -187,7 +187,7 @@
           <TextBlock x:Name="PdfLabel" Text="PDF" />
         </StackPanel>
       </Button>
-      <Button Classes="icon-button" Click="OnCloseClick">
+      <Button Classes="icon-button" Click="OnCloseClick" IsCancel="True">
         <StackPanel>
           <Path Data="{StaticResource IconClose}" />
           <TextBlock Text="Close" />

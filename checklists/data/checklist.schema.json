@@ -101,7 +101,7 @@
     "section": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["id", "title", "items"],
+      "required": ["id", "title", "phase", "items"],
       "properties": {
         "id": {
           "$ref": "#/$defs/id"
@@ -109,6 +109,10 @@
         "title": {
           "type": "string",
           "minLength": 1
+        },
+        "phase": {
+          "enum": ["Engine Start", "Taxi", "Departure", "Cruise", "Descent", "Approach", "Landing", "After Landing", "Shutdown"],
+          "description": "Flight phase of this group. Engine Start includes preparation; Departure includes takeoff preparation, takeoff and climb."
         },
         "items": {
           "type": "array",

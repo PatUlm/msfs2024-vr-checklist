@@ -18,6 +18,7 @@
     {
       "id": "departure",
       "title": "Departure",
+      "phase": "Departure",
       "items": [
         {
           "id": "flaps",
@@ -41,6 +42,7 @@
     {
       "id": "climb",
       "title": "Climb",
+      "phase": "Departure",
       "items": [
         {
           "id": "climb-speed",
@@ -67,6 +69,7 @@
     {
       "id": "approach",
       "title": "Approach",
+      "phase": "Approach",
       "items": [
         {
           "id": "mixture",
@@ -90,6 +93,7 @@
     {
       "id": "landing",
       "title": "Landing",
+      "phase": "Landing",
       "items": [
         {
           "id": "flaps-full",

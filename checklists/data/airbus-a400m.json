@@ -16,6 +16,7 @@
     {
       "id": "electrical-power-up",
       "title": "Electrical Power Up",
+      "phase": "Engine Start",
       "items": [
         {
           "id": "bat-ext",
@@ -84,6 +85,7 @@
     {
       "id": "fsm-init",
       "title": "FSM Init",
+      "phase": "Engine Start",
       "items": [
         {
           "id": "fuel-payload",
@@ -160,6 +162,7 @@
     {
       "id": "engine-start",
       "title": "Engine Start",
+      "phase": "Engine Start",
       "items": [
         {
           "id": "beacon",
@@ -194,6 +197,7 @@
     {
       "id": "after-start",
       "title": "After Start",
+      "phase": "Engine Start",
       "items": [
         {
           "id": "eng-mode",

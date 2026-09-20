@@ -17,6 +17,7 @@
     {
       "id": "departure",
       "title": "Departure",
+      "phase": "Departure",
       "items": [
         {
           "id": "flaps",
@@ -56,6 +57,7 @@
     {
       "id": "approach",
       "title": "Approach",
+      "phase": "Approach",
       "items": [
         {
           "id": "gear",

@@ -20,7 +20,7 @@ const checklistProperties = new Set([
 const aircraftProperties = new Set(["manufacturer", "model", "msfsMatches"]);
 const aircraftMatchProperties = new Set(["atcModel", "atcType", "title"]);
 const aircraftMatchCriterionProperties = new Set(["equals", "contains"]);
-const sectionProperties = new Set(["id", "title", "items"]);
+const sectionProperties = new Set(["id", "title", "phase", "items"]);
 const itemProperties = new Set([
   "id",
   "challenge",
@@ -116,9 +116,10 @@ const fileNames = (await readdir(dataDirectory))
   )
   .sort();
 
-JSON.parse(
+const schema = JSON.parse(
   await readFile(path.join(dataDirectory, "checklist.schema.json"), "utf8")
 );
+const sectionPhases = new Set(schema.$defs.section.properties.phase.enum);
 assert(fileNames.length > 0, "No checklist JSON files found");
 
 const checklistIds = new Set();
@@ -258,6 +259,10 @@ for (const fileName of fileNames) {
     );
     sectionIds.add(section.id);
     assertSingleLineString(section.title, `${sectionLocation}.title`);
+    assert(
+      sectionPhases.has(section.phase),
+      `${sectionLocation}.phase must be one of: ${[...sectionPhases].join(", ")}`
+    );
     assert(
       Array.isArray(section.items) && section.items.length > 0,
       `${sectionLocation} has no items`

@@ -37,6 +37,22 @@ in der Checklistenansicht dar.
 
 ## IDs und Reihenfolge
 
+Jede Gruppe enthält ein Pflichtfeld `phase` mit genau einem der englischen
+Werte `Engine Start`, `Taxi`, `Departure`, `Cruise`, `Descent`, `Approach`,
+`Landing`, `After Landing` oder `Shutdown`. Die zulässigen Werte stehen im
+Schema; `task validate` prüft sie. Sie sind direkt darstellbare Bezeichnungen,
+keine aus dem Gruppennamen abgeleiteten Werte.
+
+`Engine Start` umfasst auch Vorbereitung, APU und Nacharbeiten zum
+Triebwerksstart. `Taxi` umfasst die Vorbereitung zum Rollen. `Departure`
+umfasst Startvorbereitung, Start und Steigflug. Die kombinierte G36-Gruppe
+`Approach` bleibt trotz enthaltener Landekonfiguration der Phase `Approach`
+zugeordnet. `Cruise`, `Descent` und `After Landing` sind für spätere Gruppen
+vorgesehen; leere Gruppen werden dafür nicht angelegt.
+
+Die Phase klassifiziert die Gruppe. Sie ändert weder Reihenfolge noch
+Fortschrittslogik oder Sprachausgabe.
+
 Checklist-, Abschnitts- und Eintrags-IDs sind stabile semantische Slugs in `lower-kebab-case`. Eine Eintrags-ID muss innerhalb ihres Abschnitts eindeutig sein. Vollständige Referenzen werden hierarchisch zusammengesetzt, zum Beispiel `sikorsky-mh-60/engine-start/engine-1-start`.
 
 IDs werden nach ihrer erstmaligen Vergabe nicht automatisch aus dem Anzeigetext neu erzeugt. Textänderungen und neu eingefügte Einträge verändern daher keine bestehenden Referenzen.

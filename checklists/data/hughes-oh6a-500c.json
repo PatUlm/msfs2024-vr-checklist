@@ -19,6 +19,7 @@
     {
       "id": "before-start",
       "title": "Before Start",
+      "phase": "Engine Start",
       "items": [
         {
           "id": "rotor-brake",
@@ -81,6 +82,7 @@
     {
       "id": "engine-start",
       "title": "Engine Start",
+      "phase": "Engine Start",
       "items": [
         {
           "id": "starter-press",
@@ -149,6 +151,7 @@
     {
       "id": "before-takeoff",
       "title": "Before Takeoff",
+      "phase": "Departure",
       "items": [
         {
           "id": "position-lights",
@@ -176,6 +179,7 @@
     {
       "id": "shutdown",
       "title": "Shutdown",
+      "phase": "Shutdown",
       "items": [
         {
           "id": "collective",

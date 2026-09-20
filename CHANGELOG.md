@@ -7,6 +7,8 @@ Changelog, and the project uses Semantic Versioning.
 
 ## [Unreleased]
 
+## [0.13.2] - 2026-09-20
+
 ### Changed
 
 - Expanded the A400M startup checklist with separate APU switches and start

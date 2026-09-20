@@ -3,6 +3,17 @@
   "companionSince": "0.3.0",
   "releases": [
     {
+      "version": "0.13.2",
+      "date": "2026-09-20",
+      "highlight": "Follow an expanded A400M startup checklist with updated Brian announcements.",
+      "features": [
+        "Separate APU switches, start timing and engine-start guidance make startup steps more explicit.",
+        "After-start checks now include brakes, spoilers, flaps, anti-ice and All Switches Info, with spoken Verify cues for checks.",
+        "The renamed EFIS and FMS Setup group retains its eight provisional review-marked steps without speech."
+      ],
+      "fixes": []
+    },
+    {
       "version": "0.13.1",
       "date": "2026-09-20",
       "highlight": "Maintenance release with no user-visible changes.",

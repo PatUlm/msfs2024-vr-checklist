@@ -247,6 +247,7 @@ class VRChecklistView
             id: section.id,
             title: section.title,
             index: runtime?.activeSectionIndex.get() ?? 0,
+            phase: section.phase,
           }
         : null,
       nextOpenItem: nextOpenItem

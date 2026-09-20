@@ -28,7 +28,7 @@ internal static class TransportProbeSelfTests
             "revision": "1",
             "title": "Normal Procedures"
           },
-          "activeGroup": { "id": "before-start", "title": "Before Start", "index": 0 },
+          "activeGroup": { "id": "before-start", "title": "Before Start", "index": 0, "phase": "Engine Start" },
           "nextOpenItem": { "id": "battery", "challenge": "Battery", "response": "On" },
           "completedRequiredItems": 2,
           "totalRequiredItems": 20,
@@ -54,6 +54,7 @@ internal static class TransportProbeSelfTests
             ("stops after a delayed connection attempt", StopsAfterDelayedConnectionAttempt),
             ("stops after a delayed pump", StopsAfterDelayedPump),
             ("parses a checklist state snapshot", ParsesChecklistStateSnapshot),
+            ("accepts snapshots from before flight phases", AcceptsSnapshotWithoutPhase),
             ("rejects malformed snapshot JSON", RejectsMalformedSnapshotJson),
             ("rejects incompatible snapshot protocols", RejectsIncompatibleChecklistStateSnapshot),
             ("rejects non-positive snapshot sequences", RejectsNonPositiveSnapshotSequence),
@@ -127,6 +128,14 @@ internal static class TransportProbeSelfTests
         Assert(snapshot.Checklist?.Id == "diamond-da42", "The checklist ID was not parsed.");
         Assert(snapshot.NextOpenItem?.Challenge == "Battery", "The next item was not parsed.");
         Assert(snapshot.CompletedGroupIds is { Count: 0 }, "The completed group IDs were not parsed.");
+        Assert(snapshot.ActiveGroup?.Phase == "Engine Start", "The active group's phase was not parsed.");
+    }
+
+    private static void AcceptsSnapshotWithoutPhase()
+    {
+        var payload = SnapshotWith(snapshot => Nested(snapshot, "activeGroup").Remove("phase"));
+        var snapshot = ChecklistStateProtocol.ParseSnapshot(payload);
+        Assert(snapshot.ActiveGroup is { Phase: null }, "A missing phase was not kept as null.");
     }
 
     private static void AcceptsSnapshotWithoutCompletedGroupIds()
@@ -368,6 +377,8 @@ internal static class TransportProbeSelfTests
             ("activeGroup.id", snapshot => Nested(snapshot, "activeGroup")["id"] = " "),
             ("activeGroup.title", snapshot => Nested(snapshot, "activeGroup")["title"] = " "),
             ("activeGroup.index", snapshot => Nested(snapshot, "activeGroup")["index"] = -1),
+            ("activeGroup.phase empty", snapshot => Nested(snapshot, "activeGroup")["phase"] = " "),
+            ("activeGroup.phase type", snapshot => Nested(snapshot, "activeGroup")["phase"] = 42),
             ("nextOpenItem.id", snapshot => Nested(snapshot, "nextOpenItem")["id"] = " "),
             ("nextOpenItem.challenge", snapshot => Nested(snapshot, "nextOpenItem")["challenge"] = " "),
             ("nextOpenItem.response", snapshot => Nested(snapshot, "nextOpenItem")["response"] = " "),

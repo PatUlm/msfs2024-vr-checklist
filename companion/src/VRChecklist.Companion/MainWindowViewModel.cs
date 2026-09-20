@@ -17,6 +17,7 @@ public sealed class MainWindowViewModel : INotifyPropertyChanged
     private string aircraftIdentityClipboardText = string.Empty;
     private string checklist = "—";
     private string activeGroup = "—";
+    private string activeGroupPhase = string.Empty;
     private bool isChecklistCompleted;
     private bool isActiveGroupCompleted;
     private string nextItem = "—";
@@ -116,6 +117,19 @@ public sealed class MainWindowViewModel : INotifyPropertyChanged
         private set => SetField(ref activeGroup, value);
     }
 
+    public string ActiveGroupPhase
+    {
+        get => activeGroupPhase;
+        private set
+        {
+            if (activeGroupPhase == value) return;
+            SetField(ref activeGroupPhase, value);
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(HasActiveGroupPhase)));
+        }
+    }
+
+    public bool HasActiveGroupPhase => ActiveGroupPhase.Length > 0;
+
     /* Both mirror the green group mark of the EFB: every item ticked. */
     public bool IsChecklistCompleted
     {
@@ -191,6 +205,9 @@ public sealed class MainWindowViewModel : INotifyPropertyChanged
                 ? $"ATC MODEL: {snapshot.Aircraft.AtcModel}\nATC TYPE: {snapshot.Aircraft.AtcType}\nTITLE: {snapshot.Aircraft.Title}"
                 : string.Empty;
         ActiveGroup = snapshot.ActiveGroup?.Title ?? "—";
+        ActiveGroupPhase = snapshot.Checklist is null
+            ? string.Empty
+            : snapshot.ActiveGroup?.Phase ?? string.Empty;
         IsChecklistCompleted = snapshot.Checklist is not null && snapshot.IsComplete;
         IsActiveGroupCompleted = snapshot.ActiveGroup is not null &&
             (snapshot.CompletedGroupIds?.Contains(snapshot.ActiveGroup.Id, StringComparer.Ordinal) ?? false);

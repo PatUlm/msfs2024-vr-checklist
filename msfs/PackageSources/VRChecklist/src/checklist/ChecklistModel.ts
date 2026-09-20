@@ -23,6 +23,7 @@ export interface ChecklistItem {
 export interface ChecklistSection {
   id: string;
   title: string;
+  phase: string;
   items: ChecklistItem[];
 }
 

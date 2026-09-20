@@ -18,7 +18,7 @@ function summary(overrides = {}) {
       displayName: "Bonanza G36",
     },
     checklist: { id: "g36", revision: "3", title: "Beechcraft Bonanza G36" },
-    activeGroup: { id: "before-start", title: "Before Start", index: 1 },
+    activeGroup: { id: "before-start", title: "Before Start", index: 1, phase: "Engine Start" },
     nextOpenItem: { id: "battery", challenge: "Battery", response: "ON" },
     completedRequiredItems: 2,
     totalRequiredItems: 10,

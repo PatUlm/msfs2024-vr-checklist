@@ -17,6 +17,10 @@ Untersuchungen bleiben über die Git-Historie nachvollziehbar.
 - Der Teststand vom 2026-09-14 bestätigte außerhalb von VR die Navigation
   oberhalb der Gruppenüberschrift und die flacheren Buttons. Release 0.9.1
   wurde ausdrücklich ohne zusätzlichen VR-Sichttest freigegeben.
+- Die Phasenanzeige im EFB und Companion wurde am 2026-09-20 vom Benutzer
+  bestätigt (EFB `0.11.1-dev.20260920105232`, Companion
+  `0.11.1-dev.20260920105233`). Ein zusätzlicher VR-Nachweis wurde ausdrücklich
+  als nicht erforderlich freigegeben.
 
 ## Offene visuelle Nachweise
 

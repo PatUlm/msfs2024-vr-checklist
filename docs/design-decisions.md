@@ -43,6 +43,13 @@ Iteration stehen separat in `design-qa.md`.
 - Der aktuelle Gruppenname ist visuell dominant. Gruppennummern werden nicht
   angezeigt: Die Checklisten sind immer fortlaufend, die Nummer trug keine
   zusätzliche Information und kostete Platz in den Navigationsbuttons.
+- Rechts in der Überschriftenzeile steht die in den Checklistendaten hinterlegte
+  Phase als hellblauer Outline-Tag mit transparentem Hintergrund und runden Ecken.
+  Der Tag ist kleiner als die Überschrift, zeigt den vollständigen englischen
+  Phasennamen und hat keine Klick- oder Hover-Funktion. Alle Phasen verwenden
+  dieselbe Akzentfarbe. Bei Platzmangel bricht der gesamte Tag unter den Namen
+  um und bleibt rechts ausgerichtet. Der Erledigt-Haken bleibt vor dem
+  Gruppennamen; die Navigationsbuttons behalten ihre bisherigen Beschriftungen.
 - Oberhalb des Gruppennamens liegen zwei gleichwertige Navigationsbuttons mit
   jeweils 50 Prozent Breite. Die Reihenfolge lautet Navigation, Gruppenname,
   Item-Liste, damit die Überschrift direkt bei ihrer Checkliste steht. Die
@@ -196,6 +203,10 @@ Iteration stehen separat in `design-qa.md`.
 
 ## Verbindungsstatus der Begleit-App
 
+- Das Dashboard zeigt rechts neben `Active Group` dieselbe Phase wie das EFB
+  als hellblauen Outline-Tag. Die Phase stammt aus dem aktuellen Snapshot,
+  damit Gruppenwechsel unmittelbar nachgeführt werden. Fehlt sie bei älteren
+  EFB-Versionen oder ist keine Gruppe ausgewählt, bleibt der Tag ausgeblendet.
 - Der Simulatorstatus kennt sichtbar nur `Connecting` und `Connected`.
   Fehlgeschlagene Verbindungsversuche bleiben `Connecting`, weil die App im
   Hintergrund weiter verbindet; ein Wechsel zu `Disconnected` oder `Error`

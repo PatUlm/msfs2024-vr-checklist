@@ -75,6 +75,7 @@ public static class ChecklistStateProtocol
         group is null ||
         (!string.IsNullOrWhiteSpace(group.Id) &&
          !string.IsNullOrWhiteSpace(group.Title) &&
+         (group.Phase is null || !string.IsNullOrWhiteSpace(group.Phase)) &&
          group.Index >= 0);
 
     private static bool IsValid(ChecklistItemState? item) =>
@@ -121,7 +122,9 @@ public sealed record ChecklistIdentity(
 public sealed record ChecklistGroup(
     [property: JsonRequired] string Id,
     [property: JsonRequired] string Title,
-    [property: JsonRequired] int Index);
+    [property: JsonRequired] int Index,
+    // Optional for EFB versions that predate the phase display.
+    string? Phase = null);
 
 public sealed record ChecklistItemState(
     [property: JsonRequired] string Id,

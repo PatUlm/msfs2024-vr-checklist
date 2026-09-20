@@ -28,6 +28,19 @@
       <Setter Property="CornerRadius" Value="10" />
       <Setter Property="Padding" Value="18" />
     </Style>
+    <Style Selector="Border.phase-badge">
+      <Setter Property="Background" Value="Transparent" />
+      <Setter Property="BorderBrush" Value="#57C8FF" />
+      <Setter Property="BorderThickness" Value="1" />
+      <Setter Property="CornerRadius" Value="5" />
+      <Setter Property="Padding" Value="8,3" />
+      <Setter Property="VerticalAlignment" Value="Center" />
+    </Style>
+    <Style Selector="Border.phase-badge TextBlock">
+      <Setter Property="Foreground" Value="#57C8FF" />
+      <Setter Property="FontSize" Value="12" />
+      <Setter Property="FontWeight" Value="SemiBold" />
+    </Style>
   </Window.Styles>
 
   <Grid Margin="28" RowDefinitions="Auto,Auto,Auto,Auto" RowSpacing="20">
@@ -111,11 +124,16 @@
         <Grid Grid.Row="2" ColumnDefinitions="150,*">
           <TextBlock Classes="section-label" VerticalAlignment="Center"
                      Text="ACTIVE GROUP" />
-          <StackPanel Grid.Column="1" Orientation="Horizontal" Spacing="5">
+          <Grid Grid.Column="1" ColumnDefinitions="Auto,*,Auto">
             <Path Classes="completion-check" Data="{StaticResource IconCheck}"
-                  IsVisible="{Binding IsActiveGroupCompleted}" />
-            <TextBlock Classes="value" Text="{Binding ActiveGroup}" />
-          </StackPanel>
+                  Margin="0,0,5,0" IsVisible="{Binding IsActiveGroupCompleted}" />
+            <TextBlock Grid.Column="1" Classes="value" Text="{Binding ActiveGroup}"
+                       VerticalAlignment="Center" />
+            <Border Grid.Column="2" Classes="phase-badge" Margin="12,0,0,0"
+                    IsVisible="{Binding HasActiveGroupPhase}">
+              <TextBlock Text="{Binding ActiveGroupPhase}" />
+            </Border>
+          </Grid>
         </Grid>
         <Grid Grid.Row="3" ColumnDefinitions="150,*">
           <TextBlock Classes="section-label" VerticalAlignment="Center"

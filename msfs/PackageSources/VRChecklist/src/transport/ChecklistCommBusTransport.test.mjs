@@ -83,7 +83,7 @@ test("a replacement EFB context publishes only after restoring progress", (t) =>
     sessionId: "existing-flight",
     sequence: 12,
     checklist: { id: "mh60", revision: "1", title: "MH-60" },
-    activeGroup: { id: "start", title: "Start", index: 0 },
+    activeGroup: { id: "start", title: "Start", index: 0, phase: "Engine Start" },
     nextOpenItem: { id: "apu", challenge: "APU", response: "On" },
     completedRequiredItems: 3,
     totalRequiredItems: 10,
@@ -95,8 +95,18 @@ test("a replacement EFB context publishes only after restoring progress", (t) =>
   assert.equal(sent[0].sessionId, "existing-flight");
   assert.equal(sent[0].sequence, 12);
   assert.equal(sent[0].nextOpenItem.id, "apu");
+  assert.equal(sent[0].activeGroup.phase, "Engine Start");
   request();
   assert.equal(sent[1].requestId, "request");
+
+  state = {
+    ...state,
+    sequence: 13,
+    activeGroup: { id: "taxi", title: "Taxi", index: 1, phase: "Taxi" },
+  };
+  transport.requestStatePublish();
+  flush();
+  assert.equal(sent.at(-1).activeGroup.phase, "Taxi");
 
   // An actual flight reset or unsupported aircraft still clears the status.
   state = {
@@ -113,4 +123,5 @@ test("a replacement EFB context publishes only after restoring progress", (t) =>
   flush();
   assert.equal(sent.at(-1).sessionId, "new-flight");
   assert.equal(sent.at(-1).checklist, null);
+  assert.equal(sent.at(-1).activeGroup, null);
 });

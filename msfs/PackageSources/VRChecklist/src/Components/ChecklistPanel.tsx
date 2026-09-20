@@ -246,6 +246,7 @@ export function renderChecklistPanel(
                   {renderCompletionMark(runtime, sectionIndex)}
                   <span>{section.title}</span>
                 </h2>
+                <span class="checklist-section__phase">{section.phase}</span>
               </header>
             </div>
 

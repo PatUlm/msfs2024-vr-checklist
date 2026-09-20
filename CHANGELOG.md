@@ -11,9 +11,10 @@ Changelog, and the project uses Semantic Versioning.
 
 - The companion's Checklists, Settings and Release Notes windows can now be
   closed with Escape.
-- Companion checklists show each group's flight phase beside its heading in
-  a light-blue outlined badge. PDF and text exports include the phase in
-  group headings, including continued PDF groups.
+- EFB and companion checklists show each group's flight phase in a light-blue
+  outlined badge, aligned to the right in the EFB. The companion dashboard
+  also shows the active group's phase. PDF and text exports include the phase
+  in group headings, including continued PDF groups.
 
 ### Fixed
 

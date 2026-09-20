@@ -39,6 +39,7 @@ export interface ChecklistStateSummary {
     id: string;
     title: string;
     index: number;
+    phase: string;
   } | null;
   nextOpenItem: {
     id: string;

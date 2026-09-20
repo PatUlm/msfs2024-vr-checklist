@@ -309,8 +309,13 @@ Iteration stehen separat in `design-qa.md`.
   Review-Hinweise stehen eingerückt darunter. Ein Markdown-Renderer wird nicht
   verwendet: Avalonia bringt keinen mit, und ein generisches Drittpaket brächte
   eine unsichere Avalonia-12-Kompatibilität ohne gestalterischen Gewinn.
+- Neben der Gruppenüberschrift steht die Phase als nicht interaktiver,
+  hellblauer Outline-Tag mit transparentem Hintergrund und abgerundeten Ecken.
+  Der Gruppenname bleibt größer und heller. Der vollständige englische
+  Phasenname bleibt einzeilig; bei Platzmangel bricht der gesamte Tag unter
+  die Überschrift um. Alle Phasen verwenden dieselbe Farbe.
 - Ein Button `Copy` mit dem üblichen Zwischenablage-Symbol legt die gewählte
-  Checkliste als Markdown-artigen Text ab: `# Titel`, `## Abschnitt`,
+  Checkliste als Markdown-artigen Text ab: `# Titel`, `## Abschnitt [Phase]`,
   `- [Verify] Challenge...Response`, darunter eingerückte Detailzeilen.
   Kopierter Text taugt damit direkt als Review-Vorlage. Der Button meldet
   `Copied` kurz im eigenen Label statt über einen Dialog. Textzeilen bleiben
@@ -323,7 +328,8 @@ Iteration stehen separat in `design-qa.md`.
   das Luftfahrzeug nennt.
 - Das PDF folgt dem Layout der ODS-Quellblätter: zwei Spaltenpaare je Seite
   mit Challenge 5,5 cm und Response 3,5 cm, grau gefüllter Gruppenkopf mit
-  weißer, horizontal und vertikal zentrierter Überschrift, Rahmenlinien um
+  weißer, horizontal und vertikal zentrierter Überschrift `Abschnitt [Phase]`
+  (auch in Fortsetzungsköpfen), Rahmenlinien um
   jede Gruppe, Abschlusslinie unter dem letzten Item.
   Bedingung, Alternativen und Notizen stehen klein und kursiv unter dem Item;
   Review-Hinweise werden nicht gedruckt. Zeilen sind nach Kind eingefärbt:

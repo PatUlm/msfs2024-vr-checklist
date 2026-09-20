@@ -64,10 +64,13 @@ public sealed class ChecklistSectionViewModel
     public ChecklistSectionViewModel(ChecklistSectionDocument section)
     {
         Title = section.Title;
+        Phase = section.Phase;
         Items = section.Items.Select(item => new ChecklistItemViewModel(item)).ToArray();
     }
 
     public string Title { get; }
+
+    public string Phase { get; }
 
     public IReadOnlyList<ChecklistItemViewModel> Items { get; }
 }

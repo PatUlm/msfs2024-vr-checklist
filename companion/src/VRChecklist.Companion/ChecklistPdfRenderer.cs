@@ -146,7 +146,7 @@ public static class ChecklistPdfRenderer
                     }
 
                     NextColumn();
-                    var continuation = BuildHeaderRow(section.Title + ContinuationSuffix);
+                    var continuation = BuildHeaderRow(section.Title + ContinuationSuffix, section.Phase);
                     pages[^1].Add(new Placement(column, y, continuation));
                     y += continuation.Height;
                 }
@@ -169,7 +169,7 @@ public static class ChecklistPdfRenderer
 
     private static List<RowLayout> BuildRows(ChecklistSectionDocument section)
     {
-        var rows = new List<RowLayout> { BuildHeaderRow(section.Title) };
+        var rows = new List<RowLayout> { BuildHeaderRow(section.Title, section.Phase) };
         foreach (var item in section.Items)
         {
             rows.Add(BuildItemRow(item));
@@ -178,9 +178,9 @@ public static class ChecklistPdfRenderer
         return rows;
     }
 
-    private static RowLayout BuildHeaderRow(string title)
+    private static RowLayout BuildHeaderRow(string title, string phase)
     {
-        var lines = Wrap(BoldStyle, title, ColumnWidth - 2 * CellPadding);
+        var lines = Wrap(BoldStyle, $"{title} [{phase}]", ColumnWidth - 2 * CellPadding);
         return new RowLayout
         {
             HeaderLines = lines,

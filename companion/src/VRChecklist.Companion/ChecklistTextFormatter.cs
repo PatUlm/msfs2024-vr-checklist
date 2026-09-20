@@ -34,7 +34,7 @@ public static class ChecklistTextFormatter
         foreach (var section in checklist.Sections)
         {
             lines.Add(new(string.Empty, ChecklistTextLineStyle.Blank));
-            lines.Add(new($"## {section.Title}", ChecklistTextLineStyle.Heading));
+            lines.Add(new($"## {section.Title} [{section.Phase}]", ChecklistTextLineStyle.Heading));
             lines.Add(new(string.Empty, ChecklistTextLineStyle.Blank));
 
             foreach (var item in section.Items)

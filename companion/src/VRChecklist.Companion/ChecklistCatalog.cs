@@ -13,6 +13,7 @@ public sealed record ChecklistDocument(
 public sealed record ChecklistSectionDocument(
     [property: JsonRequired] string Id,
     [property: JsonRequired] string Title,
+    [property: JsonRequired] string Phase,
     [property: JsonRequired] IReadOnlyList<ChecklistItemDocument> Items);
 
 public sealed record ChecklistItemDocument(
@@ -120,6 +121,7 @@ public static class ChecklistCatalog
             document.Sections.Count == 0 ||
             document.Sections.Any(section =>
                 string.IsNullOrWhiteSpace(section.Title) ||
+                string.IsNullOrWhiteSpace(section.Phase) ||
                 section.Items.Count == 0 ||
                 section.Items.Any(item =>
                     string.IsNullOrWhiteSpace(item.Challenge) ||

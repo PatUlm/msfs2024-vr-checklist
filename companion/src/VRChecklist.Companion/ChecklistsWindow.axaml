@@ -22,10 +22,26 @@
       <Setter Property="Margin" Value="0,0,0,14" />
     </Style>
     <Style Selector="TextBlock.section-heading">
-      <Setter Property="Foreground" Value="#8E9AAA" />
-      <Setter Property="FontSize" Value="13" />
+      <Setter Property="Foreground" Value="#F3F6FA" />
+      <Setter Property="FontSize" Value="16" />
       <Setter Property="FontWeight" Value="SemiBold" />
+      <Setter Property="TextWrapping" Value="Wrap" />
+      <Setter Property="VerticalAlignment" Value="Center" />
+      <Setter Property="Margin" Value="0,0,12,6" />
+    </Style>
+    <Style Selector="Border.phase-badge">
+      <Setter Property="Background" Value="Transparent" />
+      <Setter Property="BorderBrush" Value="#57C8FF" />
+      <Setter Property="BorderThickness" Value="1" />
+      <Setter Property="CornerRadius" Value="5" />
+      <Setter Property="Padding" Value="8,3" />
       <Setter Property="Margin" Value="0,0,0,6" />
+      <Setter Property="VerticalAlignment" Value="Center" />
+    </Style>
+    <Style Selector="Border.phase-badge TextBlock">
+      <Setter Property="Foreground" Value="#57C8FF" />
+      <Setter Property="FontSize" Value="12" />
+      <Setter Property="FontWeight" Value="SemiBold" />
     </Style>
     <Style Selector="SelectableTextBlock.challenge">
       <Setter Property="Foreground" Value="#F3F6FA" />
@@ -108,8 +124,13 @@
           <DataTemplate x:DataType="vm:ChecklistSectionViewModel">
             <Border Classes="section-card">
               <StackPanel Spacing="10">
-                <TextBlock Classes="section-heading"
-                           Text="{Binding Title, Converter={x:Static vm:TextConverters.Uppercase}}" />
+                <WrapPanel Orientation="Horizontal">
+                  <TextBlock Classes="section-heading"
+                             Text="{Binding Title, Converter={x:Static vm:TextConverters.Uppercase}}" />
+                  <Border Classes="phase-badge">
+                    <TextBlock Text="{Binding Phase}" />
+                  </Border>
+                </WrapPanel>
                 <ItemsControl ItemsSource="{Binding Items}">
                   <ItemsControl.ItemTemplate>
                     <DataTemplate x:DataType="vm:ChecklistItemViewModel">

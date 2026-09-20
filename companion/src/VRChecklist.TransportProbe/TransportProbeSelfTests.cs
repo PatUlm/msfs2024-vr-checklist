@@ -484,6 +484,7 @@ internal static class TransportProbeSelfTests
                 new ChecklistSectionDocument(
                     "engine-start",
                     "Engine Start",
+                    "Engine Start",
                     [
                         new ChecklistItemDocument(
                             "twistgrip", "Twistgrip Throttle", "IDLE", "action",
@@ -512,7 +513,7 @@ internal static class TransportProbeSelfTests
             "# Demo\n" +
             "Revision 2026-09-02\n" +
             "\n" +
-            "## Engine Start\n" +
+            "## Engine Start [Engine Start]\n" +
             "\n" +
             "- Twistgrip Throttle...IDLE\n" +
             "  Engine N1 ≥ 20 %\n" +

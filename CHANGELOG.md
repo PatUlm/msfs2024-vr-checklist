@@ -7,6 +7,12 @@ Changelog, and the project uses Semantic Versioning.
 
 ## [Unreleased]
 
+### Added
+
+- Companion checklists show each group's flight phase beside its heading in
+  a light-blue outlined badge. PDF and text exports include the phase in
+  group headings, including continued PDF groups.
+
 ### Fixed
 
 - Corrected the MH-60 engine speed labels from `Ng` to `NG`.

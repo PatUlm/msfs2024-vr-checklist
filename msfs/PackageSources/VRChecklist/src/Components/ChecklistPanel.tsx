@@ -21,6 +21,7 @@ export interface ChecklistPanelActions {
     itemState: Subject<boolean>
   ): void;
   changeSection(runtime: ChecklistRuntimeState, sectionIndex: number): void;
+  skipPhase(runtime: ChecklistRuntimeState, sectionIndex: number): void;
 }
 
 /*
@@ -246,7 +247,41 @@ export function renderChecklistPanel(
                   {renderCompletionMark(runtime, sectionIndex)}
                   <span>{section.title}</span>
                 </h2>
-                <span class="checklist-section__phase">{section.phase}</span>
+                <div class="checklist-section__phase-actions">
+                  <span class="checklist-section__phase">{section.phase}</span>
+                  <Button
+                    class={{
+                      "phase-skip__button": true,
+                      "phase-skip__button--disabled":
+                        sectionIndex >= runtime.finalPhaseStartIndex
+                          ? runtime.finalPhaseComplete
+                          : false,
+                    }}
+                    disabled={
+                      sectionIndex >= runtime.finalPhaseStartIndex
+                        ? runtime.finalPhaseComplete
+                        : false
+                    }
+                    callback={(): void =>
+                      actions.skipPhase(runtime, sectionIndex)
+                    }
+                  >
+                    <span
+                      class="phase-skip__content"
+                      title={`Skip phase: ${section.phase}`}
+                    >
+                      <svg
+                        class="phase-skip__icon"
+                        viewBox="0 0 28 24"
+                        role="img"
+                        aria-label={`Skip phase: ${section.phase}`}
+                      >
+                        <path d="M3 4 L12 12 L3 20 Z M13 4 L22 12 L13 20 Z" fill="currentColor" />
+                        <path d="M24 4 H27 V20 H24 Z" fill="currentColor" />
+                      </svg>
+                    </span>
+                  </Button>
+                </div>
               </header>
             </div>
 

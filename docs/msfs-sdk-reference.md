@@ -292,6 +292,10 @@ ungemessene Nutzlast in
 - **[RT]** Globale EFB-Regeln für `Button` und `.abstract-button` können lokale
   Hover-, Focus-, Selected- und Active-Zustände überstimmen. Alle Zustände sind
   mit der echten EFB-Komponente zu prüfen.
+- **[SDK]** Der EFB-`Button` reicht beliebige Props wie `title` und
+  `aria-label` nicht an sein HTML-`button` weiter; sein `render()` übernimmt
+  nur Referenz, Klassen und Styles. **DO:** Icon-Beschriftung und Tooltip an
+  eigene DOM-Kinder setzen oder Attribute gezielt am Button-DOM setzen.
 - **[NEG]** Für bedeutungstragende Symbole nicht auf Unicode-Fontabdeckung
   vertrauen. Einfache Symbole werden mit CSS oder eigenen Assets gezeichnet.
 - **[RT]** Coherent GT übernimmt eine am SVG-Root deklarierte transparente

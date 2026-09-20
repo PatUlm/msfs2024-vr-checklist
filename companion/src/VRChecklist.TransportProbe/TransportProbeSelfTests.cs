@@ -74,6 +74,7 @@ internal static class TransportProbeSelfTests
             ("formats a checklist as Markdown-like text", FormatsChecklistAsMarkdownLikeText),
             ("deduplicates and replaces spoken items", SpeechSelfTests.Transitions),
             ("finishes group announcements before the latest item", SpeechSelfTests.CompletionOrdering),
+            ("announces the next phase after one bulk completion", SpeechSelfTests.PhaseSkip),
             ("handles speech toggles, resets and offline state", SpeechSelfTests.ToggleAndReset),
             ("reports interrupted test sounds honestly", AudioSettingsSelfTests.ReportsInterruptedTest),
             ("keeps test audio independent of simulator retries", SpeechSelfTests.TestSoundSurvivesConnectionEvents),

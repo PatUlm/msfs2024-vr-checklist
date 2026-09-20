@@ -50,6 +50,21 @@ Iteration stehen separat in `design-qa.md`.
   dieselbe Akzentfarbe. Bei Platzmangel bricht der gesamte Tag unter den Namen
   um und bleibt rechts ausgerichtet. Der Erledigt-Haken bleibt vor dem
   Gruppennamen; die Navigationsbuttons behalten ihre bisherigen Beschriftungen.
+- Neben dem Phasen-Tag steht ein separater Icon-Button für `Skip phase`:
+  zwei gefüllte Dreiecke nach rechts mit senkrechtem Endstrich (nächstes Kapitel),
+  als eigenes SVG mit zugänglichem Namen und Tooltip. Der Button ist 3 em breit
+  und hat dieselbe Mindesthöhe und Hover-Sprache wie die Gruppennavigation. Tag und Button
+  bleiben zusammen und brechen bei Platzmangel rechts unter den Gruppennamen um.
+  Ein Klick erledigt alle noch offenen Items des zusammenhängenden Phasenblocks,
+  auch optionale Items und frühere Gruppen derselben Phase, und öffnet sofort
+  die erste Gruppe des nächsten Phasenblocks am Listenanfang. Bereits erledigte
+  Items der Zielgruppe bleiben erhalten. In der letzten Phase wird abgeschlossen
+  und die letzte Gruppe angezeigt. Sobald alle Items der letzten Phase erledigt
+  sind, ist ihr Skip-Button ausgegraut und deaktiviert. Ein wieder geöffnetes
+  Item dieser Phase aktiviert ihn erneut; optionale Items zählen dabei mit.
+  Der Companion erhält nur den Endzustand und
+  liest bei aktivierter Itemansage nach einmal `Checklist completed` den ersten
+  offenen Eintrag der Zielgruppe vor.
 - Oberhalb des Gruppennamens liegen zwei gleichwertige Navigationsbuttons mit
   jeweils 50 Prozent Breite. Die Reihenfolge lautet Navigation, Gruppenname,
   Item-Liste, damit die Überschrift direkt bei ihrer Checkliste steht. Die

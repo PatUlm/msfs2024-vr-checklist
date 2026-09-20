@@ -25,6 +25,8 @@ export class ChecklistRuntimeState {
   public readonly completedCount = Subject.create(0);
   /* One flag per section, true while every item of it is ticked. */
   public readonly sectionCompletion: Subject<boolean>[];
+  public readonly finalPhaseStartIndex: number;
+  public readonly finalPhaseComplete = Subject.create(false);
   public readonly totalItemCount: number;
   public readonly progressText: MappedSubscribable<string>;
   public readonly progressWidth: MappedSubscribable<string>;
@@ -36,6 +38,15 @@ export class ChecklistRuntimeState {
     this.sectionCompletion = checklist.sections.map(() =>
       Subject.create<boolean>(false)
     );
+    let finalPhaseStartIndex = checklist.sections.length - 1;
+    while (
+      finalPhaseStartIndex > 0 &&
+      checklist.sections[finalPhaseStartIndex - 1].phase ===
+        checklist.sections[finalPhaseStartIndex].phase
+    ) {
+      finalPhaseStartIndex -= 1;
+    }
+    this.finalPhaseStartIndex = finalPhaseStartIndex;
 
     for (const section of checklist.sections) {
       for (const item of section.items) {
@@ -83,6 +94,40 @@ export class ChecklistRuntimeState {
     );
   }
 
+  /* Completes the whole phase block, including earlier groups and optional
+   * items. The caller publishes only the final state, after navigation. */
+  public skipPhase(sectionIndex: number): boolean {
+    const sections = this.checklist.sections;
+    const section = sections[sectionIndex];
+    if (
+      !section ||
+      this.activeSectionIndex.get() !== sectionIndex ||
+      (sectionIndex >= this.finalPhaseStartIndex && this.finalPhaseComplete.get())
+    ) {
+      return false;
+    }
+
+    let first = sectionIndex;
+    let last = sectionIndex;
+    while (first > 0 && sections[first - 1].phase === section.phase) {
+      first -= 1;
+    }
+    while (last + 1 < sections.length && sections[last + 1].phase === section.phase) {
+      last += 1;
+    }
+
+    for (let index = first; index <= last; index += 1) {
+      for (const item of sections[index].items) {
+        this.getItemState(sections[index].id, item.id).set(true);
+      }
+    }
+    this.updateCompletedCount();
+    const targetIndex = Math.min(last + 1, sections.length - 1);
+    this.activeSectionIndex.set(targetIndex);
+    this.scrollSectionItemsToTop(targetIndex);
+    return true;
+  }
+
   /*
    * The automatic advance waits for every item of the section, `optional` ones
    * included. Skipping an optional item is a deliberate call, and the app must
@@ -115,6 +160,11 @@ export class ChecklistRuntimeState {
     this.checklist.sections.forEach((section, index) => {
       this.sectionCompletion[index].set(this.isSectionComplete(section));
     });
+    this.finalPhaseComplete.set(
+      this.sectionCompletion
+        .slice(this.finalPhaseStartIndex)
+        .every((state) => state.get())
+    );
   }
 
   public getCompletedSectionIds(): string[] {
@@ -138,6 +188,7 @@ export class ChecklistRuntimeState {
 
     this.completedCount.set(0);
     this.activeSectionIndex.set(0);
+    this.finalPhaseComplete.set(false);
 
     for (const completion of this.sectionCompletion) {
       completion.set(false);

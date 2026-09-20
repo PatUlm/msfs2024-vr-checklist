@@ -801,6 +801,17 @@ class VRChecklistView
     }
   }
 
+  public skipPhase(runtime: ChecklistRuntimeState, sectionIndex: number): void {
+    if (
+      this.isViewActive &&
+      this.getSelectedRuntime() === runtime &&
+      runtime.skipPhase(sectionIndex)
+    ) {
+      // One record and snapshot: no intermediate skipped items are announced.
+      this.persistSelectedChecklistProgress();
+    }
+  }
+
   // --- AppView lifecycle ---------------------------------------------------
 
   public onResume(): void {

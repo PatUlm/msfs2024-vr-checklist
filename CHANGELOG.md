@@ -7,6 +7,14 @@ Changelog, and the project uses Semantic Versioning.
 
 ## [Unreleased]
 
+### Added
+
+- The EFB `Skip phase` icon button completes all remaining items in the current flight phase,
+  including optional items, and opens the first group of the next phase. With
+  companion item speech enabled, the next open item is read after one completion
+  announcement. Skipping the final phase finishes it at the last group and
+  disables the button until an item in that phase is reopened.
+
 ## [0.12.0] - 2026-09-20
 
 ### Added

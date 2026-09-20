@@ -21,6 +21,9 @@ Untersuchungen bleiben über die Git-Historie nachvollziehbar.
   bestätigt (EFB `0.11.1-dev.20260920105232`, Companion
   `0.11.1-dev.20260920105233`). Ein zusätzlicher VR-Nachweis wurde ausdrücklich
   als nicht erforderlich freigegeben.
+- Phasenüberspringen mit dem Kapitel-Skip-Icon und ausgegrautem Button nach
+  Abschluss der letzten Phase am 2026-09-20 vom Benutzer bestätigt
+  (EFB `0.12.0-dev.20260920120300`).
 
 ## Offene visuelle Nachweise
 

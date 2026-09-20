@@ -56,6 +56,25 @@ internal static class SpeechSelfTests
         Require(!fake.Calls.Contains("d"), "Disabling left pending speech active.");
     }
 
+    public static void PhaseSkip()
+    {
+        var fake = new Player();
+        using var speech = new ChecklistSpeechController(fake.Play, fake.Stop,
+            snapshot => snapshot.NextOpenItem?.Id, fake.Errors.Enqueue, true);
+        speech.Observe(Snapshot("start-item", "start"), false);
+        var skipped = Snapshot("taxi-item", "taxi", completed: ["preparation", "start", "after-start"]);
+        speech.Observe(skipped, false);
+        speech.Observe(skipped, true);
+        Require(fake.Calls.SequenceEqual(["start-item", "<completion>"]),
+            "Skipping multiple groups must produce only one completion announcement.");
+        fake.Finish();
+        Require(SpinWait.SpinUntil(() => fake.Calls.Count == 3, 3000),
+            "The first item of the next phase was not announced.");
+        Require(fake.Calls.Last() == "taxi-item", "A skipped item was announced.");
+        speech.Observe(skipped, false);
+        Require(fake.Calls.Count == 3, "Repeated phase state replayed speech.");
+    }
+
     public static void ToggleAndReset()
     {
         var fake = new Player();

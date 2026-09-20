@@ -244,12 +244,19 @@
   line-height: 1.1;
 }
 
+.checklist-section__phase-actions {
+  display: flex;
+  flex: 0 0 auto;
+  align-items: center;
+  margin: 0.235em 0 0.235em auto;
+}
+
 .checklist-section__phase {
   display: inline-flex;
   flex: 0 0 auto;
   align-items: center;
 
-  margin: 0.235em 0 0.235em auto;
+  margin-right: 0.588em;
   padding: 0.235em 0.588em;
   border: 0.059em solid currentColor;
   border-radius: 0.294em;
@@ -294,7 +301,8 @@
   box-sizing: border-box;
 }
 
-.section-navigation__button.abstract-button {
+.section-navigation__button.abstract-button,
+.phase-skip__button.abstract-button {
   display: flex;
   flex: 1 1 0;
   align-items: center;
@@ -318,12 +326,31 @@
   transition: none !important;
 }
 
+.phase-skip__button.abstract-button {
+  flex: 0 0 auto;
+  width: 3em;
+  padding: 0.353em;
+  color: var(--checklist-text);
+}
+
+.phase-skip__content {
+  display: flex;
+}
+
+.phase-skip__icon {
+  width: 1.647em;
+  height: 1.412em;
+  pointer-events: none;
+}
+
 .section-navigation__button--next.abstract-button {
   margin-left: 0.588em;
 }
 
 .section-navigation__button.abstract-button:hover,
-.section-navigation__button.abstract-button:focus {
+.section-navigation__button.abstract-button:focus,
+.phase-skip__button.abstract-button:hover,
+.phase-skip__button.abstract-button:focus {
   border-color: var(--checklist-border) !important;
   outline: none !important;
   color: var(--checklist-text);
@@ -332,13 +359,16 @@
   box-shadow: none !important;
 }
 
-.section-navigation__button--disabled.abstract-button {
+.section-navigation__button--disabled.abstract-button,
+.phase-skip__button--disabled.abstract-button {
   opacity: 0.38;
   cursor: default;
 }
 
 .section-navigation__button--disabled.abstract-button:hover,
-.section-navigation__button--disabled.abstract-button:focus {
+.section-navigation__button--disabled.abstract-button:focus,
+.phase-skip__button--disabled.abstract-button:hover,
+.phase-skip__button--disabled.abstract-button:focus {
   border-color: var(--checklist-border) !important;
   color: var(--checklist-muted);
   background: rgba(21, 30, 40, 0.78) !important;

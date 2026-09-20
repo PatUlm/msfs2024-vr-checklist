@@ -7,6 +7,8 @@ Changelog, and the project uses Semantic Versioning.
 
 ## [Unreleased]
 
+## [0.13.0] - 2026-09-20
+
 ### Added
 
 - The EFB `Skip phase` icon button completes all remaining items in the current flight phase,

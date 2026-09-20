@@ -3,6 +3,17 @@
   "companionSince": "0.3.0",
   "releases": [
     {
+      "version": "0.13.0",
+      "date": "2026-09-20",
+      "highlight": "Skip a flight phase from the EFB when your aircraft is already prepared.",
+      "features": [
+        "The chapter-skip icon completes all remaining items in the current phase, including optional items, and opens the next phase.",
+        "With item speech enabled, the companion reads the next open item after one completion announcement.",
+        "After the final phase is completed, the skip button is disabled until an item in that phase is reopened."
+      ],
+      "fixes": []
+    },
+    {
       "version": "0.12.0",
       "date": "2026-09-20",
       "highlight": "See the flight phase of each checklist group in the EFB and companion.",

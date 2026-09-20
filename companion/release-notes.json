@@ -3,6 +3,19 @@
   "companionSince": "0.3.0",
   "releases": [
     {
+      "version": "0.12.0",
+      "date": "2026-09-20",
+      "highlight": "See the flight phase of each checklist group in the EFB and companion.",
+      "features": [
+        "Outlined phase badges are aligned to the right in the EFB and shown in companion checklists and the dashboard.",
+        "PDF and text exports include each group's phase, including continued PDF groups.",
+        "Escape closes the Checklists, Settings and Release Notes windows."
+      ],
+      "fixes": [
+        "Corrected the MH-60 engine speed labels from Ng to NG."
+      ]
+    },
+    {
       "version": "0.11.1",
       "date": "2026-09-19",
       "highlight": "Switch between VR and desktop without repeating the current checklist announcement.",

@@ -7,6 +7,8 @@ Changelog, and the project uses Semantic Versioning.
 
 ## [Unreleased]
 
+## [0.12.0] - 2026-09-20
+
 ### Added
 
 - The companion's Checklists, Settings and Release Notes windows can now be

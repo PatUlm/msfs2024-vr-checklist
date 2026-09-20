@@ -870,7 +870,7 @@ class VRChecklistView
           this.aircraftIdentityText
         )}
 
-        <div class="checklist-version" aria-label={`Version ${APP_VERSION}`}>
+        <div class="checklist-version">
           {APP_VERSION}
         </div>
       </div>

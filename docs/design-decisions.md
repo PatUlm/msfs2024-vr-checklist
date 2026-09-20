@@ -4,6 +4,19 @@ Dieses Dokument beschreibt die dauerhaft akzeptierte Produktsprache der VR
 Checklist. Beobachtungen, noch nicht gelöste Abweichungen und die nächste
 Iteration stehen separat in `design-qa.md`.
 
+## Markup der EFB-App
+
+- Das eigene EFB-Markup verwendet auf Nutzerentscheidung keine `aria-*`-
+  Attribute oder ARIA-Rollen. Die Simulatoroberfläche benötigt diese
+  zusätzlichen Angaben nicht.
+- Elemente und Attribute dienen Darstellung, Bedienung oder SDK-Verhalten.
+  Strukturierende Container und Überschriften, CSS-Klassen, SDK-Referenzen,
+  Button-Zustände und SVG-Geometrie bleiben erhalten. Unbenutzte DOM-IDs und
+  reine SEO-Metadaten gehören nicht in die EFB-App.
+- Der `title`-Tooltip des Phasen-Skip-Icons erklärt die Aktion und bleibt
+  erhalten. Diese Entscheidung betrifft den eigenen EFB-Anwendungscode;
+  versionierte SDK-Vorlagen bleiben unverändert.
+
 ## Dichteprofile und Skalierung
 
 - Alle Größen des Stylesheets stehen in `em` und folgen einer einzigen
@@ -52,7 +65,7 @@ Iteration stehen separat in `design-qa.md`.
   Gruppennamen; die Navigationsbuttons behalten ihre bisherigen Beschriftungen.
 - Neben dem Phasen-Tag steht ein separater Icon-Button für `Skip phase`:
   zwei gefüllte Dreiecke nach rechts mit senkrechtem Endstrich (nächstes Kapitel),
-  als eigenes SVG mit zugänglichem Namen und Tooltip. Der Button ist 3 em breit
+  als eigenes SVG mit Tooltip. Der Button ist 3 em breit
   und hat dieselbe Mindesthöhe und Hover-Sprache wie die Gruppennavigation. Tag und Button
   bleiben zusammen und brechen bei Platzmangel rechts unter den Gruppennamen um.
   Ein Klick erledigt alle noch offenen Items des zusammenhängenden Phasenblocks,

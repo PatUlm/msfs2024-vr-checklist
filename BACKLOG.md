@@ -17,16 +17,4 @@ Offene visuelle Abweichungen bleiben ausschließlich in [docs/design-qa.md](docs
 ausstehende MSFS-Laufzeitnachweise ausschließlich in [docs/open-tests.md](docs/open-tests.md). Dieser
 Backlog dupliziert diese Listen nicht.
 
-## EFB-Markup auf den Simulator ausrichten
-
-- [ ] Alle `aria-*`-Attribute aus dem eigenen EFB-Anwendungscode vollständig
-  entfernen. Nutzerentscheidung: ARIA wird für die Simulatoroberfläche nicht
-  benötigt.
-- [ ] Weitere Elemente und Attribute auf tatsächlichen Nutzen im Simulator
-  prüfen, etwa ARIA-Rollen, SEO-Metadaten und reine Suchmaschinenoptimierungen.
-  Vorhandene Bestandteile ohne Nutzen entfernen; für Darstellung, Bedienung
-  oder SDK-Verhalten benötigtes Markup erhalten. Die Prüfung setzt nicht voraus,
-  dass solche Optimierungen bereits vorhanden sind.
-- [ ] Zugehörige Designentscheidungen und technische Hinweise an die
-  Bereinigung anpassen. Versionierte SDK-Vorlagen und installierte SDK-Dateien
-  bleiben unverändert.
+Derzeit keine offenen Umsetzungspunkte.

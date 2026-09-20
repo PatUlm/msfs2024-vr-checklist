@@ -46,7 +46,6 @@ function renderCompletionMark(
         "completion-check": true,
         "completion-check--visible": completion,
       }}
-      aria-hidden="true"
     />
   );
 }
@@ -60,7 +59,7 @@ function renderNavigation(
   const nextSection = runtime.checklist.sections[sectionIndex + 1];
 
   return (
-    <nav class="section-navigation" aria-label="Checklist sections">
+    <nav class="section-navigation">
       <Button
         class={{
           "section-navigation__button": true,
@@ -69,11 +68,6 @@ function renderNavigation(
         }}
         disabled={previousSection === undefined}
         callback={(): void => actions.changeSection(runtime, sectionIndex - 1)}
-        aria-label={
-          previousSection
-            ? `Previous: ${previousSection.title}`
-            : "No previous section"
-        }
       >
         <span class="section-navigation__text">
           {renderCompletionMark(runtime, sectionIndex - 1)}
@@ -91,9 +85,6 @@ function renderNavigation(
         }}
         disabled={nextSection === undefined}
         callback={(): void => actions.changeSection(runtime, sectionIndex + 1)}
-        aria-label={
-          nextSection ? `Next: ${nextSection.title}` : "No next section"
-        }
       >
         <span class="section-navigation__text">
           {renderCompletionMark(runtime, sectionIndex + 1)}
@@ -132,13 +123,11 @@ function renderItem(
       callback={(): void =>
         actions.toggleItem(runtime, section, sectionIndex, itemState)
       }
-      aria-label={`${item.challenge}: ${item.response}`}
-      aria-pressed={itemState}
     >
       <span class="checklist-item__body">
         <span class="checklist-item__main">
           <span class="checklist-item__challenge">{item.challenge}</span>
-          <span class="checklist-item__leader" aria-hidden="true" />
+          <span class="checklist-item__leader" />
           <span class="checklist-item__response">{item.response}</span>
         </span>
 
@@ -185,7 +174,7 @@ function renderItem(
         )}
       </span>
 
-      <span class="checklist-item__checkbox" aria-hidden="true">
+      <span class="checklist-item__checkbox">
         <span class="checklist-item__checkmark" />
       </span>
     </Button>
@@ -216,7 +205,7 @@ export function renderChecklistPanel(
           </span>
         </div>
 
-        <div class="checklist-header__progress" aria-label="Checklist progress">
+        <div class="checklist-header__progress">
           <span class="checklist-header__progress-label">
             {runtime.progressText}
           </span>
@@ -238,7 +227,6 @@ export function renderChecklistPanel(
                 (activeIndex) => activeIndex === sectionIndex
               ),
             }}
-            id={`${checklist.id}-${section.id}`}
           >
             <div class="checklist-section__sticky">
               {renderNavigation(runtime, sectionIndex, actions)}
@@ -273,8 +261,6 @@ export function renderChecklistPanel(
                       <svg
                         class="phase-skip__icon"
                         viewBox="0 0 28 24"
-                        role="img"
-                        aria-label={`Skip phase: ${section.phase}`}
                       >
                         <path d="M3 4 L12 12 L3 20 Z M13 4 L22 12 L13 20 Z" fill="currentColor" />
                         <path d="M24 4 H27 V20 H24 Z" fill="currentColor" />
@@ -316,7 +302,6 @@ export function renderChecklistUnavailable(
           (checklistId) => checklistId === null
         ),
       }}
-      role="status"
     >
       <div class="checklist-unavailable__message">
         Keine Checkliste vorhanden

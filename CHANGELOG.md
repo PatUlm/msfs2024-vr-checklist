@@ -7,6 +7,21 @@ Changelog, and the project uses Semantic Versioning.
 
 ## [Unreleased]
 
+## [0.13.3] - 2026-09-21
+
+### Changed
+
+- Added the MH-60's Cargo and Fuel preparation item to the start of the A400M
+  checklist, along with Before Engine Start and Before Taxi groups; moved the flaps
+  setting to Before Taxi, and renamed After Start to After Engine Start.
+  EFIS and FMS Setup remains directly after Before Engine Start with its
+  provisional review markers and no speech; updated the affected Brian announcements.
+
+### Fixed
+
+- Corrected the A400M electrical power-up order to place external power before
+  the batteries, and made arming the ground spoilers an action instead of a check.
+
 ## [0.13.2] - 2026-09-20
 
 ### Changed

@@ -3,6 +3,20 @@
   "companionSince": "0.3.0",
   "releases": [
     {
+      "version": "0.13.3",
+      "date": "2026-09-21",
+      "highlight": "Prepare the A400M with dedicated Before Engine Start and Before Taxi groups.",
+      "features": [
+        "Cargo and Fuel preparation now opens the checklist; Before Engine Start adds EFIS, FMGES, takeoff data and altimeters.",
+        "Before Taxi contains the moved flap setting plus takeoff, taxi and runway turn-off lights, with matching Brian announcements.",
+        "After Start is now After Engine Start; the provisional EFIS and FMS Setup steps remain unchanged after Before Engine Start."
+      ],
+      "fixes": [
+        "External power now precedes the batteries during electrical power up.",
+        "Arming the ground spoilers is an action and no longer carries a Verify cue."
+      ]
+    },
+    {
       "version": "0.13.2",
       "date": "2026-09-20",
       "highlight": "Follow an expanded A400M startup checklist with updated Brian announcements.",

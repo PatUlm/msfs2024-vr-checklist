@@ -11,7 +11,7 @@
       }
     ]
   },
-  "revision": "2026-09-19",
+  "revision": "2026-09-21",
   "sections": [
     {
       "id": "electrical-power-up",
@@ -19,11 +19,11 @@
       "phase": "Engine Start",
       "items": [
         {
-          "id": "bat-1-2-ess",
-          "challenge": "BAT [1+2+ESS]",
-          "response": "On",
+          "id": "cargo-fuel",
+          "challenge": "Cargo and Fuel",
+          "response": "Set in EFB",
           "kind": "action",
-          "speech": "Batteries one, two and essential: On."
+          "speech": "Cargo and fuel: Set in the E F B."
         },
         {
           "id": "bat-ext",
@@ -32,6 +32,13 @@
           "kind": "optional",
           "condition": "If available",
           "speech": "External power, if available: On."
+        },
+        {
+          "id": "bat-1-2-ess",
+          "challenge": "BAT [1+2+ESS]",
+          "response": "On",
+          "kind": "action",
+          "speech": "Batteries one, two and essential: On."
         },
         {
           "id": "apu-master",
@@ -87,6 +94,39 @@
           "response": "Armed",
           "kind": "action",
           "speech": "Emergency exit lights: Armed."
+        }
+      ]
+    },
+    {
+      "id": "before-engine-start",
+      "title": "Before Engine Start",
+      "phase": "Engine Start",
+      "items": [
+        {
+          "id": "efis",
+          "challenge": "EFIS",
+          "response": "Set",
+          "kind": "action",
+          "speech": "E F I S: Set."
+        },
+        {
+          "id": "fmges",
+          "challenge": "FMGES",
+          "response": "Set",
+          "kind": "action",
+          "speech": "F M G E S: Set."
+        },
+        {
+          "id": "takeoff-data",
+          "challenge": "Takeoff Data",
+          "response": "Set",
+          "kind": "action"
+        },
+        {
+          "id": "altimeters",
+          "challenge": "Altimeters",
+          "response": "Set",
+          "kind": "action"
         }
       ]
     },
@@ -214,7 +254,7 @@
     },
     {
       "id": "after-start",
-      "title": "After Start",
+      "title": "After Engine Start",
       "phase": "Engine Start",
       "items": [
         {
@@ -267,15 +307,8 @@
           "id": "ground-spoilers",
           "challenge": "Ground Spoilers",
           "response": "Arm",
-          "kind": "verify",
-          "speech": "Verify ground spoilers: Arm."
-        },
-        {
-          "id": "flaps",
-          "challenge": "Flaps",
-          "response": "Set for TO",
           "kind": "action",
-          "speech": "Flaps: Set for takeoff."
+          "speech": "Ground spoilers: Arm."
         },
         {
           "id": "anti-ice",
@@ -290,6 +323,33 @@
           "response": "Off",
           "kind": "verify",
           "speech": "Verify all switches info: Off."
+        }
+      ]
+    },
+    {
+      "id": "before-taxi",
+      "title": "Before Taxi",
+      "phase": "Taxi",
+      "items": [
+        {
+          "id": "flaps",
+          "challenge": "Flaps",
+          "response": "Set for TO",
+          "kind": "action",
+          "speech": "Flaps: Set for takeoff."
+        },
+        {
+          "id": "to-taxi-lights",
+          "challenge": "T.O & Taxi Lights",
+          "response": "On",
+          "kind": "action",
+          "speech": "Takeoff and taxi lights: On."
+        },
+        {
+          "id": "runway-turn-off-lights",
+          "challenge": "Runway Turn Off Lights",
+          "response": "On",
+          "kind": "action"
         }
       ]
     }

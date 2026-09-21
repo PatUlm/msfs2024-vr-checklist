@@ -17,4 +17,14 @@ Offene visuelle Abweichungen bleiben ausschließlich in [docs/design-qa.md](docs
 ausstehende MSFS-Laufzeitnachweise ausschließlich in [docs/open-tests.md](docs/open-tests.md). Dieser
 Backlog dupliziert diese Listen nicht.
 
-Derzeit keine offenen Umsetzungspunkte.
+## Lizenznachweise und Distribution für 1.0.0 vervollständigen
+
+Die [Lizenzprüfung für 0.13.3](docs/license-audit.md) ist durchgeführt; die
+Veröffentlichung ist noch nicht freigegeben. Die Befunde R1 bis R5 und ihre
+Abschlusskriterien stehen ausschließlich im Prüfbericht.
+
+Die Checklistenprüfung R4 ist abgeschlossen; Herstelleranfragen sind keine
+pauschale Release-Voraussetzung. Nächstes Inkrement: vollständige
+Lizenz-/Copyrighttexte in den Auslieferungsumfang aufnehmen und deren
+Mitlieferung prüfen (R1), dabei die konkreten SDK-Nachweise ergänzen (R2).
+Projektlizenz und Audio-Bedingungen sind anschließend festzulegen (R3/R5).

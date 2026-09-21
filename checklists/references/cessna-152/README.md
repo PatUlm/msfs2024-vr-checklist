@@ -5,10 +5,8 @@ Normal Procedures, Seitenstand 18. April 1980; bereitgestellt als
 [1981-C152-POH.pdf](https://aceshighaviation.com/wp-content/uploads/2020/10/1981-C152-POH.pdf)
 von Aces High Aviation. Abgerufen am 7. September 2026.
 
-Lokale Originalkopie: `checklists/source/Cessna 152 POH 1981.pdf`.
-Die verwendeten Fakten sind maschinenlesbar in
-`checklists/source/Cessna 152 POH 1981.facts.json` erfasst und wurden direkt
-an den gescannten Originalseiten geprüft.
+Die verwendeten Fakten wurden direkt an den gescannten Originalseiten
+geprüft; Seitenbelege und die Auswahl für die App stehen in der Tabelle unten.
 
 Die App schreibt die Einheit wie die bestehenden Checklisten als `kt`.
 Alle C152-Geschwindigkeiten beziehen sich auf IAS (im POH: KIAS); der

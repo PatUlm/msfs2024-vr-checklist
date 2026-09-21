@@ -32,6 +32,9 @@ Release **1.0.0**. Die folgenden Schritte bilden den Plan für diese Phase:
   [ADR 0008](docs/adr/0008-stimme-und-tts-anbieter.md) und die
   [Drittlizenzen](docs/third-party-licenses.md); die bisherige Entscheidung
   „vorerst privat“ wird durch eine neue Veröffentlichungsentscheidung abgelöst.
+  Die [Lizenzprüfung für den Stand 0.13.3](docs/license-audit.md) ist seit
+  2026-09-21 dokumentiert; ihre offenen Abschlusskriterien verhindern noch
+  das Abhaken dieses Meilensteins.
 - [ ] **Dokumentation prüfen und bereinigen:** Alle Projektdokumente mit dem
   aktuellen Stand abgleichen. Veraltete und für den heutigen Stand unwichtige
   Informationen entfernen; weiterhin gültige Entscheidungen, notwendige

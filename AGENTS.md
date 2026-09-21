@@ -28,12 +28,11 @@ gehören nach `docs/design-qa.md`.
   alte ersetzt.
 - Vor Änderungen an Checklistendaten sind `checklists/data/README.md` und
   `checklists/data/style-guide.md` zu lesen.
-- Quellen von Checklisten werden lokal in maschinenlesbarer Form vorgehalten.
-  Vor einer Prüfung oder einem Abgleich mit der ursprünglichen Checkliste ist
-  zuerst das Repository einschließlich der lokal ignorierten Quellen unter
-  `checklists/source/` zu prüfen. Eine externe Quelle wird nur herangezogen,
-  wenn die benötigte lokale Quelle fehlt oder die konkrete Frage nicht
-  beantwortet.
+- Vor einer Prüfung von Checklisten sind zuerst die kanonischen Daten und
+  dokumentierten Quellenverweise im Repository zu prüfen. Für einen Abgleich
+  mit Originalunterlagen werden die jeweiligen Primärquellen herangezogen.
+  Originalunterlagen werden nicht als dauerhafte lokale Quellensammlung im
+  Repository vorgehalten.
 - Neue oder aktualisierte direkte Abhängigkeiten und ausgelieferte
   Drittkomponenten müssen im selben Arbeitsgang in
   `docs/third-party-licenses.md` mit Version, Lizenz und Primärquelle

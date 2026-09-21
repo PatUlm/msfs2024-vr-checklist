@@ -39,6 +39,12 @@ Bonanza G36, Cessna 152, Diamond DA42, Hughes OH-6A/500C und Sikorsky MH-60.
 Die acht noch ungeprüften A400M-Einträge unter `FSM Init` sind sichtbar
 markiert und vorerst von den Sprachansagen ausgenommen.
 
+Die Checklisten wurden nach bestem Wissen aus Ingame-Checklisten und
+verfügbaren Handbüchern zusammengestellt, angepasst und mit KI-Unterstützung
+bearbeitet. Die [Quellen](checklists/data/README.md#inhaltliche-herkunft) sind
+dokumentiert. Sie dienen ausschließlich der Flugsimulation und ersetzen
+keine freigegebenen Flugunterlagen.
+
 ## Bestätigungstaste belegen
 
 Die App hakt das nächste offene Item ab, wenn ein bestimmtes Sim-Key-Event

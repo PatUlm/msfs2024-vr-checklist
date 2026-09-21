@@ -1,0 +1,3463 @@
+{
+  "schemaVersion": 1,
+  "auditDate": "2026-09-21",
+  "projectVersion": "0.13.3",
+  "commit": "61fb91d4a3ed510da9880ed94627771c017442cf",
+  "status": "Findings recorded; not a distribution clearance or a complete native-component SBOM.",
+  "inputs": [
+    {
+      "file": "VERSION",
+      "sha256": "7fe84ad2d3af8db15de0a393e451103ebdeb543ac0c3e0efcd7b90c9aae0305b"
+    },
+    {
+      "file": "msfs/PackageSources/VRChecklist/package-lock.json",
+      "sha256": "4027b1dcda09b0adb79707c80f705c16cdb37265a1b117890d705eb2b0d691fe"
+    },
+    {
+      "file": "msfs/PackageSources/efb_api/package.json",
+      "sha256": "214e9ee0576130804287e81c3c64e6d3ec8732eebab6304f0f7b997107fc878d"
+    },
+    {
+      "file": "msfs/PackageSources/efb_api/dist/index.js",
+      "sha256": "4720e1dc17ec87b70353b762350ebd528349a74059db664711f12b39aaf65043"
+    },
+    {
+      "file": "msfs/PackageSources/vendor/microsoft-msfs-sdk-2.1.1.tgz",
+      "sha256": "851bd3359a42c3de92a84daa44bf5f7baa8ce32a3514875b3b795cedc3aeab55"
+    },
+    {
+      "file": "companion/src/VRChecklist.Companion/packages.lock.json",
+      "sha256": "7eab92f9ef23f88c137b7e03c71996701f32da1096b0098149e88da1cad15563"
+    },
+    {
+      "file": "companion/src/VRChecklist.Transport/packages.lock.json",
+      "sha256": "a29c6aa8cfb81874ff8bb78dc369d7416f28c9b8cc47e99592bfc019b20c41eb"
+    },
+    {
+      "file": "companion/src/VRChecklist.TransportProbe/packages.lock.json",
+      "sha256": "75548da63dbb8ef4f8b4f1de2261232052385f85fb6a78cd4d1f0122fc86d7b8"
+    },
+    {
+      "file": "assets/audio/completion/manifest.json",
+      "sha256": "8b3bc041aeff56f3abeee75a7f41fc0a0451ad8b96f9f4e7cfdc2d964f0e912c"
+    },
+    {
+      "file": "assets/audio/items/manifest.json",
+      "sha256": "52aacb42bc96ff1a3e730a0cef6ad43f63eb9e850f613f592d1c9053fbf1b20e"
+    },
+    {
+      "file": "checklists/data/airbus-a400m.json",
+      "sha256": "c0b4c65b3e4ac3a7cc406497631db0c3900bc10caa2bb8be5bf94b77e157a564"
+    },
+    {
+      "file": "checklists/data/airbus-h125.json",
+      "sha256": "1047f65767bd9720f4f25fffdf38314b576a999bb7a3dd5849c3da2c407a2b88"
+    },
+    {
+      "file": "checklists/data/beechcraft-bonanza-g36.json",
+      "sha256": "fea1720e93590ca1ecc5db03bff7c9adfd35a11221463bd19e0538d8e5339142"
+    },
+    {
+      "file": "checklists/data/cessna-152.json",
+      "sha256": "87616682eaed766fe38a4fd6e86eca9940e684bd8f14f2d851401a49a0a3dc5f"
+    },
+    {
+      "file": "checklists/data/checklist.schema.json",
+      "sha256": "30de2b332798b267eb96337bd899d69de01981482318b76eb3e26303ba6077e0"
+    },
+    {
+      "file": "checklists/data/diamond-da42.json",
+      "sha256": "d4bedb536c1b1ddaa1980ee1db2e563f43d1ec95ae47b6ae3fd6f83ec49a8437"
+    },
+    {
+      "file": "checklists/data/hughes-oh6a-500c.json",
+      "sha256": "f6ae92e99e05da5174527e700e77db6bc19f3167e4810121cb0f4744e52867ce"
+    },
+    {
+      "file": "checklists/data/sikorsky-mh-60.json",
+      "sha256": "cdb67aced6133b071a89efa6fcab9b760cc9fae1d5c62866ccaaae640a4611e0"
+    }
+  ],
+  "npm": [
+    {
+      "name": "@bufbuild/protobuf",
+      "version": "2.14.0",
+      "lockPath": "node_modules/@bufbuild/protobuf",
+      "declaredLicense": "(Apache-2.0 AND BSD-3-Clause)",
+      "source": "https://registry.npmjs.org/@bufbuild/protobuf/-/protobuf-2.14.0.tgz",
+      "integrity": "sha512-C3UGsiCwSprE2NKIIFA3hCDlpXTMCAXRZuEVp88L1GY36Y41+rYL5fryE+nOFhp4p4JPQvdV8PQ4DWgHgeTE+w==",
+      "scope": "build-only",
+      "evidence": [],
+      "evidenceLevel": "package-declaration; see report for additional source evidence"
+    },
+    {
+      "name": "@esbuild/aix-ppc64",
+      "version": "0.28.2",
+      "lockPath": "node_modules/@esbuild/aix-ppc64",
+      "declaredLicense": "MIT",
+      "source": "https://registry.npmjs.org/@esbuild/aix-ppc64/-/aix-ppc64-0.28.2.tgz",
+      "integrity": "sha512-XExcO+dvLKvVtNTibSTBej1NCAbaGhWn9Ww1ZPx80qsahhPFe/8jgWP0IchNe0F3HwkU7n8ejhH8bjonqht8mQ==",
+      "scope": "build-only",
+      "evidence": [],
+      "evidenceLevel": "lockfile-only; optional platform package not installed"
+    },
+    {
+      "name": "@esbuild/android-arm",
+      "version": "0.28.2",
+      "lockPath": "node_modules/@esbuild/android-arm",
+      "declaredLicense": "MIT",
+      "source": "https://registry.npmjs.org/@esbuild/android-arm/-/android-arm-0.28.2.tgz",
+      "integrity": "sha512-kXXoiPVVGQcnIYGOeaovwOURpniDBpSq4A03qkQ+BMQqtGG6HYap3xne9C1O1yo4TR3qxlCX5IqqmX6fFo2Lqg==",
+      "scope": "build-only",
+      "evidence": [],
+      "evidenceLevel": "lockfile-only; optional platform package not installed"
+    },
+    {
+      "name": "@esbuild/android-arm64",
+      "version": "0.28.2",
+      "lockPath": "node_modules/@esbuild/android-arm64",
+      "declaredLicense": "MIT",
+      "source": "https://registry.npmjs.org/@esbuild/android-arm64/-/android-arm64-0.28.2.tgz",
+      "integrity": "sha512-5YfKeeI8qWfBZIX+u2xZC3Zlb3Os/gLS2sbEKM+I4ZOcsWmHS2WLysCcQZDAFRslDUU5Oiq44gf6PYN1vGwG5A==",
+      "scope": "build-only",
+      "evidence": [],
+      "evidenceLevel": "lockfile-only; optional platform package not installed"
+    },
+    {
+      "name": "@esbuild/android-x64",
+      "version": "0.28.2",
+      "lockPath": "node_modules/@esbuild/android-x64",
+      "declaredLicense": "MIT",
+      "source": "https://registry.npmjs.org/@esbuild/android-x64/-/android-x64-0.28.2.tgz",
+      "integrity": "sha512-O387ite7SzUyCcy3JQX4P4bLtEA7bLLkx+esve5JHnyYfNTxcVpXZo9jhdB0lTKN44gztELTdU7nS8Nr16Fs1Q==",
+      "scope": "build-only",
+      "evidence": [],
+      "evidenceLevel": "lockfile-only; optional platform package not installed"
+    },
+    {
+      "name": "@esbuild/darwin-arm64",
+      "version": "0.28.2",
+      "lockPath": "node_modules/@esbuild/darwin-arm64",
+      "declaredLicense": "MIT",
+      "source": "https://registry.npmjs.org/@esbuild/darwin-arm64/-/darwin-arm64-0.28.2.tgz",
+      "integrity": "sha512-n4KqkOQrraxHJcgjM1RvwbigfQKIKJVpM7xp+KsxiyUSrRdIXnt73VhrPAx0fV44hgfmIVKjxMN9J1t5jySVkw==",
+      "scope": "build-only",
+      "evidence": [],
+      "evidenceLevel": "lockfile-only; optional platform package not installed"
+    },
+    {
+      "name": "@esbuild/darwin-x64",
+      "version": "0.28.2",
+      "lockPath": "node_modules/@esbuild/darwin-x64",
+      "declaredLicense": "MIT",
+      "source": "https://registry.npmjs.org/@esbuild/darwin-x64/-/darwin-x64-0.28.2.tgz",
+      "integrity": "sha512-uq6suIWYP37qzGddBKPw5QEQPi6HiLGsO7UmkpfyaYNQ3D+rN6w6WfwH+nuqcGXWvawGwxOEroO4YGnFh95azw==",
+      "scope": "build-only",
+      "evidence": [],
+      "evidenceLevel": "lockfile-only; optional platform package not installed"
+    },
+    {
+      "name": "@esbuild/freebsd-arm64",
+      "version": "0.28.2",
+      "lockPath": "node_modules/@esbuild/freebsd-arm64",
+      "declaredLicense": "MIT",
+      "source": "https://registry.npmjs.org/@esbuild/freebsd-arm64/-/freebsd-arm64-0.28.2.tgz",
+      "integrity": "sha512-n+I0BTSRIoy+d6RPKnEVwql5UwBJolytvY4mAOIEJorKlqgPII8ix6slVVrfZ5Tnj7glIZvloylbB/EJPMWEXw==",
+      "scope": "build-only",
+      "evidence": [],
+      "evidenceLevel": "lockfile-only; optional platform package not installed"
+    },
+    {
+      "name": "@esbuild/freebsd-x64",
+      "version": "0.28.2",
+      "lockPath": "node_modules/@esbuild/freebsd-x64",
+      "declaredLicense": "MIT",
+      "source": "https://registry.npmjs.org/@esbuild/freebsd-x64/-/freebsd-x64-0.28.2.tgz",
+      "integrity": "sha512-78XJTJkvPs0kz2w61301PJjXl4g7q3JqiYMZ/M/yVI73EHBrCRTgkhu9oqG7vPqq+a/yadEW8aD+agKlk5xrmg==",
+      "scope": "build-only",
+      "evidence": [],
+      "evidenceLevel": "lockfile-only; optional platform package not installed"
+    },
+    {
+      "name": "@esbuild/linux-arm",
+      "version": "0.28.2",
+      "lockPath": "node_modules/@esbuild/linux-arm",
+      "declaredLicense": "MIT",
+      "source": "https://registry.npmjs.org/@esbuild/linux-arm/-/linux-arm-0.28.2.tgz",
+      "integrity": "sha512-XlDnu2q5yoqems+xay6wSAcg9DDD7K9RLKZEBOMZm3ckNpJBvOX20tSfby8KfrrhINDyv9V2YVZKY/SpoGJI8w==",
+      "scope": "build-only",
+      "evidence": [],
+      "evidenceLevel": "lockfile-only; optional platform package not installed"
+    },
+    {
+      "name": "@esbuild/linux-arm64",
+      "version": "0.28.2",
+      "lockPath": "node_modules/@esbuild/linux-arm64",
+      "declaredLicense": "MIT",
+      "source": "https://registry.npmjs.org/@esbuild/linux-arm64/-/linux-arm64-0.28.2.tgz",
+      "integrity": "sha512-pW4AC0P3it8c7do9MVM4p51FzHzdM/TZrerurgRcHJ2WTa1VQ1CIq18xncfpBJw4ojkiZZrKW2yIBWBP92j6Ug==",
+      "scope": "build-only",
+      "evidence": [],
+      "evidenceLevel": "lockfile-only; optional platform package not installed"
+    },
+    {
+      "name": "@esbuild/linux-ia32",
+      "version": "0.28.2",
+      "lockPath": "node_modules/@esbuild/linux-ia32",
+      "declaredLicense": "MIT",
+      "source": "https://registry.npmjs.org/@esbuild/linux-ia32/-/linux-ia32-0.28.2.tgz",
+      "integrity": "sha512-CYbnj78HsIeA+DhgUKgFCfvNsTHFhMMrinUrMZpDXJXKN8T3XViTZ/+wtHeVxEWY8ewSzTFN+nRmSwO2tZaLUQ==",
+      "scope": "build-only",
+      "evidence": [],
+      "evidenceLevel": "lockfile-only; optional platform package not installed"
+    },
+    {
+      "name": "@esbuild/linux-loong64",
+      "version": "0.28.2",
+      "lockPath": "node_modules/@esbuild/linux-loong64",
+      "declaredLicense": "MIT",
+      "source": "https://registry.npmjs.org/@esbuild/linux-loong64/-/linux-loong64-0.28.2.tgz",
+      "integrity": "sha512-buwkd8nsph4R+ajRvw0qM5Hja/TXQow3ptzWO2EbG/cqcIkHloRrdlBtQlshyYGTNFvfkfJ5tpPLVkY4DtsPfQ==",
+      "scope": "build-only",
+      "evidence": [],
+      "evidenceLevel": "lockfile-only; optional platform package not installed"
+    },
+    {
+      "name": "@esbuild/linux-mips64el",
+      "version": "0.28.2",
+      "lockPath": "node_modules/@esbuild/linux-mips64el",
+      "declaredLicense": "MIT",
+      "source": "https://registry.npmjs.org/@esbuild/linux-mips64el/-/linux-mips64el-0.28.2.tgz",
+      "integrity": "sha512-ZVykbDyk7519VwiNb9Lcj9m8XM6v5V9uKPvrEMkkEedVewf+0itkhahp4HDpgERXhwLRpWFypsGbG/J8s0QjJA==",
+      "scope": "build-only",
+      "evidence": [],
+      "evidenceLevel": "lockfile-only; optional platform package not installed"
+    },
+    {
+      "name": "@esbuild/linux-ppc64",
+      "version": "0.28.2",
+      "lockPath": "node_modules/@esbuild/linux-ppc64",
+      "declaredLicense": "MIT",
+      "source": "https://registry.npmjs.org/@esbuild/linux-ppc64/-/linux-ppc64-0.28.2.tgz",
+      "integrity": "sha512-CAXl+Dtd9UUuJd8pKKdwh6MLm3MUMiqMPmhZ3tTSXPqfyQ3vDl6R5hZdZ/kYojK4ofXtdfSv1tFq8XzWx3heNQ==",
+      "scope": "build-only",
+      "evidence": [],
+      "evidenceLevel": "lockfile-only; optional platform package not installed"
+    },
+    {
+      "name": "@esbuild/linux-riscv64",
+      "version": "0.28.2",
+      "lockPath": "node_modules/@esbuild/linux-riscv64",
+      "declaredLicense": "MIT",
+      "source": "https://registry.npmjs.org/@esbuild/linux-riscv64/-/linux-riscv64-0.28.2.tgz",
+      "integrity": "sha512-GeXCej4IQtU1B+QlDV8W/RRvbzI3O/Stss+/bCXv4lZls5WGRtu2a+3JkA3i4qIUlMXpcHebWpF8AkJhATowuA==",
+      "scope": "build-only",
+      "evidence": [],
+      "evidenceLevel": "lockfile-only; optional platform package not installed"
+    },
+    {
+      "name": "@esbuild/linux-s390x",
+      "version": "0.28.2",
+      "lockPath": "node_modules/@esbuild/linux-s390x",
+      "declaredLicense": "MIT",
+      "source": "https://registry.npmjs.org/@esbuild/linux-s390x/-/linux-s390x-0.28.2.tgz",
+      "integrity": "sha512-3H1weTYZPxt/WOhByszQZybS9w5lKzUn1FDMsgEChbHWQwHYQQRfBxgCcZvPhjHfKyJjIievvMmEUawJrdY9Dg==",
+      "scope": "build-only",
+      "evidence": [],
+      "evidenceLevel": "lockfile-only; optional platform package not installed"
+    },
+    {
+      "name": "@esbuild/linux-x64",
+      "version": "0.28.2",
+      "lockPath": "node_modules/@esbuild/linux-x64",
+      "declaredLicense": "MIT",
+      "source": "https://registry.npmjs.org/@esbuild/linux-x64/-/linux-x64-0.28.2.tgz",
+      "integrity": "sha512-4xTZr1FUmSoQW4XIWmit3tzQrUTZM+N3P0XV8xROKYF50XfI7xeO90+1bZvNwxIufQ9hDQVRJH5YhgPVF8A/HQ==",
+      "scope": "build-only",
+      "evidence": [],
+      "evidenceLevel": "package-declaration; see report for additional source evidence"
+    },
+    {
+      "name": "@esbuild/netbsd-arm64",
+      "version": "0.28.2",
+      "lockPath": "node_modules/@esbuild/netbsd-arm64",
+      "declaredLicense": "MIT",
+      "source": "https://registry.npmjs.org/@esbuild/netbsd-arm64/-/netbsd-arm64-0.28.2.tgz",
+      "integrity": "sha512-sSATRjPeDBg3pdgHoQfoYBob11Kk1FGa9lui5RIHZCoCkJa9QKlvl3/vKz2usCmYYjs7ymJR/2Nnsqe+Hjt5nw==",
+      "scope": "build-only",
+      "evidence": [],
+      "evidenceLevel": "lockfile-only; optional platform package not installed"
+    },
+    {
+      "name": "@esbuild/netbsd-x64",
+      "version": "0.28.2",
+      "lockPath": "node_modules/@esbuild/netbsd-x64",
+      "declaredLicense": "MIT",
+      "source": "https://registry.npmjs.org/@esbuild/netbsd-x64/-/netbsd-x64-0.28.2.tgz",
+      "integrity": "sha512-lqnzCV+mM0gIADaKihiCg6ifgfU2L3h5E33rNQBN1Y4MaVGnzryzmvvf7UHxprpQdE8hpqLolJ9Rl+SkIRDpyw==",
+      "scope": "build-only",
+      "evidence": [],
+      "evidenceLevel": "lockfile-only; optional platform package not installed"
+    },
+    {
+      "name": "@esbuild/openbsd-arm64",
+      "version": "0.28.2",
+      "lockPath": "node_modules/@esbuild/openbsd-arm64",
+      "declaredLicense": "MIT",
+      "source": "https://registry.npmjs.org/@esbuild/openbsd-arm64/-/openbsd-arm64-0.28.2.tgz",
+      "integrity": "sha512-AL2qJILH7lNjrDmCQDvdxMfAUIv8KMNZOvrwAQ8i8//ntL9FflhOyMJ8OZSMBb8/AWXe3/5v5S20y3zCoZWKoQ==",
+      "scope": "build-only",
+      "evidence": [],
+      "evidenceLevel": "lockfile-only; optional platform package not installed"
+    },
+    {
+      "name": "@esbuild/openbsd-x64",
+      "version": "0.28.2",
+      "lockPath": "node_modules/@esbuild/openbsd-x64",
+      "declaredLicense": "MIT",
+      "source": "https://registry.npmjs.org/@esbuild/openbsd-x64/-/openbsd-x64-0.28.2.tgz",
+      "integrity": "sha512-QtiuPytchRyC4rwUKhexJdQKvDuZ6hWloi3igqPQNUJCS1/v9EiO3UTOXR6A3FoMo4fnAKbWJdqaIwhOzh8qEw==",
+      "scope": "build-only",
+      "evidence": [],
+      "evidenceLevel": "lockfile-only; optional platform package not installed"
+    },
+    {
+      "name": "@esbuild/openharmony-arm64",
+      "version": "0.28.2",
+      "lockPath": "node_modules/@esbuild/openharmony-arm64",
+      "declaredLicense": "MIT",
+      "source": "https://registry.npmjs.org/@esbuild/openharmony-arm64/-/openharmony-arm64-0.28.2.tgz",
+      "integrity": "sha512-WkhYDmpTjLvGlScA1rwjRUmhl4k8oXR3cIbtqWmELgU/dFeHHlEllxDvdWcNJV9rbzCexB5vz8gtNewWLgCT7Q==",
+      "scope": "build-only",
+      "evidence": [],
+      "evidenceLevel": "lockfile-only; optional platform package not installed"
+    },
+    {
+      "name": "@esbuild/sunos-x64",
+      "version": "0.28.2",
+      "lockPath": "node_modules/@esbuild/sunos-x64",
+      "declaredLicense": "MIT",
+      "source": "https://registry.npmjs.org/@esbuild/sunos-x64/-/sunos-x64-0.28.2.tgz",
+      "integrity": "sha512-GPMSkTOtMnv2U2F8gxe4Io6qmVs+YKyp832Etqqxr0hFngmXQ3rzwytelm3GIn7T4VviRUlf3sOgBOiTdvaf7g==",
+      "scope": "build-only",
+      "evidence": [],
+      "evidenceLevel": "lockfile-only; optional platform package not installed"
+    },
+    {
+      "name": "@esbuild/win32-arm64",
+      "version": "0.28.2",
+      "lockPath": "node_modules/@esbuild/win32-arm64",
+      "declaredLicense": "MIT",
+      "source": "https://registry.npmjs.org/@esbuild/win32-arm64/-/win32-arm64-0.28.2.tgz",
+      "integrity": "sha512-PIhhEkE9uPBleRBrQEJpUn7MBnibZzbGzYWPmY3x+YoVg/95zbjB4CxPPOQ8l5tYYM4mMaCthF8/1DIfBQQyWQ==",
+      "scope": "build-only",
+      "evidence": [],
+      "evidenceLevel": "lockfile-only; optional platform package not installed"
+    },
+    {
+      "name": "@esbuild/win32-ia32",
+      "version": "0.28.2",
+      "lockPath": "node_modules/@esbuild/win32-ia32",
+      "declaredLicense": "MIT",
+      "source": "https://registry.npmjs.org/@esbuild/win32-ia32/-/win32-ia32-0.28.2.tgz",
+      "integrity": "sha512-YmJbfTlvU7Sdn9BB+4PRES4oB6pxgS37MAONj+hBr/cpXS1aBPKXxNnDbu+QCWPj0o9dgyxeq79g6c5P8KeuYA==",
+      "scope": "build-only",
+      "evidence": [],
+      "evidenceLevel": "lockfile-only; optional platform package not installed"
+    },
+    {
+      "name": "@esbuild/win32-x64",
+      "version": "0.28.2",
+      "lockPath": "node_modules/@esbuild/win32-x64",
+      "declaredLicense": "MIT",
+      "source": "https://registry.npmjs.org/@esbuild/win32-x64/-/win32-x64-0.28.2.tgz",
+      "integrity": "sha512-5ebpxr3nWMzrL/rnUI755Jkuee0bHL/Gq0WTF9lvcpv73wAp5eu8MfBUgWK9bhWvZjj7yX8etf/8tI8Ney695g==",
+      "scope": "build-only",
+      "evidence": [],
+      "evidenceLevel": "lockfile-only; optional platform package not installed"
+    },
+    {
+      "name": "@fal-works/esbuild-plugin-global-externals",
+      "version": "2.1.2",
+      "lockPath": "node_modules/@fal-works/esbuild-plugin-global-externals",
+      "declaredLicense": "MIT",
+      "source": "https://registry.npmjs.org/@fal-works/esbuild-plugin-global-externals/-/esbuild-plugin-global-externals-2.1.2.tgz",
+      "integrity": "sha512-cEee/Z+I12mZcFJshKcCqC8tuX5hG3s+d+9nZ3LabqKF1vKdF41B92pJVCBggjAGORAeOzyyDDKrZwIkLffeOQ==",
+      "scope": "build-only",
+      "evidence": [
+        {
+          "file": "LICENSE",
+          "sha256": "1a29a07abf58117fc0ec938e5d8d523b6cf920e1aaa981a203afd72ff3441051"
+        }
+      ],
+      "evidenceLevel": "package-license-files"
+    },
+    {
+      "name": "@jgoz/esbuild-plugin-typecheck",
+      "version": "4.0.4",
+      "lockPath": "node_modules/@jgoz/esbuild-plugin-typecheck",
+      "declaredLicense": "MIT",
+      "source": "https://registry.npmjs.org/@jgoz/esbuild-plugin-typecheck/-/esbuild-plugin-typecheck-4.0.4.tgz",
+      "integrity": "sha512-ca38NAWnE/GchWjO5m7Wbny+yMOsYkoJOboQGheCjnnu5uDxqQWJSIegN+C+CWl8K/1naI/cMfTrAfDH1oRoVQ==",
+      "scope": "build-only",
+      "evidence": [
+        {
+          "file": "LICENSE",
+          "sha256": "aadf20d51eb71fb8e21ff873fbe9e56701bb4ca559e9f4d6c5370bd9571a4b38"
+        }
+      ],
+      "evidenceLevel": "package-license-files"
+    },
+    {
+      "name": "@microsoft/msfs-sdk",
+      "version": "2.1.1",
+      "lockPath": "node_modules/@microsoft/msfs-sdk",
+      "declaredLicense": "MIT",
+      "source": "file:../vendor/microsoft-msfs-sdk-2.1.1.tgz",
+      "integrity": "sha512-PsdlZdZXJke2PAYMclLvtdRnChp3rJaKgqJ35HgBE4k9BoTId3rp/ZyiZtlCUtBaSVGfuop/kEVZa4w/iEc8ew==",
+      "scope": "vendored-source; simulator-provided runtime",
+      "evidence": [],
+      "assessment": "MIT package declaration conflicts with restrictive upstream root license; see audit R2.",
+      "evidenceLevel": "package-declaration; see report for additional source evidence"
+    },
+    {
+      "name": "@microsoft/msfs-types",
+      "version": "1.14.6",
+      "lockPath": "node_modules/@microsoft/msfs-types",
+      "declaredLicense": "MIT",
+      "source": "https://registry.npmjs.org/@microsoft/msfs-types/-/msfs-types-1.14.6.tgz",
+      "integrity": "sha512-p2dmrxMpnurr7lOFRKjLCysxR6bb+MWJmRvYQkaExq7qBc8bu98WgI14X8W+pf2g0rlH69cN+uP9Kvz/dnPDuw==",
+      "scope": "types-only",
+      "evidence": [],
+      "assessment": "MIT package declaration; exact-version license text not present; see audit R2.",
+      "evidenceLevel": "package-declaration; see report for additional source evidence"
+    },
+    {
+      "name": "@nodelib/fs.scandir",
+      "version": "2.1.5",
+      "lockPath": "node_modules/@nodelib/fs.scandir",
+      "declaredLicense": "MIT",
+      "source": "https://registry.npmjs.org/@nodelib/fs.scandir/-/fs.scandir-2.1.5.tgz",
+      "integrity": "sha512-vq24Bq3ym5HEQm2NKCr3yXDwjc7vTsEThRDnkp2DK9p1uqLR+DHurm/NOTo0KG7HYHU7eppKZj3MyqYuMBf62g==",
+      "scope": "build-only",
+      "evidence": [
+        {
+          "file": "LICENSE",
+          "sha256": "9363d160bf41d46d83901a5d24fc3fe2094c2afc17b4a2378914b273977ee2de"
+        }
+      ],
+      "evidenceLevel": "package-license-files"
+    },
+    {
+      "name": "@nodelib/fs.stat",
+      "version": "2.0.5",
+      "lockPath": "node_modules/@nodelib/fs.stat",
+      "declaredLicense": "MIT",
+      "source": "https://registry.npmjs.org/@nodelib/fs.stat/-/fs.stat-2.0.5.tgz",
+      "integrity": "sha512-RkhPPp2zrqDAQA/2jNhnztcPAlv64XdhIp7a7454A5ovI7Bukxgt7MX7udwAu3zg1DcpPU0rz3VV1SeaqvY4+A==",
+      "scope": "build-only",
+      "evidence": [
+        {
+          "file": "LICENSE",
+          "sha256": "9363d160bf41d46d83901a5d24fc3fe2094c2afc17b4a2378914b273977ee2de"
+        }
+      ],
+      "evidenceLevel": "package-license-files"
+    },
+    {
+      "name": "@nodelib/fs.walk",
+      "version": "1.2.8",
+      "lockPath": "node_modules/@nodelib/fs.walk",
+      "declaredLicense": "MIT",
+      "source": "https://registry.npmjs.org/@nodelib/fs.walk/-/fs.walk-1.2.8.tgz",
+      "integrity": "sha512-oGB+UxlgWcgQkgwo8GcEGwemoTFt3FIO9ababBmaGwXIoBKZ+GTy0pP185beGg7Llih/NSHSV2XAs1lnznocSg==",
+      "scope": "build-only",
+      "evidence": [
+        {
+          "file": "LICENSE",
+          "sha256": "9363d160bf41d46d83901a5d24fc3fe2094c2afc17b4a2378914b273977ee2de"
+        }
+      ],
+      "evidenceLevel": "package-license-files"
+    },
+    {
+      "name": "@parcel/watcher",
+      "version": "2.6.0",
+      "lockPath": "node_modules/@parcel/watcher",
+      "declaredLicense": "MIT",
+      "source": "https://registry.npmjs.org/@parcel/watcher/-/watcher-2.6.0.tgz",
+      "integrity": "sha512-7FNeNl8NCE7aINx7WXiKQrPYZWC/hvrTsmk6zmxbI7LTXE7hVek/n8AfVgpe2y82zl3w0HvCHN0bVKMBoJcC0w==",
+      "scope": "build-only",
+      "evidence": [
+        {
+          "file": "LICENSE",
+          "sha256": "5cfba9d5711264d45a2431a53c79f597cef12720cc7c764db2602daa92d0bd2a"
+        }
+      ],
+      "evidenceLevel": "package-license-files"
+    },
+    {
+      "name": "@parcel/watcher-android-arm64",
+      "version": "2.6.0",
+      "lockPath": "node_modules/@parcel/watcher-android-arm64",
+      "declaredLicense": "MIT",
+      "source": "https://registry.npmjs.org/@parcel/watcher-android-arm64/-/watcher-android-arm64-2.6.0.tgz",
+      "integrity": "sha512-trgpLSCKRC/huFjXX/Smh+0sWe4+YtKfktIToiMl59ghz7z+qkH6kMvNnUbLyRs9N11t8l4svSCs1+5B3rOAhA==",
+      "scope": "build-only",
+      "evidence": [],
+      "evidenceLevel": "lockfile-only; optional platform package not installed"
+    },
+    {
+      "name": "@parcel/watcher-darwin-arm64",
+      "version": "2.6.0",
+      "lockPath": "node_modules/@parcel/watcher-darwin-arm64",
+      "declaredLicense": "MIT",
+      "source": "https://registry.npmjs.org/@parcel/watcher-darwin-arm64/-/watcher-darwin-arm64-2.6.0.tgz",
+      "integrity": "sha512-Y3QV0gl7Q1zbfueunkWIERICbEojQFCgpyG7YqOGNFLsckXyI1xu9mAIUpKY9QBYzBtSkN8dBPwd3yiAO9ovMw==",
+      "scope": "build-only",
+      "evidence": [],
+      "evidenceLevel": "lockfile-only; optional platform package not installed"
+    },
+    {
+      "name": "@parcel/watcher-darwin-x64",
+      "version": "2.6.0",
+      "lockPath": "node_modules/@parcel/watcher-darwin-x64",
+      "declaredLicense": "MIT",
+      "source": "https://registry.npmjs.org/@parcel/watcher-darwin-x64/-/watcher-darwin-x64-2.6.0.tgz",
+      "integrity": "sha512-Ohv6OpzhUfKYD7Beb8kDvG0jbIxORCYY1JRdZnaBtnjjkJxgD7ZVL0nw2sCYd0yTMKTvz3nnTnOF3cDifK+kvw==",
+      "scope": "build-only",
+      "evidence": [],
+      "evidenceLevel": "lockfile-only; optional platform package not installed"
+    },
+    {
+      "name": "@parcel/watcher-freebsd-x64",
+      "version": "2.6.0",
+      "lockPath": "node_modules/@parcel/watcher-freebsd-x64",
+      "declaredLicense": "MIT",
+      "source": "https://registry.npmjs.org/@parcel/watcher-freebsd-x64/-/watcher-freebsd-x64-2.6.0.tgz",
+      "integrity": "sha512-5HmXvDgs8VK+74jF9y9/2FE3/OnlcKmc56tjmSrEuZjpSZOGL+fvAu+HKJBdPs9uwoP2hE6TlSUpXZ/C5jUFmQ==",
+      "scope": "build-only",
+      "evidence": [],
+      "evidenceLevel": "lockfile-only; optional platform package not installed"
+    },
+    {
+      "name": "@parcel/watcher-linux-arm-glibc",
+      "version": "2.6.0",
+      "lockPath": "node_modules/@parcel/watcher-linux-arm-glibc",
+      "declaredLicense": "MIT",
+      "source": "https://registry.npmjs.org/@parcel/watcher-linux-arm-glibc/-/watcher-linux-arm-glibc-2.6.0.tgz",
+      "integrity": "sha512-Ps/hui3A+vMbjdqlqAowK2ZL8+BO8dBjxeWXj6npTBs3jx4wWmbPpaLuqwrQrSqIVMCnpWo238bJ1U37GhQOYg==",
+      "scope": "build-only",
+      "evidence": [],
+      "evidenceLevel": "lockfile-only; optional platform package not installed"
+    },
+    {
+      "name": "@parcel/watcher-linux-arm-musl",
+      "version": "2.6.0",
+      "lockPath": "node_modules/@parcel/watcher-linux-arm-musl",
+      "declaredLicense": "MIT",
+      "source": "https://registry.npmjs.org/@parcel/watcher-linux-arm-musl/-/watcher-linux-arm-musl-2.6.0.tgz",
+      "integrity": "sha512-9c6AUHgHoG+IY88MRIHupztQiQnrbqHYQjkM2btA+Bf/wQnQMuiD0Wfk1EVv3TlNT3x41uU71rn6E4xh/+zvkw==",
+      "scope": "build-only",
+      "evidence": [],
+      "evidenceLevel": "lockfile-only; optional platform package not installed"
+    },
+    {
+      "name": "@parcel/watcher-linux-arm64-glibc",
+      "version": "2.6.0",
+      "lockPath": "node_modules/@parcel/watcher-linux-arm64-glibc",
+      "declaredLicense": "MIT",
+      "source": "https://registry.npmjs.org/@parcel/watcher-linux-arm64-glibc/-/watcher-linux-arm64-glibc-2.6.0.tgz",
+      "integrity": "sha512-yHRqS2owEXe6Hic9z6Mh1ECsCd+ODVOGvZDyciqRd21+v+o+DnXMOrw50DSpIG2sb8GPEaPPmfeCAWKPJdq46g==",
+      "scope": "build-only",
+      "evidence": [],
+      "evidenceLevel": "lockfile-only; optional platform package not installed"
+    },
+    {
+      "name": "@parcel/watcher-linux-arm64-musl",
+      "version": "2.6.0",
+      "lockPath": "node_modules/@parcel/watcher-linux-arm64-musl",
+      "declaredLicense": "MIT",
+      "source": "https://registry.npmjs.org/@parcel/watcher-linux-arm64-musl/-/watcher-linux-arm64-musl-2.6.0.tgz",
+      "integrity": "sha512-WhB2e/V7rqdHHWZusBSPuy5Ei8S6lSz6FE5TKKQz5h3a0O+C+mhY7vxU9b/stqvMb8beLnPY82ZrFTLKs+SrKA==",
+      "scope": "build-only",
+      "evidence": [],
+      "evidenceLevel": "lockfile-only; optional platform package not installed"
+    },
+    {
+      "name": "@parcel/watcher-linux-x64-glibc",
+      "version": "2.6.0",
+      "lockPath": "node_modules/@parcel/watcher-linux-x64-glibc",
+      "declaredLicense": "MIT",
+      "source": "https://registry.npmjs.org/@parcel/watcher-linux-x64-glibc/-/watcher-linux-x64-glibc-2.6.0.tgz",
+      "integrity": "sha512-ulGE6x6Oz6iAwg75T8YQSoguBWasniIbX+QWpaYPcCnDOpdWX3k+4xbEYPZVLxOuoJI+svJJPD3sEj8G7lrQ3A==",
+      "scope": "build-only",
+      "evidence": [
+        {
+          "file": "LICENSE",
+          "sha256": "5cfba9d5711264d45a2431a53c79f597cef12720cc7c764db2602daa92d0bd2a"
+        }
+      ],
+      "evidenceLevel": "package-license-files"
+    },
+    {
+      "name": "@parcel/watcher-linux-x64-musl",
+      "version": "2.6.0",
+      "lockPath": "node_modules/@parcel/watcher-linux-x64-musl",
+      "declaredLicense": "MIT",
+      "source": "https://registry.npmjs.org/@parcel/watcher-linux-x64-musl/-/watcher-linux-x64-musl-2.6.0.tgz",
+      "integrity": "sha512-tkBYKt7YQrjIJWYDnto2YgO8MRkjlMTSNoRHzsXinBqbLdeOM3L32wPZJvIZxqaLMfSlS/4sUjH/6STVP/XDLw==",
+      "scope": "build-only",
+      "evidence": [],
+      "evidenceLevel": "lockfile-only; optional platform package not installed"
+    },
+    {
+      "name": "@parcel/watcher-win32-arm64",
+      "version": "2.6.0",
+      "lockPath": "node_modules/@parcel/watcher-win32-arm64",
+      "declaredLicense": "MIT",
+      "source": "https://registry.npmjs.org/@parcel/watcher-win32-arm64/-/watcher-win32-arm64-2.6.0.tgz",
+      "integrity": "sha512-gIZAP23jaHjGWasY/TY6yL7NHFClf0Ga7FN+iINvk+KN94rhm94lYZhFsbYFNcA04/onvGD9kKmiJLJB2HbNwQ==",
+      "scope": "build-only",
+      "evidence": [],
+      "evidenceLevel": "lockfile-only; optional platform package not installed"
+    },
+    {
+      "name": "@parcel/watcher-win32-x64",
+      "version": "2.6.0",
+      "lockPath": "node_modules/@parcel/watcher-win32-x64",
+      "declaredLicense": "MIT",
+      "source": "https://registry.npmjs.org/@parcel/watcher-win32-x64/-/watcher-win32-x64-2.6.0.tgz",
+      "integrity": "sha512-cA+/pXV2YkfxlIcXOQ5fSWqAzzPyD78/x5qbK/I0vUkrlYHA8TIz+MXjAbGouguKVSI4bOmkTSJ1/poVSsgt+A==",
+      "scope": "build-only",
+      "evidence": [],
+      "evidenceLevel": "lockfile-only; optional platform package not installed"
+    },
+    {
+      "name": "picomatch",
+      "version": "4.0.7",
+      "lockPath": "node_modules/@parcel/watcher/node_modules/picomatch",
+      "declaredLicense": "MIT",
+      "source": "https://registry.npmjs.org/picomatch/-/picomatch-4.0.7.tgz",
+      "integrity": "sha512-qcJu88Q2IWqJsDD529JKMdwGm/dvInW4HvQnRwiH9JtihJvzGOscDtHE3x1pBKeUOTysQ8kVmLnJ2kJu7yhcGA==",
+      "scope": "build-only",
+      "evidence": [
+        {
+          "file": "LICENSE",
+          "sha256": "d0cd141b0c322fded5dfad1d4645bb2fedfc05b7321fe1009469638190d59ef9"
+        }
+      ],
+      "evidenceLevel": "package-license-files"
+    },
+    {
+      "name": "@types/node",
+      "version": "18.19.130",
+      "lockPath": "node_modules/@types/node",
+      "declaredLicense": "MIT",
+      "source": "https://registry.npmjs.org/@types/node/-/node-18.19.130.tgz",
+      "integrity": "sha512-GRaXQx6jGfL8sKfaIDD6OupbIHBr9jv7Jnaml9tB7l4v068PAOXqfcujMMo5PhbIs6ggR1XODELqahT2R8v0fg==",
+      "scope": "build-only",
+      "evidence": [
+        {
+          "file": "LICENSE",
+          "sha256": "c2cfccb812fe482101a8f04597dfc5a9991a6b2748266c47ac91b6a5aae15383"
+        }
+      ],
+      "evidenceLevel": "package-license-files"
+    },
+    {
+      "name": "ansi-styles",
+      "version": "4.3.0",
+      "lockPath": "node_modules/ansi-styles",
+      "declaredLicense": "MIT",
+      "source": "https://registry.npmjs.org/ansi-styles/-/ansi-styles-4.3.0.tgz",
+      "integrity": "sha512-zbB9rCJAT1rbjiVDb2hqKFHNYLxgtk8NURxZ3IZwD3F6NtxbXZQCnnSi1Lkx+IDohdPlFp222wVALIheZJQSEg==",
+      "scope": "build-only",
+      "evidence": [
+        {
+          "file": "license",
+          "sha256": "48da2f39e100d4085767e94966b43f4fa95ff6a0698fba57ed460914e35f94a0"
+        }
+      ],
+      "evidenceLevel": "package-license-files"
+    },
+    {
+      "name": "anymatch",
+      "version": "3.1.3",
+      "lockPath": "node_modules/anymatch",
+      "declaredLicense": "ISC",
+      "source": "https://registry.npmjs.org/anymatch/-/anymatch-3.1.3.tgz",
+      "integrity": "sha512-KMReFUr0B4t+D+OBkjR3KYqvocp2XaSzO55UcB6mgQMd3KbcE+mWTyvVV7D/zsdEbNnV6acZUutkiHQXvTr1Rw==",
+      "scope": "build-only",
+      "evidence": [
+        {
+          "file": "LICENSE",
+          "sha256": "5a3b0007c4203f10fe11b3fe8747253eb994f135e10b73e1f88ada941af09c6e"
+        }
+      ],
+      "evidenceLevel": "package-license-files"
+    },
+    {
+      "name": "array-union",
+      "version": "2.1.0",
+      "lockPath": "node_modules/array-union",
+      "declaredLicense": "MIT",
+      "source": "https://registry.npmjs.org/array-union/-/array-union-2.1.0.tgz",
+      "integrity": "sha512-HGyxoOTYUyCM6stUe6EJgnd4EoewAI7zMdfqO+kGjnlZmBDz/cR5pf8r/cR4Wq60sL/p0IkcjUEEPwS3GFrIyw==",
+      "scope": "build-only",
+      "evidence": [
+        {
+          "file": "license",
+          "sha256": "48da2f39e100d4085767e94966b43f4fa95ff6a0698fba57ed460914e35f94a0"
+        }
+      ],
+      "evidenceLevel": "package-license-files"
+    },
+    {
+      "name": "balanced-match",
+      "version": "1.0.2",
+      "lockPath": "node_modules/balanced-match",
+      "declaredLicense": "MIT",
+      "source": "https://registry.npmjs.org/balanced-match/-/balanced-match-1.0.2.tgz",
+      "integrity": "sha512-3oSeUO0TMV67hN1AmbXsK4yaqU7tjiHlbxRDZOpH0KW9+CeX4bRAaX0Anxt0tx2MrpRpWwQaPwIlISEJhYU5Pw==",
+      "scope": "build-only",
+      "evidence": [
+        {
+          "file": "LICENSE.md",
+          "sha256": "a1bd5deadb6a06dd74efa852c1b8b23f63b67f2214fbe9c8bd591da51da69268"
+        }
+      ],
+      "evidenceLevel": "package-license-files"
+    },
+    {
+      "name": "binary-extensions",
+      "version": "2.3.0",
+      "lockPath": "node_modules/binary-extensions",
+      "declaredLicense": "MIT",
+      "source": "https://registry.npmjs.org/binary-extensions/-/binary-extensions-2.3.0.tgz",
+      "integrity": "sha512-Ceh+7ox5qe7LJuLHoY0feh3pHuUDHAcRUeyL2VYghZwfpkNIy/+8Ocg0a3UuSoYzavmylwuLWQOf3hl0jjMMIw==",
+      "scope": "build-only",
+      "evidence": [
+        {
+          "file": "license",
+          "sha256": "96f0820026bd6dadc4af99c6dba7111d2e0190c092c376a746c13863e151d072"
+        }
+      ],
+      "evidenceLevel": "package-license-files"
+    },
+    {
+      "name": "brace-expansion",
+      "version": "1.1.18",
+      "lockPath": "node_modules/brace-expansion",
+      "declaredLicense": "MIT",
+      "source": "https://registry.npmjs.org/brace-expansion/-/brace-expansion-1.1.18.tgz",
+      "integrity": "sha512-Edep/X9fGqVNmzKBVsDYIOtD+z1tuezV70LBjdCst9Tqu76lsnvRiZ6oTic1n+/BIwX6QDGAO94PN4N2SADvtw==",
+      "scope": "build-only",
+      "evidence": [
+        {
+          "file": "LICENSE",
+          "sha256": "68f12f6e2c33688699249c01d8f9623c534da20aa71989c57b061b7bc1676d14"
+        }
+      ],
+      "evidenceLevel": "package-license-files"
+    },
+    {
+      "name": "braces",
+      "version": "3.0.3",
+      "lockPath": "node_modules/braces",
+      "declaredLicense": "MIT",
+      "source": "https://registry.npmjs.org/braces/-/braces-3.0.3.tgz",
+      "integrity": "sha512-yQbXgO/OSZVD2IsiLlro+7Hf6Q18EJrKSEsdoMzKePKXct3gvD8oLcOQdIzGupr5Fj+EDe8gO/lxc1BzfMpxvA==",
+      "scope": "build-only",
+      "evidence": [
+        {
+          "file": "LICENSE",
+          "sha256": "35bdd8a44339719441900fb50fbefc5e2dca1ca662cbaed7a687de842c8b70f2"
+        }
+      ],
+      "evidenceLevel": "package-license-files"
+    },
+    {
+      "name": "chalk",
+      "version": "4.1.2",
+      "lockPath": "node_modules/chalk",
+      "declaredLicense": "MIT",
+      "source": "https://registry.npmjs.org/chalk/-/chalk-4.1.2.tgz",
+      "integrity": "sha512-oKnbhFyRIXpUuez8iBMmyEa4nbj4IOQyuhc/wy9kY7/WVPcwIO9VA668Pu8RkO7+0G76SLROeyw9CpQ061i4mA==",
+      "scope": "build-only",
+      "evidence": [
+        {
+          "file": "license",
+          "sha256": "48da2f39e100d4085767e94966b43f4fa95ff6a0698fba57ed460914e35f94a0"
+        }
+      ],
+      "evidenceLevel": "package-license-files"
+    },
+    {
+      "name": "chokidar",
+      "version": "3.6.0",
+      "lockPath": "node_modules/chokidar",
+      "declaredLicense": "MIT",
+      "source": "https://registry.npmjs.org/chokidar/-/chokidar-3.6.0.tgz",
+      "integrity": "sha512-7VT13fmjotKpGipCW9JEQAusEPE+Ei8nl6/g4FBAmIm0GOOLMua9NDDo/DWp0ZAxCr3cPq5ZpBqmPAQgDda2Pw==",
+      "scope": "build-only",
+      "evidence": [
+        {
+          "file": "LICENSE",
+          "sha256": "db9ba183d4cbfbaf6c27db2effddbb84b46340c33ed32a066bc0b144a3ea1298"
+        }
+      ],
+      "evidenceLevel": "package-license-files"
+    },
+    {
+      "name": "color-convert",
+      "version": "2.0.1",
+      "lockPath": "node_modules/color-convert",
+      "declaredLicense": "MIT",
+      "source": "https://registry.npmjs.org/color-convert/-/color-convert-2.0.1.tgz",
+      "integrity": "sha512-RRECPsj7iu/xb5oKYcsFHSppFNnsj/52OVTRKb4zP5onXwVF3zVmmToNcOfGC+CRDpfK/U584fMg38ZHCaElKQ==",
+      "scope": "build-only",
+      "evidence": [
+        {
+          "file": "LICENSE",
+          "sha256": "693866fc419c6f61c8570438ec00659d156ec2b4d4a4d04091711f5f11a365d4"
+        }
+      ],
+      "evidenceLevel": "package-license-files"
+    },
+    {
+      "name": "color-name",
+      "version": "1.1.4",
+      "lockPath": "node_modules/color-name",
+      "declaredLicense": "MIT",
+      "source": "https://registry.npmjs.org/color-name/-/color-name-1.1.4.tgz",
+      "integrity": "sha512-dOy+3AuW3a2wNbZHIuMZpTcgjGuLU/uBL/ubcZF9OXbDo8ff4O8yVp5Bf0efS8uEoYo5q4Fx7dY9OgQGXgAsQA==",
+      "scope": "build-only",
+      "evidence": [
+        {
+          "file": "LICENSE",
+          "sha256": "c064f7a3e353bc1bc977f3c897941c75ef763f44f41677e0a15370ca0853d6e2"
+        }
+      ],
+      "evidenceLevel": "package-license-files"
+    },
+    {
+      "name": "colorjs.io",
+      "version": "0.7.1",
+      "lockPath": "node_modules/colorjs.io",
+      "declaredLicense": "MIT",
+      "source": "https://registry.npmjs.org/colorjs.io/-/colorjs.io-0.7.1.tgz",
+      "integrity": "sha512-LY7OHnJZxHwT5UlzNa9bbhHHDbzB6yE5+3MIPwJEQKRvSCt/T4G7epsj+9j2BExUIIfXFIJGsIXUKdfrK9Q5tA==",
+      "scope": "build-only",
+      "evidence": [
+        {
+          "file": "LICENSE",
+          "sha256": "feee8a4ec1649b385f3ec9ac73174501cbfc9d5a75171a056d94cb452d3f3ec3"
+        }
+      ],
+      "evidenceLevel": "package-license-files"
+    },
+    {
+      "name": "concat-map",
+      "version": "0.0.1",
+      "lockPath": "node_modules/concat-map",
+      "declaredLicense": "MIT",
+      "source": "https://registry.npmjs.org/concat-map/-/concat-map-0.0.1.tgz",
+      "integrity": "sha512-/Srv4dswyQNBfohGpz9o6Yb3Gz3SrUDqBH5rTuhGR7ahtlbYKnVxw2bCFMRljaA7EXHaXZ8wsHdodFvbkhKmqg==",
+      "scope": "build-only",
+      "evidence": [
+        {
+          "file": "LICENSE",
+          "sha256": "435a6722c786b0a56fbe7387028f1d9d3f3a2d0fb615bb8fee118727c3f59b7b"
+        }
+      ],
+      "evidenceLevel": "package-license-files"
+    },
+    {
+      "name": "cross-env",
+      "version": "7.0.3",
+      "lockPath": "node_modules/cross-env",
+      "declaredLicense": "MIT",
+      "source": "https://registry.npmjs.org/cross-env/-/cross-env-7.0.3.tgz",
+      "integrity": "sha512-+/HKd6EgcQCJGh2PSjZuUitQBQynKor4wrFbRg4DtAgS1aWO+gU52xpH7M9ScGgXSYmAVS9bIJ8EzuaGw0oNAw==",
+      "scope": "build-only",
+      "evidence": [
+        {
+          "file": "LICENSE",
+          "sha256": "bf8fd38056b7606deccfcadb4d8ca1c210082d8ef5513426d2650daedc30bed3"
+        }
+      ],
+      "evidenceLevel": "package-license-files"
+    },
+    {
+      "name": "cross-spawn",
+      "version": "7.0.6",
+      "lockPath": "node_modules/cross-spawn",
+      "declaredLicense": "MIT",
+      "source": "https://registry.npmjs.org/cross-spawn/-/cross-spawn-7.0.6.tgz",
+      "integrity": "sha512-uV2QOWP2nWzsy2aMp8aRibhi9dlzF5Hgh5SHaB9OiTGEyDTiJJyx0uy51QXdyWbtAHNua4XJzUKca3OzKUd3vA==",
+      "scope": "build-only",
+      "evidence": [
+        {
+          "file": "LICENSE",
+          "sha256": "aaa78451b6fecd1b9c4594c796c133c0e90cad100372ff8bc6de615e9ef9adf1"
+        }
+      ],
+      "evidenceLevel": "package-license-files"
+    },
+    {
+      "name": "cuint",
+      "version": "0.2.2",
+      "lockPath": "node_modules/cuint",
+      "declaredLicense": "MIT",
+      "source": "https://registry.npmjs.org/cuint/-/cuint-0.2.2.tgz",
+      "integrity": "sha512-d4ZVpCW31eWwCMe1YT3ur7mUDnTXbgwyzaL320DrcRT45rfjYxkt5QWLrmOJ+/UEAI2+fQgKe/fCjR8l4TpRgw==",
+      "scope": "build-only",
+      "evidence": [],
+      "evidenceLevel": "package-declaration; see report for additional source evidence"
+    },
+    {
+      "name": "detect-libc",
+      "version": "2.1.2",
+      "lockPath": "node_modules/detect-libc",
+      "declaredLicense": "Apache-2.0",
+      "source": "https://registry.npmjs.org/detect-libc/-/detect-libc-2.1.2.tgz",
+      "integrity": "sha512-Btj2BOOO83o3WyH59e8MgXsxEQVcarkUOpEYrubB0urwnN10yQ364rsiByU11nZlqWYZm05i/of7io4mzihBtQ==",
+      "scope": "build-only",
+      "evidence": [
+        {
+          "file": "LICENSE",
+          "sha256": "b40930bbcf80744c86c46a12bc9da056641d722716c378f5659b9e555ef833e1"
+        }
+      ],
+      "evidenceLevel": "package-license-files"
+    },
+    {
+      "name": "dir-glob",
+      "version": "3.0.1",
+      "lockPath": "node_modules/dir-glob",
+      "declaredLicense": "MIT",
+      "source": "https://registry.npmjs.org/dir-glob/-/dir-glob-3.0.1.tgz",
+      "integrity": "sha512-WkrWp9GR4KXfKGYzOLmTuGVi1UWFfws377n9cc55/tb6DuqyF6pcQ5AbiHEshaDpY9v6oaSr2XCDidGmMwdzIA==",
+      "scope": "build-only",
+      "evidence": [
+        {
+          "file": "license",
+          "sha256": "69dee148a2cc470554dfa7142e830662062394d0fe67cddd379aba90dc60d6b3"
+        }
+      ],
+      "evidenceLevel": "package-license-files"
+    },
+    {
+      "name": "dotenv",
+      "version": "16.6.1",
+      "lockPath": "node_modules/dotenv",
+      "declaredLicense": "BSD-2-Clause",
+      "source": "https://registry.npmjs.org/dotenv/-/dotenv-16.6.1.tgz",
+      "integrity": "sha512-uBq4egWHTcTt33a72vpSG0z3HnPuIl6NqYcTrKEg2azoEyl2hpW0zqlxysq2pK9HlDIHyHyakeYaYnSAwd8bow==",
+      "scope": "build-only",
+      "evidence": [
+        {
+          "file": "LICENSE",
+          "sha256": "74b629b24865e1e83c5277ee84590b7937644d6fd959d0c7bdce758676cd2ced"
+        }
+      ],
+      "evidenceLevel": "package-license-files"
+    },
+    {
+      "name": "es-errors",
+      "version": "1.3.0",
+      "lockPath": "node_modules/es-errors",
+      "declaredLicense": "MIT",
+      "source": "https://registry.npmjs.org/es-errors/-/es-errors-1.3.0.tgz",
+      "integrity": "sha512-Zf5H2Kxt2xjTvbJvP2ZWLEICxA6j+hAmMzIlypy4xcBg1vKVnx89Wy0GbS+kf5cwCVFFzdCFh2XSCFNULS6csw==",
+      "scope": "build-only",
+      "evidence": [
+        {
+          "file": "LICENSE",
+          "sha256": "5e325595b4ea8cfec3802f545b1def5d7b73e4a5b8e9ba63e32a320f67732292"
+        }
+      ],
+      "evidenceLevel": "package-license-files"
+    },
+    {
+      "name": "esbuild",
+      "version": "0.28.2",
+      "lockPath": "node_modules/esbuild",
+      "declaredLicense": "MIT",
+      "source": "https://registry.npmjs.org/esbuild/-/esbuild-0.28.2.tgz",
+      "integrity": "sha512-HKVLS8dvII+xoKW9kmqxbRKrnWEXfJJr/FZhhJmiqIB0e053QNYFqOBouTMO/k5sID4MvCiUCvv8b9M4h32wIA==",
+      "scope": "build-only",
+      "evidence": [
+        {
+          "file": "LICENSE.md",
+          "sha256": "b40ec5baec7bb34fa5b1c09521fa3cd52d5fad7adafed74932a2010d3612a681"
+        }
+      ],
+      "evidenceLevel": "package-license-files"
+    },
+    {
+      "name": "esbuild-copy-static-files",
+      "version": "0.1.0",
+      "lockPath": "node_modules/esbuild-copy-static-files",
+      "declaredLicense": "MIT",
+      "source": "https://registry.npmjs.org/esbuild-copy-static-files/-/esbuild-copy-static-files-0.1.0.tgz",
+      "integrity": "sha512-KlpmYqANA1t2nZavEdItfcOjJC6wbHA21v35HJWN32DddGTWKNNGDKljUzbCPojmpD+wAw8/DXr5abJ4jFCE0w==",
+      "scope": "build-only",
+      "evidence": [
+        {
+          "file": "LICENSE",
+          "sha256": "d6614da33eeded4212d7f3952d2742e138da6de52f65af822e7d4e756964e734"
+        }
+      ],
+      "evidenceLevel": "package-license-files"
+    },
+    {
+      "name": "esbuild-plugin-copy",
+      "version": "2.1.1",
+      "lockPath": "node_modules/esbuild-plugin-copy",
+      "declaredLicense": "MIT",
+      "source": "https://registry.npmjs.org/esbuild-plugin-copy/-/esbuild-plugin-copy-2.1.1.tgz",
+      "integrity": "sha512-Bk66jpevTcV8KMFzZI1P7MZKZ+uDcrZm2G2egZ2jNIvVnivDpodZI+/KnpL3Jnap0PBdIHU7HwFGB8r+vV5CVw==",
+      "scope": "build-only",
+      "evidence": [
+        {
+          "file": "LICENSE",
+          "sha256": "db92a38592da389769636101e53ed32199f3309419fd91977d95d8475075a390"
+        }
+      ],
+      "evidenceLevel": "package-license-files"
+    },
+    {
+      "name": "esbuild-sass-plugin",
+      "version": "3.7.0",
+      "lockPath": "node_modules/esbuild-sass-plugin",
+      "declaredLicense": "MIT",
+      "source": "https://registry.npmjs.org/esbuild-sass-plugin/-/esbuild-sass-plugin-3.7.0.tgz",
+      "integrity": "sha512-vxNSXFx3/0ZFApKo9036ek2iRfsT+yVO99qIYqa+JaDSuJuId2/N4s1TY+xfK+5LRpAMQkfdBVUTxb/1r2bq1A==",
+      "scope": "build-only",
+      "evidence": [
+        {
+          "file": "LICENSE",
+          "sha256": "d2cb09a1dca03b88d01df0d640fd5019378714c1ed93d6b58c7ab397eb88003d"
+        }
+      ],
+      "evidenceLevel": "package-license-files"
+    },
+    {
+      "name": "fast-glob",
+      "version": "3.3.3",
+      "lockPath": "node_modules/fast-glob",
+      "declaredLicense": "MIT",
+      "source": "https://registry.npmjs.org/fast-glob/-/fast-glob-3.3.3.tgz",
+      "integrity": "sha512-7MptL8U0cqcFdzIzwOTHoilX9x5BrNqye7Z/LuC7kCMRio1EMSyqRK3BEAUD7sXRq4iT4AzTVuZdhgQ2TCvYLg==",
+      "scope": "build-only",
+      "evidence": [
+        {
+          "file": "LICENSE",
+          "sha256": "9363d160bf41d46d83901a5d24fc3fe2094c2afc17b4a2378914b273977ee2de"
+        }
+      ],
+      "evidenceLevel": "package-license-files"
+    },
+    {
+      "name": "fastq",
+      "version": "1.20.3",
+      "lockPath": "node_modules/fastq",
+      "declaredLicense": "ISC",
+      "source": "https://registry.npmjs.org/fastq/-/fastq-1.20.3.tgz",
+      "integrity": "sha512-XKv5nnLs6nLF71NgiKJLIZFLkPyIEuOselLG7ujZnGrRfQK8HpvY+WqKhAJUAdLomwVHErVS4LfxFlPq0/FTAw==",
+      "scope": "build-only",
+      "evidence": [
+        {
+          "file": "LICENSE",
+          "sha256": "c3367f6d01a79d368fc4fbb41b3615fcd92f243d6597ab96742f6f976f9325af"
+        }
+      ],
+      "evidenceLevel": "package-license-files"
+    },
+    {
+      "name": "fill-range",
+      "version": "7.1.1",
+      "lockPath": "node_modules/fill-range",
+      "declaredLicense": "MIT",
+      "source": "https://registry.npmjs.org/fill-range/-/fill-range-7.1.1.tgz",
+      "integrity": "sha512-YsGpe3WHLK8ZYi4tWDg2Jy3ebRz2rXowDxnld4bkQB00cc/1Zw9AWnC0i9ztDJitivtQvaI9KaLyKrc+hBW0yg==",
+      "scope": "build-only",
+      "evidence": [
+        {
+          "file": "LICENSE",
+          "sha256": "35bdd8a44339719441900fb50fbefc5e2dca1ca662cbaed7a687de842c8b70f2"
+        }
+      ],
+      "evidenceLevel": "package-license-files"
+    },
+    {
+      "name": "fs-extra",
+      "version": "10.1.0",
+      "lockPath": "node_modules/fs-extra",
+      "declaredLicense": "MIT",
+      "source": "https://registry.npmjs.org/fs-extra/-/fs-extra-10.1.0.tgz",
+      "integrity": "sha512-oRXApq54ETRj4eMiFzGnHWGy+zo5raudjuxN0b8H7s/RU2oW0Wvsx9O0ACRN/kRq9E8Vu/ReskGB5o3ji+FzHQ==",
+      "scope": "build-only",
+      "evidence": [
+        {
+          "file": "LICENSE",
+          "sha256": "1e76029602ae9b21cc4e612db2496d92febed882ba13ba745f8b3309e85f9d39"
+        }
+      ],
+      "evidenceLevel": "package-license-files"
+    },
+    {
+      "name": "fsevents",
+      "version": "2.3.3",
+      "lockPath": "node_modules/fsevents",
+      "declaredLicense": "MIT",
+      "source": "https://registry.npmjs.org/fsevents/-/fsevents-2.3.3.tgz",
+      "integrity": "sha512-5xoDfX+fL7faATnagmWPpbFtwh/R77WmMMqqHGS65C3vvB0YHrgF+B1YmZ3441tMj5n63k0212XNoJwzlhffQw==",
+      "scope": "build-only",
+      "evidence": [],
+      "evidenceLevel": "lockfile-only; optional platform package not installed"
+    },
+    {
+      "name": "function-bind",
+      "version": "1.1.2",
+      "lockPath": "node_modules/function-bind",
+      "declaredLicense": "MIT",
+      "source": "https://registry.npmjs.org/function-bind/-/function-bind-1.1.2.tgz",
+      "integrity": "sha512-7XHNxH7qX9xG5mIwxkhumTox/MIRNcOgDrxWsMt2pAr23WHp6MrRlN7FBSFpCpr+oVO0F744iUgR82nJMfG2SA==",
+      "scope": "build-only",
+      "evidence": [
+        {
+          "file": "LICENSE",
+          "sha256": "773e131a7684726005a7e4688a80b4620033bc08499bc1404dd1a1eb3bca725e"
+        }
+      ],
+      "evidenceLevel": "package-license-files"
+    },
+    {
+      "name": "glob-parent",
+      "version": "5.1.2",
+      "lockPath": "node_modules/glob-parent",
+      "declaredLicense": "ISC",
+      "source": "https://registry.npmjs.org/glob-parent/-/glob-parent-5.1.2.tgz",
+      "integrity": "sha512-AOIgSQCepiJYwP3ARnGx+5VnTu2HBYdzbGP45eLw1vr3zB3vZLeyed1sC9hnbcOc9/SrMyM5RPQrkGz4aS9Zow==",
+      "scope": "build-only",
+      "evidence": [
+        {
+          "file": "LICENSE",
+          "sha256": "2c46f1325bd3822a33c1e2c1e49c18d13127ac00f9c8b3b79196c7a126f73cd9"
+        }
+      ],
+      "evidenceLevel": "package-license-files"
+    },
+    {
+      "name": "globby",
+      "version": "11.1.0",
+      "lockPath": "node_modules/globby",
+      "declaredLicense": "MIT",
+      "source": "https://registry.npmjs.org/globby/-/globby-11.1.0.tgz",
+      "integrity": "sha512-jhIXaOzy1sb8IyocaruWSn1TjmnBVs8Ayhcy83rmxNJ8q2uWKCAj3CnJY+KpGSXCueAPc0i05kVvVKtP1t9S3g==",
+      "scope": "build-only",
+      "evidence": [
+        {
+          "file": "license",
+          "sha256": "48da2f39e100d4085767e94966b43f4fa95ff6a0698fba57ed460914e35f94a0"
+        }
+      ],
+      "evidenceLevel": "package-license-files"
+    },
+    {
+      "name": "graceful-fs",
+      "version": "4.2.11",
+      "lockPath": "node_modules/graceful-fs",
+      "declaredLicense": "ISC",
+      "source": "https://registry.npmjs.org/graceful-fs/-/graceful-fs-4.2.11.tgz",
+      "integrity": "sha512-RbJ5/jmFcNNCcDV5o9eTnBLJ/HszWV0P73bc+Ff4nS/rJj+YaS6IGyiOL0VoBYX+l1Wrl3k63h/KrH+nhJ0XvQ==",
+      "scope": "build-only",
+      "evidence": [
+        {
+          "file": "LICENSE",
+          "sha256": "f65c5d9f22a317b2a10803bd1868461ce6499c2ed7217bc80c0cc772a748789c"
+        }
+      ],
+      "evidenceLevel": "package-license-files"
+    },
+    {
+      "name": "has-flag",
+      "version": "4.0.0",
+      "lockPath": "node_modules/has-flag",
+      "declaredLicense": "MIT",
+      "source": "https://registry.npmjs.org/has-flag/-/has-flag-4.0.0.tgz",
+      "integrity": "sha512-EykJT/Q1KjTWctppgIAgfSO0tKVuZUjhgMr17kqTumMl6Afv3EISleU7qZUzoXDFTAHTDC4NOoG/ZxU3EvlMPQ==",
+      "scope": "build-only",
+      "evidence": [
+        {
+          "file": "license",
+          "sha256": "48da2f39e100d4085767e94966b43f4fa95ff6a0698fba57ed460914e35f94a0"
+        }
+      ],
+      "evidenceLevel": "package-license-files"
+    },
+    {
+      "name": "hasown",
+      "version": "2.0.4",
+      "lockPath": "node_modules/hasown",
+      "declaredLicense": "MIT",
+      "source": "https://registry.npmjs.org/hasown/-/hasown-2.0.4.tgz",
+      "integrity": "sha512-T2UbfbBEF32wiepXIsMlTW9+dDYC6wMh/t/vYA4tuOMKqWz/n3vr1NFSxQiyP+zk2mXsoMA/i/7qV6LKut1t1A==",
+      "scope": "build-only",
+      "evidence": [
+        {
+          "file": "LICENSE",
+          "sha256": "bf9b0d665be2a689851eea667ca9f42066ea1d903b38349c51e6a44b2577680a"
+        }
+      ],
+      "evidenceLevel": "package-license-files"
+    },
+    {
+      "name": "ignore",
+      "version": "5.3.2",
+      "lockPath": "node_modules/ignore",
+      "declaredLicense": "MIT",
+      "source": "https://registry.npmjs.org/ignore/-/ignore-5.3.2.tgz",
+      "integrity": "sha512-hsBTNUqQTDwkWtcdYI2i06Y/nUBEsNEDJKjWdigLvegy8kDuJAS8uRlpkkcQpyEXL0Z/pjDy5HBmMjRCJ2gq+g==",
+      "scope": "build-only",
+      "evidence": [
+        {
+          "file": "LICENSE-MIT",
+          "sha256": "9c94db23dc4b1e9aaee5d195668b916afc71efed54af226b66cf0ccc4389c1c0"
+        }
+      ],
+      "evidenceLevel": "package-license-files"
+    },
+    {
+      "name": "immutable",
+      "version": "5.1.9",
+      "lockPath": "node_modules/immutable",
+      "declaredLicense": "MIT",
+      "source": "https://registry.npmjs.org/immutable/-/immutable-5.1.9.tgz",
+      "integrity": "sha512-m8nVez3rwrgmWxtLMt1ZYXB2Lv7OKYn/disyxAlSDYAlKSlFoPPfIAmAM/M5xqL4m4C/wAPw7S2/CNaUii1Hxg==",
+      "scope": "build-only",
+      "evidence": [
+        {
+          "file": "LICENSE",
+          "sha256": "784fd7232e106901065a329b285ff9ba9ad98ff08ac1932b45b53a0b954974c5"
+        }
+      ],
+      "evidenceLevel": "package-license-files"
+    },
+    {
+      "name": "is-binary-path",
+      "version": "2.1.0",
+      "lockPath": "node_modules/is-binary-path",
+      "declaredLicense": "MIT",
+      "source": "https://registry.npmjs.org/is-binary-path/-/is-binary-path-2.1.0.tgz",
+      "integrity": "sha512-ZMERYes6pDydyuGidse7OsHxtbI7WVeUEozgR/g7rd0xUimYNlvZRE/K2MgZTjWy725IfelLeVcEM97mmtRGXw==",
+      "scope": "build-only",
+      "evidence": [
+        {
+          "file": "license",
+          "sha256": "85fe65eefab89e2a683232b96e6f689279821a0bd3b351e9ab6a6ebd19dea567"
+        }
+      ],
+      "evidenceLevel": "package-license-files"
+    },
+    {
+      "name": "is-core-module",
+      "version": "2.16.2",
+      "lockPath": "node_modules/is-core-module",
+      "declaredLicense": "MIT",
+      "source": "https://registry.npmjs.org/is-core-module/-/is-core-module-2.16.2.tgz",
+      "integrity": "sha512-evOr8xfXKxE6qSR0hSXL2r3sd7ALj8+7jQEUvPYcm5sgZFdJ+AYzT6yNmJenvIYQBgIGwfwz08sL8zoL7yq2BA==",
+      "scope": "build-only",
+      "evidence": [
+        {
+          "file": "LICENSE",
+          "sha256": "5c496ce5ae47eb8e5ddcaa5e29c27c446a3855b19e3a66991b52f361bed22b28"
+        }
+      ],
+      "evidenceLevel": "package-license-files"
+    },
+    {
+      "name": "is-extglob",
+      "version": "2.1.1",
+      "lockPath": "node_modules/is-extglob",
+      "declaredLicense": "MIT",
+      "source": "https://registry.npmjs.org/is-extglob/-/is-extglob-2.1.1.tgz",
+      "integrity": "sha512-SbKbANkN603Vi4jEZv49LeVJMn4yGwsbzZworEoyEiutsN3nJYdbO36zfhGJ6QEDpOZIFkDtnq5JRxmvl3jsoQ==",
+      "scope": "build-only",
+      "evidence": [
+        {
+          "file": "LICENSE",
+          "sha256": "73b5283588baa142c5baaef5f56d3e8fdea7a30b214e8c5737e87640f882453a"
+        }
+      ],
+      "evidenceLevel": "package-license-files"
+    },
+    {
+      "name": "is-glob",
+      "version": "4.0.3",
+      "lockPath": "node_modules/is-glob",
+      "declaredLicense": "MIT",
+      "source": "https://registry.npmjs.org/is-glob/-/is-glob-4.0.3.tgz",
+      "integrity": "sha512-xelSayHH36ZgE7ZWhli7pW34hNbNl8Ojv5KVmkJD4hBdD3th8Tfk9vYasLM+mXWOZhFkgZfxhLSnrwRr4elSSg==",
+      "scope": "build-only",
+      "evidence": [
+        {
+          "file": "LICENSE",
+          "sha256": "4cd903859549d4b20b571041f96dfae1136ed079c476126268f9d7cc1b611150"
+        }
+      ],
+      "evidenceLevel": "package-license-files"
+    },
+    {
+      "name": "is-number",
+      "version": "7.0.0",
+      "lockPath": "node_modules/is-number",
+      "declaredLicense": "MIT",
+      "source": "https://registry.npmjs.org/is-number/-/is-number-7.0.0.tgz",
+      "integrity": "sha512-41Cifkg6e8TylSpdtTpeLVMqvSBEVzTttHvERD741+pnZ8ANv0004MRL43QKPDlK9cGvNp6NZWZUBlbGXYxxng==",
+      "scope": "build-only",
+      "evidence": [
+        {
+          "file": "LICENSE",
+          "sha256": "35bdd8a44339719441900fb50fbefc5e2dca1ca662cbaed7a687de842c8b70f2"
+        }
+      ],
+      "evidenceLevel": "package-license-files"
+    },
+    {
+      "name": "isexe",
+      "version": "2.0.0",
+      "lockPath": "node_modules/isexe",
+      "declaredLicense": "ISC",
+      "source": "https://registry.npmjs.org/isexe/-/isexe-2.0.0.tgz",
+      "integrity": "sha512-RHxMLp9lnKHGHRng9QFhRCMbYAcVpn69smSGcq3f36xjgVVWThj4qqLbTLlq7Ssj8B+fIQ1EuCEGI2lKsyQeIw==",
+      "scope": "build-only",
+      "evidence": [
+        {
+          "file": "LICENSE",
+          "sha256": "4ec3d4c66cd87f5c8d8ad911b10f99bf27cb00cdfcff82621956e379186b016b"
+        }
+      ],
+      "evidenceLevel": "package-license-files"
+    },
+    {
+      "name": "jsonfile",
+      "version": "6.2.1",
+      "lockPath": "node_modules/jsonfile",
+      "declaredLicense": "MIT",
+      "source": "https://registry.npmjs.org/jsonfile/-/jsonfile-6.2.1.tgz",
+      "integrity": "sha512-zwOTdL3rFQ/lRdBnntKVOX6k5cKJwEc1HdilT71BWEu7J41gXIB2MRp+vxduPSwZJPWBxEzv4yH1wYLJGUHX4Q==",
+      "scope": "build-only",
+      "evidence": [
+        {
+          "file": "LICENSE",
+          "sha256": "a9801fb52ba22ef808682a094da8a7a480584b7ed0dfd0d888ab543616335031"
+        }
+      ],
+      "evidenceLevel": "package-license-files"
+    },
+    {
+      "name": "make-dir",
+      "version": "3.1.0",
+      "lockPath": "node_modules/make-dir",
+      "declaredLicense": "MIT",
+      "source": "https://registry.npmjs.org/make-dir/-/make-dir-3.1.0.tgz",
+      "integrity": "sha512-g3FeP20LNwhALb/6Cz6Dd4F2ngze0jz7tbzrD2wAV+o9FeNHe4rL+yK2md0J/fiSf1sa1ADhXqi5+oVwOM/eGw==",
+      "scope": "build-only",
+      "evidence": [
+        {
+          "file": "license",
+          "sha256": "48da2f39e100d4085767e94966b43f4fa95ff6a0698fba57ed460914e35f94a0"
+        }
+      ],
+      "evidenceLevel": "package-license-files"
+    },
+    {
+      "name": "merge2",
+      "version": "1.4.1",
+      "lockPath": "node_modules/merge2",
+      "declaredLicense": "MIT",
+      "source": "https://registry.npmjs.org/merge2/-/merge2-1.4.1.tgz",
+      "integrity": "sha512-8q7VEgMJW4J8tcfVPy8g09NcQwZdbwFEqhe/WZkoIzjn/3TGDwtOCYtXGxA3O8tPzpczCCDgv+P2P5y00ZJOOg==",
+      "scope": "build-only",
+      "evidence": [
+        {
+          "file": "LICENSE",
+          "sha256": "b2590e53ea6e050512c3993bfc746c394bbba9242fd6909245201bdc1dc6862a"
+        }
+      ],
+      "evidenceLevel": "package-license-files"
+    },
+    {
+      "name": "micromatch",
+      "version": "4.0.8",
+      "lockPath": "node_modules/micromatch",
+      "declaredLicense": "MIT",
+      "source": "https://registry.npmjs.org/micromatch/-/micromatch-4.0.8.tgz",
+      "integrity": "sha512-PXwfBhYu0hBCPw8Dn0E+WDYb7af3dSLVWKi3HGv84IdF4TyFoC0ysxFd0Goxw7nSv4T/PzEJQxsYsEiFCKo2BA==",
+      "scope": "build-only",
+      "evidence": [
+        {
+          "file": "LICENSE",
+          "sha256": "35bdd8a44339719441900fb50fbefc5e2dca1ca662cbaed7a687de842c8b70f2"
+        }
+      ],
+      "evidenceLevel": "package-license-files"
+    },
+    {
+      "name": "mime",
+      "version": "2.5.2",
+      "lockPath": "node_modules/mime",
+      "declaredLicense": "MIT",
+      "source": "https://registry.npmjs.org/mime/-/mime-2.5.2.tgz",
+      "integrity": "sha512-tqkh47FzKeCPD2PUiPB6pkbMzsCasjxAfC62/Wap5qrUWcb+sFasXUC5I3gYM5iBM8v/Qpn4UK0x+j0iHyFPDg==",
+      "scope": "build-only",
+      "evidence": [
+        {
+          "file": "LICENSE",
+          "sha256": "8f2658c03422c408b2b2ce4d151decc3b1a6fd3d86e5ca9433777bccdcdf75a2"
+        }
+      ],
+      "evidenceLevel": "package-license-files"
+    },
+    {
+      "name": "minimatch",
+      "version": "3.1.5",
+      "lockPath": "node_modules/minimatch",
+      "declaredLicense": "ISC",
+      "source": "https://registry.npmjs.org/minimatch/-/minimatch-3.1.5.tgz",
+      "integrity": "sha512-VgjWUsnnT6n+NUk6eZq77zeFdpW2LWDzP6zFGrCbHXiYNul5Dzqk2HHQ5uFH2DNW5Xbp8+jVzaeNt94ssEEl4w==",
+      "scope": "build-only",
+      "evidence": [
+        {
+          "file": "LICENSE",
+          "sha256": "4ec3d4c66cd87f5c8d8ad911b10f99bf27cb00cdfcff82621956e379186b016b"
+        }
+      ],
+      "evidenceLevel": "package-license-files"
+    },
+    {
+      "name": "nanoid",
+      "version": "3.3.18",
+      "lockPath": "node_modules/nanoid",
+      "declaredLicense": "MIT",
+      "source": "https://registry.npmjs.org/nanoid/-/nanoid-3.3.18.tgz",
+      "integrity": "sha512-DTg4MJbGMWkfi6VZFdNt2/caMbQy4Ou+Op/hJQvGEWcnVfoA1QA+xzRKAzw9jD6+GVOOeYr/mIcuDSdug6F6+w==",
+      "scope": "build-only",
+      "evidence": [
+        {
+          "file": "LICENSE",
+          "sha256": "da4db1480d9beea3483a2eda5c53b22238d0827d57da162b48f122e04d2d9987"
+        }
+      ],
+      "evidenceLevel": "package-license-files"
+    },
+    {
+      "name": "node-addon-api",
+      "version": "7.1.1",
+      "lockPath": "node_modules/node-addon-api",
+      "declaredLicense": "MIT",
+      "source": "https://registry.npmjs.org/node-addon-api/-/node-addon-api-7.1.1.tgz",
+      "integrity": "sha512-5m3bsyrjFWE1xf7nz7YXdN4udnVtXK6/Yfgn5qnahL6bCkf2yKt4k3nuTKAtT4r3IG8JNR2ncsIMdZuAzJjHQQ==",
+      "scope": "build-only",
+      "evidence": [
+        {
+          "file": "LICENSE.md",
+          "sha256": "89024017b88a9f2b763f79b941a4f2db3b4428edfcacdc0b23866b2da633ad0c"
+        }
+      ],
+      "evidenceLevel": "package-license-files"
+    },
+    {
+      "name": "normalize-path",
+      "version": "3.0.0",
+      "lockPath": "node_modules/normalize-path",
+      "declaredLicense": "MIT",
+      "source": "https://registry.npmjs.org/normalize-path/-/normalize-path-3.0.0.tgz",
+      "integrity": "sha512-6eZs5Ls3WtCisHWp9S2GUy8dqkpGi4BVSz3GaqiE6ezub0512ESztXUwUB6C6IKbQkY2Pnb/mD4WYojCRwcwLA==",
+      "scope": "build-only",
+      "evidence": [
+        {
+          "file": "LICENSE",
+          "sha256": "e70ff771504ba41f2be55de812a017ff46433d7a250c862e38fc419159e44500"
+        }
+      ],
+      "evidenceLevel": "package-license-files"
+    },
+    {
+      "name": "path-key",
+      "version": "3.1.1",
+      "lockPath": "node_modules/path-key",
+      "declaredLicense": "MIT",
+      "source": "https://registry.npmjs.org/path-key/-/path-key-3.1.1.tgz",
+      "integrity": "sha512-ojmeN0qd+y0jszEtoY48r0Peq5dwMEkIlCOu6Q5f41lfkswXuKtYrhgoTpLnyIcHm24Uhqx+5Tqm2InSwLhE6Q==",
+      "scope": "build-only",
+      "evidence": [
+        {
+          "file": "license",
+          "sha256": "48da2f39e100d4085767e94966b43f4fa95ff6a0698fba57ed460914e35f94a0"
+        }
+      ],
+      "evidenceLevel": "package-license-files"
+    },
+    {
+      "name": "path-parse",
+      "version": "1.0.7",
+      "lockPath": "node_modules/path-parse",
+      "declaredLicense": "MIT",
+      "source": "https://registry.npmjs.org/path-parse/-/path-parse-1.0.7.tgz",
+      "integrity": "sha512-LDJzPVEEEPR+y48z93A0Ed0yXb8pAByGWo/k5YYdYgpY2/2EsOsksJrq7lOHxryrVOn1ejG6oAp8ahvOIQD8sw==",
+      "scope": "build-only",
+      "evidence": [
+        {
+          "file": "LICENSE",
+          "sha256": "3f4609137f65070541b9214300ea0d640af8192857de0eeb2b03403003d9228a"
+        }
+      ],
+      "evidenceLevel": "package-license-files"
+    },
+    {
+      "name": "path-type",
+      "version": "4.0.0",
+      "lockPath": "node_modules/path-type",
+      "declaredLicense": "MIT",
+      "source": "https://registry.npmjs.org/path-type/-/path-type-4.0.0.tgz",
+      "integrity": "sha512-gDKb8aZMDeD/tZWs9P6+q0J9Mwkdl6xMV8TjnGP3qJVJ06bdMgkbBlLU8IdfOsIsFz2BW1rNVT3XuNEl8zPAvw==",
+      "scope": "build-only",
+      "evidence": [
+        {
+          "file": "license",
+          "sha256": "48da2f39e100d4085767e94966b43f4fa95ff6a0698fba57ed460914e35f94a0"
+        }
+      ],
+      "evidenceLevel": "package-license-files"
+    },
+    {
+      "name": "picocolors",
+      "version": "1.1.1",
+      "lockPath": "node_modules/picocolors",
+      "declaredLicense": "ISC",
+      "source": "https://registry.npmjs.org/picocolors/-/picocolors-1.1.1.tgz",
+      "integrity": "sha512-xceH2snhtb5M9liqDsmEw56le376mTZkEX/jEb/RxNFyegNul7eNslCXP9FDj/Lcu0X8KEyMceP2ntpaHrDEVA==",
+      "scope": "build-only",
+      "evidence": [
+        {
+          "file": "LICENSE",
+          "sha256": "6582629e2979466878f6014313dcc2f3756c9616148682227ce3063dde310750"
+        }
+      ],
+      "evidenceLevel": "package-license-files"
+    },
+    {
+      "name": "picomatch",
+      "version": "2.3.2",
+      "lockPath": "node_modules/picomatch",
+      "declaredLicense": "MIT",
+      "source": "https://registry.npmjs.org/picomatch/-/picomatch-2.3.2.tgz",
+      "integrity": "sha512-V7+vQEJ06Z+c5tSye8S+nHUfI51xoXIXjHQ99cQtKUkQqqO1kO/KCJUfZXuB47h/YBlDhah2H3hdUGXn8ie0oA==",
+      "scope": "build-only",
+      "evidence": [
+        {
+          "file": "LICENSE",
+          "sha256": "d0cd141b0c322fded5dfad1d4645bb2fedfc05b7321fe1009469638190d59ef9"
+        }
+      ],
+      "evidenceLevel": "package-license-files"
+    },
+    {
+      "name": "postcss",
+      "version": "8.5.26",
+      "lockPath": "node_modules/postcss",
+      "declaredLicense": "MIT",
+      "source": "https://registry.npmjs.org/postcss/-/postcss-8.5.26.tgz",
+      "integrity": "sha512-u82N74LFzG8ca+dD8puPnplTXoGH4fTPpVGuIbt36G3qvNlkvfD0lEAZSxaly3KX8TS/L1A1gsCEmvKmBcVbkQ==",
+      "scope": "build-only",
+      "evidence": [
+        {
+          "file": "LICENSE",
+          "sha256": "5be1f3465bba68a626777f984878814aaf35e7ef8e9fd314d469bcf887050fb8"
+        }
+      ],
+      "evidenceLevel": "package-license-files"
+    },
+    {
+      "name": "postcss-prefix-selector",
+      "version": "1.16.1",
+      "lockPath": "node_modules/postcss-prefix-selector",
+      "declaredLicense": "MIT",
+      "source": "https://registry.npmjs.org/postcss-prefix-selector/-/postcss-prefix-selector-1.16.1.tgz",
+      "integrity": "sha512-Umxu+FvKMwlY6TyDzGFoSUnzW+NOfMBLyC1tAkIjgX+Z/qGspJeRjVC903D7mx7TuBpJlwti2ibXtWuA7fKMeQ==",
+      "scope": "build-only",
+      "evidence": [
+        {
+          "file": "LICENSE",
+          "sha256": "d59567ba9d6e49fcfaaa5c02d82c49d2a4aabbca0306e053d310974b48ee645d"
+        }
+      ],
+      "evidenceLevel": "package-license-files"
+    },
+    {
+      "name": "postcss-url",
+      "version": "10.1.4",
+      "lockPath": "node_modules/postcss-url",
+      "declaredLicense": "MIT",
+      "source": "https://registry.npmjs.org/postcss-url/-/postcss-url-10.1.4.tgz",
+      "integrity": "sha512-/oBzyLOHQvXvVr/7bzZOFD5lYTy1nomVE4aMA9eY5KQsHfWLDIzb86q8XoUsmrj2xKoGYMAvd884EzJEQzuXIw==",
+      "scope": "build-only",
+      "evidence": [
+        {
+          "file": "LICENSE",
+          "sha256": "a3fb61c22ecb516ac5be5acb37952d646bd8fe0472e15e91972d429ad5ce5c74"
+        }
+      ],
+      "evidenceLevel": "package-license-files"
+    },
+    {
+      "name": "prettier",
+      "version": "2.8.8",
+      "lockPath": "node_modules/prettier",
+      "declaredLicense": "MIT",
+      "source": "https://registry.npmjs.org/prettier/-/prettier-2.8.8.tgz",
+      "integrity": "sha512-tdN8qQGvNjw4CHbY+XXk0JgCXn9QiF21a55rBe5LJAU+kDyC4WQn4+awm2Xfk2lQMk5fKup9XgzTZtGkjBdP9Q==",
+      "scope": "build-only",
+      "evidence": [
+        {
+          "file": "LICENSE",
+          "sha256": "4d9b29fc0935ac68f29e579c3ddc79d501f812ba2fca6efa0754cc5ff5c7cbdc"
+        }
+      ],
+      "evidenceLevel": "package-license-files"
+    },
+    {
+      "name": "queue-microtask",
+      "version": "1.2.3",
+      "lockPath": "node_modules/queue-microtask",
+      "declaredLicense": "MIT",
+      "source": "https://registry.npmjs.org/queue-microtask/-/queue-microtask-1.2.3.tgz",
+      "integrity": "sha512-NuaNSa6flKT5JaSYQzJok04JzTL1CA6aGhv5rfLW3PgqA+M2ChpZQnAC8h8i4ZFkBS8X5RqkDBHA7r4hej3K9A==",
+      "scope": "build-only",
+      "evidence": [
+        {
+          "file": "LICENSE",
+          "sha256": "d4c2065e2b936e62a4eb400efb4576edec9ca1388a9f78aa288e147275e7bc8b"
+        }
+      ],
+      "evidenceLevel": "package-license-files"
+    },
+    {
+      "name": "readdirp",
+      "version": "3.6.0",
+      "lockPath": "node_modules/readdirp",
+      "declaredLicense": "MIT",
+      "source": "https://registry.npmjs.org/readdirp/-/readdirp-3.6.0.tgz",
+      "integrity": "sha512-hOS089on8RduqdbhvQ5Z37A0ESjsqz6qnRcffsMU3495FuTdqSm+7bhJ29JvIOsBDEEnan5DPu9t3To9VRlMzA==",
+      "scope": "build-only",
+      "evidence": [
+        {
+          "file": "LICENSE",
+          "sha256": "dffec71d93f273d2af7b54c6c7e7e70b3289c632ec0d7253210ec21ac336d5ac"
+        }
+      ],
+      "evidenceLevel": "package-license-files"
+    },
+    {
+      "name": "resolve",
+      "version": "1.22.12",
+      "lockPath": "node_modules/resolve",
+      "declaredLicense": "MIT",
+      "source": "https://registry.npmjs.org/resolve/-/resolve-1.22.12.tgz",
+      "integrity": "sha512-TyeJ1zif53BPfHootBGwPRYT1RUt6oGWsaQr8UyZW/eAm9bKoijtvruSDEmZHm92CwS9nj7/fWttqPCgzep8CA==",
+      "scope": "build-only",
+      "evidence": [
+        {
+          "file": "LICENSE",
+          "sha256": "60acd7711e6c138e6041836e32d922705254cc1568a30fdf16aa8f59bb87aeaa"
+        }
+      ],
+      "evidenceLevel": "package-license-files"
+    },
+    {
+      "name": "reusify",
+      "version": "1.1.0",
+      "lockPath": "node_modules/reusify",
+      "declaredLicense": "MIT",
+      "source": "https://registry.npmjs.org/reusify/-/reusify-1.1.0.tgz",
+      "integrity": "sha512-g6QUff04oZpHs0eG5p83rFLhHeV00ug/Yf9nZM6fLeUrPguBTkTQOdpAWWspMh55TZfVQDPaN3NQJfbVRAxdIw==",
+      "scope": "build-only",
+      "evidence": [
+        {
+          "file": "LICENSE",
+          "sha256": "93a1506953b08ad4874e1cc0971a1d2ac387ca510da91e4d05e460a6c4966fa3"
+        }
+      ],
+      "evidenceLevel": "package-license-files"
+    },
+    {
+      "name": "run-parallel",
+      "version": "1.2.0",
+      "lockPath": "node_modules/run-parallel",
+      "declaredLicense": "MIT",
+      "source": "https://registry.npmjs.org/run-parallel/-/run-parallel-1.2.0.tgz",
+      "integrity": "sha512-5l4VyZR86LZ/lDxZTR6jqL8AFE2S0IFLMP26AbjsLVADxHdhB/c0GUsH+y39UfCi3dzz8OlQuPmnaJOMoDHQBA==",
+      "scope": "build-only",
+      "evidence": [
+        {
+          "file": "LICENSE",
+          "sha256": "d4c2065e2b936e62a4eb400efb4576edec9ca1388a9f78aa288e147275e7bc8b"
+        }
+      ],
+      "evidenceLevel": "package-license-files"
+    },
+    {
+      "name": "rxjs",
+      "version": "7.8.2",
+      "lockPath": "node_modules/rxjs",
+      "declaredLicense": "Apache-2.0",
+      "source": "https://registry.npmjs.org/rxjs/-/rxjs-7.8.2.tgz",
+      "integrity": "sha512-dhKf903U/PQZY6boNNtAGdWbG85WAbjT/1xYoZIC7FAY0yWapOBQVsVrDl58W86//e1VpMNBtRV4MaXfdMySFA==",
+      "scope": "build-only",
+      "evidence": [
+        {
+          "file": "LICENSE.txt",
+          "sha256": "81c407ac717813b0e3795402960e04003c7bba8ba59b621624707028531c9ade"
+        }
+      ],
+      "evidenceLevel": "package-license-files"
+    },
+    {
+      "name": "sass",
+      "version": "1.103.1",
+      "lockPath": "node_modules/sass",
+      "declaredLicense": "MIT",
+      "source": "https://registry.npmjs.org/sass/-/sass-1.103.1.tgz",
+      "integrity": "sha512-9icZURbP51S6S0QGoyaeqk9uB06GNWxsFYWfH5RgpFgqK5FA8tJcM3AdVxrZEVJ7dz+L87nG95gBKf4VuaMHGw==",
+      "scope": "build-only",
+      "evidence": [
+        {
+          "file": "LICENSE",
+          "sha256": "1523011dc1c6136ac2c4689f93b203f11690848d9641189b7a40848502d21568"
+        }
+      ],
+      "evidenceLevel": "package-license-files"
+    },
+    {
+      "name": "sass-embedded",
+      "version": "1.103.1",
+      "lockPath": "node_modules/sass-embedded",
+      "declaredLicense": "MIT",
+      "source": "https://registry.npmjs.org/sass-embedded/-/sass-embedded-1.103.1.tgz",
+      "integrity": "sha512-UVIuFZPzz+4DXYbHzQ5gKaKkyP2IH3Sc/WoF63N2V7QIfnC2E9UpQAtiKlCVJTfBe43HRgHDBLnXpZkYAEBsNQ==",
+      "scope": "build-only",
+      "evidence": [
+        {
+          "file": "LICENSE",
+          "sha256": "8a39a167fa22310375db891db0898dcec23f180fe03bf022f517f9034cee9551"
+        }
+      ],
+      "evidenceLevel": "package-license-files"
+    },
+    {
+      "name": "sass-embedded-all-unknown",
+      "version": "1.103.1",
+      "lockPath": "node_modules/sass-embedded-all-unknown",
+      "declaredLicense": "MIT",
+      "source": "https://registry.npmjs.org/sass-embedded-all-unknown/-/sass-embedded-all-unknown-1.103.1.tgz",
+      "integrity": "sha512-MwX2ap06TbImAqlbnH6EndgBBejk6Eq2QB6Ae2hukCn9wmXf9cRu27um3mz3tyB4oJOOku0xfHqFH/+ckYj6YA==",
+      "scope": "build-only",
+      "evidence": [],
+      "evidenceLevel": "lockfile-only; optional platform package not installed"
+    },
+    {
+      "name": "sass-embedded-android-arm",
+      "version": "1.103.1",
+      "lockPath": "node_modules/sass-embedded-android-arm",
+      "declaredLicense": "MIT",
+      "source": "https://registry.npmjs.org/sass-embedded-android-arm/-/sass-embedded-android-arm-1.103.1.tgz",
+      "integrity": "sha512-p36WHpsu5HEo2+NVNbI2Nmb8VgVH0xwOQyzghvZhF7ikGCzEVYI5BP28vHUZlCcgj2TUvMEJKI2lV336a+F/sg==",
+      "scope": "build-only",
+      "evidence": [],
+      "evidenceLevel": "lockfile-only; optional platform package not installed"
+    },
+    {
+      "name": "sass-embedded-android-arm64",
+      "version": "1.103.1",
+      "lockPath": "node_modules/sass-embedded-android-arm64",
+      "declaredLicense": "MIT",
+      "source": "https://registry.npmjs.org/sass-embedded-android-arm64/-/sass-embedded-android-arm64-1.103.1.tgz",
+      "integrity": "sha512-jBXWMksyz55XeLOWvQs64BqiG5DcqflmMxcvMoA2oHtQT/7XZ02hBn502qpcF/q8Qd+qqG/hU5ccM+hGXrbQZw==",
+      "scope": "build-only",
+      "evidence": [],
+      "evidenceLevel": "lockfile-only; optional platform package not installed"
+    },
+    {
+      "name": "sass-embedded-android-riscv64",
+      "version": "1.103.1",
+      "lockPath": "node_modules/sass-embedded-android-riscv64",
+      "declaredLicense": "MIT",
+      "source": "https://registry.npmjs.org/sass-embedded-android-riscv64/-/sass-embedded-android-riscv64-1.103.1.tgz",
+      "integrity": "sha512-rzrH7RNntk0rx+zCE9xOiAIUt37D1cQKvFfcoX0xiePdGbNHBN8DWKaWN9vaCRfbgKCmxPjevzaqFNI/G/8E1A==",
+      "scope": "build-only",
+      "evidence": [],
+      "evidenceLevel": "lockfile-only; optional platform package not installed"
+    },
+    {
+      "name": "sass-embedded-android-x64",
+      "version": "1.103.1",
+      "lockPath": "node_modules/sass-embedded-android-x64",
+      "declaredLicense": "MIT",
+      "source": "https://registry.npmjs.org/sass-embedded-android-x64/-/sass-embedded-android-x64-1.103.1.tgz",
+      "integrity": "sha512-EQglAJXJutuIcqgZf7YOwzao2ND6ow/OgqN+cM48/Qaeb6AimYmZiUJmM9FFcmS3Q2n1k6/2OU3l3Hlin7bFpw==",
+      "scope": "build-only",
+      "evidence": [],
+      "evidenceLevel": "lockfile-only; optional platform package not installed"
+    },
+    {
+      "name": "sass-embedded-darwin-arm64",
+      "version": "1.103.1",
+      "lockPath": "node_modules/sass-embedded-darwin-arm64",
+      "declaredLicense": "MIT",
+      "source": "https://registry.npmjs.org/sass-embedded-darwin-arm64/-/sass-embedded-darwin-arm64-1.103.1.tgz",
+      "integrity": "sha512-rlaBeCul8pLbDRKdBAxdDxSBwFU5fbX42ci6CxW2Vbs34jWTMQ72+nE2v2KkGGce+JnYbb7UV6xDP/4uDWWi+w==",
+      "scope": "build-only",
+      "evidence": [],
+      "evidenceLevel": "lockfile-only; optional platform package not installed"
+    },
+    {
+      "name": "sass-embedded-darwin-x64",
+      "version": "1.103.1",
+      "lockPath": "node_modules/sass-embedded-darwin-x64",
+      "declaredLicense": "MIT",
+      "source": "https://registry.npmjs.org/sass-embedded-darwin-x64/-/sass-embedded-darwin-x64-1.103.1.tgz",
+      "integrity": "sha512-VSKFfhI//AOct6ppFmAaSH7tlW2LOFECMGs77jIoWf0ZjvGch/3sc9lUTTdIaYIOnTS4qpZck+8OcI2D0G92QA==",
+      "scope": "build-only",
+      "evidence": [],
+      "evidenceLevel": "lockfile-only; optional platform package not installed"
+    },
+    {
+      "name": "sass-embedded-linux-arm",
+      "version": "1.103.1",
+      "lockPath": "node_modules/sass-embedded-linux-arm",
+      "declaredLicense": "MIT",
+      "source": "https://registry.npmjs.org/sass-embedded-linux-arm/-/sass-embedded-linux-arm-1.103.1.tgz",
+      "integrity": "sha512-tJRLPUtBwXHTnBnG7I39gQvCLreuOHLLCMyKHPR1hQ7aFNwiZjADYzKMRQPNMUqti/Os9z+6I7V13FqgQHfuzg==",
+      "scope": "build-only",
+      "evidence": [],
+      "evidenceLevel": "lockfile-only; optional platform package not installed"
+    },
+    {
+      "name": "sass-embedded-linux-arm64",
+      "version": "1.103.1",
+      "lockPath": "node_modules/sass-embedded-linux-arm64",
+      "declaredLicense": "MIT",
+      "source": "https://registry.npmjs.org/sass-embedded-linux-arm64/-/sass-embedded-linux-arm64-1.103.1.tgz",
+      "integrity": "sha512-rC+80/Xr9svo0ka2Zr/sjD+N1zEHTw2Urm/nsEjaVp5HSH2i22jwhTKTIqie2OLl6ti+qdYnbI0sSfxOYRtgrg==",
+      "scope": "build-only",
+      "evidence": [],
+      "evidenceLevel": "lockfile-only; optional platform package not installed"
+    },
+    {
+      "name": "sass-embedded-linux-musl-arm",
+      "version": "1.103.1",
+      "lockPath": "node_modules/sass-embedded-linux-musl-arm",
+      "declaredLicense": "MIT",
+      "source": "https://registry.npmjs.org/sass-embedded-linux-musl-arm/-/sass-embedded-linux-musl-arm-1.103.1.tgz",
+      "integrity": "sha512-N8L/kgVzXpnH+8d6ErIzqvb0l8kHODR3OfPaf0Azw6DOLGtEjwDRUbHno+G7iogGzyPOjKsM8OdyqHJj/bpTdw==",
+      "scope": "build-only",
+      "evidence": [],
+      "evidenceLevel": "lockfile-only; optional platform package not installed"
+    },
+    {
+      "name": "sass-embedded-linux-musl-arm64",
+      "version": "1.103.1",
+      "lockPath": "node_modules/sass-embedded-linux-musl-arm64",
+      "declaredLicense": "MIT",
+      "source": "https://registry.npmjs.org/sass-embedded-linux-musl-arm64/-/sass-embedded-linux-musl-arm64-1.103.1.tgz",
+      "integrity": "sha512-jMgG/C/VMo7+ShMFdk0xjJmQmYkj1PbJu/yrQiaQHpuo5pE2G+vnkEgsuM5EM3lTQ4MbMfnf715qy1fkbNPiUQ==",
+      "scope": "build-only",
+      "evidence": [],
+      "evidenceLevel": "lockfile-only; optional platform package not installed"
+    },
+    {
+      "name": "sass-embedded-linux-musl-riscv64",
+      "version": "1.103.1",
+      "lockPath": "node_modules/sass-embedded-linux-musl-riscv64",
+      "declaredLicense": "MIT",
+      "source": "https://registry.npmjs.org/sass-embedded-linux-musl-riscv64/-/sass-embedded-linux-musl-riscv64-1.103.1.tgz",
+      "integrity": "sha512-LZm8rEvI6sKU87qPOlODsYeAs7CmWy0B4ShYkjG4OMcGCcV4Ffxn25XW4TFqmruThITQvJ8WT+WGblzdoxYgbA==",
+      "scope": "build-only",
+      "evidence": [],
+      "evidenceLevel": "lockfile-only; optional platform package not installed"
+    },
+    {
+      "name": "sass-embedded-linux-musl-x64",
+      "version": "1.103.1",
+      "lockPath": "node_modules/sass-embedded-linux-musl-x64",
+      "declaredLicense": "MIT",
+      "source": "https://registry.npmjs.org/sass-embedded-linux-musl-x64/-/sass-embedded-linux-musl-x64-1.103.1.tgz",
+      "integrity": "sha512-rmKzgk4t6RpaDhSefbbnk5yrA4pk1nHlVhJECGay8yMfzK8eglATeY9fzPgt89xCuQk6rkOiy11e+m8tLYOW5Q==",
+      "scope": "build-only",
+      "evidence": [],
+      "evidenceLevel": "lockfile-only; optional platform package not installed"
+    },
+    {
+      "name": "sass-embedded-linux-riscv64",
+      "version": "1.103.1",
+      "lockPath": "node_modules/sass-embedded-linux-riscv64",
+      "declaredLicense": "MIT",
+      "source": "https://registry.npmjs.org/sass-embedded-linux-riscv64/-/sass-embedded-linux-riscv64-1.103.1.tgz",
+      "integrity": "sha512-xydQmtxla31uMrmN6z+mAogVGdEMDmkUElVq2+udomX/TPZDYJBkApEyJl237M2VLWVv29v1N4U4i2Z4xa7SDA==",
+      "scope": "build-only",
+      "evidence": [],
+      "evidenceLevel": "lockfile-only; optional platform package not installed"
+    },
+    {
+      "name": "sass-embedded-linux-x64",
+      "version": "1.103.1",
+      "lockPath": "node_modules/sass-embedded-linux-x64",
+      "declaredLicense": "MIT",
+      "source": "https://registry.npmjs.org/sass-embedded-linux-x64/-/sass-embedded-linux-x64-1.103.1.tgz",
+      "integrity": "sha512-Rln1oWm0MWKzzemOgQWrRFzfVBARwS9qxAidZPpCQHSohzPnWizFkmY1CUJad/YJNsA7sscueMdX63OEvxoM8w==",
+      "scope": "build-only",
+      "evidence": [
+        {
+          "file": "dart-sass/src/LICENSE",
+          "sha256": "1523011dc1c6136ac2c4689f93b203f11690848d9641189b7a40848502d21568"
+        }
+      ],
+      "evidenceLevel": "package-license-files"
+    },
+    {
+      "name": "sass-embedded-unknown-all",
+      "version": "1.103.1",
+      "lockPath": "node_modules/sass-embedded-unknown-all",
+      "declaredLicense": "MIT",
+      "source": "https://registry.npmjs.org/sass-embedded-unknown-all/-/sass-embedded-unknown-all-1.103.1.tgz",
+      "integrity": "sha512-p7kI4US8+n+YguKczXh+4KcodJnk+8cwv+QFdvMaz3OfPrdHV0EnhPsaVDWD9qXb1XXCEdUhpp6vQwGk3eKc3A==",
+      "scope": "build-only",
+      "evidence": [],
+      "evidenceLevel": "lockfile-only; optional platform package not installed"
+    },
+    {
+      "name": "sass-embedded-win32-arm64",
+      "version": "1.103.1",
+      "lockPath": "node_modules/sass-embedded-win32-arm64",
+      "declaredLicense": "MIT",
+      "source": "https://registry.npmjs.org/sass-embedded-win32-arm64/-/sass-embedded-win32-arm64-1.103.1.tgz",
+      "integrity": "sha512-/0renOj3SpZGu4TA8CZJ6qZbTxGZk1khkPfiBTmV1uFB40ESYM5VsdXNj76P07bsAjIj9X2fCjTafLQFLSd9Nw==",
+      "scope": "build-only",
+      "evidence": [],
+      "evidenceLevel": "lockfile-only; optional platform package not installed"
+    },
+    {
+      "name": "sass-embedded-win32-x64",
+      "version": "1.103.1",
+      "lockPath": "node_modules/sass-embedded-win32-x64",
+      "declaredLicense": "MIT",
+      "source": "https://registry.npmjs.org/sass-embedded-win32-x64/-/sass-embedded-win32-x64-1.103.1.tgz",
+      "integrity": "sha512-fIg60j9u5YlLUU3W8FvySMR4HHIo9R12HHFQTW7njyQ8nXqgR+t+XfCzGJloQka8g583BlAfu31Q76Ljr5o+9g==",
+      "scope": "build-only",
+      "evidence": [],
+      "evidenceLevel": "lockfile-only; optional platform package not installed"
+    },
+    {
+      "name": "supports-color",
+      "version": "8.1.1",
+      "lockPath": "node_modules/sass-embedded/node_modules/supports-color",
+      "declaredLicense": "MIT",
+      "source": "https://registry.npmjs.org/supports-color/-/supports-color-8.1.1.tgz",
+      "integrity": "sha512-MpUEN2OodtUzxvKQl72cUF7RQ5EiHsGvSsVG0ia9c5RbWGL2CI4C7EpPS8UTBIplnlzZiNuV56w+FuNxy3ty2Q==",
+      "scope": "build-only",
+      "evidence": [
+        {
+          "file": "license",
+          "sha256": "5c932d88256b4ab958f64a856fa48e8bd1f55bc1d96b8149c65689e0c61789d3"
+        }
+      ],
+      "evidenceLevel": "package-license-files"
+    },
+    {
+      "name": "chokidar",
+      "version": "5.0.0",
+      "lockPath": "node_modules/sass/node_modules/chokidar",
+      "declaredLicense": "MIT",
+      "source": "https://registry.npmjs.org/chokidar/-/chokidar-5.0.0.tgz",
+      "integrity": "sha512-TQMmc3w+5AxjpL8iIiwebF73dRDF4fBIieAqGn9RGCWaEVwQ6Fb2cGe31Yns0RRIzii5goJ1Y7xbMwo1TxMplw==",
+      "scope": "build-only",
+      "evidence": [
+        {
+          "file": "LICENSE",
+          "sha256": "bdfd5e0edb6089e6586c8f15e6a86fab83ffbeeda3b3b7b33734ccb8c5906965"
+        }
+      ],
+      "evidenceLevel": "package-license-files"
+    },
+    {
+      "name": "readdirp",
+      "version": "5.1.1",
+      "lockPath": "node_modules/sass/node_modules/readdirp",
+      "declaredLicense": "MIT",
+      "source": "https://registry.npmjs.org/readdirp/-/readdirp-5.1.1.tgz",
+      "integrity": "sha512-Kko+Y5XQ6fM+Ce3dq3m9YGxnacYZYl9cA1wZjaF3Vbry2L3i1qVg8+CAgNPsXRArPMUMCaOR7oa9Nqntc43JKA==",
+      "scope": "build-only",
+      "evidence": [
+        {
+          "file": "LICENSE",
+          "sha256": "dffec71d93f273d2af7b54c6c7e7e70b3289c632ec0d7253210ec21ac336d5ac"
+        }
+      ],
+      "evidenceLevel": "package-license-files"
+    },
+    {
+      "name": "semver",
+      "version": "6.3.1",
+      "lockPath": "node_modules/semver",
+      "declaredLicense": "ISC",
+      "source": "https://registry.npmjs.org/semver/-/semver-6.3.1.tgz",
+      "integrity": "sha512-BR7VvDCVHO+q2xBEWskxS6DJE1qRnb7DxzUrogb71CWoSficBxYsiAGd+Kl0mmq/MprG9yArRkyrQxTO6XjMzA==",
+      "scope": "build-only",
+      "evidence": [
+        {
+          "file": "LICENSE",
+          "sha256": "4ec3d4c66cd87f5c8d8ad911b10f99bf27cb00cdfcff82621956e379186b016b"
+        }
+      ],
+      "evidenceLevel": "package-license-files"
+    },
+    {
+      "name": "shebang-command",
+      "version": "2.0.0",
+      "lockPath": "node_modules/shebang-command",
+      "declaredLicense": "MIT",
+      "source": "https://registry.npmjs.org/shebang-command/-/shebang-command-2.0.0.tgz",
+      "integrity": "sha512-kHxr2zZpYtdmrN1qDjrrX/Z1rR1kG8Dx+gkpK1G4eXmvXswmcE1hTWBWYUzlraYw1/yZp6YuDY77YtvbN0dmDA==",
+      "scope": "build-only",
+      "evidence": [
+        {
+          "file": "license",
+          "sha256": "69dee148a2cc470554dfa7142e830662062394d0fe67cddd379aba90dc60d6b3"
+        }
+      ],
+      "evidenceLevel": "package-license-files"
+    },
+    {
+      "name": "shebang-regex",
+      "version": "3.0.0",
+      "lockPath": "node_modules/shebang-regex",
+      "declaredLicense": "MIT",
+      "source": "https://registry.npmjs.org/shebang-regex/-/shebang-regex-3.0.0.tgz",
+      "integrity": "sha512-7++dFhtcx3353uBaq8DDR4NuxBetBzC7ZQOhmTQInHEd6bSrXdiEyzCvG07Z44UYdLShWUyXt5M/yhz8ekcb1A==",
+      "scope": "build-only",
+      "evidence": [
+        {
+          "file": "license",
+          "sha256": "48da2f39e100d4085767e94966b43f4fa95ff6a0698fba57ed460914e35f94a0"
+        }
+      ],
+      "evidenceLevel": "package-license-files"
+    },
+    {
+      "name": "slash",
+      "version": "3.0.0",
+      "lockPath": "node_modules/slash",
+      "declaredLicense": "MIT",
+      "source": "https://registry.npmjs.org/slash/-/slash-3.0.0.tgz",
+      "integrity": "sha512-g9Q1haeby36OSStwb4ntCGGGaKsaVSjQ68fBxoQcutl5fS1vuY18H3wSt3jFyFtrkx+Kz0V1G85A4MyAdDMi2Q==",
+      "scope": "build-only",
+      "evidence": [
+        {
+          "file": "license",
+          "sha256": "48da2f39e100d4085767e94966b43f4fa95ff6a0698fba57ed460914e35f94a0"
+        }
+      ],
+      "evidenceLevel": "package-license-files"
+    },
+    {
+      "name": "source-map-js",
+      "version": "1.2.1",
+      "lockPath": "node_modules/source-map-js",
+      "declaredLicense": "BSD-3-Clause",
+      "source": "https://registry.npmjs.org/source-map-js/-/source-map-js-1.2.1.tgz",
+      "integrity": "sha512-UXWMKhLOwVKb728IUtQPXxfYU+usdybtUrK/8uGE8CQMvrhOpwvzDBwj0QhSL7MQc7vIsISBG8VQ8+IDQxpfQA==",
+      "scope": "build-only",
+      "evidence": [
+        {
+          "file": "LICENSE",
+          "sha256": "6cb0631f71c7749763fd3dd1d5bee52dd1070ec17f2edc1710079ad070bd2fbd"
+        }
+      ],
+      "evidenceLevel": "package-license-files"
+    },
+    {
+      "name": "supports-color",
+      "version": "7.2.0",
+      "lockPath": "node_modules/supports-color",
+      "declaredLicense": "MIT",
+      "source": "https://registry.npmjs.org/supports-color/-/supports-color-7.2.0.tgz",
+      "integrity": "sha512-qpCAvRl9stuOHveKsn7HncJRvv501qIacKzQlO/+Lwxc9+0q2wLyv4Dfvt80/DPn2pqOBsJdDiogXGR9+OvwRw==",
+      "scope": "build-only",
+      "evidence": [
+        {
+          "file": "license",
+          "sha256": "48da2f39e100d4085767e94966b43f4fa95ff6a0698fba57ed460914e35f94a0"
+        }
+      ],
+      "evidenceLevel": "package-license-files"
+    },
+    {
+      "name": "supports-preserve-symlinks-flag",
+      "version": "1.0.0",
+      "lockPath": "node_modules/supports-preserve-symlinks-flag",
+      "declaredLicense": "MIT",
+      "source": "https://registry.npmjs.org/supports-preserve-symlinks-flag/-/supports-preserve-symlinks-flag-1.0.0.tgz",
+      "integrity": "sha512-ot0WnXS9fgdkgIcePe6RHNk1WA8+muPa6cSjeR3V8K27q9BB1rTE3R1p7Hv0z1ZyAc8s6Vvv8DIyWf681MAt0w==",
+      "scope": "build-only",
+      "evidence": [
+        {
+          "file": "LICENSE",
+          "sha256": "0f0ca96f50793990031ebc488a38f7292ff70bce8ab6a8e5eeda674abc32ccdf"
+        }
+      ],
+      "evidenceLevel": "package-license-files"
+    },
+    {
+      "name": "sync-child-process",
+      "version": "1.0.2",
+      "lockPath": "node_modules/sync-child-process",
+      "declaredLicense": "MIT",
+      "source": "https://registry.npmjs.org/sync-child-process/-/sync-child-process-1.0.2.tgz",
+      "integrity": "sha512-8lD+t2KrrScJ/7KXCSyfhT3/hRq78rC0wBFqNJXv3mZyn6hW2ypM05JmlSvtqRbeq6jqA94oHbxAr2vYsJ8vDA==",
+      "scope": "build-only",
+      "evidence": [
+        {
+          "file": "LICENSE",
+          "sha256": "4b475c59ec30975f43a6581375e01346fd918fc40c9809a43f86f11fe9f78ed2"
+        }
+      ],
+      "evidenceLevel": "package-license-files"
+    },
+    {
+      "name": "sync-message-port",
+      "version": "1.2.0",
+      "lockPath": "node_modules/sync-message-port",
+      "declaredLicense": "MIT",
+      "source": "https://registry.npmjs.org/sync-message-port/-/sync-message-port-1.2.0.tgz",
+      "integrity": "sha512-gAQ9qrUN/UCypHtGFbbe7Rc/f9bzO88IwrG8TDo/aMKAApKyD6E3W4Cm0EfhfBb6Z6SKt59tTCTfD+n1xmAvMg==",
+      "scope": "build-only",
+      "evidence": [
+        {
+          "file": "LICENSE",
+          "sha256": "4b475c59ec30975f43a6581375e01346fd918fc40c9809a43f86f11fe9f78ed2"
+        }
+      ],
+      "evidenceLevel": "package-license-files"
+    },
+    {
+      "name": "to-regex-range",
+      "version": "5.0.1",
+      "lockPath": "node_modules/to-regex-range",
+      "declaredLicense": "MIT",
+      "source": "https://registry.npmjs.org/to-regex-range/-/to-regex-range-5.0.1.tgz",
+      "integrity": "sha512-65P7iz6X5yEr1cwcgvQxbbIw7Uk3gOy5dIdtZ4rDveLqhrdJP+Li/Hx6tyK0NEb+2GCyneCMJiGqrADCSNk8sQ==",
+      "scope": "build-only",
+      "evidence": [
+        {
+          "file": "LICENSE",
+          "sha256": "e7d1fee7347ffddccc5fd03327ffdb50f8c112be0d5016d62388a92c4ae6e7a9"
+        }
+      ],
+      "evidenceLevel": "package-license-files"
+    },
+    {
+      "name": "tslib",
+      "version": "2.8.1",
+      "lockPath": "node_modules/tslib",
+      "declaredLicense": "0BSD",
+      "source": "https://registry.npmjs.org/tslib/-/tslib-2.8.1.tgz",
+      "integrity": "sha512-oJFu94HQb+KVduSUQL7wnpmqnfmLsOA/nAh6b6EH0wCEoK0/mPeXU6c3wKDV83MkOuHPRHtSXKKU99IBazS/2w==",
+      "scope": "build-only",
+      "evidence": [
+        {
+          "file": "CopyrightNotice.txt",
+          "sha256": "da16ddb65f8ca390998fb99223d0112498b56b45784d00afd77ff8ce1ac4de8b"
+        },
+        {
+          "file": "LICENSE.txt",
+          "sha256": "210b19e543130388c68654b7497e967119ce17145f66ab7d85688fbd70f08751"
+        }
+      ],
+      "evidenceLevel": "package-license-files"
+    },
+    {
+      "name": "typescript",
+      "version": "5.6.3",
+      "lockPath": "node_modules/typescript",
+      "declaredLicense": "Apache-2.0",
+      "source": "https://registry.npmjs.org/typescript/-/typescript-5.6.3.tgz",
+      "integrity": "sha512-hjcS1mhfuyi4WW8IWtjP7brDrG2cuDZukyrYrSauoXGNgx0S7zceP07adYkJycEr56BOUTNPzbInooiN3fn1qw==",
+      "scope": "build-only",
+      "evidence": [
+        {
+          "file": "LICENSE.txt",
+          "sha256": "a7d00bfd54525bc694b6e32f64c7ebcf5e6b7ae3657be5cc12767bce74654a47"
+        },
+        {
+          "file": "ThirdPartyNoticeText.txt",
+          "sha256": "1af3c68039c57e539422da82a4faada506ce6d0ea6f90e0b699d02dbcdb7a90c"
+        }
+      ],
+      "evidenceLevel": "package-license-files"
+    },
+    {
+      "name": "undici-types",
+      "version": "5.26.5",
+      "lockPath": "node_modules/undici-types",
+      "declaredLicense": "MIT",
+      "source": "https://registry.npmjs.org/undici-types/-/undici-types-5.26.5.tgz",
+      "integrity": "sha512-JlCMO+ehdEIKqlFxk6IfVoAUVmgz7cU7zD/h9XZ0qzeosSHmUJVOzSQvvYSYWXkFXC+IfLKSIffhv0sVZup6pA==",
+      "scope": "build-only",
+      "evidence": [],
+      "evidenceLevel": "package-declaration; see report for additional source evidence"
+    },
+    {
+      "name": "universalify",
+      "version": "2.0.1",
+      "lockPath": "node_modules/universalify",
+      "declaredLicense": "MIT",
+      "source": "https://registry.npmjs.org/universalify/-/universalify-2.0.1.tgz",
+      "integrity": "sha512-gptHNQghINnc/vTGIk0SOFGFNXw7JVrlRUtConJRlvaw6DuX0wO5Jeko9sWrMBhh+PsYAZ7oXAiOnf/UKogyiw==",
+      "scope": "build-only",
+      "evidence": [
+        {
+          "file": "LICENSE",
+          "sha256": "3fda5977c0904e226190b4e21d64340c1731e2142d6fe5f3dee0090a216b8b63"
+        }
+      ],
+      "evidenceLevel": "package-license-files"
+    },
+    {
+      "name": "varint",
+      "version": "6.0.0",
+      "lockPath": "node_modules/varint",
+      "declaredLicense": "MIT",
+      "source": "https://registry.npmjs.org/varint/-/varint-6.0.0.tgz",
+      "integrity": "sha512-cXEIW6cfr15lFv563k4GuVuW/fiwjknytD37jIOLSdSWuOI6WnO/oKwmP2FQTU2l01LP8/M5TSAJpzUaGe3uWg==",
+      "scope": "build-only",
+      "evidence": [],
+      "evidenceLevel": "package-declaration; see report for additional source evidence"
+    },
+    {
+      "name": "which",
+      "version": "2.0.2",
+      "lockPath": "node_modules/which",
+      "declaredLicense": "ISC",
+      "source": "https://registry.npmjs.org/which/-/which-2.0.2.tgz",
+      "integrity": "sha512-BLI3Tl1TW3Pvl70l3yq3Y64i+awpwXqsGBYWkkqMtnbXgrMD+yj7rhW0kuEDxzJaYXGjEW5ogapKNMEKNMjibA==",
+      "scope": "build-only",
+      "evidence": [
+        {
+          "file": "LICENSE",
+          "sha256": "4ec3d4c66cd87f5c8d8ad911b10f99bf27cb00cdfcff82621956e379186b016b"
+        }
+      ],
+      "evidenceLevel": "package-license-files"
+    },
+    {
+      "name": "xxhashjs",
+      "version": "0.2.2",
+      "lockPath": "node_modules/xxhashjs",
+      "declaredLicense": "MIT",
+      "source": "https://registry.npmjs.org/xxhashjs/-/xxhashjs-0.2.2.tgz",
+      "integrity": "sha512-AkTuIuVTET12tpsVIQo+ZU6f/qDmKuRUcjaqR+OIvm+aCBsZ95i7UVY5WJ9TMsSaZ0DA2WxoZ4acu0sPH+OKAw==",
+      "scope": "build-only",
+      "evidence": [
+        {
+          "file": "LICENSE",
+          "sha256": "f9c4c77baa3828004ee54b8a4f2db2e88ed44a6237a493965bf551fac0fcb62d"
+        }
+      ],
+      "evidenceLevel": "package-license-files"
+    }
+  ],
+  "nuget": [
+    {
+      "name": "Avalonia",
+      "version": "12.1.1",
+      "dependencyType": "Direct",
+      "declaredLicense": {
+        "type": "expression",
+        "value": "MIT"
+      },
+      "source": "https://api.nuget.org/v3-flatcontainer/avalonia/12.1.1/avalonia.12.1.1.nupkg",
+      "archiveSha256": "193bf6ae8b90293acb72bca8a1d62e8e46b460a48527f5f1f18f629073d9d77d",
+      "lockContentHash": "o8pZ1oE9AQ6gklpGM0lnOBp/JlVH0J/0mYszBf0GsSAcEnzHNCLM9NnrPZwKu4j2q9oNbVHYzzEPkszQeuqaKw==",
+      "repository": {
+        "type": "git",
+        "url": "https://github.com/AvaloniaUI/Avalonia/",
+        "commit": "e33eaed9c106846b200680751022385d9cc5dc6f"
+      },
+      "scope": "shipped-runtime",
+      "shippedFiles": [
+        "Avalonia.Base.dll",
+        "Avalonia.Controls.dll",
+        "Avalonia.DesignerSupport.dll",
+        "Avalonia.Dialogs.dll",
+        "Avalonia.Markup.Xaml.dll",
+        "Avalonia.Markup.dll",
+        "Avalonia.Metal.dll",
+        "Avalonia.MicroCom.dll",
+        "Avalonia.OpenGL.dll",
+        "Avalonia.Vulkan.dll",
+        "Avalonia.dll"
+      ],
+      "evidence": [
+        {
+          "file": "Avalonia.nuspec",
+          "sha256": "f87e4c98da540fa3018d1ca4c7e6c9968d0fbf1fb9318a8bb21eebc98648d253"
+        }
+      ]
+    },
+    {
+      "name": "Avalonia.HarfBuzz",
+      "version": "12.1.1",
+      "dependencyType": "Direct",
+      "declaredLicense": {
+        "type": "expression",
+        "value": "MIT"
+      },
+      "source": "https://api.nuget.org/v3-flatcontainer/avalonia.harfbuzz/12.1.1/avalonia.harfbuzz.12.1.1.nupkg",
+      "archiveSha256": "ee50a1a9c8a6b042d62e5c772755611c9ab75740286798921ecb59ad3ec8b410",
+      "lockContentHash": "vgd/Fl4bIXgv3QtYk6WCd6iGAag4i3OOAozo6/DW3xPr5dWjpi1MmJaeE9MYoZBEDJ4egD0gfHz6nYhkDADz9g==",
+      "repository": {
+        "type": "git",
+        "url": "https://github.com/AvaloniaUI/Avalonia/",
+        "commit": "e33eaed9c106846b200680751022385d9cc5dc6f"
+      },
+      "scope": "shipped-runtime",
+      "shippedFiles": [
+        "Avalonia.HarfBuzz.dll"
+      ],
+      "evidence": [
+        {
+          "file": "Avalonia.HarfBuzz.nuspec",
+          "sha256": "e08589eeabc868cb04a693b03df753e8c766c6ef4f766856e3cf0e633a9acfd4"
+        }
+      ]
+    },
+    {
+      "name": "Avalonia.Skia",
+      "version": "12.1.1",
+      "dependencyType": "Direct",
+      "declaredLicense": {
+        "type": "expression",
+        "value": "MIT"
+      },
+      "source": "https://api.nuget.org/v3-flatcontainer/avalonia.skia/12.1.1/avalonia.skia.12.1.1.nupkg",
+      "archiveSha256": "f683dbe5f5dcdfde62cb8bee0cc75e3b9bec95d9f924796ca3627bda8bfa4f25",
+      "lockContentHash": "Q0jRMXb212RYIZNV7p6L/zWx8lyPck9dFFW+l86moeN4dNxHjPBdJS3nLdLvAd20Eno7JC4gwRa5Fewg52td8g==",
+      "repository": {
+        "type": "git",
+        "url": "https://github.com/AvaloniaUI/Avalonia/",
+        "commit": "e33eaed9c106846b200680751022385d9cc5dc6f"
+      },
+      "scope": "shipped-runtime",
+      "shippedFiles": [
+        "Avalonia.Skia.dll"
+      ],
+      "evidence": [
+        {
+          "file": "Avalonia.Skia.nuspec",
+          "sha256": "f625e4eeb5b093300fc41a3484975ccf8c0c0b7dc288e5832367d7913600cf0a"
+        }
+      ]
+    },
+    {
+      "name": "Avalonia.Themes.Fluent",
+      "version": "12.1.1",
+      "dependencyType": "Direct",
+      "declaredLicense": {
+        "type": "expression",
+        "value": "MIT"
+      },
+      "source": "https://api.nuget.org/v3-flatcontainer/avalonia.themes.fluent/12.1.1/avalonia.themes.fluent.12.1.1.nupkg",
+      "archiveSha256": "627455e679f6efa8983fb3df6d7faef4adf1a43dd15f88cdf342b7aef1c46db4",
+      "lockContentHash": "7vdtZsM9o8I8LpU9dyiB/Ah7WB8a5V3JHLsExe4T433ynn5x57F+DBskctZuNOxml8hbe1GmtNUNkBDsqSVKVg==",
+      "repository": {
+        "type": "git",
+        "url": "https://github.com/AvaloniaUI/Avalonia/",
+        "commit": "e33eaed9c106846b200680751022385d9cc5dc6f"
+      },
+      "scope": "shipped-runtime",
+      "shippedFiles": [
+        "Avalonia.Themes.Fluent.dll"
+      ],
+      "evidence": [
+        {
+          "file": "Avalonia.Themes.Fluent.nuspec",
+          "sha256": "6c6a30537f226a2822f8ca4971acec33ed63049735502d6c025a8cf50705a038"
+        }
+      ]
+    },
+    {
+      "name": "Avalonia.Win32",
+      "version": "12.1.1",
+      "dependencyType": "Direct",
+      "declaredLicense": {
+        "type": "expression",
+        "value": "MIT"
+      },
+      "source": "https://api.nuget.org/v3-flatcontainer/avalonia.win32/12.1.1/avalonia.win32.12.1.1.nupkg",
+      "archiveSha256": "e23ceb93fe69dff585ebf672688d3b4cbe0ee0733c3678da1e4ef51fb1fa194c",
+      "lockContentHash": "W7FKmHqoyI09dlCnrt0T9QSLk92qVJwXEHPwMI4zIM09Q6H5NzKfvwoadwxIc8S5gydvFypop3DfKX8x9SILug==",
+      "repository": {
+        "type": "git",
+        "url": "https://github.com/AvaloniaUI/Avalonia/",
+        "commit": "e33eaed9c106846b200680751022385d9cc5dc6f"
+      },
+      "scope": "shipped-runtime",
+      "shippedFiles": [
+        "Avalonia.Win32.Automation.dll",
+        "Avalonia.Win32.dll"
+      ],
+      "evidence": [
+        {
+          "file": "Avalonia.Win32.nuspec",
+          "sha256": "2b37e5805e5dd3682706168656a13041c9d734e352353b0636e84fa443b8318d"
+        }
+      ]
+    },
+    {
+      "name": "Concentus",
+      "version": "2.2.2",
+      "dependencyType": "Direct",
+      "declaredLicense": {
+        "type": "file",
+        "value": "LICENSE"
+      },
+      "source": "https://api.nuget.org/v3-flatcontainer/concentus/2.2.2/concentus.2.2.2.nupkg",
+      "archiveSha256": "f487f890bef65757af1cecf420e357f00488cbfac0b409ba461ccbceef81481f",
+      "lockContentHash": "2B9YmHPKO+k7YpAAnqmiXwiMJnfjfj1C868RszOll2iZWLnGTAiC1q21L/d7CvTan7T+hyqU8dR0Dcy3cpjVfQ==",
+      "repository": {
+        "type": "git",
+        "url": "https://github.com/lostromb/concentus",
+        "commit": "6c2328dc19044601e33a9c11628b8d60e1f3011c"
+      },
+      "scope": "shipped-runtime",
+      "shippedFiles": [
+        "Concentus.dll"
+      ],
+      "evidence": [
+        {
+          "file": "Concentus.nuspec",
+          "sha256": "2c24d36a49d3ab5b9229eb93a18a4668c2b77b4c5433c1946ce6fb1d3026ae63"
+        },
+        {
+          "file": "LICENSE",
+          "sha256": "c17f3900e66526e46b23839b62e4b507b03a51cc262d925fb8ad5c753afc0026"
+        }
+      ]
+    },
+    {
+      "name": "Concentus.Oggfile",
+      "version": "1.0.7",
+      "dependencyType": "Direct",
+      "declaredLicense": {
+        "type": "expression",
+        "value": "MIT"
+      },
+      "source": "https://api.nuget.org/v3-flatcontainer/concentus.oggfile/1.0.7/concentus.oggfile.1.0.7.nupkg",
+      "archiveSha256": "d7a7b1b9b88ad9a62ecfb52c742190a522e14bcbd1275a36d33ebe4c3644c07c",
+      "lockContentHash": "rKWtI5oiTWqK2ol1aWvIT1BRTPi07Uo1hAet0ysQoZQqFo/mxBRwr+ERw89fIdkL3tbMf3ncoW7b3HDGx8Sk4g==",
+      "repository": {
+        "type": "git",
+        "url": "https://github.com/lostromb/concentus.oggfile",
+        "commit": "27c3125205ddcd891822a398284b246636fafb94"
+      },
+      "scope": "shipped-runtime",
+      "shippedFiles": [
+        "Concentus.Oggfile.dll"
+      ],
+      "evidence": [
+        {
+          "file": "Concentus.Oggfile.nuspec",
+          "sha256": "d30815b32f85ceb61a905c6cf4213d595230778c8b2f1b8127a9a5f659b28d4e"
+        }
+      ]
+    },
+    {
+      "name": "NAudio.Wasapi",
+      "version": "3.1.0",
+      "dependencyType": "Direct",
+      "declaredLicense": {
+        "type": "expression",
+        "value": "MIT"
+      },
+      "source": "https://api.nuget.org/v3-flatcontainer/naudio.wasapi/3.1.0/naudio.wasapi.3.1.0.nupkg",
+      "archiveSha256": "40a322320432912f1ab1ccc26e68fbdb910c503369892384fe80f3bcca872468",
+      "lockContentHash": "iTG+oBJaiID344yz84PrTiVF98av5SsuOUu7ICskcUd6f5ShHDMskG9sE4XUM05Vdlwy88bMQDDC3e+85Mv8yw==",
+      "repository": {
+        "type": "git",
+        "url": "https://github.com/naudio/NAudio",
+        "commit": "0aaef29d04bec9567bdf2f669036fabecc33a2e2"
+      },
+      "scope": "shipped-runtime",
+      "shippedFiles": [
+        "NAudio.Wasapi.dll"
+      ],
+      "evidence": [
+        {
+          "file": "NAudio.Wasapi.nuspec",
+          "sha256": "2972b5bc5fcd5004339cc426076fd4871057590007694a35e04965998e87ae5b"
+        }
+      ]
+    },
+    {
+      "name": "Avalonia.Angle.Windows.Natives",
+      "version": "2.1.27548.20260419",
+      "dependencyType": "Transitive",
+      "declaredLicense": {
+        "type": "file",
+        "value": "LICENSE"
+      },
+      "source": "https://api.nuget.org/v3-flatcontainer/avalonia.angle.windows.natives/2.1.27548.20260419/avalonia.angle.windows.natives.2.1.27548.20260419.nupkg",
+      "archiveSha256": "76d67901097e9173d155efc4c2b7d2c8e3122f2c2e0415028eb0c88478a386f9",
+      "lockContentHash": "l17nI3XVDN3oMnpjf2pnmJg0YTwK4m6NLsn/itAjDMdObTFxN77D5F1M9sRMSfViSY3KKcse1ROczwgoWLJsnA==",
+      "repository": {
+        "type": "git",
+        "url": "https://github.com/AvaloniaUI/angle/",
+        "commit": "1c89805903c1482166356d3b950d474973180e61"
+      },
+      "scope": "shipped-runtime",
+      "shippedFiles": [
+        "av_libglesv2.dll"
+      ],
+      "evidence": [
+        {
+          "file": "Avalonia.Angle.Windows.Natives.nuspec",
+          "sha256": "2dd03940159c3b637786264f5a5563ffd3e9aad3bdab4a4c75270e095a485a1f"
+        },
+        {
+          "file": "LICENSE",
+          "sha256": "54aff7276217df9f6b5181613999d208c9e40d2b1d51bf55217837e6871a4a63"
+        }
+      ]
+    },
+    {
+      "name": "Avalonia.BuildServices",
+      "version": "11.3.2",
+      "dependencyType": "Transitive",
+      "declaredLicense": {
+        "type": "expression",
+        "value": "MIT"
+      },
+      "source": "https://api.nuget.org/v3-flatcontainer/avalonia.buildservices/11.3.2/avalonia.buildservices.11.3.2.nupkg",
+      "archiveSha256": "eb0c74ead8d229640e957d9ccdda7a5a1d27bb055aa71e6a7ffb3c423e707b8d",
+      "lockContentHash": "qHDToxto1e3hci5YqbG9n0Ty8mlp3zBUN5wT66wKqaDVzXyQ0do3EnRILd4Ke9jpvsktaPpgE0YjEk7hornryQ==",
+      "repository": {
+        "type": "git",
+        "url": "https://github.com/AvaloniaUI/Avalonia.BuildServices",
+        "commit": "777f975b0a0cecf0311273711d56697212c558c0"
+      },
+      "scope": "build-only",
+      "shippedFiles": [],
+      "evidence": [
+        {
+          "file": "Avalonia.BuildServices.nuspec",
+          "sha256": "a8846537f7d074b8f9ed753c03678128c36bd046939ee245fad8c575a7cd3e9b"
+        }
+      ]
+    },
+    {
+      "name": "Avalonia.Remote.Protocol",
+      "version": "12.1.1",
+      "dependencyType": "Transitive",
+      "declaredLicense": {
+        "type": "expression",
+        "value": "MIT"
+      },
+      "source": "https://api.nuget.org/v3-flatcontainer/avalonia.remote.protocol/12.1.1/avalonia.remote.protocol.12.1.1.nupkg",
+      "archiveSha256": "130c7dc7b5ec56b9afdd9d9392a5734c04b19684a28cb7edae4601f582b93011",
+      "lockContentHash": "0u77tnOwJnHtVLu+WBY7T56fN9W8n7++Uq9kHW6J+bfv5y13WZUMVS+PBzoBe32taYvz/oSomDGO1V41AHaFcQ==",
+      "repository": {
+        "type": "git",
+        "url": "https://github.com/AvaloniaUI/Avalonia/",
+        "commit": "e33eaed9c106846b200680751022385d9cc5dc6f"
+      },
+      "scope": "shipped-runtime",
+      "shippedFiles": [
+        "Avalonia.Remote.Protocol.dll"
+      ],
+      "evidence": [
+        {
+          "file": "Avalonia.Remote.Protocol.nuspec",
+          "sha256": "efb7ae90bda0610f6222c540fa1af27d21683f5479c5dd1badb12d5adb8898d5"
+        }
+      ]
+    },
+    {
+      "name": "HarfBuzzSharp",
+      "version": "8.3.1.3",
+      "dependencyType": "Transitive",
+      "declaredLicense": {
+        "type": "expression",
+        "value": "MIT"
+      },
+      "source": "https://api.nuget.org/v3-flatcontainer/harfbuzzsharp/8.3.1.3/harfbuzzsharp.8.3.1.3.nupkg",
+      "archiveSha256": "ffe644863a4eb3c078b4c3f0def0f2b90a861991c9116bf2dd668a31a0f09ab5",
+      "lockContentHash": "NGZ2+ZVNPM+NdHB/asW0/ykWngyHWwcqjrbN2nDeH1B/aptPGlCUl8wkQ2cSJxw5fdWgdmIPmNuTPWpLwNVXWg==",
+      "repository": {
+        "type": "git",
+        "url": "https://go.microsoft.com/fwlink/?linkid=868515",
+        "branch": "release/3.119.2",
+        "commit": "2888c737ad016d584c74525e2d35db5097ea8576"
+      },
+      "scope": "shipped-runtime",
+      "shippedFiles": [
+        "HarfBuzzSharp.dll"
+      ],
+      "evidence": [
+        {
+          "file": "HarfBuzzSharp.nuspec",
+          "sha256": "dc37c8a3c466e1a2ab3a8f9bdecb78d619ac9ae9089b6ce05c291729f4ed7b4a"
+        },
+        {
+          "file": "LICENSE.txt",
+          "sha256": "89101e35a8c66fd4d6dffc1763259161d35cb564c169714ec227a768c89f2938"
+        }
+      ]
+    },
+    {
+      "name": "HarfBuzzSharp.NativeAssets.Linux",
+      "version": "8.3.1.3",
+      "dependencyType": "Transitive",
+      "declaredLicense": {
+        "type": "expression",
+        "value": "MIT"
+      },
+      "source": "https://api.nuget.org/v3-flatcontainer/harfbuzzsharp.nativeassets.linux/8.3.1.3/harfbuzzsharp.nativeassets.linux.8.3.1.3.nupkg",
+      "archiveSha256": "7de58e9daffc9dcbe6aeaec2c670dccefd5f69c576a68655e51f8ec82b687295",
+      "lockContentHash": "RI6A1LgmooU30+4QIyFt5rmBCzP0VzTR+587IJSGvYIsHHWlahFufihYxtraLfsIhW7I8dn6+xX+DZGygOPKWQ==",
+      "repository": {
+        "type": "git",
+        "url": "https://go.microsoft.com/fwlink/?linkid=868515",
+        "branch": "release/3.119.2",
+        "commit": "2888c737ad016d584c74525e2d35db5097ea8576"
+      },
+      "scope": "other-platform; not shipped",
+      "shippedFiles": [],
+      "evidence": [
+        {
+          "file": "HarfBuzzSharp.NativeAssets.Linux.nuspec",
+          "sha256": "0aa61be16ff5d9e7a8379e5b162cccbce0754a5c360b3f33ab463c25d4d7618e"
+        },
+        {
+          "file": "LICENSE.txt",
+          "sha256": "89101e35a8c66fd4d6dffc1763259161d35cb564c169714ec227a768c89f2938"
+        },
+        {
+          "file": "THIRD-PARTY-NOTICES.txt",
+          "sha256": "21504c46c4c58aa64c1055bd2dcbc5f9a136b4b8c412ed3cc6740e22c5b127f5"
+        }
+      ]
+    },
+    {
+      "name": "HarfBuzzSharp.NativeAssets.macOS",
+      "version": "8.3.1.3",
+      "dependencyType": "Transitive",
+      "declaredLicense": {
+        "type": "expression",
+        "value": "MIT"
+      },
+      "source": "https://api.nuget.org/v3-flatcontainer/harfbuzzsharp.nativeassets.macos/8.3.1.3/harfbuzzsharp.nativeassets.macos.8.3.1.3.nupkg",
+      "archiveSha256": "e962ac27f8c5f691e7696710bda7b3739015e9f96edd7b0ec50b3b8b8046609b",
+      "lockContentHash": "KPTq0xnslkI6nAo0jh3ptcQPJvZZr7MWYXa2jUe4SnHc9q+JlHElmNXp0sfFoiTgoCX7WOYpYsurypuH9Gehxw==",
+      "repository": {
+        "type": "git",
+        "url": "https://go.microsoft.com/fwlink/?linkid=868515",
+        "branch": "release/3.119.2",
+        "commit": "2888c737ad016d584c74525e2d35db5097ea8576"
+      },
+      "scope": "other-platform; not shipped",
+      "shippedFiles": [],
+      "evidence": [
+        {
+          "file": "HarfBuzzSharp.NativeAssets.macOS.nuspec",
+          "sha256": "f03fdc73cf4cb1c13598896d2d8118fa3374c35b673a2b57de8886d1de74eadc"
+        },
+        {
+          "file": "LICENSE.txt",
+          "sha256": "89101e35a8c66fd4d6dffc1763259161d35cb564c169714ec227a768c89f2938"
+        },
+        {
+          "file": "THIRD-PARTY-NOTICES.txt",
+          "sha256": "21504c46c4c58aa64c1055bd2dcbc5f9a136b4b8c412ed3cc6740e22c5b127f5"
+        }
+      ]
+    },
+    {
+      "name": "HarfBuzzSharp.NativeAssets.WebAssembly",
+      "version": "8.3.1.3",
+      "dependencyType": "Transitive",
+      "declaredLicense": {
+        "type": "expression",
+        "value": "MIT"
+      },
+      "source": "https://api.nuget.org/v3-flatcontainer/harfbuzzsharp.nativeassets.webassembly/8.3.1.3/harfbuzzsharp.nativeassets.webassembly.8.3.1.3.nupkg",
+      "archiveSha256": "6ab06223cd9f5cf8c0a9fb6a9c6ed6737051cd9ebebca77b6f9f2f412589564d",
+      "lockContentHash": "w2QfdNm9Uz/sUa0B5D+OnVQhyq3G/fBq6ibQMdWBlQqqwh0g0/5j3RFvYqZAmRZ5+RzvjVe8o8SFFnWYUSkuxA==",
+      "repository": {
+        "type": "git",
+        "url": "https://go.microsoft.com/fwlink/?linkid=868515",
+        "branch": "release/3.119.2",
+        "commit": "2888c737ad016d584c74525e2d35db5097ea8576"
+      },
+      "scope": "other-platform; not shipped",
+      "shippedFiles": [],
+      "evidence": [
+        {
+          "file": "HarfBuzzSharp.NativeAssets.WebAssembly.nuspec",
+          "sha256": "b02d7556366842cd8ad79e9b3b7c77c0e28955f4a8d9756dd6f09ddefbff04cb"
+        },
+        {
+          "file": "LICENSE.txt",
+          "sha256": "89101e35a8c66fd4d6dffc1763259161d35cb564c169714ec227a768c89f2938"
+        },
+        {
+          "file": "THIRD-PARTY-NOTICES.txt",
+          "sha256": "21504c46c4c58aa64c1055bd2dcbc5f9a136b4b8c412ed3cc6740e22c5b127f5"
+        }
+      ]
+    },
+    {
+      "name": "HarfBuzzSharp.NativeAssets.Win32",
+      "version": "8.3.1.3",
+      "dependencyType": "Transitive",
+      "declaredLicense": {
+        "type": "expression",
+        "value": "MIT"
+      },
+      "source": "https://api.nuget.org/v3-flatcontainer/harfbuzzsharp.nativeassets.win32/8.3.1.3/harfbuzzsharp.nativeassets.win32.8.3.1.3.nupkg",
+      "archiveSha256": "58d51098b595152c01293f71ed47614b3f53d8503bc226efc23b8f7b0ff7c943",
+      "lockContentHash": "bx8CE8Js+XGX8PUxAHCBDEORt5aaBYtMN4Hr9QFs57Xithh6yjUyYqksizH6eRDhJkwsGI+SXWmPmMm8lZC9Pw==",
+      "repository": {
+        "type": "git",
+        "url": "https://go.microsoft.com/fwlink/?linkid=868515",
+        "branch": "release/3.119.2",
+        "commit": "2888c737ad016d584c74525e2d35db5097ea8576"
+      },
+      "scope": "shipped-runtime",
+      "shippedFiles": [
+        "libHarfBuzzSharp.dll"
+      ],
+      "evidence": [
+        {
+          "file": "HarfBuzzSharp.NativeAssets.Win32.nuspec",
+          "sha256": "6443701ebc6778a1f5adc888cbe30fd12b96f7b211a67311416b80efb90888b6"
+        },
+        {
+          "file": "LICENSE.txt",
+          "sha256": "89101e35a8c66fd4d6dffc1763259161d35cb564c169714ec227a768c89f2938"
+        },
+        {
+          "file": "THIRD-PARTY-NOTICES.txt",
+          "sha256": "21504c46c4c58aa64c1055bd2dcbc5f9a136b4b8c412ed3cc6740e22c5b127f5"
+        }
+      ]
+    },
+    {
+      "name": "MicroCom.Runtime",
+      "version": "0.11.6",
+      "dependencyType": "Transitive",
+      "declaredLicense": {
+        "type": "expression",
+        "value": "MIT"
+      },
+      "source": "https://api.nuget.org/v3-flatcontainer/microcom.runtime/0.11.6/microcom.runtime.0.11.6.nupkg",
+      "archiveSha256": "453af6d34477b19bb2c62d17436e68c76a75915b7947509b1ff601b36d7e78d8",
+      "lockContentHash": "NdNWGDiZ6eS/Mf/9+QHR91cj1K7Hy+PX9yrHI/zM7xFYuj9IWT2uxtB6sCHjrnxAeLV9fut1R6zHDUGKX6f9lQ==",
+      "repository": {
+        "type": "git",
+        "url": "https://github.com/kekekeks/MicroCom",
+        "commit": "76785efcafd91b5902fd19dd11145f6dd655b7b4"
+      },
+      "scope": "shipped-runtime",
+      "shippedFiles": [
+        "MicroCom.Runtime.dll"
+      ],
+      "evidence": [
+        {
+          "file": "MicroCom.Runtime.nuspec",
+          "sha256": "c7aeab4b73acdba3bb8e66865c2bbe67566b8593d972be2089181344adef345f"
+        }
+      ]
+    },
+    {
+      "name": "NAudio.Core",
+      "version": "3.1.0",
+      "dependencyType": "Transitive",
+      "declaredLicense": {
+        "type": "expression",
+        "value": "MIT"
+      },
+      "source": "https://api.nuget.org/v3-flatcontainer/naudio.core/3.1.0/naudio.core.3.1.0.nupkg",
+      "archiveSha256": "7fa05957c828e5d7c05ad159085c44e2087018e9e9e074cc0d145e0b7a5375af",
+      "lockContentHash": "8Hrd3Uqb2wEB64eZYF+0vl9xBadeSn6JnFDsHuGrw87ucJ+pB7u5NzVpHl8OlCNvIvH+sD9b2h4JOqXBuZGYwg==",
+      "repository": {
+        "type": "git",
+        "url": "https://github.com/naudio/NAudio",
+        "commit": "0aaef29d04bec9567bdf2f669036fabecc33a2e2"
+      },
+      "scope": "shipped-runtime",
+      "shippedFiles": [
+        "NAudio.Core.dll"
+      ],
+      "evidence": [
+        {
+          "file": "NAudio.Core.nuspec",
+          "sha256": "669aa3d805402411de85ab39475ae56f92e8e7e216f665488ddc45e435301b47"
+        }
+      ]
+    },
+    {
+      "name": "SkiaSharp",
+      "version": "3.119.4",
+      "dependencyType": "Transitive",
+      "declaredLicense": {
+        "type": "expression",
+        "value": "MIT"
+      },
+      "source": "https://api.nuget.org/v3-flatcontainer/skiasharp/3.119.4/skiasharp.3.119.4.nupkg",
+      "archiveSha256": "e32a449d31945c0b9d169eb5bc676e1e3f589aab69888e49d703fdc1c384c176",
+      "lockContentHash": "53NOSUZ1Us+91Sm0uCkIivh/k7jOowRErZT2sIWwPFN9mLUvdxnE6rS4sWo4255+Rd2MWUSF+j0NMZHD6Cke+Q==",
+      "repository": {
+        "type": "git",
+        "url": "https://go.microsoft.com/fwlink/?linkid=868515",
+        "branch": "release/3.119.4",
+        "commit": "f568ac94dd768ef9a2f593537cfde2dd0d348ef5"
+      },
+      "scope": "shipped-runtime",
+      "shippedFiles": [
+        "SkiaSharp.dll"
+      ],
+      "evidence": [
+        {
+          "file": "LICENSE.txt",
+          "sha256": "89101e35a8c66fd4d6dffc1763259161d35cb564c169714ec227a768c89f2938"
+        },
+        {
+          "file": "SkiaSharp.nuspec",
+          "sha256": "64f0b2f1511042f5a6ba63a9b9508aa5d34118e7e388d828121faa0e124e3597"
+        }
+      ]
+    },
+    {
+      "name": "SkiaSharp.NativeAssets.Linux",
+      "version": "3.119.4",
+      "dependencyType": "Transitive",
+      "declaredLicense": {
+        "type": "expression",
+        "value": "MIT"
+      },
+      "source": "https://api.nuget.org/v3-flatcontainer/skiasharp.nativeassets.linux/3.119.4/skiasharp.nativeassets.linux.3.119.4.nupkg",
+      "archiveSha256": "fae0554059b1107ef7888e46c20bdfb548401ef7a7a6f7391ad4fadc7432d50a",
+      "lockContentHash": "UAyVzbqNfZsZbKbzj68zXLyUyF/SbTKmzTfOO6qDu++dtIUMMTzPBe8oOuzU/DiewpfKoUUlOSsJmqWc6blxBw==",
+      "repository": {
+        "type": "git",
+        "url": "https://go.microsoft.com/fwlink/?linkid=868515",
+        "branch": "release/3.119.4",
+        "commit": "f568ac94dd768ef9a2f593537cfde2dd0d348ef5"
+      },
+      "scope": "other-platform; not shipped",
+      "shippedFiles": [],
+      "evidence": [
+        {
+          "file": "LICENSE.txt",
+          "sha256": "89101e35a8c66fd4d6dffc1763259161d35cb564c169714ec227a768c89f2938"
+        },
+        {
+          "file": "SkiaSharp.NativeAssets.Linux.nuspec",
+          "sha256": "b95f79928a4833943ec3930ff1a9329c8ec004875bd922611743b2d4289bb2b5"
+        },
+        {
+          "file": "THIRD-PARTY-NOTICES.txt",
+          "sha256": "21504c46c4c58aa64c1055bd2dcbc5f9a136b4b8c412ed3cc6740e22c5b127f5"
+        }
+      ]
+    },
+    {
+      "name": "SkiaSharp.NativeAssets.macOS",
+      "version": "3.119.4",
+      "dependencyType": "Transitive",
+      "declaredLicense": {
+        "type": "expression",
+        "value": "MIT"
+      },
+      "source": "https://api.nuget.org/v3-flatcontainer/skiasharp.nativeassets.macos/3.119.4/skiasharp.nativeassets.macos.3.119.4.nupkg",
+      "archiveSha256": "f7f2f539ce5bba337aa4a8d6eac25caf58cbdd12edf3f32ddcc98294e730cf2c",
+      "lockContentHash": "fgBOWEqbY012x7gMfJU4ezgz6dfhJb30Z6YdW35h85Zoe39+a8YNbAAwL29ihPfWoppg5AjvyKNzD1oCvlqWwA==",
+      "repository": {
+        "type": "git",
+        "url": "https://go.microsoft.com/fwlink/?linkid=868515",
+        "branch": "release/3.119.4",
+        "commit": "f568ac94dd768ef9a2f593537cfde2dd0d348ef5"
+      },
+      "scope": "other-platform; not shipped",
+      "shippedFiles": [],
+      "evidence": [
+        {
+          "file": "LICENSE.txt",
+          "sha256": "89101e35a8c66fd4d6dffc1763259161d35cb564c169714ec227a768c89f2938"
+        },
+        {
+          "file": "SkiaSharp.NativeAssets.macOS.nuspec",
+          "sha256": "6aa19803f329aaa479b30ff851bd1830a1cd754e28bc5f7b21935caf83171896"
+        },
+        {
+          "file": "THIRD-PARTY-NOTICES.txt",
+          "sha256": "21504c46c4c58aa64c1055bd2dcbc5f9a136b4b8c412ed3cc6740e22c5b127f5"
+        }
+      ]
+    },
+    {
+      "name": "SkiaSharp.NativeAssets.WebAssembly",
+      "version": "3.119.4",
+      "dependencyType": "Transitive",
+      "declaredLicense": {
+        "type": "expression",
+        "value": "MIT"
+      },
+      "source": "https://api.nuget.org/v3-flatcontainer/skiasharp.nativeassets.webassembly/3.119.4/skiasharp.nativeassets.webassembly.3.119.4.nupkg",
+      "archiveSha256": "c4b7ec581b05169bf9420efd188322fb908ce980df720fffa32c0d941e58dc9d",
+      "lockContentHash": "S1HOxtBbD4bYDtA2e9WH5TX+lxqRrTPvKjrjttRhxnHNNu7YY8VFo/LeCP7tNqoTA6PV+8vsvNbmRUEC2ip8RQ==",
+      "repository": {
+        "type": "git",
+        "url": "https://go.microsoft.com/fwlink/?linkid=868515",
+        "branch": "release/3.119.4",
+        "commit": "f568ac94dd768ef9a2f593537cfde2dd0d348ef5"
+      },
+      "scope": "other-platform; not shipped",
+      "shippedFiles": [],
+      "evidence": [
+        {
+          "file": "LICENSE.txt",
+          "sha256": "89101e35a8c66fd4d6dffc1763259161d35cb564c169714ec227a768c89f2938"
+        },
+        {
+          "file": "SkiaSharp.NativeAssets.WebAssembly.nuspec",
+          "sha256": "6c1275cb2d1b18b3126f1dc7fbd371c31e361d5ff18919f899ceea7f30462b38"
+        },
+        {
+          "file": "THIRD-PARTY-NOTICES.txt",
+          "sha256": "21504c46c4c58aa64c1055bd2dcbc5f9a136b4b8c412ed3cc6740e22c5b127f5"
+        }
+      ]
+    },
+    {
+      "name": "SkiaSharp.NativeAssets.Win32",
+      "version": "3.119.4",
+      "dependencyType": "Transitive",
+      "declaredLicense": {
+        "type": "expression",
+        "value": "MIT"
+      },
+      "source": "https://api.nuget.org/v3-flatcontainer/skiasharp.nativeassets.win32/3.119.4/skiasharp.nativeassets.win32.3.119.4.nupkg",
+      "archiveSha256": "5a5698b1b4e1fdc9ffe9868df6874db5fa69f21a4de76ba71a01a542e9b43391",
+      "lockContentHash": "XOpbx/4CReO2wYsq2s6rbvdauc6dntG4Zv499sHGTJ87bwZaFXszFkwql3+FIZMc8kUPeaj3Mx2ezIJmo8a1Kg==",
+      "repository": {
+        "type": "git",
+        "url": "https://go.microsoft.com/fwlink/?linkid=868515",
+        "branch": "release/3.119.4",
+        "commit": "f568ac94dd768ef9a2f593537cfde2dd0d348ef5"
+      },
+      "scope": "shipped-runtime",
+      "shippedFiles": [
+        "libSkiaSharp.dll"
+      ],
+      "evidence": [
+        {
+          "file": "LICENSE.txt",
+          "sha256": "89101e35a8c66fd4d6dffc1763259161d35cb564c169714ec227a768c89f2938"
+        },
+        {
+          "file": "SkiaSharp.NativeAssets.Win32.nuspec",
+          "sha256": "3e0c3eafd204f390ab4e63f15bfaa34e5f128f576a2d97b9c25d1afb848a5c16"
+        },
+        {
+          "file": "THIRD-PARTY-NOTICES.txt",
+          "sha256": "21504c46c4c58aa64c1055bd2dcbc5f9a136b4b8c412ed3cc6740e22c5b127f5"
+        }
+      ]
+    },
+    {
+      "name": "System.Numerics.Tensors",
+      "version": "9.0.0",
+      "dependencyType": "Transitive",
+      "declaredLicense": {
+        "type": "expression",
+        "value": "MIT"
+      },
+      "source": "https://api.nuget.org/v3-flatcontainer/system.numerics.tensors/9.0.0/system.numerics.tensors.9.0.0.nupkg",
+      "archiveSha256": "b750243c36002a62b28b1ac5d3fbc284ad340ba1494cc36aca110611a0b1f959",
+      "lockContentHash": "hyJB4UlpAi19Xr9AXzu2NuagKC4lPfHObNMEAA0HmqFz2rX7wKgzeYzO/jM/eBHDhnUGFFEjk5cOoJaxqg5J4A==",
+      "repository": {
+        "type": "git",
+        "url": "https://github.com/dotnet/runtime",
+        "commit": "9d5a6a9aa463d6d10b0b0ba6d5982cc82f363dc3"
+      },
+      "scope": "shipped-runtime",
+      "shippedFiles": [
+        "System.Numerics.Tensors.dll"
+      ],
+      "evidence": [
+        {
+          "file": "LICENSE.TXT",
+          "sha256": "d7a68596ab69b06f51ca278a6545148e4269a9381c26d597c13df5d88e08cf5b"
+        },
+        {
+          "file": "System.Numerics.Tensors.nuspec",
+          "sha256": "52f3ac41d9235ca1e544e27145aeeef36c2dc2159c33936932d5f9c34267a14e"
+        },
+        {
+          "file": "THIRD-PARTY-NOTICES.TXT",
+          "sha256": "40686c6447a7d5b5d3693068e4571b5f483d7ed335aeee773ef662440de4c5d5"
+        }
+      ]
+    }
+  ],
+  "efbApi": {
+    "name": "@efb/efb-api",
+    "version": "1.0.3",
+    "declaredLicense": "MIT",
+    "scope": "vendored-source and bundled EFB runtime",
+    "assessment": "Package declaration only; full license and attribution absent; see audit R2."
+  },
+  "releaseArtifacts": [
+    {
+      "file": "VRChecklist.Companion/Avalonia.Base.dll",
+      "sha256": "19596afa3c31f1643812b6bacf7dead04889e61c3b465714eb3e818b9ecb1bb3"
+    },
+    {
+      "file": "VRChecklist.Companion/Avalonia.Controls.dll",
+      "sha256": "5a2540f4e27a59a7390b13be11bfbac484773ee98843a08ef00ae442e4aafb0c"
+    },
+    {
+      "file": "VRChecklist.Companion/Avalonia.DesignerSupport.dll",
+      "sha256": "a2bcc2ad2236015ee69d7fd7d47ea3448596620cc83b0562318688c39746cd59"
+    },
+    {
+      "file": "VRChecklist.Companion/Avalonia.Dialogs.dll",
+      "sha256": "b90af0559fa3eae9664e13649300da2e054636aef959b24df897f1a324d56824"
+    },
+    {
+      "file": "VRChecklist.Companion/Avalonia.HarfBuzz.dll",
+      "sha256": "7e896b33d3ba0c78347398d33112c6ca4dbd810a6f3b6caf22d3de3686332a40"
+    },
+    {
+      "file": "VRChecklist.Companion/Avalonia.Markup.Xaml.dll",
+      "sha256": "3bc2fb3c368256a7ca328e82d6b1296779d459a19fe1ed8a306f0088748d2cc3"
+    },
+    {
+      "file": "VRChecklist.Companion/Avalonia.Markup.dll",
+      "sha256": "061c8f2b9734f3befcf38f4b009b66190514c17c312ffd8db6fdbcbf45bffdc1"
+    },
+    {
+      "file": "VRChecklist.Companion/Avalonia.Metal.dll",
+      "sha256": "79c7505aa2ac04564e4966d168d38ce60fc47982d8661a6ebcbf3eefc8061c22"
+    },
+    {
+      "file": "VRChecklist.Companion/Avalonia.MicroCom.dll",
+      "sha256": "bd86aff78404bb8d09f38c3d7cc8f523df4b4a0af393291afd4e589512923689"
+    },
+    {
+      "file": "VRChecklist.Companion/Avalonia.OpenGL.dll",
+      "sha256": "60c753cc3f5d118deb82ff6131c99bb873153c081c05483f55406a7c3f60c3ad"
+    },
+    {
+      "file": "VRChecklist.Companion/Avalonia.Remote.Protocol.dll",
+      "sha256": "e0f3ccd76a47210367e9b2d1127ef499fb82eb283612cbf388a590a5ddf7e71b"
+    },
+    {
+      "file": "VRChecklist.Companion/Avalonia.Skia.dll",
+      "sha256": "9eb06b804efe57cacf6f60e8f451dabe2b5dd743d5b563ff51d6bab84476782e"
+    },
+    {
+      "file": "VRChecklist.Companion/Avalonia.Themes.Fluent.dll",
+      "sha256": "43b9888e28f6f635a5926e3cc228b29282c825d7078a66dfc7dfa5a8041ec401"
+    },
+    {
+      "file": "VRChecklist.Companion/Avalonia.Vulkan.dll",
+      "sha256": "790aad1467b5d6b48cabb5e6e68fb6e4960923998c9e67fba5758b44815da031"
+    },
+    {
+      "file": "VRChecklist.Companion/Avalonia.Win32.Automation.dll",
+      "sha256": "b805d7fcaacff732fbc3951cfeeababc56a8cbe56b01ee6937daeeef5b4c4b42"
+    },
+    {
+      "file": "VRChecklist.Companion/Avalonia.Win32.dll",
+      "sha256": "9d7fb93a2d0ed176341ff27396f1969933ca746f53595b55a9e39d411e190e09"
+    },
+    {
+      "file": "VRChecklist.Companion/Avalonia.dll",
+      "sha256": "e373a92e9539efc989429b4cfd9ff8e898ca604ac1d283782168011f8978db6e"
+    },
+    {
+      "file": "VRChecklist.Companion/Concentus.Oggfile.dll",
+      "sha256": "bfe5a43786b278e89bc162f8036f1872c5ca9375412d2d38b9fd2e2692e321a3"
+    },
+    {
+      "file": "VRChecklist.Companion/Concentus.dll",
+      "sha256": "3a1dcfcfaf86b90fc2fb6fd0baacdf0be70efef1c9fbb59683d3bf48949de1c9"
+    },
+    {
+      "file": "VRChecklist.Companion/HarfBuzzSharp.dll",
+      "sha256": "55e72ac23263f8e12484f3435e02ec22fac9eff6e6d169bb0a8c246be6b99d29"
+    },
+    {
+      "file": "VRChecklist.Companion/MicroCom.Runtime.dll",
+      "sha256": "2538ec6f3c24e901a90e33c37788b9a4e4b6ae8158cab7328a00a00bb28eab9e"
+    },
+    {
+      "file": "VRChecklist.Companion/NAudio.Core.dll",
+      "sha256": "2414b224766b74619b9ef313ea46d6f66a23cdbd34bc18c66370120c41ebc1d3"
+    },
+    {
+      "file": "VRChecklist.Companion/NAudio.Wasapi.dll",
+      "sha256": "b9402d5d2f72c23b0d62a8147e0d61e568b6c22388a31ffc1aec256ff9dd45ab"
+    },
+    {
+      "file": "VRChecklist.Companion/SkiaSharp.dll",
+      "sha256": "aaaaa18c68ba1f3a3408b00dff28b11d5705198e17ba9d3aa59222bfd35407c8"
+    },
+    {
+      "file": "VRChecklist.Companion/System.Numerics.Tensors.dll",
+      "sha256": "9d96dc759fdb54cbc3c26ee65cfd78ff32e3745f418119cc0811e63d3f29ecb9"
+    },
+    {
+      "file": "VRChecklist.Companion/THIRD-PARTY-NOTICES.md",
+      "sha256": "0deea2f4ab01001b07343dbb8f35b15b40def1bb8d4c4ab7b16e11d3c62ba37b"
+    },
+    {
+      "file": "VRChecklist.Companion/VERSION",
+      "sha256": "7fe84ad2d3af8db15de0a393e451103ebdeb543ac0c3e0efcd7b90c9aae0305b"
+    },
+    {
+      "file": "VRChecklist.Companion/VRChecklist.Companion.deps.json",
+      "sha256": "530f7e9856d18a9542b5030711a82229dcfaef876b93bc599b7cc933a2591737"
+    },
+    {
+      "file": "VRChecklist.Companion/VRChecklist.Companion.dll",
+      "sha256": "050f1aeae61e5c37c42e60a5a4554076913f9ae440edab1dbd063054933177f5"
+    },
+    {
+      "file": "VRChecklist.Companion/VRChecklist.Companion.exe",
+      "sha256": "f9b0d8a5f3f28c1bd3ebc98c7e964a8f763c1ad7bd29f11e89e34bc120130738"
+    },
+    {
+      "file": "VRChecklist.Companion/VRChecklist.Companion.runtimeconfig.json",
+      "sha256": "9950d4583cfc9a106857c0d5b8a75b53e8774852b57b80bc3823a74d44a4d87f"
+    },
+    {
+      "file": "VRChecklist.Companion/VRChecklist.Transport.dll",
+      "sha256": "a0f52328837cdc59bf04827798c94a6fdde580d902ac65ab380cda768ff5a873"
+    },
+    {
+      "file": "VRChecklist.Companion/av_libglesv2.dll",
+      "sha256": "53191a77fe783cd757ca7767077c2a64a662e7043777a5b4ab74980d4a0b73e3"
+    },
+    {
+      "file": "VRChecklist.Companion/libHarfBuzzSharp.dll",
+      "sha256": "145ade963eba427027d5e1381db5d51a0ef9e98e9fef9efbfa6074ca20da246f"
+    },
+    {
+      "file": "VRChecklist.Companion/libSkiaSharp.dll",
+      "sha256": "7dec3ba900ab353491e6446f0083739924c6f8dd668832e2f09d38ebffdbbe1c"
+    },
+    {
+      "file": "patulm-vr-checklist/ContentInfo/patulm-vr-checklist/Thumbnail.jpg",
+      "sha256": "448455f1ffd4a7728538d01af3d629a0cfb9d8fb49601cfb78f9221a8f68d7bb"
+    },
+    {
+      "file": "patulm-vr-checklist/html_ui/efb_ui/efb_apps/VRChecklist/Assets/app-icon.svg",
+      "sha256": "1768a6476dc806f72a63683a7c3d3093798cb050f6acd5c0e96537db2521d694"
+    },
+    {
+      "file": "patulm-vr-checklist/html_ui/efb_ui/efb_apps/VRChecklist/VRChecklist.css",
+      "sha256": "bfb3928f582acfd30e8e284ef58671e78a5524370541ab2b850a2799a49a0a30"
+    },
+    {
+      "file": "patulm-vr-checklist/html_ui/efb_ui/efb_apps/VRChecklist/VRChecklist.js",
+      "sha256": "add32fa6fb511d598910ee80320ff0f8a9e1d22dd968e367bcb3c53e0f81a381"
+    },
+    {
+      "file": "patulm-vr-checklist/layout.json",
+      "sha256": "2d5cca4a7e41932ca72291fbcc1af62e2c9ac57db8a7f0585c1dcece3645194f"
+    },
+    {
+      "file": "patulm-vr-checklist/manifest.json",
+      "sha256": "d9c9e0fe30fa220686716ee98840255c370b0c5bf56412b41959ff1d853472c4"
+    },
+    {
+      "file": "release.json",
+      "sha256": "352005fbd18204c7a3081e78a930a64143010562871bdb9897d27f806f6678b6"
+    }
+  ],
+  "audio": {
+    "opusFiles": 191,
+    "paidPlanRecords": 191,
+    "firstGeneration": "2026-09-18T15:00:16.925Z",
+    "lastGeneration": "2026-09-21T17:30:41.523Z",
+    "evidence": "Per-clip metadata and SHA-256 verified locally; paid status is an operator declaration, not an independent billing record.",
+    "distributionTerms": "unresolved; see audit R3"
+  },
+  "additionalSources": [
+    {
+      "name": "avalonia-license",
+      "url": "https://raw.githubusercontent.com/AvaloniaUI/Avalonia/e33eaed9c106846b200680751022385d9cc5dc6f/licence.md",
+      "sha256": "213814d306090074d234d760239ff0f67eb9b8d20eefb4d5631bb39dbe0b769b",
+      "bytes": 1096
+    },
+    {
+      "name": "avalonia-buildservices-license",
+      "url": "https://raw.githubusercontent.com/AvaloniaUI/Avalonia.BuildServices/777f975b0a0cecf0311273711d56697212c558c0/LICENSE",
+      "sha256": "94162c40c663bd96ec1b870e6aba6ef0a43f44c9eb500807e7965e7078f6dc47",
+      "bytes": 1070
+    },
+    {
+      "name": "concentus-oggfile-license",
+      "url": "https://raw.githubusercontent.com/lostromb/concentus.oggfile/27c3125205ddcd891822a398284b246636fafb94/LICENSE",
+      "sha256": "62b57c9efb947307703db3546f50f0fe62667e10c8da760552f0d8aa091ab9c3",
+      "bytes": 1189
+    },
+    {
+      "name": "msfs-license",
+      "url": "https://raw.githubusercontent.com/microsoft/msfs-avionics-mirror/main/LICENSE",
+      "sha256": "d69a6a613bd0683c12984654f7a416705dc881fe6762573abbfe464bdcde18d3",
+      "bytes": 1556
+    },
+    {
+      "name": "protobuf-license",
+      "url": "https://raw.githubusercontent.com/bufbuild/protobuf-es/v2.14.0/LICENSE",
+      "sha256": "c04b4216f1cd4c5a4f7fb2f2a1b0ae70d847e9e0cac7c9dee9bf8cc03177c449",
+      "bytes": 11357
+    },
+    {
+      "name": "cuint-readme",
+      "url": "https://raw.githubusercontent.com/pierrec/js-cuint/master/README.md",
+      "sha256": "9bba52999f0ff176cd3ba92645ac097fa0009275939794b27524c4e71955626b",
+      "bytes": 6032
+    },
+    {
+      "name": "undici-license",
+      "url": "https://raw.githubusercontent.com/nodejs/undici/v5.26.5/LICENSE",
+      "sha256": "a6db8096b2707bc0102d256917d4d33f298ba36d8c3f25de067a2b5bb379db27",
+      "bytes": 1090
+    },
+    {
+      "name": "eleven-eu",
+      "url": "https://elevenlabs.io/terms-of-use-eu",
+      "sha256": "71f4244dac4b0d9063eb8585f183687081e0e61ab08841e9ed8c5d11ffb6baa4",
+      "bytes": 471510
+    },
+    {
+      "name": "eleven-use",
+      "url": "https://elevenlabs.io/use-policy",
+      "sha256": "9fd0ee8277e4f9bc08cf00e0484f60ebac2e76f5f410e3e0486dda291945479c",
+      "bytes": 355136
+    },
+    {
+      "name": "taog-manual",
+      "url": "https://msfs.dev-pset.com/assets/docs/OH6A-H500C-MANUAL.pdf",
+      "sha256": "7df89ffa8af656c4458f95e95b3bcccd84753ad3425a449983cf62c4a7c215bb",
+      "bytes": 3657323
+    },
+    {
+      "name": "ntsb-manual",
+      "url": "https://data.ntsb.gov/Docket/Document/docBLOB?FileExtension=.PDF&FileName=Excerpts+from+AS350+Flight+Manual%2C+Revisions+2+%26+3+-+Normal+Procedures-Master.PDF&ID=40431411",
+      "sha256": "0a187f108f5faa70364ff8d2017b8a09ffc0d35a1a414ab0bd7c6ec6e41b5878",
+      "bytes": 1815541
+    },
+    {
+      "name": "h125-checklist",
+      "url": "https://aviapages.com/media/2022/03/14/Checklist_H125.pdf",
+      "sha256": "e5d583c71ac4e0ce8172b16ff873a4c208db3a9ca85be7e710475134aa1e61ca",
+      "bytes": 535627
+    },
+    {
+      "name": "microcom-license",
+      "url": "https://raw.githubusercontent.com/kekekeks/MicroCom/76785efcafd91b5902fd19dd11145f6dd655b7b4/LICENSE",
+      "sha256": "6ee769c9ac4dac9abb16b98b1341e9528ff9f4ab685481410d3376d14148f3a9",
+      "bytes": 1072
+    },
+    {
+      "name": "naudio-license",
+      "url": "https://raw.githubusercontent.com/naudio/NAudio/0aaef29d04bec9567bdf2f669036fabecc33a2e2/LICENSE",
+      "sha256": "e518e168af44d37da3de236e719c986169e47b46b90e37c1355056175744e037",
+      "bytes": 1064
+    },
+    {
+      "name": "cuint-license",
+      "url": "https://raw.githubusercontent.com/pierrec/js-cuint/c5f32fa2d79c7c3e5425b8abd8cc63a737f88f36/README.md",
+      "sha256": "9bba52999f0ff176cd3ba92645ac097fa0009275939794b27524c4e71955626b",
+      "bytes": 6032
+    },
+    {
+      "name": "skia-gn",
+      "url": "https://raw.githubusercontent.com/mono/skia/7dbfc07dd33181f84e0958afb7ee805c6c769f0b/BUILD.gn",
+      "sha256": "70de3c0a9d7d9f9a2ea09bb29994bb501fc7c8cd424f727ac3b08abb0ea3a438",
+      "bytes": 98160
+    },
+    {
+      "name": "skia-deps",
+      "url": "https://raw.githubusercontent.com/mono/skia/7dbfc07dd33181f84e0958afb7ee805c6c769f0b/DEPS",
+      "sha256": "a0e1e0cc4e1a9a06ab68eaf649741114dd2bc7404d290564a40bcd395740898a",
+      "bytes": 9049
+    },
+    {
+      "name": "skia-options",
+      "url": "https://raw.githubusercontent.com/mono/skia/7dbfc07dd33181f84e0958afb7ee805c6c769f0b/gn/skia.gni",
+      "sha256": "977d91e0fe3bad99bca3c70a01d6a1340bd68db1c5fdb89eda9e7de65048a5ab",
+      "bytes": 9371
+    }
+  ],
+  "installedSdkEula": {
+    "path": "Licenses/MSFS SDK EULA.pdf",
+    "sdkVersion": "1.7.3",
+    "documentLabel": "MS Flight Simulator SDK EULA (11/2019)",
+    "sha256": "8856e6201705a2e7b0097e9ab891f1e36c7944d52af1f5bcd4ceee6a3e69386c"
+  },
+  "checklistRightsReview": {
+    "reviewDate": "2026-09-21",
+    "publicSources": [
+      {
+        "url": "https://www.xbox.com/en-US/developers/rules",
+        "resolvedUrl": "https://www.xbox.com/en-US/developers/rules",
+        "sha256": "5e5e4337ee651b4736ebd90b3039a47d21af464e0cb61968df6d5443e0c602dc"
+      },
+      {
+        "url": "https://www.miltechsimulations.com/policies/terms-of-service",
+        "resolvedUrl": "https://www.miltechsimulations.com/policies/terms-of-service",
+        "sha256": "d43665f8dbf153e4d65bf4621a7f5ed5be6cd852c1a9336ef4db9061a5a20a45"
+      },
+      {
+        "url": "https://orbxstudios.com/eula/",
+        "resolvedUrl": "https://orbxstudios.com/eula/",
+        "sha256": "3babdff89466073b08d5ae9e91e6b3b1e036bd6660b7531ded4a3f4e0440e610"
+      },
+      {
+        "url": "https://inibuilds.com/pages/eula",
+        "resolvedUrl": "https://inibuilds.com/pages/eula",
+        "sha256": "54f18a9b32705db47ddaaf7bef0a6a0cad47ba1c55a3e87c42dc047671e1b721"
+      },
+      {
+        "url": "https://www.cows.studio/work/da42",
+        "resolvedUrl": "https://www.cows.studio/work/da42",
+        "sha256": "cb34bd273c18608dca45607fea6e035c3f20b1e558f2e0042294ce68ba680c37"
+      },
+      {
+        "url": "https://orbx-user-guides.storage.googleapis.com/creatorofworlds-cows-cows-da42-msfs-user-guide-e0274f.pdf",
+        "resolvedUrl": "https://orbx-user-guides.storage.googleapis.com/creatorofworlds-cows-cows-da42-msfs-user-guide-e0274f.pdf",
+        "sha256": "ed526e2a21276ab96d21dd47964cc6f37ea46563955b17ce3a6da87d4bf84df8"
+      },
+      {
+        "url": "https://flightsimulator.azureedge.net/wp-content/uploads/2024/11/Airbus-A400M-QRC.pdf",
+        "resolvedUrl": "https://flightsimulator.azureedge.net/wp-content/uploads/2024/11/Airbus-A400M-QRC.pdf",
+        "sha256": "ce1849b0fa3cc261ddc35ad8efc1ffc9e861fd09cc8c26ecd1eb4334918ee7c2"
+      },
+      {
+        "url": "https://www.taogshangar.com/oh6a-cayuse-msfs242",
+        "resolvedUrl": "https://www.taogshangar.com/oh6a-cayuse-msfs242",
+        "sha256": "010be9b585a47f5c66d981b98e6e56450158e12562ffb16909169d67be1f8330"
+      },
+      {
+        "url": "https://www.taogshangar.com/faq",
+        "resolvedUrl": "https://www.taogshangar.com/faq",
+        "sha256": "47fae2a4a4bdae9611a7f4dcba79ca00dda448d767217508a3cecbe94e09016d"
+      },
+      {
+        "url": "https://www.copyright.gov/circs/circ33.pdf",
+        "resolvedUrl": "https://www.copyright.gov/circs/circ33.pdf",
+        "sha256": "4abb8e07b87a560612f11839fabe7c066afeffc8bdb8816c755f7e47fa07dbf2"
+      },
+      {
+        "url": "https://msfs.dev-pset.com/assets/docs/OH6A-H500C-MANUAL.pdf",
+        "sha256": "7df89ffa8af656c4458f95e95b3bcccd84753ad3425a449983cf62c4a7c215bb"
+      },
+      {
+        "url": "https://data.ntsb.gov/Docket/Document/docBLOB?FileExtension=.PDF&FileName=Excerpts+from+AS350+Flight+Manual%2C+Revisions+2+%26+3+-+Normal+Procedures-Master.PDF&ID=40431411",
+        "sha256": "0a187f108f5faa70364ff8d2017b8a09ffc0d35a1a414ab0bd7c6ec6e41b5878"
+      },
+      {
+        "url": "https://aviapages.com/media/2022/03/14/Checklist_H125.pdf",
+        "sha256": "e5d583c71ac4e0ce8172b16ff873a4c208db3a9ca85be7e710475134aa1e61ca"
+      },
+      {
+        "url": "https://docs.miltechsimulations.com/miltech-simulations-mh60/product-information/disclaimer-and-credits"
+      }
+    ],
+    "scope": "Provider and content review completed for 207 checklist items; see checklist-license-review.md. No blanket provider-permission requirement; no requests pending or sent.",
+    "packages": [
+      {
+        "checklistId": "diamond-da42",
+        "provider": "COWS / Creator of Worlds; Orbx distribution",
+        "packagePath": "StreamedPackages/fs20-orbx-aircraft-da42b",
+        "evidenceSubdirectories": [
+          "content/SimObjects/Airplanes/cows_da42tdi",
+          "content/SimObjects/Airplanes/cows_da42vi"
+        ],
+        "observedVersion": null,
+        "reviewedItems": 52
+      },
+      {
+        "checklistId": "sikorsky-mh-60",
+        "provider": "Miltech / Vantech with Blackbird Simulations",
+        "packagePath": "Community/miltechsimulations-aircraft-mh60",
+        "observedVersion": "1.1.6",
+        "reviewedItems": 37
+      },
+      {
+        "checklistId": "beechcraft-bonanza-g36",
+        "provider": "Microsoft / Asobo",
+        "packagePath": "StreamedPackages/fs24-asobo-aircraft-bonanza-g36",
+        "observedVersion": null,
+        "reviewedItems": 10
+      },
+      {
+        "checklistId": "cessna-152",
+        "provider": "Microsoft / Asobo; additional Cessna POH source",
+        "packagePath": "StreamedPackages/fs24-asobo-aircraft-c152",
+        "observedVersion": null,
+        "reviewedItems": 8
+      },
+      {
+        "checklistId": "airbus-h125",
+        "provider": "Microsoft / Asobo; additional Airbus and operator references",
+        "packagePath": "StreamedPackages/fs24-asobo-aircraft-h125",
+        "observedVersion": null,
+        "reviewedItems": 29
+      },
+      {
+        "checklistId": "airbus-a400m",
+        "provider": "Microsoft / iniBuilds",
+        "packagePath": "StreamedPackages/fs24-microsoft-aircraft-a400m",
+        "observedVersion": null,
+        "reviewedItems": 40
+      },
+      {
+        "checklistId": "hughes-oh6a-500c",
+        "provider": "Taog's Hangar",
+        "packagePath": "StreamedPackages/fs24-taog-oh6a-cayuse",
+        "observedVersion": null,
+        "historicalVersionInProjectReferences": "1.1.9",
+        "reviewedItems": 31
+      }
+    ],
+    "limits": [
+      "Streamed archives were not unpacked or decrypted; complete original checklist comparison was unavailable for those packages.",
+      "Public EULAs describe currently published terms, not proof of a particular original purchase contract.",
+      "Provider identity is not by itself proof of ownership of every underlying fact or text."
+    ],
+    "assessment": "Working assessment of technical checklist data, not a licence for original source materials or a finding that contractual restrictions do not apply."
+  }
+}

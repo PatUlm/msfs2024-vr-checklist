@@ -1,7 +1,7 @@
 # H125 references
 
-Dieser Ordner enthält versionierte, eng begrenzte Quellenexzerpte für die
-H125-Checklistendaten. Die Exzerpte dienen der nachvollziehbaren Ableitung und
+Dieser Ordner enthält Quellenverweise und ausgewählte technische Fakten für
+die H125-Checklistendaten. Sie dienen der nachvollziehbaren Ableitung und
 sind keine freigegebene Flugunterlage. Im Konfliktfall gilt ausschließlich das
 für den konkreten Hubschrauber gültige und freigegebene Flughandbuch.
 
@@ -23,8 +23,9 @@ Das NTSB stellt den Flughandbuchauszug als Verfahrensakte bereit, ist aber nicht
 der Herausgeber des Flughandbuchs. Wegen des nicht ausgewiesenen
 Weiterverbreitungsrechts wird die PDF-Datei nicht im Repository dupliziert.
 Stattdessen hält
-[`as350-b3e-normal-procedures.md`](as350-b3e-normal-procedures.md) nur den für
-die Checklistendaten benötigten, normalisierten Auszug mit Seitenbezug fest.
+[`as350-b3e-normal-procedures.md`](as350-b3e-normal-procedures.md) ausgewählte
+technische Fakten mit Seitenbezug fest; die vollständige Verfahrensabschrift
+ist kein Teil der öffentlichen Referenzdokumentation.
 
 ## Gegenprobe mit einer Betreibercheckliste
 

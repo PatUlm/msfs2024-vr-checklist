@@ -65,7 +65,8 @@ Die strukturellen Invarianten werden über den projektweiten Task geprüft:
 task validate
 ```
 
-Quelldokumente unter `checklists/source/` dienen ausschließlich als lokale Referenz und werden nicht von Git versioniert. Die JSON-Dateien in diesem Verzeichnis sind die prüfbaren, versionierbaren Daten für die Anwendung.
+Die JSON-Dateien in diesem Verzeichnis sind die prüfbaren, versionierbaren
+Daten für die Anwendung. Die Herkunft wird durch Quellenverweise dokumentiert.
 
 Nachvollziehbare, eng begrenzte Auszüge aus öffentlich zugänglichen Quellen
 liegen versioniert unter `checklists/references/`. Sie dokumentieren Herkunft und
@@ -74,12 +75,16 @@ noch ein Ersatz für das jeweils gültige Flughandbuch.
 
 ## Inhaltliche Herkunft
 
+Die Checklisten sind für die App angepasste Zusammenstellungen aus
+Ingame-Abläufen und den nachfolgend dokumentierten Handbuchquellen. Bei der
+Bearbeitung wurden KI-Werkzeuge als Hilfsmittel verwendet; fachliche Belege
+sind die genannten Originalveröffentlichungen. Die
+[Herkunftsprüfung](../../docs/checklist-license-review.md) hält die
+Anbieterzuordnung und Bewertung des geprüften Bestands fest.
+
 - Die minimale Cessna-152-Checkliste ist mit dem originalen Cessna-POH
   abgeglichen. Herkunft, Seitenangaben und die gewählten Werte innerhalb der
   POH-Bereiche stehen unter [`../references/cessna-152/`](../references/cessna-152/).
-- Die lokalen ODS-Referenzen für DA42 und MH-60 liegen ausschließlich unter
-  `checklists/source/` und bleiben unversioniert. Die JSON-Dateien sind die
-  daraus abgeleitete, kanonische Fassung.
 - Verhaltensänderungen der Miltech-MH-60 stehen im Changelog des
   [Miltech Bug Trackers](https://bugs.miltechsimulations.com/) (Produkt
   `MH60`), maschinenlesbar unter
@@ -105,13 +110,10 @@ noch ein Ersatz für das jeweils gültige Flughandbuch.
   Twist Grip auf `IDLE`, 30 Sekunden Cool-down, anschließend die verwendeten
   Systeme abschalten und die Rotorbremse erst bei höchstens 140 Rotor-RPM
   betätigen.
-- Die A400M-Checkliste ist ein vom Benutzer bereitgestellter Entwurf; die
-  lokale Vorlage liegt unter `checklists/source/Airbus A400M 2026-09-19.md`.
+- Die A400M-Checkliste bildet einen für die App angepassten Ingame-Ablauf ab.
   Die Einträge des Abschnitts `EFIS and FMS Setup` (`fsm-init`) sind mit
   `needsReview` markiert, bis sie
-  im Simulator bestätigt sind; `Flight Plan` hatte im Entwurf keine Response.
+  im Simulator bestätigt sind.
   Die `msfsMatches`-Regel ist noch nicht im MSFS beobachtet.
-- Die G36-Checkliste ist bewusst eine minimale, unvollständige Referenz aus den
-  vom Benutzer bereitgestellten Werten; es wurden keine zusätzlichen
-  Verfahrensschritte erfunden. Der Benutzer bestätigte, dass `Flag`/`Flags` in
-  der Vorlage `Flap`/`Flaps` bedeutete.
+- Die G36-Checkliste ist bewusst eine minimale, unvollständige Merkliste
+  ausgewählter Geschwindigkeiten, Klappen- und Fahrwerksstellungen.

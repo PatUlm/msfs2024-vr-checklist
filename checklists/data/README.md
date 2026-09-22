@@ -1,26 +1,33 @@
 # Strukturierte Checklistendaten
 
-`checklist.schema.json` definiert das versionierbare Austauschformat der EFB-App. `challenge` und `response` enthalten die kanonischen, direkt darstell- und vorlesbaren Texte. Varianten und Bedingungen werden getrennt in `alternatives` beziehungsweise `condition` erfasst und nicht in `response` wiederholt. Ergänzende Anzeigeinformationen, die weder Antwort noch Bedingung sind, stehen in `notes`. Die strukturierten Daten sind bewusst von Aufbau und Format der ursprünglichen Quelldokumente entkoppelt.
+Diese JSON-Dateien sind die einzige Quelle für Checklisteninhalte. Das
+[Schema](checklist.schema.json) definiert Felder und zulässige Werte;
+[style-guide.md](style-guide.md) die verbindlichen Schreibweisen.
+Hier bleiben nur Regeln zur Bearbeitung und Quellenbelege, keine zweite
+Feldreferenz oder Änderungschronik.
 
-Verbindliche Schreibweisen und die inhaltliche Abgrenzung von Challenge und
-Response stehen im [`style-guide.md`](style-guide.md). Er ist bei jeder
-inhaltlichen Änderung zusammen mit diesem Dokument zu beachten.
+## Bearbeiten und zuordnen
 
-Textfelder bleiben einzeilig; die spätere Oberfläche übernimmt das visuelle Wrapping. Dadurch enthalten die Daten keine aus Tabellenlayouts übernommenen Zeilenumbrüche.
-
-Die JSON-Dateien in diesem Verzeichnis sind die einzige Quelle für Checklist-Inhalte. Anwendungscode darf keine separate oder duplizierte Checklist-Liste enthalten.
-
-`aircraft.msfsMatches` enthält explizite Regeln für die String-SimVars
-`ATC MODEL`, `ATC TYPE` und `TITLE`. Mehrere Regeln werden als Alternativen
-behandelt; alle Felder innerhalb einer Regel müssen gemeinsam passen. Jedes Feld
-verwendet bewusst entweder `equals` oder `contains`. Vor dem Vergleich
-normalisiert die App Groß-/Kleinschreibung, Leerzeichen und Satzzeichen.
-`contains` muss mindestens vier normalisierte Zeichen enthalten. Neue Regeln
-werden erst nach Beobachtung im MSFS ergänzt. Mehrdeutige Treffer laden aus
-Sicherheitsgründen keine Checkliste. Bei einer fehlenden Zuordnung zeigt der
-Leerzustand alle drei Werte in einer `Model:`-Zeile an.
-
-Beispiel für eine kombinierte Regel:
+- `challenge` benennt das System, `response` Zustand/Aktion. Bedingungen,
+  Alternativen und Notizen getrennt pflegen. Texte einzeilig; die UI bricht um.
+- Englische Ansagen verwenden `speech`, sonst `<challenge>: <response>`.
+  `needsReview` und ein konkretes `reviewNote` kennzeichnen ungeklärte Inhalte.
+- Checklist-, Gruppen- und Item-IDs sind stabile semantische Slugs in
+  `lower-kebab-case`, auch bei Textänderungen. Item-IDs sind je Gruppe eindeutig;
+  Referenzen zum Beispiel `sikorsky-mh-60/engine-start/engine-1-start`.
+- Allein die Array-Reihenfolge bestimmt den Ablauf; kein separates `order`.
+  Die Gruppe erhält eine Phase aus dem Schema. `Engine Start` umfasst auch
+  Vorbereitung/APU/Nacharbeiten, `Taxi` die Rollvorbereitung, `Departure`
+  Startvorbereitung/Start/Steigflug. Keine leeren Gruppen für ungenutzte Phasen.
+  Die G36-Gruppe `Approach` bleibt trotz Landekonfiguration dieser Phase zugeordnet.
+- Phasen dienen Anzeige und `Skip phase`: Aufeinanderfolgende Gruppen mit
+  gleicher Phase bilden den übersprungenen Block. Phasenänderungen deshalb
+  auch auf diese Wirkung prüfen.
+- `aircraft.msfsMatches`: Regeln sind Alternativen; Felder einer Regel müssen
+  gemeinsam passen. `equals`/`contains` werden normalisiert verglichen;
+  `contains` braucht mindestens vier normalisierte Zeichen. Neue Regeln aus
+  beobachteten MSFS-Werten ableiten. Fehlende/mehrdeutige Treffer laden keine
+  Default-Checkliste; die angezeigten Diagnosewerte helfen beim Ergänzen.
 
 ```json
 {
@@ -29,49 +36,13 @@ Beispiel für eine kombinierte Regel:
 }
 ```
 
-Die erste TTS-Sprache ist Englisch. Für einfache Einträge bildet die App den gesprochenen Text aus `<challenge>: <response>`. Das optionale Feld `speech` überschreibt diesen Fallback mit einem vollständig formulierten Satz, wenn Bedingungen, Alternativen, Abkürzungen oder Aussprache sonst nicht zuverlässig wiedergegeben würden.
+Nach Datenänderungen `task validate`; vor Abschluss `task check` und Deployment
+gemäß [AGENTS.md](../../AGENTS.md). Geänderte gesprochene Texte erfordern
+passende [Audioassets](../../assets/audio/README.md).
 
-Unklare Inhalte werden mit `needsReview: true` markiert. `reviewNote` beschreibt
-konkret, was noch geprüft werden muss; die App stellt diesen Hinweis sichtbar
-in der Checklistenansicht dar.
-
-## IDs und Reihenfolge
-
-Jede Gruppe enthält ein Pflichtfeld `phase` mit genau einem der englischen
-Werte `Engine Start`, `Taxi`, `Departure`, `Cruise`, `Descent`, `Approach`,
-`Landing`, `After Landing` oder `Shutdown`. Die zulässigen Werte stehen im
-Schema; `task validate` prüft sie. Sie sind direkt darstellbare Bezeichnungen,
-keine aus dem Gruppennamen abgeleiteten Werte.
-
-`Engine Start` umfasst auch Vorbereitung, APU und Nacharbeiten zum
-Triebwerksstart. `Taxi` umfasst die Vorbereitung zum Rollen. `Departure`
-umfasst Startvorbereitung, Start und Steigflug. Die kombinierte G36-Gruppe
-`Approach` bleibt trotz enthaltener Landekonfiguration der Phase `Approach`
-zugeordnet. `Cruise`, `Descent` und `After Landing` sind für spätere Gruppen
-vorgesehen; leere Gruppen werden dafür nicht angelegt.
-
-Die Phase klassifiziert die Gruppe. Sie ändert weder Reihenfolge noch
-Fortschrittslogik oder Sprachausgabe.
-
-Checklist-, Abschnitts- und Eintrags-IDs sind stabile semantische Slugs in `lower-kebab-case`. Eine Eintrags-ID muss innerhalb ihres Abschnitts eindeutig sein. Vollständige Referenzen werden hierarchisch zusammengesetzt, zum Beispiel `sikorsky-mh-60/engine-start/engine-1-start`.
-
-IDs werden nach ihrer erstmaligen Vergabe nicht automatisch aus dem Anzeigetext neu erzeugt. Textänderungen und neu eingefügte Einträge verändern daher keine bestehenden Referenzen.
-
-Die Reihenfolge wird ausschließlich durch die JSON-Arrays festgelegt: `sections[]` bestimmt die Abschnittsreihenfolge, `items[]` die Eintragsreihenfolge. Ein separates `order`-Feld ist nicht vorgesehen.
-
-Die strukturellen Invarianten werden über den projektweiten Task geprüft:
-
-```bash
-task validate
-```
-
-Die JSON-Dateien in diesem Verzeichnis sind die prüfbaren, versionierbaren
-Daten für die Anwendung. Die Herkunft wird durch Quellenverweise dokumentiert.
-
-Nachvollziehbare, eng begrenzte Auszüge aus öffentlich zugänglichen Quellen
-liegen versioniert unter `checklists/references/`. Sie dokumentieren Herkunft und
-Ableitung der Checklistendaten, sind aber weder eine zweite Datenquelle der App
-noch ein Ersatz für das jeweils gültige Flughandbuch.
+Quellenreferenzen unter `checklists/references/` begründen Werte und bewusste
+Auslassungen. Keine Originalhandbücher oder vollständigen Verfahrensabschriften
+versionieren und keine zweite App-Checkliste in der Dokumentation pflegen.
 
 ## Inhaltliche Herkunft
 
@@ -114,6 +85,6 @@ Anbieterzuordnung und Bewertung des geprüften Bestands fest.
   Die Einträge des Abschnitts `EFIS and FMS Setup` (`fsm-init`) sind mit
   `needsReview` markiert, bis sie
   im Simulator bestätigt sind.
-  Die `msfsMatches`-Regel ist noch nicht im MSFS beobachtet.
+  Der offene Zuordnungsnachweis steht in [open-tests.md](../../docs/open-tests.md).
 - Die G36-Checkliste ist bewusst eine minimale, unvollständige Merkliste
   ausgewählter Geschwindigkeiten, Klappen- und Fahrwerksstellungen.

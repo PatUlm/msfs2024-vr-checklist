@@ -9,8 +9,8 @@ Die verwendeten Fakten wurden direkt an den gescannten Originalseiten
 geprüft; Seitenbelege und die Auswahl für die App stehen in der Tabelle unten.
 
 Die App schreibt die Einheit wie die bestehenden Checklisten als `kt`.
-Alle C152-Geschwindigkeiten beziehen sich auf IAS (im POH: KIAS); der
-Entwurf nennt dies bei der ersten Geschwindigkeitsangabe. `Vr` kennzeichnet
+Alle C152-Geschwindigkeiten beziehen sich auf IAS (im POH: KIAS); die
+Checkliste nennt dies bei der ersten Geschwindigkeitsangabe. `Vr` kennzeichnet
 das Anheben der Nase, `Vy` die beste Steigrate und `Vapp` den gewählten
 Endanflugwert. Die 85-kt-Klappengrenze wird als `Vfe` bezeichnet
 (POH 2-4, PDF-Seite 11: oberes Ende des weißen Bogens). Der normale

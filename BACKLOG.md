@@ -1,30 +1,24 @@
-# Priorisierter Umsetzungs-Backlog
+# Nächste Arbeiten
 
-Dieses Dokument enthält ausschließlich die noch offenen Code-, Build- und
-Qualitätsarbeiten. Die unnummerierten Abschnitte stehen in ihrer
-Umsetzungsreihenfolge; die nächste Arbeitssession beginnt beim ersten Abschnitt
-und schließt möglichst jeweils ein kleines, lauffähiges Inkrement
-einschließlich der nach `AGENTS.md` notwendigen Prüfungen, Deployments,
-Dokumentation und Commits ab.
+Nur offene, konkrete Arbeiten in Umsetzungsreihenfolge. Erledigte Punkte
+entfernen; keine zweite Roadmap oder Testliste pflegen.
 
-Vollständig erledigte Abschnitte werden entfernt und nicht dauerhaft abgehakt.
-Checkboxen halten nur den Zwischenstand mehrteiliger offener Arbeiten fest;
-sobald die gesamte Abnahme erfüllt ist, wird der zugehörige Abschnitt gelöscht.
-Erledigte Arbeit bleibt über Git-Historie, Changelog und die jeweils zuständige
-Projektdokumentation nachvollziehbar.
+1. **Lizenzhinweise und SDK-Nachweise vervollständigen.** Offene Punkte und
+   Abschlusskriterien stehen in [R1/R2](docs/license-audit.md); danach
+   Projektlizenz und Audio-Bedingungen entscheiden (R3/R5).
+2. **Bestätigungstaste für 1.0 abstimmen.** ADR 0002 verlangt vor öffentlicher
+   Weitergabe eine konfigurierbare Eventwahl; sie ist noch nicht umgesetzt.
+   Der bisherige Plan „keine neuen Features vor 1.0“ löst das nicht auf.
+   Entweder die zugesagte Konfiguration umsetzen oder die Entscheidung
+   ausdrücklich durch ein neues ADR ersetzen.
+3. **Öffentliche Installation festlegen.** Downloadpakete, .NET-Voraussetzung
+   und Bezug/Pfad der nicht mitgelieferten `SimConnect.dll` für externe Nutzer
+   klären und die README daran ausrichten. Der jetzige Weg setzt ein lokales
+   SDK voraus. Anschließend die bereinigte Dokumentation ins Englische übersetzen.
 
-Offene visuelle Abweichungen bleiben ausschließlich in [docs/design-qa.md](docs/design-qa.md), noch
-ausstehende MSFS-Laufzeitnachweise ausschließlich in [docs/open-tests.md](docs/open-tests.md). Dieser
-Backlog dupliziert diese Listen nicht.
+Externe Entwicklungsstörung: [JetBrains Remote Development](docs/jetbrains-remote-development.md)
+ist als laufende Diagnose separat dokumentiert. Vor öffentlicher Übernahme
+auf Reproduktion, Befund und Ticketlink kürzen und private Details entfernen.
 
-## Lizenznachweise und Distribution für 1.0.0 vervollständigen
-
-Die [Lizenzprüfung für 0.13.3](docs/license-audit.md) ist durchgeführt; die
-Veröffentlichung ist noch nicht freigegeben. Die Befunde R1 bis R5 und ihre
-Abschlusskriterien stehen ausschließlich im Prüfbericht.
-
-Die Checklistenprüfung R4 ist abgeschlossen; Herstelleranfragen sind keine
-pauschale Release-Voraussetzung. Nächstes Inkrement: vollständige
-Lizenz-/Copyrighttexte in den Auslieferungsumfang aufnehmen und deren
-Mitlieferung prüfen (R1), dabei die konkreten SDK-Nachweise ergänzen (R2).
-Projektlizenz und Audio-Bedingungen sind anschließend festzulegen (R3/R5).
+Offene Laufzeitnachweise: [open-tests.md](docs/open-tests.md).
+Offene Sichtprüfungen: [design-qa.md](docs/design-qa.md).

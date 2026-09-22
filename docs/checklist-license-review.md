@@ -1,9 +1,10 @@
 # Checklisten: Herkunft und Prüfung
 
 Stand: 2026-09-21, App 0.13.3. Die Inhalts- und Herkunftsprüfung der
-207 Einträge ist abgeschlossen. **Pauschale Herstelleranfragen sind keine
-Voraussetzung für den Projektabschluss.** Die zuvor allein aus Ingame-Herkunft
-und Listenumfang abgeleitete Anfragepflicht wird zurückgenommen.
+207 Einträge ist abgeschlossen. Hier bleiben nur Bewertung und Herkunft des
+geprüften Bestands; Quellenänderungen gezielt nachprüfen, keine Chronik
+vergangener Prüfaufträge ergänzen. **Pauschale Herstelleranfragen sind keine
+Voraussetzung für den Projektabschluss.**
 
 ## Ergebnis
 
@@ -55,9 +56,7 @@ der öffentlich abrufbare Stand, nicht der Nachweis des jeweiligen Kaufvertrags.
 
 ## Abschluss
 
-Herkunft und eigene Bearbeitung bleiben nachvollziehbar. Der umfangreiche
-H125-Handbuchauszug wurde durch knappe Fakten mit Seitenbelegen ersetzt.
-Die App-Checklisten bleiben unverändert. Es gibt keine ausstehenden
-Herstelleranfragen. Ein Herkunftshinweis und KI-Unterstützung erteilen keine
+Herkunft und eigene Bearbeitung bleiben nachvollziehbar. Quellenreferenzen enthalten nur knappe Fakten mit Seitenbelegen, keine
+Handbuchabschriften. Es gibt keine ausstehenden Herstelleranfragen. Ein Herkunftshinweis und KI-Unterstützung erteilen keine
 Nutzungsrechte; die gesonderten Software-, SDK- und Audiolizenzen bleiben in
 [R1–R3 und R5](license-audit.md) zu behandeln.

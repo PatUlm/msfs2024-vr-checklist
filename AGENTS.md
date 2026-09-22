@@ -1,224 +1,168 @@
 # Agent instructions
 
-Diese Regeln gelten für das gesamte Repository. Sie halten dauerhaftes
-Projektwissen fest; temporäre Beobachtungen und offene visuelle Abweichungen
-gehören nach `docs/design-qa.md`.
+Diese Regeln gelten für das gesamte Repository. Das Produkt ist ein kostenloses
+Spiele-Add-on mit geplanter Open-Source-Veröffentlichung, kein System für reale
+Luftfahrt. Aufwand und Dokumentation richten sich nach diesem Zweck.
 
-## Zusammenarbeit und Sprache
+## Zusammenarbeit
 
-- Kommuniziere mit dem Benutzer auf Deutsch, solange er nicht die Sprache
-  wechselt.
-- Prüfe vor Änderungen `git status --short` und erhalte alle bestehenden,
-  insbesondere nicht zugehörigen Änderungen.
-- Ein vom Benutzer gemeldeter Bug ist standardmäßig ein Arbeitsauftrag. Er wird
-  entweder selbstständig untersucht, behoben und angemessen verifiziert oder,
-  wenn eine sofortige Bearbeitung bewusst nicht möglich ist, mit Reproduktion,
-  Auswirkung, aktuellem Kenntnisstand und nächstem Schritt dauerhaft in der
-  passenden Projektdokumentation für später festgehalten. Ein Bug bleibt nicht
-  ausschließlich als Gesprächsergebnis undokumentiert offen.
-- Vor UI-Arbeiten sind `docs/design-decisions.md` und
-  `docs/design-qa.md` zu lesen. Ändere dokumentierte Designentscheidungen nicht
-  stillschweigend.
-- Vor Arbeiten am nächsten VR-Teststand sind zusätzlich die offenen visuellen
-  Nachweise in `docs/design-qa.md` und die Laufzeitnachweise in
-  `docs/open-tests.md` zu lesen.
-- Vor Arbeiten an Phase 2 oder Phase 3 sind `docs/adr/README.md` und die dort
-  verlinkten Entscheidungen zu lesen. Eine dokumentierte Entscheidung wird nicht
-  stillschweigend umgeworfen; eine Kehrtwende bekommt ein neues ADR, das das
-  alte ersetzt.
-- Vor Änderungen an Checklistendaten sind `checklists/data/README.md` und
-  `checklists/data/style-guide.md` zu lesen.
-- Vor einer Prüfung von Checklisten sind zuerst die kanonischen Daten und
-  dokumentierten Quellenverweise im Repository zu prüfen. Für einen Abgleich
-  mit Originalunterlagen werden die jeweiligen Primärquellen herangezogen.
-  Originalunterlagen werden nicht als dauerhafte lokale Quellensammlung im
-  Repository vorgehalten.
-- Neue oder aktualisierte direkte Abhängigkeiten und ausgelieferte
-  Drittkomponenten müssen im selben Arbeitsgang in
-  `docs/third-party-licenses.md` mit Version, Lizenz und Primärquelle
-  nachgeführt werden.
-- Jede abgeschlossene **nutzerwirksame** Änderung muss im selben Arbeitsgang das
-  englische `CHANGELOG.md` aktualisieren. Noch nicht veröffentlichte Änderungen
-  stehen unter `## [Unreleased]`. Bei einem Release werden sie nach
-  `## [MAJOR.MINOR.PATCH] - YYYY-MM-DD` verschoben; datumsbasierte Überschriften
-  ohne Version werden nicht verwendet.
-- Das `CHANGELOG.md` hält ausschließlich Änderungen fest, die Benutzer in der
-  ausgelieferten App, den Checklisten oder der Distribution wahrnehmen. Reine
-  Änderungen an Dokumentation, Tests, QA-Nachweisen, Forschung, ADRs,
-  Agentenregeln sowie internen Build- und Release-Abläufen erzeugen keinen
-  Eintrag. Begleitende Dokumentation zu einer Produktänderung bekommt keinen
-  eigenen Eintrag; beschrieben wird nur die nutzerwirksame Produktänderung.
-- Fehler, die während Entwicklung oder Review einer noch unveröffentlichten
-  Änderung gefunden und vor ihrer Veröffentlichung behoben werden, erhalten
-  keinen eigenen `Fixed`-Eintrag. Der zugehörige Feature-Eintrag beschreibt nur
-  das fertige, auslieferbare Ergebnis. Ein eigener `Fixed`-Eintrag entsteht erst,
-  wenn bereits veröffentlichtes Verhalten oder ein unabhängiger bestehender
-  Fehler korrigiert wird.
-- Sobald die Release-Notes-Funktion der Companion-App umgesetzt ist, wird bei
-  jedem Release zusätzlich ihre app-lesbare Release-Notes-Quelle aktualisiert.
-  Das Changelog bleibt die vollständige chronologische Änderungshistorie; die
-  Release Notes sind die nach Wichtigkeit geordnete, nutzerorientierte
-  Darstellung mit Version, Datum, hervorgehobenem Hauptmerkmal und knappen
-  Einzeilern für Features und Fehlerkorrekturen.
-- Commits sind, soweit sinnvoll möglich, nach fachlichem Kontext zu trennen.
-  Checklistendaten, Anwendungscode und allgemeine Dokumentation gehören
-  beispielsweise in getrennte Commits. Unmittelbar zugehörige Tests und
-  Dokumentation dürfen bei der jeweiligen fachlichen Änderung bleiben.
-- Jeder eindeutige Release-Commit `chore(release): publish version X.Y.Z` erhält
-  einen annotierten Git-Tag `vX.Y.Z`, der exakt auf diesen Commit zeigt.
-- Ein Release ist erst mit der lokalen Installation abgeschlossen: Nach dem
-  erfolgreichen Release-Build und dem Release-Commit wird `task release:install`
-  ausgeführt, damit Community2024 und die installierte Companion-EXE auf der
-  neuen Version stehen. Ein gebautes, aber nicht installiertes Release ist kein
-  fertiger Release-Schritt.
-- Das Repository folgt **Trunk-Based Development** auf `master`. Änderungen
-  werden als kleine, fachlich geschlossene und jederzeit lauffähige Inkremente
-  umgesetzt; langlebige Feature-Branches und große Sammel-Commits werden
-  vermieden.
-- Ein Inkrement gilt erst als abgeschlossen, wenn die vorgeschriebenen lokalen
-  Prüfungen erfolgreich sind, notwendige Deployments ausgeführt wurden und ein
-  für die Korrektheit erforderlicher MSFS-Laufzeitnachweis vorliegt. Reine
-  Dokumentationsänderungen benötigen weiterhin kein Deployment.
-- Jedes abgeschlossene Inkrement wird zeitnah committed und bleibt nicht ohne
-  sachlichen Grund als fertiger Working-Tree-Diff liegen. Diese Regel ist die
-  dauerhafte Erlaubnis für solche Abschluss-Commits; eine erneute Nachfrage ist
-  nicht nötig. Unfertige oder nicht lauffähige Zwischenstände werden nicht als
-  vermeintlich fertige Inkremente committed.
-- Der Benutzer reviewt und stagt fachliche Änderungen; Staging gilt als
-  Freigabe. Der Agent reviewt den staged Diff nicht erneut und committet nach
-  vollständiger Freigabe ohne Rückfrage. Selbst stagen darf er nur auf
-  ausdrücklichen Wunsch oder gemäß den folgenden Ausnahmen.
-- Review und Commit sind getrennte Schritte: Solange im Auftrag noch
-  reviewpflichtige Änderungen offen sind oder entstehen, keine Commits.
-  Im Commit-Schritt keine neuen reviewpflichtigen Änderungen beginnen.
-- Rein dokumentarische Abschlussarbeiten an freigegebenen Änderungen darf der
-  Agent selbst nachstagen und mitcommitten, etwa das Entfernen bestätigter
-  Testpunkte. Neue fachliche oder unbeteiligte Änderungen sind davon ausgenommen.
-- Ausnahme: Bei einem ausdrücklich beauftragten reinen Release-Schritt müssen
-  die mechanischen Release-Metadaten nach bereits freigegebenen fachlichen
-  Änderungen nicht erneut vom Benutzer reviewt oder gestaged werden. Der Agent
-  darf Versionsspiegelungen, Changelog und app-lesbare Release Notes nach den
-  erfolgreichen Release-Prüfungen selbst stagen, als eindeutigen Release-Commit
-  committen und taggen. Neue fachliche Änderungen sind von dieser Ausnahme
-  nicht erfasst.
-- Pushes erfolgen weiterhin nur auf ausdrücklichen Wunsch des Benutzers.
+- Deutsch verwenden, solange der Benutzer nicht die Sprache wechselt.
+- Vor Änderungen `git status --short` prüfen und vorhandene, besonders
+  unbeteiligte Änderungen erhalten.
+- Gemeldete Bugs untersuchen, beheben und angemessen prüfen. Ist die Bearbeitung
+  bewusst vertagt, Reproduktion, Auswirkung, Kenntnisstand und nächsten Schritt
+  knapp am zuständigen Ort dokumentieren; nicht nur im Gespräch offenlassen.
+- Vor UI-Arbeiten `docs/design-decisions.md` und `docs/design-qa.md` lesen;
+  vor einem VR-Teststand zusätzlich `docs/open-tests.md`.
+- Vor Architektur-/Companion-Arbeiten `docs/adr/README.md` und die betroffenen
+  ADRs lesen. Produktentscheidungen nicht stillschweigend ändern; eine
+  Architekturkehrtwende erhält ein ersetzendes ADR.
+- Vor MSFS-abhängigen Änderungen `docs/msfs-sdk-reference.md` und vorhandenen
+  Code prüfen. SDK/Samples erneut untersuchen, wenn die Referenz nicht reicht,
+  sich das SDK geändert hat oder Beobachtungen widersprechen.
+- Vor Checklistendatenänderungen `checklists/data/README.md` und
+  `checklists/data/style-guide.md` lesen. Bei Inhaltsprüfungen zuerst kanonische
+  Daten und Quellenverweise, dann nötigenfalls die Original-Primärquelle prüfen.
+  Keine dauerhafte lokale Handbuchsammlung anlegen.
 
-## MSFS-spezifische Lessons learned
+## Dokumentation: so viel wie nötig
 
-- MSFS 2024, das EFB-SDK und Coherent GT sind eigene Laufzeiten. Ihr Verhalten
-  wird nicht aus allgemeinen Browser-, React- oder Betriebssystemkonventionen
-  abgeleitet. Das installierte SDK und seine Samples bleiben read-only.
-- Vor MSFS-abhängigen Änderungen sind zuerst
-  `docs/msfs-sdk-reference.md` und der bestehende Anwendungscode zu prüfen.
-  SDK-Unterlagen und Samples werden erneut untersucht, wenn die Referenz die
-  konkrete Frage nicht beantwortet, sich die SDK-Version geändert hat oder das
-  beobachtete Verhalten der bisherigen Erkenntnis widerspricht.
-- Eine Erkenntnis wird nur dauerhaft festgehalten, wenn sie eine zukünftige
-  Implementierung beeinflusst oder einen wahrscheinlich wiederholten
-  MSFS-spezifischen Fehler verhindert. Dazu gehören insbesondere überraschendes
-  Lifecycle- und Eventverhalten, notwendige Ereignisreihenfolgen,
-  Laufzeitbeschränkungen sowie nachweislich ungeeignete, naheliegende Wege.
-  Erwartbares SDK-Verhalten, aus dem Code ersichtliche Implementierungsdetails
-  und reine Bestätigungen werden nicht aufgenommen.
-- Hängt die Korrektheit von ungeklärtem Laufzeitverhalten ab, darf ein eng
-  begrenzter Diagnosepfad eingebaut und im Simulator geprüft werden. Rohlogs,
-  Testskripte und der Untersuchungsweg sind temporär. Dauerhaft dokumentiert
-  werden nur Ergebnis, Geltungsbereich und die daraus folgende DO-/DON'T-Regel.
-- `docs/msfs-sdk-reference.md` ist der einzige Ort für bestätigte technische
-  Lessons learned. Ein Nachweis wird nur so weit angegeben, wie er für die
-  spätere Bewertung der Aussage nötig ist; nicht jede Aussage benötigt einen
-  eigenen Marker. `[NEG]` bleibt besonders für naheliegende, nachweislich
-  ungeeignete Wege reserviert.
-- Noch ausstehende Laufzeitnachweise stehen ausschließlich als kurze Aufgaben
-  in `docs/open-tests.md` und werden nach ihrer Klärung entfernt. Ein
-  Laufzeitnachweis prüft den Default-Fall eines Features, also den einen
-  Ablauf, den ein Pilot normalerweise auslöst. Grenz- und Gegenfälle werden
-  durch Unit- oder Self-Tests abgedeckt und nicht als weitere manuelle
-  Testschritte aufgeführt; Voraussetzung ist, dass programmiertes Verhalten
-  in der Regel funktioniert. Ein zusätzlicher manueller Schritt braucht einen
-  konkreten MSFS-Laufzeitgrund, den kein lokaler Test abdecken kann. ADRs enthalten
-  Entscheidungen und Konsequenzen, aber keine zweite technische Referenz.
-- Reichen Referenz, SDK, offizielle Dokumentation und Samples nicht aus, dürfen
-  das DevSupport-Forum und andere Primärquellen herangezogen werden.
-  Community-Vermutungen gelten nicht als API-Vertrag.
+- Eine Information bleibt nur, wenn sie Bedienung, Beiträge, Wartung oder
+  konkrete Weitergaberechte unterstützt. Keine vorsorglichen Unternehmens-,
+  Zertifizierungs- oder Freigabeprozesse für das Spiele-Add-on ergänzen.
+- Aktuellen Zustand und Gründe dokumentieren, keine Sitzungsverläufe,
+  erledigten Phasenpläne, Stimmenranglisten, Rohlogs oder Erfolgschroniken.
+  Historie bleibt in Git; veröffentlichte Produktänderungen im Changelog.
+- Jede Information hat einen zuständigen Ort; andernorts kurz darauf verlinken.
+  README: Nutzen, Installation, Bedienung, Grenzen. `docs/development.md`:
+  Setup und Testablauf. `docs/release.md`: Release und lokale Installation.
+  Datenformat/Schreibweise, Assetpflege und Quellen bleiben bei ihren Dateien.
+- `docs/design-decisions.md` enthält bewusste Produktregeln, keine vollständige
+  UI-Spezifikation oder Abschrift von CSS-Werten. ADRs enthalten Problem,
+  Entscheidung und nötige Konsequenz, normalerweise in 15–35 Zeilen.
+  Erledigte reine Ablaufplanung darf entfallen; ADR-Nummern nicht neu vergeben.
+- `docs/msfs-sdk-reference.md` enthält nur künftig relevante, bestätigte
+  MSFS-/Coherent-Fallen mit Geltungsbereich und Handlungsregel. Normales
+  API-Verhalten und aus dem Code ersichtliche Details nicht wiederholen.
+  `[NEG]` für naheliegende, nachweislich ungeeignete Wege erhalten.
+- Offene visuelle Punkte ausschließlich in `docs/design-qa.md`, offene
+  MSFS-Laufzeitnachweise ausschließlich in `docs/open-tests.md`. Nach Klärung
+  löschen; nur neue relevante Erkenntnisse in die zuständige Referenz übernehmen.
+  Nicht mehr benötigte QA-Bilder entfernen, statt sie als Fehlerarchiv zu behalten.
+- Roadmap beschreibt nächste Meilensteine, Backlog konkrete offene Arbeit.
+  Erledigte Aufgaben entfernen. Externe Werkzeugfehler nur so lange dokumentieren,
+  wie eine laufende Untersuchung es braucht; kompakte Reproduktion und Ticketlink
+  genügen, private Personen-/Firmendetails gehören nicht in öffentliche Projektdocs.
+- Quellen, Lizenztexte und noch benötigte Rechtebelege nicht als bloße Historie
+  löschen. Lizenzarbeit auf tatsächlich veröffentlichte Bestandteile und
+  konkrete ungeklärte Rechte begrenzen; keine pauschalen Herstelleranfragen
+  nur wegen technischer Checklisteneinträge oder ihres Umfangs.
+- Keine zweite Protokoll-/Schema-/Versionsliste von Hand pflegen, wenn Code,
+  Schema oder Lockfile die Information verbindlich enthält. Neue Dateien nur
+  bei eigenständigem, wiederkehrendem Nutzen; Kürzungen nicht durch lange
+  Reviewberichte oder neue Archivdokumente wieder auffüllen.
 
-## Source of Truth und generierte Dateien
+## Prüfungen und Deployment
 
-- Das Repository unter WSL2 ist die einzige editierbare Source of Truth.
-- Das installierte MSFS-SDK und seine Samples bleiben read-only. Bearbeitet
-  werden ausschließlich die in dieses Repository kopierten Quellen.
-- Das Windows-Staging unter
-  `/mnt/c/dev/msfs2024-vr-checklist-staging` ist ein One-Way-Deployment-Ziel und
-  darf nicht als Quelle zurück in das Repository synchronisiert werden.
-- Das Companion-Staging unter
-  `/mnt/c/dev/msfs2024-vr-checklist-companion-staging` folgt derselben
-  One-Way-Regel. Es enthält ausschließlich gebaute Windows-Artefakte aus
-  `companion/` und ist ebenfalls keine Source of Truth.
-- `node_modules/`, `msfs/PackageSources/VRChecklist/dist/` sowie `Packages/`,
-  `PackagesMetadata/` und `_PackageInt/` sind generiert und werden nicht
-  manuell bearbeitet oder versioniert. Das kopierte
-  `msfs/PackageSources/efb_api/dist/` ist dagegen Teil der bewusst versionierten
-  SDK-Vorlage und wird nicht lokal neu erzeugt. Ausnahme: Die vorab gerenderten
-  Sprachausgabedateien unter
-  `assets/` werden bewusst versioniert, damit die Auslieferung ohne TTS-Modell
-  und ohne Phonemizer auskommt; die Begründung steht in
-  `docs/adr/0007-ablage-der-gerenderten-audiodateien.md`.
-- Die Root-Datei `VERSION` ist die kanonische Quelle für die SemVer-Version der
-  App, des MSFS-Pakets und neuer Release-Artefakte. Die Versionsangaben in der
-  Paketdefinition und den npm-Metadaten müssen mit ihr übereinstimmen;
-  `task check` prüft diese Konsistenz.
-- Die JSON-Dateien unter `checklists/data/` sind die einzige Quelle für
-  Checklist-Inhalte. Keine zweite Checkliste im Anwendungscode pflegen.
-- `tmp/` ist ignoriert und flüchtig. Dauerhaft benötigte Screenshots liegen mit
-  sprechenden Namen unter `docs/assets/` und werden aus der Dokumentation dort
-  referenziert.
+- Projektabläufe vom Root über `Taskfile.yml`; npm nur für app-interne Aufgaben.
+  Nach frischem Clone: `task init`, `task install`, `task check`.
+- Solange fachliche Fragen zur Änderung offen sind, nur gezielte Prüfungen für
+  die Abstimmung; noch kein `task check` oder Deployment des Zwischenstands.
+- Nach abgestimmten Datenänderungen `task validate`, vor Abschluss jeder
+  Änderung `task check`. Angemessene lokale Prüfungen und für Korrektheit nötige
+  MSFS-Nachweise müssen vor Abschluss erfolgreich sein.
+- Nach abgestimmten app-wirksamen Code-, UI- oder Datenänderungen nach erfolgreicher
+  Prüfung automatisch `task deploy`; bei Companion-Änderungen zusätzlich
+  `task companion:deploy`. Reine Dokumentation braucht kein Deployment.
+- Nach Deployment die tatsächlich ins Windows-Staging geschriebene
+  Versionskennung ermitteln und dem Benutzer nennen.
+- Simulator-Iteration: `task deploy` → **Build All In Project** im Project
+  Editor → **Ignore Cache + Reload** im Coherent Debugger. UI-Änderungen
+  brauchen keinen Simulatorneustart und normalerweise keinen neuen Flug;
+  Lifecycle-/Reset-Prüfungen brauchen einen neuen Flug.
+- Ein Build beweist kein Coherent-Styling: Visuelles im EFB prüfen.
+  Manuelle Laufzeitnachweise prüfen den normalen Bedienablauf. Grenzfälle
+  durch Unit-/Self-Tests abdecken; zusätzliche manuelle Schritte brauchen
+  einen konkreten MSFS-Grund, den lokale Tests nicht abdecken können.
+- Ungeklärtes Laufzeitverhalten darf mit eng begrenzter Diagnose geprüft werden.
+  Rohlogs, Testskripte und Untersuchungsweg bleiben temporär. Dauerhaft bleiben
+  nur relevante Ergebnisse, Geltungsbereich und DO-/DON'T-Regeln.
+- Reichen SDK, offizielle Doku und Samples nicht, DevSupport und andere
+  Primärquellen nutzen. Community-Vermutungen sind kein API-Vertrag.
 
-## Standardabläufe
+## Review, Commits und Releases
 
-- Projektweite Abläufe werden aus dem Repository-Root über `Taskfile.yml`
-  gestartet; npm-Skripte sind nur für app-interne Frontend-Aufgaben bestimmt.
-- Nach einem frischen Clone: `task init`, `task install`, `task check`.
-- Änderungen, deren fachlicher Inhalt noch mit dem Benutzer abgestimmt werden
-  muss oder zu denen Fragen offen sind, gelten als Zwischenstand. Vor der
-  nötigen Benutzerentscheidung werden nur gezielte Prüfungen ausgeführt, die
-  für die Abstimmung oder zur Vermeidung eines offensichtlich defekten
-  Zwischenstands erforderlich sind; `task check` und Deployments folgen noch
-  nicht.
-- Nach inhaltlich abgestimmten Code- oder Datenänderungen muss vor Abschluss des
-  Inkrements mindestens `task check` erfolgreich laufen.
-- Nach jeder inhaltlich abgestimmten app-wirksamen Code-, UI- oder
-  Checklistendaten-Änderung muss nach der erfolgreichen Prüfung automatisch
-  `task deploy` ausgeführt werden. Reine Dokumentationsänderungen lösen keinen
-  unnötigen Deployment-Build aus.
-- Nach Änderungen am Windows-Companion muss zusätzlich automatisch
-  `task companion:deploy` ausgeführt werden.
-- Nach jedem Deployment ist die tatsächlich ins Windows-Staging geschriebene
-  App-Version zu ermitteln und dem Benutzer ausdrücklich zu nennen. Nicht
-  lediglich eine Version aus einem früheren lokalen Build angeben.
-- Für eine MSFS-Testiteration folgt nach `task deploy` im Project Editor
-  **Build All In Project** und im Coherent Debugger **Ignore Cache + Reload**.
-- Für reine UI-Änderungen ist kein Neustart von MSFS 2024 und normalerweise
-  auch kein neuer Flug erforderlich. Ein neuer Flug ist nur für Lifecycle- oder
-  Reset-Verhalten nötig.
-- Ein erfolgreicher Build beweist nicht, dass Coherent GT das Styling wie ein
-  normaler Browser rendert. Visuelle Änderungen müssen im EFB geprüft werden.
+- Trunk-Based Development auf `master`: kleine, fachlich geschlossene,
+  lauffähige Inkremente; keine langlebigen Feature-Branches oder Sammel-Commits.
+- Der Benutzer reviewt und stagt fachliche Änderungen; Staging ist Freigabe.
+  Staged Diff nicht erneut reviewen. Selbst stagen nur auf ausdrücklichen
+  Auftrag oder nach den folgenden Ausnahmen.
+- Review und Commit trennen: Solange reviewpflichtige Änderungen offen sind
+  oder entstehen, keine Commits. Im Commit-Schritt keine neuen fachlichen
+  Änderungen anfangen.
+- Rein dokumentarische Abschlussarbeiten an freigegebenen Änderungen dürfen
+  selbst nachgestagt werden, etwa bestätigte Testpunkte entfernen.
+- Fertige, vollständig freigegebene Inkremente zeitnah ohne erneute Rückfrage
+  committen, nach nötigen Prüfungen, Deployments und Laufzeitnachweisen.
+  Unfertige oder nicht lauffähige Stände nicht als abgeschlossen committen.
+- Commits nach Kontext trennen, etwa Daten, Anwendung und allgemeine Doku.
+  Unmittelbar zugehörige Tests und Dokumentation dürfen zusammenbleiben.
+- Bei ausdrücklich beauftragten reinen Releases dürfen mechanische
+  Versionsspiegelungen, Changelog und Release Notes nach erfolgreichen
+  Prüfungen selbst gestagt, committed und getaggt werden. Neue fachliche
+  Änderungen sind davon ausgenommen.
+- Jeder `chore(release): publish version X.Y.Z` erhält den annotierten Tag
+  `vX.Y.Z` exakt auf diesem Commit. Nach Build und Release-Commit
+  `task release:install` ausführen: Erst mit aktualisiertem Community-Paket
+  und installierter Companion-EXE ist das Release lokal abgeschlossen.
+- Pushes nur auf ausdrücklichen Wunsch.
 
-## Produkt- und Qualitätsregeln
+## Changelog und Lizenzen
 
-- Die dauerhaft akzeptierten UI- und Interaktionsentscheidungen stehen in
-  `docs/design-decisions.md`; offene Abweichungen stehen in
-  `docs/design-qa.md`.
+- Jede abgeschlossene nutzerwirksame Änderung im selben Arbeitsgang im
+  englischen `CHANGELOG.md` unter `## [Unreleased]` festhalten. Beim Release
+  nach `## [MAJOR.MINOR.PATCH] - YYYY-MM-DD` verschieben, keine CalVer-Überschriften.
+- Nur ausgelieferte App-, Checklisten- und Distributionsänderungen aufnehmen.
+  Doku, Tests, QA, Forschung, ADRs, Agentenregeln und interne Build-/Release-
+  Abläufe erhalten keinen Eintrag; Begleitdoku keinen separaten Eintrag.
+- Fehler innerhalb eines noch unveröffentlichten Features im Feature-Eintrag
+  aufgehen lassen. Eigene `Fixed`-Einträge nur für veröffentlichtes Verhalten
+  oder unabhängige bestehende Fehler. Kurz die Nutzerwirkung beschreiben,
+  keine Implementierungs- und Reviewgeschichte. Veröffentlichte Versionen
+  und ihre wesentlichen Änderungen bleiben als Historie erhalten.
+- Bei jedem Release `companion/release-notes.json` aktualisieren: gleiche
+  Version/Datum wie Changelog, wichtigstes Merkmal zuerst, knappe Feature-/Fix-
+  Einzeiler. Das Changelog bleibt die vollständige Produktchronik.
+- Neue/aktualisierte direkte Abhängigkeiten und ausgelieferte Drittkomponenten
+  im selben Arbeitsgang in `docs/third-party-licenses.md` mit Version, Lizenz
+  und Primärquelle nachführen.
+
+## Quellen und generierte Dateien
+
+- Nur das WSL2-Repository ist editierbare Source of Truth. Installiertes SDK
+  und Samples bleiben read-only; nur ins Repository kopierte Quellen ändern.
+- `/mnt/c/dev/msfs2024-vr-checklist-staging` und
+  `/mnt/c/dev/msfs2024-vr-checklist-companion-staging` sind One-Way-Ziele,
+  niemals zurücksynchronisieren. Companion-Staging enthält nur gebaute Artefakte.
+- `node_modules/`, `msfs/PackageSources/VRChecklist/dist/`, `Packages/`,
+  `PackagesMetadata/`, `_PackageInt/` sind generiert, nicht manuell bearbeiten
+  oder versionieren. `msfs/PackageSources/efb_api/dist/` ist dagegen bewusst
+  versionierte SDK-Vorlage, nicht lokal neu erzeugen. Gerenderte Sprachassets
+  sind gemäß ADR 0007 versioniert, damit Builds kein TTS benötigen.
+- `VERSION` ist die kanonische SemVer für App, Paket und neue Release-Artefakte;
+  Paketdefinition und npm-Metadaten spiegeln sie, `task check` prüft Konsistenz.
+- `checklists/data/*.json` sind die einzige Quelle der Checklisteninhalte;
+  keine zweite Liste im App-Code. `tmp/` ist ignoriert und flüchtig;
+  benötigte Dokumentationsbilder liegen mit sprechenden Namen in `docs/assets/`.
+
+## Produktqualität
+
+- MSFS, EFB-SDK und Coherent sind eigene Laufzeiten; ihr Verhalten nicht aus
+  allgemeinen Browser-, React- oder OS-Konventionen ableiten.
+- VR-first: Lesbarkeit und große Interaktionsziele vor Informationsdichte.
+- Event-first, keine unnötige Arbeit pro Frame. Polling nur begründet,
+  langsam und bei inaktiver App vollständig gestoppt. MSFS-FPS sind ein
+  eigenständiges Qualitätskriterium.
+- Reset beim Laden eines neuen Fluges; Änderungen daran gezielt in MSFS prüfen.
 - Audioqualität gilt unabhängig vom Ausgabegerät. Keine zusätzlichen manuellen
-  Hörtests oder Abnahmen speziell für Headsets, In-Ears oder andere
-  Kopfhörertypen verlangen.
-- Die Oberfläche ist VR-first. Lesbarkeit und große Interaktionsziele haben
-  Vorrang vor maximaler Informationsdichte.
-- Laufzeitlogik ist event-first und darf keine unnötige Arbeit pro Frame
-  verursachen. Polling ist nur als begründeter, langsamer und bei inaktiver App
-  vollständig gestoppter Fallback zulässig; Performance und MSFS-FPS sind
-  eigenständige Qualitätskriterien.
-- Die Checkliste wird beim Übergang in den Ladezustand eines neuen Fluges
-  zurückgesetzt. Änderungen an diesem Verhalten müssen gezielt in MSFS geprüft
-  werden.
-- Datenänderungen mit `task validate`, jede abgeschlossene Änderung mit
-  `task check` verifizieren.
+  Hörtests speziell für Headsets, In-Ears oder andere Kopfhörertypen verlangen.

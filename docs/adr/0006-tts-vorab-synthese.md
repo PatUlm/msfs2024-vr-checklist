@@ -1,48 +1,21 @@
 # ADR 0006: Sprachausgabe als Vorab-Synthese
 
-- **Status:** Akzeptiert — Klangvarianten am 2026-09-18 durch
-  [ADR 0010](0010-radioeffekt-bei-der-wiedergabe.md) ersetzt
-- **Datum:** 2026-08-26
-- **Betrifft:** Phase 3
+Status: Akzeptiert (2026-08-26); Klangvarianten durch
+[ADR 0010](0010-radioeffekt-bei-der-wiedergabe.md) ersetzt.
 
-## Kontext
+## Entscheidung und Grund
 
-Die Checklistentexte sind statisch. Echtzeit-TTS in der Begleit-App würde
-zusätzliche CPU-Last, erst im Flug auffallende Aussprachefehler und ein
-auszulieferndes Modell samt Phonemizer verursachen. Gerade der Phonemizer kann
-außerdem Copyleft-Bedingungen in die Auslieferung bringen.
-
-## Entscheidung
-
-Alle Ansagen werden vorab als Entwicklerschritt gerendert. Ausgeliefert werden
-nur die fertigen Audiodateien; die Begleit-App enthält weder TTS-Modell noch
-Phonemizer und synthetisiert zur Laufzeit nichts.
-
-## Begründung
-
-- Während des Flugs entstehen keine TTS-Last und keine Netzwerkabhängigkeit.
-- Jede Aussprache kann vor der Auslieferung mit den echten Checklistentexten
-  geprüft und bei Bedarf über das `speech`-Feld korrigiert werden.
-- Modell- und Phonemizerlizenzen betreffen das Entwicklungswerkzeug, nicht die
-  ausgelieferte Begleit-App.
-- Lokale Modelle und Cloud-Anbieter können nach Qualität und
-  Weitergaberechten verglichen werden, ohne die Offline-Anforderung zu ändern.
+Statische Checklistentexte werden als Entwicklerschritt vorab vertont.
+Ausgeliefert werden nur Audiodateien, keine TTS-Modelle oder Phonemizer.
+So bleiben Flugbetrieb und Aussprache unabhängig von Netzwerk und
+Syntheseleistung; Fehler lassen sich vor der Auslieferung hören und korrigieren.
 
 ## Konsequenzen
 
-- Text- oder Stimmenänderungen erfordern ein gezieltes Neu-Rendern.
-  Dateinamen enthalten dafür einen Hash über Text, Stimme und Clean-Renderrezept.
-- Die ursprüngliche Planung bereitete `Clean`, `Intercom` und `Radio` offline
-  vor. [ADR 0010](0010-radioeffekt-bei-der-wiedergabe.md) ersetzt diesen Teil:
-  nur Clean wird gerendert, Radio bei der Wiedergabe zugeschaltet; Intercom
-  entfällt. Filteränderungen erfordern keine neue Synthese.
-- Stimme und Anbieter bleiben Gegenstand von
-  [ADR 0008](0008-stimme-und-tts-anbieter.md).
-- Die Ablage der Audiodateien regelt
-  [ADR 0007](0007-ablage-der-gerenderten-audiodateien.md).
+Text- oder Stimmenänderungen erfordern gezieltes Neu-Rendern. Aussprache steht
+im `speech`-Feld, Herkunft und Renderrezept in den Asset-Metadaten. Kein
+Echtzeit-Fallback, der Modell und Phonemizer wieder in die App bringt.
 
-## Verworfene Alternativen
-
-- **Echtzeit-Synthese:** unnötige Laufzeit- und Lizenzlast für statische Texte.
-- **Cache plus Echtzeit-Fallback:** vereint die Komplexität beider Wege und
-  bringt Modell und Phonemizer zurück in die Auslieferung.
+[ADR 0007](0007-ablage-der-gerenderten-audiodateien.md) regelt die Ablage,
+[ADR 0008](0008-stimme-und-tts-anbieter.md) die Stimme. Pro Ansage wird nur
+Clean gerendert; Radio wird gemäß ADR 0010 live angewendet.

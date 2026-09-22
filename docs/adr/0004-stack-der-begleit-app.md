@@ -1,55 +1,26 @@
-# ADR 0004: Stack der Begleit-App — .NET 10 mit Avalonia
+# ADR 0004: .NET 10 mit Avalonia
 
-- **Status:** Akzeptiert
-- **Datum:** 2026-08-26, Status-App bestätigt am 2026-08-29
-- **Betrifft:** Phase 3
-- **Technische Grundlage:**
-  [`../msfs-sdk-reference.md`](../msfs-sdk-reference.md#commbus-und-externe-begleit-app)
+Status: Akzeptiert (2026-08-26).
 
-## Kontext
+## Entscheidung und Grund
 
-Die Begleit-App benötigt eine ruhige Windows-Oberfläche mit
-SimConnect/CommBus, gerätegenauer Audioausgabe und Einstellungen. Sie soll aus
-dem WSL2-Repository ohne Visual-Studio-IDE gebaut werden können und neben MSFS
-keine unnötige GPU- oder CPU-Last erzeugen.
-
-## Entscheidung
-
-- **.NET 10 LTS mit Avalonia** für Anwendung und Oberfläche.
-- Eigenes **P/Invoke gegen die native `SimConnect.dll`**, nicht der
-  Managed-Wrapper aus dem SDK.
-- **NAudio** mit WASAPI Shared Mode für Geräteauswahl und Wiedergabe.
-- **`CredWrite`/`CredRead`** für gegebenenfalls benötigte Geheimnisse.
-- Kein NativeAOT.
-
-## Begründung
-
-- Der Stack ist offen lizenziert, CLI-basiert und benötigt zur Laufzeit keinen
-  GPU-Prozess.
-- Avalonia deckt die Fensteroberfläche ab; NAudio erlaubt die Auswahl eines
-  konkreten Windows-Audiogeräts für das VR-Headset.
-- P/Invoke bindet genau die benötigten SimConnect- und CommBus-Funktionen an,
-  ohne vom inkompatiblen Managed-Wrapper abhängig zu sein.
+Die Windows-Begleit-App verwendet .NET 10, Avalonia und eigenes P/Invoke gegen
+die native `SimConnect.dll`. NAudio übernimmt Audio über WASAPI Shared Mode.
+Der Stack lässt sich aus WSL2 per CLI bauen und hält die kleine Begleit-App
+unabhängig von einer Visual-Studio-IDE.
 
 ## Konsequenzen
 
-- `SimConnect.dll` wird wegen der unklaren Weitergaberegel im SDK-EULA nicht in
-  ein eigenes Paket aufgenommen. Der Nutzer verwendet die mit MSFS gelieferte
-  Installation; Details stehen in der SDK-Referenz.
-- Audio läuft im Shared Mode mit Standardperiode. Exclusive Mode und ein
-  systemweit wirksamer Low-Latency-Pfad sind ausgeschlossen.
-- Das Ausgabegerät wird über seine stabile Geräte-ID, nicht über den sichtbaren
-  Namen gespeichert. Audiostreams werden nur bei Bedarf geöffnet.
-- Bestätigte Laufzeiteigenschaften stehen in der SDK-Referenz, neue offene
-  Nachweise ausschließlich in [`../open-tests.md`](../open-tests.md).
+- Kein NativeAOT, kein Exclusive-Audio-Modus und kein systemweiter
+  Low-Latency-Pfad. Audiostreams nur bei Bedarf öffnen; Geräte über stabile ID
+  speichern.
+- `SimConnect.dll` wird nicht mitgeliefert. Der aktuelle Installationsweg
+  verweist auf das lokale SDK, siehe [Companion](../../companion/README.md).
+- Der Managed-Wrapper aus dem SDK ist unter modernem .NET nicht ladbar;
+  Nachweis in der [SDK-Referenz](../msfs-sdk-reference.md#commbus-und-externe-begleit-app).
+- Falls künftig Geheimnisse nötig werden, Windows `CredWrite`/`CredRead`
+  verwenden. Die aktuelle App benötigt keine TTS-Zugangsdaten.
 
-## Verworfene Alternativen
-
-- **Electron/TypeScript:** vermeidet die native SimConnect-DLL, ist aber für
-  diese kleine Begleit-App deutlich schwerer und ressourcenintensiver.
-- **Rust:** klein und offen, aber ohne fertige CommBus-Abdeckung im bewerteten
-  Stack und mit zusätzlicher UI-/Toolchain-Komplexität.
-- **Python:** kein geeigneter Cross-Build von WSL2 nach Windows und ungünstige
-  Paketgröße.
-- **WinUI 3, Tauri und NativeAOT:** benötigen proprietäre oder zusätzliche
-  Windows-/C++-Buildvoraussetzungen, die den Projektbedingungen widersprechen.
+Electron wäre für diese kleine App schwerer; Rust/Tauri und WinUI erforderten
+zusätzliche UI-/Windows-Buildkomplexität. Python passte nicht zum vorgesehenen
+Cross-Build und Distributionsumfang.

@@ -1,9 +1,10 @@
 # Offene Laufzeitnachweise
 
-Diese Datei ist die einzige lebende Liste noch ausstehender Tests in MSFS.
-Jeder Punkt ist ein Einzeiler und wird nach der Prüfung entfernt; das belastbare
-Ergebnis geht als Fakt nach
-[`msfs-sdk-reference.md`](msfs-sdk-reference.md) oder in die zuständige
-Produktentscheidung.
+Einzige Liste ausstehender MSFS-Tests: je ein kurzer Standardablauf mit
+Erwartung. Nach Klärung entfernen; nur eine neue, künftig relevante technische
+Erkenntnis geht in [msfs-sdk-reference.md](msfs-sdk-reference.md). Erfolgreiche
+Routineprüfungen erzeugen keinen dauerhaften Bericht. Visuelles steht in
+[design-qa.md](design-qa.md).
 
-Derzeit keine offenen Laufzeitnachweise.
+- A400M auswählen und im EFB öffnen: Die automatische Zuordnung muss die
+  A400M-Checkliste laden; ihre `msfsMatches`-Regel ist noch nicht im Simulator bestätigt.

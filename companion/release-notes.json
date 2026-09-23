@@ -3,6 +3,18 @@
   "companionSince": "0.3.0",
   "releases": [
     {
+      "version": "0.13.4",
+      "date": "2026-09-23",
+      "highlight": "Follow the completed A400M FMS setup with Brian announcements and spoken operating notes.",
+      "features": [
+        "FMS Setup now includes page references, loading and route options, a company wind request, IRS verification and a block-fuel explanation.",
+        "Removed the provisional FMS review markers and enabled speech for all eight setup steps."
+      ],
+      "fixes": [
+        "Added T.O CONFIG after takeoff flaps, with a spoken reminder of the button location."
+      ]
+    },
+    {
       "version": "0.13.3",
       "date": "2026-09-21",
       "highlight": "Prepare the A400M with dedicated Before Engine Start and Before Taxi groups.",

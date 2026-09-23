@@ -11,7 +11,7 @@
       }
     ]
   },
-  "revision": "2026-09-21",
+  "revision": "2026-09-23",
   "sections": [
     {
       "id": "electrical-power-up",
@@ -132,78 +132,73 @@
     },
     {
       "id": "fsm-init",
-      "title": "EFIS and FMS Setup",
+      "title": "FMS Setup",
       "phase": "Engine Start",
       "items": [
         {
           "id": "fuel-payload",
-          "challenge": "Fuel & Payload",
-          "response": "Import + Load in EFB",
+          "challenge": "[EFB] Fuel & Payload",
+          "response": "Apply ZFW + Fuel",
           "kind": "action",
-          "speech": "Fuel and payload: Import and load in the EFB.",
-          "needsReview": true,
-          "reviewNote": "FSM step not yet verified in the simulator; translated from the German draft."
+          "speech": "E F B fuel and payload: Apply zero fuel weight and fuel. Import from SimBrief or use the values in the E F B total mass information.",
+          "notes": [
+            "Import from SimBrief or use the values in the EFB Total Mass information."
+          ]
         },
         {
           "id": "init",
-          "challenge": "INIT",
-          "response": "Import",
+          "challenge": "[INIT] Route",
+          "response": "Set",
           "kind": "action",
-          "needsReview": true,
-          "reviewNote": "FSM step not yet verified in the simulator."
+          "speech": "Initialization page, route: Set via E F B, import from SimBrief or enter manually.",
+          "notes": [
+            "Set via EFB, import from SimBrief or enter manually."
+          ]
         },
         {
           "id": "wind",
-          "challenge": "Wind",
-          "response": "Check",
-          "kind": "verify",
-          "speech": "Verify Wind: Check.",
-          "needsReview": true,
-          "reviewNote": "FSM step not yet verified in the simulator."
+          "challenge": "[WIND] CPNY Wind Request",
+          "response": "Select",
+          "kind": "action",
+          "speech": "Wind page: Select company wind request."
         },
         {
           "id": "position-monitor",
-          "challenge": "Position Monitor",
+          "challenge": "[Position Monitor] Status",
           "response": "GPS Primary",
           "kind": "verify",
-          "speech": "Verify Position monitor: G P S primary.",
-          "needsReview": true,
-          "reviewNote": "FSM step not yet verified in the simulator."
+          "speech": "Verify position monitor status: G P S primary."
         },
         {
           "id": "irs",
-          "challenge": "IRS [1+2+3]",
+          "challenge": "[Position Monitor] IRS [1+2+3]",
           "response": "NAV",
-          "kind": "action",
-          "speech": "I R S one, two and three: Nav.",
-          "needsReview": true,
-          "reviewNote": "FSM step not yet verified in the simulator."
+          "kind": "verify",
+          "speech": "Verify position monitor, I R S one, two and three: Navigation."
         },
         {
           "id": "flight-plan",
-          "challenge": "Flight Plan",
+          "challenge": "[F-PLN] Flight Plan",
           "response": "Insert",
           "kind": "action",
-          "needsReview": true,
-          "reviewNote": "FSM step not yet verified in the simulator; the draft had no response, 'Insert' is a placeholder."
+          "speech": "Flight plan: Insert."
         },
         {
           "id": "fuel-load",
-          "challenge": "Fuel & Load",
-          "response": "ZFW, ZFWCG, BLOCK = Fuel",
+          "challenge": "[FUEL & LOAD] ZFW, ZFWCG, BLOCK",
+          "response": "Set",
           "kind": "action",
-          "speech": "Fuel and load: Enter zero fuel weight, zero fuel weight C G, and block equal to fuel.",
-          "needsReview": true,
-          "reviewNote": "FSM step not yet verified in the simulator."
+          "speech": "Fuel and load: Set zero fuel weight, zero fuel weight center of gravity, and block fuel. Use the E F B values. Block fuel is the total fuel on board before engine start, including taxi fuel and reserves. Check the displayed units.",
+          "notes": [
+            "Use the EFB values. BLOCK is the total fuel on board before engine start, including taxi fuel and reserves. Check the displayed units."
+          ]
         },
         {
           "id": "to-perf",
-          "challenge": "T.O. Perf",
+          "challenge": "[PERF] T.O. Perf",
           "response": "Compute + Insert",
           "kind": "action",
-          "speech": "Takeoff performance: Compute and insert.",
-          "needsReview": true,
-          "reviewNote": "FSM step not yet verified in the simulator."
+          "speech": "Takeoff performance: Compute and insert."
         }
       ]
     },
@@ -337,6 +332,16 @@
           "response": "Set for TO",
           "kind": "action",
           "speech": "Flaps: Set for takeoff."
+        },
+        {
+          "id": "to-config",
+          "challenge": "T.O CONFIG",
+          "response": "Press",
+          "kind": "action",
+          "speech": "Takeoff configuration: Press the button on the E CAM control panel below the displays.",
+          "notes": [
+            "Button on the ECAM control panel below the displays."
+          ]
         },
         {
           "id": "to-taxi-lights",

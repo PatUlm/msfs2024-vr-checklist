@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "file": "item-69a4a0429f86fd73.opus",
+  "sha256": "0118a3f096fcc6636299fb0e03d8552c84730e33614bab156dae6ae33ddd5c66",
+  "recipeHash": "69a4a0429f86fd733a60535f9aed988b98952daf61b9bc4ea8f2b868b80f7e12",
+  "recipe": {
+    "voiceId": "nPczCjzI2devNBz1zQrb",
+    "request": {
+      "text": "Takeoff performance: Compute and insert.",
+      "model_id": "eleven_multilingual_v2",
+      "voice_settings": {
+        "stability": 0.75,
+        "similarity_boost": 0.75,
+        "style": 0,
+        "use_speaker_boost": true,
+        "speed": 1
+      },
+      "seed": 9172026
+    },
+    "sourceFormat": "mp3_44100_128",
+    "profile": "clean",
+    "normalization": "loudnorm=I=-20:TP=-2:LRA=11",
+    "format": "ogg-opus-mono-48000-32k",
+    "revision": 1
+  },
+  "generatedAt": "2026-09-23T19:41:06.994Z",
+  "provider": "ElevenLabs",
+  "voice": "Brian",
+  "generationPlan": "paid",
+  "planEvidence": "Operator confirmed active Starter subscription before rendering.",
+  "requestId": "Bk69vN577JLQDkCmjl3x",
+  "characterCost": "20",
+  "ffmpegVersion": "ffmpeg version 6.1.1-3ubuntu5 Copyright (c) 2000-2023 the FFmpeg developers",
+  "licenseNotice": "../README.md"
+}

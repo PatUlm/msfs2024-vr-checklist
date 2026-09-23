@@ -90,8 +90,9 @@ und bringen für .NET 10 keine weiteren Paketabhängigkeiten mit.
 
 | Komponente | Version / Stand | Lizenz / Bedingungen | Primärquelle |
 | --- | --- | --- | --- |
-| ElevenLabs Brian, Abschluss- und Itemansagen | eleven_multilingual_v2; erzeugt 2026-09-18 bis 2026-09-21 im bestätigten Starter-Plan | Bezahlte TTS-Ausgabe, gesonderte Anbieterbedingungen; keine pauschale MIT-Freigabe | [EU Terms](https://elevenlabs.io/terms-of-use-eu), [API Terms](https://elevenlabs.io/elevenapi-terms), [Veröffentlichung von Ausgaben](https://help.elevenlabs.io/hc/en-us/articles/13313564601361-Can-I-publish-the-content-I-generate-on-the-platform) |
+| ElevenLabs Brian, Abschluss- und Itemansagen | eleven_multilingual_v2; erzeugt 2026-09-18 bis 2026-09-23 im bestätigten bezahlten Abo | Bezahlte TTS-Ausgabe, gesonderte Anbieterbedingungen; keine pauschale MIT-Freigabe | [EU Terms](https://elevenlabs.io/terms-of-use-eu), [API Terms](https://elevenlabs.io/elevenapi-terms), [Veröffentlichung von Ausgaben](https://help.elevenlabs.io/hc/en-us/articles/13313564601361-Can-I-publish-the-content-I-generate-on-the-platform) |
 | FFmpeg, nur lokales Renderwerkzeug | 7.0.2-static, mit libopus | GPL-3.0-or-later für den verwendeten Build; wird nicht ausgeliefert | [FFmpeg Legal](https://ffmpeg.org/legal.html), [Buildanbieter](https://johnvansickle.com/ffmpeg/) |
+| FFmpeg, aktuelles lokales Renderwerkzeug unter Ubuntu | 6.1.1-3ubuntu5, mit libopus | GPL-2.0-or-later für den verwendeten Build; wird nicht ausgeliefert | [Ubuntu-Paket](https://packages.ubuntu.com/noble/ffmpeg), [FFmpeg Legal](https://ffmpeg.org/legal.html) |
 
 Die Herkunft der Clean-Dateien ist im
 [Abschlussmanifest](../assets/audio/completion/manifest.json) sowie in den

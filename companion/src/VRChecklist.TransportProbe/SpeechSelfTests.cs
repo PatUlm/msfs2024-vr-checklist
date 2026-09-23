@@ -153,8 +153,8 @@ internal static class SpeechSelfTests
         var snapshot = Snapshot("apu", "electrical-power-up") with
         { Checklist = new("airbus-a400m", revision, "A400M") };
         Require(catalog.Resolve(snapshot) is not null, "Known item did not resolve.");
-        Require(catalog.Resolve(snapshot with { ActiveGroup = new("fsm-init", "FSM Init", 1),
-            NextOpenItem = new("init", "INIT", "Import") }) is null, "Deferred A400M item resolved.");
+        Require(catalog.Resolve(snapshot with { ActiveGroup = new("fsm-init", "FMS Setup", 8),
+            NextOpenItem = new("init", "[INIT] Route", "Set") }) is not null, "A400M FMS item did not resolve.");
         try
         {
             catalog.Resolve(snapshot with { Checklist = new("airbus-a400m", "older", "A400M") });

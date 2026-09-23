@@ -110,7 +110,7 @@ offene Sichtprüfungen in [design-qa.md](design-qa.md).
   Die Abschlussansage endet vor dem inzwischen neuesten Item.
 - Abschalten der Itemansagen lässt Gruppenabschluss und `Test sound` verfügbar.
   Eine abweichende Checklistenrevision meldet einen Audiofehler, statt falschen
-  Text zu lesen. Ausgenommene A400M-Items bleiben stumm.
+  Text zu lesen.
 - `Radio effect` wirkt live auf dieselbe Clean-Aufnahme; Aus spielt sie
   unverändert. Keine Intercom-Variante, siehe
   [ADR 0010](adr/0010-radioeffekt-bei-der-wiedergabe.md).

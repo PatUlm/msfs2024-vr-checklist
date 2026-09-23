@@ -3,8 +3,8 @@
   "checklists": [
     {
       "id": "airbus-a400m",
-      "revision": "2026-09-21",
-      "items": 40
+      "revision": "2026-09-23",
+      "items": 41
     },
     {
       "id": "airbus-h125",
@@ -114,6 +114,46 @@
       "recipeHash": "3a042cdc7107dfd5100487ae799417baee5ea8f3ddb5db91692857b5a1f5956a"
     },
     {
+      "file": "item-609c26c1e38e9797.opus",
+      "sha256": "fe788729ac2fe76d5f2cb262a47d490ac57ec7d20f0e8b4cd10f4da5804fe6c1",
+      "recipeHash": "609c26c1e38e97971bcd59bcbe4d409879b24ce1f3bfd5147aa965e338046d36"
+    },
+    {
+      "file": "item-a4d7b1bc144ad3f4.opus",
+      "sha256": "1027a0f7ce2e7ca20c6374e8cbed67feb652c90f67215d732171488a21f687bb",
+      "recipeHash": "a4d7b1bc144ad3f4fe07ce6c1e4c1decb72856aa1888bc741703a50d8080e29c"
+    },
+    {
+      "file": "item-4a0c37791cdf4cca.opus",
+      "sha256": "7cb2721fa958f90cf34225bcead618279115be8721e53109c775b7ffcac4dcac",
+      "recipeHash": "4a0c37791cdf4cca62a704e267ea0b924a29a9bc6eb952b6b10acdc2ab334e33"
+    },
+    {
+      "file": "item-99dc490e2c5ac678.opus",
+      "sha256": "5a07cbf585dcc29db7b64200f917a14ce60f789701a3eafc4fbe5696197e53f9",
+      "recipeHash": "99dc490e2c5ac6783b06db0337121626357a0c62e2f6d11e743667060a45d7f5"
+    },
+    {
+      "file": "item-6ffe61e1bb938e2b.opus",
+      "sha256": "cac04cbf512ae355d427a23c1aa70754bbd37f8e582aa518508dd32d503b93d8",
+      "recipeHash": "6ffe61e1bb938e2bde3f3ca37e2d39c3d5a11e195614b0cf6237f086cc678b76"
+    },
+    {
+      "file": "item-48ff6544040ca0a9.opus",
+      "sha256": "86b7c82d51ea161f5e09aa1c1a1ea6d1bb27ff2b3d3ff14e11236fb7af08a78d",
+      "recipeHash": "48ff6544040ca0a97bf11d8a9045d0a02924fc313cfe0a1796d740a9739ea795"
+    },
+    {
+      "file": "item-24a47ddf27612693.opus",
+      "sha256": "1afb3d258c0508f5a8706c5d9df47630e0ec4a3b642c86876692f2a4be8f2ff1",
+      "recipeHash": "24a47ddf27612693b18a5d898d7cf0daf183f2f182dd9e44b24e1be4ab71ed97"
+    },
+    {
+      "file": "item-69a4a0429f86fd73.opus",
+      "sha256": "0118a3f096fcc6636299fb0e03d8552c84730e33614bab156dae6ae33ddd5c66",
+      "recipeHash": "69a4a0429f86fd733a60535f9aed988b98952daf61b9bc4ea8f2b868b80f7e12"
+    },
+    {
       "file": "item-e4c1121b91522298.opus",
       "sha256": "37a57be5d32e7a5194a66310af9f1b8da81c3d85f846d16b1df0d1f2f14d0f14",
       "recipeHash": "e4c1121b9152229818af65acd9f082cf322b1b4ecbcae41eddc003c353d3301f"
@@ -187,6 +227,11 @@
       "file": "item-1d88ea8273977914.opus",
       "sha256": "c78ea34f896a1df826be0cfc6d0bae49d07a1184f2f51acb9cebbb21134eda9b",
       "recipeHash": "1d88ea8273977914ef4900fe9381ba001f4ee03db91d47a747cbb2140e899e8a"
+    },
+    {
+      "file": "item-8cb24ec50e204b13.opus",
+      "sha256": "56df899f6dbf70b4d274bd7b0d9c09e16dba0be2dc0d57f84d2483e2d0c2700f",
+      "recipeHash": "8cb24ec50e204b135278e833c9929e017dfe795c036c05de0e37d3b96aa994bf"
     },
     {
       "file": "item-79ab6e0e8922509b.opus",
@@ -1001,6 +1046,14 @@
     "airbus-a400m/before-engine-start/fmges": "item-552100daa2b2ee86.opus",
     "airbus-a400m/before-engine-start/takeoff-data": "item-365cf13423f5c73e.opus",
     "airbus-a400m/before-engine-start/altimeters": "item-3a042cdc7107dfd5.opus",
+    "airbus-a400m/fsm-init/fuel-payload": "item-609c26c1e38e9797.opus",
+    "airbus-a400m/fsm-init/init": "item-a4d7b1bc144ad3f4.opus",
+    "airbus-a400m/fsm-init/wind": "item-4a0c37791cdf4cca.opus",
+    "airbus-a400m/fsm-init/position-monitor": "item-99dc490e2c5ac678.opus",
+    "airbus-a400m/fsm-init/irs": "item-6ffe61e1bb938e2b.opus",
+    "airbus-a400m/fsm-init/flight-plan": "item-48ff6544040ca0a9.opus",
+    "airbus-a400m/fsm-init/fuel-load": "item-24a47ddf27612693.opus",
+    "airbus-a400m/fsm-init/to-perf": "item-69a4a0429f86fd73.opus",
     "airbus-a400m/engine-start/beacon": "item-e4c1121b91522298.opus",
     "airbus-a400m/engine-start/parking-brake": "item-a4c4dafe91abe7fa.opus",
     "airbus-a400m/engine-start/eng-mode": "item-3f2e58c45640e380.opus",
@@ -1016,6 +1069,7 @@
     "airbus-a400m/after-start/anti-ice": "item-cb11dcdcb92622ae.opus",
     "airbus-a400m/after-start/all-switches-info": "item-8c5663a26cef6ea1.opus",
     "airbus-a400m/before-taxi/flaps": "item-1d88ea8273977914.opus",
+    "airbus-a400m/before-taxi/to-config": "item-8cb24ec50e204b13.opus",
     "airbus-a400m/before-taxi/to-taxi-lights": "item-79ab6e0e8922509b.opus",
     "airbus-a400m/before-taxi/runway-turn-off-lights": "item-2f28ba7836575dd0.opus",
     "airbus-h125/before-start/rotor-brake": "item-4ca060a947de48d4.opus",
@@ -1185,46 +1239,5 @@
     "sikorsky-mh-60/after-engine-start/primary-fuel-pump": "item-f757175825ab4569.opus",
     "sikorsky-mh-60/after-engine-start/de-ice-master": "item-5ff4dd14bc1aee72.opus"
   },
-  "excludedItems": [
-    {
-      "reference": "airbus-a400m/fsm-init/fuel-payload",
-      "text": "Fuel and payload: Import and load in the EFB.",
-      "reason": "EFIS and FMS Setup deferred by user until content is confirmed"
-    },
-    {
-      "reference": "airbus-a400m/fsm-init/init",
-      "text": "INIT: Import",
-      "reason": "EFIS and FMS Setup deferred by user until content is confirmed"
-    },
-    {
-      "reference": "airbus-a400m/fsm-init/wind",
-      "text": "Verify Wind: Check.",
-      "reason": "EFIS and FMS Setup deferred by user until content is confirmed"
-    },
-    {
-      "reference": "airbus-a400m/fsm-init/position-monitor",
-      "text": "Verify Position monitor: G P S primary.",
-      "reason": "EFIS and FMS Setup deferred by user until content is confirmed"
-    },
-    {
-      "reference": "airbus-a400m/fsm-init/irs",
-      "text": "I R S one, two and three: Nav.",
-      "reason": "EFIS and FMS Setup deferred by user until content is confirmed"
-    },
-    {
-      "reference": "airbus-a400m/fsm-init/flight-plan",
-      "text": "Flight Plan: Insert",
-      "reason": "EFIS and FMS Setup deferred by user until content is confirmed"
-    },
-    {
-      "reference": "airbus-a400m/fsm-init/fuel-load",
-      "text": "Fuel and load: Enter zero fuel weight, zero fuel weight C G, and block equal to fuel.",
-      "reason": "EFIS and FMS Setup deferred by user until content is confirmed"
-    },
-    {
-      "reference": "airbus-a400m/fsm-init/to-perf",
-      "text": "Takeoff performance: Compute and insert.",
-      "reason": "EFIS and FMS Setup deferred by user until content is confirmed"
-    }
-  ]
+  "excludedItems": []
 }

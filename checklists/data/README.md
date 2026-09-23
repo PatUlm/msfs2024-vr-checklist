@@ -10,8 +10,9 @@ Feldreferenz oder Änderungschronik.
 
 - `challenge` benennt das System, `response` Zustand/Aktion. Bedingungen,
   Alternativen und Notizen getrennt pflegen. Texte einzeilig; die UI bricht um.
-- Englische Ansagen verwenden `speech`, sonst `<challenge>: <response>`.
-  `needsReview` und ein konkretes `reviewNote` kennzeichnen ungeklärte Inhalte.
+- Inhalt und Vollständigkeit von `speech` richten sich nach dem
+  [Style Guide](style-guide.md#gesprochene-ansagen-speech).
+- `needsReview` und ein konkretes `reviewNote` kennzeichnen ungeklärte Inhalte.
 - Checklist-, Gruppen- und Item-IDs sind stabile semantische Slugs in
   `lower-kebab-case`, auch bei Textänderungen. Item-IDs sind je Gruppe eindeutig;
   Referenzen zum Beispiel `sikorsky-mh-60/engine-start/engine-1-start`.
@@ -82,9 +83,12 @@ Anbieterzuordnung und Bewertung des geprüften Bestands fest.
   Systeme abschalten und die Rotorbremse erst bei höchstens 140 Rotor-RPM
   betätigen.
 - Die A400M-Checkliste bildet einen für die App angepassten Ingame-Ablauf ab.
-  Die Einträge des Abschnitts `EFIS and FMS Setup` (`fsm-init`) sind mit
-  `needsReview` markiert, bis sie
-  im Simulator bestätigt sind.
   Der offene Zuordnungsnachweis steht in [open-tests.md](../../docs/open-tests.md).
+  Seitenbezeichnungen ergänzt nach dem
+  [iniBuilds-Handbuch](https://flightsimulator.azureedge.net/wp-content/uploads/2024/11/Airbus-A400M-MSFS-Manual.pdf).
+  `BLOCK` bezeichnet den gesamten Kraftstoffvorrat zu Flugbeginn, siehe
+  [Airbus: Fuel Leak Management](https://safetyfirst.airbus.com/fuel-leak-management-in-flight/).
+  Die Ergänzung `T.O CONFIG` am ECAM-Bedienpanel folgt dem Ingame-Hinweis;
+  sie steht nach der Startkonfiguration der Klappen.
 - Die G36-Checkliste ist bewusst eine minimale, unvollständige Merkliste
   ausgewählter Geschwindigkeiten, Klappen- und Fahrwerksstellungen.

@@ -7,6 +7,18 @@ Changelog, and the project uses Semantic Versioning.
 
 ## [Unreleased]
 
+### Changed
+
+- Clarified the A400M FMS setup with page references, route and loading options,
+  a company wind request, IRS verification and an explanation of block fuel.
+  Renamed the group to FMS Setup, removed its provisional review markers and
+  added Brian announcements including the operating notes.
+
+### Fixed
+
+- Added the missing A400M T.O CONFIG button press after setting takeoff flaps,
+  with a Brian announcement identifying the button location.
+
 ## [0.13.3] - 2026-09-21
 
 ### Changed

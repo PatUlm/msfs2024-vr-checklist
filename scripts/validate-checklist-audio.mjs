@@ -27,7 +27,6 @@ for (const entry of manifest.assets) {
   files.set(entry.file, metadata.recipe.request.text);
 }
 const expected = new Set();
-const excluded = new Set();
 for (const filename of await readdir(path.join(root, 'checklists/data'))) {
   if (!filename.endsWith('.json') || filename === 'checklist.schema.json') continue;
   const checklist = await readJson(path.join(root, 'checklists/data', filename));
@@ -38,20 +37,14 @@ for (const filename of await readdir(path.join(root, 'checklists/data'))) {
       const ref = checklist.id + '/' + section.id + '/' + item.id;
       if (item.kind === 'verify')
         assert(item.speech?.startsWith('Verify '), ref + ': missing spoken Verify cue');
-      if (checklist.id === 'airbus-a400m' && section.id === 'fsm-init') {
-        excluded.add(ref);
-        assert(!Object.hasOwn(manifest.items, ref), ref + ': excluded item mapped to audio');
-      } else {
-        expected.add(ref);
-        assert(Object.hasOwn(manifest.items, ref), ref + ': missing audio');
-        assert.equal(files.get(manifest.items[ref]), item.speech ?? item.challenge + ': ' + item.response,
-          ref + ': stale or incorrect speech text');
-      }
+      expected.add(ref);
+      assert(Object.hasOwn(manifest.items, ref), ref + ': missing audio');
+      assert.equal(files.get(manifest.items[ref]), item.speech ?? item.challenge + ': ' + item.response,
+        ref + ': stale or incorrect speech text');
     }
   }
 }
 assert.deepEqual(new Set(Object.keys(manifest.items)), expected);
-assert.equal(manifest.excludedItems.length, excluded.size);
-assert.deepEqual(new Set(manifest.excludedItems.map(item => item.reference)), excluded);
+assert.deepEqual(manifest.excludedItems, []);
 assert.deepEqual(new Set(Object.values(manifest.items)), new Set(files.keys()));
-console.log('Validated ' + files.size + ' paid clean audio assets, ' + expected.size + ' item mappings and ' + excluded.size + ' exclusions.');
+console.log('Validated ' + files.size + ' paid clean audio assets and ' + expected.size + ' item mappings; no exclusions.');

@@ -19,12 +19,6 @@ for (const file of (await readdir(source)).sort()) {
       items++;
       const text = item.speech ?? `${item.challenge}: ${item.response}`;
       const reference = `${checklist.id}/${section.id}/${item.id}`;
-      // User-selected first render scope. Preserve excluded items separately so
-      // a future playback manifest cannot accidentally map them to shared clips.
-      if (checklist.id === 'airbus-a400m' && section.id === 'fsm-init') {
-        excludedItems.push({ reference, text, reason: 'EFIS and FMS Setup deferred by user until content is confirmed' });
-        continue;
-      }
       const concerns = [];
       if (item.needsReview) concerns.push(`Content review: ${item.reviewNote ?? 'needsReview'}`);
       if (!item.speech) {

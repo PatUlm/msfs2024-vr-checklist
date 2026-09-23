@@ -84,9 +84,29 @@ Beispiele:
   Aussprache unklar wäre, erhält der Eintrag einen vollständig formulierten
   `speech`-Text.
 
-## Gesprochene Prüfaufforderungen
+## Gesprochene Ansagen (`speech`)
 
+- `speech` enthält die vollständige englische Ansage eines Eintrags: System
+  und geforderte Aktion beziehungsweise Sollzustand sowie die zugehörigen
+  Bedingungen, Alternativen und Bedienhinweise aus `notes`. Der Eintrag soll
+  beim Hören ohne zusätzliches Lesen verständlich und ausführbar sein.
+- Hinweise zu Bedienort, Reihenfolge, Wartezeiten, Grenzwerten und zur Bedeutung
+  benötigter Eingaben werden mitgesprochen. Reine Quellenangaben oder
+  redaktionelle Erläuterungen ohne Nutzen für die Bedienung dürfen entfallen.
+- Die Ansage darf Hinweise natürlich umformulieren und zusammenfassen, aber
+  keine für die Ausführung relevante Information verlieren oder neue fachliche
+  Angaben ergänzen. Kurze, klare Sätze verwenden.
+- `speech` ersetzt die automatische Ansage `<challenge>: <response>` vollständig.
+  `condition`, `alternatives` und `notes` werden nicht automatisch angehängt.
+  Ohne `speech` ist ein Eintrag nur dann vollständig vertont, wenn Challenge
+  und Response bereits alle für die Ansage nötigen Informationen enthalten.
+- Bei Änderungen an einem Eintrag auch `speech` mit allen geänderten Feldern
+  abgleichen; anschließend die betroffenen [Audioassets](../../assets/audio/README.md)
+  aktualisieren.
 - Jeder Eintrag mit `kind: "verify"` erhält einen `speech`-Text, der mit
   `Verify ` beginnt, zum Beispiel `Verify A P U indicator: On.`.
   Die sichtbare Challenge bleibt der Systemname; das vorhandene Verify-Badge
   kennzeichnet die Prüfhandlung in der Oberfläche.
+
+Beispiel: Zu `Altimeters [1+2]: Set QNH` mit der Notiz `Use ATIS or METAR`
+gehört die Ansage `Altimeters one and two: Set Q N H from A T I S or M E T A R.`.

@@ -11,6 +11,22 @@ The companion embeds mono Ogg Opus files, decodes at 48 kHz and optionally
 applies the radio effect during playback. It uses no TTS model, API key or
 network access. Build, check and deploy need neither ElevenLabs nor FFmpeg.
 
+## Render prerequisites
+
+Rendering new or changed speech requires FFmpeg with the `libopus` encoder
+and `loudnorm` filter, plus an active paid ElevenLabs subscription. On Ubuntu
+in WSL, install FFmpeg once through the system package manager:
+
+```sh
+sudo apt-get update
+sudo apt-get install --no-install-recommends ffmpeg
+```
+
+Use `ffmpeg` from `PATH`; no temporary Python environment or separate Docker
+container is needed. Set `VR_CHECKLIST_FFMPEG` in the ignored root `.env` only
+when using a different, persistent executable path. Set `ELEVENLABS_API_KEY`
+there as well. Render tasks do not install tools automatically.
+
 ## Regeneration
 
 For changed checklist text, first review the offline plan:
@@ -22,12 +38,9 @@ task audio:plan
 It writes a deduplicated inventory and review list to `tmp/checklist-audio/`.
 `speech` overrides the `<challenge>: <response>` fallback. Pronunciation hints
 are review aids, not proof of errors; corrections belong in the canonical data.
-The eight A400M `EFIS and FMS Setup` entries (ID `fsm-init`) are excluded and
-silent until their contents are confirmed.
 
-To render, install FFmpeg with libopus support, set `ELEVENLABS_API_KEY` in the
-ignored root `.env`, and optionally set `VR_CHECKLIST_FFMPEG` to its executable.
-With an active paid subscription, explicitly run the needed task:
+With the prerequisites installed and the paid subscription confirmed,
+explicitly run the needed task:
 
 ```sh
 task audio:render-completion -- --paid-plan-confirmed
@@ -36,7 +49,7 @@ task audio:render-items -- --paid-plan-confirmed
 
 These operations consume credits. Existing matching paid assets are reused
 with checksum verification. Never reuse free-tier auditions as production
-assets. `task validate:audio` checks item mappings, provenance and exclusions.
+assets. `task validate:audio` checks complete item mappings and provenance.
 
 Source responses are checkpointed under
 `tmp/checklist-audio/render-cache/` before encoding. A `.pending` marker

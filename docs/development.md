@@ -12,6 +12,9 @@ Task-Implementierungen und vergangene Testläufe werden hier nicht nacherzählt.
   Visual-Studio-Installation nötig.
 - Für den Companion-Start unter Windows: .NET-10-Laufzeit und die native
   `SimConnect.dll` aus der lokalen SDK-Installation.
+- Für neue oder geänderte Sprachassets: dauerhaft installiertes FFmpeg mit
+  libopus und `loudnorm` sowie ein bezahltes ElevenLabs-Abo. Einrichtung und
+  Renderablauf stehen in der [Audio-Anleitung](../assets/audio/README.md#render-prerequisites).
 
 Vom Repository-Root aus:
 

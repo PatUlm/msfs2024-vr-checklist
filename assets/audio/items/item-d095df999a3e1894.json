@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "file": "item-d095df999a3e1894.opus",
+  "sha256": "aab351f265de663d859597b47ada52dbfc61abbba05398bebc78cdd5deee8fb2",
+  "recipeHash": "d095df999a3e1894f9c274ce28d1bda07ea1d612d26fc277e4c667eb5eaf7051",
+  "recipe": {
+    "voiceId": "nPczCjzI2devNBz1zQrb",
+    "request": {
+      "text": "Approach Checklist. Gear: Down",
+      "model_id": "eleven_multilingual_v2",
+      "voice_settings": {
+        "stability": 0.75,
+        "similarity_boost": 0.75,
+        "style": 0,
+        "use_speaker_boost": true,
+        "speed": 1
+      },
+      "seed": 9172026
+    },
+    "sourceFormat": "mp3_44100_128",
+    "profile": "clean",
+    "normalization": "loudnorm=I=-20:TP=-2:LRA=11",
+    "format": "ogg-opus-mono-48000-32k",
+    "revision": 1
+  },
+  "generatedAt": "2026-09-24T20:04:22.960Z",
+  "provider": "ElevenLabs",
+  "voice": "Brian",
+  "generationPlan": "paid",
+  "planEvidence": "Operator confirmed active Starter subscription before rendering.",
+  "requestId": "4o0w15b41LRT9PGtsZcF",
+  "characterCost": "15",
+  "ffmpegVersion": "ffmpeg version 6.1.1-3ubuntu5 Copyright (c) 2000-2023 the FFmpeg developers",
+  "licenseNotice": "../README.md"
+}

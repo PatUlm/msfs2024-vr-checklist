@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "file": "item-bab5a9849f194343.opus",
+  "sha256": "07038dbf4de9af2342abfc7e8787cf8d5d305e0cb09fc752e223e48cab43551f",
+  "recipeHash": "bab5a9849f194343501eb0fa2097162c43b6fbb047101c2415102867fdf93967",
+  "recipe": {
+    "voiceId": "nPczCjzI2devNBz1zQrb",
+    "request": {
+      "text": "Line-Up and Wait Checklist. A T C tower: Request departure.",
+      "model_id": "eleven_multilingual_v2",
+      "voice_settings": {
+        "stability": 0.75,
+        "similarity_boost": 0.75,
+        "style": 0,
+        "use_speaker_boost": true,
+        "speed": 1
+      },
+      "seed": 9172026
+    },
+    "sourceFormat": "mp3_44100_128",
+    "profile": "clean",
+    "normalization": "loudnorm=I=-20:TP=-2:LRA=11",
+    "format": "ogg-opus-mono-48000-32k",
+    "revision": 1
+  },
+  "generatedAt": "2026-09-24T20:04:33.125Z",
+  "provider": "ElevenLabs",
+  "voice": "Brian",
+  "generationPlan": "paid",
+  "planEvidence": "Operator confirmed active Starter subscription before rendering.",
+  "requestId": "9cfn4iLIfR1jj578pIBA",
+  "characterCost": "30",
+  "ffmpegVersion": "ffmpeg version 6.1.1-3ubuntu5 Copyright (c) 2000-2023 the FFmpeg developers",
+  "licenseNotice": "../README.md"
+}

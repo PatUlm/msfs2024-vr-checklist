@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "file": "item-ef2bf785ed452262.opus",
+  "sha256": "fa8594189da55cc123e4f0aaad45fc10db61f55ce5f0d4d19baa10cb00bae887",
+  "recipeHash": "ef2bf785ed452262324fc35e52bad4e0f9f382700fb6cc069ca5c84f2d30b196",
+  "recipe": {
+    "voiceId": "nPczCjzI2devNBz1zQrb",
+    "request": {
+      "text": "Departure Checklist. Flaps: zero degrees.",
+      "model_id": "eleven_multilingual_v2",
+      "voice_settings": {
+        "stability": 0.75,
+        "similarity_boost": 0.75,
+        "style": 0,
+        "use_speaker_boost": true,
+        "speed": 1
+      },
+      "seed": 9172026
+    },
+    "sourceFormat": "mp3_44100_128",
+    "profile": "clean",
+    "normalization": "loudnorm=I=-20:TP=-2:LRA=11",
+    "format": "ogg-opus-mono-48000-32k",
+    "revision": 1
+  },
+  "generatedAt": "2026-09-24T20:04:24.081Z",
+  "provider": "ElevenLabs",
+  "voice": "Brian",
+  "generationPlan": "paid",
+  "planEvidence": "Operator confirmed active Starter subscription before rendering.",
+  "requestId": "8mkd8pAORpJFqsvuffSK",
+  "characterCost": "20",
+  "ffmpegVersion": "ffmpeg version 6.1.1-3ubuntu5 Copyright (c) 2000-2023 the FFmpeg developers",
+  "licenseNotice": "../README.md"
+}

@@ -3,6 +3,7 @@ import { spawnSync } from 'node:child_process';
 import { mkdir, readFile, writeFile, access, rename, rm } from 'node:fs/promises';
 import { fileURLToPath } from 'node:url';
 import path from 'node:path';
+import { itemSpeech } from './lib/checklist-speech.mjs';
 
 // Explicit developer operation, never called by check/build/deploy.
 // Task loads the ignored root .env. No API key is written into asset metadata.
@@ -101,7 +102,7 @@ async function main() {
     const current = JSON.parse(await readFile(path.join(root, 'checklists/data', checklist.id + '.json'), 'utf8'));
     if (current.revision !== checklist.revision) throw new Error('Stale plan: run task audio:plan.');
     const texts = new Map(current.sections.flatMap(section => section.items.map(item =>
-      [current.id + '/' + section.id + '/' + item.id, item.speech ?? item.challenge + ': ' + item.response])));
+      [current.id + '/' + section.id + '/' + item.id, itemSpeech(section, item)])));
     for (const utterance of plan.utterances)
       for (const ref of utterance.references.filter(ref => ref.reference.startsWith(current.id + '/')))
         if (texts.get(ref.reference) !== utterance.text) throw new Error('Stale plan text: run task audio:plan.');

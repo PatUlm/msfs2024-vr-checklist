@@ -307,9 +307,9 @@
         {
           "id": "flaps",
           "challenge": "Flaps",
-          "response": "Set for TO",
+          "response": "1 (TO)",
           "kind": "action",
-          "speech": "Flaps: Set for takeoff."
+          "speech": "Flaps: Set to position one for takeoff."
         },
         {
           "id": "to-config",

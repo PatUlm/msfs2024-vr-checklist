@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "file": "item-d02e764445271d29.opus",
+  "sha256": "4e37f1fa73efef4ae7850a7b91d16dde05be17e4b6aed4ed161c3a210e4e45e4",
+  "recipeHash": "d02e764445271d29ff17ca28a99357264ad09b65c4a5f2cdb3732e2d91a9b15b",
+  "recipe": {
+    "voiceId": "nPczCjzI2devNBz1zQrb",
+    "request": {
+      "text": "Landing Checklist. Below 85 knots indicated, flaps: thirty degrees, full.",
+      "model_id": "eleven_multilingual_v2",
+      "voice_settings": {
+        "stability": 0.75,
+        "similarity_boost": 0.75,
+        "style": 0,
+        "use_speaker_boost": true,
+        "speed": 1
+      },
+      "seed": 9172026
+    },
+    "sourceFormat": "mp3_44100_128",
+    "profile": "clean",
+    "normalization": "loudnorm=I=-20:TP=-2:LRA=11",
+    "format": "ogg-opus-mono-48000-32k",
+    "revision": 1
+  },
+  "generatedAt": "2026-09-24T20:04:28.733Z",
+  "provider": "ElevenLabs",
+  "voice": "Brian",
+  "generationPlan": "paid",
+  "planEvidence": "Operator confirmed active Starter subscription before rendering.",
+  "requestId": "RRCufD4UEmIw4XxgZ8St",
+  "characterCost": "36",
+  "ffmpegVersion": "ffmpeg version 6.1.1-3ubuntu5 Copyright (c) 2000-2023 the FFmpeg developers",
+  "licenseNotice": "../README.md"
+}

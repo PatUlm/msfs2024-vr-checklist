@@ -3,6 +3,7 @@ import { createHash } from 'node:crypto';
 import { readFile, readdir } from 'node:fs/promises';
 import { fileURLToPath } from 'node:url';
 import path from 'node:path';
+import { itemSpeech } from './lib/checklist-speech.mjs';
 
 const root = fileURLToPath(new URL('../', import.meta.url));
 const directory = path.join(root, 'assets/audio/items');
@@ -39,7 +40,7 @@ for (const filename of await readdir(path.join(root, 'checklists/data'))) {
         assert(item.speech?.startsWith('Verify '), ref + ': missing spoken Verify cue');
       expected.add(ref);
       assert(Object.hasOwn(manifest.items, ref), ref + ': missing audio');
-      assert.equal(files.get(manifest.items[ref]), item.speech ?? item.challenge + ': ' + item.response,
+      assert.equal(files.get(manifest.items[ref]), itemSpeech(section, item),
         ref + ': stale or incorrect speech text');
     }
   }

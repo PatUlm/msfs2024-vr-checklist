@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "file": "item-1776cc9d07d37a6c.opus",
+  "sha256": "9170de92df7760eac2d776d00afcddaad50a8a336db42cfb61371e4019a04f9e",
+  "recipeHash": "1776cc9d07d37a6cc7d87b82ce0b7c341cd5d0e3dfff13290e6f20ce8dc1830d",
+  "recipe": {
+    "voiceId": "nPczCjzI2devNBz1zQrb",
+    "request": {
+      "text": "Taxi Checklist. A T C ground: Request pushback.",
+      "model_id": "eleven_multilingual_v2",
+      "voice_settings": {
+        "stability": 0.75,
+        "similarity_boost": 0.75,
+        "style": 0,
+        "use_speaker_boost": true,
+        "speed": 1
+      },
+      "seed": 9172026
+    },
+    "sourceFormat": "mp3_44100_128",
+    "profile": "clean",
+    "normalization": "loudnorm=I=-20:TP=-2:LRA=11",
+    "format": "ogg-opus-mono-48000-32k",
+    "revision": 1
+  },
+  "generatedAt": "2026-09-24T20:04:31.861Z",
+  "provider": "ElevenLabs",
+  "voice": "Brian",
+  "generationPlan": "paid",
+  "planEvidence": "Operator confirmed active Starter subscription before rendering.",
+  "requestId": "Ws8H1JqRAwC8xPSps2lC",
+  "characterCost": "24",
+  "ffmpegVersion": "ffmpeg version 6.1.1-3ubuntu5 Copyright (c) 2000-2023 the FFmpeg developers",
+  "licenseNotice": "../README.md"
+}

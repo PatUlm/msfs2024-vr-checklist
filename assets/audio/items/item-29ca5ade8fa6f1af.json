@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "file": "item-29ca5ade8fa6f1af.opus",
+  "sha256": "7ebec0ac3b6da73c3bbf7981e5bb00e97e63264dc78462e3049e2f0d6d9f35cf",
+  "recipeHash": "29ca5ade8fa6f1afb8a3cbe10b9afa6847e358fb2dae63a68a255963c2744c21",
+  "recipe": {
+    "voiceId": "nPczCjzI2devNBz1zQrb",
+    "request": {
+      "text": "Take-Off and Climb Checklist. Power levers, one and two: 100 percent.",
+      "model_id": "eleven_multilingual_v2",
+      "voice_settings": {
+        "stability": 0.75,
+        "similarity_boost": 0.75,
+        "style": 0,
+        "use_speaker_boost": true,
+        "speed": 1
+      },
+      "seed": 9172026
+    },
+    "sourceFormat": "mp3_44100_128",
+    "profile": "clean",
+    "normalization": "loudnorm=I=-20:TP=-2:LRA=11",
+    "format": "ogg-opus-mono-48000-32k",
+    "revision": 1
+  },
+  "generatedAt": "2026-09-24T20:04:34.489Z",
+  "provider": "ElevenLabs",
+  "voice": "Brian",
+  "generationPlan": "paid",
+  "planEvidence": "Operator confirmed active Starter subscription before rendering.",
+  "requestId": "ZEnzsoXqPf4hYKl7Y8CG",
+  "characterCost": "34",
+  "ffmpegVersion": "ffmpeg version 6.1.1-3ubuntu5 Copyright (c) 2000-2023 the FFmpeg developers",
+  "licenseNotice": "../README.md"
+}

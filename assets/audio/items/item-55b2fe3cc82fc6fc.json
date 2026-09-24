@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "file": "item-55b2fe3cc82fc6fc.opus",
+  "sha256": "566ca82d6860af0a8693cfda010ed114283e84db97cf7d25fd7f2bda68ed1e67",
+  "recipeHash": "55b2fe3cc82fc6fc50e98da677edeaf0547f629aa9339d9cc0b925cae2e25623",
+  "recipe": {
+    "voiceId": "nPczCjzI2devNBz1zQrb",
+    "request": {
+      "text": "Electrical Power Up Checklist. External power, if available: On.",
+      "model_id": "eleven_multilingual_v2",
+      "voice_settings": {
+        "stability": 0.75,
+        "similarity_boost": 0.75,
+        "style": 0,
+        "use_speaker_boost": true,
+        "speed": 1
+      },
+      "seed": 9172026
+    },
+    "sourceFormat": "mp3_44100_128",
+    "profile": "clean",
+    "normalization": "loudnorm=I=-20:TP=-2:LRA=11",
+    "format": "ogg-opus-mono-48000-32k",
+    "revision": 1
+  },
+  "generatedAt": "2026-09-24T20:04:10.005Z",
+  "provider": "ElevenLabs",
+  "voice": "Brian",
+  "generationPlan": "paid",
+  "planEvidence": "Operator confirmed active Starter subscription before rendering.",
+  "requestId": "Kvm21IJb66YjlY6D58w5",
+  "characterCost": "32",
+  "ffmpegVersion": "ffmpeg version 6.1.1-3ubuntu5 Copyright (c) 2000-2023 the FFmpeg developers",
+  "licenseNotice": "../README.md"
+}

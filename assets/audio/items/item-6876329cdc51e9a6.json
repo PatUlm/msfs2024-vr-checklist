@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "file": "item-6876329cdc51e9a6.opus",
+  "sha256": "9edb8a5defdcbecb3443f4cb421beb2c4603d0101f5d9916eaec932cf5bb9acd",
+  "recipeHash": "6876329cdc51e9a6270bd33823e542cd84066f0af1f18dc701723151d39ec48b",
+  "recipe": {
+    "voiceId": "nPczCjzI2devNBz1zQrb",
+    "request": {
+      "text": "Engine Shutdown Checklist. Twist grip: Idle.",
+      "model_id": "eleven_multilingual_v2",
+      "voice_settings": {
+        "stability": 0.75,
+        "similarity_boost": 0.75,
+        "style": 0,
+        "use_speaker_boost": true,
+        "speed": 1
+      },
+      "seed": 9172026
+    },
+    "sourceFormat": "mp3_44100_128",
+    "profile": "clean",
+    "normalization": "loudnorm=I=-20:TP=-2:LRA=11",
+    "format": "ogg-opus-mono-48000-32k",
+    "revision": 1
+  },
+  "generatedAt": "2026-09-24T20:04:20.867Z",
+  "provider": "ElevenLabs",
+  "voice": "Brian",
+  "generationPlan": "paid",
+  "planEvidence": "Operator confirmed active Starter subscription before rendering.",
+  "requestId": "5CTDgMQXqjY1nwao3ipo",
+  "characterCost": "22",
+  "ffmpegVersion": "ffmpeg version 6.1.1-3ubuntu5 Copyright (c) 2000-2023 the FFmpeg developers",
+  "licenseNotice": "../README.md"
+}

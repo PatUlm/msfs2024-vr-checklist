@@ -38,6 +38,10 @@ task audio:plan
 It writes a deduplicated inventory and review list to `tmp/checklist-audio/`.
 `speech` overrides the `<challenge>: <response>` fallback. Pronunciation hints
 are review aids, not proof of errors; corrections belong in the canonical data.
+The first item of each group is rendered as `<group title> Checklist. <item>`
+in one recording, giving it a natural sentence pause. Uppercase title acronyms
+are spelled out and `&` is spoken as `and`. Renaming a group or changing its
+first item therefore also requires updating the affected recordings.
 
 With the prerequisites installed and the paid subscription confirmed,
 explicitly run the needed task:

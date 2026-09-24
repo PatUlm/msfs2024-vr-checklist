@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "file": "item-bea0ac4c99d9d85d.opus",
+  "sha256": "512949dba4073991b95c3beeaa0b42f573f0a61ae91192902f24986f3a9f6f27",
+  "recipeHash": "bea0ac4c99d9d85de8568adc54897bde638c9fc5ed6009a486dec84c13cd517f",
+  "recipe": {
+    "voiceId": "nPczCjzI2devNBz1zQrb",
+    "request": {
+      "text": "Before Engine Start Checklist. Power levers, one and two: Idle.",
+      "model_id": "eleven_multilingual_v2",
+      "voice_settings": {
+        "stability": 0.75,
+        "similarity_boost": 0.75,
+        "style": 0,
+        "use_speaker_boost": true,
+        "speed": 1
+      },
+      "seed": 9172026
+    },
+    "sourceFormat": "mp3_44100_128",
+    "profile": "clean",
+    "normalization": "loudnorm=I=-20:TP=-2:LRA=11",
+    "format": "ogg-opus-mono-48000-32k",
+    "revision": 1
+  },
+  "generatedAt": "2026-09-24T20:04:29.971Z",
+  "provider": "ElevenLabs",
+  "voice": "Brian",
+  "generationPlan": "paid",
+  "planEvidence": "Operator confirmed active Starter subscription before rendering.",
+  "requestId": "25CveU2tEbWBF2bitrJU",
+  "characterCost": "32",
+  "ffmpegVersion": "ffmpeg version 6.1.1-3ubuntu5 Copyright (c) 2000-2023 the FFmpeg developers",
+  "licenseNotice": "../README.md"
+}

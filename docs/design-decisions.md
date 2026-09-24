@@ -104,6 +104,9 @@ offene Sichtprüfungen in [design-qa.md](design-qa.md).
   Warteschlange. Wiederholte Snapshots, Reconnects und VR-Wechsel wiederholen
   dasselbe Item nicht. Ein neuer Flug oder Checklistenwechsel verwirft alte Ansagen;
   Verbindungsverlust und Protokollfehler stoppen die Wiedergabe.
+- Das erste Item jeder Gruppe beginnt mit `<Gruppenname> Checklist.` und
+  einer natürlichen kurzen Satzpause. Das gilt auch beim erneuten Vorlesen
+  dieses Items; beim Fortsetzen mit einem späteren Item entfällt der Gruppenname.
 - Eine neu vollständig erledigte Gruppe sagt einmal `Checklist completed`.
   Bereits erledigte Gruppen beim Start/Reconnect werden nicht nachträglich
   angesagt. Nach Wiederöffnen und erneutem Abschluss darf sie erneut sprechen.

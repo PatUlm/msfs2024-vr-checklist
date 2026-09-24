@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "file": "item-d277bf2f14f64226.opus",
+  "sha256": "47056e9a803f2509bda93cd142e3229f135f76bc8dbbd3d838e3820d303b732f",
+  "recipeHash": "d277bf2f14f64226d5392618a76a3304708d019414a311a94f0ec576454a1186",
+  "recipe": {
+    "voiceId": "nPczCjzI2devNBz1zQrb",
+    "request": {
+      "text": "Before Start Checklist. Verify Rotor Brake Handle: Stowed.",
+      "model_id": "eleven_multilingual_v2",
+      "voice_settings": {
+        "stability": 0.75,
+        "similarity_boost": 0.75,
+        "style": 0,
+        "use_speaker_boost": true,
+        "speed": 1
+      },
+      "seed": 9172026
+    },
+    "sourceFormat": "mp3_44100_128",
+    "profile": "clean",
+    "normalization": "loudnorm=I=-20:TP=-2:LRA=11",
+    "format": "ogg-opus-mono-48000-32k",
+    "revision": 1
+  },
+  "generatedAt": "2026-09-24T20:04:37.154Z",
+  "provider": "ElevenLabs",
+  "voice": "Brian",
+  "generationPlan": "paid",
+  "planEvidence": "Operator confirmed active Starter subscription before rendering.",
+  "requestId": "hsRVIndyvrUdqxXlDzP5",
+  "characterCost": "29",
+  "ffmpegVersion": "ffmpeg version 6.1.1-3ubuntu5 Copyright (c) 2000-2023 the FFmpeg developers",
+  "licenseNotice": "../README.md"
+}

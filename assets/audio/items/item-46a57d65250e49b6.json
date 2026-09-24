@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "file": "item-46a57d65250e49b6.opus",
+  "sha256": "9923a7a13a6ac89efc74537fcb5556f685feb167be219b01b8941c3a8154b05c",
+  "recipeHash": "46a57d65250e49b60b631358583553db096e7b6d1c4adb35b1bfbba172172edc",
+  "recipe": {
+    "voiceId": "nPczCjzI2devNBz1zQrb",
+    "request": {
+      "text": "Before Engine Start Checklist. Both altimeters: Set.",
+      "model_id": "eleven_multilingual_v2",
+      "voice_settings": {
+        "stability": 0.75,
+        "similarity_boost": 0.75,
+        "style": 0,
+        "use_speaker_boost": true,
+        "speed": 1
+      },
+      "seed": 9172026
+    },
+    "sourceFormat": "mp3_44100_128",
+    "profile": "clean",
+    "normalization": "loudnorm=I=-20:TP=-2:LRA=11",
+    "format": "ogg-opus-mono-48000-32k",
+    "revision": 1
+  },
+  "generatedAt": "2026-09-24T20:04:12.711Z",
+  "provider": "ElevenLabs",
+  "voice": "Brian",
+  "generationPlan": "paid",
+  "planEvidence": "Operator confirmed active Starter subscription before rendering.",
+  "requestId": "houPnDCp7PR4tvFpm0KQ",
+  "characterCost": "26",
+  "ffmpegVersion": "ffmpeg version 6.1.1-3ubuntu5 Copyright (c) 2000-2023 the FFmpeg developers",
+  "licenseNotice": "../README.md"
+}

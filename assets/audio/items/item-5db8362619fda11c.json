@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "file": "item-5db8362619fda11c.opus",
+  "sha256": "02dca9485e1377693b814eecfe76713b1b711aadb78e497364adcaa8d9d00685",
+  "recipeHash": "5db8362619fda11cfd03348031d2f288f36dab28b1fda52c884f5c92bb9f2074",
+  "recipe": {
+    "voiceId": "nPczCjzI2devNBz1zQrb",
+    "request": {
+      "text": "Approach Checklist. Fuel pumps, one and two: On at top of descent.",
+      "model_id": "eleven_multilingual_v2",
+      "voice_settings": {
+        "stability": 0.75,
+        "similarity_boost": 0.75,
+        "style": 0,
+        "use_speaker_boost": true,
+        "speed": 1
+      },
+      "seed": 9172026
+    },
+    "sourceFormat": "mp3_44100_128",
+    "profile": "clean",
+    "normalization": "loudnorm=I=-20:TP=-2:LRA=11",
+    "format": "ogg-opus-mono-48000-32k",
+    "revision": 1
+  },
+  "generatedAt": "2026-09-24T20:04:35.873Z",
+  "provider": "ElevenLabs",
+  "voice": "Brian",
+  "generationPlan": "paid",
+  "planEvidence": "Operator confirmed active Starter subscription before rendering.",
+  "requestId": "hroCaOnNPS2xyTopgsmt",
+  "characterCost": "33",
+  "ffmpegVersion": "ffmpeg version 6.1.1-3ubuntu5 Copyright (c) 2000-2023 the FFmpeg developers",
+  "licenseNotice": "../README.md"
+}

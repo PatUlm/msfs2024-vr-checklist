@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "file": "item-bd349c7bb01d2dbf.opus",
+  "sha256": "390e74c98872305a351d704b18166dc3c8ee8cdab8000b8f21c1ff0b50348d70",
+  "recipeHash": "bd349c7bb01d2dbf1893f4bf9c2ab9cf2f583c8a8248a619eb526c70cbc3dd75",
+  "recipe": {
+    "voiceId": "nPczCjzI2devNBz1zQrb",
+    "request": {
+      "text": "Preparations Checklist. Cargo and fuel: Set in the E F B.",
+      "model_id": "eleven_multilingual_v2",
+      "voice_settings": {
+        "stability": 0.75,
+        "similarity_boost": 0.75,
+        "style": 0,
+        "use_speaker_boost": true,
+        "speed": 1
+      },
+      "seed": 9172026
+    },
+    "sourceFormat": "mp3_44100_128",
+    "profile": "clean",
+    "normalization": "loudnorm=I=-20:TP=-2:LRA=11",
+    "format": "ogg-opus-mono-48000-32k",
+    "revision": 1
+  },
+  "generatedAt": "2026-09-24T20:04:42.122Z",
+  "provider": "ElevenLabs",
+  "voice": "Brian",
+  "generationPlan": "paid",
+  "planEvidence": "Operator confirmed active Starter subscription before rendering.",
+  "requestId": "GmZDR52vYtYhmivQD5Se",
+  "characterCost": "29",
+  "ffmpegVersion": "ffmpeg version 6.1.1-3ubuntu5 Copyright (c) 2000-2023 the FFmpeg developers",
+  "licenseNotice": "../README.md"
+}

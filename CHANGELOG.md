@@ -7,6 +7,16 @@ Changelog, and the project uses Semantic Versioning.
 
 ## [Unreleased]
 
+### Added
+
+- The first item of each group now announces the group name followed by
+  “Checklist”, with a short sentence pause before the item.
+
+### Changed
+
+- Clarified the A400M takeoff flap setting as position 1, including its spoken
+  announcement.
+
 ## [0.13.6] - 2026-09-24
 
 ### Changed

@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "file": "item-f218f27c8fe0dcba.opus",
+  "sha256": "5c9c7da15fb6d2e25bb6aa8c1569fba8949406be801615d8f51124990644f774",
+  "recipeHash": "f218f27c8fe0dcba38dce62ec127821e68608fdfde5f791829e9ef8e628ef2ea",
+  "recipe": {
+    "voiceId": "nPczCjzI2devNBz1zQrb",
+    "request": {
+      "text": "Engine Start Checklist. Fuel Pump: On",
+      "model_id": "eleven_multilingual_v2",
+      "voice_settings": {
+        "stability": 0.75,
+        "similarity_boost": 0.75,
+        "style": 0,
+        "use_speaker_boost": true,
+        "speed": 1
+      },
+      "seed": 9172026
+    },
+    "sourceFormat": "mp3_44100_128",
+    "profile": "clean",
+    "normalization": "loudnorm=I=-20:TP=-2:LRA=11",
+    "format": "ogg-opus-mono-48000-32k",
+    "revision": 1
+  },
+  "generatedAt": "2026-09-24T20:04:18.577Z",
+  "provider": "ElevenLabs",
+  "voice": "Brian",
+  "generationPlan": "paid",
+  "planEvidence": "Operator confirmed active Starter subscription before rendering.",
+  "requestId": "D3NAuxj3MM9MKnjrbsQn",
+  "characterCost": "18",
+  "ffmpegVersion": "ffmpeg version 6.1.1-3ubuntu5 Copyright (c) 2000-2023 the FFmpeg developers",
+  "licenseNotice": "../README.md"
+}

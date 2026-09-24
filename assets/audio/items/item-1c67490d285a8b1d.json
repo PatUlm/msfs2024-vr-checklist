@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "file": "item-1c67490d285a8b1d.opus",
+  "sha256": "9f74c529931dae499822f786d9e7a7257e914574ce368c7d04f96879e434d046",
+  "recipeHash": "1c67490d285a8b1d0a2ee7a1568dffa9043bfb16627aeb22449497caed0ce359",
+  "recipe": {
+    "voiceId": "nPczCjzI2devNBz1zQrb",
+    "request": {
+      "text": "Approach Checklist. Mixture: Full rich",
+      "model_id": "eleven_multilingual_v2",
+      "voice_settings": {
+        "stability": 0.75,
+        "similarity_boost": 0.75,
+        "style": 0,
+        "use_speaker_boost": true,
+        "speed": 1
+      },
+      "seed": 9172026
+    },
+    "sourceFormat": "mp3_44100_128",
+    "profile": "clean",
+    "normalization": "loudnorm=I=-20:TP=-2:LRA=11",
+    "format": "ogg-opus-mono-48000-32k",
+    "revision": 1
+  },
+  "generatedAt": "2026-09-24T20:04:27.422Z",
+  "provider": "ElevenLabs",
+  "voice": "Brian",
+  "generationPlan": "paid",
+  "planEvidence": "Operator confirmed active Starter subscription before rendering.",
+  "requestId": "rTNiZmZDS4KGa0kAnajA",
+  "characterCost": "19",
+  "ffmpegVersion": "ffmpeg version 6.1.1-3ubuntu5 Copyright (c) 2000-2023 the FFmpeg developers",
+  "licenseNotice": "../README.md"
+}

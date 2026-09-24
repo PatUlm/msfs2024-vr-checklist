@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "file": "item-ee7cb8c8bf6159a6.opus",
+  "sha256": "57545f03cba7fa4301ead9e9c5e726574524a4c0d55d88150915d6e49eeadcac",
+  "recipeHash": "ee7cb8c8bf6159a61646cea9e040454d3d9f6ed913c552f0b03f0050e74f76ec",
+  "recipe": {
+    "voiceId": "nPczCjzI2devNBz1zQrb",
+    "request": {
+      "text": "F M G E S Setup Checklist. E F B flight details: Load from SimBrief.",
+      "model_id": "eleven_multilingual_v2",
+      "voice_settings": {
+        "stability": 0.75,
+        "similarity_boost": 0.75,
+        "style": 0,
+        "use_speaker_boost": true,
+        "speed": 1
+      },
+      "seed": 9172026
+    },
+    "sourceFormat": "mp3_44100_128",
+    "profile": "clean",
+    "normalization": "loudnorm=I=-20:TP=-2:LRA=11",
+    "format": "ogg-opus-mono-48000-32k",
+    "revision": 1
+  },
+  "generatedAt": "2026-09-24T20:04:11.427Z",
+  "provider": "ElevenLabs",
+  "voice": "Brian",
+  "generationPlan": "paid",
+  "planEvidence": "Operator confirmed active Starter subscription before rendering.",
+  "requestId": "esTldtSLC3v4aUQocJ7W",
+  "characterCost": "34",
+  "ffmpegVersion": "ffmpeg version 6.1.1-3ubuntu5 Copyright (c) 2000-2023 the FFmpeg developers",
+  "licenseNotice": "../README.md"
+}

@@ -2,6 +2,7 @@ import { createHash } from 'node:crypto';
 import { mkdir, readFile, readdir, writeFile } from 'node:fs/promises';
 import { fileURLToPath } from 'node:url';
 import path from 'node:path';
+import { itemSpeech } from './lib/checklist-speech.mjs';
 
 // Offline inventory only: no credentials, synthesis, or generated product assets.
 const root = fileURLToPath(new URL('../', import.meta.url));
@@ -17,7 +18,7 @@ for (const file of (await readdir(source)).sort()) {
   for (const section of checklist.sections) {
     for (const item of section.items) {
       items++;
-      const text = item.speech ?? `${item.challenge}: ${item.response}`;
+      const text = itemSpeech(section, item);
       const reference = `${checklist.id}/${section.id}/${item.id}`;
       const concerns = [];
       if (item.needsReview) concerns.push(`Content review: ${item.reviewNote ?? 'needsReview'}`);

@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "file": "item-0f5f12c60d509eb3.opus",
+  "sha256": "8451dfc57d77db14eae6ffce07ff6efc2f3be3769e8940e6fc2ea9530a19644d",
+  "recipeHash": "0f5f12c60d509eb3340e78a98c2200fade0abbe9159382acdb13eab67b989d4c",
+  "recipe": {
+    "voiceId": "nPczCjzI2devNBz1zQrb",
+    "request": {
+      "text": "Before Taxi Checklist. Position Lights: On",
+      "model_id": "eleven_multilingual_v2",
+      "voice_settings": {
+        "stability": 0.75,
+        "similarity_boost": 0.75,
+        "style": 0,
+        "use_speaker_boost": true,
+        "speed": 1
+      },
+      "seed": 9172026
+    },
+    "sourceFormat": "mp3_44100_128",
+    "profile": "clean",
+    "normalization": "loudnorm=I=-20:TP=-2:LRA=11",
+    "format": "ogg-opus-mono-48000-32k",
+    "revision": 1
+  },
+  "generatedAt": "2026-09-24T20:04:30.698Z",
+  "provider": "ElevenLabs",
+  "voice": "Brian",
+  "generationPlan": "paid",
+  "planEvidence": "Operator confirmed active Starter subscription before rendering.",
+  "requestId": "gLIk6n6jnuJPVIapiv7P",
+  "characterCost": "21",
+  "ffmpegVersion": "ffmpeg version 6.1.1-3ubuntu5 Copyright (c) 2000-2023 the FFmpeg developers",
+  "licenseNotice": "../README.md"
+}

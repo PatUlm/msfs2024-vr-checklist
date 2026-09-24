@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "file": "item-1a6a605266abf74c.opus",
+  "sha256": "b1ca3666f1e8ef56a9928f7c5519a251722c45ce5bd6b171af34ec2ea36c1102",
+  "recipeHash": "1a6a605266abf74c30369c87c6ef5ae0e66d4dc9dfb08366acb2b3f6044e7fff",
+  "recipe": {
+    "voiceId": "nPczCjzI2devNBz1zQrb",
+    "request": {
+      "text": "Engine Start Checklist. Beacon lights: Both bright.",
+      "model_id": "eleven_multilingual_v2",
+      "voice_settings": {
+        "stability": 0.75,
+        "similarity_boost": 0.75,
+        "style": 0,
+        "use_speaker_boost": true,
+        "speed": 1
+      },
+      "seed": 9172026
+    },
+    "sourceFormat": "mp3_44100_128",
+    "profile": "clean",
+    "normalization": "loudnorm=I=-20:TP=-2:LRA=11",
+    "format": "ogg-opus-mono-48000-32k",
+    "revision": 1
+  },
+  "generatedAt": "2026-09-24T20:04:13.828Z",
+  "provider": "ElevenLabs",
+  "voice": "Brian",
+  "generationPlan": "paid",
+  "planEvidence": "Operator confirmed active Starter subscription before rendering.",
+  "requestId": "geUQQLZ4dA7Ygse5sD2i",
+  "characterCost": "26",
+  "ffmpegVersion": "ffmpeg version 6.1.1-3ubuntu5 Copyright (c) 2000-2023 the FFmpeg developers",
+  "licenseNotice": "../README.md"
+}

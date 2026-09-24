@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "file": "item-eb3f573afec4dc6e.opus",
+  "sha256": "376d0657c4281cc805ee87973df7608d14812c03f1e0f74b2c6e3cb32845522e",
+  "recipeHash": "eb3f573afec4dc6ee09e6dc3e291f6e26b6603e4730caa150fc298bed11a9d18",
+  "recipe": {
+    "voiceId": "nPczCjzI2devNBz1zQrb",
+    "request": {
+      "text": "After Engine Start Checklist. Engine start mode: Normal.",
+      "model_id": "eleven_multilingual_v2",
+      "voice_settings": {
+        "stability": 0.75,
+        "similarity_boost": 0.75,
+        "style": 0,
+        "use_speaker_boost": true,
+        "speed": 1
+      },
+      "seed": 9172026
+    },
+    "sourceFormat": "mp3_44100_128",
+    "profile": "clean",
+    "normalization": "loudnorm=I=-20:TP=-2:LRA=11",
+    "format": "ogg-opus-mono-48000-32k",
+    "revision": 1
+  },
+  "generatedAt": "2026-09-24T20:04:15.020Z",
+  "provider": "ElevenLabs",
+  "voice": "Brian",
+  "generationPlan": "paid",
+  "planEvidence": "Operator confirmed active Starter subscription before rendering.",
+  "requestId": "RYKfPfPJ6RXFs3xooYLF",
+  "characterCost": "28",
+  "ffmpegVersion": "ffmpeg version 6.1.1-3ubuntu5 Copyright (c) 2000-2023 the FFmpeg developers",
+  "licenseNotice": "../README.md"
+}

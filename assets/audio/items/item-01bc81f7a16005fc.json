@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "file": "item-01bc81f7a16005fc.opus",
+  "sha256": "865229e36c8266728f4dc2de069021e8c29d0496339e4ee4df0eb4f55dc6bc7c",
+  "recipeHash": "01bc81f7a16005fc13a5baf6d394a7f25f9e6696aaab3e4ca6e8f8f732c2402c",
+  "recipe": {
+    "voiceId": "nPczCjzI2devNBz1zQrb",
+    "request": {
+      "text": "Fuel and load: Set zero fuel weight, zero fuel weight center of gravity, and block fuel. Use the E F B values.",
+      "model_id": "eleven_multilingual_v2",
+      "voice_settings": {
+        "stability": 0.75,
+        "similarity_boost": 0.75,
+        "style": 0,
+        "use_speaker_boost": true,
+        "speed": 1
+      },
+      "seed": 9172026
+    },
+    "sourceFormat": "mp3_44100_128",
+    "profile": "clean",
+    "normalization": "loudnorm=I=-20:TP=-2:LRA=11",
+    "format": "ogg-opus-mono-48000-32k",
+    "revision": 1
+  },
+  "generatedAt": "2026-09-24T16:50:06.442Z",
+  "provider": "ElevenLabs",
+  "voice": "Brian",
+  "generationPlan": "paid",
+  "planEvidence": "Operator confirmed active Starter subscription before rendering.",
+  "requestId": "KUpgprfrrT7AV9vvuzzc",
+  "characterCost": "55",
+  "ffmpegVersion": "ffmpeg version 6.1.1-3ubuntu5 Copyright (c) 2000-2023 the FFmpeg developers",
+  "licenseNotice": "../README.md"
+}

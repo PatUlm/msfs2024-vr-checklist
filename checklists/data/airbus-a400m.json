@@ -11,20 +11,13 @@
       }
     ]
   },
-  "revision": "2026-09-23",
+  "revision": "2026-09-24",
   "sections": [
     {
       "id": "electrical-power-up",
       "title": "Electrical Power Up",
       "phase": "Engine Start",
       "items": [
-        {
-          "id": "cargo-fuel",
-          "challenge": "Cargo and Fuel",
-          "response": "Set in EFB",
-          "kind": "action",
-          "speech": "Cargo and fuel: Set in the E F B."
-        },
         {
           "id": "bat-ext",
           "challenge": "External Power",
@@ -132,65 +125,55 @@
     },
     {
       "id": "fsm-init",
-      "title": "FMS Setup",
+      "title": "FMGES Setup",
       "phase": "Engine Start",
       "items": [
         {
+          "id": "flight-details",
+          "challenge": "[EFB] Flight Details",
+          "response": "Load from SimBrief",
+          "kind": "action",
+          "speech": "E F B flight details: Load from SimBrief."
+        },
+        {
           "id": "fuel-payload",
           "challenge": "[EFB] Fuel & Payload",
-          "response": "Apply ZFW + Fuel",
+          "response": "Load from SimBrief + Apply",
           "kind": "action",
-          "speech": "E F B fuel and payload: Apply zero fuel weight and fuel. Import from SimBrief or use the values in the E F B total mass information.",
-          "notes": [
-            "Import from SimBrief or use the values in the EFB Total Mass information."
-          ]
+          "speech": "E F B fuel and payload: Load from SimBrief and apply."
         },
         {
           "id": "init",
-          "challenge": "[INIT] Route",
+          "challenge": "[INIT] Departure and Arrival Airports",
           "response": "Set",
           "kind": "action",
-          "speech": "Initialization page, route: Set via E F B, import from SimBrief or enter manually.",
+          "speech": "Initialization page, departure and arrival airports: Set. Import from SimBrief, set via E F B or enter manually.",
           "notes": [
-            "Set via EFB, import from SimBrief or enter manually."
+            "Import from SimBrief, set via EFB or enter manually."
           ]
         },
         {
-          "id": "wind",
-          "challenge": "[WIND] CPNY Wind Request",
-          "response": "Select",
-          "kind": "action",
-          "speech": "Wind page: Select company wind request."
-        },
-        {
-          "id": "position-monitor",
-          "challenge": "[Position Monitor] Status",
-          "response": "GPS Primary",
-          "kind": "verify",
-          "speech": "Verify position monitor status: G P S primary."
-        },
-        {
           "id": "irs",
-          "challenge": "[Position Monitor] IRS [1+2+3]",
+          "challenge": "[IRS] IRS [1+2+3]",
           "response": "NAV",
           "kind": "verify",
-          "speech": "Verify position monitor, I R S one, two and three: Navigation."
+          "speech": "Verify I R S page, I R S one, two and three: Navigation."
         },
         {
           "id": "flight-plan",
-          "challenge": "[F-PLN] Flight Plan",
-          "response": "Insert",
+          "challenge": "[F-PLN] Departure, Destination and Flight Plan",
+          "response": "Set",
           "kind": "action",
-          "speech": "Flight plan: Insert."
+          "speech": "Flight plan page, departure, destination and flight plan: Set."
         },
         {
           "id": "fuel-load",
-          "challenge": "[FUEL & LOAD] ZFW, ZFWCG, BLOCK",
+          "challenge": "[FUEL & LOAD] ZFW, ZFWCG, Block Fuel",
           "response": "Set",
           "kind": "action",
-          "speech": "Fuel and load: Set zero fuel weight, zero fuel weight center of gravity, and block fuel. Use the E F B values. Block fuel is the total fuel on board before engine start, including taxi fuel and reserves. Check the displayed units.",
+          "speech": "Fuel and load: Set zero fuel weight, zero fuel weight center of gravity, and block fuel. Use the E F B values.",
           "notes": [
-            "Use the EFB values. BLOCK is the total fuel on board before engine start, including taxi fuel and reserves. Check the displayed units."
+            "Use the EFB values."
           ]
         },
         {

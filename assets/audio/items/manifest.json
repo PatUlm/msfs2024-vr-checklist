@@ -3,8 +3,8 @@
   "checklists": [
     {
       "id": "airbus-a400m",
-      "revision": "2026-09-23",
-      "items": 41
+      "revision": "2026-09-24",
+      "items": 39
     },
     {
       "id": "airbus-h125",
@@ -38,11 +38,6 @@
     }
   ],
   "assets": [
-    {
-      "file": "item-cbb2d8c5bdfa70d5.opus",
-      "sha256": "80e952a4975350f51247c2ff2f48fc9c5f986a481b8450e9b6dba41c960ea163",
-      "recipeHash": "cbb2d8c5bdfa70d5e6ea457c9458496706e6a43eefc4c5963d0f3cf2ef3fecae"
-    },
     {
       "file": "item-9c892786564ea776.opus",
       "sha256": "80a41480f786c5a3b5a05bcb48a40ce894c83dbb9060c9d8a8ec8cb7feb1000c",
@@ -114,39 +109,34 @@
       "recipeHash": "3a042cdc7107dfd5100487ae799417baee5ea8f3ddb5db91692857b5a1f5956a"
     },
     {
-      "file": "item-609c26c1e38e9797.opus",
-      "sha256": "fe788729ac2fe76d5f2cb262a47d490ac57ec7d20f0e8b4cd10f4da5804fe6c1",
-      "recipeHash": "609c26c1e38e97971bcd59bcbe4d409879b24ce1f3bfd5147aa965e338046d36"
+      "file": "item-d82fbc5192f198cf.opus",
+      "sha256": "2c6290fedb17396ea74a8fb64d733424ab632b51c4d5bcabb808bcf93244d704",
+      "recipeHash": "d82fbc5192f198cf696bc704165febe83f57033d4647ca975eac38cd20b1520e"
     },
     {
-      "file": "item-a4d7b1bc144ad3f4.opus",
-      "sha256": "1027a0f7ce2e7ca20c6374e8cbed67feb652c90f67215d732171488a21f687bb",
-      "recipeHash": "a4d7b1bc144ad3f4fe07ce6c1e4c1decb72856aa1888bc741703a50d8080e29c"
+      "file": "item-a5ab1c39e3a9baea.opus",
+      "sha256": "953c93db5357fc7e753c56c2b32ad4c8b64affbb43e75125e3aabaa2d0e94439",
+      "recipeHash": "a5ab1c39e3a9baea67cf84c378a6cc6fbe66998fa53edadbe0f259b6ba47981b"
     },
     {
-      "file": "item-4a0c37791cdf4cca.opus",
-      "sha256": "7cb2721fa958f90cf34225bcead618279115be8721e53109c775b7ffcac4dcac",
-      "recipeHash": "4a0c37791cdf4cca62a704e267ea0b924a29a9bc6eb952b6b10acdc2ab334e33"
+      "file": "item-4d9e3edb44486009.opus",
+      "sha256": "c3364f0eb2ae8b8127e81069c442f656e68772d70ea1dc0413a31e57f4917578",
+      "recipeHash": "4d9e3edb444860099cc02ffc5b274ac0feb94b0ec534f0ae2ed61a14b3fed9f2"
     },
     {
-      "file": "item-99dc490e2c5ac678.opus",
-      "sha256": "5a07cbf585dcc29db7b64200f917a14ce60f789701a3eafc4fbe5696197e53f9",
-      "recipeHash": "99dc490e2c5ac6783b06db0337121626357a0c62e2f6d11e743667060a45d7f5"
+      "file": "item-14781d08a91c3b9e.opus",
+      "sha256": "329f62863a6b344fc9548ecd970f54a6e03114ffb1da821cbe8141c72ac74a2c",
+      "recipeHash": "14781d08a91c3b9ea3cc9f61117d95aed4ee3df188edec25f1039da979ded57d"
     },
     {
-      "file": "item-6ffe61e1bb938e2b.opus",
-      "sha256": "cac04cbf512ae355d427a23c1aa70754bbd37f8e582aa518508dd32d503b93d8",
-      "recipeHash": "6ffe61e1bb938e2bde3f3ca37e2d39c3d5a11e195614b0cf6237f086cc678b76"
+      "file": "item-6d3563f0a5dcdf65.opus",
+      "sha256": "a779e3824f48e4d248a8a3e043dec8f72c36761107f501c23115f3c8d9bc42ab",
+      "recipeHash": "6d3563f0a5dcdf658ce043cf2f6c12d7feb1baae5a80345c0ab5a225289a2162"
     },
     {
-      "file": "item-48ff6544040ca0a9.opus",
-      "sha256": "86b7c82d51ea161f5e09aa1c1a1ea6d1bb27ff2b3d3ff14e11236fb7af08a78d",
-      "recipeHash": "48ff6544040ca0a97bf11d8a9045d0a02924fc313cfe0a1796d740a9739ea795"
-    },
-    {
-      "file": "item-24a47ddf27612693.opus",
-      "sha256": "1afb3d258c0508f5a8706c5d9df47630e0ec4a3b642c86876692f2a4be8f2ff1",
-      "recipeHash": "24a47ddf27612693b18a5d898d7cf0daf183f2f182dd9e44b24e1be4ab71ed97"
+      "file": "item-01bc81f7a16005fc.opus",
+      "sha256": "865229e36c8266728f4dc2de069021e8c29d0496339e4ee4df0eb4f55dc6bc7c",
+      "recipeHash": "01bc81f7a16005fc13a5baf6d394a7f25f9e6696aaab3e4ca6e8f8f732c2402c"
     },
     {
       "file": "item-69a4a0429f86fd73.opus",
@@ -854,6 +844,11 @@
       "recipeHash": "dfde2836e2fb94032ad8be91827abe31dc7c7cc3018fd7572cbf3bd67c06c8ae"
     },
     {
+      "file": "item-cbb2d8c5bdfa70d5.opus",
+      "sha256": "80e952a4975350f51247c2ff2f48fc9c5f986a481b8450e9b6dba41c960ea163",
+      "recipeHash": "cbb2d8c5bdfa70d5e6ea457c9458496706e6a43eefc4c5963d0f3cf2ef3fecae"
+    },
+    {
       "file": "item-46350bbd3495d580.opus",
       "sha256": "aa9e356ff2c7b1b8883c093b72e2eb91dce86160ec1e8d48aa42992b65bd683c",
       "recipeHash": "46350bbd3495d580c15233d0a5525e8493d676ca238acd2dc86ce13e137dee8c"
@@ -1030,8 +1025,6 @@
     }
   ],
   "items": {
-    "airbus-a400m/electrical-power-up/cargo-fuel": "item-cbb2d8c5bdfa70d5.opus",
-    "sikorsky-mh-60/preparations/cargo-fuel": "item-cbb2d8c5bdfa70d5.opus",
     "airbus-a400m/electrical-power-up/bat-ext": "item-9c892786564ea776.opus",
     "airbus-a400m/electrical-power-up/bat-1-2-ess": "item-c9f90f61593067d8.opus",
     "airbus-a400m/electrical-power-up/apu-master": "item-02d6ae3bc304ee26.opus",
@@ -1046,13 +1039,12 @@
     "airbus-a400m/before-engine-start/fmges": "item-552100daa2b2ee86.opus",
     "airbus-a400m/before-engine-start/takeoff-data": "item-365cf13423f5c73e.opus",
     "airbus-a400m/before-engine-start/altimeters": "item-3a042cdc7107dfd5.opus",
-    "airbus-a400m/fsm-init/fuel-payload": "item-609c26c1e38e9797.opus",
-    "airbus-a400m/fsm-init/init": "item-a4d7b1bc144ad3f4.opus",
-    "airbus-a400m/fsm-init/wind": "item-4a0c37791cdf4cca.opus",
-    "airbus-a400m/fsm-init/position-monitor": "item-99dc490e2c5ac678.opus",
-    "airbus-a400m/fsm-init/irs": "item-6ffe61e1bb938e2b.opus",
-    "airbus-a400m/fsm-init/flight-plan": "item-48ff6544040ca0a9.opus",
-    "airbus-a400m/fsm-init/fuel-load": "item-24a47ddf27612693.opus",
+    "airbus-a400m/fsm-init/flight-details": "item-d82fbc5192f198cf.opus",
+    "airbus-a400m/fsm-init/fuel-payload": "item-a5ab1c39e3a9baea.opus",
+    "airbus-a400m/fsm-init/init": "item-4d9e3edb44486009.opus",
+    "airbus-a400m/fsm-init/irs": "item-14781d08a91c3b9e.opus",
+    "airbus-a400m/fsm-init/flight-plan": "item-6d3563f0a5dcdf65.opus",
+    "airbus-a400m/fsm-init/fuel-load": "item-01bc81f7a16005fc.opus",
     "airbus-a400m/fsm-init/to-perf": "item-69a4a0429f86fd73.opus",
     "airbus-a400m/engine-start/beacon": "item-e4c1121b91522298.opus",
     "airbus-a400m/engine-start/parking-brake": "item-a4c4dafe91abe7fa.opus",
@@ -1203,6 +1195,7 @@
     "hughes-oh6a-500c/shutdown/rotor-brake": "item-e993f8051e5e9ede.opus",
     "hughes-oh6a-500c/shutdown/anti-collision-lights": "item-304823893eec1703.opus",
     "hughes-oh6a-500c/shutdown/electrical-power": "item-dfde2836e2fb9403.opus",
+    "sikorsky-mh-60/preparations/cargo-fuel": "item-cbb2d8c5bdfa70d5.opus",
     "sikorsky-mh-60/preparations/battery": "item-46350bbd3495d580.opus",
     "sikorsky-mh-60/preparations/strobe-lights": "item-a19759cf049548fa.opus",
     "sikorsky-mh-60/preparations/console-lights": "item-99ea021294c82ffb.opus",

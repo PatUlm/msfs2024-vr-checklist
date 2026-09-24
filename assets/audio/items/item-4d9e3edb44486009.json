@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "file": "item-4d9e3edb44486009.opus",
+  "sha256": "c3364f0eb2ae8b8127e81069c442f656e68772d70ea1dc0413a31e57f4917578",
+  "recipeHash": "4d9e3edb444860099cc02ffc5b274ac0feb94b0ec534f0ae2ed61a14b3fed9f2",
+  "recipe": {
+    "voiceId": "nPczCjzI2devNBz1zQrb",
+    "request": {
+      "text": "Initialization page, departure and arrival airports: Set. Import from SimBrief, set via E F B or enter manually.",
+      "model_id": "eleven_multilingual_v2",
+      "voice_settings": {
+        "stability": 0.75,
+        "similarity_boost": 0.75,
+        "style": 0,
+        "use_speaker_boost": true,
+        "speed": 1
+      },
+      "seed": 9172026
+    },
+    "sourceFormat": "mp3_44100_128",
+    "profile": "clean",
+    "normalization": "loudnorm=I=-20:TP=-2:LRA=11",
+    "format": "ogg-opus-mono-48000-32k",
+    "revision": 1
+  },
+  "generatedAt": "2026-09-24T16:50:02.370Z",
+  "provider": "ElevenLabs",
+  "voice": "Brian",
+  "generationPlan": "paid",
+  "planEvidence": "Operator confirmed active Starter subscription before rendering.",
+  "requestId": "dHhpb5sP2Ys4d947PvlW",
+  "characterCost": "56",
+  "ffmpegVersion": "ffmpeg version 6.1.1-3ubuntu5 Copyright (c) 2000-2023 the FFmpeg developers",
+  "licenseNotice": "../README.md"
+}

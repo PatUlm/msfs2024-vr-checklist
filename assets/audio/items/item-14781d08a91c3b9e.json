@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "file": "item-14781d08a91c3b9e.opus",
+  "sha256": "329f62863a6b344fc9548ecd970f54a6e03114ffb1da821cbe8141c72ac74a2c",
+  "recipeHash": "14781d08a91c3b9ea3cc9f61117d95aed4ee3df188edec25f1039da979ded57d",
+  "recipe": {
+    "voiceId": "nPczCjzI2devNBz1zQrb",
+    "request": {
+      "text": "Verify I R S page, I R S one, two and three: Navigation.",
+      "model_id": "eleven_multilingual_v2",
+      "voice_settings": {
+        "stability": 0.75,
+        "similarity_boost": 0.75,
+        "style": 0,
+        "use_speaker_boost": true,
+        "speed": 1
+      },
+      "seed": 9172026
+    },
+    "sourceFormat": "mp3_44100_128",
+    "profile": "clean",
+    "normalization": "loudnorm=I=-20:TP=-2:LRA=11",
+    "format": "ogg-opus-mono-48000-32k",
+    "revision": 1
+  },
+  "generatedAt": "2026-09-24T16:50:03.717Z",
+  "provider": "ElevenLabs",
+  "voice": "Brian",
+  "generationPlan": "paid",
+  "planEvidence": "Operator confirmed active Starter subscription before rendering.",
+  "requestId": "sEyYu0GptQwHPz1U0XiB",
+  "characterCost": "28",
+  "ffmpegVersion": "ffmpeg version 6.1.1-3ubuntu5 Copyright (c) 2000-2023 the FFmpeg developers",
+  "licenseNotice": "../README.md"
+}

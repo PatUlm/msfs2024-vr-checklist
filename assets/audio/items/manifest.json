@@ -4,7 +4,7 @@
     {
       "id": "airbus-a400m",
       "revision": "2026-09-24",
-      "items": 39
+      "items": 38
     },
     {
       "id": "airbus-h125",
@@ -69,14 +69,14 @@
       "recipeHash": "4827a10ff64c6784ee3fae9d9d25c91b6f716ce54ca83ca7fd9802190ea87e05"
     },
     {
-      "file": "item-b1689a1d935a9345.opus",
-      "sha256": "740c603bbbfd1ef2d50d85592225334335bab7de86ff4d3c6ac36fb306d5c8e5",
-      "recipeHash": "b1689a1d935a93452b2d23c9802fc93f136d197d82e1acdb1d5a7f3fae446626"
-    },
-    {
       "file": "item-6158a1463cab6405.opus",
       "sha256": "b7c3f0924122a06a69e5a92c2c1594296192c2becc9ec92cc26e2d4f169d9112",
       "recipeHash": "6158a1463cab6405c7db3eb01abf1d1936eaa50a2823a356724e3fead423f607"
+    },
+    {
+      "file": "item-b1689a1d935a9345.opus",
+      "sha256": "740c603bbbfd1ef2d50d85592225334335bab7de86ff4d3c6ac36fb306d5c8e5",
+      "recipeHash": "b1689a1d935a93452b2d23c9802fc93f136d197d82e1acdb1d5a7f3fae446626"
     },
     {
       "file": "item-484add7138f83f00.opus",
@@ -87,26 +87,6 @@
       "file": "item-a4a98254c88b8ff5.opus",
       "sha256": "91dc87c33f84881e886c6b612e7d11b541499b401c9985294683f359e74685e4",
       "recipeHash": "a4a98254c88b8ff5435affb78405f67ad5d4ea560034421e123918cd0414956a"
-    },
-    {
-      "file": "item-3a892ce7a1073916.opus",
-      "sha256": "ac9c8f2677195a6556a2a5e2b12022739abe17b0c64ef6579ead3dc36e3da8fb",
-      "recipeHash": "3a892ce7a10739163fd1e4f591da3ec36e8347aa0cbe8b23bca1ce845b3a1a11"
-    },
-    {
-      "file": "item-552100daa2b2ee86.opus",
-      "sha256": "924b57f4973deff83fda36b8d29043917611d578ab0bc1f7d744878c348e90a2",
-      "recipeHash": "552100daa2b2ee86bf0acae47fdec5895d2cc8a29f74b40eaaaa1c104e1fe9fa"
-    },
-    {
-      "file": "item-365cf13423f5c73e.opus",
-      "sha256": "69871ecadcd33064f5f1b6a339545648daf524292c54ffb8f14112345593d7f1",
-      "recipeHash": "365cf13423f5c73efab70070c4d7297387bcb8aae6eafbe70a9c0259675112b2"
-    },
-    {
-      "file": "item-3a042cdc7107dfd5.opus",
-      "sha256": "70b2290071f18d1f3e6c6a7aab60141735f52f20229e1309ddf27bdc51cf6919",
-      "recipeHash": "3a042cdc7107dfd5100487ae799417baee5ea8f3ddb5db91692857b5a1f5956a"
     },
     {
       "file": "item-d82fbc5192f198cf.opus",
@@ -142,6 +122,21 @@
       "file": "item-69a4a0429f86fd73.opus",
       "sha256": "0118a3f096fcc6636299fb0e03d8552c84730e33614bab156dae6ae33ddd5c66",
       "recipeHash": "69a4a0429f86fd733a60535f9aed988b98952daf61b9bc4ea8f2b868b80f7e12"
+    },
+    {
+      "file": "item-698ef14e28769df3.opus",
+      "sha256": "0ae99114e2305acf3beafd6e9fcbe7924c7208c7cd611a9b14471ccb5f188b3b",
+      "recipeHash": "698ef14e28769df34513777a21bc236a7533304041d97b012f30241724b11fb1"
+    },
+    {
+      "file": "item-c67ca262aa39171f.opus",
+      "sha256": "e928ec303450c7fbaecf4280bb2c05cd273af35ca6b4533a25a7639dc85357e5",
+      "recipeHash": "c67ca262aa39171fd0283c692004efd8618f84a7df9ccc400918e989a0258b09"
+    },
+    {
+      "file": "item-a850352bfb18ef4f.opus",
+      "sha256": "2083297166a84d442d0cf81801507ce57b6064f5e2ae2ca26601b145fca9f115",
+      "recipeHash": "a850352bfb18ef4f0530f5747b3bd91a6b6d124aa0637567a8b9bc0e6a7b6d4e"
     },
     {
       "file": "item-e4c1121b91522298.opus",
@@ -1031,14 +1026,10 @@
     "airbus-a400m/electrical-power-up/apu": "item-9d904f9d6dff623e.opus",
     "airbus-a400m/electrical-power-up/apu-bleed": "item-a9ddf85bfd50d1e7.opus",
     "airbus-a400m/electrical-power-up/gadirs": "item-4827a10ff64c6784.opus",
-    "airbus-a400m/electrical-power-up/nav-light": "item-b1689a1d935a9345.opus",
     "airbus-a400m/electrical-power-up/fuel-pumps": "item-6158a1463cab6405.opus",
+    "airbus-a400m/electrical-power-up/nav-light": "item-b1689a1d935a9345.opus",
     "airbus-a400m/electrical-power-up/seat-belt-light": "item-484add7138f83f00.opus",
     "airbus-a400m/electrical-power-up/emer-light": "item-a4a98254c88b8ff5.opus",
-    "airbus-a400m/before-engine-start/efis": "item-3a892ce7a1073916.opus",
-    "airbus-a400m/before-engine-start/fmges": "item-552100daa2b2ee86.opus",
-    "airbus-a400m/before-engine-start/takeoff-data": "item-365cf13423f5c73e.opus",
-    "airbus-a400m/before-engine-start/altimeters": "item-3a042cdc7107dfd5.opus",
     "airbus-a400m/fsm-init/flight-details": "item-d82fbc5192f198cf.opus",
     "airbus-a400m/fsm-init/fuel-payload": "item-a5ab1c39e3a9baea.opus",
     "airbus-a400m/fsm-init/init": "item-4d9e3edb44486009.opus",
@@ -1046,6 +1037,9 @@
     "airbus-a400m/fsm-init/flight-plan": "item-6d3563f0a5dcdf65.opus",
     "airbus-a400m/fsm-init/fuel-load": "item-01bc81f7a16005fc.opus",
     "airbus-a400m/fsm-init/to-perf": "item-69a4a0429f86fd73.opus",
+    "airbus-a400m/before-engine-start/altimeters": "item-698ef14e28769df3.opus",
+    "airbus-a400m/before-engine-start/autopilot-flight-director": "item-c67ca262aa39171f.opus",
+    "airbus-a400m/before-engine-start/autopilot-altitude": "item-a850352bfb18ef4f.opus",
     "airbus-a400m/engine-start/beacon": "item-e4c1121b91522298.opus",
     "airbus-a400m/engine-start/parking-brake": "item-a4c4dafe91abe7fa.opus",
     "airbus-a400m/engine-start/eng-mode": "item-3f2e58c45640e380.opus",

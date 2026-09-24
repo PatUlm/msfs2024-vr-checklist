@@ -63,17 +63,17 @@
           "speech": "GADIRS: All on."
         },
         {
+          "id": "fuel-pumps",
+          "challenge": "Fuel Pumps",
+          "response": "All On",
+          "kind": "action"
+        },
+        {
           "id": "nav-light",
           "challenge": "NAV Lights",
           "response": "On",
           "kind": "action",
           "speech": "Navigation lights: On."
-        },
-        {
-          "id": "fuel-pumps",
-          "challenge": "Fuel Pumps",
-          "response": "All On",
-          "kind": "action"
         },
         {
           "id": "seat-belt-light",
@@ -87,39 +87,6 @@
           "response": "Armed",
           "kind": "action",
           "speech": "Emergency exit lights: Armed."
-        }
-      ]
-    },
-    {
-      "id": "before-engine-start",
-      "title": "Before Engine Start",
-      "phase": "Engine Start",
-      "items": [
-        {
-          "id": "efis",
-          "challenge": "EFIS",
-          "response": "Set",
-          "kind": "action",
-          "speech": "E F I S: Set."
-        },
-        {
-          "id": "fmges",
-          "challenge": "FMGES",
-          "response": "Set",
-          "kind": "action",
-          "speech": "F M G E S: Set."
-        },
-        {
-          "id": "takeoff-data",
-          "challenge": "Takeoff Data",
-          "response": "Set",
-          "kind": "action"
-        },
-        {
-          "id": "altimeters",
-          "challenge": "Altimeters",
-          "response": "Set",
-          "kind": "action"
         }
       ]
     },
@@ -182,6 +149,34 @@
           "response": "Compute + Insert",
           "kind": "action",
           "speech": "Takeoff performance: Compute and insert."
+        }
+      ]
+    },
+    {
+      "id": "before-engine-start",
+      "title": "Before Engine Start",
+      "phase": "Engine Start",
+      "items": [
+        {
+          "id": "altimeters",
+          "challenge": "Altimeters",
+          "response": "Set (Both)",
+          "kind": "action",
+          "speech": "Both altimeters: Set."
+        },
+        {
+          "id": "autopilot-flight-director",
+          "challenge": "Auto-Pilot Flight Director",
+          "response": "On",
+          "kind": "action",
+          "speech": "Autopilot flight director: On."
+        },
+        {
+          "id": "autopilot-altitude",
+          "challenge": "Auto-Pilot Altitude",
+          "response": "Set",
+          "kind": "action",
+          "speech": "Autopilot altitude: Set."
         }
       ]
     },

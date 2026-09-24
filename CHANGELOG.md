@@ -7,6 +7,15 @@ Changelog, and the project uses Semantic Versioning.
 
 ## [Unreleased]
 
+## [0.13.6] - 2026-09-24
+
+### Changed
+
+- Moved A400M NAV Lights after Fuel Pumps and Before Engine Start after FMGES
+  Setup. Replaced the generic EFIS, FMGES and Takeoff Data steps with explicit
+  flight-director and autopilot-altitude settings, clarified that both altimeters
+  must be set, and updated the Brian announcements.
+
 ## [0.13.5] - 2026-09-24
 
 ### Changed

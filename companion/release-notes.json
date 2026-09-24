@@ -3,6 +3,16 @@
   "companionSince": "0.3.0",
   "releases": [
     {
+      "version": "0.13.6",
+      "date": "2026-09-24",
+      "highlight": "Prepare the A400M for engine start with explicit altimeter, flight-director and altitude settings.",
+      "features": [
+        "Before Engine Start now follows FMGES Setup and contains both altimeters, flight director and autopilot altitude, with matching Brian announcements.",
+        "Removed the generic EFIS, FMGES and Takeoff Data steps; NAV Lights now follows Fuel Pumps."
+      ],
+      "fixes": []
+    },
+    {
       "version": "0.13.5",
       "date": "2026-09-24",
       "highlight": "Follow the streamlined A400M FMGES setup with separate SimBrief imports and refreshed Brian announcements.",

@@ -3,6 +3,16 @@
   "companionSince": "0.3.0",
   "releases": [
     {
+      "version": "0.13.5",
+      "date": "2026-09-24",
+      "highlight": "Follow the streamlined A400M FMGES setup with separate SimBrief imports and refreshed Brian announcements.",
+      "features": [
+        "Flight Details and Fuel & Payload now have separate SimBrief import steps; airport, flight-plan and loading instructions are clearer.",
+        "Removed the initial Cargo and Fuel item, company wind request and separate GPS Primary check."
+      ],
+      "fixes": []
+    },
+    {
       "version": "0.13.4",
       "date": "2026-09-23",
       "highlight": "Follow the completed A400M FMS setup with Brian announcements and spoken operating notes.",

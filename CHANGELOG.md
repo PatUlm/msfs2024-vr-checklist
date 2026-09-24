@@ -7,6 +7,15 @@ Changelog, and the project uses Semantic Versioning.
 
 ## [Unreleased]
 
+## [0.13.5] - 2026-09-24
+
+### Changed
+
+- Streamlined the A400M FMGES Setup with separate SimBrief flight-details and
+  fuel/payload imports, clearer airport and flight-plan steps, and shorter loading
+  guidance. Removed the initial Cargo and Fuel item, company wind request and
+  separate GPS Primary check, and refreshed the affected Brian announcements.
+
 ## [0.13.4] - 2026-09-23
 
 ### Changed

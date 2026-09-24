@@ -3,6 +3,16 @@
   "companionSince": "0.3.0",
   "releases": [
     {
+      "version": "0.14.0",
+      "date": "2026-09-24",
+      "highlight": "Hear each checklist group's name before its first item, with a natural sentence pause.",
+      "features": [
+        "The first item begins with the group name followed by Checklist, including when the item is read again.",
+        "The A400M takeoff flap setting now explicitly names position 1 in the checklist and its Brian announcement."
+      ],
+      "fixes": []
+    },
+    {
       "version": "0.13.6",
       "date": "2026-09-24",
       "highlight": "Prepare the A400M for engine start with explicit altimeter, flight-director and altitude settings.",

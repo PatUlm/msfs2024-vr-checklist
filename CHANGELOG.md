@@ -7,6 +7,8 @@ Changelog, and the project uses Semantic Versioning.
 
 ## [Unreleased]
 
+## [0.14.0] - 2026-09-24
+
 ### Added
 
 - The first item of each group now announces the group name followed by

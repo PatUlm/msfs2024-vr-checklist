@@ -41,6 +41,9 @@ internal static class TransportProbeSelfTests
     {
         (string Name, Action Body)[] tests =
         [
+            ("edits EFB actions offline and persists them", EfbSettingsSelfTests.OfflineAndPersistence),
+            ("synchronizes EFB settings with acknowledgements and reconnects", EfbSettingsSelfTests.AcknowledgementAndReconnect),
+            ("correlates EFB replies and expires queued requests", EfbSettingsSelfTests.Exchange),
             ("reassembles UTF-8 split across chunks", ReassemblesUtf8SplitAcrossChunks),
             ("rejects out-of-order chunks", RejectsOutOfOrderChunks),
             ("resets the assembler after a malformed sequence", ResetsAssemblerAfterMalformedSequence),
@@ -818,7 +821,7 @@ internal static class TransportProbeSelfTests
         {
         }
 
-        public void Pump(CancellationToken cancellationToken)
+        public void Pump(CancellationToken cancellationToken, WaitHandle outgoingSignal)
         {
         }
 
@@ -861,7 +864,7 @@ internal static class TransportProbeSelfTests
             Interlocked.Increment(ref sendCalls);
         }
 
-        public void Pump(CancellationToken cancellationToken)
+        public void Pump(CancellationToken cancellationToken, WaitHandle outgoingSignal)
         {
             Interlocked.Increment(ref pumpCalls);
             pumpEntered?.Set();

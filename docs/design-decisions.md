@@ -71,14 +71,22 @@ offene Sichtprüfungen in [design-qa.md](design-qa.md).
   `Keine Checkliste vorhanden` und eine dezente Diagnosezeile mit
   `ATC MODEL`, `ATC TYPE`, `TITLE`; keine Default-Checkliste.
 - Die Eventwahl regelt
-  [ADR 0002](adr/0002-bestaetigungseingabe-in-sim-key-interception.md).
+  [ADR 0011](adr/0011-bestaetigungsaktionen-im-companion.md).
 
 ## Companion: Fenster und Status
 
 - Minimieren lässt Verbindung und Audio weiterlaufen; Schließen beendet die
   App. Kein Tray-Icon. `Escape` schließt das aktive Nebenfenster, nicht das Dashboard.
-- `Settings` ist modal; `Checklists` ein einzelnes nicht modales Fenster, das
+- `Settings` steht oben rechts neben `Release Notes` und ist modal; `Checklists` ein einzelnes nicht modales Fenster, das
   bei erneutem Öffnen nach vorn kommt. Verbindung und Audio laufen weiter.
+- Settings-Bereiche folgen der Reihenfolge Überschrift, Erklärung, Bedienelement.
+  Audio steht vor `EFB Keybindings`. Ein Schalter wie bei Audio
+  aktiviert die Bestätigung; das Dropdown steht rechts daneben. Bei Aus
+  bleibt die Auswahl erhalten und das Dropdown ist gesperrt und ausgegraut.
+  Die Einstellung ist offline bearbeitbar. Der Companion speichert den Wunsch
+  lokal; Text meldet ausstehende Übertragung oder Fehler und entfällt nach
+  bestätigter EFB-Übernahme. Speicherung und Eventwahl gemäß
+  [ADR 0011](adr/0011-bestaetigungsaktionen-im-companion.md).
 - Verbindungsversuche zeigen ruhig `Connecting` und `Waiting for MSFS 2024.`,
   eine Verbindung `Connected`. Gelb/Grün ergänzt den sichtbaren Text.
   Der EFB-Status bleibt separat: SimConnect allein bedeutet keinen Snapshot.

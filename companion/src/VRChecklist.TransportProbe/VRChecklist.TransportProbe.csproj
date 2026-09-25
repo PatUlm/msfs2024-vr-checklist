@@ -9,12 +9,18 @@
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
   </PropertyGroup>
   <ItemGroup>
+    <EmbeddedResource Include="../../../config/confirmation-actions.json" LogicalName="VRChecklist.confirmation-actions.json" />
+  </ItemGroup>
+  <ItemGroup>
     <Compile Include="../VRChecklist.Companion/ItemAudioCatalog.cs" Link="ItemAudioCatalog.cs" />
     <Compile Include="../VRChecklist.Companion/ChecklistSpeechController.cs" Link="ChecklistSpeechController.cs" />
     <Compile Include="../VRChecklist.Companion/AudioOutputSettings.cs" Link="AudioOutputSettings.cs" />
     <Compile Include="../VRChecklist.Companion/RadioSampleProvider.cs" Link="RadioSampleProvider.cs" />
     <Compile Include="../VRChecklist.Companion/AudioOutputDevices.cs" Link="AudioOutputDevices.cs" />
     <Compile Include="../VRChecklist.Companion/AudioSettingsViewModel.cs" Link="AudioSettingsViewModel.cs" />
+    <Compile Include="../VRChecklist.Companion/EfbInputSettings.cs" Link="EfbInputSettings.cs" />
+    <Compile Include="../VRChecklist.Companion/EfbSettingsExchange.cs" Link="EfbSettingsExchange.cs" />
+    <Compile Include="../VRChecklist.Companion/EfbSettingsViewModel.cs" Link="EfbSettingsViewModel.cs" />
     <Compile Include="../VRChecklist.Companion/ChecklistConnectionService.cs"
              Link="ChecklistConnectionService.cs" />
     <Compile Include="../VRChecklist.Companion/ChecklistCatalog.cs"

@@ -94,13 +94,15 @@ public sealed class CommBusClient : IDisposable
         _ = Pump(cancellationToken, Timeout.InfiniteTimeSpan);
     }
 
-    public bool Pump(CancellationToken cancellationToken, TimeSpan timeout)
+    public bool Pump(CancellationToken cancellationToken, TimeSpan timeout, WaitHandle? outgoingSignal = null)
     {
         threadAffinity.Enter();
         EnsureConnected();
 
         var signaled = WaitHandle.WaitAny(
-            [simConnectSignal, cancellationToken.WaitHandle],
+            outgoingSignal is null
+                ? [simConnectSignal, cancellationToken.WaitHandle]
+                : [simConnectSignal, cancellationToken.WaitHandle, outgoingSignal],
             timeout);
         cancellationToken.ThrowIfCancellationRequested();
 

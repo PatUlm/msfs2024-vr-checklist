@@ -12,6 +12,7 @@ import {
   TVNode,
 } from "@efb/efb-api";
 import {
+  DataStore,
   EventBus,
   FSComponent,
   GameStateProvider,
@@ -37,6 +38,7 @@ import {
   renderChecklistPanel,
   renderChecklistUnavailable,
 } from "./Components/ChecklistPanel";
+import { EfbSettings } from "./settings/EfbSettings";
 import { ConfirmationInput } from "./input/ConfirmationInput";
 import {
   AIRCRAFT_REFRESH_INTERVAL_MS,
@@ -119,6 +121,10 @@ class VRChecklistView
   private readonly instanceId = createInstanceId();
   private readonly eventBus: EventBus;
   private readonly scaling: ScalingController;
+  private readonly settings = new EfbSettings({
+    get: (key) => DataStore.get(key),
+    set: (key, value) => DataStore.set(key, value),
+  });
   private readonly progressStore = new ChecklistProgressStore();
   private readonly transport: ChecklistCommBusTransport;
   private readonly confirmationInput: ConfirmationInput;
@@ -168,11 +174,13 @@ class VRChecklistView
       sender: { efbVersion: APP_VERSION, instanceId: this.instanceId },
       isStateReady: () => this.hasInitializedChecklist,
       readState: () => this.readChecklistStateSummary(),
+      settings: this.settings,
     });
     this.confirmationInput = new ConfirmationInput({
       bus: this.eventBus,
       isViewActive: () => this.isViewActive,
       onConfirm: () => this.confirmNextOpenItem(),
+      isActionEnabled: (event) => this.settings.isEnabled(event),
     });
 
     this.progressStore.clearObsolete();

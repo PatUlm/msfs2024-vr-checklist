@@ -55,6 +55,7 @@ test("a replacement EFB context publishes only after restoring progress", (t) =>
     completedGroupIds: [],
   };
   const transport = new ChecklistCommBusTransport({
+    settings: {},
     sender: { efbVersion: "test", instanceId: "vr-context" },
     isStateReady: () => ready,
     readState: () => state,

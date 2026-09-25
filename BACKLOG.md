@@ -6,21 +6,17 @@ Status, Befund und nächster Schritt werden ausschließlich am Ziel gepflegt.
 
 ## Umsetzung und Veröffentlichung
 
-1. **Bestätigungstaste für 1.0 abstimmen.** Die in
-   [ADR 0002](docs/adr/0002-bestaetigungseingabe-in-sim-key-interception.md)
-   beschlossene Eventkonfiguration ist noch nicht umgesetzt. Konfiguration
-   umsetzen oder die Entscheidung ausdrücklich durch ein neues ADR ersetzen.
-2. **Öffentliche Installation festlegen.** Downloadpakete, .NET-Voraussetzung
+1. **Öffentliche Installation festlegen.** Downloadpakete, .NET-Voraussetzung
    und Bezug/Pfad der nicht mitgelieferten `SimConnect.dll` für externe Nutzer
    klären und die README daran ausrichten. Der jetzige Weg setzt ein lokales
    SDK voraus.
-3. **Dokumentation veröffentlichungsfähig machen.** Texte reviewen und ins
+2. **Dokumentation veröffentlichungsfähig machen.** Texte reviewen und ins
    Englische übersetzen; die Installation auf das angebotene Downloadpaket ausrichten.
-4. **Öffentlichen Dateibestand und Historie prüfen.** Geheimnisse, private
+3. **Öffentlichen Dateibestand und Historie prüfen.** Geheimnisse, private
    Daten und Weitergaberechte berücksichtigen; den finalen Artefaktumfang
    abgleichen. Die lokale JetBrains-Diagnose vor öffentlicher Übernahme auf
    Reproduktion, technischen Befund und Ticketlink kürzen.
-5. **1.0.0 veröffentlichen.** Nach Abschluss der Aufgaben und Fachprüfungen
+4. **1.0.0 veröffentlichen.** Nach Abschluss der Aufgaben und Fachprüfungen
    den [Release-Ablauf](docs/release.md) ausführen und Repository sowie
    GitHub-Release auf ausdrücklichen Auftrag veröffentlichen.
 

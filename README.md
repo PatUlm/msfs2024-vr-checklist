@@ -36,7 +36,8 @@ Einrichtung; [Release und Installation](docs/release.md) erklären das
 Community-Paket und die Companion-EXE.
 
 Nach der Installation im EFB **VR Checklist** öffnen. Die App funktioniert
-vollständig ohne Companion. Für Sprachausgabe zusätzlich
+ohne laufenden Companion. Für Sprachausgabe und zum Konfigurieren der
+Bestätigungsaktionen zusätzlich
 `VRChecklist.Companion.exe` starten. Die Windows-Voraussetzungen stehen unter
 [Companion: Start und Diagnose](companion/README.md#start-und-diagnose).
 
@@ -56,10 +57,18 @@ belegen (Event `PLASMA_OFF`; der Anzeigename kann je Sim-Sprache abweichen).
 Sie bestätigt das nächste offene Item der angezeigten Gruppe, solange die App
 im EFB offen ist. Das Event wird an den Simulator weitergereicht; für fremde
 Flugzeuge ist eine Nebenwirkung nicht ausgeschlossen. Die Begründung der
-Eventwahl steht in [ADR 0002](docs/adr/0002-bestaetigungseingabe-in-sim-key-interception.md).
+Eventwahl steht in [ADR 0011](docs/adr/0011-bestaetigungsaktionen-im-companion.md).
 
 Im Companion unter **Settings**:
 
+- **EFB Keybindings**: mit dem Schalter die Bestätigung aktivieren und rechts
+  daneben im Dropdown die MSFS-Aktion auswählen; aktuell `SET PLASMA OFF`, standardmäßig an.
+  Bei Aus bleibt die Auswahl erhalten. Auch ohne Simulator
+  bearbeitbar. Der Companion speichert die Auswahl lokal und überträgt sie,
+  sobald VR Checklist im EFB erreichbar ist. Hinweise auf ausstehende Übertragung verschwinden nach der
+  Übernahme. Die EFB behält den letzten übernommenen Wert auch ohne Companion,
+  nach Flugwechsel und Simulatorneustart. Aus unterbindet nur die
+  Checklistenbestätigung; das Event erreicht weiterhin das Flugzeug.
 - `Read checklist items`: nächsten offenen Eintrag vorlesen; standardmäßig an.
 - `Radio effect`: Klangfilter live ein-/ausschalten; standardmäßig an.
 - `Audio output` und `Test sound`: Ausgabegerät wählen und prüfen. Ein nicht

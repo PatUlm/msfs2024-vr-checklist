@@ -1,3 +1,7 @@
+import { EfbSettings } from "../settings/EfbSettings";
+import {
+  EFB_SETTINGS_REQUEST_EVENT, EFB_SETTINGS_RESPONSE_EVENT, processEfbSettingsRequest,
+} from "./EfbSettingsProtocol";
 import { SnapshotRateLimiter } from "../SnapshotRateLimiter";
 import {
   CHECKLIST_STATE_REQUEST_EVENT,
@@ -12,6 +16,7 @@ const COMM_BUS_SCRIPT_PATH = "/JS/Services/CommBus.js";
 const CHECKLIST_STATE_MIN_PUBLISH_INTERVAL_MS = 250;
 
 export interface ChecklistCommBusTransportOptions {
+  settings: EfbSettings;
   sender: TransportSenderIdentity;
   /** False until aircraft selection and stored progress have been reconciled. */
   isStateReady: () => boolean;
@@ -27,6 +32,7 @@ export interface ChecklistCommBusTransportOptions {
  * workflow.
  */
 export class ChecklistCommBusTransport {
+  private readonly settings: EfbSettings;
   private readonly sender: TransportSenderIdentity;
   private readonly isStateReady: () => boolean;
   private readonly readState: () => ChecklistStateSummary;
@@ -41,6 +47,7 @@ export class ChecklistCommBusTransport {
   };
 
   public constructor(options: ChecklistCommBusTransportOptions) {
+    this.settings = options.settings;
     this.sender = options.sender;
     this.isStateReady = options.isStateReady;
     this.readState = options.readState;
@@ -74,6 +81,7 @@ export class ChecklistCommBusTransport {
       CHECKLIST_STATE_REQUEST_EVENT,
       this.handleChecklistStateRequest
     );
+    this.listener?.off(EFB_SETTINGS_REQUEST_EVENT, this.handleSettingsRequest);
     this.listener?.unregister();
   }
 
@@ -94,11 +102,23 @@ export class ChecklistCommBusTransport {
         CHECKLIST_STATE_REQUEST_EVENT,
         this.handleChecklistStateRequest
       );
+      this.listener.on(EFB_SETTINGS_REQUEST_EVENT, this.handleSettingsRequest);
       this.requestStatePublish();
     } catch (error) {
       console.error("[VR Checklist] CommBus listener unavailable", error);
     }
   }
+
+  private readonly handleSettingsRequest = (data: string): void => {
+    try {
+      const response = processEfbSettingsRequest(data, this.sender.instanceId, this.settings);
+      if (response !== undefined) {
+        this.listener?.callSimConnect(EFB_SETTINGS_RESPONSE_EVENT, response);
+      }
+    } catch (error) {
+      console.error("[VR Checklist] Invalid EFB settings request", error);
+    }
+  };
 
   private processChecklistStateRequest(data: string): void {
     let requestId: string;

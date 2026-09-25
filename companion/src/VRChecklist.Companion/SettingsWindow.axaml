@@ -3,60 +3,99 @@
     xmlns="https://github.com/avaloniaui"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:vm="using:VRChecklist.Companion"
-    x:DataType="vm:AudioSettingsViewModel"
+    xmlns:transport="using:VRChecklist.Transport"
+    x:DataType="vm:SettingsViewModel"
     Title="VR Checklist — Settings"
     Icon="avares://VRChecklist.Companion/Assets/app-icon.ico"
-    Width="600" MinWidth="480" SizeToContent="Height"
+    Width="600" MinWidth="480" Height="760" MinHeight="480"
     WindowStartupLocation="CenterOwner"
     Background="#10151D" FontFamily="Segoe UI"
     RequestedThemeVariant="Dark">
-  <StackPanel Margin="28" Spacing="20">
+  <Grid Margin="28" RowDefinitions="Auto,*,Auto" RowSpacing="20">
     <TextBlock Foreground="#F3F6FA" FontSize="28" FontWeight="SemiBold" Text="Settings" />
-    <Border Background="#18212C" BorderBrush="#273646" BorderThickness="1"
-            CornerRadius="10" Padding="20">
-      <StackPanel Spacing="14">
-        <TextBlock Foreground="#F3F6FA" FontSize="18" FontWeight="SemiBold" Text="Audio output" />
-        <TextBlock Foreground="#AAB4C0" TextWrapping="Wrap"
-                   Text="Choose where checklist announcements play. List sorted by recent use." />
-        <ComboBox ItemsSource="{Binding Devices}"
-                  SelectedItem="{Binding SelectedDevice, Mode=TwoWay}"
-                  IsEnabled="{Binding CanSelect}" DropDownOpened="OnOutputListOpened"
-                  HorizontalAlignment="Stretch" MinHeight="40" FontSize="16"
-                  Background="#223246" BorderBrush="#36516D" Foreground="#F3F6FA"
-                  AutomationProperties.Name="Audio output">
-          <ComboBox.ItemTemplate>
-            <DataTemplate x:DataType="vm:AudioOutputDevice">
-              <TextBlock Text="{Binding DisplayName}" TextWrapping="Wrap" />
-            </DataTemplate>
-          </ComboBox.ItemTemplate>
-        </ComboBox>
-        <ToggleSwitch IsChecked="{Binding ReadItemsEnabled, Mode=TwoWay}"
-                      OnContent="On" OffContent="Off" Content="Read checklist items"
-                      Foreground="#F3F6FA" FontSize="16" MinHeight="44"
-                      AutomationProperties.Name="Read checklist items" />
-        <TextBlock Foreground="#AAB4C0" TextWrapping="Wrap"
-                   Text="Read the next open item as you work through the checklist. Group completion announcements remain enabled." />
-        <ToggleSwitch IsChecked="{Binding RadioEnabled, Mode=TwoWay}"
-                      OnContent="On" OffContent="Off" Content="Radio effect"
-                      Foreground="#F3F6FA" FontSize="16" MinHeight="44"
-                      AutomationProperties.Name="Radio effect" />
-        <TextBlock Foreground="#AAB4C0" TextWrapping="Wrap"
-                   Text="Switch off for a clean voice. You can change the effect while a sound is playing." />
-        <Button Classes="icon-button" Click="OnTestSoundClick" IsEnabled="{Binding CanTest}">
-          <StackPanel>
-            <Path Data="{StaticResource IconSpeaker}" />
-            <TextBlock Text="Test sound" />
+    <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+      <StackPanel Spacing="20">
+        <Border Background="#18212C" BorderBrush="#273646" BorderThickness="1"
+                CornerRadius="10" Padding="20">
+          <StackPanel Spacing="14">
+            <TextBlock Foreground="#F3F6FA" FontSize="18" FontWeight="SemiBold" Text="Audio output" />
+            <TextBlock Foreground="#AAB4C0" TextWrapping="Wrap"
+                       Text="Choose where checklist announcements play. List sorted by recent use." />
+            <ComboBox ItemsSource="{Binding Audio.Devices}"
+                      SelectedItem="{Binding Audio.SelectedDevice, Mode=TwoWay}"
+                      IsEnabled="{Binding Audio.CanSelect}" DropDownOpened="OnOutputListOpened"
+                      HorizontalAlignment="Stretch" MinHeight="40" FontSize="16"
+                      Background="#223246" BorderBrush="#36516D" Foreground="#F3F6FA"
+                      AutomationProperties.Name="Audio output">
+              <ComboBox.ItemTemplate>
+                <DataTemplate x:DataType="vm:AudioOutputDevice">
+                  <TextBlock Text="{Binding DisplayName}" TextWrapping="Wrap" />
+                </DataTemplate>
+              </ComboBox.ItemTemplate>
+            </ComboBox>
+            <TextBlock Foreground="#F3F6FA" FontSize="18" FontWeight="SemiBold" Text="Read checklist items" />
+            <TextBlock Foreground="#AAB4C0" TextWrapping="Wrap"
+                       Text="Read the next open item as you work through the checklist. Group completion announcements remain enabled." />
+            <ToggleSwitch IsChecked="{Binding Audio.ReadItemsEnabled, Mode=TwoWay}"
+                          OnContent="On" OffContent="Off"
+                          Foreground="#F3F6FA" FontSize="16" MinHeight="44"
+                          AutomationProperties.Name="Read checklist items" />
+            <TextBlock Foreground="#F3F6FA" FontSize="18" FontWeight="SemiBold" Text="Radio effect" />
+            <TextBlock Foreground="#AAB4C0" TextWrapping="Wrap"
+                       Text="Switch off for a clean voice. You can change the effect while a sound is playing." />
+            <ToggleSwitch IsChecked="{Binding Audio.RadioEnabled, Mode=TwoWay}"
+                          OnContent="On" OffContent="Off"
+                          Foreground="#F3F6FA" FontSize="16" MinHeight="44"
+                          AutomationProperties.Name="Radio effect" />
+            <Button Classes="icon-button" Click="OnTestSoundClick" IsEnabled="{Binding Audio.CanTest}">
+              <StackPanel>
+                <Path Data="{StaticResource IconSpeaker}" />
+                <TextBlock Text="Test sound" />
+              </StackPanel>
+            </Button>
+            <TextBlock Foreground="#AAB4C0" TextWrapping="Wrap" Text="{Binding Audio.Status}"
+                       IsVisible="{Binding Audio.HasStatus}" />
           </StackPanel>
-        </Button>
-        <TextBlock Foreground="#AAB4C0" TextWrapping="Wrap" Text="{Binding Status}"
-                   IsVisible="{Binding HasStatus}" />
+        </Border>
+        <Border Background="#18212C" BorderBrush="#273646" BorderThickness="1"
+                CornerRadius="10" Padding="20">
+          <StackPanel Spacing="14">
+            <TextBlock Foreground="#F3F6FA" FontSize="18" FontWeight="SemiBold" TextWrapping="Wrap" Text="EFB Keybindings" />
+            <TextBlock Foreground="#AAB4C0" TextWrapping="Wrap"
+                       Text="Bind the selected action to a key or HOTAS button in the MSFS controls to confirm the next checklist item. Changes made offline are applied when the EFB connects." />
+            <Grid ColumnDefinitions="Auto,*" ColumnSpacing="16">
+              <ToggleSwitch IsChecked="{Binding Efb.KeybindingsEnabled, Mode=TwoWay}"
+                            OnContent="On" OffContent="Off" VerticalAlignment="Center"
+                            Foreground="#F3F6FA" FontSize="16" MinHeight="44"
+                            AutomationProperties.Name="Enable EFB keybindings" />
+              <ComboBox Grid.Column="1" ItemsSource="{Binding Efb.Actions}"
+                        SelectedItem="{Binding Efb.SelectedAction, Mode=TwoWay}"
+                        IsEnabled="{Binding Efb.KeybindingsEnabled}"
+                        HorizontalAlignment="Stretch" VerticalAlignment="Center" MinHeight="40" FontSize="16"
+                        Background="#223246" BorderBrush="#36516D" Foreground="#F3F6FA"
+                        AutomationProperties.Name="EFB keybinding action">
+                <ComboBox.Styles>
+                  <Style Selector="ComboBox:disabled">
+                    <Setter Property="Opacity" Value="0.45" />
+                  </Style>
+                </ComboBox.Styles>
+                <ComboBox.ItemTemplate>
+                  <DataTemplate x:DataType="transport:ConfirmationActionSetting">
+                    <TextBlock Text="{Binding Label}" TextWrapping="Wrap" />
+                  </DataTemplate>
+                </ComboBox.ItemTemplate>
+              </ComboBox>
+            </Grid>
+            <TextBlock Foreground="#AAB4C0" TextWrapping="Wrap" Text="{Binding Efb.Status}" IsVisible="{Binding Efb.HasStatus}" />
+          </StackPanel>
+        </Border>
       </StackPanel>
-    </Border>
-    <Button Classes="icon-button" HorizontalAlignment="Right" Click="OnCloseClick" IsCancel="True">
+    </ScrollViewer>
+    <Button Grid.Row="2" Classes="icon-button" HorizontalAlignment="Right" Click="OnCloseClick" IsCancel="True">
       <StackPanel>
         <Path Data="{StaticResource IconClose}" />
         <TextBlock Text="Close" />
       </StackPanel>
     </Button>
-  </StackPanel>
+  </Grid>
 </Window>

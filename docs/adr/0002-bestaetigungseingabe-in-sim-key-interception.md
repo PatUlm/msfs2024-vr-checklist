@@ -1,6 +1,6 @@
 # ADR 0002: Bestätigung über In-Sim-Key-Interception
 
-Status: Akzeptiert (2026-08-26). Gilt für die Bestätigung per Taste/HOTAS.
+Status: Ersetzt durch [ADR 0011](0011-bestaetigungsaktionen-im-companion.md).
 
 ## Entscheidung und Grund
 

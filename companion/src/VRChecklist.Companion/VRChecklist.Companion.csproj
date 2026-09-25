@@ -10,6 +10,9 @@
     <ApplicationIcon>../../../assets/branding/app-icon-windows.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
+    <EmbeddedResource Include="../../../config/confirmation-actions.json" LogicalName="VRChecklist.confirmation-actions.json" />
+  </ItemGroup>
+  <ItemGroup>
     <!-- Same branding icon as the EXE, exposed to the windows as avares://VRChecklist.Companion/Assets/app-icon.ico -->
     <AvaloniaResource Include="../../../assets/branding/app-icon-windows.ico"
                       Link="Assets/app-icon.ico" />

@@ -8,22 +8,27 @@ public sealed partial class SettingsWindow : Window
     public SettingsWindow()
     {
         InitializeComponent();
-        Activated += (_, _) => ViewModel?.RefreshDevices();
+        Activated += async (_, _) =>
+        {
+            if (ViewModel is not { } viewModel) return;
+            viewModel.Audio.RefreshDevices();
+            await viewModel.Efb.SynchronizeAsync();
+        };
     }
 
-    public SettingsWindow(AudioSettingsViewModel viewModel) : this()
+    public SettingsWindow(SettingsViewModel viewModel) : this()
     {
         DataContext = viewModel;
-        viewModel.RefreshDevices();
+        viewModel.Audio.RefreshDevices();
     }
 
-    private AudioSettingsViewModel? ViewModel => DataContext as AudioSettingsViewModel;
+    private SettingsViewModel? ViewModel => DataContext as SettingsViewModel;
 
-    private void OnOutputListOpened(object? sender, EventArgs args) => ViewModel?.RefreshDevices();
+    private void OnOutputListOpened(object? sender, EventArgs args) => ViewModel?.Audio.RefreshDevices();
 
     private async void OnTestSoundClick(object? sender, RoutedEventArgs args)
     {
-        if (ViewModel is { } viewModel) await viewModel.TestAsync();
+        if (ViewModel is { } viewModel) await viewModel.Audio.TestAsync();
     }
 
     private void OnCloseClick(object? sender, RoutedEventArgs args) => Close();

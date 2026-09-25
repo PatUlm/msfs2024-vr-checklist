@@ -12,7 +12,7 @@ public sealed partial class MainWindow : Window
     private ReleaseNotesWindow? releaseNotesWindow;
     private ChecklistsWindow? checklistsWindow;
     private SettingsWindow? settingsWindow;
-    public AudioSettingsViewModel? AudioSettings { get; set; }
+    public SettingsViewModel? Settings { get; set; }
     private readonly DispatcherTimer copyFeedbackTimer;
 
     public MainWindow()
@@ -48,8 +48,8 @@ public sealed partial class MainWindow : Window
             settingsWindow.Activate();
             return;
         }
-        if (AudioSettings is null) return;
-        var window = new SettingsWindow(AudioSettings);
+        if (Settings is null) return;
+        var window = new SettingsWindow(Settings);
         settingsWindow = window;
         try
         {

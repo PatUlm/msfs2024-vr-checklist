@@ -5,6 +5,7 @@ import {
   KeyEvents,
   Subscription,
 } from "@microsoft/msfs-sdk";
+import { CONFIRMATION_ACTIONS } from "../settings/EfbSettings";
 
 /*
  * The sim key event that confirms the next open item of the section on screen.
@@ -15,7 +16,7 @@ import {
  * `PLASMA_OFF` is offered as SET PLASMA OFF and confirmed to reach this EFB
  * context in G36, DA42, H125 and MH-60. The choice, rejected alternatives and
  * runtime constraints live in
- * docs/adr/0002-bestaetigungseingabe-in-sim-key-interception.md and
+ * docs/adr/0011-bestaetigungsaktionen-im-companion.md and
  * docs/msfs-sdk-reference.md#sim-key-events-in-einer-custom-efb-app.
  *
  * It is intercepted with pass-through, so the sim still receives it and
@@ -29,7 +30,6 @@ import {
  * norebind_kbmpad and cannot be bound to keyboard, mouse or pad at all. Do
  * not restore any of those listeners and do not poll for input.
  */
-export const CONFIRM_KEY_EVENT = "PLASMA_OFF";
 
 /*
  * Shortest gap between two presses that count as two confirmations. It exists
@@ -58,6 +58,7 @@ export interface ConfirmationInputOptions {
   bus: EventBus;
   /** Presses arriving while the view is not active are dropped. */
   isViewActive: () => boolean;
+  isActionEnabled: (event: string) => boolean;
   onConfirm: () => void;
   now?: () => number;
 }
@@ -65,6 +66,7 @@ export interface ConfirmationInputOptions {
 export class ConfirmationInput {
   private readonly bus: EventBus;
   private readonly isViewActive: () => boolean;
+  private readonly isActionEnabled: (event: string) => boolean;
   private readonly onConfirm: () => void;
   private readonly now: () => number;
   private keyEventManager: KeyEventManager | undefined;
@@ -75,6 +77,7 @@ export class ConfirmationInput {
     this.bus = options.bus;
     this.isViewActive = options.isViewActive;
     this.onConfirm = options.onConfirm;
+    this.isActionEnabled = options.isActionEnabled;
     this.now = options.now ?? (() => Date.now());
   }
 
@@ -108,24 +111,20 @@ export class ConfirmationInput {
   public ensureInterception(reason: string): void {
     const manager = this.keyEventManager;
 
-    if (!manager || interceptedKeyEvents.has(CONFIRM_KEY_EVENT)) {
-      return;
+    if (!manager) return;
+    for (const action of CONFIRMATION_ACTIONS) {
+      if (interceptedKeyEvents.has(action.event)) continue;
+      manager.interceptKey(action.event, true);
+      interceptedKeyEvents.add(action.event);
+      console.info(`[VR Checklist] Key event interception active for ${action.event} (${reason}).`);
     }
-
-    manager.interceptKey(CONFIRM_KEY_EVENT, true);
-    interceptedKeyEvents.add(CONFIRM_KEY_EVENT);
-    console.info(
-      `[VR Checklist] Key event interception active for ` +
-        `${CONFIRM_KEY_EVENT} (${reason}).`
-    );
   }
 
   public invalidateInterception(reason: string): void {
-    if (interceptedKeyEvents.delete(CONFIRM_KEY_EVENT)) {
-      console.info(
-        `[VR Checklist] Key event interception marked stale for ` +
-          `${CONFIRM_KEY_EVENT} (${reason}).`
-      );
+    for (const action of CONFIRMATION_ACTIONS) {
+      if (interceptedKeyEvents.delete(action.event)) {
+        console.info(`[VR Checklist] Key event interception marked stale for ${action.event} (${reason}).`);
+      }
     }
   }
 
@@ -138,7 +137,7 @@ export class ConfirmationInput {
   }
 
   private handleKeyIntercept(data: KeyEventData): void {
-    if (data.key !== CONFIRM_KEY_EVENT) {
+    if (!CONFIRMATION_ACTIONS.some((action) => action.event === data.key)) {
       return;
     }
 
@@ -149,6 +148,8 @@ export class ConfirmationInput {
       );
       return;
     }
+
+    if (!this.isActionEnabled(data.key)) return;
 
     const now = this.now();
 

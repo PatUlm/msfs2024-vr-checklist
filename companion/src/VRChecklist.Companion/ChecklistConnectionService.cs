@@ -17,6 +17,7 @@ public sealed class ChecklistConnectionService : IDisposable
     internal const string SimConnectMissingDetail =
         "SimConnect.dll not found. Set VR_CHECKLIST_SIMCONNECT_DIR or add " +
         "simconnect-path.txt next to the EXE.";
+    private readonly EfbSettingsExchange settingsExchange = new();
     private readonly CancellationTokenSource cancellation = new();
     private readonly ChecklistSnapshotSequenceTracker snapshotSequence = new();
     private readonly Func<IChecklistCommBusClient> clientFactory;
@@ -56,6 +57,9 @@ public sealed class ChecklistConnectionService : IDisposable
     public event Action<ChecklistStateSnapshot, bool>? SnapshotReceived;
     public event Action<string>? ProtocolError;
 
+    public Task<EfbSettingsResponse> ApplyEfbSettingsAsync(string instanceId, IReadOnlyDictionary<string, bool> actions) =>
+        settingsExchange.ApplyAsync(instanceId, actions);
+
     public void Start()
     {
         lock (lifecycleLock)
@@ -92,6 +96,8 @@ public sealed class ChecklistConnectionService : IDisposable
                     ChecklistStateProtocol.SnapshotEventId,
                     ChecklistStateProtocol.SnapshotEvent,
                     HandleSnapshot);
+                client.Subscribe(EfbSettingsProtocol.ResponseEventId, EfbSettingsProtocol.ResponseEvent, settingsExchange.Receive);
+                settingsExchange.SetConnected(true);
                 cancellationToken.ThrowIfCancellationRequested();
 
                 ConnectionChanged?.Invoke(
@@ -106,7 +112,11 @@ public sealed class ChecklistConnectionService : IDisposable
 
                 while (!cancellationToken.IsCancellationRequested)
                 {
-                    client.Pump(cancellationToken);
+                    settingsExchange.SendPending((name, payload) => {
+                        cancellationToken.ThrowIfCancellationRequested();
+                        client.Send(name, payload);
+                    });
+                    client.Pump(cancellationToken, settingsExchange.Signal);
                 }
             }
             catch (OperationCanceledException) when (cancellationToken.IsCancellationRequested)
@@ -115,6 +125,7 @@ public sealed class ChecklistConnectionService : IDisposable
             }
             catch (DllNotFoundException)
             {
+                settingsExchange.SetConnected(false);
                 ConnectionChanged?.Invoke(
                     SimulatorConnectionStatus.Connecting,
                     SimConnectMissingDetail);
@@ -124,15 +135,22 @@ public sealed class ChecklistConnectionService : IDisposable
                     InvalidOperationException or
                     COMException)
             {
+                settingsExchange.SetConnected(false);
                 ConnectionChanged?.Invoke(
                     SimulatorConnectionStatus.Connecting,
                     ConnectingDetail);
             }
             catch (Exception)
             {
+                settingsExchange.SetConnected(false);
                 ConnectionChanged?.Invoke(
                     SimulatorConnectionStatus.Connecting,
                     ConnectingDetail);
+            }
+
+            finally
+            {
+                settingsExchange.SetConnected(false);
             }
 
             try
@@ -192,7 +210,7 @@ public sealed class ChecklistConnectionService : IDisposable
 
         if (activeWorker is null)
         {
-            cancellation.Dispose();
+            DisposeResources();
             return;
         }
 
@@ -200,7 +218,7 @@ public sealed class ChecklistConnectionService : IDisposable
         {
             if (activeWorker.Wait(shutdownWait))
             {
-                cancellation.Dispose();
+                DisposeResources();
                 return;
             }
         }
@@ -208,16 +226,22 @@ public sealed class ChecklistConnectionService : IDisposable
             error.InnerExceptions.All(inner => inner is OperationCanceledException))
         {
             // Normal shutdown.
-            cancellation.Dispose();
+            DisposeResources();
             return;
         }
 
         _ = activeWorker.ContinueWith(
-            static (_, state) => ((CancellationTokenSource)state!).Dispose(),
-            cancellation,
+            static (_, state) => ((ChecklistConnectionService)state!).DisposeResources(),
+            this,
             CancellationToken.None,
             TaskContinuationOptions.ExecuteSynchronously,
             TaskScheduler.Default);
+    }
+
+    private void DisposeResources()
+    {
+        settingsExchange.Dispose();
+        cancellation.Dispose();
     }
 
     internal Task WorkerCompletion
@@ -237,7 +261,7 @@ internal interface IChecklistCommBusClient : IDisposable
     void Connect();
     void Subscribe(uint eventId, string eventName, Action<string> handler);
     void Send(string eventName, string payload);
-    void Pump(CancellationToken cancellationToken);
+    void Pump(CancellationToken cancellationToken, WaitHandle outgoingSignal);
 }
 
 internal sealed class ChecklistCommBusClient : IChecklistCommBusClient
@@ -251,7 +275,8 @@ internal sealed class ChecklistCommBusClient : IChecklistCommBusClient
 
     public void Send(string eventName, string payload) => client.Send(eventName, payload);
 
-    public void Pump(CancellationToken cancellationToken) => client.Pump(cancellationToken);
+    public void Pump(CancellationToken cancellationToken, WaitHandle outgoingSignal) =>
+        client.Pump(cancellationToken, Timeout.InfiniteTimeSpan, outgoingSignal);
 
     public void Dispose() => client.Dispose();
 }

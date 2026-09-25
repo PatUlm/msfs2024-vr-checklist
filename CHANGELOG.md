@@ -7,6 +7,18 @@ Changelog, and the project uses Semantic Versioning.
 
 ## [Unreleased]
 
+### Added
+
+- Added an EFB confirmation-action list to companion Settings, initially with
+  `SET PLASMA OFF`. A switch enables the selected action; the dropdown keeps its
+  selection while disabled. Offline changes are applied when the EFB connects. The EFB remembers the
+  applied choice across flights and restarts, including without the companion.
+
+### Changed
+
+- Placed companion Settings explanations above their controls and moved the
+  Settings button next to Release Notes in the header.
+
 ## [0.14.1] - 2026-09-25
 
 ### Changed

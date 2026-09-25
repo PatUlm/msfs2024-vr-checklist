@@ -1,6 +1,7 @@
 using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
+using Avalonia.Threading;
 using VRChecklist.Transport;
 
 namespace VRChecklist.Companion;
@@ -32,13 +33,19 @@ public sealed partial class App : Application
             {
                 ConfigureSpeech(connectionService, viewModel, audioSettings);
             }
-            window.AudioSettings = new AudioSettingsViewModel(
+            var audioViewModel = new AudioSettingsViewModel(
                 audioSettings,
                 () => OperatingSystem.IsWindows() ? AudioOutputDevices.Enumerate() : [],
                 () => Task.Run(() => speech is { } controller
                     ? controller.TestAsync()
                     : Task.FromException(new InvalidOperationException("Audio is unavailable."))));
-            window.AudioSettings.ReadItemsChanged += value => speech?.SetEnabled(value);
+            audioViewModel.ReadItemsChanged += value => speech?.SetEnabled(value);
+            var efbViewModel = new EfbSettingsViewModel(new EfbInputSettings(), connectionService.ApplyEfbSettingsAsync);
+            window.Settings = new SettingsViewModel(audioViewModel, efbViewModel);
+            connectionService.ConnectionChanged += (_, _) => Dispatcher.UIThread.Post(efbViewModel.Disconnect);
+            connectionService.ProtocolError += _ => Dispatcher.UIThread.Post(efbViewModel.Disconnect);
+            connectionService.SnapshotReceived += (snapshot, _) =>
+                Dispatcher.UIThread.Post(() => efbViewModel.ObserveInstance(snapshot.InstanceId));
             if (audioSettings.LoadError is { } loadError) viewModel.ReportAudioError(loadError);
 
             desktop.Exit += (_, _) =>

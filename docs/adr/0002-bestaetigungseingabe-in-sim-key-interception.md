@@ -21,7 +21,7 @@ ungeeignete Alternativen stehen ausschließlich in der
 - Kein Low-Level-Keyboard-Hook und keine globale Tastenerfassung.
 - Der Eventname bleibt im privaten Stand fest. **Vor Weitergabe an Fremde ist
   eine konfigurierbare Eventwahl beschlossen**, weil das Event bei anderen
-  Flugzeugen ein System bedienen kann. Diese noch nicht umgesetzte Bedingung
-  ist mit dem 1.0-Umfang abzustimmen, siehe [Backlog](../../BACKLOG.md).
+  Flugzeugen ein System bedienen kann. Umsetzungsarbeit steht im
+  [Backlog](../../BACKLOG.md).
 - Relevante SDK-/Simulatoränderungen können eine Neubewertung erfordern;
   Interception ist kein zugesagter stabiler EFB-API-Vertrag.

@@ -68,8 +68,6 @@ compromise solely because the initial S sounds imperfect.
 ## Rights notice
 
 These audio assets are **not covered by an MIT license** of surrounding code.
-Their external distribution terms, including rights for forks and derived
-builds, remain to be finalized before publication. No unrestricted relicensing
-is asserted here. The dated assessment and provider sources are maintained
+Their distribution terms, assessment and provider sources are maintained
 under [R3](../../docs/license-audit.md#r3--audio-ist-bezahlt-erzeugt-aber-noch-nicht-weiterlizenziert);
 the voice decision is [ADR 0008](../../docs/adr/0008-stimme-und-tts-anbieter.md).

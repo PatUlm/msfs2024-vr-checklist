@@ -5,6 +5,10 @@ Arbeitsliste für die Veröffentlichung, keine allgemeine Rechtsabhandlung.
 Nur konkrete Befunde, nötige Nachweise und nächste Schritte hier halten;
 erledigte Arbeit nicht als Prüfchronik fortschreiben.
 
+Zuerst R1/R2 bearbeiten, danach Projektlizenz und Audio-Bedingungen (R3/R5)
+entscheiden. Die Bewertung der Checklisten und Quellenexzerpte steht unter
+[Herkunft und Prüfung](checklist-license-review.md).
+
 Die redaktionelle Kürzung ändert die bisherigen Bewertungen nicht. Das
 [Inventar](license-audit-inventory.json) bewahrt die versionsbezogenen Quellen
 und Prüfsummen für die noch offenen Punkte. Es ist eine Momentaufnahme,
@@ -80,16 +84,6 @@ oder eine anders lizenzierte Audioquelle wählen. Eine Anfrage ist nicht
 versendet; [Audio-README](../assets/audio/README.md) und
 [ADR 0008](adr/0008-stimme-und-tts-anbieter.md) erteilen noch keine solche Lizenz.
 
-## R4 — Checklisten und Quellenexzerpte getrennt bewerten
-
-**Für den geprüften Bestand abgeschlossen.**
-[Herkunft und Bewertung](checklist-license-review.md) sowie die
-[Quellen](../checklists/data/README.md#inhaltliche-herkunft) bleiben dokumentiert.
-Keine pauschalen Herstelleranfragen allein aufgrund von Ingame-Herkunft oder
-Listenumfang. Konkrete Hinweise auf geschützte Übernahmen oder einschlägige
-Vertragsbeschränkungen werden gezielt geprüft. Daraus folgt keine Freigabe
-für Originalhandbücher, fremde Software oder Audio.
-
 ## R5 — Eigene Lizenz und Abgrenzung von Bildern
 
 Die Projektlizenz und der Copyrightinhaber sind noch festzulegen. Bisheriger
@@ -109,6 +103,4 @@ hinzufügen und die Veröffentlichungsentscheidung als Nachfolger von
 Ein gemischt lizenzierter Bestand darf nicht pauschal als vollständig MIT
 bezeichnet werden; siehe [Open Source Definition](https://opensource.org/osd).
 
-Der Geheimnis-/Privatdatencheck der vorgesehenen öffentlichen Historie und
-der finale Artefaktabgleich gehören zur Veröffentlichungsvorbereitung in der
-[Roadmap](../ROADMAP.md), nicht zu einer zusätzlichen dauerhaften Auditserie.
+Weitere Veröffentlichungsarbeit steht im [Backlog](../BACKLOG.md).

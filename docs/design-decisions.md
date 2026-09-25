@@ -70,8 +70,8 @@ offene Sichtprüfungen in [design-qa.md](design-qa.md).
   Free-Flight-Konfiguration. Fehlende oder mehrdeutige Treffer zeigen
   `Keine Checkliste vorhanden` und eine dezente Diagnosezeile mit
   `ATC MODEL`, `ATC TYPE`, `TITLE`; keine Default-Checkliste.
-- Die Eventwahl und die noch offene Konfiguration für eine öffentliche
-  Auslieferung regelt [ADR 0002](adr/0002-bestaetigungseingabe-in-sim-key-interception.md).
+- Die Eventwahl regelt
+  [ADR 0002](adr/0002-bestaetigungseingabe-in-sim-key-interception.md).
 
 ## Companion: Fenster und Status
 

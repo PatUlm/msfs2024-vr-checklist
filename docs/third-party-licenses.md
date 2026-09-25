@@ -1,32 +1,30 @@
 # Drittanbieter-Lizenzen
 
 Dieses Dokument hält den Lizenzstand der direkten Abhängigkeiten und der in
-die App einfließenden Drittkomponenten fest. Deklarationen mit noch fehlendem
-Volltext sind ausdrücklich gekennzeichnet. Maßgeblich sind die Primärquellen
+die App einfließenden Drittkomponenten fest. Paketdeklarationen werden als
+solche gekennzeichnet. Maßgeblich sind die Primärquellen
 und die gelockten Versionen, nicht allein ein Paketmanager-Label.
 
-Die [Lizenzprüfung vom 2026-09-21](license-audit.md) erfasst zusätzlich die
-transitiven Abhängigkeiten und den tatsächlichen Release-Umfang von 0.13.3 im
-[maschinenlesbaren Inventar](license-audit-inventory.json). Sie dokumentiert
-noch offene Weitergabe- und Nachweispunkte. Diese Übersicht ist keine
+Offene Nachweis- und Weitergabefragen stehen ausschließlich in der
+[Lizenzprüfung](license-audit.md), die auch den Geltungsbereich des
+[Inventars](license-audit-inventory.json) beschreibt. Diese Übersicht ist keine
 Veröffentlichungsfreigabe und ersetzt keine mitzuliefernden Lizenzvolltexte.
 
-Das eigene Paket `@efb/vr-checklist` ist derzeit privat und nicht lizenziert.
-Sein npm-Metadatum lautet deshalb `UNLICENSED`; dies ändert keine Lizenz einer
-hier aufgeführten Drittkomponente.
+Die [Projektlizenz](license-audit.md#r5--eigene-lizenz-und-abgrenzung-von-bildern)
+ist von den Bedingungen der hier aufgeführten Drittkomponenten getrennt.
 
 ## Laufzeit- und SDK-Abhängigkeiten
 
 | Komponente | Version | Lizenz | Primärnachweis |
 | --- | --- | --- | --- |
-| `@efb/efb-api` | 1.0.3 | MIT laut Paketdeklaration; Volltext und Attribution offen | kopiertes [`package.json`](../msfs/PackageSources/efb_api/package.json) aus MSFS SDK 1.7.3; [Prüfbefund R2](license-audit.md#r2--sdk-nachweise-und-mit-angaben-reichen-noch-nicht) |
-| `@microsoft/msfs-sdk` | 2.1.1 | Paket deklariert MIT; verlinkte Upstream-Lizenz enthält MSFS-Nutzungsbeschränkung; Versionszuordnung offen | vendortes Paket ohne Lizenzdatei; [Microsoft-Lizenz mit Zusatz](https://github.com/microsoft/msfs-avionics-mirror/blob/366be5056166c639a2189e09e5af7143174fd910/LICENSE) |
-| `@microsoft/msfs-types` | 1.14.6 | MIT laut Paketdeklaration; versionsbezogener Volltext offen | [Microsoft MSFS Avionics Mirror](https://github.com/microsoft/msfs-avionics-mirror); [Prüfbefund R2](license-audit.md#r2--sdk-nachweise-und-mit-angaben-reichen-noch-nicht) |
+| `@efb/efb-api` | 1.0.3 | MIT laut Paketdeklaration; Bewertung in R2 | kopiertes [`package.json`](../msfs/PackageSources/efb_api/package.json) aus MSFS SDK 1.7.3; [Prüfbefund R2](license-audit.md#r2--sdk-nachweise-und-mit-angaben-reichen-noch-nicht) |
+| `@microsoft/msfs-sdk` | 2.1.1 | MIT laut Paketdeklaration; Bewertung in R2 | [Microsoft-Lizenz mit Zusatz](https://github.com/microsoft/msfs-avionics-mirror/blob/366be5056166c639a2189e09e5af7143174fd910/LICENSE); [Prüfbefund R2](license-audit.md#r2--sdk-nachweise-und-mit-angaben-reichen-noch-nicht) |
+| `@microsoft/msfs-types` | 1.14.6 | MIT laut Paketdeklaration; Bewertung in R2 | [Microsoft MSFS Avionics Mirror](https://github.com/microsoft/msfs-avionics-mirror); [Prüfbefund R2](license-audit.md#r2--sdk-nachweise-und-mit-angaben-reichen-noch-nicht) |
 | .NET Runtime | 10.0 | MIT | [dotnet/runtime](https://github.com/dotnet/runtime/blob/main/LICENSE.TXT) |
 | Avalonia UI Runtime-Familie (`Avalonia`, `Avalonia.HarfBuzz`, `Avalonia.Remote.Protocol`, `Avalonia.Skia`, `Avalonia.Themes.Fluent`, `Avalonia.Win32` einschließlich aller daraus ausgelieferten `Avalonia*.dll`) | 12.1.1 | MIT | [Avalonia license](https://github.com/AvaloniaUI/Avalonia/blob/e33eaed9c106846b200680751022385d9cc5dc6f/licence.md) |
 | SkiaSharp einschließlich Win32-Native-Assets | 3.119.4 | MIT für Wrapper; zusätzliche native Drittbedingungen | `LICENSE.txt` und `THIRD-PARTY-NOTICES.txt` im [Win32-Originalpaket](https://api.nuget.org/v3-flatcontainer/skiasharp.nativeassets.win32/3.119.4/skiasharp.nativeassets.win32.3.119.4.nupkg); [Prüfbefund R1](license-audit.md#r1--lizenztexte-fehlen-in-der-distribution) |
 | HarfBuzzSharp einschließlich Win32-Native-Assets | 8.3.1.3 | MIT für Wrapper; zusätzliche native Drittbedingungen, insbesondere HarfBuzz Old MIT | `LICENSE.txt` und `THIRD-PARTY-NOTICES.txt` im [Win32-Originalpaket](https://api.nuget.org/v3-flatcontainer/harfbuzzsharp.nativeassets.win32/8.3.1.3/harfbuzzsharp.nativeassets.win32.8.3.1.3.nupkg) |
-| Avalonia ANGLE Windows Natives | 2.1.27548.20260419 | BSD-3-Clause; Umfang eingebundener Drittkomponenten noch abzugrenzen | `LICENSE` im [Originalpaket](https://api.nuget.org/v3-flatcontainer/avalonia.angle.windows.natives/2.1.27548.20260419/avalonia.angle.windows.natives.2.1.27548.20260419.nupkg) |
+| Avalonia ANGLE Windows Natives | 2.1.27548.20260419 | BSD-3-Clause; Bewertung eingebundener Drittkomponenten in R1 | `LICENSE` im [Originalpaket](https://api.nuget.org/v3-flatcontainer/avalonia.angle.windows.natives/2.1.27548.20260419/avalonia.angle.windows.natives.2.1.27548.20260419.nupkg); [Prüfbefund R1](license-audit.md#r1--lizenztexte-fehlen-in-der-distribution) |
 | MicroCom Runtime | 0.11.6 | MIT | [MicroCom license](https://github.com/kekekeks/MicroCom/blob/76785efcafd91b5902fd19dd11145f6dd655b7b4/LICENSE) |
 | `Concentus` | 2.2.2 | BSD-3-Clause (Opus-Lizenz) | [Concentus license](https://github.com/lostromb/concentus/blob/master/LICENSE) |
 | `Concentus.Oggfile` | 1.0.7 | MIT; NVorbis-Herkunftshinweis erhalten | [Concentus.Oggfile](https://github.com/lostromb/concentus.oggfile/blob/27c3125205ddcd891822a398284b246636fafb94/LICENSE) |
@@ -90,7 +88,7 @@ und bringen für .NET 10 keine weiteren Paketabhängigkeiten mit.
 
 | Komponente | Version / Stand | Lizenz / Bedingungen | Primärquelle |
 | --- | --- | --- | --- |
-| ElevenLabs Brian, Abschluss- und Itemansagen | eleven_multilingual_v2; erzeugt 2026-09-18 bis 2026-09-23 im bestätigten bezahlten Abo | Bezahlte TTS-Ausgabe, gesonderte Anbieterbedingungen; keine pauschale MIT-Freigabe | [EU Terms](https://elevenlabs.io/terms-of-use-eu), [API Terms](https://elevenlabs.io/elevenapi-terms), [Veröffentlichung von Ausgaben](https://help.elevenlabs.io/hc/en-us/articles/13313564601361-Can-I-publish-the-content-I-generate-on-the-platform) |
+| ElevenLabs Brian, Abschluss- und Itemansagen | Modell und Erzeugungsdaten in den Asset-Metadaten | [Audio-Bedingungen und Primärquellen](license-audit.md#r3--audio-ist-bezahlt-erzeugt-aber-noch-nicht-weiterlizenziert) | [Audio-Herkunft](../assets/audio/README.md) |
 | FFmpeg, nur lokales Renderwerkzeug | 7.0.2-static, mit libopus | GPL-3.0-or-later für den verwendeten Build; wird nicht ausgeliefert | [FFmpeg Legal](https://ffmpeg.org/legal.html), [Buildanbieter](https://johnvansickle.com/ffmpeg/) |
 | FFmpeg, aktuelles lokales Renderwerkzeug unter Ubuntu | 6.1.1-3ubuntu5, mit libopus | GPL-2.0-or-later für den verwendeten Build; wird nicht ausgeliefert | [Ubuntu-Paket](https://packages.ubuntu.com/noble/ffmpeg), [FFmpeg Legal](https://ffmpeg.org/legal.html) |
 
@@ -98,7 +96,4 @@ Die Herkunft der Clean-Dateien ist im
 [Abschlussmanifest](../assets/audio/completion/manifest.json) sowie in den
 [Item-Zuordnungen](../assets/audio/items/manifest.json) und den dortigen
 Dateimetadaten dokumentiert.
-Der Live-Radiofilter nutzt das bereits aufgeführte NAudio. Für die geplante
-externe Veröffentlichung muss die konkrete Audioasset-Lizenz gemäß
-[ADR 0008](adr/0008-stimme-und-tts-anbieter.md) separat festgelegt werden;
-die früheren Free-Tier-Hörproben werden nicht ausgeliefert.
+Der Live-Radiofilter nutzt das bereits aufgeführte NAudio.

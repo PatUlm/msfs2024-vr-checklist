@@ -4,9 +4,8 @@ Offline-Checklisten für das Electronic Flight Bag (EFB) in Microsoft Flight
 Simulator 2024, mit großen Bedienflächen für VR und einer optionalen
 Windows-Begleit-App für Sprachausgabe.
 
-Das Projekt soll kostenlos als Open Source auf GitHub erscheinen. Die
-öffentliche Version 1.0 wird vorbereitet; Projektlizenz und einzelne
-Weitergaberechte sind noch offen. Den Stand zeigt die [Roadmap](ROADMAP.md).
+Das Veröffentlichungsziel steht in der [Roadmap](ROADMAP.md), offene Arbeit
+im [Backlog](BACKLOG.md).
 
 ## Funktionen
 
@@ -22,9 +21,7 @@ Weitergaberechte sind noch offen. Den Stand zeigt die [Roadmap](ROADMAP.md).
 
 Enthalten sind Airbus A400M, Airbus H125, Beechcraft Bonanza G36, Cessna 152,
 Diamond DA42, Hughes OH-6A/500C und Sikorsky MH-60. Umfang und Abdeckung
-unterscheiden sich je Flugzeug. Die acht A400M-Einträge unter `EFIS and FMS
-Setup` sind als ungeprüft markiert und bleiben stumm; auch die automatische
-A400M-Zuordnung ist noch nicht im Simulator bestätigt.
+unterscheiden sich je Flugzeug.
 
 Die Checklisten sind mit KI-Unterstützung bearbeitete Merkhilfen für das
 **Spiel**, keine Flugunterlagen für reale Luftfahrt. Ihre
@@ -36,14 +33,12 @@ sind dokumentiert.
 Derzeit ist der unterstützte Weg ein lokaler Build aus WSL2 mit installiertem
 MSFS-2024-SDK. Die [Entwicklungsanleitung](docs/development.md) beschreibt die
 Einrichtung; [Release und Installation](docs/release.md) erklären das
-Community-Paket und die Companion-EXE. Ein fertiger GitHub-Download samt
-Endnutzerinstallation gehört noch zur Vorbereitung von 1.0.
+Community-Paket und die Companion-EXE.
 
 Nach der Installation im EFB **VR Checklist** öffnen. Die App funktioniert
 vollständig ohne Companion. Für Sprachausgabe zusätzlich
-`VRChecklist.Companion.exe` starten; diese benötigt die .NET-10-Laufzeit und
-einen lokalen Pfad zur nativen `SimConnect.dll` (siehe
-[Companion](companion/README.md)).
+`VRChecklist.Companion.exe` starten. Die Windows-Voraussetzungen stehen unter
+[Companion: Start und Diagnose](companion/README.md#start-und-diagnose).
 
 ## Bedienung
 
@@ -60,7 +55,7 @@ Für Taste oder HOTAS in den MSFS-**Steuerungen** die Action **SET PLASMA OFF**
 belegen (Event `PLASMA_OFF`; der Anzeigename kann je Sim-Sprache abweichen).
 Sie bestätigt das nächste offene Item der angezeigten Gruppe, solange die App
 im EFB offen ist. Das Event wird an den Simulator weitergereicht; für fremde
-Flugzeuge ist eine Nebenwirkung nicht ausgeschlossen. Der aktuelle Stand der
+Flugzeuge ist eine Nebenwirkung nicht ausgeschlossen. Die Begründung der
 Eventwahl steht in [ADR 0002](docs/adr/0002-bestaetigungseingabe-in-sim-key-interception.md).
 
 Im Companion unter **Settings**:
@@ -84,8 +79,9 @@ Version, Flugzeug, Reproduktionsschritte und gegebenenfalls ein Screenshot.
 - [Checklistendaten](checklists/data/README.md): Inhalte ergänzen oder korrigieren.
 - [Backlog](BACKLOG.md): nächste Arbeiten.
 - [Changelog](CHANGELOG.md): Änderungen je Version.
-- [Drittlizenzen](docs/third-party-licenses.md) und
-  [offene Lizenzpunkte](docs/license-audit.md): aktueller Veröffentlichungsstand.
+- [Drittlizenzen](docs/third-party-licenses.md): Komponenten und Primärquellen.
 
-Eine Projektlizenz ist noch nicht erteilt. Fremde SDK-Teile und
-[Audioassets](assets/audio/README.md#rights-notice) haben gesonderte Bedingungen.
+Für Nutzungs- und Weitergaberechte gelten die Angaben zur
+[Projektlizenz](docs/license-audit.md#r5--eigene-lizenz-und-abgrenzung-von-bildern),
+zu den [Drittkomponenten](docs/third-party-licenses.md) und den
+[Audioassets](assets/audio/README.md#rights-notice).

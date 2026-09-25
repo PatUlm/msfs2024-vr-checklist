@@ -1,9 +1,7 @@
 # ADR 0001: Lizenz- und Veröffentlichungsstrategie
 
 Status: Akzeptiert (2026-08-26); gilt bis zur ausdrücklichen
-Veröffentlichungs- und Lizenzentscheidung. Ziel ist inzwischen das kostenlose
-Open-Source-Release auf GitHub gemäß [Roadmap](../../ROADMAP.md), noch keine
-erteilte Lizenz.
+Veröffentlichungs- und Lizenzentscheidung.
 
 ## Entscheidung und Grund
 

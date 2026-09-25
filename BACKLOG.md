@@ -1,24 +1,32 @@
-# Nächste Arbeiten
+# Offene Arbeit
 
-Nur offene, konkrete Arbeiten in Umsetzungsreihenfolge. Erledigte Punkte
-entfernen; keine zweite Roadmap oder Testliste pflegen.
+Einstieg für die Frage „Was ist noch offen?“. Aufgaben ohne eigene Fachliste
+stehen hier in Umsetzungsreihenfolge. Bei Fachlisten steht hier nur der Link;
+Status, Befund und nächster Schritt werden ausschließlich am Ziel gepflegt.
 
-1. **Lizenzhinweise und SDK-Nachweise vervollständigen.** Offene Punkte und
-   Abschlusskriterien stehen in [R1/R2](docs/license-audit.md); danach
-   Projektlizenz und Audio-Bedingungen entscheiden (R3/R5).
-2. **Bestätigungstaste für 1.0 abstimmen.** ADR 0002 verlangt vor öffentlicher
-   Weitergabe eine konfigurierbare Eventwahl; sie ist noch nicht umgesetzt.
-   Der bisherige Plan „keine neuen Features vor 1.0“ löst das nicht auf.
-   Entweder die zugesagte Konfiguration umsetzen oder die Entscheidung
-   ausdrücklich durch ein neues ADR ersetzen.
-3. **Öffentliche Installation festlegen.** Downloadpakete, .NET-Voraussetzung
+## Umsetzung und Veröffentlichung
+
+1. **Bestätigungstaste für 1.0 abstimmen.** Die in
+   [ADR 0002](docs/adr/0002-bestaetigungseingabe-in-sim-key-interception.md)
+   beschlossene Eventkonfiguration ist noch nicht umgesetzt. Konfiguration
+   umsetzen oder die Entscheidung ausdrücklich durch ein neues ADR ersetzen.
+2. **Öffentliche Installation festlegen.** Downloadpakete, .NET-Voraussetzung
    und Bezug/Pfad der nicht mitgelieferten `SimConnect.dll` für externe Nutzer
    klären und die README daran ausrichten. Der jetzige Weg setzt ein lokales
-   SDK voraus. Anschließend die bereinigte Dokumentation ins Englische übersetzen.
+   SDK voraus.
+3. **Dokumentation veröffentlichungsfähig machen.** Texte reviewen und ins
+   Englische übersetzen; die Installation auf das angebotene Downloadpaket ausrichten.
+4. **Öffentlichen Dateibestand und Historie prüfen.** Geheimnisse, private
+   Daten und Weitergaberechte berücksichtigen; den finalen Artefaktumfang
+   abgleichen. Die lokale JetBrains-Diagnose vor öffentlicher Übernahme auf
+   Reproduktion, technischen Befund und Ticketlink kürzen.
+5. **1.0.0 veröffentlichen.** Nach Abschluss der Aufgaben und Fachprüfungen
+   den [Release-Ablauf](docs/release.md) ausführen und Repository sowie
+   GitHub-Release auf ausdrücklichen Auftrag veröffentlichen.
 
-Externe Entwicklungsstörung: [JetBrains Remote Development](docs/jetbrains-remote-development.md)
-ist als laufende Diagnose separat dokumentiert. Vor öffentlicher Übernahme
-auf Reproduktion, Befund und Ticketlink kürzen und private Details entfernen.
+## Fachlisten
 
-Offene Laufzeitnachweise: [open-tests.md](docs/open-tests.md).
-Offene Sichtprüfungen: [design-qa.md](docs/design-qa.md).
+- [Lizenz- und Weitergabefragen](docs/license-audit.md)
+- [MSFS-Laufzeitnachweise](docs/open-tests.md)
+- [Visuelle Nachweise](docs/design-qa.md)
+- [JetBrains Remote Development](docs/jetbrains-remote-development.md)

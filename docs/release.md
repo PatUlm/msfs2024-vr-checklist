@@ -2,8 +2,6 @@
 
 Diese Anleitung beschreibt den aktuellen Maintainer-Ablauf. Dokumentiert
 werden nötige Befehle und Fallstricke; interne Prüfschritte stehen im Code.
-Eine Anleitung für fertige GitHub-Downloads folgt mit der öffentlichen
-Distribution.
 
 ## Einmalige Einrichtung
 
@@ -46,12 +44,11 @@ zeigen exakt `MAJOR.MINOR.PATCH`.
 
 Der Release-Ordner enthält `release.json`, das MSFS-Paket
 `patulm-vr-checklist/` und `VRChecklist.Companion/`. Bereits vorhandene Versionen
-werden nicht überschrieben. Der Companion benötigt unter Windows die
-.NET-10-Laufzeit; `SimConnect.dll` wird nicht mitgeliefert.
+werden nicht überschrieben. Windows-Voraussetzungen und DLL-Konfiguration
+stehen im [Companion-README](../companion/README.md#start-und-diagnose).
 
-Öffentliche Releases benötigen zusätzlich die geklärten
-[Lizenzpunkte](license-audit.md), passende Download-Artefakte und eine
-Endnutzeranleitung. Der lokale Release-Task veröffentlicht nichts auf GitHub;
+Die Vorbereitung öffentlicher Releases steht im [Backlog](../BACKLOG.md).
+Der lokale Release-Task veröffentlicht nichts auf GitHub;
 Pushes und Veröffentlichung erfolgen nur auf ausdrücklichen Auftrag.
 
 ## Installation und Rollback
@@ -74,8 +71,7 @@ installiert ist. Linux-Symlinks auf `/mnt/c` sind kein Ersatz: Windows erkennt
 sie nicht als Junction. Der Installer erstellt und prüft den Link über Windows.
 
 Die Companion-Dateien werden in das konfigurierte Benutzerverzeichnis kopiert.
-`simconnect-path.txt` neben der EXE verweist auf den SimConnect-Ordner des
-lokalen SDKs und gehört nicht ins verteilte Release. Danach die EXE unter
+Danach die EXE unter
 `%LOCALAPPDATA%\Programs\VRChecklist Companion` starten.
 
 Beim normalen Simulatorstart steht das Community-Paket ohne DevMode bereit.

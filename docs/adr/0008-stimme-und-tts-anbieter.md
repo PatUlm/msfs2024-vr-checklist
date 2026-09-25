@@ -1,6 +1,6 @@
 # ADR 0008: Stimme und TTS-Anbieter
 
-Status: Brian gewählt (2026-09-17); öffentliche Audio-Lizenz offen.
+Status: Akzeptiert (2026-09-17).
 
 ## Entscheidung und Grund
 
@@ -18,10 +18,9 @@ zweite ausgelieferte Stimme oder Stimmenwahl in der App.
   als Kopie im ADR. API-Zugang und Renderwerkzeuge bleiben Entwicklungsbelange.
 - Radio wird lokal gemäß [ADR 0010](0010-radioeffekt-bei-der-wiedergabe.md)
   zugeschaltet; keine zweite Synthese für Klangvarianten.
-- Eine pauschale MIT-Freigabe der Audioassets ist nicht beschlossen.
-  Empfängerrechte für Nutzung, Bearbeitung und Weitergabe bleiben vor dem
-  öffentlichen Release festzulegen. Der konkrete Prüfstand samt Primärquellen
-  steht ausschließlich unter [R3](../license-audit.md#r3--audio-ist-bezahlt-erzeugt-aber-noch-nicht-weiterlizenziert).
+- Die Stimmwahl erteilt keine Lizenz für Audioassets. Empfängerrechte und
+  deren Prüfstand samt Primärquellen stehen unter
+  [R3](../license-audit.md#r3--audio-ist-bezahlt-erzeugt-aber-noch-nicht-weiterlizenziert).
 
 Stimmenranglisten, Hörprobenchronik und damalige Tarifpreise sind keine
 Wartungsgrundlage. Bei einem Anbieterwechsel zählen verständliche Aussprache,

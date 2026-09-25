@@ -83,7 +83,6 @@ Anbieterzuordnung und Bewertung des geprüften Bestands fest.
   Systeme abschalten und die Rotorbremse erst bei höchstens 140 Rotor-RPM
   betätigen.
 - Die A400M-Checkliste bildet einen für die App angepassten Ingame-Ablauf ab.
-  Der offene Zuordnungsnachweis steht in [open-tests.md](../../docs/open-tests.md).
   Seitenbezeichnungen ergänzt nach dem
   [iniBuilds-Handbuch](https://flightsimulator.azureedge.net/wp-content/uploads/2024/11/Airbus-A400M-MSFS-Manual.pdf).
   `BLOCK` bezeichnet den gesamten Kraftstoffvorrat zu Flugbeginn, siehe

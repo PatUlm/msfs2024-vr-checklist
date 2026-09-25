@@ -10,11 +10,10 @@ Task-Implementierungen und vergangene Testläufe werden hier nicht nacherzählt.
 - Repository im Linux-Dateisystem von WSL2, Node.js 24, npm und Task 3.
 - Docker für den im `Taskfile.yml` fixierten .NET-SDK-Container; keine lokale
   Visual-Studio-Installation nötig.
-- Für den Companion-Start unter Windows: .NET-10-Laufzeit und die native
-  `SimConnect.dll` aus der lokalen SDK-Installation.
-- Für neue oder geänderte Sprachassets: dauerhaft installiertes FFmpeg mit
-  libopus und `loudnorm` sowie ein bezahltes ElevenLabs-Abo. Einrichtung und
-  Renderablauf stehen in der [Audio-Anleitung](../assets/audio/README.md#render-prerequisites).
+- Für den Companion-Start unter Windows gelten die
+  [Companion-Voraussetzungen](../companion/README.md#start-und-diagnose).
+- Für neue oder geänderte Sprachassets gelten die Voraussetzungen und der
+  Renderablauf in der [Audio-Anleitung](../assets/audio/README.md#render-prerequisites).
 
 Vom Repository-Root aus:
 
@@ -71,9 +70,8 @@ Nach einem Deployment die tatsächlich geschriebene Versionskennung prüfen,
 nicht die Kennung eines früheren Builds verwenden.
 
 Nach `task companion:deploy` die
-`VRChecklist.Companion.exe` im Companion-Staging starten. Das Deployment
-schreibt `simconnect-path.txt` mit dem lokalen SDK-Pfad; die DLL selbst wird
-nicht kopiert. Diagnosewerkzeug und Quellaufbau stehen im
+`VRChecklist.Companion.exe` im Companion-Staging starten.
+DLL-Konfiguration, Diagnosewerkzeug und Quellaufbau stehen im
 [Companion-README](../companion/README.md).
 
 ## Orientierung für Beiträge

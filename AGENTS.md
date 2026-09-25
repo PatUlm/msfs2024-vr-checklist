@@ -33,10 +33,10 @@ Luftfahrt. Aufwand und Dokumentation richten sich nach diesem Zweck.
 - Aktuellen Zustand und Gründe dokumentieren, keine Sitzungsverläufe,
   erledigten Phasenpläne, Stimmenranglisten, Rohlogs oder Erfolgschroniken.
   Historie bleibt in Git; veröffentlichte Produktänderungen im Changelog.
-- Jede Information hat einen zuständigen Ort; andernorts kurz darauf verlinken.
-  README: Nutzen, Installation, Bedienung, Grenzen. `docs/development.md`:
-  Setup und Testablauf. `docs/release.md`: Release und lokale Installation.
-  Datenformat/Schreibweise, Assetpflege und Quellen bleiben bei ihren Dateien.
+- Jede Information hat genau einen zuständigen Ort gemäß der Tabelle unten.
+  Andere Dokumente verlinken dorthin, ohne Status oder nächste Schritte zu
+  wiederholen. Anleitungen beschreiben den Ablauf, ADRs die Entscheidung;
+  der Bearbeitungsstand gehört ausschließlich zur zuständigen Aufgabenliste.
 - `docs/design-decisions.md` enthält bewusste Produktregeln, keine vollständige
   UI-Spezifikation oder Abschrift von CSS-Werten. ADRs enthalten Problem,
   Entscheidung und nötige Konsequenz, normalerweise in 15–35 Zeilen.
@@ -49,8 +49,12 @@ Luftfahrt. Aufwand und Dokumentation richten sich nach diesem Zweck.
   MSFS-Laufzeitnachweise ausschließlich in `docs/open-tests.md`. Nach Klärung
   löschen; nur neue relevante Erkenntnisse in die zuständige Referenz übernehmen.
   Nicht mehr benötigte QA-Bilder entfernen, statt sie als Fehlerarchiv zu behalten.
-- Roadmap beschreibt nächste Meilensteine, Backlog konkrete offene Arbeit.
-  Erledigte Aufgaben entfernen. Externe Werkzeugfehler nur so lange dokumentieren,
+- Bei Abschluss den Eintrag in der zuständigen Aufgabenliste entfernen und
+  betroffene Bedien- oder Referenztexte aktualisieren. Bestätigte Nutzertests
+  gelten als Nachweis. Vor Statusauskünften vom Backlog aus die verlinkten
+  Fachlisten lesen und mit Code/Daten sowie Changelog abgleichen; bei
+  Widersprüchen gezielt die Git-Historie prüfen.
+  Externe Werkzeugfehler nur so lange dokumentieren,
   wie eine laufende Untersuchung es braucht; kompakte Reproduktion und Ticketlink
   genügen, private Personen-/Firmendetails gehören nicht in öffentliche Projektdocs.
 - Quellen, Lizenztexte und noch benötigte Rechtebelege nicht als bloße Historie
@@ -61,6 +65,26 @@ Luftfahrt. Aufwand und Dokumentation richten sich nach diesem Zweck.
   Schema oder Lockfile die Information verbindlich enthält. Neue Dateien nur
   bei eigenständigem, wiederkehrendem Nutzen; Kürzungen nicht durch lange
   Reviewberichte oder neue Archivdokumente wieder auffüllen.
+
+| Information                                             | Zuständiger Ort                                                                            |
+|---------------------------------------------------------|--------------------------------------------------------------------------------------------|
+| Nutzen, Bedienung und nutzerrelevante Grenzen           | `README.md`                                                                                |
+| Nächster Produktmeilenstein                             | `ROADMAP.md`, ohne Aufgaben oder Statuskopien                                              |
+| Offene Umsetzung und Veröffentlichung                   | `BACKLOG.md`; Einstieg mit Links auf Fachlisten                                            |
+| Ausstehende MSFS-Tests / visuelle Prüfungen             | `docs/open-tests.md` / `docs/design-qa.md`                                                 |
+| Offene Rechtefragen mit Befund und nächstem Schritt     | `docs/license-audit.md`                                                                    |
+| Komponentenlizenzen und Primärnachweise                 | `docs/third-party-licenses.md`; Checklistenbewertung in `docs/checklist-license-review.md` |
+| Entwicklungssetup, lokale Tests und Simulator-Iteration | `docs/development.md`                                                                      |
+| Release-Befehle und lokale Installation                 | `docs/release.md`                                                                          |
+| Windows-Voraussetzungen und Companion-Diagnose          | `companion/README.md`                                                                      |
+| Produktentscheidungen / Architekturgründe / MSFS-Fallen | `docs/design-decisions.md` / `docs/adr/` / `docs/msfs-sdk-reference.md`                    |
+| Datenpflege, Schreibweise und Quellen                   | `checklists/data/README.md`, `style-guide.md` und referenzierte Quellenbelege              |
+| Assetpflege und Herkunft                                | README und Metadaten bei den jeweiligen Assets                                             |
+| Veröffentlichte Produktänderungen                       | `CHANGELOG.md`; Git für Implementierungshistorie                                           |
+| Arbeits-, Review- und Commitregeln                      | `AGENTS.md`                                                                                |
+
+Fachlisten bleiben über den Backlog erreichbar, auch wenn sie leer sind.
+ADR-Übersichten enthalten nur Links und Themen; die Gültigkeit steht im ADR.
 
 ## Prüfungen und Deployment
 

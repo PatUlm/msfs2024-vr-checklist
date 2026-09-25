@@ -3,6 +3,16 @@
   "companionSince": "0.3.0",
   "releases": [
     {
+      "version": "0.15.0",
+      "date": "2026-09-25",
+      "highlight": "Configure EFB keyboard and HOTAS confirmation from the companion, even while the simulator is closed.",
+      "features": [
+        "Enable or disable SET PLASMA OFF in EFB Keybindings. Offline changes apply when the EFB connects and remain saved across flights and restarts.",
+        "Find Settings next to Release Notes, with explanations above the audio and keybinding controls."
+      ],
+      "fixes": []
+    },
+    {
       "version": "0.14.1",
       "date": "2026-09-25",
       "highlight": "Prepare the A400M for takeoff with dedicated configuration, taxi and before-takeoff groups.",

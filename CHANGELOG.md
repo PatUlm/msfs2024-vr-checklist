@@ -7,6 +7,8 @@ Changelog, and the project uses Semantic Versioning.
 
 ## [Unreleased]
 
+## [0.15.0] - 2026-09-25
+
 ### Added
 
 - Added an EFB confirmation-action list to companion Settings, initially with

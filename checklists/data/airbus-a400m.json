@@ -11,7 +11,7 @@
       }
     ]
   },
-  "revision": "2026-09-24",
+  "revision": "2026-09-25",
   "sections": [
     {
       "id": "electrical-power-up",
@@ -76,12 +76,6 @@
           "speech": "Navigation lights: On."
         },
         {
-          "id": "seat-belt-light",
-          "challenge": "Seat Belt Lights",
-          "response": "On",
-          "kind": "action"
-        },
-        {
           "id": "emer-light",
           "challenge": "Emergency Exit Lights",
           "response": "Armed",
@@ -114,9 +108,9 @@
           "challenge": "[INIT] Departure and Arrival Airports",
           "response": "Set",
           "kind": "action",
-          "speech": "Initialization page, departure and arrival airports: Set. Import from SimBrief, set via E F B or enter manually.",
+          "speech": "Initialization page, departure and arrival airports: Set. Run initialization request or enter manually.",
           "notes": [
-            "Import from SimBrief, set via EFB or enter manually."
+            "Run INIT REQUEST or enter manually."
           ]
         },
         {
@@ -270,20 +264,6 @@
           ]
         },
         {
-          "id": "auto-brakes",
-          "challenge": "Auto Brakes",
-          "response": "HI/RTO",
-          "kind": "action",
-          "speech": "Auto brakes: High, rejected takeoff."
-        },
-        {
-          "id": "ground-spoilers",
-          "challenge": "Ground Spoilers",
-          "response": "Arm",
-          "kind": "action",
-          "speech": "Ground spoilers: Arm."
-        },
-        {
           "id": "anti-ice",
           "challenge": "ANTI ICE",
           "response": "As Required",
@@ -300,16 +280,36 @@
       ]
     },
     {
-      "id": "before-taxi",
-      "title": "Before Taxi",
+      "id": "to-configuration",
+      "title": "T.O Configuration",
       "phase": "Taxi",
       "items": [
         {
+          "id": "seat-belt-light",
+          "challenge": "Seat Belt Lights",
+          "response": "On",
+          "kind": "action"
+        },
+        {
+          "id": "ground-spoilers",
+          "challenge": "Ground Spoilers",
+          "response": "Arm",
+          "kind": "action",
+          "speech": "Ground spoilers: Arm."
+        },
+        {
           "id": "flaps",
           "challenge": "Flaps",
-          "response": "1 (TO)",
+          "response": "1 (T.O)",
           "kind": "action",
           "speech": "Flaps: Set to position one for takeoff."
+        },
+        {
+          "id": "auto-brakes",
+          "challenge": "Auto Brakes",
+          "response": "HI/RTO",
+          "kind": "action",
+          "speech": "Auto brakes: High, rejected takeoff."
         },
         {
           "id": "to-config",
@@ -322,6 +322,23 @@
           ]
         },
         {
+          "id": "ready-for-takeoff",
+          "challenge": "[EFB] \"Ready for Takeoff\" Configuration",
+          "response": "Load",
+          "kind": "optional",
+          "speech": "E F B ready for takeoff configuration: Load. Workaround for a simulator bug where the wheel chocks may remain active internally.",
+          "notes": [
+            "Workaround for a simulator bug where the wheel chocks may remain active internally."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "before-taxi",
+      "title": "Before Taxi",
+      "phase": "Taxi",
+      "items": [
+        {
           "id": "to-taxi-lights",
           "challenge": "T.O & Taxi Lights",
           "response": "On",
@@ -331,6 +348,25 @@
         {
           "id": "runway-turn-off-lights",
           "challenge": "Runway Turn Off Lights",
+          "response": "On",
+          "kind": "action"
+        }
+      ]
+    },
+    {
+      "id": "before-takeoff",
+      "title": "Before Takeoff",
+      "phase": "Departure",
+      "items": [
+        {
+          "id": "probe-lights",
+          "challenge": "Probe Lights",
+          "response": "On",
+          "kind": "action"
+        },
+        {
+          "id": "strobe-lights",
+          "challenge": "Strobe Lights",
           "response": "On",
           "kind": "action"
         }

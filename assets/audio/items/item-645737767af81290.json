@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "file": "item-645737767af81290.opus",
+  "sha256": "9786e6bc27076cc8a0bce839be645d140b3364cc604453346ff3084ca701709e",
+  "recipeHash": "645737767af812908f8d5d66aa03dd2571eb93c7b4c79527a44048767b3af35b",
+  "recipe": {
+    "voiceId": "nPczCjzI2devNBz1zQrb",
+    "request": {
+      "text": "E F B ready for takeoff configuration: Load. Workaround for a simulator bug where the wheel chocks may remain active internally.",
+      "model_id": "eleven_multilingual_v2",
+      "voice_settings": {
+        "stability": 0.75,
+        "similarity_boost": 0.75,
+        "style": 0,
+        "use_speaker_boost": true,
+        "speed": 1
+      },
+      "seed": 9172026
+    },
+    "sourceFormat": "mp3_44100_128",
+    "profile": "clean",
+    "normalization": "loudnorm=I=-20:TP=-2:LRA=11",
+    "format": "ogg-opus-mono-48000-32k",
+    "revision": 1
+  },
+  "generatedAt": "2026-09-25T15:57:55.183Z",
+  "provider": "ElevenLabs",
+  "voice": "Brian",
+  "generationPlan": "paid",
+  "planEvidence": "Operator confirmed active Starter subscription before rendering.",
+  "requestId": "S19yBDLNigJvi7qRzPon",
+  "characterCost": "64",
+  "ffmpegVersion": "ffmpeg version 6.1.1-3ubuntu5 Copyright (c) 2000-2023 the FFmpeg developers",
+  "licenseNotice": "../README.md"
+}

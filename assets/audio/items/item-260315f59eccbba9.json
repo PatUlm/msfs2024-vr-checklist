@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "file": "item-260315f59eccbba9.opus",
+  "sha256": "49d41accc23ffb5fa2ec22981869278dc9cb08d464b5f4d1b00b7656d38a7bb0",
+  "recipeHash": "260315f59eccbba9f6a50ce7e13724dc3e873e5048f4e86eb81a57c7052c450c",
+  "recipe": {
+    "voiceId": "nPczCjzI2devNBz1zQrb",
+    "request": {
+      "text": "Flaps: Set to position one for takeoff.",
+      "model_id": "eleven_multilingual_v2",
+      "voice_settings": {
+        "stability": 0.75,
+        "similarity_boost": 0.75,
+        "style": 0,
+        "use_speaker_boost": true,
+        "speed": 1
+      },
+      "seed": 9172026
+    },
+    "sourceFormat": "mp3_44100_128",
+    "profile": "clean",
+    "normalization": "loudnorm=I=-20:TP=-2:LRA=11",
+    "format": "ogg-opus-mono-48000-32k",
+    "revision": 1
+  },
+  "generatedAt": "2026-09-25T15:57:53.720Z",
+  "provider": "ElevenLabs",
+  "voice": "Brian",
+  "generationPlan": "paid",
+  "planEvidence": "Operator confirmed active Starter subscription before rendering.",
+  "requestId": "1z9sZMf7wR2acMY6IeX0",
+  "characterCost": "20",
+  "ffmpegVersion": "ffmpeg version 6.1.1-3ubuntu5 Copyright (c) 2000-2023 the FFmpeg developers",
+  "licenseNotice": "../README.md"
+}

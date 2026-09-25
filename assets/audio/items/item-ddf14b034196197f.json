@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "file": "item-ddf14b034196197f.opus",
+  "sha256": "d6df2c4b2cc3ee68a1f5167f855a489d11c671f94f64f90542a4372104fc1b6c",
+  "recipeHash": "ddf14b034196197feaf08e7e0b8514432230e915c4eb1d118118751e25f9d477",
+  "recipe": {
+    "voiceId": "nPczCjzI2devNBz1zQrb",
+    "request": {
+      "text": "T.O Configuration Checklist. Seat Belt Lights: On",
+      "model_id": "eleven_multilingual_v2",
+      "voice_settings": {
+        "stability": 0.75,
+        "similarity_boost": 0.75,
+        "style": 0,
+        "use_speaker_boost": true,
+        "speed": 1
+      },
+      "seed": 9172026
+    },
+    "sourceFormat": "mp3_44100_128",
+    "profile": "clean",
+    "normalization": "loudnorm=I=-20:TP=-2:LRA=11",
+    "format": "ogg-opus-mono-48000-32k",
+    "revision": 1
+  },
+  "generatedAt": "2026-09-25T15:57:52.625Z",
+  "provider": "ElevenLabs",
+  "voice": "Brian",
+  "generationPlan": "paid",
+  "planEvidence": "Operator confirmed active Starter subscription before rendering.",
+  "requestId": "cinRJLV3Wkdp6cGi5YbT",
+  "characterCost": "24",
+  "ffmpegVersion": "ffmpeg version 6.1.1-3ubuntu5 Copyright (c) 2000-2023 the FFmpeg developers",
+  "licenseNotice": "../README.md"
+}

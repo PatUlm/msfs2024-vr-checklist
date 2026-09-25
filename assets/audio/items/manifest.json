@@ -3,8 +3,8 @@
   "checklists": [
     {
       "id": "airbus-a400m",
-      "revision": "2026-09-24",
-      "items": 38
+      "revision": "2026-09-25",
+      "items": 41
     },
     {
       "id": "airbus-h125",
@@ -79,11 +79,6 @@
       "recipeHash": "b1689a1d935a93452b2d23c9802fc93f136d197d82e1acdb1d5a7f3fae446626"
     },
     {
-      "file": "item-484add7138f83f00.opus",
-      "sha256": "aaf46ee22f3a1e26261204235a67adb7912ab71ada4da41d3d1acbb7c17278ec",
-      "recipeHash": "484add7138f83f00f35240956f136e91b5f61dccde26f9009d37c7987d413001"
-    },
-    {
       "file": "item-a4a98254c88b8ff5.opus",
       "sha256": "91dc87c33f84881e886c6b612e7d11b541499b401c9985294683f359e74685e4",
       "recipeHash": "a4a98254c88b8ff5435affb78405f67ad5d4ea560034421e123918cd0414956a"
@@ -99,9 +94,9 @@
       "recipeHash": "a5ab1c39e3a9baea67cf84c378a6cc6fbe66998fa53edadbe0f259b6ba47981b"
     },
     {
-      "file": "item-4d9e3edb44486009.opus",
-      "sha256": "c3364f0eb2ae8b8127e81069c442f656e68772d70ea1dc0413a31e57f4917578",
-      "recipeHash": "4d9e3edb444860099cc02ffc5b274ac0feb94b0ec534f0ae2ed61a14b3fed9f2"
+      "file": "item-d7bcb4238e1bd3af.opus",
+      "sha256": "7c2c60012e23d561bbd0777f56fbcf4df7da2af518cf344c8c8de1a64c2c2285",
+      "recipeHash": "d7bcb4238e1bd3af251ced8307f9ed21c2d56817f3dbad5fce8996cb650369ca"
     },
     {
       "file": "item-14781d08a91c3b9e.opus",
@@ -189,16 +184,6 @@
       "recipeHash": "38cac633285d8310b3fafee3b2cb2e7fd13370e45651c0d242455f8b8e452593"
     },
     {
-      "file": "item-d360874989064444.opus",
-      "sha256": "5c2434ecd51b74a590b99f50afdc378f9dcb34658a71f25a3cc6a2b170ec77bc",
-      "recipeHash": "d36087498906444451da02de1bad422bb9ec3261c6ae6fa8c7202c273c3408c3"
-    },
-    {
-      "file": "item-bd6f0f2737abeb26.opus",
-      "sha256": "7fbb99cd14bb38f40e67f51b0390d83c099b749eac9ee8b75e5fa38d518e6fae",
-      "recipeHash": "bd6f0f2737abeb261201d5d53d0692f406b62f5ae91e864f9078bed2a5e8d69f"
-    },
-    {
       "file": "item-cb11dcdcb92622ae.opus",
       "sha256": "252596b86bdc600ce177ca164bae5294d568e6c69cdb9c835996a09d454a6108",
       "recipeHash": "cb11dcdcb92622ae2b64df8bb8fc3547f3f9fedb3627d4daf76c222f478e4fa5"
@@ -209,9 +194,24 @@
       "recipeHash": "8c5663a26cef6ea1df3375798c6b0f45525f7c51b8b80cd1c24e15f75c8c9872"
     },
     {
-      "file": "item-05c1903d12372bf8.opus",
-      "sha256": "8092d821408da98e0672df1782f41bbde8072e6ae75ef98131d56b0484a15a59",
-      "recipeHash": "05c1903d12372bf8e2fdc16043fe9903bb494e4f05a04323ec693232cbe64fd4"
+      "file": "item-ddf14b034196197f.opus",
+      "sha256": "d6df2c4b2cc3ee68a1f5167f855a489d11c671f94f64f90542a4372104fc1b6c",
+      "recipeHash": "ddf14b034196197feaf08e7e0b8514432230e915c4eb1d118118751e25f9d477"
+    },
+    {
+      "file": "item-bd6f0f2737abeb26.opus",
+      "sha256": "7fbb99cd14bb38f40e67f51b0390d83c099b749eac9ee8b75e5fa38d518e6fae",
+      "recipeHash": "bd6f0f2737abeb261201d5d53d0692f406b62f5ae91e864f9078bed2a5e8d69f"
+    },
+    {
+      "file": "item-260315f59eccbba9.opus",
+      "sha256": "49d41accc23ffb5fa2ec22981869278dc9cb08d464b5f4d1b00b7656d38a7bb0",
+      "recipeHash": "260315f59eccbba9f6a50ce7e13724dc3e873e5048f4e86eb81a57c7052c450c"
+    },
+    {
+      "file": "item-d360874989064444.opus",
+      "sha256": "5c2434ecd51b74a590b99f50afdc378f9dcb34658a71f25a3cc6a2b170ec77bc",
+      "recipeHash": "d36087498906444451da02de1bad422bb9ec3261c6ae6fa8c7202c273c3408c3"
     },
     {
       "file": "item-8cb24ec50e204b13.opus",
@@ -219,14 +219,29 @@
       "recipeHash": "8cb24ec50e204b135278e833c9929e017dfe795c036c05de0e37d3b96aa994bf"
     },
     {
-      "file": "item-79ab6e0e8922509b.opus",
-      "sha256": "766cbd5d56cfca19d416930d366bab9ed60e8da266f61e870dfc6be2fbbc6dee",
-      "recipeHash": "79ab6e0e8922509b377e50be58865603f0588beba1aec5449007c1cb95b8bf9b"
+      "file": "item-645737767af81290.opus",
+      "sha256": "9786e6bc27076cc8a0bce839be645d140b3364cc604453346ff3084ca701709e",
+      "recipeHash": "645737767af812908f8d5d66aa03dd2571eb93c7b4c79527a44048767b3af35b"
+    },
+    {
+      "file": "item-82b63044ca52188b.opus",
+      "sha256": "79915e69df591e3c778aa952eef261a058d7c2b74feee0957d533b25027bda99",
+      "recipeHash": "82b63044ca52188b79c98b1a93e713631dac2d141dcf5274744d2da19520645d"
     },
     {
       "file": "item-2f28ba7836575dd0.opus",
       "sha256": "9e96628fdafd61ad78984c5444348cc4c066a5a8e2024caee1339977b51d8ee1",
       "recipeHash": "2f28ba7836575dd0740ae0b3f8b97ba242590a8628d858e3f26edca6d62ba4cc"
+    },
+    {
+      "file": "item-367b00c87d93d788.opus",
+      "sha256": "ce12133480ae1b8d75d43c5a83189288110a007ea3903c90f7df008347a05cce",
+      "recipeHash": "367b00c87d93d7887abd154b35a03cb0ea05bc0a81f3977dc7a862085b89d5bf"
+    },
+    {
+      "file": "item-7ee523f051cbd1b4.opus",
+      "sha256": "89e831da20f8586617be53e026b5986de6c9d4b4a4efaca6d927ff815b12aee8",
+      "recipeHash": "7ee523f051cbd1b4ee1bcb3132916c36997c231eebe06aa8287bab8aba450dfc"
     },
     {
       "file": "item-5637d99a091315f0.opus",
@@ -492,11 +507,6 @@
       "file": "item-68b6a2ab319697fa.opus",
       "sha256": "d7cc14fbcee9a853a8096db6b0b0e0b97ab22c3990e56ef4cc1877417c26a669",
       "recipeHash": "68b6a2ab319697fae12208e7ccf35430d20fe080f6b8136cd9b8d7a1e02180af"
-    },
-    {
-      "file": "item-7ee523f051cbd1b4.opus",
-      "sha256": "89e831da20f8586617be53e026b5986de6c9d4b4a4efaca6d927ff815b12aee8",
-      "recipeHash": "7ee523f051cbd1b4ee1bcb3132916c36997c231eebe06aa8287bab8aba450dfc"
     },
     {
       "file": "item-35106c4f2d32798d.opus",
@@ -1048,11 +1058,10 @@
     "airbus-a400m/electrical-power-up/gadirs": "item-4827a10ff64c6784.opus",
     "airbus-a400m/electrical-power-up/fuel-pumps": "item-6158a1463cab6405.opus",
     "airbus-a400m/electrical-power-up/nav-light": "item-b1689a1d935a9345.opus",
-    "airbus-a400m/electrical-power-up/seat-belt-light": "item-484add7138f83f00.opus",
     "airbus-a400m/electrical-power-up/emer-light": "item-a4a98254c88b8ff5.opus",
     "airbus-a400m/fsm-init/flight-details": "item-ee7cb8c8bf6159a6.opus",
     "airbus-a400m/fsm-init/fuel-payload": "item-a5ab1c39e3a9baea.opus",
-    "airbus-a400m/fsm-init/init": "item-4d9e3edb44486009.opus",
+    "airbus-a400m/fsm-init/init": "item-d7bcb4238e1bd3af.opus",
     "airbus-a400m/fsm-init/irs": "item-14781d08a91c3b9e.opus",
     "airbus-a400m/fsm-init/flight-plan": "item-6d3563f0a5dcdf65.opus",
     "airbus-a400m/fsm-init/fuel-load": "item-01bc81f7a16005fc.opus",
@@ -1070,14 +1079,19 @@
     "airbus-a400m/after-start/apu-master": "item-c12753ae5d4bdfcd.opus",
     "airbus-a400m/after-start/bat-ext": "item-3aba651eeb6c0c19.opus",
     "airbus-a400m/after-start/gpu": "item-38cac633285d8310.opus",
-    "airbus-a400m/after-start/auto-brakes": "item-d360874989064444.opus",
-    "airbus-a400m/after-start/ground-spoilers": "item-bd6f0f2737abeb26.opus",
     "airbus-a400m/after-start/anti-ice": "item-cb11dcdcb92622ae.opus",
     "airbus-a400m/after-start/all-switches-info": "item-8c5663a26cef6ea1.opus",
-    "airbus-a400m/before-taxi/flaps": "item-05c1903d12372bf8.opus",
-    "airbus-a400m/before-taxi/to-config": "item-8cb24ec50e204b13.opus",
-    "airbus-a400m/before-taxi/to-taxi-lights": "item-79ab6e0e8922509b.opus",
+    "airbus-a400m/to-configuration/seat-belt-light": "item-ddf14b034196197f.opus",
+    "airbus-a400m/to-configuration/ground-spoilers": "item-bd6f0f2737abeb26.opus",
+    "airbus-a400m/to-configuration/flaps": "item-260315f59eccbba9.opus",
+    "airbus-a400m/to-configuration/auto-brakes": "item-d360874989064444.opus",
+    "airbus-a400m/to-configuration/to-config": "item-8cb24ec50e204b13.opus",
+    "airbus-a400m/to-configuration/ready-for-takeoff": "item-645737767af81290.opus",
+    "airbus-a400m/before-taxi/to-taxi-lights": "item-82b63044ca52188b.opus",
     "airbus-a400m/before-taxi/runway-turn-off-lights": "item-2f28ba7836575dd0.opus",
+    "airbus-a400m/before-takeoff/probe-lights": "item-367b00c87d93d788.opus",
+    "airbus-a400m/before-takeoff/strobe-lights": "item-7ee523f051cbd1b4.opus",
+    "diamond-da42/before-engine-start/strobe-lights": "item-7ee523f051cbd1b4.opus",
     "airbus-h125/before-start/rotor-brake": "item-5637d99a091315f0.opus",
     "airbus-h125/before-start/twist-grip": "item-c2d7da8643724185.opus",
     "airbus-h125/before-start/battery-master": "item-14f996c79455efd8.opus",
@@ -1135,7 +1149,6 @@
     "diamond-da42/before-engine-start/gear": "item-54c0ac988a022507.opus",
     "diamond-da42/before-engine-start/trim": "item-8c0be6cf2fce91e9.opus",
     "diamond-da42/before-engine-start/electric-master": "item-68b6a2ab319697fa.opus",
-    "diamond-da42/before-engine-start/strobe-lights": "item-7ee523f051cbd1b4.opus",
     "diamond-da42/engine-start/fuel-quantity-temperature": "item-35106c4f2d32798d.opus",
     "diamond-da42/engine-start/engine-master-left": "item-85ca952043804cb9.opus",
     "diamond-da42/engine-start/glow-annunciation-left": "item-d51fd929e627b99f.opus",

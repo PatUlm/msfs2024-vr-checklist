@@ -7,6 +7,15 @@ Changelog, and the project uses Semantic Versioning.
 
 ## [Unreleased]
 
+## [0.14.1] - 2026-09-25
+
+### Changed
+
+- Reorganized A400M takeoff preparation into T.O Configuration, Before Taxi and
+  Before Takeoff, with an optional EFB Ready for Takeoff workaround for stuck
+  wheel chocks, probe and strobe light steps, and updated Brian announcements.
+- Clarified A400M airport setup to use INIT REQUEST or manual entry.
+
 ## [0.14.0] - 2026-09-24
 
 ### Added

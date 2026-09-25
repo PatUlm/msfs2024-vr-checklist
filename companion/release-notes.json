@@ -3,6 +3,16 @@
   "companionSince": "0.3.0",
   "releases": [
     {
+      "version": "0.14.1",
+      "date": "2026-09-25",
+      "highlight": "Prepare the A400M for takeoff with dedicated configuration, taxi and before-takeoff groups.",
+      "features": [
+        "Moved seat belt lights, spoilers, flaps and auto brakes into T.O Configuration, with an optional EFB Ready for Takeoff workaround for stuck wheel chocks.",
+        "Added probe and strobe lights before takeoff, clarified INIT REQUEST airport setup and refreshed the Brian announcements."
+      ],
+      "fixes": []
+    },
+    {
       "version": "0.14.0",
       "date": "2026-09-24",
       "highlight": "Hear each checklist group's name before its first item, with a natural sentence pause.",

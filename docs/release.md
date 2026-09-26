@@ -53,6 +53,10 @@ und den Update-Feed `releases.win.json`. Für spätere Updates müssen Setup,
 `.nupkg` und `releases.win.json` gemeinsam am GitHub-Release hängen. Bereits
 vorhandene Versionen werden nicht überschrieben.
 
+Anschließend entfernt `task release` ältere Releases, einzeln aufrufbar als
+`task release:prune`. Erhalten bleiben die drei neuesten `MAJOR.MINOR`-Linien
+mit allen Patches und das in `Community2024` verlinkte Release.
+
 Die Vorbereitung öffentlicher Releases steht im [Backlog](../BACKLOG.md).
 Der lokale Release-Task veröffentlicht nichts auf GitHub;
 Pushes und Veröffentlichung erfolgen nur auf ausdrücklichen Auftrag.
@@ -69,7 +73,7 @@ installieren. Für ein vorhandenes anderes Release; der Companion lässt sich
 so erst ab Releases mit Setup installieren:
 
 ```bash
-task release:install VERSION=0.13.2
+task release:install VERSION=0.15.0
 ```
 
 Das Community-Paket wird als native Windows-Junction auf das Release

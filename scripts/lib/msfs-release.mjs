@@ -744,6 +744,74 @@ export async function buildRelease({
   };
 }
 
+export const retainedReleaseLines = 3;
+
+/*
+ * Selects release folders outside the newest MAJOR.MINOR lines. Legacy CalVer
+ * releases predate all SemVer releases; other entries are never selected.
+ */
+export function selectPrunableReleases(names, keep = []) {
+  const releaseLine = (version) => version.split(".").slice(0, 2).join(".");
+  const lines = [
+    ...new Set(
+      names
+        .filter((name) => semanticVersionPattern.test(name))
+        .map((name) => name.split(".").map(Number))
+        .sort((a, b) => a[0] - b[0] || a[1] - b[1] || a[2] - b[2])
+        .map((parts) => releaseLine(parts.join(".")))
+    ),
+  ];
+  const retained = new Set(lines.slice(-retainedReleaseLines));
+
+  return names.filter(
+    (name) =>
+      !keep.includes(name) &&
+      (semanticVersionPattern.test(name)
+        ? !retained.has(releaseLine(name))
+        : legacyCalVerPattern.test(name))
+  );
+}
+
+export async function pruneReleases({ releaseDirectory, communityDirectory }) {
+  const releaseRoot = assertManagedWindowsDirectory(
+    releaseDirectory,
+    releaseDirectoryName,
+    "Release directory"
+  );
+  const communityRoot = assertManagedWindowsDirectory(
+    communityDirectory,
+    communityDirectoryName,
+    "MSFS Community directory"
+  );
+
+  // The Community junction points into a release; never delete that one.
+  const keep = [];
+  try {
+    const linked = relative(
+      await realpath(releaseRoot),
+      await realpath(join(communityRoot, packageName))
+    );
+    if (linked && !linked.startsWith("..")) {
+      keep.push(linked.split(sep)[0]);
+    }
+  } catch (error) {
+    if (error?.code !== "ENOENT") {
+      throw error;
+    }
+  }
+
+  const entries = await readdir(releaseRoot, { withFileTypes: true });
+  const removed = selectPrunableReleases(
+    entries.filter((entry) => entry.isDirectory()).map((entry) => entry.name),
+    keep
+  );
+  for (const name of removed) {
+    await rm(join(releaseRoot, name), { force: true, recursive: true });
+  }
+
+  return { removed, linkedRelease: keep[0] };
+}
+
 export async function installRelease({
   version,
   releaseDirectory,

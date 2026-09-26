@@ -5,6 +5,7 @@ import {
   installCompanionRelease,
   installRelease,
   prepareCompanionRelease,
+  pruneReleases,
   readProjectVersion,
   validateProjectVersionSources,
   validateReleaseVersion,
@@ -53,6 +54,16 @@ if (command === "current-version") {
   console.log(
     `Created release ${version} (MSFS package ${result.packageVersion}, companion ${result.companionVersion}) at ${result.releaseTarget}`
   );
+} else if (command === "prune") {
+  const result = await pruneReleases({
+    releaseDirectory: process.env.VR_CHECKLIST_RELEASE_OUTPUT_DIR,
+    communityDirectory: process.env.VR_CHECKLIST_RELEASE_COMMUNITY_DIR,
+  });
+  console.log(
+    result.removed.length
+      ? `Removed old releases: ${result.removed.join(", ")}`
+      : "No old releases to remove"
+  );
 } else if (command === "install") {
   const result = await installRelease({
     version,
@@ -73,6 +84,6 @@ if (command === "current-version") {
   );
 } else {
   throw new Error(
-    "Usage: release-package.mjs current-version|validate-version|prepare-companion|build|install|install-companion (configuration is read from the task environment)."
+    "Usage: release-package.mjs current-version|validate-version|prepare-companion|build|prune|install|install-companion (configuration is read from the task environment)."
   );
 }

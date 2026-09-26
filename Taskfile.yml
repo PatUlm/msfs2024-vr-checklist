@@ -248,6 +248,15 @@ tasks:
       - node scripts/release-package.mjs prepare-companion
       - task: release:companion-pack
       - node scripts/release-package.mjs build
+      - task: release:prune
+
+  release:prune:
+    desc: Keep the newest three MAJOR.MINOR release lines and the linked release
+    env:
+      VR_CHECKLIST_RELEASE_OUTPUT_DIR: "{{.RELEASE_DIR}}"
+      VR_CHECKLIST_RELEASE_COMMUNITY_DIR: "{{.COMMUNITY_DIR}}"
+    cmds:
+      - node scripts/release-package.mjs prune
 
   community:install:
     desc: Link the current or specified release into Community2024

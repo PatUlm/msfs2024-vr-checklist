@@ -21,6 +21,7 @@ import {
   createZipArchive,
   installDirectoryLink,
   readProjectVersion,
+  selectPrunableReleases,
   toWindowsPath,
   validateArtifactVersion,
   validateProjectVersionSources,
@@ -53,6 +54,24 @@ test("release versions use SemVer and legacy artifacts remain selectable", () =>
   assert.throws(() => validateReleaseVersion("0.1.1-dev.1"), /MAJOR\.MINOR\.PATCH/);
   assert.throws(() => validateReleaseVersion("../../Community2024"), /MAJOR\.MINOR\.PATCH/);
   assert.equal(validateArtifactVersion("2026.08"), "2026.08");
+});
+
+test("release pruning keeps the newest three release lines and the linked release", () => {
+  const names = [
+    "2026.08", "0.2.0", "0.9.1", "0.10.0", "0.13.6", "0.14.0", "0.14.1",
+    "0.15.0", "0.16.0", ".0.17.0.release-42", "notes",
+  ];
+  assert.deepEqual(selectPrunableReleases(names), [
+    "2026.08", "0.2.0", "0.9.1", "0.10.0", "0.13.6",
+  ]);
+  assert.deepEqual(selectPrunableReleases(names, ["0.13.6"]), [
+    "2026.08", "0.2.0", "0.9.1", "0.10.0",
+  ]);
+  assert.deepEqual(selectPrunableReleases(["0.16.0", "1.0.0", "1.0.1", "1.1.0"]), []);
+  assert.deepEqual(
+    selectPrunableReleases(["0.16.0", "1.0.0", "1.1.0", "2.0.0"]),
+    ["0.16.0"]
+  );
 });
 
 test("project version sources match the canonical VERSION file", async () => {

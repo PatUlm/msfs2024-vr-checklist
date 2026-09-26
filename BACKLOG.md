@@ -6,12 +6,16 @@ Status, Befund und nächster Schritt werden ausschließlich am Ziel gepflegt.
 
 ## Umsetzung und Veröffentlichung
 
-1. **Öffentliche Installation festlegen.** Downloadpakete, .NET-Voraussetzung
-   und Bezug/Pfad der nicht mitgelieferten `SimConnect.dll` für externe Nutzer
-   klären und die README daran ausrichten. Der jetzige Weg setzt ein lokales
-   SDK voraus.
+1. **Update-Prüfung im Companion.** Gemäß
+   [ADR 0012](docs/adr/0012-veroeffentlichung-als-zip-und-companion-setup.md)
+   installierte Versionen beim Start einmal gegen GitHub Releases prüfen,
+   erst nach Bestätigung laden und anwenden und auf das EFB-ZIP hinweisen.
+   Die Online-Prüfung ist opt-in: Beim ersten Start fragen, ob gesucht werden
+   darf; in Settings abschaltbar. README-Aussage „Keine Cloudverbindung im
+   Flug“ entsprechend präzisieren. Braucht die URL des noch anzulegenden
+   GitHub-Repositorys.
 2. **Dokumentation veröffentlichungsfähig machen.** Texte reviewen und ins
-   Englische übersetzen; die Installation auf das angebotene Downloadpaket ausrichten.
+   Englische übersetzen.
 3. **Öffentlichen Dateibestand und Historie prüfen.** Geheimnisse, private
    Daten und Weitergaberechte berücksichtigen; den finalen Artefaktumfang
    abgleichen. Die lokale JetBrains-Diagnose vor öffentlicher Übernahme auf

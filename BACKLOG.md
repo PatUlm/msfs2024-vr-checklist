@@ -24,9 +24,8 @@ dabei zusätzlich aus der Historie entfernt werden müssen.
 5. **⚠ Öffentlichen Dateibestand prüfen.** Geheimnisse, private Daten und
    Weitergaberechte im aktuellen Baum und in der Historie berücksichtigen,
    etwa die aus dem Baum entfernten QA-Screenshots; den finalen
-   Artefaktumfang abgleichen. Die lokale JetBrains-Diagnose vor öffentlicher
-   Übernahme auf Reproduktion, technischen Befund und Ticketlink kürzen.
-   Dateien festhalten, die in Punkt 6 aus der Historie entfernt werden.
+   Artefaktumfang abgleichen. Dateien festhalten, die in Punkt 6 aus der
+   Historie entfernt werden.
 6. **⚠ Historie umschreiben und erster GitHub-Push.** Alle Commit-Hashes und
    Tags ändern sich.
    1. Aktuellen Stand samt Tags nach Bitbucket pushen. Bitbucket bleibt danach
@@ -62,4 +61,3 @@ dabei zusätzlich aus der Historie entfernt werden müssen.
 - [Lizenz- und Weitergabefragen](docs/license-audit.md)
 - [MSFS-Laufzeitnachweise](docs/open-tests.md)
 - [Visuelle Nachweise](docs/design-qa.md)
-- [JetBrains Remote Development](docs/jetbrains-remote-development.md)

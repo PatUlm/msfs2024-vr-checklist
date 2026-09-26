@@ -52,8 +52,11 @@ task audio:render-items -- --paid-plan-confirmed
 ```
 
 These operations consume credits. Existing matching paid assets are reused
-with checksum verification. Never reuse free-tier auditions as production
-assets. `task validate:audio` checks complete item mappings and provenance.
+with checksum verification. Item rendering then deletes recordings the new
+manifest no longer references, since the companion embeds every file; Git
+history keeps them. Never reuse free-tier auditions as production assets.
+`task validate:audio` checks complete item mappings, provenance and that no
+unreferenced files remain.
 
 Source responses are checkpointed under
 `tmp/checklist-audio/render-cache/` before encoding. A `.pending` marker
@@ -67,7 +70,17 @@ compromise solely because the initial S sounds imperfect.
 
 ## Rights notice
 
-These audio assets are **not covered by an MIT license** of surrounding code.
-Their distribution terms, assessment and provider sources are maintained
-under [R3](../../docs/license-audit.md#r3--audio-ist-bezahlt-erzeugt-aber-noch-nicht-weiterlizenziert);
-the voice decision is [ADR 0008](../../docs/adr/0008-stimme-und-tts-anbieter.md).
+The recordings are distributed under the [audio terms](LICENSE), **not under
+the project's MIT License**. Rights in paid-plan output remain with the
+subscriber ([EU Terms](https://elevenlabs.io/terms-of-use-eu) 4(c)(ii),
+31 March 2026), and content generated during a paid subscription may be used
+commercially and indefinitely
+([help article](https://help.elevenlabs.io/hc/en-us/articles/13313564601361-Can-I-publish-the-content-I-generate-on-the-platform),
+11 August 2026). The [Prohibited Use Policy](https://elevenlabs.io/use-policy)
+(17 August 2026) forbids passing output on under less restrictive terms (n)
+and excludes AI training, AI datasets and competing products (j)–(l). The
+audio terms therefore pass these limits on instead of granting an open license.
+
+The raw ElevenLabs MP3 responses carry no rights markings beyond an encoder
+tag. Should that change, rendering must preserve such markings. The voice
+decision is [ADR 0008](../../docs/adr/0008-stimme-und-tts-anbieter.md).

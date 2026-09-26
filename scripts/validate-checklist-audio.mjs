@@ -48,4 +48,8 @@ for (const filename of await readdir(path.join(root, 'checklists/data'))) {
 assert.deepEqual(new Set(Object.keys(manifest.items)), expected);
 assert.deepEqual(manifest.excludedItems, []);
 assert.deepEqual(new Set(Object.values(manifest.items)), new Set(files.keys()));
+// Every file here is embedded in the companion, so nothing unreferenced may remain.
+assert.deepEqual(new Set(await readdir(directory)),
+  new Set(['manifest.json', ...[...files.keys()].flatMap(file => [file, file.replace('.opus', '.json')])]),
+  'Unreferenced files in assets/audio/items');
 console.log('Validated ' + files.size + ' paid clean audio assets and ' + expected.size + ' item mappings; no exclusions.');

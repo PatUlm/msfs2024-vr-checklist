@@ -1,6 +1,6 @@
 import { createHash } from 'node:crypto';
 import { spawnSync } from 'node:child_process';
-import { mkdir, readFile, writeFile, access, rename, rm } from 'node:fs/promises';
+import { mkdir, readFile, readdir, writeFile, access, rename, rm } from 'node:fs/promises';
 import { fileURLToPath } from 'node:url';
 import path from 'node:path';
 import { itemSpeech } from './lib/checklist-speech.mjs';
@@ -119,6 +119,13 @@ async function main() {
   await atomicJson(path.join(directory, 'manifest.json'), {
     schemaVersion: 1, checklists: plan.checklists, assets, items, excludedItems: plan.excludedItems,
   });
+  // The companion embeds every recording here; superseded ones stay in Git history.
+  const kept = new Set(assets.map(asset => asset.file));
+  for (const file of await readdir(directory)) {
+    if (!/^item-[a-f0-9]{16}\.(opus|json)$/.test(file) || kept.has(file.replace('.json', '.opus'))) continue;
+    await rm(path.join(directory, file));
+    console.log('Removed superseded ' + file);
+  }
   console.log('Complete: ' + assets.length + ' assets, ' + Object.keys(items).length + ' mapped items.');
 }
 

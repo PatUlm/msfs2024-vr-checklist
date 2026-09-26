@@ -19,8 +19,9 @@ mit eigenen Bedingungen.
 
 ## Konsequenzen
 
-- Ausgenommen sind aus dem MSFS-SDK übernommene Teile, Drittkomponenten und
-  die Audioassets; ihre Bedingungen klärt [license-audit.md](../license-audit.md).
+- Ausgenommen sind aus dem MSFS-SDK übernommene Teile und Drittkomponenten,
+  deren Bedingungen [license-audit.md](../license-audit.md) klärt, sowie die
+  Audioaufnahmen unter eigenen [Audiobedingungen](../../assets/audio/LICENSE).
   Die README grenzt sie ab; der Bestand wird nie pauschal als vollständig MIT
   bezeichnet.
 - GPL scheidet aus, weil EFB-App und Companion auf proprietären Teilen

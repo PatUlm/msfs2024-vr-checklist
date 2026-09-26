@@ -13,8 +13,9 @@ Changelog, and the project uses Semantic Versioning.
   companion now ships as a per-user Windows setup that includes .NET and
   SimConnect, so neither the MSFS SDK nor a separate .NET install is needed.
 - The project's own code and content are now licensed under MIT. Parts taken
-  from the MSFS SDK, third-party components and audio assets keep their own
-  terms.
+  from the MSFS SDK and third-party components keep their own terms. Speech
+  recordings come with separate audio terms that allow redistribution and
+  modification but pass on ElevenLabs' usage limits, such as no AI training.
 
 ## [0.16.0] - 2026-09-26
 

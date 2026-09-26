@@ -3209,7 +3209,7 @@
     "firstGeneration": "2026-09-18T15:00:16.925Z",
     "lastGeneration": "2026-09-21T17:30:41.523Z",
     "evidence": "Per-clip metadata and SHA-256 verified locally; paid status is an operator declaration, not an independent billing record.",
-    "distributionTerms": "unresolved; see audit R3"
+    "distributionTerms": "assets/audio/LICENSE"
   },
   "additionalSources": [
     {

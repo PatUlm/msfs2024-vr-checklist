@@ -1,0 +1,26 @@
+Audio Terms
+
+These terms apply to the speech recordings (`*.opus` files) in this directory
+and its subdirectories, and to copies and modified versions of them. The
+recordings are not covered by the project's MIT License; the accompanying
+metadata and manifest files are.
+
+The recordings were generated with ElevenLabs text-to-speech (voice "Brian")
+during a paid ElevenLabs subscription and are made available by PatUlm.
+
+You may use, copy, modify and redistribute the recordings, including as part
+of modified versions or forks of this project and for commercial purposes,
+provided that:
+
+1. You comply with the ElevenLabs Prohibited Use Policy
+   (https://elevenlabs.io/use-policy). In particular, you must not use the
+   recordings as input for training, fine-tuning, developing, testing or
+   improving machine learning or artificial intelligence technology, include
+   them in a dataset for such purposes, or use them to research or develop
+   products or services that compete with ElevenLabs.
+2. You do not remove any rights notices or markings associated with the
+   recordings.
+3. You pass the recordings on only under these same terms, including this
+   notice, and not under less restrictive ones.
+
+THE RECORDINGS ARE PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND.

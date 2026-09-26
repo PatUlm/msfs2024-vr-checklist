@@ -104,5 +104,7 @@ Version, Flugzeug, Reproduktionsschritte und gegebenenfalls ein Screenshot.
 Eigener Code und eigene Inhalte stehen unter der [MIT-Lizenz](LICENSE).
 Ausgenommen sind die aus dem MSFS-SDK übernommenen Teile
 ([Prüfstand](docs/license-audit.md#r2--sdk-nachweise-und-mit-angaben-reichen-noch-nicht)),
-die [Drittkomponenten](docs/third-party-licenses.md) und die
-[Audioassets](assets/audio/README.md#rights-notice).
+die [Drittkomponenten](docs/third-party-licenses.md) und die Sprachaufnahmen
+unter eigenen [Audiobedingungen](assets/audio/LICENSE): Weitergabe und
+Bearbeitung sind erlaubt, KI-Training und die übrigen Grenzen der
+ElevenLabs-Nutzungsrichtlinie gelten weiter.

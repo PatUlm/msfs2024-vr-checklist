@@ -58,5 +58,6 @@ der öffentlich abrufbare Stand, nicht der Nachweis des jeweiligen Kaufvertrags.
 
 Herkunft und eigene Bearbeitung bleiben nachvollziehbar. Quellenreferenzen enthalten nur knappe Fakten mit Seitenbelegen, keine
 Handbuchabschriften. Es gibt keine ausstehenden Herstelleranfragen. Ein Herkunftshinweis und KI-Unterstützung erteilen keine
-Nutzungsrechte; die gesonderten Software-, SDK- und Audiolizenzen bleiben in
-[R1–R3](license-audit.md) zu behandeln.
+Nutzungsrechte; die gesonderten Software- und SDK-Lizenzen bleiben in
+[R1–R2](license-audit.md) zu behandeln, Audio regeln die
+[Audiobedingungen](../assets/audio/LICENSE).

@@ -28,7 +28,8 @@ das EFB-Paket hat keine gesonderte Lizenzdatei.
 
 **Nächster Schritt:** Originalhinweise offline lesbar in Repository und
 betroffenen Release-Artefakten mitführen und ihre Mitlieferung prüfen.
-Die eigene [LICENSE](../LICENSE) gehört ebenso in beide Artefakte.
+Die eigene [LICENSE](../LICENSE) gehört ebenso in beide Artefakte, die
+[Audiobedingungen](../assets/audio/LICENSE) ins Companion-Setup.
 Die paketbezogenen Quellen stehen im Inventar und in der Komponentenübersicht.
 Zu beachten sind insbesondere:
 
@@ -69,28 +70,5 @@ gebündelte EFB-API bleibt die Distributionsfrage dann separat zu lösen.
 `SimConnect.dll` liefert das Companion-Setup gemäß
 [ADR 0012](adr/0012-veroeffentlichung-als-zip-und-companion-setup.md) mit;
 Hinweis in der [Komponentenübersicht](third-party-licenses.md).
-
-## R3 — Audio ist bezahlt erzeugt, aber noch nicht weiterlizenziert
-
-Die versionierten Brian-Aufnahmen haben Herkunftsmetadaten, Prüfsummen und
-den vom Betreiber bestätigten bezahlten Starter-Tarif. Free-Tier-Hörproben
-gehören nicht zum ausgelieferten Bestand. TTS-Modelle und FFmpeg ebenfalls nicht.
-Das Inventar erfasst auch eine ältere, weiterhin eingebettete Itemaufnahme,
-die das aktuelle Manifest nicht mehr referenziert.
-
-Die bisherigen Quellen stützen die Veröffentlichung bezahlter Ausgaben unter
-Anbieterbedingungen, aber keine uneingeschränkte MIT-/CC0-Freigabe:
-[EEA Terms](https://elevenlabs.io/terms-of-use-eu),
-[API Terms](https://elevenlabs.io/elevenapi-terms),
-[Veröffentlichungshinweise](https://help.elevenlabs.io/hc/en-us/articles/13313564601361-Can-I-publish-the-content-I-generate-on-the-platform),
-[Use Policy](https://elevenlabs.io/use-policy).
-
-**Nächster Schritt:** Empfängerrechte für Nutzung, Bearbeitung und Weitergabe
-festlegen, einschließlich Forks und daraus gebauter Distributionen. Bleibt
-dieser Umfang aus den Bedingungen unklar, gezielt Anbieterfreigabe einholen
-oder eine anders lizenzierte Audioquelle wählen. ⚠ Entfällt die Weitergabe,
-betrifft das auch die Aufnahmen in der Historie. Eine Anfrage ist nicht
-versendet; [Audio-README](../assets/audio/README.md) und
-[ADR 0008](adr/0008-stimme-und-tts-anbieter.md) erteilen noch keine solche Lizenz.
 
 Weitere Veröffentlichungsarbeit steht im [Backlog](../BACKLOG.md).

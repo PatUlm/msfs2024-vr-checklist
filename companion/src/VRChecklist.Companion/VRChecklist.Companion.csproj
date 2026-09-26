@@ -26,6 +26,7 @@
     <PackageReference Include="Concentus" Version="2.2.2" />
     <PackageReference Include="Concentus.Oggfile" Version="1.0.7" />
     <PackageReference Include="NAudio.Wasapi" Version="3.1.0" />
+    <PackageReference Include="Velopack" Version="1.2.158" />
     <ProjectReference Include="../VRChecklist.Transport/VRChecklist.Transport.csproj" />
   </ItemGroup>
   <ItemGroup>

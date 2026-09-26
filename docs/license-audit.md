@@ -35,7 +35,10 @@ Zu beachten sind insbesondere:
 - SkiaSharp/HarfBuzzSharp: Wrapper-Lizenzen **und** native
   `THIRD-PARTY-NOTICES.txt`; Avalonia ANGLE: Paketlizenz und eingebundene Teile.
 - System.Numerics.Tensors: `LICENSE.TXT` und `THIRD-PARTY-NOTICES.TXT`.
-- .NET: externer Runtimebedarf, aber mitgelieferter EXE-Apphost.
+- .NET-Runtime 10.0.10, self-contained im Companion-Setup: `LICENSE.TXT` und
+  `THIRD-PARTY-NOTICES.TXT` des Runtime-Packs.
+- Velopack: MIT-Text; die Rust-Stubs `Update.exe` und Setup binden weitere
+  Crates statisch ein, deren Hinweispflicht noch zuzuordnen ist.
 
 Die Sammelhinweise nativer Pakete belegen für sich nicht, welche Komponenten
 im Windows-Binary enthalten sind. Relevante Lizenzoptionen und etwaige
@@ -60,7 +63,9 @@ oder die vorgesehene Weitergabe bestätigen lassen. Ungeklärte SDK-Kopien
 könnten stattdessen lokal aus einer SDK-Installation bezogen werden; für die
 gebündelte EFB-API bleibt die Distributionsfrage dann separat zu lösen.
 Die öffentliche Git-Historie muss dieselbe Abgrenzung einhalten.
-`SimConnect.dll` wird bereits nicht mitgeliefert.
+`SimConnect.dll` liefert das Companion-Setup gemäß
+[ADR 0012](adr/0012-veroeffentlichung-als-zip-und-companion-setup.md) mit;
+Hinweis in der [Komponentenübersicht](third-party-licenses.md).
 
 ## R3 — Audio ist bezahlt erzeugt, aber noch nicht weiterlizenziert
 

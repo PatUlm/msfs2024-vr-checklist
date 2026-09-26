@@ -26,3 +26,4 @@ Umsetzungsstände werden über den [Backlog](../../BACKLOG.md) gepflegt.
 | [0009](0009-fortschritt-ueber-efb-kontextwechsel.md) | Fortschritt über Kontextwechsel |
 | [0010](0010-radioeffekt-bei-der-wiedergabe.md) | Radioeffekt live |
 | [0011](0011-bestaetigungsaktionen-im-companion.md) | Bestätigungsaktionen offline im Companion schalten |
+| [0012](0012-veroeffentlichung-als-zip-und-companion-setup.md) | EFB-ZIP und Companion-Setup |

@@ -12,13 +12,14 @@ Die Windows-Pfade in der ignorierten `.env` anhand von
 - `VR_CHECKLIST_MSFS_SDK_ROOT`: installierter SDK-Ordner.
 - `VR_CHECKLIST_COMMUNITY_DIR`: tatsächlicher `Community2024`-Ordner.
 - `VR_CHECKLIST_COMPANION_INSTALL_DIR`:
-  `%LOCALAPPDATA%\Programs\VRChecklist Companion`, als WSL-Pfad.
+  `%LOCALAPPDATA%\VRChecklist.Companion`, als WSL-Pfad; dorthin installiert
+  das Setup.
 - `VR_CHECKLIST_RELEASE_DIR`: standardmäßig
   `/mnt/c/dev/msfs2024-vr-checklist-releases`.
 
 Die Skripte verlangen die Zielnamen `Community2024`,
-`msfs2024-vr-checklist-releases` und den Companion-Ordner unter
-`AppData/Local/Programs`, um versehentliche Änderungen fremder Ordner zu verhindern.
+`msfs2024-vr-checklist-releases` und `AppData/Local/VRChecklist.Companion`, um
+versehentliche Änderungen fremder Ordner zu verhindern.
 
 ## Version und Release
 
@@ -35,17 +36,22 @@ zeigen exakt `MAJOR.MINOR.PATCH`.
    Datum verschieben. `companion/release-notes.json` mit gleichem Datum und
    Version aktualisieren, wichtigste Neuerung zuerst.
 4. `task check` erfolgreich ausführen. MSFS und Companion beenden.
-5. `task release` ausführen. Es baut beide Apps, prüft das Paket und erzeugt
-   ein unveränderliches Release unter dem konfigurierten Release-Ordner.
+5. `task release` ausführen. Es baut beide Apps, erzeugt EFB-ZIP und
+   Companion-Setup und legt ein unveränderliches Release unter dem
+   konfigurierten Release-Ordner an. Die `SimConnect.dll` kommt aus dem
+   konfigurierten SDK.
 6. Release-Metadaten als `chore(release): publish version X.Y.Z` committen und
    einen annotierten Tag `vX.Y.Z` exakt auf diesen Commit setzen.
 7. `task release:install` ausführen und die tatsächlich installierten Versionen
    prüfen. Erst dann ist der lokale Release-Schritt abgeschlossen.
 
 Der Release-Ordner enthält `release.json`, das MSFS-Paket
-`patulm-vr-checklist/` und `VRChecklist.Companion/`. Bereits vorhandene Versionen
-werden nicht überschrieben. Windows-Voraussetzungen und DLL-Konfiguration
-stehen im [Companion-README](../companion/README.md#start-und-diagnose).
+`patulm-vr-checklist/` für die lokale Junction, das Download-ZIP
+`patulm-vr-checklist-X.Y.Z.zip` und unter `VRChecklist.Companion/` die
+Velopack-Ausgabe: `VRChecklist.Companion-win-Setup.exe`, das volle `.nupkg`
+und den Update-Feed `releases.win.json`. Für spätere Updates müssen Setup,
+`.nupkg` und `releases.win.json` gemeinsam am GitHub-Release hängen. Bereits
+vorhandene Versionen werden nicht überschrieben.
 
 Die Vorbereitung öffentlicher Releases steht im [Backlog](../BACKLOG.md).
 Der lokale Release-Task veröffentlicht nichts auf GitHub;
@@ -59,7 +65,8 @@ task release:install
 
 Installiert die zuvor gebaute Version aus `VERSION`. Einzelne Komponenten
 lassen sich mit `task community:install` oder `task companion:install`
-installieren. Für ein vorhandenes anderes Release:
+installieren. Für ein vorhandenes anderes Release; der Companion lässt sich
+so erst ab Releases mit Setup installieren:
 
 ```bash
 task release:install VERSION=0.13.2
@@ -70,9 +77,9 @@ installiert. **Den verlinkten Release-Ordner nicht löschen**, solange er
 installiert ist. Linux-Symlinks auf `/mnt/c` sind kein Ersatz: Windows erkennt
 sie nicht als Junction. Der Installer erstellt und prüft den Link über Windows.
 
-Die Companion-Dateien werden in das konfigurierte Benutzerverzeichnis kopiert.
-Danach die EXE unter
-`%LOCALAPPDATA%\Programs\VRChecklist Companion` starten.
+Der Companion wird wie bei Spielern über das Setup installiert, hier mit
+`--silent`. Es beendet einen laufenden Companion aus diesem Ordner und ersetzt
+die vorhandene Installation. Danach **VR Checklist Companion** starten.
 
 Beim normalen Simulatorstart steht das Community-Paket ohne DevMode bereit.
 Ein im Project Editor gebauter Stand desselben Pakets hat Vorrang; für

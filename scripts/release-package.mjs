@@ -4,6 +4,7 @@ import {
   buildRelease,
   installCompanionRelease,
   installRelease,
+  prepareCompanionRelease,
   readProjectVersion,
   validateProjectVersionSources,
   validateReleaseVersion,
@@ -30,12 +31,22 @@ if (command === "current-version") {
   await validateProjectVersionSources(repositoryRoot);
   await validateReleaseNotesFiles(repositoryRoot);
   console.log(`Release version: ${version}`);
+} else if (command === "prepare-companion") {
+  const result = await prepareCompanionRelease({
+    version,
+    publishDirectory: process.env.VR_CHECKLIST_RELEASE_COMPANION_PUBLISH_DIR,
+    sdkRoot: process.env.VR_CHECKLIST_RELEASE_SDK_ROOT,
+    noticesFile: resolve(repositoryRoot, "docs", "third-party-licenses.md"),
+  });
+  console.log(
+    `Prepared companion ${result.version} with ${result.fileCount} files for packaging`
+  );
 } else if (command === "build") {
   const result = await buildRelease({
     version,
     stagingDirectory: process.env.VR_CHECKLIST_RELEASE_STAGING_DIR,
-    companionStagingDirectory:
-      process.env.VR_CHECKLIST_RELEASE_COMPANION_STAGING_DIR,
+    companionPackageDirectory:
+      process.env.VR_CHECKLIST_RELEASE_COMPANION_PACKAGE_DIR,
     releaseDirectory: process.env.VR_CHECKLIST_RELEASE_OUTPUT_DIR,
     sdkRoot: process.env.VR_CHECKLIST_RELEASE_SDK_ROOT,
   });
@@ -56,13 +67,12 @@ if (command === "current-version") {
     version,
     releaseDirectory: process.env.VR_CHECKLIST_RELEASE_OUTPUT_DIR,
     installDirectory: process.env.VR_CHECKLIST_RELEASE_COMPANION_INSTALL_DIR,
-    simConnectDirectory: process.env.VR_CHECKLIST_RELEASE_SIMCONNECT_DIR,
   });
   console.log(
     `Installed companion ${result.companionVersion} to ${result.installTarget}`
   );
 } else {
   throw new Error(
-    "Usage: release-package.mjs current-version|validate-version|build|install|install-companion (configuration is read from the task environment)."
+    "Usage: release-package.mjs current-version|validate-version|prepare-companion|build|install|install-companion (configuration is read from the task environment)."
   );
 }

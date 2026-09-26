@@ -12,10 +12,13 @@ import { tmpdir } from "node:os";
 import { dirname, join, resolve } from "node:path";
 import { after, test } from "node:test";
 import { fileURLToPath } from "node:url";
+import { inflateRawSync } from "node:zlib";
 import {
   assertCompanionInstallDirectory,
   assertManagedWindowsDirectory,
   companionName,
+  companionSetupName,
+  createZipArchive,
   installDirectoryLink,
   readProjectVersion,
   toWindowsPath,
@@ -23,6 +26,7 @@ import {
   validateProjectVersionSources,
   validateReleaseVersion,
   verifyCompanion,
+  verifyCompanionPackage,
   verifyPackage,
 } from "./lib/msfs-release.mjs";
 import { validateReleaseNotes } from "./lib/release-notes.mjs";
@@ -168,16 +172,16 @@ test("managed paths stay on an explicitly named Windows directory", () => {
   );
   assert.equal(
     assertCompanionInstallDirectory(
-      "/mnt/c/Users/pilot/AppData/Local/Programs/VRChecklist Companion"
+      "/mnt/c/Users/pilot/AppData/Local/VRChecklist.Companion"
     ),
-    "/mnt/c/Users/pilot/AppData/Local/Programs/VRChecklist Companion"
+    "/mnt/c/Users/pilot/AppData/Local/VRChecklist.Companion"
   );
   assert.throws(
     () =>
       assertCompanionInstallDirectory(
-        "/mnt/c/dev/VRChecklist Companion"
+        "/mnt/c/dev/VRChecklist.Companion"
       ),
-    /AppData\/Local\/Programs/
+    /AppData\/Local directory/
   );
 });
 
@@ -325,7 +329,7 @@ test("package verification checks layout, release version, and source maps", asy
   );
 });
 
-test("companion verification requires an EXE and excludes SimConnect", async () => {
+test("companion verification requires the bundled SimConnect and no local path", async () => {
   const root = join(tmpdir(), `vr-checklist-companion-test-${process.pid}`);
   temporaryRoots.push(root);
   await mkdir(root, { recursive: true });
@@ -341,22 +345,82 @@ test("companion verification requires an EXE and excludes SimConnect", async () 
   }
   await writeFile(join(root, "VERSION"), "0.3.0\n");
 
-  const result = await verifyCompanion(root, "0.3.0");
-  assert.equal(result.version, "0.3.0");
-
-  // Staging and installed copies carry the local SimConnect path; only the
-  // release artifact must not.
-  await writeFile(join(root, "simconnect-path.txt"), "C:\\local\\path\n");
-  assert.equal((await verifyCompanion(root, "0.3.0")).version, "0.3.0");
-  await assert.rejects(
-    () => verifyCompanion(root, "0.3.0", { forbidLocalPaths: true }),
-    /forbidden file: simconnect-path\.txt/
-  );
-  await rm(join(root, "simconnect-path.txt"));
-
-  await writeFile(join(root, "SimConnect.dll"), "not redistributable");
   await assert.rejects(
     () => verifyCompanion(root, "0.3.0"),
-    /forbidden file: SimConnect\.dll/
+    /missing: SimConnect\.dll/
   );
+  await writeFile(join(root, "SimConnect.dll"), "native library");
+  assert.equal((await verifyCompanion(root, "0.3.0")).version, "0.3.0");
+
+  await writeFile(join(root, "simconnect-path.txt"), "C:\\local\\path\n");
+  await assert.rejects(
+    () => verifyCompanion(root, "0.3.0"),
+    /forbidden file: simconnect-path\.txt/
+  );
+});
+
+test("companion package verification requires setup and a matching update feed", async () => {
+  const root = join(tmpdir(), `vr-checklist-velopack-test-${process.pid}`);
+  temporaryRoots.push(root);
+  await mkdir(root, { recursive: true });
+  await writeFile(join(root, companionSetupName), "setup");
+  await writeFile(join(root, `${companionName}-0.3.0-full.nupkg`), "package");
+
+  const writeFeed = (version) =>
+    writeFile(
+      join(root, "releases.win.json"),
+      JSON.stringify({
+        Assets: [{ PackageId: companionName, Version: version, Type: "Full" }],
+      })
+    );
+
+  await writeFeed("0.2.0");
+  await assert.rejects(
+    () => verifyCompanionPackage(root, "0.3.0"),
+    /no full release 0\.3\.0/
+  );
+  await writeFeed("0.3.0");
+  assert.equal((await verifyCompanionPackage(root, "0.3.0")).fileCount, 3);
+
+  await rm(join(root, companionSetupName));
+  await assert.rejects(
+    () => verifyCompanionPackage(root, "0.3.0"),
+    /missing: VRChecklist\.Companion-win-Setup\.exe/
+  );
+});
+
+test("package archive keeps the package folder as its only top-level entry", async () => {
+  const root = join(tmpdir(), `vr-checklist-zip-test-${process.pid}`);
+  temporaryRoots.push(root);
+  const packageRoot = join(root, "patulm-vr-checklist");
+  await mkdir(join(packageRoot, "html_ui"), { recursive: true });
+  await writeFile(join(packageRoot, "manifest.json"), '{"package_version":"0.3.0"}');
+  await writeFile(join(packageRoot, "html_ui", "app.js"), "x".repeat(4096));
+  const archivePath = join(root, "package.zip");
+
+  assert.equal((await createZipArchive(packageRoot, archivePath)).fileCount, 2);
+
+  const archive = await readFile(archivePath);
+  const endOffset = archive.length - 22;
+  assert.equal(archive.readUInt32LE(endOffset), 0x06054b50);
+  let offset = archive.readUInt32LE(endOffset + 16);
+  const entries = new Map();
+  for (let index = 0; index < archive.readUInt16LE(endOffset + 10); index += 1) {
+    const nameLength = archive.readUInt16LE(offset + 28);
+    const name = archive.toString("utf8", offset + 46, offset + 46 + nameLength);
+    const compressedSize = archive.readUInt32LE(offset + 20);
+    const localOffset = archive.readUInt32LE(offset + 42);
+    const dataOffset = localOffset + 30 + archive.readUInt16LE(localOffset + 26);
+    entries.set(
+      name,
+      inflateRawSync(archive.subarray(dataOffset, dataOffset + compressedSize)).toString()
+    );
+    offset += 46 + nameLength;
+  }
+
+  assert.deepEqual([...entries.keys()], [
+    "patulm-vr-checklist/html_ui/app.js",
+    "patulm-vr-checklist/manifest.json",
+  ]);
+  assert.equal(entries.get("patulm-vr-checklist/html_ui/app.js"), "x".repeat(4096));
 });

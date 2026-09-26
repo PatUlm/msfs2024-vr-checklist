@@ -11,6 +11,7 @@ dist/
 # .NET companion-app build output.
 companion/**/bin/
 companion/**/obj/
+companion/artifacts/
 
 # MSFS Project Editor output. The Windows staging remains generated state.
 msfs/Packages/

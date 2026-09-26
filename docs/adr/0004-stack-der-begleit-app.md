@@ -1,6 +1,7 @@
 # ADR 0004: .NET 10 mit Avalonia
 
-Status: Akzeptiert (2026-08-26).
+Status: Akzeptiert (2026-08-26). Die SimConnect-Konsequenz ist durch
+[ADR 0012](0012-veroeffentlichung-als-zip-und-companion-setup.md) ersetzt.
 
 ## Entscheidung und Grund
 
@@ -14,8 +15,8 @@ unabhängig von einer Visual-Studio-IDE.
 - Kein NativeAOT, kein Exclusive-Audio-Modus und kein systemweiter
   Low-Latency-Pfad. Audiostreams nur bei Bedarf öffnen; Geräte über stabile ID
   speichern.
-- `SimConnect.dll` wird nicht mitgeliefert. Der aktuelle Installationsweg
-  verweist auf das lokale SDK, siehe [Companion](../../companion/README.md).
+- Auslieferung von `SimConnect.dll` gemäß
+  [ADR 0012](0012-veroeffentlichung-als-zip-und-companion-setup.md).
 - Der Managed-Wrapper aus dem SDK ist unter modernem .NET nicht ladbar;
   Nachweis in der [SDK-Referenz](../msfs-sdk-reference.md#commbus-und-externe-begleit-app).
 - Falls künftig Geheimnisse nötig werden, Windows `CredWrite`/`CredRead`

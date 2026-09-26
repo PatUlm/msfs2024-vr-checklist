@@ -18,16 +18,20 @@ das gewählte Verhalten in [design-decisions.md](../docs/design-decisions.md).
 
 ## Start und Diagnose
 
-`task companion:deploy` baut App und Probe ins Windows-Staging. Die
-frameworkabhängige EXE benötigt .NET 10 und die native MSFS-2024-`SimConnect.dll`.
-Diese DLL wird nicht mitgeliefert. Der Suchpfad lässt sich setzen über:
+Das Release-Setup enthält .NET 10 und die native MSFS-2024-`SimConnect.dll`
+gemäß [ADR 0012](../docs/adr/0012-veroeffentlichung-als-zip-und-companion-setup.md).
+
+`task companion:deploy` baut App und Probe dagegen frameworkabhängig ins
+Windows-Staging; dafür sind .NET 10 und das lokale SDK nötig. Die DLL wird dort
+nicht kopiert. Ein abweichender Suchpfad, auch für installierte Versionen,
+lässt sich setzen über:
 
 1. `VR_CHECKLIST_SIMCONNECT_DIR` als Windows-Umgebungsvariable, oder
 2. `simconnect-path.txt` neben der EXE mit dem Windows-Verzeichnispfad, etwa
    `C:\MSFS 2024 SDK\SimConnect SDK\lib`.
 
-Deployment und lokale Release-Installation schreiben diese Datei automatisch
-aus dem konfigurierten SDK-Pfad. Sie bleibt lokal.
+Das Deployment schreibt diese Datei automatisch aus dem konfigurierten
+SDK-Pfad. Sie bleibt lokal und darf nicht ins Release.
 
 Im Staging liegt unter `tools\transport-probe` das Diagnosewerkzeug.
 Es fordert den EFB-Zustand an; `--play-completion-sound` prüft ohne MSFS

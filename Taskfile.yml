@@ -7,6 +7,11 @@ vars:
   APP_DIR: msfs/PackageSources/VRChecklist
   COMPANION_SOLUTION: companion/VRChecklist.Companion.slnx
   COMPANION_PROBE_PROJECT: companion/src/VRChecklist.TransportProbe/VRChecklist.TransportProbe.csproj
+  COMPANION_PROJECT: companion/src/VRChecklist.Companion/VRChecklist.Companion.csproj
+  # Release-only self-contained publish and Velopack output, separate from bin/obj.
+  COMPANION_ARTIFACTS_DIR: companion/artifacts
+  COMPANION_PUBLISH_DIR: companion/artifacts/publish/VRChecklist.Companion/release_win-x64
+  COMPANION_PACKAGE_DIR: companion/artifacts/velopack
   DOTNET_SDK_IMAGE: mcr.microsoft.com/dotnet/sdk@sha256:72dd743782f2ae7e5476fd64f6a460045e3998dc862218b80e6944cba79a01b0
   HOST_UID:
     sh: id -u
@@ -177,27 +182,71 @@ tasks:
     cmds:
       - task deploy
 
-  release:companion-deploy:
+  release:companion-publish:
     internal: true
-    env:
-      VR_CHECKLIST_VERSION: "{{.PROJECT_VERSION}}"
     cmds:
-      - task companion:deploy
+      - rm -rf "{{.COMPANION_ARTIFACTS_DIR}}"
+      - >-
+        docker run --rm
+        --user "{{.HOST_UID}}:{{.HOST_GID}}"
+        --env DOTNET_CLI_HOME=/tmp/dotnet-home
+        --env NUGET_PACKAGES=/tmp/nuget
+        --env XDG_DATA_HOME=/tmp/avalonia-data
+        --env AVALONIA_TELEMETRY_OPTOUT=1
+        --volume "{{.ROOT_DIR}}:/src"
+        --workdir /src
+        "{{.DOTNET_SDK_IMAGE}}"
+        dotnet publish "{{.COMPANION_PROJECT}}"
+        --configuration Release
+        --self-contained true
+        --artifacts-path "{{.COMPANION_ARTIFACTS_DIR}}"
+        --nologo
+        -p:InformationalVersion={{.PROJECT_VERSION}}
+
+  release:companion-pack:
+    internal: true
+    cmds:
+      # vpk is pinned in companion/.config/dotnet-tools.json. The setup stays
+      # unsigned for now (ADR 0012); no previous release means no delta.
+      - >-
+        docker run --rm
+        --user "{{.HOST_UID}}:{{.HOST_GID}}"
+        --env DOTNET_CLI_HOME=/tmp/dotnet-home
+        --env NUGET_PACKAGES=/tmp/nuget
+        --volume "{{.ROOT_DIR}}:/src"
+        --workdir /src/companion
+        "{{.DOTNET_SDK_IMAGE}}"
+        sh -c 'dotnet tool restore && dotnet vpk "[win]" pack
+        --packId VRChecklist.Companion
+        --packVersion "{{.PROJECT_VERSION}}"
+        --packDir "../{{.COMPANION_PUBLISH_DIR}}"
+        --mainExe VRChecklist.Companion.exe
+        --runtime win-x64
+        --packTitle "VR Checklist Companion"
+        --packAuthors PatUlm
+        --icon ../assets/branding/app-icon-windows.ico
+        --delta None
+        --noPortable
+        --outputDir "../{{.COMPANION_PACKAGE_DIR}}"'
 
   release:
     desc: Build the production package declared in VERSION
     env:
       VR_CHECKLIST_RELEASE_VERSION: "{{.PROJECT_VERSION}}"
       VR_CHECKLIST_RELEASE_STAGING_DIR: "{{.STAGING_DIR}}"
-      VR_CHECKLIST_RELEASE_COMPANION_STAGING_DIR: "{{.COMPANION_STAGING_DIR}}"
+      VR_CHECKLIST_RELEASE_COMPANION_PUBLISH_DIR: "{{.COMPANION_PUBLISH_DIR}}"
+      VR_CHECKLIST_RELEASE_COMPANION_PACKAGE_DIR: "{{.COMPANION_PACKAGE_DIR}}"
       VR_CHECKLIST_RELEASE_OUTPUT_DIR: "{{.RELEASE_DIR}}"
       VR_CHECKLIST_RELEASE_SDK_ROOT: "{{.MSFS_SDK_ROOT}}"
     cmds:
       - node scripts/release-package.mjs validate-version
       - task: test:release
       - task: release:deploy
-      - task: release:companion-deploy
+      - task: companion:build
       - task: companion:test
+      - task: release:companion-publish
+      - node scripts/release-package.mjs prepare-companion
+      - task: release:companion-pack
       - node scripts/release-package.mjs build
 
   community:install:
@@ -210,17 +259,16 @@ tasks:
       - node scripts/release-package.mjs install
 
   companion:install:
-    desc: Install the companion EXE from the current or specified release
+    desc: Install the companion with the setup of the current or specified release
     env:
       VR_CHECKLIST_RELEASE_VERSION: '{{default .PROJECT_VERSION .VERSION}}'
       VR_CHECKLIST_RELEASE_OUTPUT_DIR: "{{.RELEASE_DIR}}"
       VR_CHECKLIST_RELEASE_COMPANION_INSTALL_DIR: "{{.COMPANION_INSTALL_DIR}}"
-      VR_CHECKLIST_RELEASE_SIMCONNECT_DIR: "{{.MSFS_SDK_ROOT}}/SimConnect SDK/lib"
     cmds:
       - node scripts/release-package.mjs install-companion
 
   release:install:
-    desc: Install the MSFS package and companion EXE from a release
+    desc: Install the MSFS package and companion from a release
     cmds:
       - task: community:install
         vars:

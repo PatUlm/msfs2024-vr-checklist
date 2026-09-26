@@ -13,16 +13,20 @@ import {
 } from "node:fs/promises";
 import { basename, dirname, join, relative, resolve, sep } from "node:path";
 import { spawn } from "node:child_process";
+import { crc32, deflateRawSync } from "node:zlib";
 
 export const packageName = "patulm-vr-checklist";
 export const companionName = "VRChecklist.Companion";
-export const companionInstallDirectoryName = "VRChecklist Companion";
+// Velopack installs below %LOCALAPPDATA%\<packId>; the packId is companionName.
+export const companionInstallDirectoryName = companionName;
+export const companionSetupName = `${companionName}-win-Setup.exe`;
 export const stagingDirectoryName = "msfs2024-vr-checklist-staging";
-export const companionStagingDirectoryName =
-  "msfs2024-vr-checklist-companion-staging";
 export const releaseDirectoryName = "msfs2024-vr-checklist-releases";
 export const communityDirectoryName = "Community2024";
-const companionInstallMarkerName = ".vr-checklist-companion-install.json";
+
+export function packageArchiveName(version) {
+  return `${packageName}-${version}.zip`;
+}
 
 const semanticVersionPattern =
   /^(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)$/;
@@ -127,12 +131,12 @@ export function assertCompanionInstallDirectory(path) {
   );
 
   if (
-    !/^\/mnt\/[a-z]\/Users\/[^/]+\/AppData\/Local\/Programs\/VRChecklist Companion$/i.test(
+    !/^\/mnt\/[a-z]\/Users\/[^/]+\/AppData\/Local\/VRChecklist\.Companion$/i.test(
       resolvedPath
     )
   ) {
     throw new Error(
-      `Companion install directory must be below a Windows user's AppData/Local/Programs directory: ${resolvedPath}`
+      `Companion install directory must be directly below a Windows user's AppData/Local directory: ${resolvedPath}`
     );
   }
 
@@ -409,15 +413,8 @@ export async function verifyPackage(packageRoot, expectedReleaseVersion) {
   };
 }
 
-/*
- * `forbidLocalPaths` applies to the release artifact only: the staging and
- * the installed copy legitimately carry simconnect-path.txt.
- */
-export async function verifyCompanion(
-  companionRoot,
-  expectedReleaseVersion,
-  { forbidLocalPaths = false } = {}
-) {
+// Verifies the self-contained payload that Velopack packs for release.
+export async function verifyCompanion(companionRoot, expectedReleaseVersion) {
   const resolvedRoot = resolve(companionRoot);
   const rootStats = await lstat(resolvedRoot);
   if (!rootStats.isDirectory() || rootStats.isSymbolicLink()) {
@@ -430,6 +427,7 @@ export async function verifyCompanion(
     `${companionName}.dll`,
     `${companionName}.deps.json`,
     `${companionName}.runtimeconfig.json`,
+    "SimConnect.dll",
     "THIRD-PARTY-NOTICES.md",
     "VERSION",
   ];
@@ -440,13 +438,12 @@ export async function verifyCompanion(
     }
   }
 
+  // simconnect-path.txt is a machine-local override and must not ship.
   const forbiddenFile = files.find((file) => {
     const lowerCaseFile = file.toLowerCase();
-    const fileName = lowerCaseFile.split("/").at(-1);
     return (
       lowerCaseFile.endsWith(".pdb") ||
-      fileName === "simconnect.dll" ||
-      (forbidLocalPaths && fileName === "simconnect-path.txt")
+      lowerCaseFile.split("/").at(-1) === "simconnect-path.txt"
     );
   });
   if (forbiddenFile) {
@@ -472,13 +469,160 @@ export async function verifyCompanion(
   };
 }
 
-async function runPackageTool(executable, projectFile) {
-  await new Promise((resolvePromise, reject) => {
-    const child = spawn(
-      executable,
-      [toWindowsPath(projectFile), "-rebuild", "-mirroring", "-nopause"],
-      { stdio: "inherit" }
+/*
+ * Completes the self-contained publish output before Velopack packs it:
+ * the SimConnect.dll from the local SDK is shipped next to the EXE (ADR 0012).
+ */
+export async function prepareCompanionRelease({
+  version,
+  publishDirectory,
+  sdkRoot,
+  noticesFile,
+}) {
+  validateReleaseVersion(version);
+  const publishRoot = resolve(publishDirectory ?? "");
+  const resolvedSdkRoot = resolve(sdkRoot ?? "");
+  if (!/^\/mnt\/[a-z](?:\/|$)/i.test(resolvedSdkRoot)) {
+    throw new Error(`MSFS SDK root must be on a mounted Windows drive: ${sdkRoot}`);
+  }
+
+  const simConnectLibrary = join(
+    resolvedSdkRoot,
+    "SimConnect SDK",
+    "lib",
+    "SimConnect.dll"
+  );
+  for (const requiredPath of [
+    join(publishRoot, `${companionName}.exe`),
+    simConnectLibrary,
+    noticesFile,
+  ]) {
+    if (!(await pathExists(requiredPath))) {
+      throw new Error(`Required companion release input is missing: ${requiredPath}`);
+    }
+  }
+
+  for (const file of await listPackageFiles(publishRoot)) {
+    if (file.toLowerCase().endsWith(".pdb")) {
+      await rm(join(publishRoot, file));
+    }
+  }
+  await cp(simConnectLibrary, join(publishRoot, "SimConnect.dll"));
+  await cp(noticesFile, join(publishRoot, "THIRD-PARTY-NOTICES.md"));
+  await writeFile(join(publishRoot, "VERSION"), `${version}\n`);
+
+  return verifyCompanion(publishRoot, version);
+}
+
+export async function verifyCompanionPackage(packageDirectory, expectedReleaseVersion) {
+  const resolvedRoot = resolve(packageDirectory ?? "");
+  const files = await listPackageFiles(resolvedRoot);
+  const requiredFiles = [
+    companionSetupName,
+    `${companionName}-${expectedReleaseVersion}-full.nupkg`,
+    "releases.win.json",
+  ];
+
+  for (const requiredFile of requiredFiles) {
+    if (!files.includes(requiredFile)) {
+      throw new Error(`Required companion package file is missing: ${requiredFile}`);
+    }
+  }
+
+  const feed = await readJson(join(resolvedRoot, "releases.win.json"));
+  const fullRelease = feed.Assets?.find(
+    (asset) => asset.Type === "Full" && asset.Version === expectedReleaseVersion
+  );
+  if (!fullRelease || fullRelease.PackageId !== companionName) {
+    throw new Error(
+      `Companion update feed has no full release ${expectedReleaseVersion}.`
     );
+  }
+
+  return {
+    fileCount: files.length,
+    root: resolvedRoot,
+  };
+}
+
+function toDosDateTime(date) {
+  return {
+    date:
+      ((date.getFullYear() - 1980) << 9) |
+      ((date.getMonth() + 1) << 5) |
+      date.getDate(),
+    time:
+      (date.getHours() << 11) |
+      (date.getMinutes() << 5) |
+      Math.floor(date.getSeconds() / 2),
+  };
+}
+
+/*
+ * Writes a plain deflate ZIP whose single top-level folder is the source
+ * directory name, so players can extract it directly into Community.
+ */
+export async function createZipArchive(sourceDirectory, archivePath, date = new Date()) {
+  const sourceRoot = resolve(sourceDirectory);
+  const rootName = basename(sourceRoot);
+  const { date: dosDate, time: dosTime } = toDosDateTime(date);
+  const localParts = [];
+  const centralParts = [];
+  let offset = 0;
+
+  const files = (await listPackageFiles(sourceRoot)).sort();
+  for (const file of files) {
+    const name = Buffer.from(`${rootName}/${file}`, "utf8");
+    const data = await readFile(join(sourceRoot, file));
+    const compressed = deflateRawSync(data);
+    const checksum = crc32(data);
+
+    const localHeader = Buffer.alloc(30);
+    localHeader.writeUInt32LE(0x04034b50, 0);
+    localHeader.writeUInt16LE(20, 4);
+    localHeader.writeUInt16LE(0x0800, 6);
+    localHeader.writeUInt16LE(8, 8);
+    localHeader.writeUInt16LE(dosTime, 10);
+    localHeader.writeUInt16LE(dosDate, 12);
+    localHeader.writeUInt32LE(checksum, 14);
+    localHeader.writeUInt32LE(compressed.length, 18);
+    localHeader.writeUInt32LE(data.length, 22);
+    localHeader.writeUInt16LE(name.length, 26);
+    localParts.push(localHeader, name, compressed);
+
+    const centralHeader = Buffer.alloc(46);
+    centralHeader.writeUInt32LE(0x02014b50, 0);
+    centralHeader.writeUInt16LE(20, 4);
+    centralHeader.writeUInt16LE(20, 6);
+    centralHeader.writeUInt16LE(0x0800, 8);
+    centralHeader.writeUInt16LE(8, 10);
+    centralHeader.writeUInt16LE(dosTime, 12);
+    centralHeader.writeUInt16LE(dosDate, 14);
+    centralHeader.writeUInt32LE(checksum, 16);
+    centralHeader.writeUInt32LE(compressed.length, 20);
+    centralHeader.writeUInt32LE(data.length, 24);
+    centralHeader.writeUInt16LE(name.length, 28);
+    centralHeader.writeUInt32LE(offset, 42);
+    centralParts.push(centralHeader, name);
+
+    offset += localHeader.length + name.length + compressed.length;
+  }
+
+  const centralDirectory = Buffer.concat(centralParts);
+  const end = Buffer.alloc(22);
+  end.writeUInt32LE(0x06054b50, 0);
+  end.writeUInt16LE(files.length, 8);
+  end.writeUInt16LE(files.length, 10);
+  end.writeUInt32LE(centralDirectory.length, 12);
+  end.writeUInt32LE(offset, 16);
+
+  await writeFile(archivePath, Buffer.concat([...localParts, centralDirectory, end]));
+  return { fileCount: files.length };
+}
+
+function runWindowsExecutable(executable, args) {
+  return new Promise((resolvePromise, reject) => {
+    const child = spawn(executable, args, { stdio: "inherit" });
 
     child.once("error", reject);
     child.once("exit", (code, signal) => {
@@ -489,7 +633,7 @@ async function runPackageTool(executable, projectFile) {
 
       reject(
         new Error(
-          `FsPackageTool failed${signal ? ` with signal ${signal}` : ` with exit code ${code}`}.`
+          `${basename(executable)} failed${signal ? ` with signal ${signal}` : ` with exit code ${code}`}.`
         )
       );
     });
@@ -499,7 +643,7 @@ async function runPackageTool(executable, projectFile) {
 export async function buildRelease({
   version,
   stagingDirectory,
-  companionStagingDirectory,
+  companionPackageDirectory,
   releaseDirectory,
   sdkRoot,
 }) {
@@ -513,11 +657,6 @@ export async function buildRelease({
     releaseDirectory,
     releaseDirectoryName,
     "Release directory"
-  );
-  const companionStagingRoot = assertManagedWindowsDirectory(
-    companionStagingDirectory,
-    companionStagingDirectoryName,
-    "Companion staging directory"
   );
   const resolvedSdkRoot = resolve(sdkRoot ?? "");
   if (!/^\/mnt\/[a-z](?:\/|$)/i.test(resolvedSdkRoot)) {
@@ -541,15 +680,20 @@ export async function buildRelease({
     );
   }
 
-  await runPackageTool(packageTool, projectFile);
+  await runWindowsExecutable(packageTool, [
+    toWindowsPath(projectFile),
+    "-rebuild",
+    "-mirroring",
+    "-nopause",
+  ]);
   const verification = await verifyPackage(packageOutput, version);
   if (verification.manifest.package_version !== version) {
     throw new Error(
       `MSFS package version ${verification.manifest.package_version} does not match release ${version}.`
     );
   }
-  const companionVerification = await verifyCompanion(
-    companionStagingRoot,
+  const companionPackage = await verifyCompanionPackage(
+    companionPackageDirectory,
     version
   );
 
@@ -562,41 +706,26 @@ export async function buildRelease({
     await cp(packageOutput, join(temporaryTarget, packageName), {
       recursive: true,
     });
-    await cp(
-      companionStagingRoot,
-      join(temporaryTarget, companionName),
-      {
-        recursive: true,
-        filter: (source) => {
-          const sourceRelativePath = relative(companionStagingRoot, source);
-          if (!sourceRelativePath) {
-            return true;
-          }
-
-          const [topLevelName] = sourceRelativePath.split(sep);
-          // simconnect-path.txt is a machine-local path written by the
-          // staging deploy; the install step writes its own for the release.
-          return (
-            topLevelName !== "tools" &&
-            topLevelName !== ".vr-checklist-companion-staging.json" &&
-            topLevelName !== "simconnect-path.txt"
-          );
-        },
-      }
+    await createZipArchive(
+      join(temporaryTarget, packageName),
+      join(temporaryTarget, packageArchiveName(version))
     );
-    await verifyCompanion(join(temporaryTarget, companionName), version, {
-      forbidLocalPaths: true,
+    await cp(companionPackage.root, join(temporaryTarget, companionName), {
+      recursive: true,
     });
+    await verifyCompanionPackage(join(temporaryTarget, companionName), version);
     await writeFile(
       join(temporaryTarget, "release.json"),
       `${JSON.stringify(
         {
-          schemaVersion: 2,
+          schemaVersion: 3,
           packageName,
+          packageArchive: packageArchiveName(version),
           companionName,
+          companionSetup: companionSetupName,
           releaseVersion: version,
           packageVersion: verification.manifest.package_version,
-          companionVersion: companionVerification.version,
+          companionVersion: version,
           createdAt: new Date().toISOString(),
         },
         null,
@@ -609,7 +738,7 @@ export async function buildRelease({
   }
 
   return {
-    companionVersion: companionVerification.version,
+    companionVersion: version,
     packageVersion: verification.manifest.package_version,
     releaseTarget,
   };
@@ -640,7 +769,7 @@ export async function installRelease({
   const releaseTarget = join(releaseRoot, version);
   const metadata = await readJson(join(releaseTarget, "release.json"));
   if (
-    ![1, 2].includes(metadata.schemaVersion) ||
+    ![1, 2, 3].includes(metadata.schemaVersion) ||
     metadata.packageName !== packageName ||
     metadata.releaseVersion !== version
   ) {
@@ -679,11 +808,15 @@ export async function installRelease({
   };
 }
 
+/*
+ * Runs the release's Velopack setup unattended, exactly like a player's
+ * install. It installs to %LOCALAPPDATA%\VRChecklist.Companion, closes a
+ * running companion, and replaces an existing installation.
+ */
 export async function installCompanionRelease({
   version,
   releaseDirectory,
   installDirectory,
-  simConnectDirectory,
 }) {
   validateReleaseVersion(version);
   const releaseRoot = assertManagedWindowsDirectory(
@@ -695,122 +828,37 @@ export async function installCompanionRelease({
   const releaseTarget = join(releaseRoot, version);
   const metadata = await readJson(join(releaseTarget, "release.json"));
   if (
-    metadata.schemaVersion !== 2 ||
+    metadata.schemaVersion !== 3 ||
     metadata.companionName !== companionName ||
     metadata.releaseVersion !== version ||
     metadata.companionVersion !== version
   ) {
     throw new Error(
-      `Release metadata has no matching companion app for version ${version}.`
+      `Release metadata has no matching companion installer for version ${version}.`
     );
   }
 
   const releaseCompanion = join(releaseTarget, companionName);
-  await verifyCompanion(releaseCompanion, version);
+  await verifyCompanionPackage(releaseCompanion, version);
+  await runWindowsExecutable(join(releaseCompanion, companionSetupName), [
+    "--silent",
+  ]);
 
-  let simConnectWindowsPath;
-  if (simConnectDirectory) {
-    const resolvedSimConnectDirectory = resolve(simConnectDirectory);
-    if (!/^\/mnt\/[a-z](?:\/|$)/i.test(resolvedSimConnectDirectory)) {
-      throw new Error(
-        `SimConnect directory must be on a mounted Windows drive: ${simConnectDirectory}`
-      );
-    }
-    if (!(await pathExists(join(resolvedSimConnectDirectory, "SimConnect.dll")))) {
-      throw new Error(
-        `SimConnect.dll is missing from configured directory: ${resolvedSimConnectDirectory}`
-      );
-    }
-    simConnectWindowsPath = toWindowsPath(resolvedSimConnectDirectory);
-  }
-
-  if (await pathExists(installTarget)) {
-    const installStats = await lstat(installTarget);
-    if (!installStats.isDirectory() || installStats.isSymbolicLink()) {
-      throw new Error(
-        `Companion install target must be a real directory: ${installTarget}`
-      );
-    }
-
-    const entries = await readdir(installTarget);
-    if (entries.length > 0) {
-      const markerPath = join(installTarget, companionInstallMarkerName);
-      if (!(await pathExists(markerPath))) {
-        throw new Error(
-          `Refusing to replace non-empty, unmanaged companion install directory: ${installTarget}`
-        );
-      }
-      const existingMarker = await readJson(markerPath);
-      if (
-        existingMarker.managedBy !== "msfs2024-vr-checklist" ||
-        existingMarker.schemaVersion !== 1
-      ) {
-        throw new Error(
-          `Companion install marker is not owned by this project: ${markerPath}`
-        );
-      }
-    }
-  }
-
-  const installParent = dirname(installTarget);
-  const temporaryTarget = join(
-    installParent,
-    `.${companionInstallDirectoryName}.install-${process.pid}`
-  );
-  const backupTarget = join(
-    installParent,
-    `.${companionInstallDirectoryName}.backup-${process.pid}`
-  );
-  await mkdir(installParent, { recursive: true });
-  await rm(temporaryTarget, { force: true, recursive: true });
-  await rm(backupTarget, { force: true, recursive: true });
-
-  let previousInstallMoved = false;
-  try {
-    await cp(releaseCompanion, temporaryTarget, { recursive: true });
-    if (simConnectWindowsPath) {
-      await writeFile(
-        join(temporaryTarget, "simconnect-path.txt"),
-        `${simConnectWindowsPath}\n`
-      );
-    }
-    await writeFile(
-      join(temporaryTarget, companionInstallMarkerName),
-      `${JSON.stringify(
-        {
-          managedBy: "msfs2024-vr-checklist",
-          schemaVersion: 1,
-          version,
-        },
-        null,
-        2
-      )}\n`
+  const installedVersionPath = join(installTarget, "current", "VERSION");
+  if (!(await pathExists(installedVersionPath))) {
+    throw new Error(
+      `Setup did not install the companion to the configured directory: ${installTarget}`
     );
-    await verifyCompanion(temporaryTarget, version);
-
-    if (await pathExists(installTarget)) {
-      await rename(installTarget, backupTarget);
-      previousInstallMoved = true;
-    }
-
-    await rename(temporaryTarget, installTarget);
-    previousInstallMoved = false;
-    await rm(backupTarget, { force: true, recursive: true });
-  } catch (error) {
-    if (previousInstallMoved && !(await pathExists(installTarget))) {
-      await rename(backupTarget, installTarget);
-      previousInstallMoved = false;
-    }
-    throw error;
-  } finally {
-    await rm(temporaryTarget, { force: true, recursive: true });
-    if (!previousInstallMoved) {
-      await rm(backupTarget, { force: true, recursive: true });
-    }
+  }
+  const installedVersion = (await readFile(installedVersionPath, "utf8")).trim();
+  if (installedVersion !== version) {
+    throw new Error(
+      `Installed companion version ${installedVersion} does not match release ${version}.`
+    );
   }
 
   return {
     installTarget,
-    companionVersion: version,
+    companionVersion: installedVersion,
   };
 }

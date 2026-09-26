@@ -30,16 +30,27 @@ sind dokumentiert.
 
 ## Installation und Start
 
-Derzeit ist der unterstützte Weg ein lokaler Build aus WSL2 mit installiertem
-MSFS-2024-SDK. Die [Entwicklungsanleitung](docs/development.md) beschreibt die
-Einrichtung; [Release und Installation](docs/release.md) erklären das
-Community-Paket und die Companion-EXE.
+Ein Release besteht aus zwei Dateien derselben Version. EFB-App und Companion
+immer gemeinsam aktualisieren, sonst bleiben die Ansagen stumm.
+
+1. **EFB-App:** `patulm-vr-checklist-X.Y.Z.zip` in den Community-Ordner von
+   MSFS 2024 entpacken, sodass dort der Ordner `patulm-vr-checklist` liegt.
+   Vor einem Update den alten Ordner löschen.
+2. **Companion (optional):** `VRChecklist.Companion-win-Setup.exe` ausführen.
+   Es installiert ohne Adminrechte unter `%LOCALAPPDATA%\VRChecklist.Companion`
+   und legt Verknüpfungen auf dem Desktop und im Startmenü an. .NET, das
+   MSFS-SDK oder eine eigene `SimConnect.dll` sind nicht nötig. Das Setup ist
+   nicht signiert; bei der SmartScreen-Warnung **Weitere Informationen** und
+   dann **Trotzdem ausführen** wählen. Deinstallation über die Windows-Apps-Liste;
+   Einstellungen bleiben dabei erhalten.
 
 Nach der Installation im EFB **VR Checklist** öffnen. Die App funktioniert
 ohne laufenden Companion. Für Sprachausgabe und zum Konfigurieren der
-Bestätigungsaktionen zusätzlich
-`VRChecklist.Companion.exe` starten. Die Windows-Voraussetzungen stehen unter
+Bestätigungsaktionen zusätzlich **VR Checklist Companion** starten. Hinweise
+bei Problemen stehen unter
 [Companion: Start und Diagnose](companion/README.md#start-und-diagnose).
+Eigene Builds beschreiben [Entwicklung](docs/development.md) und
+[Release](docs/release.md).
 
 ## Bedienung
 

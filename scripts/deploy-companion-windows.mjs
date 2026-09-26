@@ -47,8 +47,8 @@ const positionalArguments = process.argv
 const stagingArgument =
   positionalArguments[0] ??
   "/mnt/c/dev/msfs2024-vr-checklist-companion-staging";
-// Optional: the SDK directory holding SimConnect.dll. The staging never
-// contains the DLL itself (ADR 0004); like the release install it only gets a
+// Optional: the SDK directory holding SimConnect.dll. Unlike the release
+// package, the staging does not copy the DLL; it only gets a
 // simconnect-path.txt so the EXE and the probe start without an environment
 // variable.
 const simConnectArgument = positionalArguments[1];

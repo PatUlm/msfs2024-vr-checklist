@@ -20,7 +20,9 @@ ist von den Bedingungen der hier aufgeführten Drittkomponenten getrennt.
 | `@efb/efb-api` | 1.0.3 | MIT laut Paketdeklaration; Bewertung in R2 | kopiertes [`package.json`](../msfs/PackageSources/efb_api/package.json) aus MSFS SDK 1.7.3; [Prüfbefund R2](license-audit.md#r2--sdk-nachweise-und-mit-angaben-reichen-noch-nicht) |
 | `@microsoft/msfs-sdk` | 2.1.1 | MIT laut Paketdeklaration; Bewertung in R2 | [Microsoft-Lizenz mit Zusatz](https://github.com/microsoft/msfs-avionics-mirror/blob/366be5056166c639a2189e09e5af7143174fd910/LICENSE); [Prüfbefund R2](license-audit.md#r2--sdk-nachweise-und-mit-angaben-reichen-noch-nicht) |
 | `@microsoft/msfs-types` | 1.14.6 | MIT laut Paketdeklaration; Bewertung in R2 | [Microsoft MSFS Avionics Mirror](https://github.com/microsoft/msfs-avionics-mirror); [Prüfbefund R2](license-audit.md#r2--sdk-nachweise-und-mit-angaben-reichen-noch-nicht) |
-| .NET Runtime | 10.0 | MIT | [dotnet/runtime](https://github.com/dotnet/runtime/blob/main/LICENSE.TXT) |
+| .NET Runtime (`Microsoft.NETCore.App.Runtime.win-x64`), im Companion-Setup self-contained | 10.0.10 | MIT und mitgelieferte Drittanbieterhinweise | [LICENSE.TXT](https://github.com/dotnet/runtime/blob/main/LICENSE.TXT), [THIRD-PARTY-NOTICES.TXT](https://github.com/dotnet/runtime/blob/main/THIRD-PARTY-NOTICES.TXT); [Prüfbefund R1](license-audit.md#r1--lizenztexte-fehlen-in-der-distribution) |
+| `SimConnect.dll` (nativ, x64), im Companion-Setup | MSFS 2024 SDK 1.7.3 | Microsoft-SDK-EULA; siehe Hinweis unten | [SDK-EULA](https://docs.flightsimulator.com/msfs2024/html/1_Introduction/SDK_EULA.htm) |
+| `Velopack` einschließlich `Update.exe` und Setup-Stub | 1.2.158 | MIT | [Velopack license](https://github.com/velopack/velopack/blob/1.2.158/LICENSE) |
 | Avalonia UI Runtime-Familie (`Avalonia`, `Avalonia.HarfBuzz`, `Avalonia.Remote.Protocol`, `Avalonia.Skia`, `Avalonia.Themes.Fluent`, `Avalonia.Win32` einschließlich aller daraus ausgelieferten `Avalonia*.dll`) | 12.1.1 | MIT | [Avalonia license](https://github.com/AvaloniaUI/Avalonia/blob/e33eaed9c106846b200680751022385d9cc5dc6f/licence.md) |
 | SkiaSharp einschließlich Win32-Native-Assets | 3.119.4 | MIT für Wrapper; zusätzliche native Drittbedingungen | `LICENSE.txt` und `THIRD-PARTY-NOTICES.txt` im [Win32-Originalpaket](https://api.nuget.org/v3-flatcontainer/skiasharp.nativeassets.win32/3.119.4/skiasharp.nativeassets.win32.3.119.4.nupkg); [Prüfbefund R1](license-audit.md#r1--lizenztexte-fehlen-in-der-distribution) |
 | HarfBuzzSharp einschließlich Win32-Native-Assets | 8.3.1.3 | MIT für Wrapper; zusätzliche native Drittbedingungen, insbesondere HarfBuzz Old MIT | `LICENSE.txt` und `THIRD-PARTY-NOTICES.txt` im [Win32-Originalpaket](https://api.nuget.org/v3-flatcontainer/harfbuzzsharp.nativeassets.win32/8.3.1.3/harfbuzzsharp.nativeassets.win32.8.3.1.3.nupkg) |
@@ -35,15 +37,21 @@ ist von den Bedingungen der hier aufgeführten Drittkomponenten getrennt.
 `@microsoft/msfs-sdk` wird beim App-Build als Simulator-Global behandelt;
 `@microsoft/msfs-types` liefert ausschließlich Typen. Die EFB-API wird aus der
 bewusst versionierten SDK-Kopie unter `msfs/PackageSources/efb_api/dist/`
-bezogen. Begleit-App und Phase-3-Transporttest sind frameworkabhängig und
-liefern die .NET-Laufzeit nicht mit aus. Das NuGet-Lockfile der Begleit-App
-fixiert auch die ausgelieferten nativen Grafik- und Textkomponenten. Die
+bezogen. Das Companion-Setup liefert die .NET-Laufzeit self-contained mit;
+Entwicklungs-Staging und Transporttest bleiben frameworkabhängig. Das
+NuGet-Lockfile der Begleit-App fixiert auch die ausgelieferten nativen Grafik- und Textkomponenten. Die
 Runtime-Familien in dieser Tabelle wurden gegen die Paketzuordnung in
 `VRChecklist.Companion.deps.json` und die Dateien des Companion-Releases
-`0.13.3` abgeglichen. Der .NET-Apphost der Companion-EXE wird trotz externer
-Runtime mitgeliefert und ist beim Lizenzhinweisumfang zu berücksichtigen.
+`0.13.3` abgeglichen.
 Projekteigene `VRChecklist.*`-Assemblies und Metadaten sind
 keine Drittkomponenten; Debugsymbole werden nicht ausgeliefert.
+
+`SimConnect.dll` stammt unverändert aus dem MSFS-2024-SDK. Die SDK-EULA regelt
+ihre Weitergabe nicht ausdrücklich. Das Projekt liefert sie nicht kommerziell
+mit einer kostenlosen Erweiterung aus; das entspricht gängiger Praxis bei
+MSFS-Add-ons. Asobo und Microsoft haben auf entsprechende Fragen im
+DevSupport-Forum bisher nicht reagiert, obwohl sie das SDK ausdrücklich zur
+Erweiterung von MSFS 2024 bereitstellen.
 
 ## Direkte Build-Abhängigkeiten
 
@@ -66,6 +74,7 @@ ausgeliefert.
 | `postcss-url` | 10.1.4 | MIT | [Repository](https://github.com/postcss/postcss-url) |
 | `prettier` | 2.8.8 | MIT | [Repository](https://github.com/prettier/prettier) |
 | `typescript` | 5.6.3 | Apache-2.0 | [Repository](https://github.com/microsoft/TypeScript) |
+| `vpk` (Velopack CLI), in `companion/.config/dotnet-tools.json` fixiert | 1.2.158 | MIT | [Velopack](https://github.com/velopack/velopack/blob/1.2.158/LICENSE) |
 | .NET SDK Build-Container | 10.0.302 | MIT | [Microsoft Artifact Registry](https://mcr.microsoft.com/en-us/artifact/mar/dotnet/sdk/tag/10.0.302) und [dotnet/sdk](https://github.com/dotnet/sdk/blob/main/LICENSE.TXT) |
 
 Zusätzliche transitive Build-Abhängigkeit des Companions:

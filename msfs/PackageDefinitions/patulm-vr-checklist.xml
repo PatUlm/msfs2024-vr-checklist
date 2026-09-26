@@ -28,5 +28,13 @@
 			<AssetDir>PackageSources\VRChecklist\dist\</AssetDir>
 			<OutputDir>.\html_ui\efb_ui\efb_apps\VRChecklist\</OutputDir>
 		</AssetGroup>
+		<AssetGroup Name="licenses">
+			<Type Version="0">Copy</Type>
+			<Flags>
+				<FSXCompatibility>false</FSXCompatibility>
+			</Flags>
+			<AssetDir>PackageSources\Licenses\</AssetDir>
+			<OutputDir>.\</OutputDir>
+		</AssetGroup>
 	</AssetGroups>
 </AssetPackage>

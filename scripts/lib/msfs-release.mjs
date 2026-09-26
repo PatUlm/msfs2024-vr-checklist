@@ -14,6 +14,11 @@ import {
 import { basename, dirname, join, relative, resolve, sep } from "node:path";
 import { spawn } from "node:child_process";
 import { crc32, deflateRawSync } from "node:zlib";
+import {
+  companionNoticeProblems,
+  readNotices,
+  writeLicenseFiles,
+} from "./notices.mjs";
 
 export const packageName = "patulm-vr-checklist";
 export const companionName = "VRChecklist.Companion";
@@ -387,6 +392,11 @@ export async function verifyPackage(packageRoot, expectedReleaseVersion) {
       throw new Error(`Required release file is missing: ${suffix}`);
     }
   }
+  for (const licenseFile of ["LICENSE.txt", "THIRD-PARTY-NOTICES.txt"]) {
+    if (!packageFiles.includes(licenseFile)) {
+      throw new Error(`Package root is missing ${licenseFile}.`);
+    }
+  }
 
   const sourceMap = packageFiles.find((file) => file.toLowerCase().endsWith(".map"));
   if (sourceMap) {
@@ -428,7 +438,9 @@ export async function verifyCompanion(companionRoot, expectedReleaseVersion) {
     `${companionName}.deps.json`,
     `${companionName}.runtimeconfig.json`,
     "SimConnect.dll",
-    "THIRD-PARTY-NOTICES.md",
+    "LICENSE.txt",
+    "THIRD-PARTY-NOTICES.txt",
+    "AUDIO-LICENSE.txt",
     "VERSION",
   ];
 
@@ -477,7 +489,7 @@ export async function prepareCompanionRelease({
   version,
   publishDirectory,
   sdkRoot,
-  noticesFile,
+  repositoryRoot,
 }) {
   validateReleaseVersion(version);
   const publishRoot = resolve(publishDirectory ?? "");
@@ -495,7 +507,6 @@ export async function prepareCompanionRelease({
   for (const requiredPath of [
     join(publishRoot, `${companionName}.exe`),
     simConnectLibrary,
-    noticesFile,
   ]) {
     if (!(await pathExists(requiredPath))) {
       throw new Error(`Required companion release input is missing: ${requiredPath}`);
@@ -508,7 +519,17 @@ export async function prepareCompanionRelease({
     }
   }
   await cp(simConnectLibrary, join(publishRoot, "SimConnect.dll"));
-  await cp(noticesFile, join(publishRoot, "THIRD-PARTY-NOTICES.md"));
+  const notices = await readNotices(repositoryRoot);
+  const problems = companionNoticeProblems(
+    notices,
+    await readJson(join(publishRoot, `${companionName}.deps.json`))
+  );
+  if (problems.length > 0) {
+    throw new Error(
+      `Update licenses/notices.json for the shipped packages: ${problems.join("; ")}`
+    );
+  }
+  await writeLicenseFiles(publishRoot, repositoryRoot, notices, "companion");
   await writeFile(join(publishRoot, "VERSION"), `${version}\n`);
 
   return verifyCompanion(publishRoot, version);

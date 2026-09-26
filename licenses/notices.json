@@ -1,0 +1,151 @@
+{
+  "schemaVersion": 1,
+  "components": [
+    {
+      "id": "avalonia",
+      "name": "Avalonia",
+      "version": "12.1.1",
+      "license": "MIT",
+      "source": "https://github.com/AvaloniaUI/Avalonia/tree/e33eaed9c106846b200680751022385d9cc5dc6f",
+      "artifacts": ["companion"],
+      "packages": [
+        "Avalonia",
+        "Avalonia.HarfBuzz",
+        "Avalonia.Remote.Protocol",
+        "Avalonia.Skia",
+        "Avalonia.Themes.Fluent",
+        "Avalonia.Win32"
+      ],
+      "texts": ["LICENSE.md"]
+    },
+    {
+      "id": "avalonia-angle",
+      "name": "Avalonia ANGLE Windows Natives",
+      "version": "2.1.27548.20260419",
+      "license": "BSD-3-Clause",
+      "source": "https://github.com/AvaloniaUI/angle/tree/1c89805903c1482166356d3b950d474973180e61",
+      "artifacts": ["companion"],
+      "packages": ["Avalonia.Angle.Windows.Natives"],
+      "texts": ["LICENSE"]
+    },
+    {
+      "id": "concentus",
+      "name": "Concentus",
+      "version": "2.2.2",
+      "license": "BSD-3-Clause",
+      "source": "https://github.com/lostromb/concentus/tree/6c2328dc19044601e33a9c11628b8d60e1f3011c",
+      "artifacts": ["companion"],
+      "packages": ["Concentus"],
+      "texts": ["LICENSE"]
+    },
+    {
+      "id": "concentus-oggfile",
+      "name": "Concentus.Oggfile",
+      "version": "1.0.7",
+      "license": "MIT",
+      "source": "https://github.com/lostromb/concentus.oggfile/tree/27c3125205ddcd891822a398284b246636fafb94",
+      "artifacts": ["companion"],
+      "packages": ["Concentus.Oggfile"],
+      "texts": ["LICENSE"]
+    },
+    {
+      "id": "harfbuzzsharp",
+      "name": "HarfBuzzSharp",
+      "version": "8.3.1.3",
+      "license": "MIT; bundled native components under the licenses listed in THIRD-PARTY-NOTICES.txt",
+      "source": "https://github.com/mono/SkiaSharp/tree/2888c737ad016d584c74525e2d35db5097ea8576",
+      "artifacts": ["companion"],
+      "packages": ["HarfBuzzSharp", "HarfBuzzSharp.NativeAssets.Win32"],
+      "texts": ["LICENSE.txt", "THIRD-PARTY-NOTICES.txt"]
+    },
+    {
+      "id": "microcom",
+      "name": "MicroCom.Runtime",
+      "version": "0.11.6",
+      "license": "MIT",
+      "source": "https://github.com/kekekeks/MicroCom/tree/76785efcafd91b5902fd19dd11145f6dd655b7b4",
+      "artifacts": ["companion"],
+      "packages": ["MicroCom.Runtime"],
+      "texts": ["LICENSE"]
+    },
+    {
+      "id": "naudio",
+      "name": "NAudio",
+      "version": "3.1.0",
+      "license": "MIT",
+      "source": "https://github.com/naudio/NAudio/tree/0aaef29d04bec9567bdf2f669036fabecc33a2e2",
+      "artifacts": ["companion"],
+      "packages": ["NAudio.Core", "NAudio.Wasapi"],
+      "texts": ["LICENSE"]
+    },
+    {
+      "id": "skiasharp",
+      "name": "SkiaSharp",
+      "version": "3.119.4",
+      "license": "MIT; bundled native components under the licenses listed in THIRD-PARTY-NOTICES.txt",
+      "source": "https://github.com/mono/SkiaSharp/tree/f568ac94dd768ef9a2f593537cfde2dd0d348ef5",
+      "artifacts": ["companion"],
+      "packages": ["SkiaSharp", "SkiaSharp.NativeAssets.Win32"],
+      "texts": ["LICENSE.txt", "THIRD-PARTY-NOTICES.txt"],
+      "note": "Where these notices offer a choice of licenses, FreeType is used under the FreeType License and Mozilla-derived code under the Mozilla Public License 1.1. The corresponding source code is available at https://github.com/mono/SkiaSharp/tree/f568ac94dd768ef9a2f593537cfde2dd0d348ef5 and https://github.com/mono/skia/tree/7dbfc07dd33181f84e0958afb7ee805c6c769f0b."
+    },
+    {
+      "id": "system-numerics-tensors",
+      "name": "System.Numerics.Tensors",
+      "version": "9.0.0",
+      "license": "MIT",
+      "source": "https://github.com/dotnet/runtime/tree/9d5a6a9aa463d6d10b0b0ba6d5982cc82f363dc3",
+      "artifacts": ["companion"],
+      "packages": ["System.Numerics.Tensors"],
+      "texts": ["LICENSE.TXT", "THIRD-PARTY-NOTICES.TXT"]
+    },
+    {
+      "id": "dotnet-runtime",
+      "name": ".NET Runtime",
+      "version": "10.0.10",
+      "license": "MIT",
+      "source": "https://github.com/dotnet/dotnet/tree/f7d90799ce4ef09a0bb257852a57248d2a8fb8dd",
+      "artifacts": ["companion"],
+      "packages": ["runtimepack.Microsoft.NETCore.App.Runtime.win-x64"],
+      "texts": ["LICENSE.TXT", "THIRD-PARTY-NOTICES.TXT"]
+    },
+    {
+      "id": "velopack",
+      "name": "Velopack",
+      "version": "1.2.158",
+      "license": "MIT; statically linked components under the licenses listed below",
+      "source": "https://github.com/velopack/velopack/tree/3c7f52c1bf17d10ad21b794b006d5ebd1a879a3b",
+      "artifacts": ["companion"],
+      "packages": ["Velopack"],
+      "texts": [
+        "LICENSE",
+        "rust-crates.txt",
+        "zstd-LICENSE",
+        "WebView2-LICENSE.txt",
+        "WebView2-NOTICE.txt"
+      ],
+      "note": "Setup, Update.exe and the application stub are built from Velopack 1.2.158. They statically link the Rust crates listed in rust-crates.txt, the Zstandard library (used under its BSD license) and the Microsoft Edge WebView2 loader from WebView2 SDK 1.0.3800.47."
+    },
+    {
+      "id": "simconnect",
+      "name": "SimConnect",
+      "version": "(MSFS 2024 SDK 1.7.3)",
+      "license": "Microsoft Flight Simulator SDK license terms",
+      "source": "https://docs.flightsimulator.com/msfs2024/html/1_Introduction/SDK_EULA.htm",
+      "artifacts": ["companion"],
+      "texts": [],
+      "note": "SimConnect.dll is redistributed from the Microsoft Flight Simulator 2024 SDK so that the companion can connect to the simulator. Microsoft reserves all rights not expressly granted."
+    },
+    {
+      "id": "efb-api",
+      "name": "@efb/efb-api",
+      "version": "1.0.3",
+      "license": "MIT, as declared in its package.json",
+      "source": "Microsoft Flight Simulator 2024 SDK 1.7.3, Samples/DevmodeProjects/EFB/PackageSources/efb_api",
+      "artifacts": ["efb"],
+      "packageJson": "msfs/PackageSources/efb_api/package.json",
+      "texts": ["LICENSE"],
+      "note": "The EFB API by Asobo Studio is bundled into the app script. Its package.json declares the MIT license but ships no license text or copyright line; the MIT License text is reproduced below."
+    }
+  ]
+}

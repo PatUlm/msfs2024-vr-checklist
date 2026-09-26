@@ -30,6 +30,11 @@ import {
   verifyCompanionPackage,
   verifyPackage,
 } from "./lib/msfs-release.mjs";
+import {
+  companionNoticeProblems,
+  readNotices,
+  renderNotices,
+} from "./lib/notices.mjs";
 import { validateReleaseNotes } from "./lib/release-notes.mjs";
 
 const temporaryRoots = [];
@@ -293,6 +298,8 @@ test("package verification checks layout, release version, and source maps", asy
       "html_ui/efb_ui/efb_apps/VRChecklist/VRChecklist.js",
       'const version="0.1.1";',
     ],
+    ["LICENSE.txt", "license"],
+    ["THIRD-PARTY-NOTICES.txt", "notices"],
   ]);
 
   for (const [path, content] of files) {
@@ -316,7 +323,7 @@ test("package verification checks layout, release version, and source maps", asy
   );
 
   const result = await verifyPackage(packageRoot, "0.1.1");
-  assert.equal(result.fileCount, 4);
+  assert.equal(result.fileCount, 6);
   assert.equal(result.manifest.package_version, "0.1.1");
 
   const mapPath = join(
@@ -358,7 +365,9 @@ test("companion verification requires the bundled SimConnect and no local path",
     `${companionName}.dll`,
     `${companionName}.deps.json`,
     `${companionName}.runtimeconfig.json`,
-    "THIRD-PARTY-NOTICES.md",
+    "LICENSE.txt",
+    "THIRD-PARTY-NOTICES.txt",
+    "AUDIO-LICENSE.txt",
   ]) {
     await writeFile(join(root, fileName), fileName);
   }
@@ -376,6 +385,66 @@ test("companion verification requires the bundled SimConnect and no local path",
     () => verifyCompanion(root, "0.3.0"),
     /forbidden file: simconnect-path\.txt/
   );
+});
+
+test("third-party notices cover exactly the shipped companion packages", async () => {
+  const notices = await readNotices(repositoryRoot);
+  const library = (type) => ({ type });
+  const depsJson = (packages) => ({
+    targets: {
+      ".NETCoreApp,Version=v10.0": {},
+      ".NETCoreApp,Version=v10.0/win-x64": Object.fromEntries(
+        packages.map(([name, entry]) => [name, entry])
+      ),
+    },
+    libraries: Object.fromEntries(
+      packages.map(([name]) => [name, library(name.startsWith("VRChecklist") ? "project" : "package")])
+    ),
+  });
+  const shipped = notices.components
+    .filter((component) => component.artifacts.includes("companion"))
+    .flatMap((component) =>
+      (component.packages ?? []).map((name) => [
+        `${name}/${component.version}`,
+        { runtime: { [`lib/${name}.dll`]: {} } },
+      ])
+    );
+
+  assert.deepEqual(
+    companionNoticeProblems(notices, depsJson([
+      ...shipped,
+      ["VRChecklist.Transport/0.16.0", { runtime: { "VRChecklist.Transport.dll": {} } }],
+      ["Build.Only/1.0.0", {}],
+    ])),
+    []
+  );
+  assert.deepEqual(
+    companionNoticeProblems(notices, depsJson([
+      ...shipped.filter(([name]) => !name.startsWith("Concentus/")),
+      ["Concentus/9.9.9", { runtime: { "lib/Concentus.dll": {} } }],
+      ["New.Package/1.0.0", { native: { "new.dll": {} } }],
+    ])),
+    [
+      "Concentus/9.9.9 has a notice for version 2.2.2",
+      "New.Package/1.0.0 has no license notice",
+    ]
+  );
+  assert.deepEqual(
+    companionNoticeProblems(notices, depsJson(shipped.filter(([name]) => !name.startsWith("Velopack/")))),
+    ["notice for Velopack matches no shipped package"]
+  );
+});
+
+test("rendered notices list every component and reproduce identical texts once", async () => {
+  const notices = await readNotices(repositoryRoot);
+  const companion = await renderNotices(repositoryRoot, notices, "companion");
+  for (const component of notices.components.filter((entry) => entry.artifacts.includes("companion"))) {
+    assert.match(companion, new RegExp(`^- ${component.name.replace(/[.+]/g, "\\$&")} `, "m"));
+  }
+  assert.match(companion, /SkiaSharp: THIRD-PARTY-NOTICES\.txt\n\nIdentical to HarfBuzzSharp: THIRD-PARTY-NOTICES\.txt above\./);
+  const efb = await renderNotices(repositoryRoot, notices, "efb");
+  assert.match(efb, /^- @efb\/efb-api 1\.0\.3: MIT/m);
+  assert.doesNotMatch(efb, /Avalonia/);
 });
 
 test("companion package verification requires setup and a matching update feed", async () => {

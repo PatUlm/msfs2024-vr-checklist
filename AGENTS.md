@@ -159,7 +159,8 @@ ADR-Übersichten enthalten nur Links und Themen; die Gültigkeit steht im ADR.
   Einzeiler. Das Changelog bleibt die vollständige Produktchronik.
 - Neue/aktualisierte direkte Abhängigkeiten und ausgelieferte Drittkomponenten
   im selben Arbeitsgang in `docs/third-party-licenses.md` mit Version, Lizenz
-  und Primärquelle nachführen.
+  und Primärquelle nachführen, ausgelieferte zusätzlich mit ihren Lizenztexten
+  unter `licenses/`.
 
 ## Quellen und generierte Dateien
 

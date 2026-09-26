@@ -7,6 +7,11 @@ Changelog, and the project uses Semantic Versioning.
 
 ## [Unreleased]
 
+### Added
+
+- Both downloads now include the license texts of the project and of all
+  bundled third-party components.
+
 ### Changed
 
 - The EFB app now ships as a ZIP to extract into the Community folder. The

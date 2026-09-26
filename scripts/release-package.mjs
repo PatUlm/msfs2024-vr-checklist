@@ -37,7 +37,7 @@ if (command === "current-version") {
     version,
     publishDirectory: process.env.VR_CHECKLIST_RELEASE_COMPANION_PUBLISH_DIR,
     sdkRoot: process.env.VR_CHECKLIST_RELEASE_SDK_ROOT,
-    noticesFile: resolve(repositoryRoot, "docs", "third-party-licenses.md"),
+    repositoryRoot,
   });
   console.log(
     `Prepared companion ${result.version} with ${result.fileCount} files for packaging`

@@ -11,6 +11,7 @@ import {
 import { basename, dirname, isAbsolute, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { toWindowsPath } from "./lib/msfs-release.mjs";
+import { readNotices, writeLicenseFiles } from "./lib/notices.mjs";
 
 const stagingDirectoryName =
   "msfs2024-vr-checklist-companion-staging";
@@ -224,9 +225,11 @@ try {
     join(tempRoot, "VERSION"),
     await readFile(join(repositoryRoot, "VERSION"), "utf8")
   );
-  await cp(
-    join(repositoryRoot, "docs", "third-party-licenses.md"),
-    join(tempRoot, "THIRD-PARTY-NOTICES.md")
+  await writeLicenseFiles(
+    tempRoot,
+    repositoryRoot,
+    await readNotices(repositoryRoot),
+    "companion"
   );
   try {
     await rm(stagingRoot, { force: true, recursive: true });

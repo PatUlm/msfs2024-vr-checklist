@@ -53,6 +53,11 @@ und den Update-Feed `releases.win.json`. Für spätere Updates müssen Setup,
 `.nupkg` und `releases.win.json` gemeinsam am GitHub-Release hängen. Bereits
 vorhandene Versionen werden nicht überschrieben.
 
+Beide Artefakte enthalten `LICENSE.txt` und die aus [licenses/](../licenses/README.md)
+erzeugten `THIRD-PARTY-NOTICES.txt`, das EFB-Paket in seiner Wurzel, der
+Companion zusätzlich `AUDIO-LICENSE.txt`. `task release` bricht ab, wenn ein
+ausgeliefertes Paket keinen passenden Eintrag in `licenses/notices.json` hat.
+
 Anschließend entfernt `task release` ältere Releases, einzeln aufrufbar als
 `task release:prune`. Erhalten bleiben die drei neuesten `MAJOR.MINOR`-Linien
 mit allen Patches und das in `Community2024` verlinkte Release.

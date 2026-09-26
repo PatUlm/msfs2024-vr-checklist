@@ -10,6 +10,11 @@ import {
 } from "node:fs/promises";
 import { basename, dirname, isAbsolute, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
+import {
+  efbNoticeProblems,
+  readNotices,
+  writeLicenseFiles,
+} from "./lib/notices.mjs";
 
 const stagingDirectoryName = "msfs2024-vr-checklist-staging";
 const markerFileName = ".vr-checklist-staging.json";
@@ -134,23 +139,42 @@ async function prepareDeployment(tempRoot) {
     join(brandingSourceRoot, "content-info-thumbnail.jpg"),
     join(tempRoot, "Branding", "ContentInfo", "thumbnail.jpg")
   );
+
+  // The package definition copies these license files into the package root.
+  const notices = await readNotices(repositoryRoot);
+  const problems = await efbNoticeProblems(repositoryRoot, notices);
+  if (problems.length > 0) {
+    throw new Error(
+      `Update licenses/notices.json for the EFB app: ${problems.join("; ")}`
+    );
+  }
+  await mkdir(join(tempRoot, "PackageSources", "Licenses"), { recursive: true });
+  await writeLicenseFiles(
+    join(tempRoot, "PackageSources", "Licenses"),
+    repositoryRoot,
+    notices,
+    "efb"
+  );
 }
 
 async function replaceManagedInputs(tempRoot) {
   const targetProject = join(stagingRoot, "VRChecklistProject.xml");
   const targetDefinitions = join(stagingRoot, "PackageDefinitions");
   const targetApp = join(stagingRoot, "PackageSources", "VRChecklist");
+  const targetLicenses = join(stagingRoot, "PackageSources", "Licenses");
   const targetBranding = join(stagingRoot, "Branding");
 
   await rm(targetProject, { force: true });
   await rm(targetDefinitions, { force: true, recursive: true });
   await rm(targetApp, { force: true, recursive: true });
+  await rm(targetLicenses, { force: true, recursive: true });
   await rm(targetBranding, { force: true, recursive: true });
 
   await mkdir(join(stagingRoot, "PackageSources"), { recursive: true });
   await rename(join(tempRoot, "VRChecklistProject.xml"), targetProject);
   await rename(join(tempRoot, "PackageDefinitions"), targetDefinitions);
   await rename(join(tempRoot, "PackageSources", "VRChecklist"), targetApp);
+  await rename(join(tempRoot, "PackageSources", "Licenses"), targetLicenses);
   await rename(join(tempRoot, "Branding"), targetBranding);
   await writeFile(
     join(stagingRoot, markerFileName),

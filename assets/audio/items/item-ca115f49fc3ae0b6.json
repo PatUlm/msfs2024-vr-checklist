@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "file": "item-ca115f49fc3ae0b6.opus",
+  "sha256": "785feabe95b83a96ce93b18897723723d86393d2998c4080bac24324fff45a85",
+  "recipeHash": "ca115f49fc3ae0b6f1a31c9a9ad72dd9b924cb34f0ff9cd93879c900667f3a81",
+  "recipe": {
+    "voiceId": "nPczCjzI2devNBz1zQrb",
+    "request": {
+      "text": "After Takeoff Checklist. Gear: Up",
+      "model_id": "eleven_multilingual_v2",
+      "voice_settings": {
+        "stability": 0.75,
+        "similarity_boost": 0.75,
+        "style": 0,
+        "use_speaker_boost": true,
+        "speed": 1
+      },
+      "seed": 9172026
+    },
+    "sourceFormat": "mp3_44100_128",
+    "profile": "clean",
+    "normalization": "loudnorm=I=-20:TP=-2:LRA=11",
+    "format": "ogg-opus-mono-48000-32k",
+    "revision": 1
+  },
+  "generatedAt": "2026-09-26T13:31:37.448Z",
+  "provider": "ElevenLabs",
+  "voice": "Brian",
+  "generationPlan": "paid",
+  "planEvidence": "Operator confirmed active Starter subscription before rendering.",
+  "requestId": "VnhKzBG6mf5ZaxpemB4f",
+  "characterCost": "16",
+  "ffmpegVersion": "ffmpeg version 6.1.1-3ubuntu5 Copyright (c) 2000-2023 the FFmpeg developers",
+  "licenseNotice": "../README.md"
+}

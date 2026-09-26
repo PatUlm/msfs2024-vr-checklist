@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "file": "item-187e64b52c6b1fa2.opus",
+  "sha256": "e686a569f1808d615ff510426d84823d8151e351f6f10ddfe9d0088616fcd88e",
+  "recipeHash": "187e64b52c6b1fa2abefcd2c12966d24c90c9ea8f0625ef5f32775bf543e4f94",
+  "recipe": {
+    "voiceId": "nPczCjzI2devNBz1zQrb",
+    "request": {
+      "text": "Fuel Pumps: All Off",
+      "model_id": "eleven_multilingual_v2",
+      "voice_settings": {
+        "stability": 0.75,
+        "similarity_boost": 0.75,
+        "style": 0,
+        "use_speaker_boost": true,
+        "speed": 1
+      },
+      "seed": 9172026
+    },
+    "sourceFormat": "mp3_44100_128",
+    "profile": "clean",
+    "normalization": "loudnorm=I=-20:TP=-2:LRA=11",
+    "format": "ogg-opus-mono-48000-32k",
+    "revision": 1
+  },
+  "generatedAt": "2026-09-26T13:31:50.830Z",
+  "provider": "ElevenLabs",
+  "voice": "Brian",
+  "generationPlan": "paid",
+  "planEvidence": "Operator confirmed active Starter subscription before rendering.",
+  "requestId": "ncSUoqHe2W2bgyOhpCQ1",
+  "characterCost": "10",
+  "ffmpegVersion": "ffmpeg version 6.1.1-3ubuntu5 Copyright (c) 2000-2023 the FFmpeg developers",
+  "licenseNotice": "../README.md"
+}

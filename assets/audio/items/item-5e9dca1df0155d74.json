@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "file": "item-5e9dca1df0155d74.opus",
+  "sha256": "f43a4f5df2eb5aadc8c9b051cf0c4f2beb1e7b84de06028882302b5f897a08fd",
+  "recipeHash": "5e9dca1df0155d74e61d37ae4a8a7d0dc8531111251f264cc997bb8dd287d01d",
+  "recipe": {
+    "voiceId": "nPczCjzI2devNBz1zQrb",
+    "request": {
+      "text": "Landing Checklist. Flaps: Set",
+      "model_id": "eleven_multilingual_v2",
+      "voice_settings": {
+        "stability": 0.75,
+        "similarity_boost": 0.75,
+        "style": 0,
+        "use_speaker_boost": true,
+        "speed": 1
+      },
+      "seed": 9172026
+    },
+    "sourceFormat": "mp3_44100_128",
+    "profile": "clean",
+    "normalization": "loudnorm=I=-20:TP=-2:LRA=11",
+    "format": "ogg-opus-mono-48000-32k",
+    "revision": 1
+  },
+  "generatedAt": "2026-09-26T13:31:43.785Z",
+  "provider": "ElevenLabs",
+  "voice": "Brian",
+  "generationPlan": "paid",
+  "planEvidence": "Operator confirmed active Starter subscription before rendering.",
+  "requestId": "cDHno2lnqUGFRcF5DijH",
+  "characterCost": "15",
+  "ffmpegVersion": "ffmpeg version 6.1.1-3ubuntu5 Copyright (c) 2000-2023 the FFmpeg developers",
+  "licenseNotice": "../README.md"
+}

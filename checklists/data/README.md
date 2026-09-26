@@ -88,6 +88,8 @@ Anbieterzuordnung und Bewertung des geprüften Bestands fest.
   `BLOCK` bezeichnet den gesamten Kraftstoffvorrat zu Flugbeginn, siehe
   [Airbus: Fuel Leak Management](https://safetyfirst.airbus.com/fuel-leak-management-in-flight/).
   Die Ergänzung `T.O CONFIG` am ECAM-Bedienpanel folgt dem Ingame-Hinweis;
-  sie steht nach der Startkonfiguration der Klappen.
+  sie steht nach der Startkonfiguration der Klappen. Die Gruppen ab
+  `After Takeoff` folgen der iniBuilds-Quick-Reference-Card v1.0.0, mit den
+  bereits verwendeten Challenge-Namen und getrennten Items je Bedienelement.
 - Die G36-Checkliste ist bewusst eine minimale, unvollständige Merkliste
   ausgewählter Geschwindigkeiten, Klappen- und Fahrwerksstellungen.

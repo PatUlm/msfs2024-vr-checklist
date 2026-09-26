@@ -11,7 +11,7 @@
       }
     ]
   },
-  "revision": "2026-09-25",
+  "revision": "2026-09-26",
   "sections": [
     {
       "id": "electrical-power-up",
@@ -369,6 +369,257 @@
           "challenge": "Strobe Lights",
           "response": "On",
           "kind": "action"
+        }
+      ]
+    },
+    {
+      "id": "after-takeoff",
+      "title": "After Takeoff",
+      "phase": "Departure",
+      "items": [
+        {
+          "id": "gear",
+          "challenge": "Gear",
+          "response": "Up",
+          "kind": "action"
+        },
+        {
+          "id": "flaps",
+          "challenge": "Flaps",
+          "response": "Up",
+          "kind": "action"
+        },
+        {
+          "id": "ground-spoilers",
+          "challenge": "Ground Spoilers",
+          "response": "Disarm",
+          "kind": "action",
+          "speech": "Ground spoilers: Disarm."
+        },
+        {
+          "id": "to-taxi-lights",
+          "challenge": "T.O & Taxi Lights",
+          "response": "Off",
+          "kind": "action",
+          "speech": "Takeoff and taxi lights: Off."
+        },
+        {
+          "id": "runway-turn-off-lights",
+          "challenge": "Runway Turn Off Lights",
+          "response": "Off",
+          "kind": "action"
+        }
+      ]
+    },
+    {
+      "id": "approach",
+      "title": "Approach",
+      "phase": "Approach",
+      "items": [
+        {
+          "id": "approach-data-minima",
+          "challenge": "Approach Data & Minima",
+          "response": "Set",
+          "kind": "action",
+          "speech": "Approach data and minima: Set."
+        },
+        {
+          "id": "altimeters",
+          "challenge": "Altimeters",
+          "response": "Set (Both)",
+          "kind": "action",
+          "speech": "Both altimeters: Set."
+        },
+        {
+          "id": "eng-mode",
+          "challenge": "ENG Start Mode",
+          "response": "As Required",
+          "kind": "action",
+          "speech": "Engine start mode: As required."
+        }
+      ]
+    },
+    {
+      "id": "landing",
+      "title": "Landing",
+      "phase": "Landing",
+      "items": [
+        {
+          "id": "flaps",
+          "challenge": "Flaps",
+          "response": "Set",
+          "kind": "action"
+        },
+        {
+          "id": "gear",
+          "challenge": "Gear",
+          "response": "Down",
+          "kind": "action"
+        },
+        {
+          "id": "ground-spoilers",
+          "challenge": "Ground Spoilers",
+          "response": "Arm",
+          "kind": "action",
+          "speech": "Ground spoilers: Arm."
+        },
+        {
+          "id": "auto-brakes",
+          "challenge": "Auto Brakes",
+          "response": "Set",
+          "kind": "action",
+          "speech": "Auto brakes: Set."
+        }
+      ]
+    },
+    {
+      "id": "after-landing",
+      "title": "After Landing",
+      "phase": "After Landing",
+      "items": [
+        {
+          "id": "strobe-lights",
+          "challenge": "Strobe Lights",
+          "response": "Off",
+          "kind": "action"
+        },
+        {
+          "id": "landing-lights",
+          "challenge": "Landing Lights",
+          "response": "Off",
+          "kind": "action"
+        },
+        {
+          "id": "ground-spoilers",
+          "challenge": "Ground Spoilers",
+          "response": "Disarm",
+          "kind": "action",
+          "speech": "Ground spoilers: Disarm."
+        },
+        {
+          "id": "flaps",
+          "challenge": "Flaps",
+          "response": "Up",
+          "kind": "action"
+        },
+        {
+          "id": "apu-master",
+          "challenge": "APU Master Switch",
+          "response": "On",
+          "kind": "action",
+          "speech": "A P U master switch: On."
+        },
+        {
+          "id": "apu",
+          "challenge": "APU Start Switch",
+          "response": "Press",
+          "kind": "action",
+          "speech": "A P U start switch: Press at least three seconds after the master switch is on.",
+          "condition": "Minimum of 3 seconds after Master Switch On"
+        }
+      ]
+    },
+    {
+      "id": "parking",
+      "title": "Parking",
+      "phase": "Shutdown",
+      "items": [
+        {
+          "id": "apu-bleed",
+          "challenge": "APU Bleed",
+          "response": "On",
+          "kind": "action",
+          "speech": "A P U bleed: On."
+        },
+        {
+          "id": "eng-master-off",
+          "challenge": "ENG Master [1+2+3+4]",
+          "response": "OFF",
+          "kind": "action",
+          "speech": "Engine masters one to four: Off."
+        },
+        {
+          "id": "seat-belt-light",
+          "challenge": "Seat Belt Lights",
+          "response": "Off",
+          "kind": "action"
+        },
+        {
+          "id": "fuel-pumps",
+          "challenge": "Fuel Pumps",
+          "response": "All Off",
+          "kind": "action"
+        },
+        {
+          "id": "beacon",
+          "challenge": "Beacon Lights",
+          "response": "Off",
+          "kind": "action",
+          "speech": "Beacon lights: Off."
+        },
+        {
+          "id": "bat-ext",
+          "challenge": "External Power",
+          "response": "On",
+          "kind": "optional",
+          "condition": "If available",
+          "speech": "External power, if available: On."
+        }
+      ]
+    },
+    {
+      "id": "securing",
+      "title": "Securing",
+      "phase": "Shutdown",
+      "items": [
+        {
+          "id": "emer-light",
+          "challenge": "Emergency Exit Lights",
+          "response": "Off",
+          "kind": "action",
+          "speech": "Emergency exit lights: Off."
+        },
+        {
+          "id": "exterior-lights",
+          "challenge": "Exterior Lights",
+          "response": "Set",
+          "kind": "action"
+        },
+        {
+          "id": "gadirs",
+          "challenge": "GADIRS",
+          "response": "All Off",
+          "kind": "action",
+          "speech": "GADIRS: All off."
+        },
+        {
+          "id": "apu-bleed",
+          "challenge": "APU Bleed",
+          "response": "Off",
+          "kind": "action",
+          "speech": "A P U bleed: Off."
+        },
+        {
+          "id": "apu-master",
+          "challenge": "APU Master Switch",
+          "response": "Off",
+          "kind": "action",
+          "speech": "A P U master switch: Off."
+        },
+        {
+          "id": "bat-ext",
+          "challenge": "External Power",
+          "response": "Off",
+          "kind": "optional",
+          "condition": "If available",
+          "speech": "External power, if available: Off."
+        },
+        {
+          "id": "bat-1-2-ess",
+          "challenge": "BAT [1+2+ESS]",
+          "response": "Off",
+          "kind": "action",
+          "speech": "Batteries one, two and essential: Off."
         }
       ]
     }

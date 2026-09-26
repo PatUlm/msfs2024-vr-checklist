@@ -7,6 +7,12 @@ Changelog, and the project uses Semantic Versioning.
 
 ## [Unreleased]
 
+### Added
+
+- Extended the A400M checklist beyond takeoff with After Takeoff, Approach,
+  Landing, After Landing, Parking and Securing groups, including Brian
+  announcements.
+
 ## [0.15.0] - 2026-09-25
 
 ### Added

@@ -10,8 +10,7 @@ Offene Nachweis- und Weitergabefragen stehen ausschließlich in der
 [Inventars](license-audit-inventory.json) beschreibt. Diese Übersicht ist keine
 Veröffentlichungsfreigabe und ersetzt keine mitzuliefernden Lizenzvolltexte.
 
-Die [Projektlizenz](license-audit.md#r5--eigene-lizenz-und-abgrenzung-von-bildern)
-ist von den Bedingungen der hier aufgeführten Drittkomponenten getrennt.
+Die [Projektlizenz](../LICENSE) ist von den Bedingungen der hier aufgeführten Drittkomponenten getrennt.
 
 ## Laufzeit- und SDK-Abhängigkeiten
 

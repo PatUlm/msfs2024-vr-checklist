@@ -101,7 +101,8 @@ Version, Flugzeug, Reproduktionsschritte und gegebenenfalls ein Screenshot.
 - [Changelog](CHANGELOG.md): Änderungen je Version.
 - [Drittlizenzen](docs/third-party-licenses.md): Komponenten und Primärquellen.
 
-Für Nutzungs- und Weitergaberechte gelten die Angaben zur
-[Projektlizenz](docs/license-audit.md#r5--eigene-lizenz-und-abgrenzung-von-bildern),
-zu den [Drittkomponenten](docs/third-party-licenses.md) und den
+Eigener Code und eigene Inhalte stehen unter der [MIT-Lizenz](LICENSE).
+Ausgenommen sind die aus dem MSFS-SDK übernommenen Teile
+([Prüfstand](docs/license-audit.md#r2--sdk-nachweise-und-mit-angaben-reichen-noch-nicht)),
+die [Drittkomponenten](docs/third-party-licenses.md) und die
 [Audioassets](assets/audio/README.md#rights-notice).

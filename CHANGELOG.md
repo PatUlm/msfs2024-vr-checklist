@@ -12,6 +12,9 @@ Changelog, and the project uses Semantic Versioning.
 - The EFB app now ships as a ZIP to extract into the Community folder. The
   companion now ships as a per-user Windows setup that includes .NET and
   SimConnect, so neither the MSFS SDK nor a separate .NET install is needed.
+- The project's own code and content are now licensed under MIT. Parts taken
+  from the MSFS SDK, third-party components and audio assets keep their own
+  terms.
 
 ## [0.16.0] - 2026-09-26
 

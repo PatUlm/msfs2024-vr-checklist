@@ -1,6 +1,8 @@
 # Branding assets
 
-This directory is the editable source of truth for release branding:
+This directory is the editable source of truth for release branding. All
+files are project-made vector shapes and rasters rendered from them; they embed
+no third-party images or font files.
 
 - `app-icon.svg` is copied into the EFB application bundle by `task build`.
 - `app-icon-windows.svg` is the editable 256 × 256 source of the Windows

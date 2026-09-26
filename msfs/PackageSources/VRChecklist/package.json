@@ -2,7 +2,7 @@
   "name": "@efb/vr-checklist",
   "version": "0.16.0",
   "private": true,
-  "license": "UNLICENSED",
+  "license": "MIT",
   "author": "PatUlm",
   "scripts": {
     "build": "node ./build.js",

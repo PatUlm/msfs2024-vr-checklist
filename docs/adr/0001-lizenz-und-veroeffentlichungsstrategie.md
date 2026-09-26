@@ -1,7 +1,8 @@
 # ADR 0001: Lizenz- und Veröffentlichungsstrategie
 
-Status: Akzeptiert (2026-08-26); gilt bis zur ausdrücklichen
-Veröffentlichungs- und Lizenzentscheidung.
+Status: Akzeptiert (2026-08-26). Die Festlegung `UNLICENSED` ist durch
+[ADR 0013](0013-projektlizenz.md) ersetzt. Privatstatus bis zur Rechteklärung
+und die Auswahlregeln für Abhängigkeiten gelten weiter.
 
 ## Entscheidung und Grund
 

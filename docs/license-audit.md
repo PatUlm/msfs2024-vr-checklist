@@ -5,8 +5,10 @@ Arbeitsliste für die Veröffentlichung, keine allgemeine Rechtsabhandlung.
 Nur konkrete Befunde, nötige Nachweise und nächste Schritte hier halten;
 erledigte Arbeit nicht als Prüfchronik fortschreiben.
 
-Zuerst R1/R2 bearbeiten, danach Projektlizenz und Audio-Bedingungen (R3/R5)
-entscheiden. Die Bewertung der Checklisten und Quellenexzerpte steht unter
+Die Bearbeitungsreihenfolge steht im [Backlog](../BACKLOG.md). Mit ⚠
+markierte Befunde können Dateien auch aus der Git-Historie entfernen; das
+geschieht gebündelt beim ersten GitHub-Push. Die Bewertung der Checklisten
+und Quellenexzerpte steht unter
 [Herkunft und Prüfung](checklist-license-review.md).
 
 Die redaktionelle Kürzung ändert die bisherigen Bewertungen nicht. Das
@@ -26,6 +28,7 @@ das EFB-Paket hat keine gesonderte Lizenzdatei.
 
 **Nächster Schritt:** Originalhinweise offline lesbar in Repository und
 betroffenen Release-Artefakten mitführen und ihre Mitlieferung prüfen.
+Die eigene [LICENSE](../LICENSE) gehört ebenso in beide Artefakte.
 Die paketbezogenen Quellen stehen im Inventar und in der Komponentenübersicht.
 Zu beachten sind insbesondere:
 
@@ -62,7 +65,7 @@ gibt nicht pauschal alle Samples oder SDK-Kopien frei.
 oder die vorgesehene Weitergabe bestätigen lassen. Ungeklärte SDK-Kopien
 könnten stattdessen lokal aus einer SDK-Installation bezogen werden; für die
 gebündelte EFB-API bleibt die Distributionsfrage dann separat zu lösen.
-Die öffentliche Git-Historie muss dieselbe Abgrenzung einhalten.
+⚠ Die öffentliche Git-Historie muss dieselbe Abgrenzung einhalten.
 `SimConnect.dll` liefert das Companion-Setup gemäß
 [ADR 0012](adr/0012-veroeffentlichung-als-zip-und-companion-setup.md) mit;
 Hinweis in der [Komponentenübersicht](third-party-licenses.md).
@@ -85,27 +88,9 @@ Anbieterbedingungen, aber keine uneingeschränkte MIT-/CC0-Freigabe:
 **Nächster Schritt:** Empfängerrechte für Nutzung, Bearbeitung und Weitergabe
 festlegen, einschließlich Forks und daraus gebauter Distributionen. Bleibt
 dieser Umfang aus den Bedingungen unklar, gezielt Anbieterfreigabe einholen
-oder eine anders lizenzierte Audioquelle wählen. Eine Anfrage ist nicht
+oder eine anders lizenzierte Audioquelle wählen. ⚠ Entfällt die Weitergabe,
+betrifft das auch die Aufnahmen in der Historie. Eine Anfrage ist nicht
 versendet; [Audio-README](../assets/audio/README.md) und
 [ADR 0008](adr/0008-stimme-und-tts-anbieter.md) erteilen noch keine solche Lizenz.
-
-## R5 — Eigene Lizenz und Abgrenzung von Bildern
-
-Die Projektlizenz und der Copyrightinhaber sind noch festzulegen. Bisheriger
-Vorschlag ist [MIT](https://opensource.org/license/mit) für eigenen Code und
-entsprechend zugeordnete eigene Inhalte, mit klarer Abgrenzung fremder SDK-Teile
-und Audioassets. `UNLICENSED` bleibt bis zur Entscheidung bestehen.
-
-Die Branding-Dateien enthalten projektbezogene Vektorformen und daraus
-erzeugte Rasterbilder, keine eingebetteten fremden Bilder oder Schriftdateien.
-Die erledigten QA-Screenshots werden nicht mehr für die Dokumentation benötigt
-und sind aus dem aktuellen Baum entfernt. Das bereinigt **nicht** die Historie;
-ihre etwaige öffentliche Weitergabe bleibt bei deren Auswahl zu beachten.
-
-**Nächster Schritt:** Lizenzumfang und Rechteinhaber festlegen, Lizenztext
-hinzufügen und die Veröffentlichungsentscheidung als Nachfolger von
-[ADR 0001](adr/0001-lizenz-und-veroeffentlichungsstrategie.md) festhalten.
-Ein gemischt lizenzierter Bestand darf nicht pauschal als vollständig MIT
-bezeichnet werden; siehe [Open Source Definition](https://opensource.org/osd).
 
 Weitere Veröffentlichungsarbeit steht im [Backlog](../BACKLOG.md).

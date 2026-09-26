@@ -415,9 +415,9 @@
       "declaredLicense": "MIT",
       "source": "file:../vendor/microsoft-msfs-sdk-2.1.1.tgz",
       "integrity": "sha512-PsdlZdZXJke2PAYMclLvtdRnChp3rJaKgqJ35HgBE4k9BoTId3rp/ZyiZtlCUtBaSVGfuop/kEVZa4w/iEc8ew==",
-      "scope": "vendored-source; simulator-provided runtime",
+      "scope": "local SDK sample copy, not versioned; simulator-provided runtime, not shipped",
       "evidence": [],
-      "assessment": "MIT package declaration conflicts with restrictive upstream root license; see audit R2.",
+      "assessment": "Upstream MIT with an MSFS-only addendum; SDK EULA 1(b) forbids redistributing the sample copy.",
       "evidenceLevel": "package-declaration; see report for additional source evidence"
     },
     {
@@ -429,7 +429,7 @@
       "integrity": "sha512-p2dmrxMpnurr7lOFRKjLCysxR6bb+MWJmRvYQkaExq7qBc8bu98WgI14X8W+pf2g0rlH69cN+uP9Kvz/dnPDuw==",
       "scope": "types-only",
       "evidence": [],
-      "assessment": "MIT package declaration; exact-version license text not present; see audit R2.",
+      "assessment": "MIT package declaration; types only, fetched from npm and not shipped.",
       "evidenceLevel": "package-declaration; see report for additional source evidence"
     },
     {
@@ -3030,8 +3030,8 @@
     "name": "@efb/efb-api",
     "version": "1.0.3",
     "declaredLicense": "MIT",
-    "scope": "vendored-source and bundled EFB runtime",
-    "assessment": "Package declaration only; full license and attribution absent; see audit R2."
+    "scope": "local SDK sample copy, not versioned; bundled EFB runtime",
+    "assessment": "Package declaration only; the EFB ZIP needs an MIT notice naming Asobo Studio, see audit R1."
   },
   "releaseArtifacts": [
     {

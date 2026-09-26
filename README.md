@@ -102,8 +102,8 @@ Version, Flugzeug, Reproduktionsschritte und gegebenenfalls ein Screenshot.
 - [Drittlizenzen](docs/third-party-licenses.md): Komponenten und Primärquellen.
 
 Eigener Code und eigene Inhalte stehen unter der [MIT-Lizenz](LICENSE).
-Ausgenommen sind die aus dem MSFS-SDK übernommenen Teile
-([Prüfstand](docs/license-audit.md#r2--sdk-nachweise-und-mit-angaben-reichen-noch-nicht)),
+Ausgenommen sind die aus dem EFB-Template des MSFS-SDK übernommenen
+Konfigurationsdateien ([Herkunft](msfs/PackageSources/README.md)),
 die [Drittkomponenten](docs/third-party-licenses.md) und die Sprachaufnahmen
 unter eigenen [Audiobedingungen](assets/audio/LICENSE): Weitergabe und
 Bearbeitung sind erlaubt, KI-Training und die übrigen Grenzen der

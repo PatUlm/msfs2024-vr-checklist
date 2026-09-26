@@ -5,8 +5,10 @@
 # Node.js dependencies and generated EFB assets.
 node_modules/
 dist/
-!msfs/PackageSources/efb_api/dist/
-!msfs/PackageSources/efb_api/dist/**
+
+# Copied from the local MSFS SDK by task install; not redistributable.
+msfs/PackageSources/efb_api/
+msfs/PackageSources/vendor/
 
 # .NET companion-app build output.
 companion/**/bin/

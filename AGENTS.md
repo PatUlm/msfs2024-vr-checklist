@@ -170,8 +170,9 @@ ADR-Übersichten enthalten nur Links und Themen; die Gültigkeit steht im ADR.
   niemals zurücksynchronisieren. Companion-Staging enthält nur gebaute Artefakte.
 - `node_modules/`, `msfs/PackageSources/VRChecklist/dist/`, `Packages/`,
   `PackagesMetadata/`, `_PackageInt/` sind generiert, nicht manuell bearbeiten
-  oder versionieren. `msfs/PackageSources/efb_api/dist/` ist dagegen bewusst
-  versionierte SDK-Vorlage, nicht lokal neu erzeugen. Gerenderte Sprachassets
+  oder versionieren. `msfs/PackageSources/efb_api/` und `vendor/` kopiert
+  `task install` aus dem lokalen SDK; die SDK-EULA verbietet die Weitergabe
+  dieser Sample-Inhalte, daher nie versionieren. Gerenderte Sprachassets
   sind gemäß ADR 0007 versioniert, damit Builds kein TTS benötigen.
 - `VERSION` ist die kanonische SemVer für App, Paket und neue Release-Artefakte;
   Paketdefinition und npm-Metadaten spiegeln sie, `task check` prüft Konsistenz.

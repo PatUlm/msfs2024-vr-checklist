@@ -5,8 +5,10 @@ Task-Implementierungen und vergangene Testläufe werden hier nicht nacherzählt.
 
 ## Voraussetzungen und Einrichtung
 
-- Windows mit MSFS 2024 und installiertem SDK 1.7.3 für Simulator-Tests und
-  Paketierung; das installierte SDK und seine Samples bleiben read-only.
+- Windows mit MSFS 2024 und installiertem SDK 1.7.3 für `task install`,
+  Simulator-Tests und Paketierung. `task install` kopiert EFB-API und
+  MSFS-SDK-Paket aus dessen EFB-Sample, weil die SDK-EULA ihre Weitergabe im
+  Repository nicht erlaubt; das installierte SDK bleibt read-only.
 - Repository im Linux-Dateisystem von WSL2, Node.js 24, npm und Task 3.
 - Docker für den im `Taskfile.yml` fixierten .NET-SDK-Container; keine lokale
   Visual-Studio-Installation nötig.

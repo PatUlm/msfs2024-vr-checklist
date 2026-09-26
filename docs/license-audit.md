@@ -5,10 +5,8 @@ Arbeitsliste für die Veröffentlichung, keine allgemeine Rechtsabhandlung.
 Nur konkrete Befunde, nötige Nachweise und nächste Schritte hier halten;
 erledigte Arbeit nicht als Prüfchronik fortschreiben.
 
-Die Bearbeitungsreihenfolge steht im [Backlog](../BACKLOG.md). Mit ⚠
-markierte Befunde können Dateien auch aus der Git-Historie entfernen; das
-geschieht gebündelt beim ersten GitHub-Push. Die Bewertung der Checklisten
-und Quellenexzerpte steht unter
+Die Bearbeitungsreihenfolge steht im [Backlog](../BACKLOG.md). Die Bewertung
+der Checklisten und Quellenexzerpte steht unter
 [Herkunft und Prüfung](checklist-license-review.md).
 
 Die redaktionelle Kürzung ändert die bisherigen Bewertungen nicht. Das
@@ -43,6 +41,9 @@ Zu beachten sind insbesondere:
   `THIRD-PARTY-NOTICES.TXT` des Runtime-Packs.
 - Velopack: MIT-Text; die Rust-Stubs `Update.exe` und Setup binden weitere
   Crates statisch ein, deren Hinweispflicht noch zuzuordnen ist.
+- `@efb/efb-api` 1.0.3, im EFB-ZIP gebündelt: nur MIT-Deklaration von Asobo
+  Studio ohne Lizenztext oder Copyright-Zeile; MIT-Text mit dieser
+  Herkunftsangabe ins EFB-ZIP aufnehmen.
 
 Die Sammelhinweise nativer Pakete belegen für sich nicht, welche Komponenten
 im Windows-Binary enthalten sind. Relevante Lizenzoptionen und etwaige
@@ -50,25 +51,5 @@ Quellcodepflichten am Paketquellstand zuordnen; eine Suche nach „GPL“ reicht
 nicht. Konkrete Buildquellen:
 [SkiaSharp Windows-Build](https://github.com/mono/SkiaSharp/blob/f568ac94dd768ef9a2f593537cfde2dd0d348ef5/native/windows/build.cake),
 [Skia-Optionen](https://github.com/mono/skia/blob/7dbfc07dd33181f84e0958afb7ee805c6c769f0b/gn/skia.gni).
-
-## R2 — SDK-Nachweise und MIT-Angaben reichen noch nicht
-
-`@microsoft/msfs-sdk` 2.1.1 deklariert MIT ohne mitgelieferten Volltext.
-Die bisher verlinkte
-[Microsoft-Lizenz](https://github.com/microsoft/msfs-avionics-mirror/blob/366be5056166c639a2189e09e5af7143174fd910/LICENSE)
-hat eine MSFS-Nutzungsbeschränkung. Auch für `@microsoft/msfs-types` 1.14.6,
-`@efb/efb-api` 1.0.3 und übernommene Template-Teile fehlen versionsbezogene
-Volltexte/Attributionen. Die
-[SDK-EULA](https://docs.flightsimulator.com/msfs2024/html/1_Introduction/SDK_EULA.htm)
-gibt nicht pauschal alle Samples oder SDK-Kopien frei.
-
-**Nächster Schritt:** Konkrete Lizenztexte und Copyrightzuordnung sichern
-oder die vorgesehene Weitergabe bestätigen lassen. Ungeklärte SDK-Kopien
-könnten stattdessen lokal aus einer SDK-Installation bezogen werden; für die
-gebündelte EFB-API bleibt die Distributionsfrage dann separat zu lösen.
-⚠ Die öffentliche Git-Historie muss dieselbe Abgrenzung einhalten.
-`SimConnect.dll` liefert das Companion-Setup gemäß
-[ADR 0012](adr/0012-veroeffentlichung-als-zip-und-companion-setup.md) mit;
-Hinweis in der [Komponentenübersicht](third-party-licenses.md).
 
 Weitere Veröffentlichungsarbeit steht im [Backlog](../BACKLOG.md).

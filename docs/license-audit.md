@@ -1,4 +1,4 @@
-# Offene Lizenzpunkte für 1.0
+# Offene Lizenzpunkte für die GitHub-Veröffentlichung
 
 Prüfgrundlage: 2026-09-21, Version 0.13.3, Commit `61fb91d`. Dies ist eine
 Arbeitsliste für die Veröffentlichung, keine allgemeine Rechtsabhandlung.

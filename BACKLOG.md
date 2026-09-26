@@ -16,9 +16,10 @@ Status, Befund und nächster Schritt werden ausschließlich am Ziel gepflegt.
    Daten und Weitergaberechte berücksichtigen; den finalen Artefaktumfang
    abgleichen. Die lokale JetBrains-Diagnose vor öffentlicher Übernahme auf
    Reproduktion, technischen Befund und Ticketlink kürzen.
-4. **1.0.0 veröffentlichen.** Nach Abschluss der Aufgaben und Fachprüfungen
-   den [Release-Ablauf](docs/release.md) ausführen und Repository sowie
-   GitHub-Release auf ausdrücklichen Auftrag veröffentlichen.
+4. **GitHub-Release vorbereiten.** Nach Abschluss der Aufgaben und Fachprüfungen
+   die Release-Artefakte gemäß [Release-Ablauf](docs/release.md) erstellen und
+   Release-Beschreibung vorbereiten. Repository und GitHub-Release auf
+   ausdrücklichen Auftrag veröffentlichen.
 
 ## Fachlisten
 

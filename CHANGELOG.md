@@ -7,6 +7,8 @@ Changelog, and the project uses Semantic Versioning.
 
 ## [Unreleased]
 
+## [0.17.0] - 2026-09-27
+
 ### Added
 
 - Both downloads now include the license texts of the project and of all

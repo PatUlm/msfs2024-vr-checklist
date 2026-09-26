@@ -3,6 +3,17 @@
   "companionSince": "0.3.0",
   "releases": [
     {
+      "version": "0.17.0",
+      "date": "2026-09-27",
+      "highlight": "Install the companion with a Windows setup that brings its own .NET and SimConnect; the EFB app now ships as a ZIP.",
+      "features": [
+        "Neither the MSFS SDK nor a separate .NET installation is needed; extract the EFB ZIP into the Community folder.",
+        "The project's own code and content are now MIT-licensed; the speech recordings come with separate audio terms.",
+        "Both downloads include the license texts of all bundled third-party components."
+      ],
+      "fixes": []
+    },
+    {
       "version": "0.16.0",
       "date": "2026-09-26",
       "highlight": "Fly the A400M checklist from after takeoff through approach, landing, parking and securing.",

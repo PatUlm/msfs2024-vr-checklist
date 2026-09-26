@@ -3,6 +3,15 @@
   "companionSince": "0.3.0",
   "releases": [
     {
+      "version": "0.16.0",
+      "date": "2026-09-26",
+      "highlight": "Fly the A400M checklist from after takeoff through approach, landing, parking and securing.",
+      "features": [
+        "Added After Takeoff, Approach, Landing, After Landing, Parking and Securing groups with matching Brian announcements."
+      ],
+      "fixes": []
+    },
+    {
       "version": "0.15.0",
       "date": "2026-09-25",
       "highlight": "Configure EFB keyboard and HOTAS confirmation from the companion, even while the simulator is closed.",

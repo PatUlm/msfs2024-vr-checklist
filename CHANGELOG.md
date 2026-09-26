@@ -7,6 +7,8 @@ Changelog, and the project uses Semantic Versioning.
 
 ## [Unreleased]
 
+## [0.16.0] - 2026-09-26
+
 ### Added
 
 - Extended the A400M checklist beyond takeoff with After Takeoff, Approach,

@@ -4,27 +4,25 @@ Einstieg für die Frage „Was ist noch offen?“. Die Aufgaben stehen hier in
 Umsetzungsreihenfolge. Bei Fachlisten steht hier nur der Link; Status, Befund
 und nächster Schritt werden ausschließlich am Ziel gepflegt.
 
-**⚠ Git-Historie:** Die Historie wird genau einmal umgeschrieben, in Punkt 5
+**⚠ Git-Historie:** Die Historie wird genau einmal umgeschrieben, in Punkt 4
 beim ersten GitHub-Push. Mit ⚠ markierte Punkte können Dateien ergeben, die
 dabei zusätzlich aus der Historie entfernt werden müssen.
 
 ## Umsetzung und Veröffentlichung
 
-1. **Lizenztexte mitliefern:**
-   [R1](docs/license-audit.md#r1--lizenztexte-fehlen-in-der-distribution).
-2. **Paket-ID auf `patulm-vr-checklist` umbenennen.** Paketdefinition,
+1. **Paket-ID auf `patulm-vr-checklist` umbenennen.** Paketdefinition,
    Projektdatei, Release-Skripte, Tests und Doku umstellen; `Creator`, npm-`author`
    und `--packAuthors` auf `PatUlm`. Lokale Community-Junction, Staging und
    Project-Editor-Ausgabe des alten Namens entfernen und im EFB prüfen, dass
    gespeicherte Einstellungen nicht an der Paket-ID hängen.
-3. **Dokumentation veröffentlichungsfähig machen.** Texte reviewen und ins
+2. **Dokumentation veröffentlichungsfähig machen.** Texte reviewen und ins
    Englische übersetzen.
-4. **⚠ Öffentlichen Dateibestand prüfen.** Geheimnisse, private Daten und
+3. **⚠ Öffentlichen Dateibestand prüfen.** Geheimnisse, private Daten und
    Weitergaberechte im aktuellen Baum und in der Historie berücksichtigen,
    etwa die aus dem Baum entfernten QA-Screenshots; den finalen
-   Artefaktumfang abgleichen. Dateien festhalten, die in Punkt 5 aus der
+   Artefaktumfang abgleichen. Dateien festhalten, die in Punkt 4 aus der
    Historie entfernt werden.
-5. **⚠ Historie umschreiben und erster GitHub-Push.** Alle Commit-Hashes und
+4. **⚠ Historie umschreiben und erster GitHub-Push.** Alle Commit-Hashes und
    Tags ändern sich.
    1. Aktuellen Stand samt Tags nach Bitbucket pushen. Bitbucket bleibt danach
       eingefrorenes privates Backup der alten Historie und wird nicht mehr
@@ -32,7 +30,7 @@ dabei zusätzlich aus der Historie entfernt werden müssen.
    2. Per `git filter-repo` Autor, Committer und Tagger aller Commits und Tags
       auf `PatUlm` und die GitHub-noreply-Adresse umschreiben und diese Pfade
       aus allen Commits entfernen:
-      - die in Punkt 4 festgehaltenen Dateien;
+      - die in Punkt 3 festgehaltenen Dateien;
       - `assets/audio/checklist-completed.wav` und `.opus`: Platzhalter mit
         Windows-Systemstimme, Weitergaberecht nicht belegt; Companion-Stände
         vom 12.–18.09.2026 sind danach nicht mehr baubar;
@@ -47,11 +45,11 @@ dabei zusätzlich aus der Historie entfernt werden müssen.
       `docs/license-audit.md` und im Inventar) und Tags prüfen.
    4. `https://github.com/PatUlm/msfs2024-vr-checklist` als `origin` anlegen
       und auf ausdrücklichen Auftrag pushen. GitHub ist danach primärer Remote.
-6. **GitHub-Release vorbereiten.** Nach Abschluss der Aufgaben und Fachprüfungen
+5. **GitHub-Release vorbereiten.** Nach Abschluss der Aufgaben und Fachprüfungen
    die Release-Artefakte gemäß [Release-Ablauf](docs/release.md) erstellen und
    Release-Beschreibung vorbereiten. Repository und GitHub-Release auf
    ausdrücklichen Auftrag veröffentlichen.
-7. **Update-Prüfung im Companion.** Gemäß
+6. **Update-Prüfung im Companion.** Gemäß
    [ADR 0012](docs/adr/0012-veroeffentlichung-als-zip-und-companion-setup.md)
    installierte Versionen beim Start einmal gegen GitHub Releases prüfen,
    erst nach Bestätigung laden und anwenden und auf das EFB-ZIP hinweisen.

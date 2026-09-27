@@ -3,6 +3,15 @@
   "companionSince": "0.3.0",
   "releases": [
     {
+      "version": "0.18.1",
+      "date": "2026-09-27",
+      "highlight": "The EFB app now reports a missing checklist in English.",
+      "features": [],
+      "fixes": [
+        "Shows \"No checklist available\" instead of a German message when no checklist matches the aircraft."
+      ]
+    },
+    {
       "version": "0.18.0",
       "date": "2026-09-27",
       "highlight": "The EFB package is now published by PatUlm as patulm-vr-checklist.",

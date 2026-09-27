@@ -7,6 +7,8 @@ Changelog, and the project uses Semantic Versioning.
 
 ## [Unreleased]
 
+## [0.18.1] - 2026-09-27
+
 ### Fixed
 
 - The EFB app now shows "No checklist available" in English, like the

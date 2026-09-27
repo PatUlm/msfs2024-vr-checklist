@@ -50,9 +50,12 @@ The release folder contains `release.json`, the MSFS package
 `patulm-vr-checklist/` for the local junction, the download ZIP
 `patulm-vr-checklist-X.Y.Z.zip` and, under `VRChecklist.Companion/`, the
 Velopack output: `VRChecklist.Companion-win-Setup.exe`, the full `.nupkg` and
-the update feed `releases.win.json`. For later updates, the setup, `.nupkg`
-and `releases.win.json` must all be attached to the GitHub release. Existing
-versions are never overwritten.
+the update feed `releases.win.json`. Existing versions are never overwritten.
+
+The GitHub release is titled `MSFS 2024 VR Checklist vX.Y.Z` and gets the ZIP
+and the setup attached. The `.nupkg` and `releases.win.json` are only needed
+by the companion's update check; attach them from the first release that
+contains it onward.
 
 Both artifacts contain `LICENSE.txt` and the `THIRD-PARTY-NOTICES.txt`
 generated from [licenses/](../licenses/README.md): the EFB package in its root,

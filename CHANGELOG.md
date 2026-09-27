@@ -7,6 +7,11 @@ Changelog, and the project uses Semantic Versioning.
 
 ## [Unreleased]
 
+### Fixed
+
+- The EFB app now shows "No checklist available" in English, like the
+  companion, when no checklist matches the aircraft.
+
 ## [0.18.0] - 2026-09-27
 
 ### Changed

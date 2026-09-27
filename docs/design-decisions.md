@@ -70,7 +70,7 @@ checks in [design-qa.md](design-qa.md).
   [ADR 0009](adr/0009-progress-across-efb-context-changes.md).
 - The app selects automatically through explicit aircraft rules, also in the
   free flight configuration. Missing or ambiguous matches show
-  `Keine Checkliste vorhanden` and a subtle diagnostic line with
+  `No checklist available` and a subtle diagnostic line with
   `ATC MODEL`, `ATC TYPE`, `TITLE`; there is no default checklist.
 - The event choice is defined by
   [ADR 0011](adr/0011-confirmation-actions-in-the-companion.md).

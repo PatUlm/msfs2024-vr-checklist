@@ -304,7 +304,7 @@ export function renderChecklistUnavailable(
       }}
     >
       <div class="checklist-unavailable__message">
-        Keine Checkliste vorhanden
+        No checklist available
       </div>
 
       <div class="checklist-unavailable__diagnostics">

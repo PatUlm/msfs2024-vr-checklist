@@ -6,10 +6,10 @@ findings and next steps are maintained only at the target.
 
 ## Implementation and release
 
-1. **Prepare the GitHub release.** Once the tasks and topic reviews are
-   complete, create the release artifacts according to the
-   [release process](docs/release.md) and prepare the release description.
-   Publish the repository and the GitHub release on explicit request.
+1. **Publish the repository and the first GitHub release.** The draft release
+   for `v0.18.1` with description and all release assets is prepared on
+   GitHub. On explicit request, make the repository public and publish the
+   draft as the latest release, not as a pre-release.
 2. **Update check in the companion.** According to
    [ADR 0012](docs/adr/0012-distribution-as-zip-and-companion-setup.md), check
    installed versions against GitHub Releases once at startup, download and

@@ -1,6 +1,6 @@
 # Open license items for the GitHub release
 
-Audit baseline: 2026-09-21, version 0.13.3, commit `61fb91d`. This is a work
+Audit baseline: 2026-09-21, version 0.13.3, commit `fd71f0f`. This is a work
 list for the release, not a general legal treatise. Keep only concrete
 findings, required evidence and next steps here; do not extend completed work
 into an audit log.

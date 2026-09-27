@@ -42,10 +42,9 @@ removed from the history at that point.
       accordingly. The clone replaces the working copy at the same path; keep
       the old one aside until the GitHub push is verified.
    3. Update references to the project's own commits in the current state
-      using the filter-repo commit map (currently the audit commit `61fb91d` in
-      `docs/license-audit.md` and in the inventory) and check the tags. Before
-      pushing, make sure the former surname no longer appears in any reachable
-      blob, path, commit or tag message, or identity.
+      using the filter-repo commit map and check the tags. Before pushing, make
+      sure the former surname no longer appears in any reachable blob, path,
+      commit or tag message, or identity.
    4. Add `https://github.com/PatUlm/msfs2024-vr-checklist` as `origin` and
       push on explicit request. GitHub is the primary remote from then on.
 2. **Prepare the GitHub release.** Once the tasks and topic reviews are

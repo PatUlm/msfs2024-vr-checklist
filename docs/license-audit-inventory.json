@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "auditDate": "2026-09-21",
   "projectVersion": "0.13.3",
-  "commit": "61fb91d4a3ed510da9880ed94627771c017442cf",
+  "commit": "fd71f0fb262d199909ffbc61a4b6e58009485b1a",
   "status": "Findings recorded; not a distribution clearance or a complete native-component SBOM.",
   "inputs": [
     {

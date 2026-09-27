@@ -1,12 +1,12 @@
 # Design QA
 
-Hier stehen ausschließlich offene visuelle Abweichungen und die dafür
-benötigten Screenshots unter `docs/assets/`. Nach Klärung werden Punkt und
-nicht mehr benötigte Bilder entfernt. Keine Chronik bestandener Sichttests.
-Dauerhafte Produktentscheidungen stehen in [design-decisions.md](design-decisions.md),
-technische MSFS-Erkenntnisse in [msfs-sdk-reference.md](msfs-sdk-reference.md).
+This list holds only open visual deviations and the screenshots they need
+under `docs/assets/`. Once resolved, the item and any images no longer needed
+are removed. No log of passed visual checks. Permanent product decisions are in
+[design-decisions.md](design-decisions.md), technical MSFS findings in
+[msfs-sdk-reference.md](msfs-sdk-reference.md).
 
-Es gibt kein verbindliches Gesamt-Referenzbild; VR-relevante Änderungen werden
-am tatsächlichen EFB geprüft.
+There is no binding overall reference image; VR-relevant changes are checked
+in the actual EFB.
 
-Derzeit keine offenen visuellen Nachweise.
+There are currently no open visual verifications.

@@ -1,44 +1,44 @@
-# Windows-Begleit-App
+# Windows companion app
 
-Dieses Dokument enthält nur Companion-spezifische Entwicklungs- und
-Diagnosehinweise. Bedienung steht im [Root-README](../README.md), Setup und
-Deployment in [development.md](../docs/development.md).
+This document contains only companion-specific development and diagnostic
+notes. Usage is described in the [root README](../README.md), setup and
+deployment in [development.md](../docs/development.md).
 
-## Aufbau
+## Structure
 
-- `src/VRChecklist.Companion/`: Avalonia-App, Audio und Checklistenexport.
-- `src/VRChecklist.Transport/`: gemeinsamer SimConnect-/CommBus-Transport.
-- `src/VRChecklist.TransportProbe/`: Konsolendiagnose und Selbsttests.
-- `release-notes.json`: eingebettete Offline-Release-Notes. Version und Datum
-  müssen zum Changelog passen; `task validate:release-notes` prüft sie.
+- `src/VRChecklist.Companion/`: Avalonia app, audio and checklist export.
+- `src/VRChecklist.Transport/`: shared SimConnect/CommBus transport.
+- `src/VRChecklist.TransportProbe/`: console diagnostics and self-tests.
+- `release-notes.json`: embedded offline release notes. Version and date must
+  match the changelog; `task validate:release-notes` checks them.
 
-Checklisten aus `checklists/data/` und Ansagen aus `assets/audio/` werden beim
-Build eingebettet. Die Architektur steht in den [ADRs](../docs/adr/README.md),
-das gewählte Verhalten in [design-decisions.md](../docs/design-decisions.md).
+Checklists from `checklists/data/` and announcements from `assets/audio/` are
+embedded at build time. The architecture is described in the
+[ADRs](../docs/adr/README.md), the chosen behavior in
+[design-decisions.md](../docs/design-decisions.md).
 
-## Start und Diagnose
+## Launch and diagnostics
 
-Das Release-Setup enthält .NET 10 und die native MSFS-2024-`SimConnect.dll`
-gemäß [ADR 0012](../docs/adr/0012-veroeffentlichung-als-zip-und-companion-setup.md).
+The release setup contains .NET 10 and the native MSFS 2024 `SimConnect.dll`
+according to [ADR 0012](../docs/adr/0012-distribution-as-zip-and-companion-setup.md).
 
-`task companion:deploy` baut App und Probe dagegen frameworkabhängig ins
-Windows-Staging; dafür sind .NET 10 und das lokale SDK nötig. Die DLL wird dort
-nicht kopiert. Ein abweichender Suchpfad, auch für installierte Versionen,
-lässt sich setzen über:
+`task companion:deploy`, in contrast, builds the app and probe
+framework-dependent into the Windows staging folder; this requires .NET 10 and
+the local SDK. The DLL is not copied there. A different search path, also for
+installed versions, can be set with:
 
-1. `VR_CHECKLIST_SIMCONNECT_DIR` als Windows-Umgebungsvariable, oder
-2. `simconnect-path.txt` neben der EXE mit dem Windows-Verzeichnispfad, etwa
-   `C:\MSFS 2024 SDK\SimConnect SDK\lib`.
+1. `VR_CHECKLIST_SIMCONNECT_DIR` as a Windows environment variable, or
+2. `simconnect-path.txt` next to the EXE containing the Windows directory path,
+   for example `C:\MSFS 2024 SDK\SimConnect SDK\lib`.
 
-Das Deployment schreibt diese Datei automatisch aus dem konfigurierten
-SDK-Pfad. Sie bleibt lokal und darf nicht ins Release.
+Deployment writes this file automatically from the configured SDK path. It
+stays local and must not be included in a release.
 
-Im Staging liegt unter `tools\transport-probe` das Diagnosewerkzeug.
-Es fordert den EFB-Zustand an; `--play-completion-sound` prüft ohne MSFS
-jeweils einmal den Audiopfad auf dem Windows-Standardgerät.
+The diagnostic tool is in `tools\transport-probe` in the staging folder. It
+requests the EFB state; `--play-completion-sound` checks the audio path once on
+the Windows default device, without MSFS.
 
-Audioeinstellungen liegen unter
-`%LOCALAPPDATA%\VRChecklist\audio-output.json`. Ein nicht verfügbares Gerät
-bleibt ausgewählt; unter Settings ein verfügbares Gerät wählen und mit
-`Test sound` prüfen. Bei abweichender Checklistenrevision EFB und Companion
-auf denselben Release-Stand bringen.
+Audio settings are stored in `%LOCALAPPDATA%\VRChecklist\audio-output.json`.
+An unavailable device stays selected; select an available device under
+Settings and check it with `Test sound`. If the checklist revisions differ,
+bring the EFB app and the companion to the same release.

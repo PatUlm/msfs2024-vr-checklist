@@ -83,4 +83,4 @@ audio terms therefore pass these limits on instead of granting an open license.
 
 The raw ElevenLabs MP3 responses carry no rights markings beyond an encoder
 tag. Should that change, rendering must preserve such markings. The voice
-decision is [ADR 0008](../../docs/adr/0008-stimme-und-tts-anbieter.md).
+decision is [ADR 0008](../../docs/adr/0008-voice-and-tts-provider.md).

@@ -1,63 +1,64 @@
-# Checklisten: Herkunft und Prüfung
+# Checklists: provenance and review
 
-Stand: 2026-09-21, App 0.13.3. Die Inhalts- und Herkunftsprüfung der
-207 Einträge ist abgeschlossen. Hier bleiben nur Bewertung und Herkunft des
-geprüften Bestands; Quellenänderungen gezielt nachprüfen, keine Chronik
-vergangener Prüfaufträge ergänzen. **Pauschale Herstelleranfragen sind keine
-Voraussetzung für den Projektabschluss.**
+As of 2026-09-21, app 0.13.3. The content and provenance review of the 207
+entries is complete. Only the assessment and provenance of the reviewed set
+remain here; recheck source changes specifically and do not add a log of past
+review tasks. **Blanket requests to manufacturers are not a prerequisite for
+completing the project.**
 
-## Ergebnis
+## Result
 
-Die App enthält überwiegend technische Werte, Schalterstellungen und knappe
-Handlungshinweise in einer für den Simulator angepassten Auswahl. Die
-Sichtung hat keinen konkreten schöpferischen Fremdtext identifiziert, aus
-dem sich eine allgemeine Freigabepflicht für diese Checklisten ableiten ließe.
-Eine größere Zahl von Einträgen begründet für sich genommen keinen Schutz.
+The app mainly contains technical values, switch positions and brief
+instructions in a selection adapted for the simulator. The review identified
+no specific creative third-party text from which a general permission
+requirement for these checklists could be derived. A larger number of entries
+does not by itself establish protection.
 
-Technische Verfahren und einfache Angaben sind von geschützten Texten,
-Grafiken oder einer schöpferischen Zusammenstellung zu unterscheiden:
-[§2 UrhG](https://www.gesetze-im-internet.de/urhg/__2.html),
-[§4 UrhG](https://www.gesetze-im-internet.de/urhg/__4.html), ergänzend für die
-US-Einordnung [Copyright Office, Circular 33](https://www.copyright.gov/circs/circ33.pdf).
-Dies ist die Arbeitseinschätzung für den geprüften Bestand, keine pauschale
-Lizenz für die Originalquellen. Konkrete Hinweise auf eine geschützte Übernahme
-oder eine einschlägige vertragliche Einschränkung werden gezielt geprüft.
+Technical procedures and simple facts must be distinguished from protected
+texts, graphics or a creative compilation: German Copyright Act
+[§2 UrhG](https://www.gesetze-im-internet.de/urhg/__2.html) and
+[§4 UrhG](https://www.gesetze-im-internet.de/urhg/__4.html), and for the US
+perspective [Copyright Office, Circular 33](https://www.copyright.gov/circs/circ33.pdf).
+This is the working assessment for the reviewed set, not a blanket license for
+the original sources. Specific indications of a protected adoption or a
+relevant contractual restriction are reviewed individually.
 
-Die veröffentlichten Bedingungen von
+The published terms of
 [Miltech](https://docs.miltechsimulations.com/miltech-simulations-mh60/product-information/disclaimer-and-credits),
-[iniBuilds](https://inibuilds.com/pages/eula) und
-[Orbx](https://orbxstudios.com/eula/) enthalten Weitergabebeschränkungen für
-ihre Produkte. Diese werden weder aufgehoben noch als offene Lizenz ausgelegt.
-Eine Verletzung durch einen bestimmten App-Eintrag wurde hier nicht
-festgestellt. Microsofts [Fan-Content-Regeln](https://www.xbox.com/en-US/developers/rules)
-sind ebenfalls keine uneingeschränkte MIT-Freigabe.
+[iniBuilds](https://inibuilds.com/pages/eula) and
+[Orbx](https://orbxstudios.com/eula/) contain redistribution restrictions for
+their products. These are neither lifted nor interpreted as an open license.
+No infringement by a specific app entry was found. Microsoft's
+[Game Content Usage Rules](https://www.xbox.com/en-US/developers/rules) are
+likewise no unrestricted MIT permission.
 
-## Herkunft
+## Provenance
 
-Die App fasst ausgewählte Ingame-Abläufe und Handbuchangaben zusammen.
-Öffentlich nachprüfbare Quellen stehen in der
-[Daten-README](../checklists/data/README.md). Persönliche Arbeitsvorlagen
-sind keine unabhängigen Quellen- oder Lizenznachweise.
+The app summarizes selected in-game procedures and manual information.
+Publicly verifiable sources are listed in the
+[data README](../checklists/data/README.md). Personal working templates are
+not independent evidence of sources or licenses.
 
-| Checkliste | Zugeordnete Herkunft |
-| --- | --- |
-| DA42 | COWS, Vertrieb über Orbx/Marketplace; lokal `fs20-orbx-aircraft-da42b` mit `cows_da42tdi` und `cows_da42vi`. |
-| MH60 | Miltech/Vantech mit Blackbird; lokal `miltechsimulations-aircraft-mh60` 1.1.6. |
-| G36 | Asobo-Standardpaket; ausgewählte technische Werte. |
-| C152 | Asobo-Standardpaket; zusätzlicher Abgleich mit dem Cessna-POH. |
-| H125 | Asobo-Standardpaket; ergänzende Hersteller- und Betreiberquellen. |
-| A400M | Microsoft/iniBuilds; zusätzlich öffentlich bereitgestellte QRC als Vergleich. |
-| OH-6A/H500C | Taog’s Hangar; gekürzter Ablauf aus der Expert-Checkliste. |
+| Checklist   | Attributed origin                                                                                                 |
+|-------------|-------------------------------------------------------------------------------------------------------------------|
+| DA42        | COWS, distributed via Orbx/Marketplace; locally `fs20-orbx-aircraft-da42b` with `cows_da42tdi` and `cows_da42vi`. |
+| MH60        | Miltech/Vantech with Blackbird; locally `miltechsimulations-aircraft-mh60` 1.1.6.                                 |
+| G36         | Asobo default package; selected technical values.                                                                 |
+| C152        | Asobo default package; additionally cross-checked against the Cessna POH.                                         |
+| H125        | Asobo default package; supplementary manufacturer and operator sources.                                           |
+| A400M       | Microsoft/iniBuilds; additionally a publicly provided QRC for comparison.                                         |
+| OH-6A/H500C | Taog's Hangar; shortened procedure from the Expert checklist.                                                     |
 
-Die Quellenbelege bleiben im [Inventar](license-audit-inventory.json)
-unter `checklistRightsReview`. Der historische Ingame-Wortlaut konnte nicht
-für alle Pakete vollständig verglichen werden; Anbieterbedingungen sind
-der öffentlich abrufbare Stand, nicht der Nachweis des jeweiligen Kaufvertrags.
+The source evidence remains in the [inventory](license-audit-inventory.json)
+under `checklistRightsReview`. The historical in-game wording could not be
+fully compared for all packages; vendor terms reflect the publicly available
+version, not proof of the respective purchase contract.
 
-## Abschluss
+## Conclusion
 
-Herkunft und eigene Bearbeitung bleiben nachvollziehbar. Quellenreferenzen enthalten nur knappe Fakten mit Seitenbelegen, keine
-Handbuchabschriften. Es gibt keine ausstehenden Herstelleranfragen. Ein Herkunftshinweis und KI-Unterstützung erteilen keine
-Nutzungsrechte; die gesonderten Software- und SDK-Lizenzen bleiben in
-[R1–R2](license-audit.md) zu behandeln, Audio regeln die
-[Audiobedingungen](../assets/audio/LICENSE).
+Provenance and the project's own editing remain traceable. Source references
+contain only brief facts with page references, no transcriptions of manuals.
+There are no pending requests to manufacturers. A provenance note and AI
+assistance grant no rights of use; the separate software and SDK licenses are
+covered in [third-party-licenses.md](third-party-licenses.md), the audio by the
+[audio terms](../assets/audio/LICENSE).

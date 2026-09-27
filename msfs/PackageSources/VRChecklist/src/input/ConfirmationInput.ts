@@ -16,8 +16,8 @@ import { CONFIRMATION_ACTIONS } from "../settings/EfbSettings";
  * `PLASMA_OFF` is offered as SET PLASMA OFF and confirmed to reach this EFB
  * context in G36, DA42, H125 and MH-60. The choice, rejected alternatives and
  * runtime constraints live in
- * docs/adr/0011-bestaetigungsaktionen-im-companion.md and
- * docs/msfs-sdk-reference.md#sim-key-events-in-einer-custom-efb-app.
+ * docs/adr/0011-confirmation-actions-in-the-companion.md and
+ * docs/msfs-sdk-reference.md#sim-key-events-in-a-custom-efb-app.
  *
  * It is intercepted with pass-through, so the sim still receives it and
  * nothing is masked.
@@ -50,7 +50,7 @@ export const CONFIRM_KEY_DEBOUNCE_MS = 60;
  * loads and a registration made after the first one did not survive the later
  * ones. The intercept is renewed only once the ready-to-cockpit sequence ends,
  * or when an observed `GameState.loading` ends. See
- * docs/msfs-sdk-reference.md#sim-key-events-in-einer-custom-efb-app.
+ * docs/msfs-sdk-reference.md#sim-key-events-in-a-custom-efb-app.
  */
 const interceptedKeyEvents = new Set<string>();
 

@@ -1,40 +1,39 @@
 # Cessna 152 reference
 
-Quelle: Cessna Aircraft Company, *Model 152 Pilot's Operating Handbook*,
-Normal Procedures, Seitenstand 18. April 1980; bereitgestellt als
+Source: Cessna Aircraft Company, *Model 152 Pilot's Operating Handbook*,
+Normal Procedures, page revision April 18, 1980; provided as
 [1981-C152-POH.pdf](https://aceshighaviation.com/wp-content/uploads/2020/10/1981-C152-POH.pdf)
-von Aces High Aviation. Abgerufen am 7. September 2026.
+by Aces High Aviation. Retrieved on 2026-09-07.
 
-Die verwendeten Fakten wurden direkt an den gescannten Originalseiten
-geprüft; Seitenbelege und die Auswahl für die App stehen in der Tabelle unten.
+The facts used were checked directly against the scanned original pages; page
+references and the selection for the app are in the table below.
 
-Die App schreibt die Einheit wie die bestehenden Checklisten als `kt`.
-Alle C152-Geschwindigkeiten beziehen sich auf IAS (im POH: KIAS); die
-Checkliste nennt dies bei der ersten Geschwindigkeitsangabe. `Vr` kennzeichnet
-das Anheben der Nase, `Vy` die beste Steigrate und `Vapp` den gewählten
-Endanflugwert. Die 85-kt-Klappengrenze wird als `Vfe` bezeichnet
-(POH 2-4, PDF-Seite 11: oberes Ende des weißen Bogens). Der normale
-75-kt-Steigflug hat hier kein eigenes V-Kürzel.
+Like the existing checklists, the app writes the unit as `kt`. All C152 speeds
+refer to IAS (KIAS in the POH); the checklist states this at the first speed.
+`Vr` marks raising the nose, `Vy` the best rate of climb and `Vapp` the chosen
+final approach value. The 85 kt flap limit is labeled `Vfe` (POH 2-4, PDF
+page 11: upper end of the white arc). The normal 75 kt climb has no V-speed
+abbreviation of its own here.
 
-## Ableitung für die Simulator-App
+## Derivation for the simulator app
 
-| Thema | POH-Seite (PDF-Seite) | Grundlage und kompakte Auswahl |
-| --- | --- | --- |
-| Startklappen | 4-8 (27) | Erlaubt 0–10°; für den normalen Start gewählt: 0°. |
-| Rotation | 4-8 (27) | Nase bei 50 KIAS anheben. |
-| Steigflug | 4-3 (24), 4-8 (27) | Normal 70–80 KIAS: gewählt 75 KIAS, Klappen eingefahren. Vy separat als Hinweis: 67 KIAS auf Meereshöhe, 61 KIAS auf 10.000 ft. |
-| Gemisch | 4-8/4-9 (27) | Im Steigflug oberhalb 3.000 ft für maximale RPM abmagern; vor der Landung voll reich. |
-| Anflugklappen | 4-9 (27) | Nach Bedarf unter 85 KIAS; 10° ist eine gewählte Zwischenstufe, keine feste POH-Vorgabe. |
-| Landeklappen und Geschwindigkeit | 4-3 (24), 4-9 (27) | Normaler Endanflug mit 30° und 55–65 KIAS: gewählt 60 KIAS. Kein Aufsetzgeschwindigkeits-Sollwert. |
+| Topic                   | POH page (PDF page) | Basis and compact selection                                                                                              |
+|-------------------------|---------------------|--------------------------------------------------------------------------------------------------------------------------|
+| Takeoff flaps           | 4-8 (27)            | 0–10° permitted; chosen for a normal takeoff: 0°.                                                                        |
+| Rotation                | 4-8 (27)            | Raise the nose at 50 KIAS.                                                                                               |
+| Climb                   | 4-3 (24), 4-8 (27)  | Normal 70–80 KIAS: 75 KIAS chosen, flaps retracted. Vy separately as a note: 67 KIAS at sea level, 61 KIAS at 10,000 ft. |
+| Mixture                 | 4-8/4-9 (27)        | In the climb above 3,000 ft, lean for maximum RPM; full rich before landing.                                             |
+| Approach flaps          | 4-9 (27)            | As required below 85 KIAS; 10° is a chosen intermediate setting, not a fixed POH requirement.                            |
+| Landing flaps and speed | 4-3 (24), 4-9 (27)  | Normal final approach with 30° and 55–65 KIAS: 60 KIAS chosen. No target touchdown speed.                                |
 
-Bewusst unvollständige Merkhilfe für die angefragten Werte, keine vollständige
-Normal- oder Kurzplatzcheckliste. Klappen- und Geschwindigkeitsauswahl beziehen
-sich auf einen normalen Anflug ohne besondere Windbedingungen.
+A deliberately incomplete memory aid for the requested values, not a complete
+normal or short-field checklist. The flap and speed selection refers to a
+normal approach without special wind conditions.
 
-## Identitätszuordnung
+## Identity matching
 
-Am 7. September 2026 lieferte der Companion-Kopierbutton die folgenden
-unveränderten MSFS-Werte; der Benutzer bestätigte den kopierten Text:
+On 2026-09-07, the companion copy button returned the following unchanged
+MSFS values, confirmed in the simulator:
 
 ```text
 ATC MODEL: TT:ATCCOM.AC_MODEL C152.0.text
@@ -42,6 +41,6 @@ ATC TYPE: TT:ATCCOM.ATC_NAME CESSNA.0.text
 TITLE: Cessna C152 Aerial Advertising
 ```
 
-Die Regel verwendet daraus `AC_MODEL C152` und hängt damit weder vom
-umgebenden Lokalisierungs-Token noch von der Titelvariante ab. Zusätzliche
-`ATC TYPE`- oder `TITLE`-Regeln werden nicht benötigt.
+The rule uses `AC_MODEL C152` from these values and therefore depends neither
+on the surrounding localization token nor on the title variant. Additional
+`ATC TYPE` or `TITLE` rules are not needed.

@@ -1,171 +1,177 @@
-# Designentscheidungen
+# Design decisions
 
-Hier stehen bewusst gewählte Produktregeln, die bei einer Überarbeitung
-sonst verloren gehen könnten. Keine Abnahmechronik, CSS-Abschrift oder
-vollständige Aufzählung aller UI-Zustände. Maße und technische Details stehen
-im Code; MSFS-Besonderheiten in [msfs-sdk-reference.md](msfs-sdk-reference.md),
-offene Sichtprüfungen in [design-qa.md](design-qa.md).
+This document holds deliberately chosen product rules that could otherwise get
+lost in a rework. It is no acceptance log, CSS transcript or complete list of
+all UI states. Dimensions and technical details are in the code, MSFS
+specifics in [msfs-sdk-reference.md](msfs-sdk-reference.md), open visual
+checks in [design-qa.md](design-qa.md).
 
-## EFB: Lesbarkeit und Aufbau
+## EFB: readability and layout
 
-- VR-Lesbarkeit und große Interaktionsziele gehen vor Informationsdichte.
-  Größen folgen der Root-Schriftgröße und der eigenen Layoutbox, ohne globalen
-  CSS-Transform. Montiert wird immer das VR-Dichteprofil verwendet; außerhalb
-  von VR zeigt das gelöste Panel mehr Inhalt. Small/Medium/Large verändert
-  innerhalb eines Profils die physische Größe, nicht den sichtbaren Ausschnitt.
-- Genau eine Gruppe ist sichtbar. Reihenfolge: App-Header, Navigation,
-  Gruppenüberschrift, Items. Nur die Item-Liste scrollt. Ihr Scrollbarplatz
-  bleibt reserviert; Navigation und Items behalten dieselbe sichtbare Flucht.
-- Zwei gleich breite Navigationsbuttons zeigen mittig nur die benachbarten
-  Gruppennamen, ohne Nummern, Richtungspfeile oder Previous/Next-Zusätze.
-  Ihre Schrift ist so groß wie Itemtext; Listenenden heißen `Start` und `Complete`.
-- Der Gruppenname dominiert. Die Phase steht kleiner als hellblauer,
-  abgerundeter Outline-Tag rechts daneben, ohne eigene Interaktion.
-  Bei Platzmangel bricht der ganze Tag um; alle Phasen haben dieselbe Farbe.
-- Der separate `Skip phase`-Button trägt ein Kapitel-Skip-Symbol und Tooltip.
-  Er bleibt mit dem Phasen-Tag zusammen und hat dieselbe Hover-Sprache wie die
-  Navigation. Gruppenüberschrift und Navigation haben transparenten Hintergrund.
-- Die Version steht klein und blass unten rechts. Das Versionsformat regelt
-  [release.md](release.md).
+- VR readability and large interaction targets take precedence over
+  information density. Sizes follow the root font size and the app's own
+  layout box, without a global CSS transform. When mounted, the VR density
+  profile is always used; outside VR, the detached panel shows more content.
+  Small/Medium/Large changes the physical size within a profile, not the
+  visible section.
+- Exactly one group is visible. Order: app header, navigation, group heading,
+  items. Only the item list scrolls. Its scrollbar space stays reserved;
+  navigation and items keep the same visible alignment.
+- Two equally wide navigation buttons show only the neighboring group names,
+  centered, without numbers, direction arrows or Previous/Next additions. Their
+  font is as large as the item text; the list ends are called `Start` and
+  `Complete`.
+- The group name dominates. The phase is shown smaller as a light blue,
+  rounded outline tag to its right, without its own interaction. If space is
+  short, the whole tag wraps; all phases have the same color.
+- The separate `Skip phase` button has a chapter-skip icon and a tooltip. It
+  stays together with the phase tag and uses the same hover language as the
+  navigation. Group heading and navigation have a transparent background.
+- The version is shown small and faint at the bottom right. The version format
+  is defined in [release.md](release.md).
 
-## Items und Fortschritt
+## Items and progress
 
-- Hauptzeile: Challenge, gepunktete Führung, Response, Checkbox rechts.
-  Die ganze Zeile einschließlich des Checkbox-Randes ist anklickbar.
-- `action` hat kein Typ-Label und keinen linken Farbmarker. `verify`,
-  `communication` und `optional` erhalten Label und Farbmarker;
-  `communication` heißt sichtbar `ATC`, `optional` ist gedämpft grau-blau.
-- Optionale Items zählen nicht im Pflichtfortschritt. Gruppen-Haken und
-  automatischer Gruppenwechsel erfordern trotzdem **alle** Items: Der Pilot
-  entscheidet selbst über ein Überspringen.
-- Erledigte Items sind grün und tragen ein X in der Checkbox. Vollständige
-  Gruppen tragen einen grünen Haken vor ihrem Namen in Überschrift und
-  Navigation. Bedeutungsvolle Symbole werden als CSS-Geometrie oder Asset
-  gezeichnet, nicht aus ungesicherter Font-Abdeckung übernommen.
-- Hover hellt den Hintergrund auf; keine weiße Umrandung. Kontrast und
-  Erledigt-Zustand bleiben erkennbar.
-- `Review required` ist neutral, ohne zusätzliche Signalfarbe. Detail-Labels
-  wie `Condition:` und `Note:` haben einen Doppelpunkt und dieselbe Textgröße
-  wie ihr Inhalt. Schreibweisen stehen ausschließlich im
-  [Style Guide](../checklists/data/style-guide.md).
+- Main row: challenge, dotted leader, response, checkbox on the right. The
+  whole row including the checkbox border is clickable.
+- `action` has no type label and no left color marker. `verify`,
+  `communication` and `optional` get a label and a color marker;
+  `communication` is shown as `ATC`, `optional` is a muted gray-blue.
+- Optional items do not count toward the required progress. Group checkmarks
+  and the automatic group change still require **all** items: the pilot
+  decides on skipping.
+- Completed items are green and show an X in the checkbox. Complete groups
+  show a green checkmark before their name in the heading and the navigation.
+  Meaningful symbols are drawn as CSS geometry or assets, not taken from
+  unreliable font coverage.
+- Hover brightens the background; no white outline. Contrast and the
+  completed state remain recognizable.
+- `Review required` is neutral, without an additional signal color. Detail
+  labels such as `Condition:` and `Note:` have a colon and the same text size
+  as their content. Spelling conventions are defined only in the
+  [style guide](../checklists/data/style-guide.md).
 
-## Navigation, Eingabe und Reset
+## Navigation, input and reset
 
-- Nach dem letzten offenen Item folgt nach kurzer Bestätigungspause die nächste
-  Gruppe. Taste/HOTAS bestätigt nur das nächste offene Item der **angezeigten**
-  Gruppe, nur bei sichtbarer App. Eine vollständige Gruppe bleibt dabei unverändert.
-- `Skip phase` erledigt alle offenen Items des zusammenhängenden Phasenblocks,
-  einschließlich optionaler Items und früherer Gruppen derselben Phase.
-  Es öffnet die erste Gruppe des nächsten Blocks am Listenanfang; deren
-  Fortschritt bleibt erhalten. In der letzten Phase bleibt die letzte Gruppe
-  sichtbar. Sind dort alle Items erledigt, ist Skip deaktiviert, bis eines
-  wieder geöffnet wird. Der Companion erhält nur den Endzustand: einmaliger
-  Abschluss, danach gegebenenfalls das nächste offene Item.
-- Ein neuer Flug setzt Fortschritt und aktive Gruppe beim **Laden** zurück,
-  nicht bei `FlightEnd`. Im Menü darf der letzte Stand noch sichtbar sein.
-  Flugzeugwechsel und Simulatorneustart setzen ebenfalls zurück; VR-Wechsel
-  und Pause nicht. Kontextübergabe ohne Timeout gemäß
-  [ADR 0009](adr/0009-fortschritt-ueber-efb-kontextwechsel.md).
-- Die App wählt automatisch über explizite Flugzeugregeln, auch in der
-  Free-Flight-Konfiguration. Fehlende oder mehrdeutige Treffer zeigen
-  `Keine Checkliste vorhanden` und eine dezente Diagnosezeile mit
-  `ATC MODEL`, `ATC TYPE`, `TITLE`; keine Default-Checkliste.
-- Die Eventwahl regelt
-  [ADR 0011](adr/0011-bestaetigungsaktionen-im-companion.md).
+- After the last open item, the next group follows after a short confirmation
+  pause. Key/HOTAS confirms only the next open item of the **displayed** group,
+  and only while the app is visible. A complete group remains unchanged.
+- `Skip phase` completes all open items of the contiguous phase block,
+  including optional items and earlier groups of the same phase. It opens the
+  first group of the next block at the top of the list; its progress is kept.
+  In the last phase, the last group stays visible. When all its items are
+  done, Skip is disabled until one is reopened. The companion receives only
+  the final state: a single completion, followed by the next open item if
+  there is one.
+- A new flight resets progress and the active group on **loading**, not on
+  `FlightEnd`. The last state may still be visible in the menu. Aircraft
+  changes and simulator restarts also reset; VR switches and pause do not.
+  Context handover without a timeout according to
+  [ADR 0009](adr/0009-progress-across-efb-context-changes.md).
+- The app selects automatically through explicit aircraft rules, also in the
+  free flight configuration. Missing or ambiguous matches show
+  `Keine Checkliste vorhanden` and a subtle diagnostic line with
+  `ATC MODEL`, `ATC TYPE`, `TITLE`; there is no default checklist.
+- The event choice is defined by
+  [ADR 0011](adr/0011-confirmation-actions-in-the-companion.md).
 
-## Companion: Fenster und Status
+## Companion: window and status
 
-- Minimieren lässt Verbindung und Audio weiterlaufen; Schließen beendet die
-  App. Kein Tray-Icon. `Escape` schließt das aktive Nebenfenster, nicht das Dashboard.
-- `Settings` steht oben rechts neben `Release Notes` und ist modal; `Checklists` ein einzelnes nicht modales Fenster, das
-  bei erneutem Öffnen nach vorn kommt. Verbindung und Audio laufen weiter.
-- Settings-Bereiche folgen der Reihenfolge Überschrift, Erklärung, Bedienelement.
-  Audio steht vor `EFB Keybindings`. Ein Schalter wie bei Audio
-  aktiviert die Bestätigung; das Dropdown steht rechts daneben. Bei Aus
-  bleibt die Auswahl erhalten und das Dropdown ist gesperrt und ausgegraut.
-  Die Einstellung ist offline bearbeitbar. Der Companion speichert den Wunsch
-  lokal; Text meldet ausstehende Übertragung oder Fehler und entfällt nach
-  bestätigter EFB-Übernahme. Speicherung und Eventwahl gemäß
-  [ADR 0011](adr/0011-bestaetigungsaktionen-im-companion.md).
-- Verbindungsversuche zeigen ruhig `Connecting` und `Waiting for MSFS 2024.`,
-  eine Verbindung `Connected`. Gelb/Grün ergänzt den sichtbaren Text.
-  Der EFB-Status bleibt separat: SimConnect allein bedeutet keinen Snapshot.
-  Tatsächliche Fehler wie eine fehlende DLL bleiben als Fehler erkennbar.
-- Die aktive Phase erscheint neben `Active Group` im gleichen Tag-Stil wie
-  im EFB; ohne Phase bleibt der Tag verborgen. Die Detailkarte und das Fenster
-  folgen der Inhaltshöhe, ohne künstliche Leerfläche unter dem Fortschritt.
-- Bei unbekanntem Flugzeug kopiert `Copy` die unveränderten drei Diagnosewerte
-  als beschriftete Zeilen. Der Button erscheint nur bei passendem aktuellem
-  Snapshot; Erfolg wird kurz als `Copied` im Button gemeldet.
-- Buttons haben hellen Text auf dunkelblauer Fläche, sichtbares Hover und ein
-  eigenes Symbol links vom Text. Theme-Standardfarben dürfen den Kontrast
-  nicht überschreiben; Symbole ersetzen keinen Text.
+- Minimizing keeps the connection and audio running; closing exits the app.
+  No tray icon. `Escape` closes the active secondary window, not the
+  dashboard.
+- `Settings` is at the top right next to `Release Notes` and is modal;
+  `Checklists` is a single non-modal window that comes to the front when
+  opened again. Connection and audio keep running.
+- Settings sections follow the order heading, explanation, control. Audio
+  comes before `EFB Keybindings`. A switch as for audio enables confirmation;
+  the dropdown is next to it. When off, the selection is kept and the dropdown
+  is locked and grayed out. The setting can be edited offline. The companion
+  stores the desired value locally; text reports a pending transfer or errors
+  and disappears once the EFB has confirmed applying it. Storage and event
+  choice according to
+  [ADR 0011](adr/0011-confirmation-actions-in-the-companion.md).
+- Connection attempts calmly show `Connecting` and `Waiting for MSFS 2024.`,
+  a connection shows `Connected`. Yellow/green complements the visible text.
+  The EFB status stays separate: SimConnect alone does not mean a snapshot.
+  Actual errors such as a missing DLL remain recognizable as errors.
+- The active phase appears next to `Active Group` in the same tag style as in
+  the EFB; without a phase, the tag stays hidden. The detail card and the
+  window follow the content height, without artificial empty space below the
+  progress.
+- For an unknown aircraft, `Copy` copies the three unchanged diagnostic values
+  as labeled lines. The button appears only with a matching current snapshot;
+  success is briefly reported as `Copied` in the button.
+- Buttons have light text on a dark blue surface, visible hover and their own
+  icon to the left of the text. Theme default colors must not override the
+  contrast; icons do not replace text.
 
-## Companion: Audio
+## Companion: audio
 
-- EFB-Bedienung bleibt unabhängig von Verbindung und Audio. Keine
-  Mikrofonaufnahme, Spracherkennung oder Online-TTS im Flug.
-- `Read checklist items` und `Radio effect` sind standardmäßig an und werden
-  gespeichert. Bewusst gespeichertes Aus bleibt erhalten.
-- Itemansagen lesen den aktuellen offenen Eintrag, auch nach Einschalten oder
-  dem ersten passenden Snapshot. Neue Items ersetzen alte Ansagen; keine
-  Warteschlange. Wiederholte Snapshots, Reconnects und VR-Wechsel wiederholen
-  dasselbe Item nicht. Ein neuer Flug oder Checklistenwechsel verwirft alte Ansagen;
-  Verbindungsverlust und Protokollfehler stoppen die Wiedergabe.
-- Das erste Item jeder Gruppe beginnt mit `<Gruppenname> Checklist.` und
-  einer natürlichen kurzen Satzpause. Das gilt auch beim erneuten Vorlesen
-  dieses Items; beim Fortsetzen mit einem späteren Item entfällt der Gruppenname.
-- Eine neu vollständig erledigte Gruppe sagt einmal `Checklist completed`.
-  Bereits erledigte Gruppen beim Start/Reconnect werden nicht nachträglich
-  angesagt. Nach Wiederöffnen und erneutem Abschluss darf sie erneut sprechen.
-  Die Abschlussansage endet vor dem inzwischen neuesten Item.
-- Abschalten der Itemansagen lässt Gruppenabschluss und `Test sound` verfügbar.
-  Eine abweichende Checklistenrevision meldet einen Audiofehler, statt falschen
-  Text zu lesen.
-- `Radio effect` wirkt live auf dieselbe Clean-Aufnahme; Aus spielt sie
-  unverändert. Keine Intercom-Variante, siehe
-  [ADR 0010](adr/0010-radioeffekt-bei-der-wiedergabe.md).
-- `Audio output` speichert die Auswahl sofort und verwendet sie ab der nächsten
-  Ansage. `Windows default` steht zuerst, danach zuletzt gewählte Geräte,
-  übrige alphabetisch. Die gespeicherte Reihenfolge erscheint beim nächsten
-  Öffnen der Liste; Windows default löscht die Gerätehistorie nicht.
-- Fehlende Geräte bleiben mit `(unavailable)` ausgewählt, ohne stillen Ersatz.
-  Die Liste aktualisiert sich beim Öffnen/Aktivieren des Fensters und Dropdowns;
-  zurückkehrende Geräte werden an ihrer ID erkannt.
-- `Test sound` steht nur in Settings, spielt den Abschluss auf dem gewählten
-  Ausgang und ändert keinen Fortschritt. Er läuft unabhängig von
-  Simulatorverbindung und Checklistenevents zu Ende. Abbrüche, Speicher- und
-  Wiedergabefehler werden als Text gemeldet.
+- EFB operation stays independent of connection and audio. No microphone
+  recording, speech recognition or online TTS in flight.
+- `Read checklist items` and `Radio effect` are on by default and are saved.
+  A deliberately saved off state is kept.
+- Item announcements read the current open item, also after being switched on
+  or on the first matching snapshot. New items replace old announcements; no
+  queue. Repeated snapshots, reconnects and VR switches do not repeat the same
+  item. A new flight or checklist change discards old announcements; loss of
+  connection and protocol errors stop playback.
+- The first item of each group starts with `<group name> Checklist.` and a
+  short natural sentence pause. This also applies when that item is read
+  again; when continuing with a later item, the group name is omitted.
+- A newly completed group says `Checklist completed` once. Groups already
+  complete at startup or reconnect are not announced afterwards. After
+  reopening and completing it again, the group may speak again. The completion
+  announcement finishes before the item that has become current in the
+  meantime.
+- Turning off item announcements leaves group completion and `Test sound`
+  available. A differing checklist revision reports an audio error instead of
+  reading the wrong text.
+- `Radio effect` applies live to the same clean recording; off plays it
+  unchanged. No intercom variant, see
+  [ADR 0010](adr/0010-radio-effect-during-playback.md).
+- `Audio output` saves the selection immediately and uses it from the next
+  announcement. `Windows default` comes first, followed by recently selected
+  devices, the rest alphabetically. The saved order appears the next time the
+  list is opened; Windows default does not clear the device history.
+- Missing devices stay selected with `(unavailable)`, without a silent
+  replacement. The list refreshes when the window or dropdown is opened or
+  activated; returning devices are recognized by their ID.
+- `Test sound` is only in Settings, plays the completion sound on the selected
+  output and does not change any progress. It plays to the end regardless of
+  the simulator connection and checklist events. Cancellations, storage and
+  playback errors are reported as text.
 
-## Companion: Checklisten und Export
+## Companion: checklists and export
 
-- Die sortierte Liste enthält alle ausgelieferten Checklisten. Beim Öffnen
-  wird die aktuelle, sonst die erste ausgewählt. Spätere Flugzeugwechsel
-  ändern eine bereits offene Auswahl nicht.
-- Pro Gruppe eine Karte aus den kanonischen Daten, mit Phase und den gleichen
-  Itembestandteilen wie im EFB. Keine zweite redaktionelle Datenquelle.
-- `Copy` liefert Markdown-artigen Text mit Titel, Gruppe/Phase und Itemdetails;
-  Rückmeldung direkt als `Copied`. Texte bleiben einzeln markierbar.
-- `PDF` nutzt den nativen Speicherdialog, schlägt
-  `<Titel> Checklist – <Revision>.pdf` vor und öffnet den Standard-PDF-Viewer.
-  A4, zwei Spaltenpaare, grau gefüllte Gruppenköpfe mit weißer zentrierter
-  Überschrift samt Phase, Rahmen und Abschlusslinien. Gruppen bleiben zusammen,
-  solange sie in eine Spalte passen, sonst mit Fortsetzungskopf.
-  Verify-Zeilen sind hellblau, ATC violett, Optional grau; Action ohne Füllung.
-  Details klein und kursiv, Review-Hinweise werden nicht gedruckt.
-- PDFs bleiben klein und ohne eingebettete Schriften; der eigene Writer nutzt
-  PDF-Standardschriften. Kein Renderingpfad, der vollständige Fonts einbettet.
-- `Release Notes` ist offline, neueste Version zuerst, mit Datum, optionalem
-  Hauptmerkmal und knappen Einzeilern nach Wichtigkeit. Redaktionelle Regeln
-  und Abgleich zum Changelog stehen in [AGENTS.md](../AGENTS.md).
+- The sorted list contains all shipped checklists. When opened, the current
+  checklist is selected, otherwise the first one. Later aircraft changes do not
+  change a selection that is already open.
+- One card per group from the canonical data, with its phase and the same item
+  parts as in the EFB. No second editorial data source.
+- `Copy` produces Markdown-like text with title, group/phase and item details;
+  feedback appears directly as `Copied`. Texts remain individually selectable.
+- `PDF` uses the native save dialog, suggests
+  `<title> Checklist – <revision>.pdf` and opens the default PDF viewer. A4,
+  two column pairs, gray-filled group headers with a white centered heading
+  including the phase, borders and closing lines. Groups stay together as long
+  as they fit in one column, otherwise they continue with a continuation
+  header. Verify rows are light blue, ATC violet, optional gray; action rows
+  have no fill. Details are small and italic; review notes are not printed.
+- PDFs stay small and embed no fonts; the custom writer uses the PDF standard
+  fonts. No rendering path that embeds complete fonts.
+- `Release Notes` is offline, newest version first, with date, an optional
+  main feature and short one-liners ordered by importance. Editorial rules and
+  the reconciliation with the changelog are in [AGENTS.md](../AGENTS.md).
 
-## Branding und Markup
+## Branding and markup
 
-- Gemeinsame Marke: Zwischenablage, graue Linien links, blaue Haken rechts,
-  weiße Außenkontur. Im EFB transparent, unter Windows auf dunkler runder Kachel.
-  Das My-Library-Thumbnail zeigt zusätzlich `VR Checklist`, keine Version.
-  Quellen und Bildformate: [Branding](../assets/branding/README.md).
-- Das eigene EFB-Markup enthält auf Nutzerentscheidung keine `aria-*`-Attribute
-  oder ARIA-Rollen. Darstellung, Bedienung, SDK-Referenzen und erklärende
-  Tooltips bleiben; unbenutzte IDs und SEO-Metadaten entfallen. Diese Vorgabe
-  betrifft nicht die versionierten SDK-Vorlagen.
+- Shared mark: clipboard, gray lines on the left, blue checkmarks on the
+  right, white outer contour. Transparent in the EFB, on a dark round tile on
+  Windows. The My Library thumbnail additionally shows `VR Checklist`, no
+  version. Sources and image formats: [branding](../assets/branding/README.md).
+- By maintainer decision, the app's own EFB markup contains no `aria-*` attributes or
+  ARIA roles. Display, operation, SDK references and explanatory tooltips
+  remain; unused IDs and SEO metadata are omitted. This rule does not apply to
+  the versioned SDK templates.

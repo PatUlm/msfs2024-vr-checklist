@@ -1,95 +1,98 @@
-# Release und lokale Installation
+# Release and local installation
 
-Diese Anleitung beschreibt den aktuellen Maintainer-Ablauf. Dokumentiert
-werden nötige Befehle und Fallstricke; interne Prüfschritte stehen im Code.
+This guide describes the current maintainer process. It documents the
+necessary commands and pitfalls; internal verification steps are in the code.
 
-## Einmalige Einrichtung
+## One-time setup
 
-Voraussetzungen und Clone-Setup stehen in [development.md](development.md).
-Die Windows-Pfade in der ignorierten `.env` anhand von
-[.env.example](../.env.example) anpassen:
+Prerequisites and clone setup are described in
+[development.md](development.md). Adjust the Windows paths in the ignored
+`.env` based on [.env.example](../.env.example):
 
-- `VR_CHECKLIST_MSFS_SDK_ROOT`: installierter SDK-Ordner.
-- `VR_CHECKLIST_COMMUNITY_DIR`: tatsächlicher `Community2024`-Ordner.
+- `VR_CHECKLIST_MSFS_SDK_ROOT`: installed SDK folder.
+- `VR_CHECKLIST_COMMUNITY_DIR`: actual `Community2024` folder.
 - `VR_CHECKLIST_COMPANION_INSTALL_DIR`:
-  `%LOCALAPPDATA%\VRChecklist.Companion`, als WSL-Pfad; dorthin installiert
-  das Setup.
-- `VR_CHECKLIST_RELEASE_DIR`: standardmäßig
-  `/mnt/c/dev/msfs2024-vr-checklist-releases`.
+  `%LOCALAPPDATA%\VRChecklist.Companion` as a WSL path; the setup installs
+  there.
+- `VR_CHECKLIST_RELEASE_DIR`: `/mnt/c/dev/msfs2024-vr-checklist-releases` by
+  default.
 
-Die Skripte verlangen die Zielnamen `Community2024`,
-`msfs2024-vr-checklist-releases` und `AppData/Local/VRChecklist.Companion`, um
-versehentliche Änderungen fremder Ordner zu verhindern.
+The scripts require the target names `Community2024`,
+`msfs2024-vr-checklist-releases` and `AppData/Local/VRChecklist.Companion` to
+prevent accidental changes to unrelated folders.
 
-## Version und Release
+## Version and release
 
-`VERSION` ist die kanonische SemVer-Version für EFB, MSFS-Paket und Companion.
-Entwicklungsbuilds zeigen zusätzlich `-dev.YYYYMMDDHHMMSS` in UTC; Releases
-zeigen exakt `MAJOR.MINOR.PATCH`.
+`VERSION` is the canonical SemVer version for the EFB app, the MSFS package and
+the companion. Development builds additionally show `-dev.YYYYMMDDHHMMSS` in
+UTC; releases show exactly `MAJOR.MINOR.PATCH`.
 
-1. Fachliche Änderungen einschließlich nötiger Simulatornachweise abschließen
-   und nach den [Reviewregeln](../AGENTS.md) freigeben lassen.
-2. `VERSION` erhöhen und in `msfs/PackageDefinitions/patulm-vr-checklist.xml`,
-   `msfs/PackageSources/VRChecklist/package.json` sowie den beiden
-   Root-Versionseinträgen der dortigen `package-lock.json` spiegeln.
-3. Nutzerwirksame Änderungen aus `CHANGELOG.md` unter die neue Version mit
-   Datum verschieben. `companion/release-notes.json` mit gleichem Datum und
-   Version aktualisieren, wichtigste Neuerung zuerst.
-4. `task check` erfolgreich ausführen. MSFS und Companion beenden.
-5. `task release` ausführen. Es baut beide Apps, erzeugt EFB-ZIP und
-   Companion-Setup und legt ein unveränderliches Release unter dem
-   konfigurierten Release-Ordner an. Die `SimConnect.dll` kommt aus dem
-   konfigurierten SDK.
-6. Release-Metadaten als `chore(release): publish version X.Y.Z` committen und
-   einen annotierten Tag `vX.Y.Z` exakt auf diesen Commit setzen.
-7. `task release:install` ausführen und die tatsächlich installierten Versionen
-   prüfen. Erst dann ist der lokale Release-Schritt abgeschlossen.
+1. Complete functional changes including the necessary simulator
+   verifications and have them approved according to the
+   [review rules](../AGENTS.md).
+2. Increase `VERSION` and mirror it in
+   `msfs/PackageDefinitions/patulm-vr-checklist.xml`,
+   `msfs/PackageSources/VRChecklist/package.json` and the two root version
+   entries of the `package-lock.json` there.
+3. Move user-facing changes in `CHANGELOG.md` under the new version with its
+   date. Update `companion/release-notes.json` with the same date and version,
+   most important change first.
+4. Run `task check` successfully. Exit MSFS and the companion.
+5. Run `task release`. It builds both apps, creates the EFB ZIP and the
+   companion setup, and adds an immutable release in the configured release
+   folder. `SimConnect.dll` comes from the configured SDK.
+6. Commit the release metadata as `chore(release): publish version X.Y.Z` and
+   put an annotated tag `vX.Y.Z` exactly on that commit.
+7. Run `task release:install` and check the versions actually installed. Only
+   then is the local release step complete.
 
-Der Release-Ordner enthält `release.json`, das MSFS-Paket
-`patulm-vr-checklist/` für die lokale Junction, das Download-ZIP
-`patulm-vr-checklist-X.Y.Z.zip` und unter `VRChecklist.Companion/` die
-Velopack-Ausgabe: `VRChecklist.Companion-win-Setup.exe`, das volle `.nupkg`
-und den Update-Feed `releases.win.json`. Für spätere Updates müssen Setup,
-`.nupkg` und `releases.win.json` gemeinsam am GitHub-Release hängen. Bereits
-vorhandene Versionen werden nicht überschrieben.
+The release folder contains `release.json`, the MSFS package
+`patulm-vr-checklist/` for the local junction, the download ZIP
+`patulm-vr-checklist-X.Y.Z.zip` and, under `VRChecklist.Companion/`, the
+Velopack output: `VRChecklist.Companion-win-Setup.exe`, the full `.nupkg` and
+the update feed `releases.win.json`. For later updates, the setup, `.nupkg`
+and `releases.win.json` must all be attached to the GitHub release. Existing
+versions are never overwritten.
 
-Beide Artefakte enthalten `LICENSE.txt` und die aus [licenses/](../licenses/README.md)
-erzeugten `THIRD-PARTY-NOTICES.txt`, das EFB-Paket in seiner Wurzel, der
-Companion zusätzlich `AUDIO-LICENSE.txt`. `task release` bricht ab, wenn ein
-ausgeliefertes Paket keinen passenden Eintrag in `licenses/notices.json` hat.
+Both artifacts contain `LICENSE.txt` and the `THIRD-PARTY-NOTICES.txt`
+generated from [licenses/](../licenses/README.md): the EFB package in its root,
+the companion additionally with `AUDIO-LICENSE.txt`. `task release` aborts if
+a shipped package has no matching entry in `licenses/notices.json`.
 
-Anschließend entfernt `task release` ältere Releases, einzeln aufrufbar als
-`task release:prune`. Erhalten bleiben die drei neuesten `MAJOR.MINOR`-Linien
-mit allen Patches und das in `Community2024` verlinkte Release.
+Finally, `task release` removes older releases; this step can also be run on
+its own as `task release:prune`. It keeps the three newest `MAJOR.MINOR` lines
+with all their patches and the release linked in `Community2024`.
 
-Die Vorbereitung öffentlicher Releases steht im [Backlog](../BACKLOG.md).
-Der lokale Release-Task veröffentlicht nichts auf GitHub;
-Pushes und Veröffentlichung erfolgen nur auf ausdrücklichen Auftrag.
+Preparing public releases is tracked in the [backlog](../BACKLOG.md). The
+local release task publishes nothing on GitHub; pushes and publication happen
+only on explicit request.
 
-## Installation und Rollback
+## Installation and rollback
 
 ```bash
 task release:install
 ```
 
-Installiert die zuvor gebaute Version aus `VERSION`. Einzelne Komponenten
-lassen sich mit `task community:install` oder `task companion:install`
-installieren. Für ein vorhandenes anderes Release; lokale Releases bis 0.17.0
-tragen noch den alten Paketnamen und lassen sich so nicht mehr installieren:
+This installs the previously built version from `VERSION`. Individual
+components can be installed with `task community:install` or
+`task companion:install`. To install another existing release (local releases
+up to 0.17.0 still use the former package name and cannot be installed this
+way):
 
 ```bash
 task release:install VERSION=X.Y.Z
 ```
 
-Das Community-Paket wird als native Windows-Junction auf das Release
-installiert. **Den verlinkten Release-Ordner nicht löschen**, solange er
-installiert ist. Linux-Symlinks auf `/mnt/c` sind kein Ersatz: Windows erkennt
-sie nicht als Junction. Der Installer erstellt und prüft den Link über Windows.
+The Community package is installed as a native Windows junction to the
+release. **Do not delete the linked release folder** while it is installed.
+Linux symlinks on `/mnt/c` are no substitute: Windows does not recognize them
+as junctions. The installer creates and checks the link through Windows.
 
-Der Companion wird wie bei Spielern über das Setup installiert, hier mit
-`--silent`. Es beendet einen laufenden Companion aus diesem Ordner und ersetzt
-die vorhandene Installation. Danach **VR Checklist Companion** starten.
+The companion is installed through the setup just like for players, here with
+`--silent`. The setup exits a running companion from this folder and replaces
+the existing installation. Afterwards, start **VR Checklist Companion**.
 
-Beim normalen Simulatorstart steht das Community-Paket ohne DevMode bereit.
-Ein im Project Editor gebauter Stand desselben Pakets hat Vorrang; für
-Entwicklung muss die Community-Installation daher nicht entfernt werden.
+On a normal simulator start, the Community package is available without
+Developer Mode. A build of the same package from the Project Editor takes
+precedence, so the Community installation does not need to be removed for
+development.

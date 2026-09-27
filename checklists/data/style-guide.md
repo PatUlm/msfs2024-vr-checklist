@@ -1,112 +1,105 @@
 # Checklist Style Guide
 
-Dieser Style Guide hält die sprachlichen Konventionen für alle JSON-Checklisten
-fest. Gleiche oder ähnliche Handlungen sollen flugzeugübergreifend gleich
-aufgebaut und benannt sein.
+This style guide records the language conventions for all JSON checklists.
+Identical or similar actions should be structured and named the same way
+across aircraft.
 
-## Titel
+## Title
 
-- `title` nennt ausschließlich das Luftfahrzeug, also Hersteller und Muster,
-  zum Beispiel `Diamond DA42` oder `Sikorsky MH-60`.
-- Zusätze wie `Checklist`, `+ ATC` oder `Minimal` gehören nicht in den Titel.
-  Dass es sich um eine Checkliste handelt, ergänzen die Anzeigen und der
-  PDF-Dateiname selbst; Umfang und Herkunft stehen in der Dokumentation.
+- `title` names only the aircraft, i.e. manufacturer and model, for example
+  `Diamond DA42` or `Sikorsky MH-60`.
+- Additions such as `Checklist`, `+ ATC` or `Minimal` do not belong in the
+  title. The displays and the PDF file name add the fact that it is a
+  checklist themselves; scope and provenance are in the documentation.
 
-## Challenge und Response
+## Challenge and response
 
-- Die Challenge benennt eindeutig das zu bedienende oder zu prüfende System.
-  Dazu gehören auch Seiten- und Komponentennummern.
-- Die Response enthält nur den geforderten Zustand oder die auszuführende
-  Aktion.
-- Nummern, die selbst eine Sollstellung oder einen Sollwert darstellen, bleiben
-  in der Response.
-- Bei `communication`-Items lautet die Challenge `COM: <Funkstelle>`, zum
-  Beispiel `COM: ATIS`, `COM: Clearance`, `COM: Ground` oder `COM: Tower`. Das
-  `COM:` benennt das zu bedienende Funkgerät — COM 1 oder COM 2 ist auf diese
-  Station zu stellen —, nicht die Wortart „Communication“. Es steht damit in
-  derselben Logik wie jede andere Challenge, die ein System benennt, und
-  wiederholt das Typ-Label `ATC` nicht, das die Art der Handlung markiert.
-- Ein überspringbares Item bekommt den Kind `optional`. Seine Optionalität wird
-  nicht zusätzlich in die Response geschrieben; `As required` bleibt Items
-  vorbehalten, die zwar abzuarbeiten sind, deren Sollzustand aber von der
-  Situation abhängt.
+- The challenge clearly names the system to operate or check. This includes
+  side and component numbers.
+- The response contains only the required state or the action to perform.
+- Numbers that themselves represent a target position or a target value stay
+  in the response.
+- For `communication` items, the challenge is `COM: <station>`, for example
+  `COM: ATIS`, `COM: Clearance`, `COM: Ground` or `COM: Tower`. `COM:` names
+  the radio to operate (COM 1 or COM 2 is to be tuned to this station), not the
+  kind of action "communication". It thus follows the same logic as every
+  other challenge that names a system, and it does not repeat the type label
+  `ATC`, which marks the kind of action.
+- A skippable item gets the kind `optional`. Its optionality is not
+  additionally written into the response; `As required` is reserved for items
+  that must be worked through but whose target state depends on the
+  situation.
 
-Beispiele:
+Examples:
 
-| Challenge               | Response       | Begründung                              |
-| ----------------------- | -------------- | --------------------------------------- |
-| Fuel Boost Pumps [1+2]  | On             | `[1+2]` identifiziert die Pumpen.       |
-| Engine 1                | Start + IDLE   | `1` identifiziert das Triebwerk.        |
-| Flaps                    | 2 (Full)       | `2` ist die geforderte Klappenstellung. |
-| Landing Speed           | 80 kt          | `80 kt` ist der geforderte Wert.        |
+| Challenge              | Response     | Reason                             |
+|------------------------|--------------|------------------------------------|
+| Fuel Boost Pumps [1+2] | On           | `[1+2]` identifies the pumps.      |
+| Engine 1               | Start + IDLE | `1` identifies the engine.         |
+| Flaps                  | 2 (Full)     | `2` is the required flap position. |
+| Landing Speed          | 80 kt        | `80 kt` is the required value.     |
 
-## Nummerierte Komponenten
+## Numbered components
 
-- Ein gemeinsam gemeintes Komponentenpaar wird in der Challenge kompakt als
-  `[1+2]` geschrieben. Zwischen Ziffern und Pluszeichen stehen keine
-  Leerzeichen.
-- Eckige Klammern kennzeichnen die Paarangabe als Komponenten-Scope und trennen
-  sie klar vom eigentlichen Challenge-Namen. Runde Klammern bleiben erklärenden
-  Zusätzen vorbehalten, zum Beispiel der Sollstellung `1 (Approach)`.
-- `1/2` wird nicht verwendet, weil der Schrägstrich auch eine Alternative oder
-  einen Bruch ausdrücken kann.
-- Eine einzelne Komponente wird mit Leerzeichen geschrieben, zum Beispiel
-  `Engine 1`.
-- Eigenständig zu bestätigende Bedienelemente erhalten getrennte Items. Sie
-  werden nicht allein wegen eines kompakten Quelldokuments mit Pluszeichen in
-  einer Challenge zusammengefasst; so bleiben beispielsweise `SAS [1+2]` und
-  `TRIM` getrennt wahrnehmbar.
-- Verbindet ein Pluszeichen mehrere Zustände oder Aktionen innerhalb einer
-  Response, wird es zur Lesbarkeit von Leerzeichen umgeben, zum Beispiel
-  `Start + IDLE`.
-- Ein optionaler `speech`-Text formuliert Nummern natürlich aus, zum Beispiel
-  `one and two`; die kompakte Bildschirmschreibweise wird nicht vorgelesen.
+- A component pair meant together is written compactly as `[1+2]` in the
+  challenge. There are no spaces between the digits and the plus sign.
+- Square brackets mark the pair as a component scope and clearly separate it
+  from the actual challenge name. Parentheses are reserved for explanatory
+  additions, for example the target position `1 (Approach)`.
+- `1/2` is not used, because the slash can also express an alternative or a
+  fraction.
+- A single component is written with a space, for example `Engine 1`.
+- Controls that are confirmed independently get separate items. They are not
+  combined into one challenge with a plus sign just because a source document
+  is compact; this way, for example, `SAS [1+2]` and `TRIM` remain separately
+  noticeable.
+- If a plus sign combines several states or actions within a response, it is
+  surrounded by spaces for readability, for example `Start + IDLE`.
+- An optional `speech` text spells out numbers naturally, for example
+  `one and two`; the compact on-screen notation is not read aloud.
 
-## Einheiten und Begriffe
+## Units and terms
 
-- Einheiten folgen mit einem Leerzeichen auf den Wert, zum Beispiel `80 kt`
-  oder `100 %`.
-- Bereits etablierte Challenge-Namen werden für gleiche Vorgänge wiederverwendet.
-  Neue Flugzeug-Checklisten orientieren sich zuerst an vorhandenen Einträgen,
-  bevor neue Synonyme eingeführt werden.
-- Bei Geschwindigkeiten wird ein fachlich passendes Kürzel ergänzt, etwa
-  `Rotation Speed (Vr)`, `Climb Speed (Vy)` oder `Approach Speed (Vapp)`.
-  Grenzwerte in Bedingungen nennen ebenfalls ihr Kürzel, etwa `Vfe` für die
-  maximale Geschwindigkeit mit ausgefahrenen Klappen. Ein normaler Steigflug
-  wird nur dann als `Vy` bezeichnet, wenn tatsächlich die Geschwindigkeit für
-  die beste Steigrate gemeint ist; ein gewählter Anflugwert wird nicht ohne
-  Quellenbeleg zu `Vref` erklärt.
-- `kt` bezeichnet die Einheit Knoten, `KIAS` zusätzlich den Bezug auf die
-  angezeigte Fluggeschwindigkeit. Bei kompakter Anzeige in `kt` bleibt der
-  belegte Bezug auf IAS, TAS oder Ground Speed in Hinweisen beziehungsweise
-  Bedingungen und im Herkunftsnachweis erhalten.
-- Abkürzungen dürfen im sichtbaren Text stehen. Wenn die automatische
-  Aussprache unklar wäre, erhält der Eintrag einen vollständig formulierten
-  `speech`-Text.
+- Units follow the value after a space, for example `80 kt` or `100 %`.
+- Established challenge names are reused for identical procedures. New
+  aircraft checklists first follow existing entries before introducing new
+  synonyms.
+- For speeds, a suitable abbreviation is added, such as
+  `Rotation Speed (Vr)`, `Climb Speed (Vy)` or `Approach Speed (Vapp)`. Limits
+  in conditions also state their abbreviation, such as `Vfe` for the maximum
+  speed with flaps extended. A normal climb is labeled `Vy` only if the speed
+  for the best rate of climb is actually meant; a chosen approach value is not
+  declared `Vref` without source evidence.
+- `kt` denotes the unit knots, `KIAS` additionally the reference to indicated
+  airspeed. With a compact display in `kt`, the documented reference to IAS,
+  TAS or ground speed is kept in notes or conditions and in the provenance
+  record.
+- Abbreviations may appear in the visible text. If the automatic
+  pronunciation would be unclear, the entry gets a fully worded `speech` text.
 
-## Gesprochene Ansagen (`speech`)
+## Spoken announcements (`speech`)
 
-- `speech` enthält die vollständige englische Ansage eines Eintrags: System
-  und geforderte Aktion beziehungsweise Sollzustand sowie die zugehörigen
-  Bedingungen, Alternativen und Bedienhinweise aus `notes`. Der Eintrag soll
-  beim Hören ohne zusätzliches Lesen verständlich und ausführbar sein.
-- Hinweise zu Bedienort, Reihenfolge, Wartezeiten, Grenzwerten und zur Bedeutung
-  benötigter Eingaben werden mitgesprochen. Reine Quellenangaben oder
-  redaktionelle Erläuterungen ohne Nutzen für die Bedienung dürfen entfallen.
-- Die Ansage darf Hinweise natürlich umformulieren und zusammenfassen, aber
-  keine für die Ausführung relevante Information verlieren oder neue fachliche
-  Angaben ergänzen. Kurze, klare Sätze verwenden.
-- `speech` ersetzt die automatische Ansage `<challenge>: <response>` vollständig.
-  `condition`, `alternatives` und `notes` werden nicht automatisch angehängt.
-  Ohne `speech` ist ein Eintrag nur dann vollständig vertont, wenn Challenge
-  und Response bereits alle für die Ansage nötigen Informationen enthalten.
-- Bei Änderungen an einem Eintrag auch `speech` mit allen geänderten Feldern
-  abgleichen; anschließend die betroffenen [Audioassets](../../assets/audio/README.md)
-  aktualisieren.
-- Jeder Eintrag mit `kind: "verify"` erhält einen `speech`-Text, der mit
-  `Verify ` beginnt, zum Beispiel `Verify A P U indicator: On.`.
-  Die sichtbare Challenge bleibt der Systemname; das vorhandene Verify-Badge
-  kennzeichnet die Prüfhandlung in der Oberfläche.
+- `speech` contains the complete English announcement of an entry: the system
+  and the required action or target state, plus the associated conditions,
+  alternatives and operating notes from `notes`. The entry should be
+  understandable and executable by listening, without additional reading.
+- Notes on location of controls, order, waiting times, limits and the meaning
+  of required inputs are spoken along. Pure source references or editorial
+  explanations without operational use may be omitted.
+- The announcement may rephrase and combine notes naturally, but must not lose
+  any information relevant for execution or add new technical details. Use
+  short, clear sentences.
+- `speech` fully replaces the automatic announcement
+  `<challenge>: <response>`. `condition`, `alternatives` and `notes` are not
+  appended automatically. Without `speech`, an entry is only fully voiced if
+  the challenge and response already contain all the information needed for
+  the announcement.
+- When changing an entry, also reconcile `speech` with all changed fields;
+  then update the affected [audio assets](../../assets/audio/README.md).
+- Every entry with `kind: "verify"` gets a `speech` text starting with
+  `Verify `, for example `Verify A P U indicator: On.`. The visible challenge
+  stays the system name; the existing verify badge marks the checking action
+  in the UI.
 
-Beispiel: Zu `Altimeters [1+2]: Set QNH` mit der Notiz `Use ATIS or METAR`
-gehört die Ansage `Altimeters one and two: Set Q N H from A T I S or M E T A R.`.
+Example: `Altimeters [1+2]: Set QNH` with the note `Use ATIS or METAR` gets
+the announcement `Altimeters one and two: Set Q N H from A T I S or M E T A R.`.

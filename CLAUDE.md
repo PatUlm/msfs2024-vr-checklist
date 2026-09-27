@@ -1,10 +1,10 @@
 # CLAUDE.md
 
-Die verbindlichen Arbeitsregeln für dieses Repository stehen vollständig in
-[`AGENTS.md`](AGENTS.md). Diese Datei existiert ausschließlich, weil Claude Code
-`AGENTS.md` nicht automatisch lädt, und leitet dorthin weiter.
+The binding working rules for this repository are entirely in
+[`AGENTS.md`](AGENTS.md). This file exists only because Claude Code does not
+load `AGENTS.md` automatically, and it redirects there.
 
-Hier werden keine Regeln gepflegt. Neue oder geänderte Arbeitsregeln gehören
-nach `AGENTS.md`, damit beide Werkzeuge dieselbe Quelle verwenden.
+No rules are maintained here. New or changed working rules belong in
+`AGENTS.md` so that both tools use the same source.
 
 @AGENTS.md

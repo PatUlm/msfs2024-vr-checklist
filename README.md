@@ -1,110 +1,110 @@
 # MSFS 2024 VR Checklist
 
-Offline-Checklisten für das Electronic Flight Bag (EFB) in Microsoft Flight
-Simulator 2024, mit großen Bedienflächen für VR und einer optionalen
-Windows-Begleit-App für Sprachausgabe.
+Offline checklists for the Electronic Flight Bag (EFB) in Microsoft Flight
+Simulator 2024, with large controls for VR and an optional Windows companion
+app for spoken announcements.
 
-Das Veröffentlichungsziel steht in der [Roadmap](ROADMAP.md), offene Arbeit
-im [Backlog](BACKLOG.md).
+The release goal is in the [roadmap](ROADMAP.md), open work in the
+[backlog](BACKLOG.md).
 
-## Funktionen
+## Features
 
-- Automatische Flugzeugauswahl, große anklickbare Zeilen und Bestätigung per
-  Taste oder HOTAS.
-- Gruppenweise Navigation, Phasenüberspringen und Fortschrittsanzeige.
-- Fortschritt bleibt beim Wechsel zwischen VR und Nicht-VR erhalten; ein neuer
-  Flug setzt ihn zurück.
-- Optionaler Companion mit englischen Brian-Ansagen, zuschaltbarem Radioeffekt
-  und wählbarem Audioausgang. Keine Cloudverbindung im Flug.
-- Checklisten im Companion ansehen, als Text kopieren oder als PDF speichern;
-  Release Notes offline lesen.
+- Automatic aircraft selection, large clickable rows and confirmation by key
+  or HOTAS.
+- Group navigation, phase skipping and progress display.
+- Progress survives switching between VR and non-VR; a new flight resets it.
+- Optional companion with English announcements in the ElevenLabs voice Brian,
+  a switchable radio effect and a selectable audio output. No cloud connection
+  in flight.
+- View checklists in the companion, copy them as text or save them as PDF;
+  read the release notes offline.
 
-Enthalten sind Airbus A400M, Airbus H125, Beechcraft Bonanza G36, Cessna 152,
-Diamond DA42, Hughes OH-6A/500C und Sikorsky MH-60. Umfang und Abdeckung
-unterscheiden sich je Flugzeug.
+Included are the Airbus A400M, Airbus H125, Beechcraft Bonanza G36,
+Cessna 152, Diamond DA42, Hughes OH-6A/500C and Sikorsky MH-60. Scope and
+coverage differ by aircraft.
 
-Die Checklisten sind mit KI-Unterstützung bearbeitete Merkhilfen für das
-**Spiel**, keine Flugunterlagen für reale Luftfahrt. Ihre
-[Quellen und Einschränkungen](checklists/data/README.md#inhaltliche-herkunft)
-sind dokumentiert.
+The checklists are memory aids for the **game**, edited with AI assistance,
+not flight documents for real-world aviation. Their
+[sources and limitations](checklists/data/README.md#content-provenance) are
+documented.
 
-## Installation und Start
+## Installation and launch
 
-Ein Release besteht aus zwei Dateien derselben Version. EFB-App und Companion
-immer gemeinsam aktualisieren, sonst bleiben die Ansagen stumm.
+A release consists of two files of the same version. Always update the EFB
+app and the companion together; otherwise the announcements stay silent.
 
-1. **EFB-App:** `patulm-vr-checklist-X.Y.Z.zip` in den Community-Ordner von
-   MSFS 2024 entpacken, sodass dort der Ordner `patulm-vr-checklist` liegt.
-   Vor einem Update den alten Ordner löschen.
-2. **Companion (optional):** `VRChecklist.Companion-win-Setup.exe` ausführen.
-   Es installiert ohne Adminrechte unter `%LOCALAPPDATA%\VRChecklist.Companion`
-   und legt Verknüpfungen auf dem Desktop und im Startmenü an. .NET, das
-   MSFS-SDK oder eine eigene `SimConnect.dll` sind nicht nötig. Das Setup ist
-   nicht signiert; bei der SmartScreen-Warnung **Weitere Informationen** und
-   dann **Trotzdem ausführen** wählen. Deinstallation über die Windows-Apps-Liste;
-   Einstellungen bleiben dabei erhalten.
+1. **EFB app:** Extract `patulm-vr-checklist-X.Y.Z.zip` into the MSFS 2024
+   Community folder so that it contains the folder `patulm-vr-checklist`.
+   Delete the old folder before an update.
+2. **Companion (optional):** Run `VRChecklist.Companion-win-Setup.exe`. It
+   installs without administrator rights to
+   `%LOCALAPPDATA%\VRChecklist.Companion` and creates shortcuts on the desktop
+   and in the Start menu. Neither .NET, the MSFS SDK nor a separate
+   `SimConnect.dll` is required. The setup is not signed; at the SmartScreen
+   warning, choose **More info** and then **Run anyway**. Uninstall it from the
+   Windows apps list; settings are kept.
 
-Nach der Installation im EFB **VR Checklist** öffnen. Die App funktioniert
-ohne laufenden Companion. Für Sprachausgabe und zum Konfigurieren der
-Bestätigungsaktionen zusätzlich **VR Checklist Companion** starten. Hinweise
-bei Problemen stehen unter
-[Companion: Start und Diagnose](companion/README.md#start-und-diagnose).
-Eigene Builds beschreiben [Entwicklung](docs/development.md) und
-[Release](docs/release.md).
+After installation, open **VR Checklist** in the EFB. The app works without a
+running companion. For announcements and to configure confirmation actions,
+also start **VR Checklist Companion**. For problems, see
+[Companion: launch and diagnostics](companion/README.md#launch-and-diagnostics).
+Custom builds are covered by [development](docs/development.md) and
+[release](docs/release.md).
 
-## Bedienung
+## Usage
 
-Ein Klick auf eine Zeile hakt sie ab oder öffnet sie wieder. Sind alle Items
-einer Gruppe erledigt, folgt automatisch die nächste. Optionale Items zählen
-nicht zum Fortschrittsbalken, halten aber den automatischen Gruppenwechsel
-auf, bis sie erledigt sind oder man manuell weiterblättert.
+Clicking a row checks it off or reopens it. Once all items of a group are
+done, the next group follows automatically. Optional items do not count
+toward the progress bar, but they hold the automatic group change until they
+are done or you page on manually.
 
-`Skip phase` erledigt den zusammenhängenden aktuellen Phasenblock einschließlich
-optionaler Items und öffnet die nächste Phase. In der letzten Phase erledigt
-es deren verbleibende Items.
+`Skip phase` completes the contiguous current phase block, including optional
+items, and opens the next phase. In the last phase, it completes the remaining
+items.
 
-Für Taste oder HOTAS in den MSFS-**Steuerungen** die Action **SET PLASMA OFF**
-belegen (Event `PLASMA_OFF`; der Anzeigename kann je Sim-Sprache abweichen).
-Sie bestätigt das nächste offene Item der angezeigten Gruppe, solange die App
-im EFB offen ist. Das Event wird an den Simulator weitergereicht; für fremde
-Flugzeuge ist eine Nebenwirkung nicht ausgeschlossen. Die Begründung der
-Eventwahl steht in [ADR 0011](docs/adr/0011-bestaetigungsaktionen-im-companion.md).
+For a key or HOTAS, bind the action **SET PLASMA OFF** in the MSFS
+**Controls** (event `PLASMA_OFF`; the display name may differ by simulator
+language). It confirms the next open item of the displayed group while the app
+is open in the EFB. The event is passed on to the simulator; side effects in
+other aircraft cannot be ruled out. The reasons for this event are given in
+[ADR 0011](docs/adr/0011-confirmation-actions-in-the-companion.md).
 
-Im Companion unter **Settings**:
+In the companion under **Settings**:
 
-- **EFB Keybindings**: mit dem Schalter die Bestätigung aktivieren und rechts
-  daneben im Dropdown die MSFS-Aktion auswählen; aktuell `SET PLASMA OFF`, standardmäßig an.
-  Bei Aus bleibt die Auswahl erhalten. Auch ohne Simulator
-  bearbeitbar. Der Companion speichert die Auswahl lokal und überträgt sie,
-  sobald VR Checklist im EFB erreichbar ist. Hinweise auf ausstehende Übertragung verschwinden nach der
-  Übernahme. Die EFB behält den letzten übernommenen Wert auch ohne Companion,
-  nach Flugwechsel und Simulatorneustart. Aus unterbindet nur die
-  Checklistenbestätigung; das Event erreicht weiterhin das Flugzeug.
-- `Read checklist items`: nächsten offenen Eintrag vorlesen; standardmäßig an.
-- `Radio effect`: Klangfilter live ein-/ausschalten; standardmäßig an.
-- `Audio output` und `Test sound`: Ausgabegerät wählen und prüfen. Ein nicht
-  verfügbares Gerät bleibt ausgewählt, bis es zurückkehrt oder ersetzt wird.
+- **EFB Keybindings**: the switch enables confirmation; the dropdown next to it
+  selects the MSFS action, currently `SET PLASMA OFF`. On by default. When off,
+  the selection is kept. Editable without the simulator: the companion stores
+  the selection locally and transfers it as soon as VR Checklist is reachable
+  in the EFB. Notices about a pending transfer disappear once the EFB has
+  applied it. The EFB keeps the last applied value without the companion,
+  across flight changes and simulator restarts. Off only stops checklist
+  confirmation; the event still reaches the aircraft.
+- `Read checklist items`: reads the next open item aloud; on by default.
+- `Radio effect`: switches the sound filter on or off live; on by default.
+- `Audio output` and `Test sound`: select and test the output device. An
+  unavailable device stays selected until it returns or is replaced.
 
-Gruppenabschluss und Testton funktionieren auch bei ausgeschalteten
-Itemansagen. Minimieren lässt Verbindung und Audio weiterlaufen; Schließen
-beendet den Companion.
+Group completion and the test sound also work with item announcements turned
+off. Minimizing keeps the connection and audio running; closing exits the
+companion.
 
-## Probleme und Mitwirken
+## Issues and contributing
 
-Bei fehlender Checkliste die Diagnosewerte `ATC MODEL`, `ATC TYPE` und `TITLE`
-melden; der Companion kann sie mit `Copy` kopieren. Bei anderen Fehlern helfen
-Version, Flugzeug, Reproduktionsschritte und gegebenenfalls ein Screenshot.
+If an aircraft has no checklist, report the diagnostic values `ATC MODEL`,
+`ATC TYPE` and `TITLE`; the companion copies them with `Copy`. For other bugs,
+the version, aircraft, steps to reproduce and, if useful, a screenshot help.
 
-- [Entwicklung](docs/development.md): Setup, Tests und Simulator-Iteration.
-- [Checklistendaten](checklists/data/README.md): Inhalte ergänzen oder korrigieren.
-- [Backlog](BACKLOG.md): nächste Arbeiten.
-- [Changelog](CHANGELOG.md): Änderungen je Version.
-- [Drittlizenzen](docs/third-party-licenses.md): Komponenten und Primärquellen.
+- [Development](docs/development.md): setup, tests and simulator iteration.
+- [Checklist data](checklists/data/README.md): add or correct content.
+- [Backlog](BACKLOG.md): upcoming work.
+- [Changelog](CHANGELOG.md): changes per version.
+- [Third-party licenses](docs/third-party-licenses.md): components and primary
+  sources.
 
-Eigener Code und eigene Inhalte stehen unter der [MIT-Lizenz](LICENSE).
-Ausgenommen sind die aus dem EFB-Template des MSFS-SDK übernommenen
-Konfigurationsdateien ([Herkunft](msfs/PackageSources/README.md)),
-die [Drittkomponenten](docs/third-party-licenses.md) und die Sprachaufnahmen
-unter eigenen [Audiobedingungen](assets/audio/LICENSE): Weitergabe und
-Bearbeitung sind erlaubt, KI-Training und die übrigen Grenzen der
-ElevenLabs-Nutzungsrichtlinie gelten weiter.
+The project's own code and content are licensed under the
+[MIT License](LICENSE). Excluded are the configuration files taken from the
+MSFS SDK EFB template ([origin](msfs/PackageSources/README.md)), the
+[third-party components](docs/third-party-licenses.md) and the voice
+recordings, which have their own [audio terms](assets/audio/LICENSE):
+redistribution and modification are allowed, while AI training and the other
+limits of the ElevenLabs usage policy still apply.

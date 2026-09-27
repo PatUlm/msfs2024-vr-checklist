@@ -1,58 +1,57 @@
 # H125 references
 
-Dieser Ordner enthält Quellenverweise und ausgewählte technische Fakten für
-die H125-Checklistendaten. Sie dienen der nachvollziehbaren Ableitung und
-sind keine freigegebene Flugunterlage. Im Konfliktfall gilt ausschließlich das
-für den konkreten Hubschrauber gültige und freigegebene Flughandbuch.
+This folder contains source references and selected technical facts for the
+H125 checklist data. They serve a traceable derivation and are not an
+approved flight document. In case of conflict, only the approved flight
+manual valid for the specific helicopter applies.
 
-## Primärquelle
+## Primary source
 
-- Dokument: *Excerpts from AS350 Flight Manual, Revisions 2 & 3 – Normal
+- Document: *Excerpts from AS350 Flight Manual, Revisions 2 & 3 – Normal
   Procedures*
-- Dokumentinhaber laut Dokument: Airbus Helicopters / Eurocopter
-- Öffentlicher Host: National Transportation Safety Board (NTSB), Docket
+- Document owner according to the document: Airbus Helicopters / Eurocopter
+- Public host: National Transportation Safety Board (NTSB), docket
   attachment
 - Download:
   <https://data.ntsb.gov/Docket/Document/docBLOB?FileExtension=.PDF&FileName=Excerpts+from+AS350+Flight+Manual%2C+Revisions+2+%26+3+-+Normal+Procedures-Master.PDF&ID=40431411>
-- Abgerufen: 2026-08-30
-- Verwendete Abschnitte: AS 350 B3e, 4.3.1 `Engine Prestart Check`, 4.3.2
-  `Engine Starting`, 4.3.3 `Run-up Check` und 4.8 `Engine and Rotor Shutdown`
-- Relevante gedruckte Seiten: 4-6 bis 4-10 sowie 4-14
+- Retrieved: 2026-08-30
+- Sections used: AS 350 B3e, 4.3.1 `Engine Prestart Check`, 4.3.2
+  `Engine Starting`, 4.3.3 `Run-up Check` and 4.8 `Engine and Rotor Shutdown`
+- Relevant printed pages: 4-6 to 4-10 and 4-14
 
-Das NTSB stellt den Flughandbuchauszug als Verfahrensakte bereit, ist aber nicht
-der Herausgeber des Flughandbuchs. Wegen des nicht ausgewiesenen
-Weiterverbreitungsrechts wird die PDF-Datei nicht im Repository dupliziert.
-Stattdessen hält
-[`as350-b3e-normal-procedures.md`](as350-b3e-normal-procedures.md) ausgewählte
-technische Fakten mit Seitenbezug fest; die vollständige Verfahrensabschrift
-ist kein Teil der öffentlichen Referenzdokumentation.
+The NTSB provides the flight manual excerpt as part of an investigation
+docket but is not the publisher of the flight manual. Because no
+redistribution right is stated, the PDF file is not duplicated in the
+repository. Instead,
+[`as350-b3e-normal-procedures.md`](as350-b3e-normal-procedures.md) records
+selected technical facts with page references; the complete procedure
+transcription is not part of the public reference documentation.
 
-## Gegenprobe mit einer Betreibercheckliste
+## Cross-check against an operator checklist
 
-- Dokument: *AS350B3e Normal Procedures Checklist*, Air Methods, Rev. IR,
+- Document: *AS350B3e Normal Procedures Checklist*, Air Methods, Rev. IR,
   2014-08-05
-- Öffentlicher Host: NTSB, Docket attachment
+- Public host: NTSB, docket attachment
 - Download:
   <https://data.ntsb.gov/Docket/Document/docBLOB?FileExtension=.PDF&FileName=Human+Performance+Attachment+3+-+AS350B3e+Checklists-Master.PDF&ID=40443238>
-- Abgerufen: 2026-08-30
+- Retrieved: 2026-08-30
 
-Diese Betreibercheckliste bestätigt insbesondere `INST LIGHT SYSTEM – AS
-REQUIRED` vor dem Start sowie `Twist Grip – FLIGHT DETENT` vor `HORN – ON as NR
->= 340 RPM`. Sie weist selbst darauf hin, dass bei Abweichungen das freigegebene
-Flughandbuch Vorrang hat.
+This operator checklist confirms in particular `INST LIGHT SYSTEM – AS
+REQUIRED` before the start and `Twist Grip – FLIGHT DETENT` before `HORN – ON
+as NR >= 340 RPM`. It states itself that the approved flight manual takes
+precedence in case of deviations.
 
-## Ergänzende Systemreferenz zur Beleuchtung
+## Supplementary system reference for lighting
 
-- Dokument: *AS 350 B3e Flight Manual*, Complementary Flight Manual 7.6,
-  Kapitel 15-16, Seiten 1 bis 3
-- Öffentliche Kopie:
+- Document: *AS 350 B3e Flight Manual*, Complementary Flight Manual 7.6,
+  chapter 15-16, pages 1 to 3
+- Public copy:
   <https://studylib.net/doc/26305547/rukovodstvo-po-letnoj-e-kspluatacii-as350b3e---flight-manu...>
-- Abgerufen: 2026-08-30
+- Retrieved: 2026-08-30
 
-Diese öffentlich auffindbare Kopie liegt nicht auf einem Hersteller- oder
-Behördenserver und wird deshalb nur zur Erklärung der Schalterfunktion
-herangezogen. Sie beschreibt die Betriebsarten des
-`OFF/DAY/NIGHT`-Beleuchtungswählers, die automatische Kopplung der
-Positionslichter in `DAY` und `NIGHT` sowie den separaten `A/COL`-Schalter. Die
-Reihenfolge der Checklistenpunkte wird weiterhin aus der oben genannten
-NTSB-Primärquelle abgeleitet.
+This publicly findable copy is not hosted on a manufacturer or authority
+server and is therefore used only to explain the switch function. It
+describes the modes of the `OFF/DAY/NIGHT` lighting selector, the automatic
+coupling of the position lights in `DAY` and `NIGHT`, and the separate `A/COL`
+switch. The order of the checklist items is still derived from the NTSB
+primary source named above.

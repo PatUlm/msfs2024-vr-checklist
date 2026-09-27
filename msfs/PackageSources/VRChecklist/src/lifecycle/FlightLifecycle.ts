@@ -5,7 +5,7 @@
  * can be unit-tested; the view carries the reactions out.
  *
  * Runtime findings behind the plans live in
- * docs/msfs-sdk-reference.md#sim-key-events-in-einer-custom-efb-app.
+ * docs/msfs-sdk-reference.md#sim-key-events-in-a-custom-efb-app.
  */
 
 export const FLOW_API_EVENT_NAME = "__FLOW_API__";

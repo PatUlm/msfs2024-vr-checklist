@@ -1,178 +1,179 @@
-# MSFS-2024-SDK: Lessons learned
+# MSFS 2024 SDK: lessons learned
 
-Einziger Ort für bestätigte MSFS-/Coherent-Besonderheiten, die einen künftigen
-Fehler verhindern. Pro Erkenntnis: Geltungsbereich und Handlungsregel.
-Keine Rohlogs, Testchronik oder Wiederholung gewöhnlichen API-Verhaltens.
-Produktregeln stehen in [design-decisions.md](design-decisions.md), Architektur
-in den [ADRs](adr/README.md), offene Tests in [open-tests.md](open-tests.md).
+The single place for confirmed MSFS/Coherent specifics that prevent a future
+bug. Each finding states its scope and a rule of action. No raw logs, test
+history or repetition of ordinary API behavior. Product rules are in
+[design-decisions.md](design-decisions.md), architecture in the
+[ADRs](adr/README.md), open tests in [open-tests.md](open-tests.md).
 
-`[RT]` bedeutet im Projekt zur Laufzeit bestätigt, `[SDK]` in SDK/Sample/Doku
-belegt, `[NEG]` einen nachweislich ungeeigneten naheliegenden Weg. Marker nur
-verwenden, wenn sie zur Einordnung beitragen.
+`[RT]` means confirmed at runtime in this project, `[SDK]` documented in the
+SDK, samples or documentation, `[NEG]` an obvious approach that proved
+unsuitable. Use markers only where they help classify a finding.
 
-## Geltungsbereich
+## Scope
 
-MSFS 2024 SDK / EFB Template 1.7.3, EFB-API 1.0.3, MSFS-SDK-Paket 2.1.1 und
-MSFS-Typen 1.14.6. Nach Updates nur betroffene Erkenntnisse neu bewerten.
+MSFS 2024 SDK / EFB Template 1.7.3, EFB API 1.0.3, MSFS SDK package 2.1.1 and
+MSFS types 1.14.6. After updates, reassess only the affected findings.
 
-## Paketierung und Testiteration
+## Packaging and test iteration
 
-- **[NEG]** `fspackagetool.exe` kann sich bei laufendem MSFS an den Simulator
-  hängen und ohne Neubau auf dessen Ende warten. MSFS vor CLI-Release-Builds
-  beenden und erst danach den Build starten.
-- **[RT]** DevMode-Pakete haben im VFS Vorrang vor gleichnamigen
-  Community-Paketen; für Entwicklung muss die Installation nicht entfernt werden.
-- **[RT]** Coherent kann nach normalem Reload alte Assets verwenden:
-  **Ignore Cache + Reload** nach jedem neuen Build.
-- **[RT]** UI-Änderungen benötigen keinen Neustart/neuen Flug, Lifecycle- und
-  Resetprüfungen dagegen einen neuen Flug.
-- **[SDK]/[RT]** My-Library-Bilder benötigen 360 × 240 Pixel. Metadaten liefern
-  Titel, Hersteller und Version separat.
-- **[RT]** `fspackagetool.exe -mirroring` entfernt alte Builddateien. Paketinhalt
-  und `layout.json` müssen vollständig übereinstimmen.
+- **[NEG]** With MSFS running, `fspackagetool.exe` can attach to the simulator
+  and wait for it to exit without building. Exit MSFS before CLI release
+  builds and only then start the build.
+- **[RT]** In the VFS, DevMode packages take precedence over Community packages
+  of the same name; the installation does not need to be removed for
+  development.
+- **[RT]** After a normal reload, Coherent may use old assets: use
+  **Ignore Cache + Reload** after every new build.
+- **[RT]** UI changes need no restart or new flight; lifecycle and reset checks
+  do need a new flight.
+- **[SDK]/[RT]** My Library images must be 360 × 240 pixels. Metadata supply
+  title, creator and version separately.
+- **[RT]** `fspackagetool.exe -mirroring` removes old build files. Package
+  content and `layout.json` must match completely.
 
-## EFB-App-Lifecycle und geteilter Zustand
+## EFB app lifecycle and shared state
 
-- **[RT]** Die App kann einen Flugwechsel resident ohne neues `onResume()`
-  überleben. View- oder Game-State-Übergänge allein erkennen neue Flüge nicht.
-- **[RT]** VR-Wechsel können einen neuen EFB-Kontext erzeugen. Mehrere sichtbare
-  Debugger-Einträge belegen keine gleichzeitige Sende-/Schreibaktivität.
-- **[RT]** SDK-`DataStore` überlebt Kontextwechsel **und** zeitnahe
-  Simulatorneustarts. Nicht als flüchtigen Sitzungsspeicher behandeln oder
-  seine Lebensdauer durch Timeouts nachbilden. Explizite Reset-Bedingungen
-  verwenden, siehe [ADR 0009](adr/0009-fortschritt-ueber-efb-kontextwechsel.md).
-- **[RT]** `E:IS IN VR` ist das verlässliche Modussignal. Ein VR-Wechsel sendet
-  kein `FltLoad` und ist kein neuer Flug.
+- **[RT]** The app can survive a flight change while resident, without a new
+  `onResume()`. View or game state transitions alone do not detect new
+  flights.
+- **[RT]** VR switches can create a new EFB context. Several entries visible in
+  the debugger do not prove simultaneous sending or writing.
+- **[RT]** The SDK `DataStore` survives context changes **and** quick
+  simulator restarts. Do not treat it as volatile session storage or emulate
+  its lifetime with timeouts. Use explicit reset conditions, see
+  [ADR 0009](adr/0009-progress-across-efb-context-changes.md).
+- **[RT]** `E:IS IN VR` is the reliable mode signal. A VR switch sends no
+  `FltLoad` and is not a new flight.
 
-## Flug-Lifecycle und Reset
+## Flight lifecycle and reset
 
 - **[SDK]/[RT]** Flow API: `RegisterViewListener("JS_LISTENER_COMM_BUS")`,
-  Event `__FLOW_API__`, JSON-Payload mit numerischer Event-ID und optionalem
+  event `__FLOW_API__`, JSON payload with a numeric event ID and an optional
   `flt_path`.
-- **[RT]** Ein Free Flight erzeugt mehrere Ladefolgen, auch nach `FlightStart`.
-  Reset an `FltLoad` binden und idempotent ausführen; nicht auf das erste
-  `FltLoaded` als Ende aller Ladevorgänge vertrauen.
-- **[NEG]** `GameStateProvider` kann beim Flugwechsel durchgehend `ingame`
-  bleiben. `GameModeManager.isInMenu` unterscheidet Flugwechsel und Config-Menü
-  nicht. Keiner darf allein den Reset steuern. Settings/Save/Resume sendet
-  kein `FltLoad` und erhält Fortschritt.
-- Reset nicht auf `FlightEnd` vorziehen: Der letzte Stand soll bis zum Laden
-  des nächsten Fluges sichtbar bleiben.
+- **[RT]** A free flight produces several load sequences, even after
+  `FlightStart`. Bind the reset to `FltLoad` and make it idempotent; do not
+  rely on the first `FltLoaded` as the end of all loading.
+- **[NEG]** `GameStateProvider` can stay `ingame` throughout a flight change.
+  `GameModeManager.isInMenu` does not distinguish a flight change from the
+  config menu. Neither may control the reset alone. Settings/Save/Resume sends
+  no `FltLoad` and keeps progress.
+- Do not move the reset forward to `FlightEnd`: the last state should remain
+  visible until the next flight loads.
 
-## SimVars und Persistenz
+## SimVars and persistence
 
-- **[RT]** `ATC MODEL`, `ATC TYPE`, `TITLE` können Lokalisierungstokens und
-  Sonderzeichen enthalten. Normalisieren und Regeln aus angezeigten SimVars
-  ableiten; gestreamte `aircraft.cfg` kann in geschützten Archiven liegen.
-- **[RT]** `E:SIMULATION TIME` steht bei Pause still, steigt innerhalb einer
-  Sitzung monoton und beginnt nach Neustart bei null.
-- **[NEG]** `Date.now() - E:SIMULATION TIME` ist kein stabiler Sitzungsstart:
-  Pausen verschieben ihn. Für Neustarterkennung nur die Monotonie des Rohwerts
-  verwenden.
-- String-SimVars nicht pro Frame lesen. Ereignisse plus langsamer, bei
-  unsichtbarer App gestoppter Fallback genügen.
+- **[RT]** `ATC MODEL`, `ATC TYPE` and `TITLE` can contain localization tokens
+  and special characters. Normalize them and derive rules from the displayed
+  SimVars; a streamed `aircraft.cfg` may be in protected archives.
+- **[RT]** `E:SIMULATION TIME` stands still during pause, increases
+  monotonically within a session and starts at zero after a restart.
+- **[NEG]** `Date.now() - E:SIMULATION TIME` is no stable session start: pauses
+  shift it. For restart detection, use only the monotonicity of the raw value.
+- Do not read string SimVars every frame. Events plus a slow fallback that
+  stops while the app is invisible are sufficient.
 
-## Sim-Key-Events in einer Custom-EFB-App
+## Sim key events in a custom EFB app
 
-Mechanismus: `RegisterViewListener("JS_LISTENER_KEYEVENT")`,
-`Coherent.call("INTERCEPT_KEY_EVENT", …)` und `keyIntercepted`.
+Mechanism: `RegisterViewListener("JS_LISTENER_KEYEVENT")`,
+`Coherent.call("INTERCEPT_KEY_EVENT", …)` and `keyIntercepted`.
 
-- **[RT]** Funktioniert mit Tastatur/HOTAS und liefert das Event, keine Taste.
-- **[SDK]/[RT]** Kein nutzbarer Unregister-Aufruf. Zustellung kann nach Laden
-  verstummen: nur `passThrough = true`, sparsam registrieren, bei `FltLoad`
-  invalidieren und erst nach abschließendem `RTCEnd` beziehungsweise Ende von
-  beobachtetem `GameState.loading` erneut registrieren. Erstes `FltLoaded` ist
-  zu früh.
-- **[RT]** Ein Druck kann selbst bei einmaliger Registrierung mehrfach
-  eintreffen; zusätzliche Registrierungen addieren Zustellungen. Immer entprellen.
-- **[RT]** Events kommen auch bei geschlossener EFB an. Produktlogik gegen
-  `AppView`-Sichtbarkeit absichern.
-- **[RT]** Controls-Anzeigename und Eventname können abweichen. Profile können
-  sich überlagern; für Tests bewusste, nicht doppelte Belegung prüfen.
-  `PLASMA_OFF` heißt `SET PLASMA OFF`; Zustellung ist in G36, DA42, H125,
-  MH-60, OH-6A und H500C bestätigt.
-- **[NEG]** `AUTOCOORD_ON` wird trotz Belegung nicht erzeugt. Ein nominell
-  unbenutztes Event eignet sich nicht automatisch als konfliktfreier Auslöser.
-  `LEAD POLE ON` fehlt bei H125/MH-60: Controls-Actions hängen von der
-  Flugzeugkategorie ab. Ein gemeinsamer Auslöser muss verfügbar und folgenlos sein.
-- **[SDK]** SDK 1.7.3, EFB-/InputProfiles-Samples und die geprüften
-  DevSupport-Antworten belegen keine neue globale Controls-Action aus einem
-  reinen EFB-Paket. Profile belegen bestehende Actions; dokumentierte neue
-  Actions kommen aus Model-Behavior-Input-Events eines Flugzeugknotens.
-  Ein Input-Profil nicht mit Action-Registrierung verwechseln.
-- **[NEG]** `VALIDATE` ist über DOM-`keydown`, `InputStackListener` und
-  `routeGamepadInteractionEvent` nicht frei erreichbar; `KEY_EFB_*` trägt
+- **[RT]** Works with keyboard/HOTAS and delivers the event, not the key.
+- **[SDK]/[RT]** There is no usable unregister call. Delivery can go silent
+  after loading: use only `passThrough = true`, register sparingly, invalidate
+  on `FltLoad` and register again only after the final `RTCEnd` or the end of
+  an observed `GameState.loading`. The first `FltLoaded` is too early.
+- **[RT]** A single press can arrive several times even with a single
+  registration; additional registrations add deliveries. Always debounce.
+- **[RT]** Events arrive even with the EFB closed. Guard product logic by
+  `AppView` visibility.
+- **[RT]** The Controls display name and the event name can differ. Profiles
+  can overlap; for tests, check for a deliberate, non-duplicate binding.
+  `PLASMA_OFF` is called `SET PLASMA OFF`; delivery is confirmed in the G36,
+  DA42, H125, MH-60, OH-6A and H500C.
+- **[NEG]** `AUTOCOORD_ON` is not generated despite a binding. A nominally
+  unused event is not automatically a conflict-free trigger. `LEAD POLE ON` is
+  missing for the H125/MH-60: Controls actions depend on the aircraft
+  category. A shared trigger must be available and free of side effects.
+- **[SDK]** SDK 1.7.3, the EFB and InputProfiles samples and the reviewed
+  DevSupport answers show no way to add a new global Controls action from a
+  pure EFB package. Profiles bind existing actions; documented new actions
+  come from Model Behavior input events of an aircraft node. Do not confuse an
+  input profile with registering an action.
+- **[NEG]** `VALIDATE` cannot be reached freely through DOM `keydown`,
+  `InputStackListener` or `routeGamepadInteractionEvent`; `KEY_EFB_*` carries
   `norebind_kbmpad`.
-- **[NEG]** `SimConnect_TransmitClientEvent`, `trigger_key_event` und
-  `execute_calculator_code` erreichen die JS-Interception nicht. Kein
-  externer Transportweg zur EFB.
+- **[NEG]** `SimConnect_TransmitClientEvent`, `trigger_key_event` and
+  `execute_calculator_code` do not reach the JS interception. No external
+  transport path to the EFB.
 
-## CommBus und externe Begleit-App
+## CommBus and external companion app
 
-- **[SDK]/[RT]** SimConnect-CommBus seit SDK 1.6.4, eigener .NET-P/Invoke-Client
-  zur Custom-EFB bidirektional bestätigt. JavaScript-Helper zuerst per
-  Lade-Callback aus `/JS/Services/CommBus.js` laden, danach Listener registrieren.
-  Die verwendeten TypeScript-Pakete benötigen eine eigene Ambient-Deklaration.
-- **[RT]** Beim EFB-Appwechsel mit `AppSuspendMode.SLEEP` bleibt die
-  Registrierung nutzbar. Nicht allein wegen Suspend/Resume erneut registrieren.
-- **[RT]** Nicht-VR → VR → Nicht-VR erhält Zustand und Zustellung. Neue Instanzen
-  dürfen ihren ersten Snapshot erst nach Flugzeugauswahl und Restore senden;
-  ein vorläufig leerer Snapshot kann im Companion die Ansage-Deduplizierung
-  zurücksetzen.
-- **[SDK]** Richtung SimConnect können Nachrichten über
-  `dwEntryNumber`/`dwOutOf` gechunkt eintreffen; zusammensetzen.
-- **[SDK]** Bei angehaltenem JavaScript laufen SimConnect/WASM weiter;
-  aufgestaute Events können den Simulator einfrieren. Nur Zustandsänderungen
-  senden und ratenbegrenzen.
-- **[RT]** Der getestete Ingame-Pausezustand hielt EFB-JavaScript nicht an:
-  Bedienung und Snapshot-Anfrage blieben möglich. Ein angehaltenes Flugzeug
-  belegt kein angehaltenes JavaScript.
-- **[NEG]** `Microsoft.FlightSimulator.SimConnect.dll` aus SDK 1.7.3 ist eine
-  Mixed-Mode-C++/CLI-Assembly für .NET Framework 4.6.1, nicht für modernes .NET.
-  Eigenes P/Invoke gegen native DLL gemäß [ADR 0004](adr/0004-stack-der-begleit-app.md).
-- `SimConnect.dll` ohne geklärte Weitergaberechte nicht ins Paket aufnehmen;
-  offene Lizenzfragen stehen in [license-audit.md](license-audit.md).
-- **[NEG]** Client Data Areas erreichen EFB-JavaScript ohne WASM nicht;
-  LVars verlangen clientseitiges Polling; externe Clients können H-Events
-  nicht direkt senden.
-- **[NEG]** Localhost-WebSockets sind kein zugesagter SDK-Vertrag. Asobo hat
-  einen Coherent-GT-Absturz bei vielen Socket-Erzeugungen bestätigt. Kein
-  Reconnect-Loop oder Localhost-Weg ohne neue ausdrückliche Entscheidung.
+- **[SDK]/[RT]** SimConnect CommBus since SDK 1.6.4; bidirectional operation
+  with a custom EFB confirmed using a custom .NET P/Invoke client. Load the
+  JavaScript helper from `/JS/Services/CommBus.js` with a load callback first,
+  then register listeners. The TypeScript packages used need their own ambient
+  declaration.
+- **[RT]** When switching EFB apps with `AppSuspendMode.SLEEP`, the
+  registration stays usable. Do not register again just because of
+  suspend/resume.
+- **[RT]** Non-VR → VR → non-VR keeps state and delivery. New instances may
+  send their first snapshot only after aircraft selection and restore; a
+  provisional empty snapshot can reset the announcement deduplication in the
+  companion.
+- **[SDK]** Towards SimConnect, messages can arrive chunked via
+  `dwEntryNumber`/`dwOutOf`; reassemble them.
+- **[SDK]** While JavaScript is halted, SimConnect/WASM keep running; queued
+  events can freeze the simulator. Send only state changes, rate-limited.
+- **[RT]** The tested in-game pause did not halt EFB JavaScript: operation and
+  snapshot requests remained possible. A paused aircraft does not prove halted
+  JavaScript.
+- **[NEG]** `Microsoft.FlightSimulator.SimConnect.dll` from SDK 1.7.3 is a
+  mixed-mode C++/CLI assembly for .NET Framework 4.6.1, not for modern .NET.
+  Use custom P/Invoke against the native DLL according to
+  [ADR 0004](adr/0004-companion-app-stack.md).
+- **[NEG]** Client Data Areas do not reach EFB JavaScript without WASM; LVars
+  require client-side polling; external clients cannot send H events
+  directly.
+- **[NEG]** Localhost WebSockets are no committed SDK contract. Asobo has
+  confirmed a Coherent GT crash when many sockets are created. No reconnect
+  loop or localhost path without a new explicit decision.
 
-## Coherent GT und EFB-Rendering
+## Coherent GT and EFB rendering
 
-- **[RT]** Browser/Build-Erfolg beweist kein korrektes Coherent-Styling.
-  Im EFB prüfen, VR-relevante Änderungen zusätzlich in VR.
-- **[SDK]/[RT]** Styles auf `.efb-view.<AppVerzeichnisname>` begrenzen, sonst
-  wirken sie global. Globale EFB-Buttonregeln können lokale Hover-, Focus-,
-  Selected- und Active-Zustände überstimmen; alle am echten EFB-Button prüfen.
-- Kein globales `transform: scale`: Layoutbox, Scrollstrecke und Trefferfläche
-  folgen ihm nicht zuverlässig; Text kann unscharf werden. Layoutgrößen skalieren.
-- **[SDK]** `efbSize` reicht Small/Medium/Large nur als `SET_SIZE` weiter,
-  liefert keine App-Layoutregel. Der Settings-Manager wird in `App` injiziert,
-  `AppView` braucht ihn explizit als Prop; der Getter kann sonst werfen.
-- **[RT]** Gemessen mit SU6 1.8.14.0: Montiert bleibt die Layoutbox
-  468 × 661 CSS-Pixel bei `devicePixelRatio = 1`. Gelöst ist die Layoutbox
-  kleiner als das Fenster, außerhalb VR größer als montiert, in VR teilweise
-  kleiner. `clientWidth`/`clientHeight` des eigenen Root-Elements verwenden,
-  nicht `window.innerWidth`/`innerHeight`.
-- **[RT]** Montiert ↔ gelöst sendet `resize` vor Aktualisierung der Layoutbox;
-  die neue Box folgt innerhalb etwa 50 ms ohne weiteres Event. Bei `onResume`
-  kann die Box 0 × 0 sein. Nach beiden Ereignissen kurz verzögert nachmessen.
-- **[NEG]** Die gespeicherte EFB-Einstellung `mode` (2D/3D) zeigt nicht
-  zuverlässig montiert/gelöst an.
-- **[RT]** In VR beim Debuggen den neuen Eintrag unter „Inspectable web views“
-  wählen; der vorherige Kontext liefert unter Umständen keine Lifecycle-Logs mehr.
-- **[SDK]** EFB-`Button` reicht `title` nicht an das HTML-Element weiter.
-  Tooltip am eigenen DOM-Kind oder gezielt am Button-DOM setzen.
-- **[NEG]** Bedeutungstragende Symbole nicht von Unicode-Fontabdeckung abhängig
-  machen; CSS-Geometrie oder Assets verwenden.
-- **[RT]** SVG-Pfade brauchen eigenes `fill="none"`, wenn sie transparent
-  bleiben sollen; die Root-Füllung wird nicht zuverlässig vererbt.
-- `gap`, `position: sticky` und moderne Sizing-Funktionen nicht ohne gezielten
-  Coherent-Laufzeitnachweis einführen.
+- **[RT]** A successful browser test or build does not prove correct Coherent
+  styling. Check in the EFB, and VR-relevant changes additionally in VR.
+- **[SDK]/[RT]** Scope styles to `.efb-view.<app directory name>`; otherwise
+  they apply globally. Global EFB button rules can override local hover,
+  focus, selected and active states; check all of them on the real EFB button.
+- No global `transform: scale`: layout box, scroll range and hit area do not
+  follow it reliably, and text can become blurry. Scale layout sizes instead.
+- **[SDK]** `efbSize` passes Small/Medium/Large only as `SET_SIZE` and provides
+  no app layout rule. The settings manager is injected into `App`; `AppView`
+  needs it explicitly as a prop, otherwise the getter can throw.
+- **[RT]** Measured with SU6 1.8.14.0: when mounted, the layout box stays at
+  468 × 661 CSS pixels with `devicePixelRatio = 1`. When detached, the layout
+  box is smaller than the window, outside VR larger than when mounted, and in
+  VR partly smaller. Use `clientWidth`/`clientHeight` of the app's own root
+  element, not `window.innerWidth`/`innerHeight`.
+- **[RT]** Mounted ↔ detached sends `resize` before the layout box is updated;
+  the new box follows within about 50 ms without another event. On
+  `onResume`, the box can be 0 × 0. Measure again with a short delay after
+  both events.
+- **[NEG]** The saved EFB setting `mode` (2D/3D) does not reliably indicate
+  mounted/detached.
+- **[RT]** When debugging in VR, select the new entry under "Inspectable web
+  views"; the previous context may no longer deliver lifecycle logs.
+- **[SDK]** The EFB `Button` does not pass `title` on to the HTML element. Set
+  the tooltip on the app's own DOM child or specifically on the button DOM.
+- **[NEG]** Do not make meaningful symbols depend on Unicode font coverage;
+  use CSS geometry or assets.
+- **[RT]** SVG paths need their own `fill="none"` to stay transparent; the root
+  fill is not inherited reliably.
+- Do not introduce `gap`, `position: sticky` or modern sizing functions
+  without a targeted Coherent runtime verification.
 
-## Primärquellen
+## Primary sources
 
 - [EFB Template Sample](https://docs.flightsimulator.com/msfs2024/retail/samples-tutorials/samples/efb/efb-template-sample/)
 - [Electronic Flight Bag API](https://docs.flightsimulator.com/msfs2024/flighting/programming-apis/efb/electronic-flight-bag-api/)
@@ -186,4 +187,4 @@ Mechanismus: `RegisterViewListener("JS_LISTENER_KEYEVENT")`,
 - [DevSupport: Custom control bindings](https://devsupport.flightsimulator.com/t/custom-control-bindings/17465)
 - [DevSupport: Custom Control Binding menu not appearing](https://devsupport.flightsimulator.com/t/custom-control-binding-menu-not-appearing/18141)
 - [Project Editor](https://docs.flightsimulator.com/msfs2024/flighting/devmode/editors/project-editor/the-project-editor/)
-- Installiertes SDK 1.7.3 und dessen Samples (read-only)
+- The installed SDK 1.7.3 and its samples (read-only)

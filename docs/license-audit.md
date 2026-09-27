@@ -1,22 +1,19 @@
-# Offene Lizenzpunkte für die GitHub-Veröffentlichung
+# Open license items for the GitHub release
 
-Prüfgrundlage: 2026-09-21, Version 0.13.3, Commit `61fb91d`. Dies ist eine
-Arbeitsliste für die Veröffentlichung, keine allgemeine Rechtsabhandlung.
-Nur konkrete Befunde, nötige Nachweise und nächste Schritte hier halten;
-erledigte Arbeit nicht als Prüfchronik fortschreiben.
+Audit baseline: 2026-09-21, version 0.13.3, commit `61fb91d`. This is a work
+list for the release, not a general legal treatise. Keep only concrete
+findings, required evidence and next steps here; do not extend completed work
+into an audit log.
 
-Die Bearbeitungsreihenfolge steht im [Backlog](../BACKLOG.md). Die Bewertung
-der Checklisten und Quellenexzerpte steht unter
-[Herkunft und Prüfung](checklist-license-review.md), die mitgelieferten
-Lizenztexte unter [licenses/](../licenses/README.md).
+The order of work is in the [backlog](../BACKLOG.md). The assessment of the
+checklists and source excerpts is in
+[provenance and review](checklist-license-review.md), the shipped license
+texts are in [licenses/](../licenses/README.md).
 
-Das [Inventar](license-audit-inventory.json) bewahrt die versionsbezogenen
-Quellen und Prüfsummen der Prüfung. Es ist eine Momentaufnahme, keine aktuelle
-Dateiliste und keine vollständige Stückliste statisch gebundener nativer
-Komponenten. Betroffene Nachweise bei Änderungen an Abhängigkeiten, SDK oder
-Assets aktualisieren; keine neue Vollprüfung allein wegen eines Dokumentations-
-oder Versionswechsels.
+The [inventory](license-audit-inventory.json) preserves the version-specific
+sources and checksums of the audit. It is a snapshot, not a current file list
+and not a complete bill of materials of statically linked native components.
+Update the affected evidence when dependencies, the SDK or assets change; no
+new full audit just because of a documentation or version change.
 
-Derzeit keine offenen Lizenzpunkte.
-
-Weitere Veröffentlichungsarbeit steht im [Backlog](../BACKLOG.md).
+There are currently no open license items.

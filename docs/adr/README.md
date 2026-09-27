@@ -1,30 +1,29 @@
-# Architekturentscheidungen
+# Architecture decisions
 
-ADRs halten nur Entscheidungen fest, deren Grund bei einer späteren Änderung
-noch hilft: Problem, gewählter Weg, wesentliche Konsequenz. In der Regel
-reichen 15–35 Zeilen. Keine Recherchetagebücher, Testchroniken, Codeabschriften
-oder abgeschlossenen Phasenpläne. Technische MSFS-Fakten stehen in der
-[SDK-Referenz](../msfs-sdk-reference.md), ausstehende Tests in
-[open-tests.md](../open-tests.md).
+ADRs record only decisions whose reasons still help with a later change:
+problem, chosen approach, essential consequence. Usually 15–35 lines are
+enough. No research diaries, test logs, code transcripts or completed phase
+plans. Technical MSFS facts are in the [SDK reference](../msfs-sdk-reference.md),
+pending tests in [open-tests.md](../open-tests.md).
 
-Eine inhaltliche Kehrtwende erhält ein neues ADR mit Verweis auf das ersetzte.
-Redaktionelle Kürzungen brauchen kein neues ADR. Erledigte reine
-Ablaufplanung kann entfallen; IDs werden nicht neu vergeben oder umnummeriert.
+A substantive reversal gets a new ADR that references the superseded one.
+Editorial shortening needs no new ADR. Completed pure process planning may be
+dropped; IDs are never reassigned or renumbered.
 
-Gültigkeit und ersetzende Entscheidungen stehen nur im jeweiligen ADR.
-Umsetzungsstände werden über den [Backlog](../../BACKLOG.md) gepflegt.
+Validity and superseding decisions are stated only in the respective ADR.
+Implementation progress is tracked in the [backlog](../../BACKLOG.md).
 
-| ADR | Entscheidung |
-| --- | --- |
-| [0001](0001-lizenz-und-veroeffentlichungsstrategie.md) | Lizenzwahl und Weitergabe |
-| [0002](0002-bestaetigungseingabe-in-sim-key-interception.md) | Bestätigung direkt in der EFB |
-| [0003](0003-transportkanal-commbus-ueber-simconnect.md) | CommBus über SimConnect |
-| [0004](0004-stack-der-begleit-app.md) | .NET 10 und Avalonia |
-| [0006](0006-tts-vorab-synthese.md) | Vorab-Synthese |
-| [0007](0007-ablage-der-gerenderten-audiodateien.md) | Opus-Dateien im Repository |
-| [0008](0008-stimme-und-tts-anbieter.md) | ElevenLabs Brian |
-| [0009](0009-fortschritt-ueber-efb-kontextwechsel.md) | Fortschritt über Kontextwechsel |
-| [0010](0010-radioeffekt-bei-der-wiedergabe.md) | Radioeffekt live |
-| [0011](0011-bestaetigungsaktionen-im-companion.md) | Bestätigungsaktionen offline im Companion schalten |
-| [0012](0012-veroeffentlichung-als-zip-und-companion-setup.md) | EFB-ZIP und Companion-Setup |
-| [0013](0013-projektlizenz.md) | MIT-Projektlizenz |
+| ADR                                                      | Decision                                               |
+|----------------------------------------------------------|--------------------------------------------------------|
+| [0001](0001-licensing-and-publication-strategy.md)       | License choice and redistribution                      |
+| [0002](0002-confirmation-via-in-sim-key-interception.md) | Confirmation directly in the EFB                       |
+| [0003](0003-commbus-over-simconnect.md)                  | CommBus over SimConnect                                |
+| [0004](0004-companion-app-stack.md)                      | .NET 10 and Avalonia                                   |
+| [0006](0006-pre-rendered-speech.md)                      | Pre-rendered speech                                    |
+| [0007](0007-rendered-audio-in-the-repository.md)         | Opus files in the repository                           |
+| [0008](0008-voice-and-tts-provider.md)                   | ElevenLabs Brian                                       |
+| [0009](0009-progress-across-efb-context-changes.md)      | Progress across context changes                        |
+| [0010](0010-radio-effect-during-playback.md)             | Live radio effect                                      |
+| [0011](0011-confirmation-actions-in-the-companion.md)    | Confirmation actions switched offline in the companion |
+| [0012](0012-distribution-as-zip-and-companion-setup.md)  | EFB ZIP and companion setup                            |
+| [0013](0013-project-license.md)                          | MIT project license                                    |

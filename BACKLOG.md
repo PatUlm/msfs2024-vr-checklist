@@ -1,65 +1,62 @@
-# Offene Arbeit
+# Open work
 
-Einstieg für die Frage „Was ist noch offen?“. Die Aufgaben stehen hier in
-Umsetzungsreihenfolge. Bei Fachlisten steht hier nur der Link; Status, Befund
-und nächster Schritt werden ausschließlich am Ziel gepflegt.
+Entry point for the question "What is still open?". Tasks are listed in
+implementation order. For topic lists, only the link is kept here; status,
+findings and next steps are maintained only at the target.
 
-**⚠ Git-Historie:** Die Historie wird genau einmal umgeschrieben, in Punkt 3
-beim ersten GitHub-Push. Mit ⚠ markierte Punkte können Dateien ergeben, die
-dabei zusätzlich aus der Historie entfernt werden müssen.
+**⚠ Git history:** The history is rewritten exactly once, in item 2 at the
+first GitHub push. Items marked ⚠ may identify files that must additionally be
+removed from the history at that point.
 
-## Umsetzung und Veröffentlichung
+## Implementation and release
 
-1. **Dokumentation veröffentlichungsfähig machen.** Texte reviewen und ins
-   Englische übersetzen.
-2. **⚠ Öffentlichen Dateibestand prüfen.** Geheimnisse, private Daten und
-   Weitergaberechte im aktuellen Baum und in der Historie berücksichtigen,
-   etwa die aus dem Baum entfernten QA-Screenshots; den finalen
-   Artefaktumfang abgleichen. Dateien festhalten, die in Punkt 3 aus der
-   Historie entfernt werden.
-3. **⚠ Historie umschreiben und erster GitHub-Push.** Alle Commit-Hashes und
-   Tags ändern sich.
-   1. Aktuellen Stand samt Tags nach Bitbucket pushen. Bitbucket bleibt danach
-      eingefrorenes privates Backup der alten Historie und wird nicht mehr
-      bespielt; lokal als Remote `bitbucket` führen.
-   2. In einem frischen Klon per `git filter-repo` Autor, Committer und Tagger
-      aller Commits und Tags, einschließlich beider bisher verwendeter
-      Adressen, auf `PatUlm` und die GitHub-noreply-Adresse umschreiben. Den
-      alten Paket- und Autorennamen in Dateiinhalten und Pfaden aller Commits
-      durch `patulm-vr-checklist` bzw. `PatUlm` ersetzen, sodass der bisherige
-      Nachname nirgends mehr vorkommt. Diese Pfade aus allen Commits entfernen:
-      - die in Punkt 2 festgehaltenen Dateien;
-      - `assets/audio/checklist-completed.wav` und `.opus`: Platzhalter mit
-        Windows-Systemstimme, Weitergaberecht nicht belegt; Companion-Stände
-        vom 12.–18.09.2026 sind danach nicht mehr baubar;
-      - `msfs/PackageSources/efb_api/` und `msfs/PackageSources/vendor/`:
-        SDK-Sample-Inhalte (EULA 1(b)); ältere Stände bauen danach nur mit
-        einer von Hand aus dem SDK kopierten Fassung.
+1. **⚠ Review the public file set.** Consider secrets, private data and
+   redistribution rights in the current tree and in the history, such as the
+   QA screenshots removed from the tree; reconcile the final artifact scope.
+   Record the files that item 2 removes from the history.
+2. **⚠ Rewrite the history and push to GitHub for the first time.** All commit
+   hashes and tags change.
+   1. Push the current state including tags to Bitbucket. Bitbucket then
+      remains a frozen private backup of the old history and receives no
+      further pushes; keep it locally as remote `bitbucket`.
+   2. In a fresh clone, use `git filter-repo` to rewrite author, committer and
+      tagger of all commits and tags, including both previously used
+      addresses, to `PatUlm` and the GitHub noreply address. Replace the old
+      package and author name in file contents and paths of all commits with
+      `patulm-vr-checklist` or `PatUlm` respectively, so that the former
+      surname no longer appears anywhere. Remove these paths from all commits:
+      - the files recorded in item 1;
+      - `assets/audio/checklist-completed.wav` and `.opus`: placeholders using a
+        Windows system voice, redistribution right not established; companion
+        states from 2026-09-12 to 2026-09-18 can no longer be built afterwards;
+      - `msfs/PackageSources/efb_api/` and `msfs/PackageSources/vendor/`: SDK
+        sample content (EULA 1(b)); older states then only build with a copy
+        taken manually from the SDK.
 
-      Danach lokal `user.name` und `user.email` des Repositorys entsprechend
-      setzen.
-   3. Verweise auf eigene Commits im aktuellen Stand anhand der
-      filter-repo-Commit-Map nachführen (derzeit Prüfstand `61fb91d` in
-      `docs/license-audit.md` und im Inventar) und Tags prüfen. Vor dem Push
-      sicherstellen, dass der bisherige Nachname in keinem erreichbaren Blob,
-      Pfad, Commit- oder Tag-Text und keiner Identität mehr vorkommt.
-   4. `https://github.com/PatUlm/msfs2024-vr-checklist` als `origin` anlegen
-      und auf ausdrücklichen Auftrag pushen. GitHub ist danach primärer Remote.
-4. **GitHub-Release vorbereiten.** Nach Abschluss der Aufgaben und Fachprüfungen
-   die Release-Artefakte gemäß [Release-Ablauf](docs/release.md) erstellen und
-   Release-Beschreibung vorbereiten. Repository und GitHub-Release auf
-   ausdrücklichen Auftrag veröffentlichen.
-5. **Update-Prüfung im Companion.** Gemäß
-   [ADR 0012](docs/adr/0012-veroeffentlichung-als-zip-und-companion-setup.md)
-   installierte Versionen beim Start einmal gegen GitHub Releases prüfen,
-   erst nach Bestätigung laden und anwenden und auf das EFB-ZIP hinweisen.
-   Die Online-Prüfung ist opt-in: Beim ersten Start fragen, ob gesucht werden
-   darf; in Settings abschaltbar. README-Aussage „Keine Cloudverbindung im
-   Flug“ entsprechend präzisieren. Setzt ein veröffentlichtes GitHub-Release
-   voraus; Nutzer des ersten Releases aktualisieren einmal manuell.
+      Afterwards, set the repository's `user.name` and `user.email`
+      accordingly.
+   3. Update references to the project's own commits in the current state
+      using the filter-repo commit map (currently the audit commit `61fb91d` in
+      `docs/license-audit.md` and in the inventory) and check the tags. Before
+      pushing, make sure the former surname no longer appears in any reachable
+      blob, path, commit or tag message, or identity.
+   4. Add `https://github.com/PatUlm/msfs2024-vr-checklist` as `origin` and
+      push on explicit request. GitHub is the primary remote from then on.
+3. **Prepare the GitHub release.** Once the tasks and topic reviews are
+   complete, create the release artifacts according to the
+   [release process](docs/release.md) and prepare the release description.
+   Publish the repository and the GitHub release on explicit request.
+4. **Update check in the companion.** According to
+   [ADR 0012](docs/adr/0012-distribution-as-zip-and-companion-setup.md), check
+   installed versions against GitHub Releases once at startup, download and
+   apply updates only after confirmation, and point out the EFB ZIP. The online
+   check is opt-in: ask on first launch whether checking is allowed; it can be
+   turned off in Settings. Refine the README statement "No cloud connection in
+   flight" accordingly. Requires a published GitHub release; users of the first
+   release update manually once.
 
-## Fachlisten
+## Topic lists
 
-- [Lizenz- und Weitergabefragen](docs/license-audit.md)
-- [MSFS-Laufzeitnachweise](docs/open-tests.md)
-- [Visuelle Nachweise](docs/design-qa.md)
+- [License and redistribution questions](docs/license-audit.md)
+- [MSFS runtime verifications](docs/open-tests.md)
+- [Visual verifications](docs/design-qa.md)

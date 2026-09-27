@@ -1,34 +1,36 @@
-# Strukturierte Checklistendaten
+# Structured checklist data
 
-Diese JSON-Dateien sind die einzige Quelle für Checklisteninhalte. Das
-[Schema](checklist.schema.json) definiert Felder und zulässige Werte;
-[style-guide.md](style-guide.md) die verbindlichen Schreibweisen.
-Hier bleiben nur Regeln zur Bearbeitung und Quellenbelege, keine zweite
-Feldreferenz oder Änderungschronik.
+These JSON files are the only source of checklist content. The
+[schema](checklist.schema.json) defines fields and permitted values,
+[style-guide.md](style-guide.md) the binding spelling conventions. This file
+keeps only editing rules and source evidence, no second field reference or
+change log.
 
-## Bearbeiten und zuordnen
+## Editing and matching
 
-- `challenge` benennt das System, `response` Zustand/Aktion. Bedingungen,
-  Alternativen und Notizen getrennt pflegen. Texte einzeilig; die UI bricht um.
-- Inhalt und Vollständigkeit von `speech` richten sich nach dem
-  [Style Guide](style-guide.md#gesprochene-ansagen-speech).
-- `needsReview` und ein konkretes `reviewNote` kennzeichnen ungeklärte Inhalte.
-- Checklist-, Gruppen- und Item-IDs sind stabile semantische Slugs in
-  `lower-kebab-case`, auch bei Textänderungen. Item-IDs sind je Gruppe eindeutig;
-  Referenzen zum Beispiel `sikorsky-mh-60/engine-start/engine-1-start`.
-- Allein die Array-Reihenfolge bestimmt den Ablauf; kein separates `order`.
-  Die Gruppe erhält eine Phase aus dem Schema. `Engine Start` umfasst auch
-  Vorbereitung/APU/Nacharbeiten, `Taxi` die Rollvorbereitung, `Departure`
-  Startvorbereitung/Start/Steigflug. Keine leeren Gruppen für ungenutzte Phasen.
-  Die G36-Gruppe `Approach` bleibt trotz Landekonfiguration dieser Phase zugeordnet.
-- Phasen dienen Anzeige und `Skip phase`: Aufeinanderfolgende Gruppen mit
-  gleicher Phase bilden den übersprungenen Block. Phasenänderungen deshalb
-  auch auf diese Wirkung prüfen.
-- `aircraft.msfsMatches`: Regeln sind Alternativen; Felder einer Regel müssen
-  gemeinsam passen. `equals`/`contains` werden normalisiert verglichen;
-  `contains` braucht mindestens vier normalisierte Zeichen. Neue Regeln aus
-  beobachteten MSFS-Werten ableiten. Fehlende/mehrdeutige Treffer laden keine
-  Default-Checkliste; die angezeigten Diagnosewerte helfen beim Ergänzen.
+- `challenge` names the system, `response` the state or action. Maintain
+  conditions, alternatives and notes separately. Texts are single-line; the UI
+  wraps them.
+- The content and completeness of `speech` follow the
+  [style guide](style-guide.md#spoken-announcements-speech).
+- `needsReview` and a specific `reviewNote` mark unresolved content.
+- Checklist, group (`sections` in the JSON) and item IDs are stable semantic
+  slugs in `lower-kebab-case`, even when texts change. Item IDs are unique
+  within their group; references look like
+  `sikorsky-mh-60/engine-start/engine-1-start`.
+- The array order alone determines the sequence; there is no separate
+  `order`. Each group gets a phase from the schema. `Engine Start` also covers
+  preparation, APU and follow-up work, `Taxi` the taxi preparation,
+  `Departure` the takeoff preparation, takeoff and climb. No empty groups for
+  unused phases. The G36 group `Approach` stays assigned to this phase despite
+  its landing configuration.
+- Phases serve the display and `Skip phase`: consecutive groups with the same
+  phase form the skipped block. Check phase changes for this effect as well.
+- `aircraft.msfsMatches`: rules are alternatives; all fields of a rule must
+  match together. `equals`/`contains` are compared normalized; `contains`
+  needs at least four normalized characters. Derive new rules from observed
+  MSFS values. Missing or ambiguous matches load no default checklist; the
+  displayed diagnostic values help add a rule.
 
 ```json
 {
@@ -37,59 +39,57 @@ Feldreferenz oder Änderungschronik.
 }
 ```
 
-Nach Datenänderungen `task validate`; vor Abschluss `task check` und Deployment
-gemäß [AGENTS.md](../../AGENTS.md). Geänderte gesprochene Texte erfordern
-passende [Audioassets](../../assets/audio/README.md).
+After data changes, run `task validate`; before completion, `task check` and
+deployment according to [AGENTS.md](../../AGENTS.md). Changed spoken texts
+require matching [audio assets](../../assets/audio/README.md).
 
-Quellenreferenzen unter `checklists/references/` begründen Werte und bewusste
-Auslassungen. Keine Originalhandbücher oder vollständigen Verfahrensabschriften
-versionieren und keine zweite App-Checkliste in der Dokumentation pflegen.
+Source references under `checklists/references/` justify values and
+deliberate omissions. Do not version original manuals or complete procedure
+transcriptions, and do not maintain a second app checklist in the
+documentation.
 
-## Inhaltliche Herkunft
+## Content provenance
 
-Die Checklisten sind für die App angepasste Zusammenstellungen aus
-Ingame-Abläufen und den nachfolgend dokumentierten Handbuchquellen. Bei der
-Bearbeitung wurden KI-Werkzeuge als Hilfsmittel verwendet; fachliche Belege
-sind die genannten Originalveröffentlichungen. Die
-[Herkunftsprüfung](../../docs/checklist-license-review.md) hält die
-Anbieterzuordnung und Bewertung des geprüften Bestands fest.
+The checklists are compilations adapted for the app from in-game procedures
+and the manual sources documented below. AI tools were used as aids during
+editing; the technical evidence is the original publications named here. The
+[provenance review](../../docs/checklist-license-review.md) records the vendor
+attribution and the assessment of the reviewed set.
 
-- Die minimale Cessna-152-Checkliste ist mit dem originalen Cessna-POH
-  abgeglichen. Herkunft, Seitenangaben und die gewählten Werte innerhalb der
-  POH-Bereiche stehen unter [`../references/cessna-152/`](../references/cessna-152/).
-- Verhaltensänderungen der Miltech-MH-60 stehen im Changelog des
-  [Miltech Bug Trackers](https://bugs.miltechsimulations.com/) (Produkt
-  `MH60`), maschinenlesbar unter
-  `https://bugs.miltechsimulations.com/api/products` (Feld `changelog`, inkl.
-  `EXPERIMENTAL`-Builds). Das ältere Forum-Topic
+- The minimal Cessna 152 checklist is cross-checked against the original
+  Cessna POH. Provenance, page references and the values chosen within the POH
+  ranges are in [`../references/cessna-152/`](../references/cessna-152/).
+- Behavior changes of the Miltech MH-60 are listed in the changelog of the
+  [Miltech Bug Tracker](https://bugs.miltechsimulations.com/) (product
+  `MH60`), machine-readable at
+  `https://bugs.miltechsimulations.com/api/products` (field `changelog`,
+  including `EXPERIMENTAL` builds). The older forum topic
   [MH60 Release Notes](https://miltechsimulations.talkyard.net/-337/miltech-simulations-mh60-release-notes)
-  endet bei V1.1.0. Keybinds und Systembeschreibung:
+  ends at V1.1.0. Keybinds and system description:
   [Miltech Documentation Hub](https://docs.miltechsimulations.com/miltech-simulations-mh60).
-- Die H125-Reihenfolge für den kompakten Motorstart stützt sich auf die
-  veröffentlichte
-  [AS350/H125-Operatorcheckliste](https://aviapages.com/media/2022/03/14/Checklist_H125.pdf):
-  Pitot Heat folgt auf Generator und Avionik und liegt vor dem Übergang des
-  Twist Grip auf `FLIGHT`.
-- Die für Prestart, Motorstart, Run-up und Shutdown relevanten H125-Verfahren
-  sind mit Seitenangaben und Herkunftsnachweis unter
-  [`../references/h125/`](../references/h125/) festgehalten.
-- Die kompakte OH-6A-/H500C-Checkliste ist aus der Expert-Checkliste im
-  veröffentlichten Taog's-Hangar-Flughandbuch abgeleitet. Herkunft,
-  Variantenabgrenzung und bewusste Auslassungen stehen unter
+- The H125 order for the compact engine start is based on the published
+  [AS350/H125 operator checklist](https://aviapages.com/media/2022/03/14/Checklist_H125.pdf):
+  pitot heat follows the generator and avionics and comes before moving the
+  twist grip to `FLIGHT`.
+- The H125 procedures relevant to prestart, engine start, run-up and shutdown
+  are recorded with page references and provenance in
+  [`../references/h125/`](../references/h125/).
+- The compact OH-6A/H500C checklist is derived from the Expert checklist in the
+  published Taog's Hangar flight manual. Provenance, variant scope and
+  deliberate omissions are in
   [`../references/oh6a-h500c/`](../references/oh6a-h500c/).
-- Der kompakte H125-Shutdown stützt sich auf den veröffentlichten
-  [AS350-B3e-Flight-Manual-Auszug](https://data.ntsb.gov/Docket/Document/docBLOB?FileExtension=.PDF&FileName=Excerpts+from+AS350+Flight+Manual%2C+Revisions+2+%26+3+-+Normal+Procedures-Master.PDF&ID=40431411):
-  Twist Grip auf `IDLE`, 30 Sekunden Cool-down, anschließend die verwendeten
-  Systeme abschalten und die Rotorbremse erst bei höchstens 140 Rotor-RPM
-  betätigen.
-- Die A400M-Checkliste bildet einen für die App angepassten Ingame-Ablauf ab.
-  Seitenbezeichnungen ergänzt nach dem
-  [iniBuilds-Handbuch](https://flightsimulator.azureedge.net/wp-content/uploads/2024/11/Airbus-A400M-MSFS-Manual.pdf).
-  `BLOCK` bezeichnet den gesamten Kraftstoffvorrat zu Flugbeginn, siehe
+- The compact H125 shutdown is based on the published
+  [AS350 B3e flight manual excerpt](https://data.ntsb.gov/Docket/Document/docBLOB?FileExtension=.PDF&FileName=Excerpts+from+AS350+Flight+Manual%2C+Revisions+2+%26+3+-+Normal+Procedures-Master.PDF&ID=40431411):
+  twist grip to `IDLE`, 30 seconds of cool-down, then switch off the systems
+  used, and apply the rotor brake only at 140 rotor RPM or less.
+- The A400M checklist reflects an in-game procedure adapted for the app. Page
+  names were added according to the
+  [iniBuilds manual](https://flightsimulator.azureedge.net/wp-content/uploads/2024/11/Airbus-A400M-MSFS-Manual.pdf).
+  `BLOCK` denotes the total fuel on board at the start of the flight, see
   [Airbus: Fuel Leak Management](https://safetyfirst.airbus.com/fuel-leak-management-in-flight/).
-  Die Ergänzung `T.O CONFIG` am ECAM-Bedienpanel folgt dem Ingame-Hinweis;
-  sie steht nach der Startkonfiguration der Klappen. Die Gruppen ab
-  `After Takeoff` folgen der iniBuilds-Quick-Reference-Card v1.0.0, mit den
-  bereits verwendeten Challenge-Namen und getrennten Items je Bedienelement.
-- Die G36-Checkliste ist bewusst eine minimale, unvollständige Merkliste
-  ausgewählter Geschwindigkeiten, Klappen- und Fahrwerksstellungen.
+  The addition `T.O CONFIG` on the ECAM control panel follows the in-game
+  hint; it comes after the takeoff flap configuration. The groups from
+  `After Takeoff` onward follow the iniBuilds Quick Reference Card v1.0.0,
+  using the challenge names already in use and separate items per control.
+- The G36 checklist is deliberately a minimal, incomplete memory aid of
+  selected speeds, flap and landing gear positions.

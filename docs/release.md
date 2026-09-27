@@ -74,11 +74,11 @@ task release:install
 
 Installiert die zuvor gebaute Version aus `VERSION`. Einzelne Komponenten
 lassen sich mit `task community:install` oder `task companion:install`
-installieren. Für ein vorhandenes anderes Release; der Companion lässt sich
-so erst ab Releases mit Setup installieren:
+installieren. Für ein vorhandenes anderes Release; lokale Releases bis 0.17.0
+tragen noch den alten Paketnamen und lassen sich so nicht mehr installieren:
 
 ```bash
-task release:install VERSION=0.15.0
+task release:install VERSION=X.Y.Z
 ```
 
 Das Community-Paket wird als native Windows-Junction auf das Release

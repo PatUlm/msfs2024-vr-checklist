@@ -73,7 +73,7 @@ export async function validateProjectVersionSources(repositoryRoot) {
       repositoryRoot,
       "msfs",
       "PackageDefinitions",
-      "patulm-vr-checklist.xml"
+      `${packageName}.xml`
     ),
     "utf8"
   );
@@ -381,7 +381,7 @@ export async function verifyPackage(packageRoot, expectedReleaseVersion) {
   }
 
   const requiredSuffixes = [
-    "/contentinfo/patulm-vr-checklist/thumbnail.jpg",
+    `/contentinfo/${packageName}/thumbnail.jpg`,
     "/html_ui/efb_ui/efb_apps/vrchecklist/assets/app-icon.svg",
     "/html_ui/efb_ui/efb_apps/vrchecklist/vrchecklist.css",
     "/html_ui/efb_ui/efb_apps/vrchecklist/vrchecklist.js",

@@ -52,7 +52,7 @@ The release folder contains `release.json`, the MSFS package
 Velopack output: `VRChecklist.Companion-win-Setup.exe`, the full `.nupkg` and
 the update feed `releases.win.json`. Existing versions are never overwritten.
 
-The GitHub release is titled `MSFS 2024 VR Checklist vX.Y.Z` and gets the ZIP
+The GitHub release is titled exactly like its tag, `vX.Y.Z`, and gets the ZIP
 and the setup attached. The `.nupkg` and `releases.win.json` are only needed
 by the companion's update check; attach them from the first release that
 contains it onward.

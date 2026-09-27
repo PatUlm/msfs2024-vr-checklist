@@ -1,11 +1,12 @@
 # Roadmap
 
-The next goal is preparing the free open-source release on GitHub with an
-installable Community package and an optional Windows companion.
+The free open-source release is published on GitHub. The next goal is keeping
+players up to date with little effort: the companion checks for new versions
+and installs them only after confirmation.
 
-The release is not tied to a target version. Complete checklists for all
-included aircraft are not a prerequisite; missing content and improvements
-are added as needed through continuous updates.
+Complete checklists for all included aircraft are no milestone of their own;
+missing content and improvements are added as needed through continuous
+updates.
 
 The required work and links to the topic lists are in the
 [backlog](BACKLOG.md). Released changes are in the [changelog](CHANGELOG.md).

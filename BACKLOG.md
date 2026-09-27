@@ -14,13 +14,15 @@ removed from the history at that point.
    hashes and tags change.
    1. Push the current state including tags to Bitbucket. Bitbucket then
       remains a frozen private backup of the old history and receives no
-      further pushes; keep it locally as remote `bitbucket`.
-   2. In a fresh clone, use `git filter-repo` to rewrite author, committer and
-      tagger of all commits and tags, including both previously used
-      addresses, to `PatUlm` and the GitHub noreply address. Replace the old
-      package and author name in file contents and paths of all commits with
-      `patulm-vr-checklist` or `PatUlm` respectively, so that the former
-      surname no longer appears anywhere. Remove these paths from all commits:
+      further pushes. Do not add it as a remote to the rewritten repository,
+      so that no fetch brings the old history back.
+   2. In a fresh clone from Bitbucket, which also verifies the backup, use
+      `git filter-repo` to rewrite author, committer and tagger of all commits
+      and tags, including both previously used addresses, to `PatUlm` and the
+      GitHub noreply address. Replace the old package and author name in file
+      contents and paths of all commits with `patulm-vr-checklist` or `PatUlm`
+      respectively, so that the former surname no longer appears anywhere.
+      Remove these paths from all commits:
       - the former QA screenshots `docs/assets/action-bar-alignment.png`,
         `content-manager-thumbnail-version-finding.png`,
         `default-item-reference.png`, `efb-icon-fill-finding.png` and
@@ -37,7 +39,8 @@ removed from the history at that point.
         taken manually from the SDK.
 
       Afterwards, set the repository's `user.name` and `user.email`
-      accordingly.
+      accordingly. The clone replaces the working copy at the same path; keep
+      the old one aside until the GitHub push is verified.
    3. Update references to the project's own commits in the current state
       using the filter-repo commit map (currently the audit commit `61fb91d` in
       `docs/license-audit.md` and in the inventory) and check the tags. Before

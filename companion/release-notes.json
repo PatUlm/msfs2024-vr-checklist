@@ -3,6 +3,15 @@
   "companionSince": "0.3.0",
   "releases": [
     {
+      "version": "0.18.0",
+      "date": "2026-09-27",
+      "highlight": "The EFB package is now published by PatUlm as patulm-vr-checklist.",
+      "features": [
+        "Delete the previous VR Checklist folder from the Community folder when updating the EFB app."
+      ],
+      "fixes": []
+    },
+    {
       "version": "0.17.0",
       "date": "2026-09-27",
       "highlight": "Install the companion with a Windows setup that brings its own .NET and SimConnect; the EFB app now ships as a ZIP.",

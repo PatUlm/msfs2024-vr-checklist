@@ -7,6 +7,13 @@ Changelog, and the project uses Semantic Versioning.
 
 ## [Unreleased]
 
+## [0.18.0] - 2026-09-27
+
+### Changed
+
+- The EFB package is now published by PatUlm as `patulm-vr-checklist`. Delete
+  the previous VR Checklist folder from the Community folder when updating.
+
 ## [0.17.0] - 2026-09-27
 
 ### Added

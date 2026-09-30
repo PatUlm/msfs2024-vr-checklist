@@ -3,6 +3,15 @@
   "companionSince": "0.3.0",
   "releases": [
     {
+      "version": "0.18.2",
+      "date": "2026-09-30",
+      "highlight": "The companion tells you when no checklist is available for your aircraft.",
+      "features": [
+        "Announces \"No checklist available for this aircraft.\" once per aircraft and flight when item announcements are on."
+      ],
+      "fixes": []
+    },
+    {
       "version": "0.18.1",
       "date": "2026-09-27",
       "highlight": "The EFB app now reports a missing checklist in English.",

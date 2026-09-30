@@ -7,6 +7,8 @@ Changelog, and the project uses Semantic Versioning.
 
 ## [Unreleased]
 
+## [0.18.2] - 2026-09-30
+
 ### Added
 
 - The companion announces "No checklist available for this aircraft." once

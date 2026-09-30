@@ -40,6 +40,10 @@
                       LogicalName="VRChecklist.Companion.audio.%(Filename)%(Extension)" />
     <EmbeddedResource Include="../../../assets/audio/completion/manifest.json"
                       LogicalName="VRChecklist.Companion.audio.completion-manifest.json" />
+    <EmbeddedResource Include="../../../assets/audio/no-checklist/*.opus"
+                      LogicalName="VRChecklist.Companion.audio.%(Filename)%(Extension)" />
+    <EmbeddedResource Include="../../../assets/audio/no-checklist/manifest.json"
+                      LogicalName="VRChecklist.Companion.audio.no-checklist-manifest.json" />
     <EmbeddedResource Include="../../../checklists/data/*.json"
                       Exclude="../../../checklists/data/checklist.schema.json"
                       LogicalName="VRChecklist.Companion.checklists.%(Filename)%(Extension)" />

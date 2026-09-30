@@ -59,15 +59,18 @@ public sealed class OpusClip
         return new OpusClip(pcm.ToArray());
     }
 
-    public static OpusClip LoadEmbeddedCompletion()
+    public static OpusClip LoadEmbeddedCompletion() =>
+        LoadEmbedded("VRChecklist.Companion.audio." + ReadFixedFile("completion"));
+
+    /* The file name of a fixed announcement such as `completion` or `no-checklist`. */
+    public static string ReadFixedFile(string name)
     {
         using var manifest = typeof(OpusClip).Assembly.GetManifestResourceStream(
-            "VRChecklist.Companion.audio.completion-manifest.json")
-            ?? throw new InvalidOperationException("Completion audio manifest is missing.");
+            $"VRChecklist.Companion.audio.{name}-manifest.json")
+            ?? throw new InvalidOperationException($"Audio manifest '{name}' is missing.");
         using var document = JsonDocument.Parse(manifest);
-        var file = document.RootElement.GetProperty("file").GetString()
-            ?? throw new InvalidDataException("Completion audio filename is missing.");
-        return LoadEmbedded("VRChecklist.Companion.audio." + file);
+        return document.RootElement.GetProperty("file").GetString()
+            ?? throw new InvalidDataException($"Audio filename for '{name}' is missing.");
     }
 
     public static OpusClip LoadEmbedded(string resourceName)

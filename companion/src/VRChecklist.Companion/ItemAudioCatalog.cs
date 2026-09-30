@@ -8,6 +8,9 @@ public sealed class ItemAudioCatalog
     private readonly Dictionary<string, string> revisions = new(StringComparer.Ordinal);
     private readonly Dictionary<string, string> items = new(StringComparer.Ordinal);
     private readonly Dictionary<string, OpusClip> decoded = new(StringComparer.Ordinal);
+    private readonly string noChecklistFile;
+
+    private ItemAudioCatalog(string noChecklistFile) => this.noChecklistFile = noChecklistFile;
 
     public static ItemAudioCatalog Load()
     {
@@ -15,7 +18,7 @@ public sealed class ItemAudioCatalog
             "VRChecklist.Companion.audio.items-manifest.json")
             ?? throw new InvalidDataException("Item audio manifest is missing.");
         using var document = JsonDocument.Parse(stream);
-        var catalog = new ItemAudioCatalog();
+        var catalog = new ItemAudioCatalog(OpusClip.ReadFixedFile("no-checklist"));
         foreach (var checklist in document.RootElement.GetProperty("checklists").EnumerateArray())
             catalog.revisions.Add(checklist.GetProperty("id").GetString()!, checklist.GetProperty("revision").GetString()!);
         foreach (var item in document.RootElement.GetProperty("items").EnumerateObject())
@@ -25,6 +28,9 @@ public sealed class ItemAudioCatalog
 
     public string? Resolve(ChecklistStateSnapshot snapshot)
     {
+        // A missing or ambiguous match; an empty identity is a flight reset.
+        if (snapshot.Checklist is null)
+            return snapshot.Aircraft.HasIdentity() ? noChecklistFile : null;
         if (snapshot.Checklist is not { } checklist || snapshot.ActiveGroup is not { } group ||
             snapshot.NextOpenItem is not { } item) return null;
         if (!revisions.TryGetValue(checklist.Id, out var revision) || revision != checklist.Revision)

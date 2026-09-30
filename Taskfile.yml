@@ -109,10 +109,10 @@ tasks:
       - task: validate
       - node scripts/plan-checklist-audio.mjs
 
-  audio:render-completion:
-    desc: Render the clean Brian completion clip (explicit paid ElevenLabs operation)
+  audio:render-fixed:
+    desc: Render the clean Brian completion and no-checklist clips (explicit paid ElevenLabs operation)
     cmds:
-      - node scripts/render-completion-audio.mjs {{.CLI_ARGS}}
+      - node scripts/render-fixed-audio.mjs {{.CLI_ARGS}}
 
   audio:render-items:
     desc: Render planned clean Brian item clips (explicit paid ElevenLabs operation)

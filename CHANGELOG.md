@@ -7,6 +7,11 @@ Changelog, and the project uses Semantic Versioning.
 
 ## [Unreleased]
 
+### Added
+
+- The companion announces "No checklist available for this aircraft." once
+  when no checklist matches the aircraft or helicopter.
+
 ## [0.18.1] - 2026-09-27
 
 ### Fixed

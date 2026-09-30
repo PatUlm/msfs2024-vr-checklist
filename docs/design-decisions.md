@@ -125,6 +125,10 @@ checks in [design-qa.md](design-qa.md).
   reopening and completing it again, the group may speak again. The completion
   announcement finishes before the item that has become current in the
   meantime.
+- Without a matching checklist, item announcements say
+  `No checklist available for this aircraft.` like a current item: once per
+  aircraft and flight, again after being switched on, not after reconnects or
+  VR switches.
 - Turning off item announcements leaves group completion and `Test sound`
   available. A differing checklist revision reports an audio error instead of
   reading the wrong text.

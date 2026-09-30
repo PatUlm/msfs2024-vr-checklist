@@ -79,6 +79,7 @@ internal static class TransportProbeSelfTests
             ("finishes group announcements before the latest item", SpeechSelfTests.CompletionOrdering),
             ("announces the next phase after one bulk completion", SpeechSelfTests.PhaseSkip),
             ("handles speech toggles, resets and offline state", SpeechSelfTests.ToggleAndReset),
+            ("announces a missing checklist once per aircraft and flight", SpeechSelfTests.NoChecklist),
             ("reports interrupted test sounds honestly", AudioSettingsSelfTests.ReportsInterruptedTest),
             ("keeps test audio independent of simulator retries", SpeechSelfTests.TestSoundSurvivesConnectionEvents),
             ("recovers speech after device and revision errors", SpeechSelfTests.Failures),

@@ -7,34 +7,41 @@ import path from 'node:path';
 // Explicit developer operation, never called by check/build/deploy.
 // Task loads the ignored root .env. No API key is written into asset metadata.
 const root = fileURLToPath(new URL('../', import.meta.url));
-const directory = path.join(root, 'assets/audio/completion');
-const request = {
-  text: 'Checklist completed.', model_id: 'eleven_multilingual_v2',
-  voice_settings: { stability: 0.75, similarity_boost: 0.75, style: 0, use_speaker_boost: true, speed: 1 },
-  seed: 9172026,
-};
+// Fixed announcements outside the checklist data, one directory and manifest each.
+const clips = [
+  { name: 'completion', text: 'Checklist completed.' },
+  { name: 'no-checklist', text: 'No checklist available for this aircraft.' },
+];
 const voiceId = 'nPczCjzI2devNBz1zQrb';
-const recipe = { voiceId, request, sourceFormat: 'mp3_44100_128', profile: 'clean',
-  normalization: 'loudnorm=I=-20:TP=-2:LRA=11', format: 'ogg-opus-mono-48000-32k', revision: 1 };
 const digest = value => createHash('sha256').update(value).digest('hex');
-const hash = digest(JSON.stringify(recipe));
-const file = `completion-${hash.slice(0, 16)}.opus`;
-const metadataPath = path.join(directory, 'manifest.json');
-const outputPath = path.join(directory, file);
 
-async function main() {
+function plan({ name, text }) {
+  const request = {
+    text, model_id: 'eleven_multilingual_v2',
+    voice_settings: { stability: 0.75, similarity_boost: 0.75, style: 0, use_speaker_boost: true, speed: 1 },
+    seed: 9172026,
+  };
+  const recipe = { voiceId, request, sourceFormat: 'mp3_44100_128', profile: 'clean',
+    normalization: 'loudnorm=I=-20:TP=-2:LRA=11', format: 'ogg-opus-mono-48000-32k', revision: 1 };
+  const hash = digest(JSON.stringify(recipe));
+  const directory = path.join(root, 'assets/audio', name);
+  const file = `${name}-${hash.slice(0, 16)}.opus`;
+  return { request, recipe, hash, directory, file,
+    metadataPath: path.join(directory, 'manifest.json'), outputPath: path.join(directory, file) };
+}
+
+async function isRendered({ hash, metadataPath, outputPath }) {
   try {
     const saved = JSON.parse(await readFile(metadataPath, 'utf8'));
-    if (saved.recipeHash === hash && saved.generationPlan === 'paid') {
-      const data = await readFile(outputPath);
-      if (digest(data) === saved.sha256) {
-        console.log(`Already rendered on a paid plan: ${file}. No API request.`);
-        return;
-      }
-    }
+    return saved.recipeHash === hash && saved.generationPlan === 'paid' &&
+      digest(await readFile(outputPath)) === saved.sha256;
   } catch (error) {
     if (error.code !== 'ENOENT') throw error;
+    return false;
   }
+}
+
+async function render({ request, recipe, hash, directory, file, metadataPath, outputPath }) {
   if (!process.argv.includes('--paid-plan-confirmed'))
     throw new Error('Confirm an active paid ElevenLabs subscription with --paid-plan-confirmed. Free audition files must not be reused.');
   const key = process.env.ELEVENLABS_API_KEY;
@@ -74,6 +81,13 @@ async function main() {
     ffmpegVersion, licenseNotice: '../README.md' };
   await writeFile(metadataPath, JSON.stringify(metadata, null, 2) + '\n');
   console.log(`Rendered ${file}: ${encoded.length} bytes. One paid TTS request; radio is applied during playback.`);
+}
+
+async function main() {
+  for (const clip of clips.map(plan)) {
+    if (await isRendered(clip)) console.log(`Already rendered on a paid plan: ${clip.file}. No API request.`);
+    else await render(clip);
+  }
 }
 
 main().catch(error => { console.error(error.message); process.exitCode = 1; });

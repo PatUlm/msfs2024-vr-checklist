@@ -94,11 +94,12 @@ further package dependencies for .NET 10.
 
 | Component                                           | Version / state                                 | License / terms                                                                                                                      | Primary source                                                                                            |
 |-----------------------------------------------------|-------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------|
-| ElevenLabs Brian, completion and item announcements | Model and generation data in the asset metadata | [Audio terms](../assets/audio/LICENSE); rationale and primary sources under [rights notice](../assets/audio/README.md#rights-notice) | [Audio provenance](../assets/audio/README.md)                                                             |
+| ElevenLabs Brian, fixed and item announcements      | Model and generation data in the asset metadata | [Audio terms](../assets/audio/LICENSE); rationale and primary sources under [rights notice](../assets/audio/README.md#rights-notice) | [Audio provenance](../assets/audio/README.md)                                                             |
 | FFmpeg, local render tool only                      | 7.0.2-static, with libopus                      | GPL-3.0-or-later for the build used; not shipped                                                                                     | [FFmpeg Legal](https://ffmpeg.org/legal.html), [build provider](https://johnvansickle.com/ffmpeg/)        |
 | FFmpeg, current local render tool on Ubuntu         | 6.1.1-3ubuntu5, with libopus                    | GPL-2.0-or-later for the build used; not shipped                                                                                     | [Ubuntu package](https://packages.ubuntu.com/noble/ffmpeg), [FFmpeg Legal](https://ffmpeg.org/legal.html) |
 
 The provenance of the clean files is documented in the
-[completion manifest](../assets/audio/completion/manifest.json), the
+[completion](../assets/audio/completion/manifest.json) and
+[no-checklist](../assets/audio/no-checklist/manifest.json) manifests, the
 [item mappings](../assets/audio/items/manifest.json) and the file metadata
 there. The live radio filter uses NAudio, which is already listed.

@@ -12,6 +12,17 @@ internal static class SpeechSelfTests
         new("model", "type", "title", null), new("checklist", "revision", "Checklist"),
         new(group, group, 0), item is null ? null : new(item, item, "On"), 0, 10, false, completed ?? []);
 
+    // A null title stands for the empty identity of a flight reset.
+    private static ChecklistStateSnapshot Unmatched(string? title, string session = "session",
+        string instance = "instance") =>
+        Snapshot(null, session: session) with
+        {
+            InstanceId = instance,
+            Aircraft = title is null ? new("", "", "", null) : new("model", "type", title, null),
+            Checklist = null,
+            ActiveGroup = null,
+        };
+
     public static void Transitions()
     {
         var fake = new Player();
@@ -98,6 +109,38 @@ internal static class SpeechSelfTests
         Require(fake.Calls.Last() == "d" && fake.Calls.Count == 4, "Offline enable read stale snapshot.");
     }
 
+    public static void NoChecklist()
+    {
+        var fake = new Player();
+        using var speech = new ChecklistSpeechController(fake.Play, fake.Stop,
+            snapshot => snapshot.Checklist is not null ? snapshot.NextOpenItem?.Id
+                : snapshot.Aircraft.HasIdentity() ? "<none>" : null,
+            fake.Errors.Enqueue, true);
+        speech.Observe(Unmatched("unknown"), false);
+        speech.Observe(Unmatched("unknown") with { Sequence = 2 }, false);
+        speech.Disconnect();
+        speech.Observe(Unmatched("unknown"), false);
+        // A VR switch can create a new EFB context with a new session.
+        speech.Observe(Unmatched("unknown", "vr", "vr"), false);
+        Require(fake.Calls.SequenceEqual(["<none>"]), "Reconnect or VR switch repeated the missing checklist.");
+        speech.Observe(Unmatched(null, "flight-2", "vr"), false);
+        speech.Observe(Unmatched("unknown", "flight-2", "vr"), false);
+        Require(fake.Calls.Count == 2, "A new flight after a reset snapshot was not announced.");
+        // The same context reporting a new session means its reset snapshot was missed.
+        speech.Observe(Unmatched("unknown", "flight-3", "vr"), false);
+        Require(fake.Calls.Count == 3, "A new flight without a reset snapshot was not announced.");
+        speech.Disconnect();
+        speech.Observe(Unmatched("unknown", "restart", "restart"), false);
+        Require(fake.Calls.Count == 4, "A simulator restart did not announce the missing checklist.");
+        speech.Observe(Snapshot("a"), false);
+        speech.Observe(Unmatched("other"), false);
+        Require(fake.Calls.SequenceEqual(["<none>", "<none>", "<none>", "<none>", "a", "<none>"]),
+            "An aircraft change without checklist was not announced.");
+        speech.SetEnabled(false);
+        speech.Observe(Unmatched("third"), false);
+        Require(fake.Calls.Count == 6, "Disabled item speech announced a missing checklist.");
+    }
+
     public static void TestSoundSurvivesConnectionEvents()
     {
         var fake = new Player();
@@ -155,6 +198,13 @@ internal static class SpeechSelfTests
         Require(catalog.Resolve(snapshot) is not null, "Known item did not resolve.");
         Require(catalog.Resolve(snapshot with { ActiveGroup = new("fsm-init", "FMS Setup", 8),
             NextOpenItem = new("init", "[INIT] Route", "Set") }) is not null, "A400M FMS item did not resolve.");
+        var unmatched = snapshot with { Checklist = null, ActiveGroup = null, NextOpenItem = null };
+        Require(catalog.Resolve(unmatched) is { } none && catalog.GetClip(none).Duration.TotalSeconds is > 0.2 and < 30,
+            "The no-checklist clip did not resolve or decode.");
+        Require(catalog.Resolve(unmatched with { Aircraft = new("", "", "", null) }) is null,
+            "A flight reset resolved an announcement.");
+        Require(catalog.Resolve(unmatched with { Aircraft = new("-", " ", "--", null) }) is null,
+            "A punctuation-only identity resolved an announcement.");
         try
         {
             catalog.Resolve(snapshot with { Checklist = new("airbus-a400m", "older", "A400M") });

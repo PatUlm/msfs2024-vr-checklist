@@ -1,8 +1,8 @@
 # Pre-rendered speech
 
 Maintain regeneration instructions and asset provenance here, not audition
-history or copies of manifest settings. `completion/` and `items/` contain
-clean English ElevenLabs **Brian** announcements using
+history or copies of manifest settings. `completion/`, `no-checklist/` and
+`items/` contain clean English ElevenLabs **Brian** announcements using
 `eleven_multilingual_v2`, generated during a confirmed paid subscription.
 Manifests and per-file metadata record voice/model settings, generation time,
 request ID, paid-plan confirmation and checksums.
@@ -47,7 +47,7 @@ With the prerequisites installed and the paid subscription confirmed,
 explicitly run the needed task:
 
 ```sh
-task audio:render-completion -- --paid-plan-confirmed
+task audio:render-fixed -- --paid-plan-confirmed
 task audio:render-items -- --paid-plan-confirmed
 ```
 

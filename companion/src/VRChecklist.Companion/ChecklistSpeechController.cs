@@ -16,6 +16,10 @@ public sealed class ChecklistSpeechController(
     private ChecklistStateSnapshot? current;
     private string? lastKey;
     private string? lastScope;
+    private string? lastSession;
+    private string? lastInstance;
+    private bool reconnected;
+    private long flight;
     private string? pendingItem;
     private bool itemEnabled = enabled;
     private bool playing;
@@ -30,6 +34,13 @@ public sealed class ChecklistSpeechController(
         {
             if (disposed) return;
             current = snapshot;
+            // A new session from the same EFB context or after a reconnect is a new
+            // flight. A new context with its own session is treated as a VR switch.
+            if (lastSession is not null && snapshot.SessionId != lastSession &&
+                (reconnected || snapshot.InstanceId == lastInstance)) flight++;
+            lastSession = snapshot.SessionId;
+            lastInstance = snapshot.InstanceId;
+            reconnected = false;
             var scope = snapshot.Checklist is { } checklist
                 ? $"{snapshot.SessionId}/{snapshot.Aircraft.AtcModel}/{snapshot.Aircraft.AtcType}/{snapshot.Aircraft.Title}/{checklist.Id}@{checklist.Revision}"
                 : null;
@@ -39,7 +50,12 @@ public sealed class ChecklistSpeechController(
                 if (!testPlaying) CancelPlayback();
                 lastScope = scope;
             }
-            var key = scope is null ? null : $"{scope}/{snapshot.ActiveGroup?.Id}/{snapshot.NextOpenItem?.Id}";
+            var aircraft = snapshot.Aircraft;
+            // Without a checklist, key by flight instead of session, since a VR
+            // switch without a checklist to restore starts a new EFB session.
+            var key = scope is not null ? $"{scope}/{snapshot.ActiveGroup?.Id}/{snapshot.NextOpenItem?.Id}"
+                : aircraft.HasIdentity() ? $"no-checklist/{flight}/{aircraft.AtcModel}/{aircraft.AtcType}/{aircraft.Title}"
+                : null;
             var changed = key != lastKey;
             lastKey = key;
             var completed = groups.Observe(snapshot, repeated).Count > 0;
@@ -92,6 +108,7 @@ public sealed class ChecklistSpeechController(
             if (disposed) return;
             current = null;
             pendingItem = null;
+            reconnected = true;
             groups.ResetBaseline();
             // Keep the last item identity: a reconnect must not repeat it.
             // Connection retries must not interrupt a local Settings test.

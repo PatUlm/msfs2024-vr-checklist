@@ -112,7 +112,15 @@ public sealed record AircraftState(
     string AtcModel,
     string AtcType,
     string Title,
-    string? DisplayName);
+    string? DisplayName)
+{
+    // All fields are empty while the EFB resets for a new flight. Like the EFB
+    // normalization, only ASCII letters and digits count as identity.
+    public bool HasIdentity() =>
+        AtcModel.Any(char.IsAsciiLetterOrDigit) ||
+        AtcType.Any(char.IsAsciiLetterOrDigit) ||
+        Title.Any(char.IsAsciiLetterOrDigit);
+}
 
 public sealed record ChecklistIdentity(
     [property: JsonRequired] string Id,

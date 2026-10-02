@@ -13,6 +13,11 @@ Changelog, and the project uses Semantic Versioning.
   installs an update only after your confirmation and then reminds you to
   update the EFB app as well.
 
+### Fixed
+
+- The speaker icon of `Test sound` in the companion settings is now centered
+  on its label instead of sitting slightly too high.
+
 ## [0.18.2] - 2026-09-30
 
 ### Added

@@ -49,7 +49,8 @@
                           AutomationProperties.Name="Radio effect" />
             <Button Classes="icon-button" Click="OnTestSoundClick" IsEnabled="{Binding Audio.CanTest}">
               <StackPanel>
-                <Path Data="{StaticResource IconSpeaker}" />
+                <!-- Uniform stretch pins the wide speaker to the top of a square box; its own height centers it. -->
+                <Path Data="{StaticResource IconSpeaker}" Height="14.2" />
                 <TextBlock Text="Test sound" />
               </StackPanel>
             </Button>

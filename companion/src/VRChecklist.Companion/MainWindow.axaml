@@ -74,19 +74,22 @@
         </StackPanel>
         <StackPanel Grid.Column="1" Orientation="Horizontal" Spacing="10"
                     VerticalAlignment="Center">
-          <Button Classes="icon-button" Click="OnChecklistsClick">
+          <Button Classes="icon-button" Click="OnChecklistsClick"
+                  AutomationProperties.Name="Checklists">
             <StackPanel>
               <Path Data="{StaticResource IconChecklist}" />
               <TextBlock Text="Checklists" />
             </StackPanel>
           </Button>
-          <Button Classes="icon-button" Click="OnReleaseNotesClick">
+          <Button Classes="icon-button" Click="OnReleaseNotesClick"
+                  AutomationProperties.Name="Release Notes">
             <StackPanel>
               <Path Data="{StaticResource IconReleaseNotes}" />
               <TextBlock Text="Release Notes" />
             </StackPanel>
           </Button>
-          <Button Classes="icon-button" Click="OnSettingsClick">
+          <Button Classes="icon-button" Click="OnSettingsClick"
+                  AutomationProperties.Name="Settings">
             <StackPanel>
               <Path Data="{StaticResource IconSettings}" />
               <TextBlock Text="Settings" />
@@ -105,7 +108,8 @@
                      IsVisible="{Binding Updates.HasNoticeDetail}" />
           <StackPanel Orientation="Horizontal" Spacing="10" HorizontalAlignment="Right">
             <Button Classes="icon-button" Click="OnAllowUpdateChecksClick"
-                    IsVisible="{Binding Updates.IsConsentNotice}">
+                    IsVisible="{Binding Updates.IsConsentNotice}"
+                    AutomationProperties.Name="Allow">
               <StackPanel>
                 <!-- Uniform stretch pins the wide check to the top of a square box; its own height centers it. -->
                 <Path Data="{StaticResource IconCheck}" Height="12" />
@@ -113,7 +117,8 @@
               </StackPanel>
             </Button>
             <Button Classes="icon-button" Click="OnDeclineUpdateChecksClick"
-                    IsVisible="{Binding Updates.IsConsentNotice}">
+                    IsVisible="{Binding Updates.IsConsentNotice}"
+                    AutomationProperties.Name="Don't check">
               <StackPanel>
                 <Path Data="{StaticResource IconClose}" />
                 <TextBlock Text="Don't check" />
@@ -121,14 +126,16 @@
             </Button>
             <Button Classes="icon-button" Click="OnInstallUpdateClick"
                     IsVisible="{Binding Updates.IsAvailableNotice}"
-                    IsEnabled="{Binding Updates.CanInstall}">
+                    IsEnabled="{Binding Updates.CanInstall}"
+                    AutomationProperties.Name="Install update">
               <StackPanel>
                 <Path Data="{StaticResource IconDownload}" />
                 <TextBlock Text="Install update" />
               </StackPanel>
             </Button>
             <Button Classes="icon-button" Click="OnReleasePageClick"
-                    IsVisible="{Binding Updates.HasReleasePage}">
+                    IsVisible="{Binding Updates.HasReleasePage}"
+                    AutomationProperties.Name="Release page">
               <StackPanel>
                 <Path Data="{StaticResource IconExternal}" />
                 <TextBlock Text="Release page" />
@@ -136,14 +143,16 @@
             </Button>
             <Button Classes="icon-button" Click="OnPostponeUpdateClick"
                     IsVisible="{Binding Updates.IsAvailableNotice}"
-                    IsEnabled="{Binding Updates.CanInstall}">
+                    IsEnabled="{Binding Updates.CanInstall}"
+                    AutomationProperties.Name="Later">
               <StackPanel>
                 <Path Data="{StaticResource IconClose}" />
                 <TextBlock Text="Later" />
               </StackPanel>
             </Button>
             <Button Classes="icon-button" Click="OnDismissUpdatedClick"
-                    IsVisible="{Binding Updates.IsUpdatedNotice}">
+                    IsVisible="{Binding Updates.IsUpdatedNotice}"
+                    AutomationProperties.Name="Dismiss">
               <StackPanel>
                 <Path Data="{StaticResource IconClose}" />
                 <TextBlock Text="Dismiss" />

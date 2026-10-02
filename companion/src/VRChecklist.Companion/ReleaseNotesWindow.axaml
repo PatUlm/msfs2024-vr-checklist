@@ -94,7 +94,8 @@
     </ScrollViewer>
 
     <Button Grid.Row="2" Classes="icon-button" HorizontalAlignment="Right"
-            Click="OnCloseClick" IsCancel="True">
+            Click="OnCloseClick" IsCancel="True"
+            AutomationProperties.Name="Close">
       <StackPanel>
         <Path Data="{StaticResource IconClose}" />
         <TextBlock Text="Close" />

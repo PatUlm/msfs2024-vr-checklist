@@ -106,7 +106,8 @@
     <Grid Grid.Row="1" ColumnDefinitions="*,Auto" ColumnSpacing="14">
       <ComboBox Classes="checklist-picker"
                 ItemsSource="{Binding Checklists}"
-                SelectedItem="{Binding SelectedChecklist}">
+                SelectedItem="{Binding SelectedChecklist}"
+                AutomationProperties.Name="Checklist">
         <ComboBox.ItemTemplate>
           <DataTemplate x:DataType="vm:ChecklistDocument">
             <TextBlock Text="{Binding Title}" />
@@ -173,6 +174,7 @@
                 HorizontalAlignment="Right">
       <Button Classes="icon-button"
               ToolTip.Tip="Copy the checklist as Markdown text"
+              AutomationProperties.Name="Copy checklist"
               Click="OnCopyClick">
         <StackPanel>
           <Path Data="{StaticResource IconCopy}" />
@@ -181,13 +183,15 @@
       </Button>
       <Button Classes="icon-button"
               ToolTip.Tip="Save the checklist as a printable PDF and open it"
+              AutomationProperties.Name="Save checklist as PDF"
               Click="OnPdfClick">
         <StackPanel>
           <Path Data="{StaticResource IconDownload}" />
           <TextBlock x:Name="PdfLabel" Text="PDF" />
         </StackPanel>
       </Button>
-      <Button Classes="icon-button" Click="OnCloseClick" IsCancel="True">
+      <Button Classes="icon-button" Click="OnCloseClick" IsCancel="True"
+              AutomationProperties.Name="Close">
         <StackPanel>
           <Path Data="{StaticResource IconClose}" />
           <TextBlock Text="Close" />

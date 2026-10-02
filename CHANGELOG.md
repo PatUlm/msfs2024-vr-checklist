@@ -17,6 +17,8 @@ Changelog, and the project uses Semantic Versioning.
 
 - The speaker icon of `Test sound` in the companion settings is now centered
   on its label instead of sitting slightly too high.
+- Screen readers announce the companion's buttons and checklist picker by
+  their label instead of a technical type name.
 
 ## [0.18.2] - 2026-09-30
 

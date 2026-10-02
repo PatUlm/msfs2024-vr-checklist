@@ -47,7 +47,8 @@
                           OnContent="On" OffContent="Off"
                           Foreground="#F3F6FA" FontSize="16" MinHeight="44"
                           AutomationProperties.Name="Radio effect" />
-            <Button Classes="icon-button" Click="OnTestSoundClick" IsEnabled="{Binding Audio.CanTest}">
+            <Button Classes="icon-button" Click="OnTestSoundClick" IsEnabled="{Binding Audio.CanTest}"
+                    AutomationProperties.Name="Test sound">
               <StackPanel>
                 <!-- Uniform stretch pins the wide speaker to the top of a square box; its own height centers it. -->
                 <Path Data="{StaticResource IconSpeaker}" Height="14.2" />
@@ -106,7 +107,8 @@
         </Border>
       </StackPanel>
     </ScrollViewer>
-    <Button Grid.Row="2" Classes="icon-button" HorizontalAlignment="Right" Click="OnCloseClick" IsCancel="True">
+    <Button Grid.Row="2" Classes="icon-button" HorizontalAlignment="Right" Click="OnCloseClick" IsCancel="True"
+            AutomationProperties.Name="Close">
       <StackPanel>
         <Path Data="{StaticResource IconClose}" />
         <TextBlock Text="Close" />

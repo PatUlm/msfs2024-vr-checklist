@@ -105,6 +105,10 @@ checks in [design-qa.md](design-qa.md).
 - Buttons have light text on a dark blue surface, visible hover and their own
   icon to the left of the text. Theme default colors must not override the
   contrast; icons do not replace text.
+- Every control has an `AutomationProperties.Name` that contains its visible
+  action label; otherwise UI Automation reads composed button content as its
+  type name. Brief feedback such as `Copied` replaces the label but not the
+  name.
 
 ## Companion: audio
 

@@ -3,6 +3,19 @@
   "companionSince": "0.3.0",
   "releases": [
     {
+      "version": "0.19.0",
+      "date": "2026-10-02",
+      "highlight": "The companion can update itself: it checks for new versions if you allow it and installs them after your confirmation.",
+      "features": [
+        "Asks once whether it may check GitHub for new versions at startup; change it any time under Settings > Updates.",
+        "Installs an offered update with one click, restarts and reminds you to update the EFB app from the release page."
+      ],
+      "fixes": [
+        "The Test sound icon sits centered on its label.",
+        "Screen readers announce buttons and the checklist picker by their label."
+      ]
+    },
+    {
       "version": "0.18.2",
       "date": "2026-09-30",
       "highlight": "The companion tells you when no checklist is available for your aircraft.",

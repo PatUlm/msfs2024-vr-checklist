@@ -7,6 +7,8 @@ Changelog, and the project uses Semantic Versioning.
 
 ## [Unreleased]
 
+## [0.19.0] - 2026-10-02
+
 ### Added
 
 - The companion checks GitHub for a new version at startup if you allow it,

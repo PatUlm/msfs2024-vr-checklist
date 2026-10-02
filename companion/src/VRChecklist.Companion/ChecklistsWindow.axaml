@@ -183,7 +183,7 @@
               ToolTip.Tip="Save the checklist as a printable PDF and open it"
               Click="OnPdfClick">
         <StackPanel>
-          <Path Data="{StaticResource IconPdf}" />
+          <Path Data="{StaticResource IconDownload}" />
           <TextBlock x:Name="PdfLabel" Text="PDF" />
         </StackPanel>
       </Button>

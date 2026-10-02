@@ -19,7 +19,11 @@ public sealed partial class App : Application
         if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
         {
             connectionService = new ChecklistConnectionService();
-            var viewModel = new MainWindowViewModel(connectionService);
+            var updates = new UpdateViewModel(
+                new UpdateCheckSettings(),
+                VelopackCompanionUpdater.CreateForInstallation(() => desktop.Shutdown()),
+                Program.UpdatedVersion);
+            var viewModel = new MainWindowViewModel(connectionService, updates);
             var audioSettings = new AudioOutputSettings();
             var window = new MainWindow(
                 ReleaseNotesCatalog.Load(),
@@ -41,7 +45,7 @@ public sealed partial class App : Application
                     : Task.FromException(new InvalidOperationException("Audio is unavailable."))));
             audioViewModel.ReadItemsChanged += value => speech?.SetEnabled(value);
             var efbViewModel = new EfbSettingsViewModel(new EfbInputSettings(), connectionService.ApplyEfbSettingsAsync);
-            window.Settings = new SettingsViewModel(audioViewModel, efbViewModel);
+            window.Settings = new SettingsViewModel(audioViewModel, efbViewModel, updates);
             connectionService.ConnectionChanged += (_, _) => Dispatcher.UIThread.Post(efbViewModel.Disconnect);
             connectionService.ProtocolError += _ => Dispatcher.UIThread.Post(efbViewModel.Disconnect);
             connectionService.SnapshotReceived += (snapshot, _) =>
@@ -59,6 +63,7 @@ public sealed partial class App : Application
                 }
             };
             connectionService.Start();
+            _ = updates.CheckAsync();
         }
 
         base.OnFrameworkInitializationCompleted();

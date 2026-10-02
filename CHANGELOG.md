@@ -7,6 +7,12 @@ Changelog, and the project uses Semantic Versioning.
 
 ## [Unreleased]
 
+### Added
+
+- The companion checks GitHub for a new version at startup if you allow it,
+  installs an update only after your confirmation and then reminds you to
+  update the EFB app as well.
+
 ## [0.18.2] - 2026-09-30
 
 ### Added

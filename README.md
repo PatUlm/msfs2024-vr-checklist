@@ -21,7 +21,7 @@ than copied from a manual. They recreate complete procedures, so besides
 switches and levers they can also include radio calls such as ATIS,
 clearance or taxi requests.
 
-Free, open source and completely offline.
+Free, open source and offline, apart from an optional update check.
 
 ## Highlights
 
@@ -79,7 +79,8 @@ reads out the next open item as soon as it becomes current.
   radio.
 - Choose any Windows audio output, such as your VR headset or your speakers,
   and try it with a test sound.
-- No microphone, no speech recognition, no API key and no internet connection.
+- No microphone, no speech recognition, no API key; the voice needs no
+  internet connection.
 
 ### Companion extras
 
@@ -92,6 +93,8 @@ reads out the next open item as soon as it becomes current.
 - Read the release notes offline.
 - Install per user without administrator rights; .NET and SimConnect are
   included.
+- Update the companion with one click after an optional check for new
+  versions.
 
 ## Included checklists
 
@@ -129,7 +132,9 @@ announcements stay silent.
    and in the Start menu. Neither .NET, the MSFS SDK nor a separate
    `SimConnect.dll` is required. The setup is not signed; at the SmartScreen
    warning, choose **More info** and then **Run anyway**. Uninstall it from the
-   Windows apps list; settings are kept.
+   Windows apps list; settings are kept. Later companion versions can be
+   installed from the companion itself; the EFB app is always updated with
+   the ZIP.
 
 After installation, open **VR Checklist** in the EFB. The app works without a
 running companion. For announcements and to configure confirmation actions,
@@ -168,6 +173,11 @@ In the companion under **Settings**:
 - `Radio effect`: switches the sound filter on or off live; on by default.
 - `Audio output` and `Test sound`: select and test the output device. An
   unavailable device stays selected until it returns or is replaced.
+- `Updates`: checks GitHub Releases once per start for a new companion
+  version. Off until you allow it when first asked; the check sends only the
+  usual web requests to GitHub. An offered update is installed only when you
+  click `Install update`; the companion then restarts and reminds you to
+  replace the EFB app with the ZIP from the release page.
 
 Group completion and the test sound also work with item announcements turned
 off. Minimizing keeps the connection and audio running; closing exits the

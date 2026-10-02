@@ -97,6 +97,9 @@ internal static class TransportProbeSelfTests
             ("keeps missing audio outputs selected and recovers by ID", AudioSettingsSelfTests.RecoversMissingEndpoint),
             ("handles unreadable settings and failed saves", AudioSettingsSelfTests.HandlesSettingsFailures),
             ("uses the saved output for test playback and handles failures", AudioSettingsSelfTests.TestsSelectedOutput),
+            ("asks before the first update check and persists the choice", UpdateSelfTests.Consent),
+            ("checks for updates once per start and retries after failures", UpdateSelfTests.Check),
+            ("installs updates only after confirmation and reminds of the EFB", UpdateSelfTests.Install),
         ];
 
         var failures = 0;

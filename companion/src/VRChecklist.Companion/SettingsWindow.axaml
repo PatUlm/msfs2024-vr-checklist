@@ -89,6 +89,20 @@
             <TextBlock Foreground="#AAB4C0" TextWrapping="Wrap" Text="{Binding Efb.Status}" IsVisible="{Binding Efb.HasStatus}" />
           </StackPanel>
         </Border>
+        <Border Background="#18212C" BorderBrush="#273646" BorderThickness="1"
+                CornerRadius="10" Padding="20">
+          <StackPanel Spacing="14">
+            <TextBlock Foreground="#F3F6FA" FontSize="18" FontWeight="SemiBold" Text="Updates" />
+            <TextBlock Foreground="#AAB4C0" TextWrapping="Wrap"
+                       Text="Check GitHub for a new companion version at startup. Updates are downloaded and installed only after you confirm on the dashboard." />
+            <ToggleSwitch IsChecked="{Binding Updates.CheckEnabled, Mode=TwoWay}"
+                          OnContent="On" OffContent="Off"
+                          Foreground="#F3F6FA" FontSize="16" MinHeight="44"
+                          AutomationProperties.Name="Check for updates" />
+            <TextBlock Foreground="#AAB4C0" TextWrapping="Wrap" Text="{Binding Updates.Status}"
+                       IsVisible="{Binding Updates.HasStatus}" />
+          </StackPanel>
+        </Border>
       </StackPanel>
     </ScrollViewer>
     <Button Grid.Row="2" Classes="icon-button" HorizontalAlignment="Right" Click="OnCloseClick" IsCancel="True">

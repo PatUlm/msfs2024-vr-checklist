@@ -18,9 +18,9 @@ SDK for the build and for `SimConnect.dll`.
   `SimConnect.dll` from the MSFS 2024 SDK. The package is built in the .NET SDK
   container on Linux.
 - The setup remains unsigned for now.
-- Companion updates are never installed silently. A later update check
-  downloads and installs only after confirmation and reminds users to update
-  the EFB ZIP as well.
+- Companion updates are never installed silently. The opt-in update check
+  reads GitHub Releases, downloads and installs only after confirmation and
+  reminds users to update the EFB ZIP as well.
 
 ## Consequences
 

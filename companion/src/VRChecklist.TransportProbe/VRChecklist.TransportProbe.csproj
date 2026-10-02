@@ -21,6 +21,8 @@
     <Compile Include="../VRChecklist.Companion/EfbInputSettings.cs" Link="EfbInputSettings.cs" />
     <Compile Include="../VRChecklist.Companion/EfbSettingsExchange.cs" Link="EfbSettingsExchange.cs" />
     <Compile Include="../VRChecklist.Companion/EfbSettingsViewModel.cs" Link="EfbSettingsViewModel.cs" />
+    <Compile Include="../VRChecklist.Companion/UpdateCheckSettings.cs" Link="UpdateCheckSettings.cs" />
+    <Compile Include="../VRChecklist.Companion/UpdateViewModel.cs" Link="UpdateViewModel.cs" />
     <Compile Include="../VRChecklist.Companion/ChecklistConnectionService.cs"
              Link="ChecklistConnectionService.cs" />
     <Compile Include="../VRChecklist.Companion/ChecklistCatalog.cs"

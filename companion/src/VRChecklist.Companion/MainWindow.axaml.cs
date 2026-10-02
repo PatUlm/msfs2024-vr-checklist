@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using Avalonia.Controls;
 using Avalonia.Input.Platform;
 using Avalonia.Interactivity;
@@ -114,6 +115,40 @@ public sealed partial class MainWindow : Window
             {
                 releaseNotesWindow = null;
             }
+        }
+    }
+
+    private UpdateViewModel? Updates => (DataContext as MainWindowViewModel)?.Updates;
+
+    private async void OnAllowUpdateChecksClick(object? sender, RoutedEventArgs args)
+    {
+        if (Updates is { } updates) await updates.DecideAsync(true);
+    }
+
+    private async void OnDeclineUpdateChecksClick(object? sender, RoutedEventArgs args)
+    {
+        if (Updates is { } updates) await updates.DecideAsync(false);
+    }
+
+    private async void OnInstallUpdateClick(object? sender, RoutedEventArgs args)
+    {
+        if (Updates is { } updates) await updates.InstallAsync();
+    }
+
+    private void OnPostponeUpdateClick(object? sender, RoutedEventArgs args) => Updates?.Postpone();
+
+    private void OnDismissUpdatedClick(object? sender, RoutedEventArgs args) => Updates?.DismissUpdated();
+
+    private void OnReleasePageClick(object? sender, RoutedEventArgs args)
+    {
+        if (Updates is not { } updates) return;
+        try
+        {
+            using var process = Process.Start(new ProcessStartInfo(updates.ReleasePageUrl) { UseShellExecute = true });
+        }
+        catch (Exception)
+        {
+            updates.ReportOpenFailed();
         }
     }
 

@@ -28,6 +28,25 @@
       <Setter Property="CornerRadius" Value="10" />
       <Setter Property="Padding" Value="18" />
     </Style>
+    <!-- Blue info card, distinct from the neutral status cards. -->
+    <Style Selector="Border.card.notice">
+      <Setter Property="Background" Value="#12304A" />
+      <Setter Property="BorderBrush" Value="#57C8FF" />
+    </Style>
+    <Style Selector="Border.card.notice TextBlock.section-label">
+      <Setter Property="Foreground" Value="#57C8FF" />
+      <Setter Property="FontWeight" Value="SemiBold" />
+    </Style>
+    <Style Selector="Border.card.notice Button.icon-button">
+      <Setter Property="Background" Value="#1A4466" />
+      <Setter Property="BorderBrush" Value="#3A7CB0" />
+    </Style>
+    <Style Selector="Border.card.notice Button.icon-button:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+      <Setter Property="Background" Value="#235A85" />
+    </Style>
+    <Style Selector="Border.card.notice Button.icon-button:pressed /template/ ContentPresenter#PART_ContentPresenter">
+      <Setter Property="Background" Value="#14364F" />
+    </Style>
     <Style Selector="Border.phase-badge">
       <Setter Property="Background" Value="Transparent" />
       <Setter Property="BorderBrush" Value="#57C8FF" />
@@ -44,35 +63,96 @@
   </Window.Styles>
 
   <Grid Margin="28" RowDefinitions="Auto,Auto,Auto,Auto" RowSpacing="20">
-    <Grid Grid.Row="0" ColumnDefinitions="*,Auto" ColumnSpacing="20">
-      <StackPanel Spacing="3">
-        <TextBlock Foreground="#F3F6FA" FontSize="28" FontWeight="SemiBold"
-                   Text="VR Checklist" />
-        <TextBlock Foreground="#8E9AAA" FontSize="14"
-                   Text="Companion status" />
-      </StackPanel>
-      <StackPanel Grid.Column="1" Orientation="Horizontal" Spacing="10"
-                  VerticalAlignment="Center">
-        <Button Classes="icon-button" Click="OnChecklistsClick">
-          <StackPanel>
-            <Path Data="{StaticResource IconChecklist}" />
-            <TextBlock Text="Checklists" />
+    <!-- The notice sits in the header row so that no empty grid row keeps its spacing. -->
+    <StackPanel Grid.Row="0" Spacing="20">
+      <Grid ColumnDefinitions="*,Auto" ColumnSpacing="20">
+        <StackPanel Spacing="3">
+          <TextBlock Foreground="#F3F6FA" FontSize="28" FontWeight="SemiBold"
+                     Text="VR Checklist" />
+          <TextBlock Foreground="#8E9AAA" FontSize="14"
+                     Text="Companion status" />
+        </StackPanel>
+        <StackPanel Grid.Column="1" Orientation="Horizontal" Spacing="10"
+                    VerticalAlignment="Center">
+          <Button Classes="icon-button" Click="OnChecklistsClick">
+            <StackPanel>
+              <Path Data="{StaticResource IconChecklist}" />
+              <TextBlock Text="Checklists" />
+            </StackPanel>
+          </Button>
+          <Button Classes="icon-button" Click="OnReleaseNotesClick">
+            <StackPanel>
+              <Path Data="{StaticResource IconReleaseNotes}" />
+              <TextBlock Text="Release Notes" />
+            </StackPanel>
+          </Button>
+          <Button Classes="icon-button" Click="OnSettingsClick">
+            <StackPanel>
+              <Path Data="{StaticResource IconSettings}" />
+              <TextBlock Text="Settings" />
+            </StackPanel>
+          </Button>
+        </StackPanel>
+      </Grid>
+
+      <Border Classes="card notice" IsVisible="{Binding Updates.IsNoticeVisible}">
+        <StackPanel Spacing="10">
+          <TextBlock Classes="section-label" Text="{Binding Updates.NoticeTitle}" />
+          <TextBlock Foreground="#F3F6FA" FontSize="15" TextWrapping="Wrap"
+                     Text="{Binding Updates.NoticeText}" />
+          <TextBlock Foreground="#AAB4C0" TextWrapping="Wrap"
+                     Text="{Binding Updates.NoticeDetail}"
+                     IsVisible="{Binding Updates.HasNoticeDetail}" />
+          <StackPanel Orientation="Horizontal" Spacing="10" HorizontalAlignment="Right">
+            <Button Classes="icon-button" Click="OnAllowUpdateChecksClick"
+                    IsVisible="{Binding Updates.IsConsentNotice}">
+              <StackPanel>
+                <!-- Uniform stretch pins the wide check to the top of a square box; its own height centers it. -->
+                <Path Data="{StaticResource IconCheck}" Height="12" />
+                <TextBlock Text="Allow" />
+              </StackPanel>
+            </Button>
+            <Button Classes="icon-button" Click="OnDeclineUpdateChecksClick"
+                    IsVisible="{Binding Updates.IsConsentNotice}">
+              <StackPanel>
+                <Path Data="{StaticResource IconClose}" />
+                <TextBlock Text="Don't check" />
+              </StackPanel>
+            </Button>
+            <Button Classes="icon-button" Click="OnInstallUpdateClick"
+                    IsVisible="{Binding Updates.IsAvailableNotice}"
+                    IsEnabled="{Binding Updates.CanInstall}">
+              <StackPanel>
+                <Path Data="{StaticResource IconDownload}" />
+                <TextBlock Text="Install update" />
+              </StackPanel>
+            </Button>
+            <Button Classes="icon-button" Click="OnReleasePageClick"
+                    IsVisible="{Binding Updates.HasReleasePage}">
+              <StackPanel>
+                <Path Data="{StaticResource IconExternal}" />
+                <TextBlock Text="Release page" />
+              </StackPanel>
+            </Button>
+            <Button Classes="icon-button" Click="OnPostponeUpdateClick"
+                    IsVisible="{Binding Updates.IsAvailableNotice}"
+                    IsEnabled="{Binding Updates.CanInstall}">
+              <StackPanel>
+                <Path Data="{StaticResource IconClose}" />
+                <TextBlock Text="Later" />
+              </StackPanel>
+            </Button>
+            <Button Classes="icon-button" Click="OnDismissUpdatedClick"
+                    IsVisible="{Binding Updates.IsUpdatedNotice}">
+              <StackPanel>
+                <Path Data="{StaticResource IconClose}" />
+                <TextBlock Text="Dismiss" />
+              </StackPanel>
+            </Button>
           </StackPanel>
-        </Button>
-        <Button Classes="icon-button" Click="OnReleaseNotesClick">
-          <StackPanel>
-            <Path Data="{StaticResource IconReleaseNotes}" />
-            <TextBlock Text="Release Notes" />
-          </StackPanel>
-        </Button>
-        <Button Classes="icon-button" Click="OnSettingsClick">
-          <StackPanel>
-            <Path Data="{StaticResource IconSettings}" />
-            <TextBlock Text="Settings" />
-          </StackPanel>
-        </Button>
-      </StackPanel>
-    </Grid>
+        </StackPanel>
+      </Border>
+    </StackPanel>
 
     <Grid Grid.Row="1" ColumnDefinitions="*,*" ColumnSpacing="14">
       <Border Grid.Column="0" Classes="card">

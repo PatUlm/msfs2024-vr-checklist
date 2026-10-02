@@ -38,6 +38,14 @@ The diagnostic tool is in `tools\transport-probe` in the staging folder. It
 requests the EFB state; `--play-completion-sound` checks the audio path once on
 the Windows default device, without MSFS.
 
+Only a companion installed by the setup checks for updates; staging builds
+from `task companion:deploy` do not. The consent is stored in
+`%LOCALAPPDATA%\VRChecklist\update-check.json`; deleting it asks again. To test
+an update before publishing it, set the Windows environment variable
+`VR_CHECKLIST_UPDATE_SOURCE` to a folder or URL with the Velopack output of a
+newer version (`releases.win.json` and the full `.nupkg`); the installed
+companion then uses it instead of GitHub Releases.
+
 Audio settings are stored in `%LOCALAPPDATA%\VRChecklist\audio-output.json`.
 An unavailable device stays selected; select an available device under
 Settings and check it with `Test sound`. If the checklist revisions differ,

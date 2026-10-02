@@ -25,8 +25,9 @@ public sealed class MainWindowViewModel : INotifyPropertyChanged
     private double progressPercent;
     private string efbVersion = "—";
 
-    public MainWindowViewModel(ChecklistConnectionService connectionService)
+    public MainWindowViewModel(ChecklistConnectionService connectionService, UpdateViewModel updates)
     {
+        Updates = updates;
         // The informational version carries the "-dev.<timestamp>" marker of
         // development builds; releases show the plain project version.
         var assembly = Assembly.GetExecutingAssembly();
@@ -50,6 +51,8 @@ public sealed class MainWindowViewModel : INotifyPropertyChanged
     public event PropertyChangedEventHandler? PropertyChanged;
 
     public string CompanionVersion { get; }
+
+    public UpdateViewModel Updates { get; }
 
     public string SimulatorStatus
     {

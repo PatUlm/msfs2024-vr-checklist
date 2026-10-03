@@ -7,6 +7,8 @@ Changelog, and the project uses Semantic Versioning.
 
 ## [Unreleased]
 
+## [0.19.2] - 2026-10-03
+
 ### Added
 
 - The A400M checklist gains `Taxi` and `Takeoff` groups and the climb steps

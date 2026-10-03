@@ -3,6 +3,20 @@
   "companionSince": "0.3.0",
   "releases": [
     {
+      "version": "0.19.2",
+      "date": "2026-10-03",
+      "highlight": "The A400M checklist now covers taxi, takeoff and the climb steps after takeoff.",
+      "features": [
+        "Reads the new A400M Taxi and Takeoff groups and the climb steps after takeoff."
+      ],
+      "fixes": [
+        "Reminds you to update the EFB app only while it is connected to an older EFB app.",
+        "Disabled buttons keep their colors and are dimmed instead of turning gray.",
+        "Speaks the DA42 and A400M strobe light callouts clearly.",
+        "Names the A400M probe and strobe light position Bright instead of On."
+      ]
+    },
+    {
       "version": "0.19.1",
       "date": "2026-10-03",
       "highlight": "At the end of a flight phase, the checklist waits for you instead of reading out the next phase.",

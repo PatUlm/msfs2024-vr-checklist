@@ -7,6 +7,8 @@ Changelog, and the project uses Semantic Versioning.
 
 ## [Unreleased]
 
+## [0.19.1] - 2026-10-03
+
 ### Changed
 
 - At the end of a flight phase, the app stays on the completed group instead

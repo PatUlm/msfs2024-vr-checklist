@@ -3,6 +3,16 @@
   "companionSince": "0.3.0",
   "releases": [
     {
+      "version": "0.19.1",
+      "date": "2026-10-03",
+      "highlight": "At the end of a flight phase, the checklist waits for you instead of reading out the next phase.",
+      "features": [
+        "Announces a finished phase, for example \"Engine Start phase complete.\", and a skipped one as \"Phase skipped.\".",
+        "After you skip an item, reads on after the item you checked and comes back to the open one at the end of the group."
+      ],
+      "fixes": []
+    },
+    {
       "version": "0.19.0",
       "date": "2026-10-02",
       "highlight": "The companion can update itself: it checks for new versions if you allow it and installs them after your confirmation.",

@@ -57,7 +57,11 @@ checks in [design-qa.md](design-qa.md).
   short confirmation pause. At the end of a phase, the completed group stays
   visible and the button to the next group carries the accent: the flight is
   rarely ready for the next phase at once, so the pilot starts it.
-- Key/HOTAS confirms only the next open item of the **displayed** group, and
+- The current item of a group is the one after the last ticked item, or the
+  earliest open item once nothing behind that is left: a skipped item comes
+  back at the end of the group. Announcements, the key and the companion
+  display follow it.
+- Key/HOTAS confirms only the current item of the **displayed** group, and
   only while the app is visible. On a complete group at the end of a phase it
   opens the next group without ticking anything; any other complete group
   remains unchanged.

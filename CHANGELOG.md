@@ -16,6 +16,9 @@ Changelog, and the project uses Semantic Versioning.
 - The companion announces a finished phase as, for example, "Engine Start
   phase complete." and a skipped phase as "Phase skipped." instead of
   "Checklist completed".
+- After you leave an item open and check a later one, the companion reads
+  and the confirmation key checks the item after the one you checked; the
+  open item comes back at the end of the group.
 
 ## [0.19.0] - 2026-10-02
 

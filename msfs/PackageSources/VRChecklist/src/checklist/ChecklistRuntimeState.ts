@@ -110,10 +110,23 @@ export class ChecklistRuntimeState {
     return this.checklist.sections[this.activeSectionIndex.get()];
   }
 
+  /*
+   * The item the pilot is at: the one after the last ticked item, or the
+   * earliest open item once nothing behind that is left. A skipped item thus
+   * comes back at the end of the section. It follows from the ticks alone, so
+   * every app context derives the same item from the shared progress.
+   */
   public findNextOpenItem(section: ChecklistSection): ChecklistItem | undefined {
-    return section.items.find(
-      (item) => !this.getItemState(section.id, item.id).get()
-    );
+    const isOpen = (item: ChecklistItem): boolean =>
+      !this.getItemState(section.id, item.id).get();
+    let lastTicked = -1;
+    section.items.forEach((item, index) => {
+      if (!isOpen(item)) {
+        lastTicked = index;
+      }
+    });
+
+    return section.items[lastTicked + 1] ?? section.items.find(isOpen);
   }
 
   /*

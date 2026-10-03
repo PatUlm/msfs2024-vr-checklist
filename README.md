@@ -150,6 +150,10 @@ done, the next group of the same phase follows automatically. Optional items
 do not count toward the progress bar, but they hold the automatic group change
 until they are done or you page on manually.
 
+If you leave an item open and check a later one, the callouts and the
+confirmation key continue after the item you checked and come back to the
+open item at the end of the group.
+
 At the end of a phase, the completed group stays on screen and the button to
 the next group is highlighted. Click it, or press the confirmation key, when
 you are ready for the next phase.
@@ -159,7 +163,7 @@ items, and stays at its end like a completed phase.
 
 For a key or HOTAS, bind the action **SET PLASMA OFF** in the MSFS
 **Controls** (event `PLASMA_OFF`; the display name may differ by simulator
-language). It confirms the next open item of the displayed group while the app
+language). It confirms the current item of the displayed group while the app
 is open in the EFB; at the end of a completed phase, it opens the next phase.
 The event is passed on to the simulator; side effects in other aircraft cannot
 be ruled out. The reasons for this event are given in

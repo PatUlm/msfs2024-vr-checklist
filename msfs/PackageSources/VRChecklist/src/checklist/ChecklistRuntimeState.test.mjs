@@ -41,6 +41,23 @@ function loadChecklist(name) {
   )));
 }
 
+test("the current item follows the last tick and returns to skipped items at the end", () => {
+  const runtime = new ChecklistRuntimeState(loadChecklist("diamond-da42"));
+  const section = runtime.checklist.sections[0];
+  const items = section.items;
+  const tick = (index, checked = true) => runtime.getItemState(section.id, items[index].id).set(checked);
+  assert.equal(runtime.findNextOpenItem(section), items[0]);
+  [0, 1, 3].forEach(index => tick(index));
+  assert.equal(runtime.findNextOpenItem(section), items[4], "A skipped item holds back the reading");
+  items.slice(4).forEach((_, offset) => tick(4 + offset));
+  assert.equal(runtime.findNextOpenItem(section), items[2], "The skipped item did not come back");
+  tick(items.length - 1, false);
+  assert.equal(runtime.findNextOpenItem(section), items.at(-1), "A reopened last tick is current again");
+  tick(items.length - 1);
+  tick(2);
+  assert.equal(runtime.findNextOpenItem(section), undefined);
+});
+
 test("only the last group of each phase block is a phase end", () => {
   const runtime = new ChecklistRuntimeState(loadChecklist("diamond-da42"));
   assert.deepEqual(runtime.checklist.sections.map((_, index) => runtime.isPhaseEnd(index)),

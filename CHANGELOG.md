@@ -9,6 +9,8 @@ Changelog, and the project uses Semantic Versioning.
 
 ### Fixed
 
+- Disabled companion buttons, for example during an update download, keep
+  their colors and are dimmed instead of turning gray.
 - The strobe light callouts of the DA42 and the A400M are spoken clearly.
 
 ## [0.19.1] - 2026-10-03

@@ -32,6 +32,15 @@
       <Setter Property="BorderBrush" Value="#5DA9FF" />
       <Setter Property="TextElement.Foreground" Value="#FFFFFF" />
     </Style>
+    <!-- Keeps the own colors instead of Fluent's gray; dimmed like the locked dropdown in Settings. -->
+    <Style Selector="Button.icon-button:disabled /template/ ContentPresenter#PART_ContentPresenter">
+      <Setter Property="Background" Value="#223246" />
+      <Setter Property="BorderBrush" Value="#36516D" />
+      <Setter Property="TextElement.Foreground" Value="#F3F6FA" />
+    </Style>
+    <Style Selector="Button.icon-button:disabled">
+      <Setter Property="Opacity" Value="0.45" />
+    </Style>
     <Style Selector="Button.icon-button StackPanel">
       <Setter Property="Orientation" Value="Horizontal" />
       <Setter Property="Spacing" Value="8" />

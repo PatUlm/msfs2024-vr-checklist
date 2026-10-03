@@ -7,6 +7,12 @@ Changelog, and the project uses Semantic Versioning.
 
 ## [Unreleased]
 
+### Added
+
+- The A400M checklist gains `Taxi` and `Takeoff` groups and the climb steps
+  after takeoff, so the app now waits at the holding point before the
+  departure phase.
+
 ### Fixed
 
 - The companion reminds you to update the EFB app only while it is connected
@@ -14,6 +20,8 @@ Changelog, and the project uses Semantic Versioning.
 - Disabled companion buttons, for example during an update download, keep
   their colors and are dimmed instead of turning gray.
 - The strobe light callouts of the DA42 and the A400M are spoken clearly.
+- The A400M probe and strobe light items name the cockpit switch position
+  `Bright` instead of `On`.
 
 ## [0.19.1] - 2026-10-03
 

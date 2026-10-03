@@ -92,5 +92,10 @@ attribution and the assessment of the reviewed set.
   hint; it comes after the takeoff flap configuration. The groups from
   `After Takeoff` onward follow the iniBuilds Quick Reference Card v1.0.0,
   using the challenge names already in use and separate items per control.
+  The `Taxi` and `Takeoff` groups and the climb items in `After Takeoff`
+  (positive climb, autopilot, F1 marker, managed speed, `MCL`) follow the
+  in-game procedure; the Quick Reference Card does not cover them. Probe and
+  strobe lights use the cockpit switch positions `OFF`/`DIM`/`BRT` instead of
+  the card's `On`.
 - The G36 checklist is deliberately a minimal, incomplete memory aid of
   selected speeds, flap and landing gear positions.

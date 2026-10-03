@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "file": "item-68f9f5f2a8872364.opus",
+  "sha256": "91d211c4e2fba5eeb4264614e2dec0082ad609a890efba6b81ce0922f4c82bca",
+  "recipeHash": "68f9f5f2a8872364432087c0ec80d49d24be75fa857efa7d54e46653f79ef659",
+  "recipe": {
+    "voiceId": "nPczCjzI2devNBz1zQrb",
+    "request": {
+      "text": "Pitch: Follow the flight director.",
+      "model_id": "eleven_multilingual_v2",
+      "voice_settings": {
+        "stability": 0.75,
+        "similarity_boost": 0.75,
+        "style": 0,
+        "use_speaker_boost": true,
+        "speed": 1
+      },
+      "seed": 9172026
+    },
+    "sourceFormat": "mp3_44100_128",
+    "profile": "clean",
+    "normalization": "loudnorm=I=-20:TP=-2:LRA=11",
+    "format": "ogg-opus-mono-48000-32k",
+    "revision": 1
+  },
+  "generatedAt": "2026-10-03T13:30:06.406Z",
+  "provider": "ElevenLabs",
+  "voice": "Brian",
+  "generationPlan": "paid",
+  "planEvidence": "Operator confirmed active Starter subscription before rendering.",
+  "requestId": "H61RaExgWyUHL1JTXyC2",
+  "characterCost": "14",
+  "ffmpegVersion": "ffmpeg version 6.1.1-3ubuntu5 Copyright (c) 2000-2023 the FFmpeg developers",
+  "licenseNotice": "../README.md"
+}

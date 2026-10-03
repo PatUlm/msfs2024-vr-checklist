@@ -354,6 +354,20 @@
       ]
     },
     {
+      "id": "taxi",
+      "title": "Taxi",
+      "phase": "Taxi",
+      "items": [
+        {
+          "id": "taxi-hold-short",
+          "challenge": "Taxi to",
+          "response": "Hold Short Line",
+          "kind": "action",
+          "speech": "Taxi to the hold-short line."
+        }
+      ]
+    },
+    {
       "id": "before-takeoff",
       "title": "Before Takeoff",
       "phase": "Departure",
@@ -361,15 +375,44 @@
         {
           "id": "probe-lights",
           "challenge": "Probe Lights",
-          "response": "On",
-          "kind": "action"
+          "response": "Bright",
+          "kind": "action",
+          "speech": "Probe lights: Bright."
         },
         {
           "id": "strobe-lights",
           "challenge": "Strobe Lights",
-          "response": "On",
+          "response": "Bright",
           "kind": "action",
-          "speech": "Strobe lights: On."
+          "speech": "Strobe lights: Bright."
+        }
+      ]
+    },
+    {
+      "id": "takeoff",
+      "title": "Takeoff",
+      "phase": "Departure",
+      "items": [
+        {
+          "id": "power-levers-takeoff",
+          "challenge": "Power Levers",
+          "response": "TOGA",
+          "kind": "action",
+          "speech": "Power levers: Toga."
+        },
+        {
+          "id": "rotation-speed",
+          "challenge": "Rotation Speed (Vr)",
+          "response": "Rotate",
+          "kind": "action",
+          "speech": "Rotation speed V R: Rotate."
+        },
+        {
+          "id": "pitch",
+          "challenge": "Pitch",
+          "response": "Follow Flight Director",
+          "kind": "action",
+          "speech": "Pitch: Follow the flight director."
         }
       ]
     },
@@ -382,13 +425,42 @@
           "id": "gear",
           "challenge": "Gear",
           "response": "Up",
-          "kind": "action"
+          "kind": "action",
+          "condition": "Positive climb",
+          "speech": "Gear: Up, after positive climb."
+        },
+        {
+          "id": "autopilot",
+          "challenge": "Autopilot",
+          "response": "Engage",
+          "kind": "optional",
+          "speech": "Autopilot: Engage."
         },
         {
           "id": "flaps",
           "challenge": "Flaps",
           "response": "Up",
-          "kind": "action"
+          "kind": "action",
+          "condition": "Above the F1 speed marker",
+          "speech": "Flaps: Up, above the F one speed marker."
+        },
+        {
+          "id": "speed",
+          "challenge": "Speed",
+          "response": "Managed",
+          "kind": "verify",
+          "notes": [
+            "Monitor applicable speed restrictions."
+          ],
+          "speech": "Verify speed: Managed. Monitor applicable speed restrictions."
+        },
+        {
+          "id": "power-levers-climb",
+          "challenge": "Power Levers",
+          "response": "MCL",
+          "kind": "action",
+          "condition": "At thrust reduction altitude, when prompted on the PFD",
+          "speech": "Power levers: M C L at thrust reduction altitude, when prompted on the P F D."
         },
         {
           "id": "ground-spoilers",

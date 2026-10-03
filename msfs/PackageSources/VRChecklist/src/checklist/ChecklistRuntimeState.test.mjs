@@ -41,41 +41,81 @@ function loadChecklist(name) {
   )));
 }
 
-test("skipping a partly completed phase completes earlier and optional items and opens the next phase", () => {
+test("only the last group of each phase block is a phase end", () => {
+  const runtime = new ChecklistRuntimeState(loadChecklist("diamond-da42"));
+  assert.deepEqual(runtime.checklist.sections.map((_, index) => runtime.isPhaseEnd(index)),
+    [false, true, false, true, false, true, true]);
+});
+
+test("skipping a partly completed phase completes earlier and optional items and stays at its end", () => {
   const runtime = new ChecklistRuntimeState(loadChecklist("diamond-da42"));
   const sections = runtime.checklist.sections;
   const first = sections[0];
   runtime.getItemState(first.id, first.items[0].id).set(true);
-  runtime.activeSectionIndex.set(1);
-  const target = sections[2];
-  runtime.sectionItemsRefs[2].instance = { scrollTop: 250 };
-  const targetItem = runtime.findNextOpenItem(target);
+  runtime.activeSectionIndex.set(0);
+  runtime.sectionItemsRefs[1].instance = { scrollTop: 250 };
 
-  assert.equal(runtime.skipPhase(1), true);
-  assert.equal(runtime.activeSectionIndex.get(), 2);
-  assert.equal(runtime.sectionItemsRefs[2].instance.scrollTop, 0);
+  assert.equal(runtime.skipPhase(0), true);
+  assert.equal(runtime.activeSectionIndex.get(), 1);
+  assert.equal(runtime.sectionItemsRefs[1].instance.scrollTop, 0);
   assert.deepEqual(runtime.getCompletedSectionIds(), sections.slice(0, 2).map(s => s.id));
   assert.equal(runtime.completedCount.get(), sections.slice(0, 2)
     .flatMap(s => s.items).filter(i => i.kind !== "optional").length);
-  assert.equal(runtime.findNextOpenItem(target), targetItem);
   assert.equal(runtime.getCompletedItemKeys().length,
     sections.slice(0, 2).flatMap(s => s.items).length);
-  assert.equal(runtime.skipPhase(1), false, "A stale click must not skip the new phase");
+  assert.deepEqual(runtime.getCompletedPhases(),
+    [{ firstGroupId: first.id, phase: "Engine Start", skipped: true }]);
+  assert.equal(runtime.phaseCompletion[0].get(), true);
+  assert.equal(runtime.skipPhase(1), false, "A complete phase must not be skipped again");
 });
 
-test("skipping preserves other phases and already completed target items", () => {
+test("skipping preserves other phases and the next phase's items", () => {
   const runtime = new ChecklistRuntimeState(loadChecklist("diamond-da42"));
   const sections = runtime.checklist.sections;
   runtime.activeSectionIndex.set(3); // Taxi, with earlier Engine Start still open.
-  const target = sections[4];
-  runtime.getItemState(target.id, target.items[0].id).set(true);
+  const next = sections[4];
+  runtime.getItemState(next.id, next.items[0].id).set(true);
   assert.equal(runtime.skipPhase(3), true);
-  assert.equal(runtime.activeSectionIndex.get(), 4);
+  assert.equal(runtime.activeSectionIndex.get(), 3);
   assert.equal(runtime.getItemState(sections[0].id, sections[0].items[0].id).get(), false);
-  assert.equal(runtime.getItemState(target.id, target.items[0].id).get(), true);
-  assert.equal(runtime.findNextOpenItem(target), target.items[1]);
+  assert.equal(runtime.getItemState(next.id, next.items[0].id).get(), true);
+  assert.equal(runtime.findNextOpenItem(next), next.items[1]);
   assert.equal(runtime.isSectionComplete(sections[2]), true);
   assert.equal(runtime.isSectionComplete(sections[3]), true);
+  assert.deepEqual(runtime.getCompletedPhases().map(p => p.phase), ["Taxi"]);
+});
+
+test("a phase completes with its last group even while an earlier group is open", () => {
+  const runtime = new ChecklistRuntimeState(loadChecklist("diamond-da42"));
+  const [first, last] = runtime.checklist.sections;
+  for (const item of last.items) {
+    runtime.getItemState(last.id, item.id).set(true);
+  }
+  runtime.updateCompletedCount();
+  assert.deepEqual(runtime.getCompletedPhases(),
+    [{ firstGroupId: first.id, phase: "Engine Start", skipped: false }]);
+  assert.deepEqual(runtime.phaseCompletion.slice(0, 3).map(state => state.get()),
+    [true, true, false]);
+  for (const index of [0, 1]) {
+    runtime.activeSectionIndex.set(index);
+    assert.equal(runtime.skipPhase(index), false, "A complete phase must not be skipped");
+  }
+  assert.equal(runtime.findNextOpenItem(first), first.items[0], "The open group stays open");
+});
+
+test("a reopened item ends the skipped state; completing by hand reports a normal phase end", () => {
+  const runtime = new ChecklistRuntimeState(loadChecklist("diamond-da42"));
+  const [first, second] = runtime.checklist.sections;
+  runtime.skipPhase(0);
+  const item = runtime.getItemState(second.id, second.items[0].id);
+  item.set(false);
+  runtime.updateCompletedCount();
+  assert.deepEqual(runtime.getCompletedPhases(), []);
+  assert.equal(runtime.phaseCompletion[0].get(), false);
+  item.set(true);
+  runtime.updateCompletedCount();
+  assert.deepEqual(runtime.getCompletedPhases(),
+    [{ firstGroupId: first.id, phase: "Engine Start", skipped: false }]);
 });
 
 test("MH-60's sole phase completes at the last group and resets normally", () => {
@@ -86,14 +126,15 @@ test("MH-60's sole phase completes at the last group and resets normally", () =>
   assert.equal(runtime.activeSectionIndex.get(), runtime.checklist.sections.length - 1);
   assert.equal(runtime.findNextOpenItem(runtime.getActiveSection()), undefined);
   const completed = runtime.getCompletedItemKeys();
-  assert.equal(runtime.finalPhaseComplete.get(), true);
+  assert.equal(runtime.phaseCompletion[0].get(), true);
   assert.equal(runtime.skipPhase(runtime.activeSectionIndex.get()), false);
   assert.deepEqual(runtime.getCompletedItemKeys(), completed);
   runtime.reset();
   assert.equal(runtime.activeSectionIndex.get(), 0);
   assert.equal(runtime.completedCount.get(), 0);
-  assert.equal(runtime.finalPhaseComplete.get(), false);
+  assert.equal(runtime.phaseCompletion[0].get(), false);
   assert.deepEqual(runtime.getCompletedItemKeys(), []);
+  assert.deepEqual(runtime.getCompletedPhases(), []);
 });
 
 test("invalid groups leave progress untouched", () => {
@@ -104,17 +145,17 @@ test("invalid groups leave progress untouched", () => {
   assert.equal(runtime.activeSectionIndex.get(), 0);
 });
 
-test("final phase completion includes earlier groups and optional items and clears on reopening", () => {
+test("an open optional item in the last group keeps the phase open", () => {
   const checklist = loadChecklist("sikorsky-mh-60");
-  checklist.sections[0].items[0].kind = "optional";
+  const last = checklist.sections.at(-1);
+  last.items[0].kind = "optional";
   const runtime = new ChecklistRuntimeState(checklist);
-  const earlierItem = checklist.sections[0].items[0];
   runtime.skipPhase(0);
-  runtime.getItemState(checklist.sections[0].id, earlierItem.id).set(false);
+  runtime.getItemState(last.id, last.items[0].id).set(false);
   runtime.updateCompletedCount();
   assert.equal(runtime.completedCount.get(), runtime.totalItemCount);
-  assert.equal(runtime.finalPhaseComplete.get(), false,
+  assert.equal(runtime.phaseCompletion[0].get(), false,
     "Even at 100% required progress, an optional item keeps Skip enabled");
   assert.equal(runtime.skipPhase(runtime.activeSectionIndex.get()), true);
-  assert.equal(runtime.finalPhaseComplete.get(), true);
+  assert.equal(runtime.phaseCompletion[0].get(), true);
 });

@@ -55,6 +55,16 @@ export interface ChecklistStateSummary {
    * rate limiter during the automatic advance.
    */
   completedGroupIds: string[];
+  /*
+   * Every phase block whose last group is complete, in checklist order and
+   * keyed by its first group. A newly listed phase replaces the group
+   * announcement with a phase one.
+   */
+  completedPhases: {
+    firstGroupId: string;
+    phase: string;
+    skipped: boolean;
+  }[];
 }
 
 export interface ChecklistStateSnapshot extends ChecklistStateSummary {
@@ -112,6 +122,7 @@ export function createChecklistStateSnapshot(
     completedRequiredItems: summary.completedRequiredItems,
     totalRequiredItems: summary.totalRequiredItems,
     completedGroupIds: summary.completedGroupIds,
+    completedPhases: summary.completedPhases,
     isComplete:
       summary.totalRequiredItems > 0 &&
       summary.completedRequiredItems === summary.totalRequiredItems,

@@ -7,15 +7,22 @@ import path from 'node:path';
 // Explicit developer operation, never called by check/build/deploy.
 // Task loads the ignored root .env. No API key is written into asset metadata.
 const root = fileURLToPath(new URL('../', import.meta.url));
-// Fixed announcements outside the checklist data, one directory and manifest each.
+const schema = JSON.parse(await readFile(path.join(root, 'checklists/data/checklist.schema.json'), 'utf8'));
+// The companion derives the same clip name from the phase in the snapshot.
+const phaseClip = phase => `phase-${phase.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`;
+// Fixed announcements outside the checklist data, one directory and manifest
+// each. Phase announcements share one directory, with a metadata file per clip.
 const clips = [
   { name: 'completion', text: 'Checklist completed.' },
   { name: 'no-checklist', text: 'No checklist available for this aircraft.' },
+  ...schema.$defs.section.properties.phase.enum.map(phase =>
+    ({ name: phaseClip(phase), text: `${phase} phase complete.`, directory: 'phases' })),
+  { name: 'phase-skipped', text: 'Phase skipped.', directory: 'phases' },
 ];
 const voiceId = 'nPczCjzI2devNBz1zQrb';
 const digest = value => createHash('sha256').update(value).digest('hex');
 
-function plan({ name, text }) {
+function plan({ name, text, directory: shared }) {
   const request = {
     text, model_id: 'eleven_multilingual_v2',
     voice_settings: { stability: 0.75, similarity_boost: 0.75, style: 0, use_speaker_boost: true, speed: 1 },
@@ -24,10 +31,11 @@ function plan({ name, text }) {
   const recipe = { voiceId, request, sourceFormat: 'mp3_44100_128', profile: 'clean',
     normalization: 'loudnorm=I=-20:TP=-2:LRA=11', format: 'ogg-opus-mono-48000-32k', revision: 1 };
   const hash = digest(JSON.stringify(recipe));
-  const directory = path.join(root, 'assets/audio', name);
+  const directory = path.join(root, 'assets/audio', shared ?? name);
   const file = `${name}-${hash.slice(0, 16)}.opus`;
   return { request, recipe, hash, directory, file,
-    metadataPath: path.join(directory, 'manifest.json'), outputPath: path.join(directory, file) };
+    metadataPath: path.join(directory, shared ? `${name}.json` : 'manifest.json'),
+    outputPath: path.join(directory, file) };
 }
 
 async function isRendered({ hash, metadataPath, outputPath }) {

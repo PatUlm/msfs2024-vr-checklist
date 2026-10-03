@@ -359,6 +359,20 @@
   box-shadow: none !important;
 }
 
+// The next phase waits for the pilot: the next-group button carries the
+// accent until it is used.
+.section-navigation__button--continue.abstract-button {
+  border-color: var(--checklist-accent);
+  background: rgba(87, 200, 255, 0.16);
+}
+
+.section-navigation__button--continue.abstract-button:hover,
+.section-navigation__button--continue.abstract-button:focus {
+  border-color: var(--checklist-accent) !important;
+  background: rgba(87, 200, 255, 0.3) !important;
+  background-color: rgba(87, 200, 255, 0.3) !important;
+}
+
 .section-navigation__button--disabled.abstract-button,
 .phase-skip__button--disabled.abstract-button {
   opacity: 0.38;

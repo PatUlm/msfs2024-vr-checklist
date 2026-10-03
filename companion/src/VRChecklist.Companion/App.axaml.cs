@@ -86,7 +86,7 @@ public sealed partial class App : Application
             var controller = new ChecklistSpeechController(
                 file => player.PlayAsync(file is null ? completion : catalog.GetClip(file)),
                 player.Stop, catalog.Resolve, viewModel.ReportAudioError,
-                audioSettings.Current.ReadItemsEnabled);
+                audioSettings.Current.ReadItemsEnabled, ItemAudioCatalog.ResolvePhase);
             speech = controller;
             service.ConnectionChanged += (status, _) =>
             {

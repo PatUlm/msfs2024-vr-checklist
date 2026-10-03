@@ -7,6 +7,16 @@ Changelog, and the project uses Semantic Versioning.
 
 ## [Unreleased]
 
+### Changed
+
+- At the end of a flight phase, the app stays on the completed group instead
+  of opening and reading out the next phase. The highlighted button to the
+  next group, or the confirmation key, starts the next phase when you are
+  ready. `Skip phase` stops at the end of the skipped phase as well.
+- The companion announces a finished phase as, for example, "Engine Start
+  phase complete." and a skipped phase as "Phase skipped." instead of
+  "Checklist completed".
+
 ## [0.19.0] - 2026-10-02
 
 ### Added

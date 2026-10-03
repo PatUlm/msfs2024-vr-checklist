@@ -1,9 +1,10 @@
 # Pre-rendered speech
 
 Maintain regeneration instructions and asset provenance here, not audition
-history or copies of manifest settings. `completion/`, `no-checklist/` and
-`items/` contain clean English ElevenLabs **Brian** announcements using
-`eleven_multilingual_v2`, generated during a confirmed paid subscription.
+history or copies of manifest settings. `completion/`, `no-checklist/`,
+`phases/` and `items/` contain clean English ElevenLabs **Brian**
+announcements using `eleven_multilingual_v2`, generated during a confirmed
+paid subscription.
 Manifests and per-file metadata record voice/model settings, generation time,
 request ID, paid-plan confirmation and checksums.
 
@@ -51,10 +52,13 @@ task audio:render-fixed -- --paid-plan-confirmed
 task audio:render-items -- --paid-plan-confirmed
 ```
 
-These operations consume credits. Existing matching paid assets are reused
-with checksum verification. Item rendering then deletes recordings the new
-manifest no longer references, since the companion embeds every file; Git
-history keeps them. Never reuse free-tier auditions as production assets.
+`audio:render-fixed` renders `<Phase> phase complete.` for every phase of
+the checklist schema plus `Phase skipped.`, so a new schema phase needs this
+task as well. These operations consume credits. Existing matching paid
+assets are reused with checksum verification. Item rendering then deletes
+recordings the new manifest no longer references, since the companion embeds
+every file; Git history keeps them. Never reuse free-tier auditions as
+production assets.
 `task validate:audio` checks complete item mappings, provenance and that no
 unreferenced files remain.
 

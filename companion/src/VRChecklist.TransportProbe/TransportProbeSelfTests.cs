@@ -67,7 +67,9 @@ internal static class TransportProbeSelfTests
             ("deduplicates snapshots by session and sequence", DeduplicatesSnapshotsBySessionAndSequence),
             ("accepts a snapshot without completed group IDs", AcceptsSnapshotWithoutCompletedGroupIds),
             ("rejects malformed completed group IDs", RejectsMalformedCompletedGroupIds),
+            ("parses and validates completed phases", ParsesAndValidatesCompletedPhases),
             ("announces each newly completed group once", AnnouncesEachNewlyCompletedGroupOnce),
+            ("announces each newly completed phase once", AnnouncesEachNewlyCompletedPhaseOnce),
             ("baselines group completion per session and checklist", BaselinesGroupCompletionPerSessionAndChecklist),
             ("rebaselines group completion after a lost connection", RebaselinesGroupCompletionAfterLostConnection),
             ("formats zero-of-zero progress", FormatsZeroOfZeroProgress),
@@ -77,7 +79,8 @@ internal static class TransportProbeSelfTests
             ("formats a checklist as Markdown-like text", FormatsChecklistAsMarkdownLikeText),
             ("deduplicates and replaces spoken items", SpeechSelfTests.Transitions),
             ("finishes group announcements before the latest item", SpeechSelfTests.CompletionOrdering),
-            ("announces the next phase after one bulk completion", SpeechSelfTests.PhaseSkip),
+            ("announces a phase end instead of its last group", SpeechSelfTests.PhaseEnd),
+            ("announces a skipped phase once and waits for the next phase", SpeechSelfTests.PhaseSkip),
             ("handles speech toggles, resets and offline state", SpeechSelfTests.ToggleAndReset),
             ("announces a missing checklist once per aircraft and flight", SpeechSelfTests.NoChecklist),
             ("reports interrupted test sounds honestly", AudioSettingsSelfTests.ReportsInterruptedTest),
@@ -153,7 +156,7 @@ internal static class TransportProbeSelfTests
 
         Assert(snapshot.CompletedGroupIds is null, "A missing group list was not kept as null.");
         Assert(
-            new ChecklistGroupCompletionTracker().Observe(snapshot, isRepeated: false).Count == 0,
+            new ChecklistGroupCompletionTracker().Observe(snapshot, isRepeated: false).IsEmpty,
             "An EFB without group completion data triggered an announcement.");
     }
 
@@ -174,36 +177,95 @@ internal static class TransportProbeSelfTests
         }
     }
 
+    private static void ParsesAndValidatesCompletedPhases()
+    {
+        static JsonObject Phase(string firstGroupId, string phase, bool skipped) =>
+            new() { ["firstGroupId"] = firstGroupId, ["phase"] = phase, ["skipped"] = skipped };
+
+        var snapshot = ChecklistStateProtocol.ParseSnapshot(SnapshotWith(snapshot =>
+            snapshot["completedPhases"] = new JsonArray(Phase("before-start", "Engine Start", true))));
+        Assert(snapshot.CompletedPhases is [{ FirstGroupId: "before-start", Phase: "Engine Start", Skipped: true }],
+            "The completed phases were not parsed.");
+        Assert(ChecklistStateProtocol.ParseSnapshot(ValidSnapshotPayload).CompletedPhases is null,
+            "A missing phase list was not kept as null.");
+
+        foreach (var (name, phases) in new (string, JsonNode?[])[]
+        {
+            ("an empty group ID", [Phase(" ", "Engine Start", false)]),
+            ("an empty phase", [Phase("before-start", " ", false)]),
+            ("a duplicate block", [Phase("before-start", "Engine Start", false), Phase("before-start", "Taxi", false)]),
+            ("a null entry", [null]),
+            ("a missing skipped flag", [new JsonObject { ["firstGroupId"] = "before-start", ["phase"] = "Taxi" }]),
+        })
+        {
+            var payload = SnapshotWith(snapshot => snapshot["completedPhases"] = new JsonArray(phases));
+            ExpectThrows<JsonException>(
+                () => ChecklistStateProtocol.ParseSnapshot(payload),
+                $"A phase list with {name} was accepted.",
+                allowInvalidDataException: true);
+        }
+    }
+
+    private static void AnnouncesEachNewlyCompletedPhaseOnce()
+    {
+        var tracker = new ChecklistGroupCompletionTracker();
+        ChecklistStateSnapshot Snapshot(long sequence, string[] groups, params CompletedPhase[] phases) =>
+            SnapshotWithGroups("session-1", sequence, groups) with { CompletedPhases = phases };
+        var engineStart = new CompletedPhase("before-start", "Engine Start", Skipped: false);
+
+        Assert(tracker.Observe(Snapshot(1, ["before-start"]), isRepeated: false).IsEmpty,
+            "The baseline announced something.");
+        var change = tracker.Observe(Snapshot(2, ["before-start", "engine-start"], engineStart), isRepeated: false);
+        Assert(change.Groups.SequenceEqual(["engine-start"]) && change.Phases.SequenceEqual([engineStart]),
+            "A phase end was not reported with its group.");
+        Assert(tracker.Observe(Snapshot(3, ["before-start", "engine-start"], engineStart), isRepeated: false).IsEmpty,
+            "An unchanged phase was reported again.");
+        tracker.Observe(Snapshot(4, ["before-start"]), isRepeated: false);
+        var skipped = engineStart with { Skipped = true };
+        Assert(tracker.Observe(Snapshot(5, ["before-start", "engine-start"], skipped), isRepeated: false)
+                .Phases.SequenceEqual([skipped]),
+            "A phase completed again after reopening was not reported.");
+
+        // The phase completes with an earlier group still open, which is ticked later.
+        tracker.Observe(Snapshot(6, []), isRepeated: false);
+        Assert(tracker.Observe(Snapshot(7, ["engine-start"], engineStart), isRepeated: false)
+                .Phases.SequenceEqual([engineStart]),
+            "A phase end with an earlier open group was not reported.");
+        change = tracker.Observe(Snapshot(8, ["before-start", "engine-start"], skipped), isRepeated: false);
+        Assert(change.Groups.SequenceEqual(["before-start"]) && change.Phases.Count == 0,
+            "A listed phase was reported again, for example after a context switch.");
+    }
+
     private static void AnnouncesEachNewlyCompletedGroupOnce()
     {
         var tracker = new ChecklistGroupCompletionTracker();
 
         Assert(
-            tracker.Observe(SnapshotWithGroups("session-1", 1, "before-start"), isRepeated: false).Count == 0,
+            tracker.Observe(SnapshotWithGroups("session-1", 1, "before-start"), isRepeated: false).IsEmpty,
             "The first snapshot of a session announced an already completed group.");
         Assert(
-            tracker.Observe(SnapshotWithGroups("session-1", 2, "before-start"), isRepeated: false).Count == 0,
+            tracker.Observe(SnapshotWithGroups("session-1", 2, "before-start"), isRepeated: false).IsEmpty,
             "An unchanged group list triggered an announcement.");
         Assert(
             tracker.Observe(SnapshotWithGroups("session-1", 3, "before-start", "engine-start"), isRepeated: false)
-                .SequenceEqual(["engine-start"]),
+                .Groups.SequenceEqual(["engine-start"]),
             "A newly completed group was not announced.");
         Assert(
-            tracker.Observe(SnapshotWithGroups("session-1", 3, "before-start", "engine-start"), isRepeated: true).Count == 0,
+            tracker.Observe(SnapshotWithGroups("session-1", 3, "before-start", "engine-start"), isRepeated: true).IsEmpty,
             "A repeated snapshot announced the group again.");
         Assert(
-            tracker.Observe(SnapshotWithGroups("session-1", 4, "before-start"), isRepeated: false).Count == 0,
+            tracker.Observe(SnapshotWithGroups("session-1", 4, "before-start"), isRepeated: false).IsEmpty,
             "Reopening an item in a completed group triggered an announcement.");
         Assert(
             tracker.Observe(SnapshotWithGroups("session-1", 5, "before-start", "engine-start"), isRepeated: false)
-                .SequenceEqual(["engine-start"]),
+                .Groups.SequenceEqual(["engine-start"]),
             "Completing the reopened group again was not announced.");
         Assert(
-            tracker.Observe(SnapshotWithGroups("session-1", 6), isRepeated: false).Count == 0,
+            tracker.Observe(SnapshotWithGroups("session-1", 6), isRepeated: false).IsEmpty,
             "A checklist reset triggered an announcement.");
         Assert(
             tracker.Observe(SnapshotWithGroups("session-1", 7, "before-start", "engine-start"), isRepeated: false)
-                .SequenceEqual(["before-start", "engine-start"]),
+                .Groups.SequenceEqual(["before-start", "engine-start"]),
             "Groups completed after a reset were not announced in checklist order.");
     }
 
@@ -212,22 +274,22 @@ internal static class TransportProbeSelfTests
         var tracker = new ChecklistGroupCompletionTracker();
 
         Assert(
-            tracker.Observe(SnapshotWithGroups("session-1", 1), isRepeated: false).Count == 0,
+            tracker.Observe(SnapshotWithGroups("session-1", 1), isRepeated: false).IsEmpty,
             "An empty first snapshot announced a group.");
         Assert(
-            tracker.Observe(SnapshotWithGroups("session-2", 1, "before-start"), isRepeated: false).Count == 0,
+            tracker.Observe(SnapshotWithGroups("session-2", 1, "before-start"), isRepeated: false).IsEmpty,
             "A new flight session replayed a restored group completion.");
         Assert(
             tracker.Observe(
                     SnapshotWithGroups("session-2", 2, ["before-start", "engine-start"], revision: "2"),
                     isRepeated: false)
-                .Count == 0,
+                .IsEmpty,
             "A checklist revision change replayed a group completion.");
         Assert(
             tracker.Observe(
                     SnapshotWithGroups("session-2", 3, ["before-start", "engine-start", "departure"], revision: "2"),
                     isRepeated: false)
-                .SequenceEqual(["departure"]),
+                .Groups.SequenceEqual(["departure"]),
             "A group completed after the checklist change was not announced.");
         Assert(
             tracker.Observe(
@@ -238,7 +300,7 @@ internal static class TransportProbeSelfTests
                         snapshot["checklist"] = null;
                     })),
                     isRepeated: false)
-                .Count == 0,
+                .IsEmpty,
             "Losing the checklist announced a group.");
     }
 
@@ -247,28 +309,28 @@ internal static class TransportProbeSelfTests
         var tracker = new ChecklistGroupCompletionTracker();
 
         Assert(
-            tracker.Observe(SnapshotWithGroups("session-1", 1), isRepeated: false).Count == 0,
+            tracker.Observe(SnapshotWithGroups("session-1", 1), isRepeated: false).IsEmpty,
             "An empty first snapshot announced a group.");
 
         // The group end at sequence 2 was never delivered.
         tracker.ResetBaseline();
 
         Assert(
-            tracker.Observe(SnapshotWithGroups("session-1", 3, "before-start"), isRepeated: false).Count == 0,
+            tracker.Observe(SnapshotWithGroups("session-1", 3, "before-start"), isRepeated: false).IsEmpty,
             "A group completed during the lost connection was announced late.");
         Assert(
             tracker.Observe(SnapshotWithGroups("session-1", 4, "before-start", "engine-start"), isRepeated: false)
-                .SequenceEqual(["engine-start"]),
+                .Groups.SequenceEqual(["engine-start"]),
             "A group completed after the reconnect was not announced.");
 
         tracker.ResetBaseline();
 
         Assert(
-            tracker.Observe(SnapshotWithGroups("session-1", 4, "before-start", "engine-start"), isRepeated: true).Count == 0,
+            tracker.Observe(SnapshotWithGroups("session-1", 4, "before-start", "engine-start"), isRepeated: true).IsEmpty,
             "A repeated snapshot after a reconnect announced a group.");
         Assert(
             tracker.Observe(SnapshotWithGroups("session-1", 5, "before-start", "engine-start", "departure"), isRepeated: false)
-                .SequenceEqual(["departure"]),
+                .Groups.SequenceEqual(["departure"]),
             "The baseline after a repeated reconnect snapshot was lost.");
     }
 

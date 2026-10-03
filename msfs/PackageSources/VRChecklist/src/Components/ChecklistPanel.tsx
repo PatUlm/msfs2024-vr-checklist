@@ -82,6 +82,11 @@ function renderNavigation(
           "section-navigation__button": true,
           "section-navigation__button--next": true,
           "section-navigation__button--disabled": nextSection === undefined,
+          // A completed phase waits here for the pilot to start the next one.
+          "section-navigation__button--continue":
+            nextSection !== undefined && runtime.isPhaseEnd(sectionIndex)
+              ? runtime.sectionCompletion[sectionIndex]
+              : false,
         }}
         disabled={nextSection === undefined}
         callback={(): void => actions.changeSection(runtime, sectionIndex + 1)}
@@ -241,15 +246,9 @@ export function renderChecklistPanel(
                     class={{
                       "phase-skip__button": true,
                       "phase-skip__button--disabled":
-                        sectionIndex >= runtime.finalPhaseStartIndex
-                          ? runtime.finalPhaseComplete
-                          : false,
+                        runtime.phaseCompletion[sectionIndex],
                     }}
-                    disabled={
-                      sectionIndex >= runtime.finalPhaseStartIndex
-                        ? runtime.finalPhaseComplete
-                        : false
-                    }
+                    disabled={runtime.phaseCompletion[sectionIndex]}
                     callback={(): void =>
                       actions.skipPhase(runtime, sectionIndex)
                     }

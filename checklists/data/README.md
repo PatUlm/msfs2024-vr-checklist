@@ -24,8 +24,9 @@ change log.
   `Departure` the takeoff preparation, takeoff and climb. No empty groups for
   unused phases. The G36 group `Approach` stays assigned to this phase despite
   its landing configuration.
-- Phases serve the display and `Skip phase`: consecutive groups with the same
-  phase form the skipped block. Check phase changes for this effect as well.
+- Phases serve the display, `Skip phase` and the phase end: consecutive groups
+  with the same phase form one block, and the app stops its automatic advance
+  after the block's last group. Check phase changes for this effect as well.
 - `aircraft.msfsMatches`: rules are alternatives; all fields of a rule must
   match together. `equals`/`contains` are compared normalized; `contains`
   needs at least four normalized characters. Derive new rules from observed

@@ -48,7 +48,8 @@ public static class ChecklistStateProtocol
             snapshot.CompletedRequiredItems < 0 ||
             snapshot.TotalRequiredItems < 0 ||
             snapshot.CompletedRequiredItems > snapshot.TotalRequiredItems ||
-            !IsValid(snapshot.CompletedGroupIds))
+            !IsValid(snapshot.CompletedGroupIds) ||
+            !IsValid(snapshot.CompletedPhases))
         {
             throw new InvalidDataException("The EFB state snapshot is malformed.");
         }
@@ -64,6 +65,16 @@ public static class ChecklistStateProtocol
         completedGroupIds is null ||
         (completedGroupIds.All(id => !string.IsNullOrWhiteSpace(id)) &&
          completedGroupIds.Distinct(StringComparer.Ordinal).Count() == completedGroupIds.Count);
+
+    /* Optional like the group list: an older EFB app only announces groups. */
+    private static bool IsValid(IReadOnlyList<CompletedPhase>? completedPhases) =>
+        completedPhases is null ||
+        (completedPhases.All(phase =>
+             phase is not null &&
+             !string.IsNullOrWhiteSpace(phase.FirstGroupId) &&
+             !string.IsNullOrWhiteSpace(phase.Phase)) &&
+         completedPhases.Select(phase => phase.FirstGroupId).Distinct(StringComparer.Ordinal).Count() ==
+             completedPhases.Count);
 
     private static bool IsValid(ChecklistIdentity? checklist) =>
         checklist is null ||
@@ -106,7 +117,8 @@ public sealed record ChecklistStateSnapshot(
     int CompletedRequiredItems,
     int TotalRequiredItems,
     bool IsComplete,
-    IReadOnlyList<string>? CompletedGroupIds = null);
+    IReadOnlyList<string>? CompletedGroupIds = null,
+    IReadOnlyList<CompletedPhase>? CompletedPhases = null);
 
 public sealed record AircraftState(
     string AtcModel,
@@ -133,6 +145,12 @@ public sealed record ChecklistGroup(
     [property: JsonRequired] int Index,
     // Optional for EFB versions that predate the phase display.
     string? Phase = null);
+
+/* A run of consecutive groups with the same phase whose last group is complete. */
+public sealed record CompletedPhase(
+    [property: JsonRequired] string FirstGroupId,
+    [property: JsonRequired] string Phase,
+    [property: JsonRequired] bool Skipped);
 
 public sealed record ChecklistItemState(
     [property: JsonRequired] string Id,

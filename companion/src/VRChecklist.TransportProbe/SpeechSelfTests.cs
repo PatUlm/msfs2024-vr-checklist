@@ -8,9 +8,12 @@ namespace VRChecklist.TransportProbe;
 internal static class SpeechSelfTests
 {
     private static ChecklistStateSnapshot Snapshot(string? item, string group = "group", string session = "session",
-        string[]? completed = null) => new(1, "stateSnapshot", null, session, 1, DateTimeOffset.UtcNow, "test", "instance",
-        new("model", "type", "title", null), new("checklist", "revision", "Checklist"),
-        new(group, group, 0), item is null ? null : new(item, item, "On"), 0, 10, false, completed ?? []);
+        string[]? completed = null, CompletedPhase[]? phases = null) => new(1, "stateSnapshot", null, session, 1,
+        DateTimeOffset.UtcNow, "test", "instance", new("model", "type", "title", null),
+        new("checklist", "revision", "Checklist"), new(group, group, 0), item is null ? null : new(item, item, "On"),
+        0, 10, false, completed ?? [], phases ?? []);
+
+    private static string ResolvePhase(CompletedPhase phase) => phase.Skipped ? "<skipped>" : $"<{phase.Phase}>";
 
     // A null title stands for the empty identity of a flight reset.
     private static ChecklistStateSnapshot Unmatched(string? title, string session = "session",
@@ -67,23 +70,56 @@ internal static class SpeechSelfTests
         Require(!fake.Calls.Contains("d"), "Disabling left pending speech active.");
     }
 
+    public static void PhaseEnd()
+    {
+        var fake = new Player();
+        using var speech = new ChecklistSpeechController(fake.Play, fake.Stop,
+            snapshot => snapshot.NextOpenItem?.Id, fake.Errors.Enqueue, true, ResolvePhase);
+        CompletedPhase[] engineStart = [new("before-start", "Engine Start", Skipped: false)];
+        speech.Observe(Snapshot("last", "engine-start", completed: ["before-start"]), false);
+        speech.Observe(Snapshot(null, "engine-start", completed: ["before-start", "engine-start"],
+            phases: engineStart), false);
+        Require(fake.Calls.SequenceEqual(["last", "<Engine Start>"]),
+            "A phase end did not replace the group announcement.");
+        // The pilot starts the next phase while the announcement still plays.
+        speech.Observe(Snapshot("taxi-item", "before-taxi", completed: ["before-start", "engine-start"],
+            phases: engineStart), false);
+        Require(fake.Calls.Count == 2, "Starting the next phase cut off the phase announcement.");
+        fake.Finish();
+        Require(SpinWait.SpinUntil(() => fake.Calls.Count == 3, 3000) && fake.Calls.Last() == "taxi-item",
+            "The first item of the next phase was not read after the announcement.");
+
+        var fallback = new Player();
+        using var unresolved = new ChecklistSpeechController(fallback.Play, fallback.Stop,
+            snapshot => snapshot.NextOpenItem?.Id, fallback.Errors.Enqueue, true,
+            _ => throw new InvalidOperationException("Phase clip missing."));
+        unresolved.Observe(Snapshot("last", "engine-start"), false);
+        unresolved.Observe(Snapshot(null, "engine-start", completed: ["engine-start"], phases: engineStart), false);
+        Require(fallback.Calls.Last() == "<completion>" && fallback.Errors.Contains("Phase clip missing."),
+            "A missing phase clip did not fall back to the group announcement.");
+    }
+
     public static void PhaseSkip()
     {
         var fake = new Player();
         using var speech = new ChecklistSpeechController(fake.Play, fake.Stop,
-            snapshot => snapshot.NextOpenItem?.Id, fake.Errors.Enqueue, true);
+            snapshot => snapshot.NextOpenItem?.Id, fake.Errors.Enqueue, true, ResolvePhase);
         speech.Observe(Snapshot("start-item", "start"), false);
-        var skipped = Snapshot("taxi-item", "taxi", completed: ["preparation", "start", "after-start"]);
+        string[] engineStartGroups = ["preparation", "start", "after-start"];
+        CompletedPhase[] skippedPhase = [new("preparation", "Engine Start", Skipped: true)];
+        // Skip phase stays on the completed last group of the phase.
+        var skipped = Snapshot(null, "after-start", completed: engineStartGroups, phases: skippedPhase);
         speech.Observe(skipped, false);
         speech.Observe(skipped, true);
-        Require(fake.Calls.SequenceEqual(["start-item", "<completion>"]),
-            "Skipping multiple groups must produce only one completion announcement.");
+        Require(fake.Calls.SequenceEqual(["start-item", "<skipped>"]),
+            "Skipping multiple groups must produce only one phase announcement.");
         fake.Finish();
-        Require(SpinWait.SpinUntil(() => fake.Calls.Count == 3, 3000),
-            "The first item of the next phase was not announced.");
-        Require(fake.Calls.Last() == "taxi-item", "A skipped item was announced.");
         speech.Observe(skipped, false);
-        Require(fake.Calls.Count == 3, "Repeated phase state replayed speech.");
+        speech.Observe(Snapshot("taxi-item", "taxi", completed: engineStartGroups, phases: skippedPhase), false);
+        Require(SpinWait.SpinUntil(() => fake.Calls.Count == 3, 3000) && fake.Calls.Last() == "taxi-item",
+            "Starting the next phase did not read its first item.");
+        Require(fake.Calls.SequenceEqual(["start-item", "<skipped>", "taxi-item"]),
+            "A skipped item or a repeated phase state was announced.");
     }
 
     public static void ToggleAndReset()
@@ -182,6 +218,13 @@ internal static class SpeechSelfTests
     public static void Assets()
     {
         var catalog = ItemAudioCatalog.Load();
+        foreach (var phase in ChecklistCatalog.Load().SelectMany(checklist => checklist.Sections)
+            .Select(section => new CompletedPhase(section.Id, section.Phase, Skipped: false))
+            .Append(new CompletedPhase("any", "any", Skipped: true)))
+        {
+            Require(catalog.GetClip(ItemAudioCatalog.ResolvePhase(phase)).Duration.TotalSeconds is > 0.2 and < 30,
+                $"The announcement for phase {phase.Phase} did not decode.");
+        }
         using var resource = typeof(ItemAudioCatalog).Assembly.GetManifestResourceStream(
             "VRChecklist.Companion.audio.items-manifest.json")!;
         using var json = JsonDocument.Parse(resource);

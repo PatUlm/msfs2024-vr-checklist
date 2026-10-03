@@ -53,16 +53,21 @@ checks in [design-qa.md](design-qa.md).
 
 ## Navigation, input and reset
 
-- After the last open item, the next group follows after a short confirmation
-  pause. Key/HOTAS confirms only the next open item of the **displayed** group,
-  and only while the app is visible. A complete group remains unchanged.
+- After the last open item, the next group of the same phase follows after a
+  short confirmation pause. At the end of a phase, the completed group stays
+  visible and the button to the next group carries the accent: the flight is
+  rarely ready for the next phase at once, so the pilot starts it.
+- Key/HOTAS confirms only the next open item of the **displayed** group, and
+  only while the app is visible. On a complete group at the end of a phase it
+  opens the next group without ticking anything; any other complete group
+  remains unchanged.
 - `Skip phase` completes all open items of the contiguous phase block,
-  including optional items and earlier groups of the same phase. It opens the
-  first group of the next block at the top of the list; its progress is kept.
-  In the last phase, the last group stays visible. When all its items are
-  done, Skip is disabled until one is reopened. The companion receives only
-  the final state: a single completion, followed by the next open item if
-  there is one.
+  including optional items and earlier groups of the same phase, and then
+  behaves like a completed phase: its last group stays visible. A phase
+  counts as complete once its last group is, so Skip stays disabled until an
+  item of that group is reopened; open items of earlier groups are ticked by
+  hand. The companion receives only the final state: a single phase
+  announcement.
 - A new flight resets progress and the active group on **loading**, not on
   `FlightEnd`. The last state may still be visible in the menu. Aircraft
   changes and simulator restarts also reset; VR switches and pause do not.
@@ -124,11 +129,13 @@ checks in [design-qa.md](design-qa.md).
 - The first item of each group starts with `<group name> Checklist.` and a
   short natural sentence pause. This also applies when that item is read
   again; when continuing with a later item, the group name is omitted.
-- A newly completed group says `Checklist completed` once. Groups already
-  complete at startup or reconnect are not announced afterwards. After
-  reopening and completing it again, the group may speak again. The completion
-  announcement finishes before the item that has become current in the
-  meantime.
+- A newly completed group says `Checklist completed` once. The last group of
+  a phase says `<Phase> phase complete.` instead, matching the stop at the
+  phase end even while an earlier group is open; `Skip phase` says
+  `Phase skipped.`. Groups already complete at startup or reconnect are not
+  announced afterwards. After reopening and completing it again, the group may
+  speak again. The completion announcement finishes before the item that has
+  become current in the meantime.
 - Without a matching checklist, item announcements say
   `No checklist available for this aircraft.` like a current item: once per
   aircraft and flight, again after being switched on, not after reconnects or

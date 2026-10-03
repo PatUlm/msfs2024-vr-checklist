@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "file": "phase-descent-46727b79cbe2f6aa.opus",
+  "sha256": "6b05de1bda582db4d3e0091563bd6cd60929827126844af088f141c20aaa97ab",
+  "recipeHash": "46727b79cbe2f6aac0eb4f64897395ba69a02262f434f15a8d7c05fd95611db7",
+  "recipe": {
+    "voiceId": "nPczCjzI2devNBz1zQrb",
+    "request": {
+      "text": "Descent phase complete.",
+      "model_id": "eleven_multilingual_v2",
+      "voice_settings": {
+        "stability": 0.75,
+        "similarity_boost": 0.75,
+        "style": 0,
+        "use_speaker_boost": true,
+        "speed": 1
+      },
+      "seed": 9172026
+    },
+    "sourceFormat": "mp3_44100_128",
+    "profile": "clean",
+    "normalization": "loudnorm=I=-20:TP=-2:LRA=11",
+    "format": "ogg-opus-mono-48000-32k",
+    "revision": 1
+  },
+  "generatedAt": "2026-10-02T16:08:31.073Z",
+  "provider": "ElevenLabs",
+  "voice": "Brian",
+  "generationPlan": "paid",
+  "planEvidence": "Operator confirmed active Starter subscription before rendering.",
+  "requestId": "b9tEwROAuriQKxy0HOMJ",
+  "characterCost": "9",
+  "ffmpegVersion": "ffmpeg version 6.1.1-3ubuntu5 Copyright (c) 2000-2023 the FFmpeg developers",
+  "licenseNotice": "../README.md"
+}

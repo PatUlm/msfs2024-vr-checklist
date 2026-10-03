@@ -101,5 +101,6 @@ further package dependencies for .NET 10.
 The provenance of the clean files is documented in the
 [completion](../assets/audio/completion/manifest.json) and
 [no-checklist](../assets/audio/no-checklist/manifest.json) manifests, the
+[phase announcement](../assets/audio/phases/) metadata, the
 [item mappings](../assets/audio/items/manifest.json) and the file metadata
 there. The live radio filter uses NAudio, which is already listed.

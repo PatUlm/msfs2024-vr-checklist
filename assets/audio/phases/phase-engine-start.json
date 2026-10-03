@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "file": "phase-engine-start-4a59f5c36a79893e.opus",
+  "sha256": "489750ac1d02c005ea3160d6eeefda826ba1810ca5ae597d46ae81c605932bec",
+  "recipeHash": "4a59f5c36a79893e77072139d1f207adbd6b7bd04a832e0b795ea4565a8d1170",
+  "recipe": {
+    "voiceId": "nPczCjzI2devNBz1zQrb",
+    "request": {
+      "text": "Engine Start phase complete.",
+      "model_id": "eleven_multilingual_v2",
+      "voice_settings": {
+        "stability": 0.75,
+        "similarity_boost": 0.75,
+        "style": 0,
+        "use_speaker_boost": true,
+        "speed": 1
+      },
+      "seed": 9172026
+    },
+    "sourceFormat": "mp3_44100_128",
+    "profile": "clean",
+    "normalization": "loudnorm=I=-20:TP=-2:LRA=11",
+    "format": "ogg-opus-mono-48000-32k",
+    "revision": 1
+  },
+  "generatedAt": "2026-10-02T16:08:27.154Z",
+  "provider": "ElevenLabs",
+  "voice": "Brian",
+  "generationPlan": "paid",
+  "planEvidence": "Operator confirmed active Starter subscription before rendering.",
+  "requestId": "nkVO4sd5sJXFw7uJq2uy",
+  "characterCost": "11",
+  "ffmpegVersion": "ffmpeg version 6.1.1-3ubuntu5 Copyright (c) 2000-2023 the FFmpeg developers",
+  "licenseNotice": "../README.md"
+}

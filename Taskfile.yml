@@ -110,7 +110,7 @@ tasks:
       - node scripts/plan-checklist-audio.mjs
 
   audio:render-fixed:
-    desc: Render the clean Brian completion and no-checklist clips (explicit paid ElevenLabs operation)
+    desc: Render the clean Brian completion, phase and no-checklist clips (explicit paid ElevenLabs operation)
     cmds:
       - node scripts/render-fixed-audio.mjs {{.CLI_ARGS}}
 

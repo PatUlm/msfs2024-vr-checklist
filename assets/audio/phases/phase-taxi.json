@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "file": "phase-taxi-236f03703759e264.opus",
+  "sha256": "7eb440fe3a0183c153769db81b28feb2b0d9d2ec4726d3e66199bf55fbef0652",
+  "recipeHash": "236f03703759e264091cbab83ec7f84ca2b50345a5e3720654e454a860ecc90b",
+  "recipe": {
+    "voiceId": "nPczCjzI2devNBz1zQrb",
+    "request": {
+      "text": "Taxi phase complete.",
+      "model_id": "eleven_multilingual_v2",
+      "voice_settings": {
+        "stability": 0.75,
+        "similarity_boost": 0.75,
+        "style": 0,
+        "use_speaker_boost": true,
+        "speed": 1
+      },
+      "seed": 9172026
+    },
+    "sourceFormat": "mp3_44100_128",
+    "profile": "clean",
+    "normalization": "loudnorm=I=-20:TP=-2:LRA=11",
+    "format": "ogg-opus-mono-48000-32k",
+    "revision": 1
+  },
+  "generatedAt": "2026-10-02T16:08:28.111Z",
+  "provider": "ElevenLabs",
+  "voice": "Brian",
+  "generationPlan": "paid",
+  "planEvidence": "Operator confirmed active Starter subscription before rendering.",
+  "requestId": "I5ag5flMxupoxT2Nykgy",
+  "characterCost": "8",
+  "ffmpegVersion": "ffmpeg version 6.1.1-3ubuntu5 Copyright (c) 2000-2023 the FFmpeg developers",
+  "licenseNotice": "../README.md"
+}

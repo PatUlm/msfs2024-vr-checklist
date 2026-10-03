@@ -53,6 +53,7 @@ test("a replacement EFB context publishes only after restoring progress", (t) =>
     completedRequiredItems: 0,
     totalRequiredItems: 0,
     completedGroupIds: [],
+    completedPhases: [],
   };
   const transport = new ChecklistCommBusTransport({
     settings: {},

@@ -46,11 +46,12 @@ Free, open source and offline, apart from an optional update check.
 
 - One group at a time, such as *Before Taxi*, with challenge, response and
   checkbox on one row. Click a row to check it off; click again to reopen it.
-- When a group is done, the next one opens automatically. Completed groups get
-  a green checkmark, and a progress bar shows how far you are.
+- When a group is done, the next one of the same phase opens automatically.
+  At the end of a phase, the app waits until you start the next one. Completed
+  groups get a green checkmark, and a progress bar shows how far you are.
 - Groups belong to flight phases from Engine Start to Shutdown. **Skip phase**
-  completes the current phase and jumps to the next one, for example when you
-  start your flight on the runway.
+  completes the current phase, for example when you start your flight on the
+  runway.
 - Item types at a glance:
 
   | Type     | Shown as                          | Used for                                              |
@@ -73,8 +74,9 @@ The optional Windows app **VR Checklist Companion** connects to MSFS 2024 and
 reads out the next open item as soon as it becomes current.
 
 - Every item is pre-recorded in English with the ElevenLabs voice *Brian*.
-- Each group starts with its name, for example "Before Taxi Checklist.", and
-  "Checklist completed" confirms a finished group.
+- Each group starts with its name, for example "Before Taxi Checklist.".
+  "Checklist completed" confirms a finished group, "Engine Start phase
+  complete." a finished phase.
 - A switchable radio effect makes the callouts sound as if they came over the
   radio.
 - Choose any Windows audio output, such as your VR headset or your speakers,
@@ -144,19 +146,23 @@ also start **VR Checklist Companion**. For problems, see
 ## Usage
 
 Clicking a row checks it off or reopens it. Once all items of a group are
-done, the next group follows automatically. Optional items do not count
-toward the progress bar, but they hold the automatic group change until they
-are done or you page on manually.
+done, the next group of the same phase follows automatically. Optional items
+do not count toward the progress bar, but they hold the automatic group change
+until they are done or you page on manually.
+
+At the end of a phase, the completed group stays on screen and the button to
+the next group is highlighted. Click it, or press the confirmation key, when
+you are ready for the next phase.
 
 `Skip phase` completes the contiguous current phase block, including optional
-items, and opens the next phase. In the last phase, it completes the remaining
-items.
+items, and stays at its end like a completed phase.
 
 For a key or HOTAS, bind the action **SET PLASMA OFF** in the MSFS
 **Controls** (event `PLASMA_OFF`; the display name may differ by simulator
 language). It confirms the next open item of the displayed group while the app
-is open in the EFB. The event is passed on to the simulator; side effects in
-other aircraft cannot be ruled out. The reasons for this event are given in
+is open in the EFB; at the end of a completed phase, it opens the next phase.
+The event is passed on to the simulator; side effects in other aircraft cannot
+be ruled out. The reasons for this event are given in
 [ADR 0011](docs/adr/0011-confirmation-actions-in-the-companion.md).
 
 In the companion under **Settings**:

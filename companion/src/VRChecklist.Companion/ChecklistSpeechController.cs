@@ -4,12 +4,15 @@ namespace VRChecklist.Companion;
 
 // Serializes device operations and retains at most one pending item while a
 // completion/test clip is playing. No timers, polling, or unbounded speech queue.
+// `play(null)` is the group completion clip; `resolvePhase` names the clip
+// that replaces it when the group also ends its phase.
 public sealed class ChecklistSpeechController(
     Func<string?, Task> play,
     Action stop,
     Func<ChecklistStateSnapshot, string?> resolve,
     Action<string> reportError,
-    bool enabled) : IDisposable
+    bool enabled,
+    Func<CompletedPhase, string?>? resolvePhase = null) : IDisposable
 {
     private readonly object gate = new();
     private readonly ChecklistGroupCompletionTracker groups = new();
@@ -58,7 +61,7 @@ public sealed class ChecklistSpeechController(
                 : null;
             var changed = key != lastKey;
             lastKey = key;
-            var completed = groups.Observe(snapshot, repeated).Count > 0;
+            var completion = groups.Observe(snapshot, repeated);
             // A settings test is local, not a simulator announcement. Continue
             // tracking state, but never replace it with a group or flight event.
             if (testPlaying)
@@ -66,10 +69,10 @@ public sealed class ChecklistSpeechController(
                 if (changed) pendingItem = itemEnabled ? ResolveCurrent() : null;
                 return;
             }
-            if (completed)
+            if (!completion.IsEmpty)
             {
                 pendingItem = itemEnabled ? ResolveCurrent() : null;
-                Start(null);
+                Start(completion.Phases.Count > 0 ? ResolvePhase(completion.Phases[^1]) : null, announcement: true);
             }
             else if (changed && !repeated)
             {
@@ -122,7 +125,7 @@ public sealed class ChecklistSpeechController(
         {
             if (disposed) return Task.FromException(new ObjectDisposedException(nameof(ChecklistSpeechController)));
             pendingItem = null;
-            return Start(null, isTest: true);
+            return Start(null, announcement: true, isTest: true);
         }
     }
 
@@ -133,11 +136,18 @@ public sealed class ChecklistSpeechController(
         catch (Exception error) { reportError(error.Message); return null; }
     }
 
-    private Task Start(string? file, bool isTest = false)
+    private string? ResolvePhase(CompletedPhase phase)
+    {
+        if (resolvePhase is null) return null;
+        try { return resolvePhase(phase); }
+        catch (Exception error) { reportError(error.Message); return null; }
+    }
+
+    private Task Start(string? file, bool announcement = false, bool isTest = false)
     {
         CancelPlayback();
         playing = true;
-        completionPlaying = file is null;
+        completionPlaying = announcement;
         testPlaying = isTest;
         var token = generation;
         Task task;

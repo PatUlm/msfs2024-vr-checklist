@@ -1,4 +1,5 @@
 using System.Text.Json;
+using System.Text.RegularExpressions;
 using VRChecklist.Transport;
 
 namespace VRChecklist.Companion;
@@ -37,6 +38,11 @@ public sealed class ItemAudioCatalog
             throw new InvalidDataException("Checklist audio does not match the EFB checklist revision. Update both apps.");
         return items.GetValueOrDefault($"{checklist.Id}/{group.Id}/{item.Id}");
     }
+
+    // The clip names follow scripts/render-fixed-audio.mjs.
+    public static string ResolvePhase(CompletedPhase phase) => OpusClip.ReadFixedFile(phase.Skipped
+        ? "phase-skipped"
+        : "phase-" + Regex.Replace(phase.Phase.ToLowerInvariant(), "[^a-z0-9]+", "-"));
 
     // Called by the serialized speech controller; decode each used file only once.
     public OpusClip GetClip(string file)

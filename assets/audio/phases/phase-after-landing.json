@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "file": "phase-after-landing-a070d521817476b1.opus",
+  "sha256": "dc7183a22a571585c920a851cab0e4d4190891832af6d3c2d31171cd73180434",
+  "recipeHash": "a070d521817476b1ba7b634664222a579e17e497aec2a1c40fccb738570711a1",
+  "recipe": {
+    "voiceId": "nPczCjzI2devNBz1zQrb",
+    "request": {
+      "text": "After Landing phase complete.",
+      "model_id": "eleven_multilingual_v2",
+      "voice_settings": {
+        "stability": 0.75,
+        "similarity_boost": 0.75,
+        "style": 0,
+        "use_speaker_boost": true,
+        "speed": 1
+      },
+      "seed": 9172026
+    },
+    "sourceFormat": "mp3_44100_128",
+    "profile": "clean",
+    "normalization": "loudnorm=I=-20:TP=-2:LRA=11",
+    "format": "ogg-opus-mono-48000-32k",
+    "revision": 1
+  },
+  "generatedAt": "2026-10-02T16:08:34.005Z",
+  "provider": "ElevenLabs",
+  "voice": "Brian",
+  "generationPlan": "paid",
+  "planEvidence": "Operator confirmed active Starter subscription before rendering.",
+  "requestId": "ci93ut2e5X7ONOiAZrFh",
+  "characterCost": "12",
+  "ffmpegVersion": "ffmpeg version 6.1.1-3ubuntu5 Copyright (c) 2000-2023 the FFmpeg developers",
+  "licenseNotice": "../README.md"
+}

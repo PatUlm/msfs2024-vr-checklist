@@ -268,6 +268,7 @@ class VRChecklistView
       completedRequiredItems: runtime?.completedCount.get() ?? 0,
       totalRequiredItems: runtime?.totalItemCount ?? 0,
       completedGroupIds: runtime?.getCompletedSectionIds() ?? [],
+      completedPhases: runtime?.getCompletedPhases() ?? [],
     };
   }
 
@@ -275,8 +276,10 @@ class VRChecklistView
 
   /*
    * Checks off the next open item of the section currently on screen. A
-   * complete section is deliberately left alone: the press stays without
-   * effect instead of reaching into a section the pilot is not looking at.
+   * complete section at the end of a phase opens the next phase without
+   * ticking anything there. Any other complete section is deliberately left
+   * alone: the press stays without effect instead of reaching into a section
+   * the pilot is not looking at.
    */
   private confirmNextOpenItem(): void {
     const runtime = this.getSelectedRuntime();
@@ -301,6 +304,17 @@ class VRChecklistView
     const openItem = runtime.findNextOpenItem(section);
 
     if (!openItem) {
+      const nextSection = runtime.checklist.sections[sectionIndex + 1];
+
+      if (nextSection && runtime.isPhaseEnd(sectionIndex)) {
+        console.info(
+          `[VR Checklist] Confirmation opened the next phase at ` +
+            `${nextSection.title}.`
+        );
+        this.changeSection(runtime, sectionIndex + 1);
+        return;
+      }
+
       console.info(
         `[VR Checklist] Confirmation without effect: section ` +
           `${section.title} is complete.`
@@ -794,7 +808,7 @@ class VRChecklistView
 
     if (
       checked &&
-      sectionIndex < runtime.checklist.sections.length - 1 &&
+      !runtime.isPhaseEnd(sectionIndex) &&
       runtime.isSectionComplete(section)
     ) {
       window.setTimeout(() => {

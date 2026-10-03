@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "file": "phase-shutdown-f2970560f70f09e7.opus",
+  "sha256": "c19e802b3b7dd0279a2fbf59794f3d0d4ee842f12cb839b3039a9dd80f4ff22d",
+  "recipeHash": "f2970560f70f09e779e41388dc076bf2240e5a0a87a4f04fbe161afdc2e5b190",
+  "recipe": {
+    "voiceId": "nPczCjzI2devNBz1zQrb",
+    "request": {
+      "text": "Shutdown phase complete.",
+      "model_id": "eleven_multilingual_v2",
+      "voice_settings": {
+        "stability": 0.75,
+        "similarity_boost": 0.75,
+        "style": 0,
+        "use_speaker_boost": true,
+        "speed": 1
+      },
+      "seed": 9172026
+    },
+    "sourceFormat": "mp3_44100_128",
+    "profile": "clean",
+    "normalization": "loudnorm=I=-20:TP=-2:LRA=11",
+    "format": "ogg-opus-mono-48000-32k",
+    "revision": 1
+  },
+  "generatedAt": "2026-10-02T16:08:35.013Z",
+  "provider": "ElevenLabs",
+  "voice": "Brian",
+  "generationPlan": "paid",
+  "planEvidence": "Operator confirmed active Starter subscription before rendering.",
+  "requestId": "epmAaTJAlPgPQyVIUyev",
+  "characterCost": "10",
+  "ffmpegVersion": "ffmpeg version 6.1.1-3ubuntu5 Copyright (c) 2000-2023 the FFmpeg developers",
+  "licenseNotice": "../README.md"
+}

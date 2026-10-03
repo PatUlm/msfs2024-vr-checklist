@@ -22,7 +22,7 @@ public sealed partial class App : Application
             var updates = new UpdateViewModel(
                 new UpdateCheckSettings(),
                 VelopackCompanionUpdater.CreateForInstallation(() => desktop.Shutdown()),
-                Program.UpdatedVersion);
+                MainWindowViewModel.ReadCompanionVersion());
             var viewModel = new MainWindowViewModel(connectionService, updates);
             var audioSettings = new AudioOutputSettings();
             var window = new MainWindow(

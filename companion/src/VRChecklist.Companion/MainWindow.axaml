@@ -150,8 +150,8 @@
                 <TextBlock Text="Later" />
               </StackPanel>
             </Button>
-            <Button Classes="icon-button" Click="OnDismissUpdatedClick"
-                    IsVisible="{Binding Updates.IsUpdatedNotice}"
+            <Button Classes="icon-button" Click="OnDismissEfbNoticeClick"
+                    IsVisible="{Binding Updates.IsEfbNotice}"
                     AutomationProperties.Name="Dismiss">
               <StackPanel>
                 <Path Data="{StaticResource IconClose}" />

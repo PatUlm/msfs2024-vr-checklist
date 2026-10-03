@@ -102,7 +102,8 @@ internal static class TransportProbeSelfTests
             ("uses the saved output for test playback and handles failures", AudioSettingsSelfTests.TestsSelectedOutput),
             ("asks before the first update check and persists the choice", UpdateSelfTests.Consent),
             ("checks for updates once per start and retries after failures", UpdateSelfTests.Check),
-            ("installs updates only after confirmation and reminds of the EFB", UpdateSelfTests.Install),
+            ("installs updates only after confirmation", UpdateSelfTests.Install),
+            ("reminds of an older connected EFB app", UpdateSelfTests.EfbReminder),
         ];
 
         var failures = 0;

@@ -9,6 +9,8 @@ Changelog, and the project uses Semantic Versioning.
 
 ### Fixed
 
+- The companion reminds you to update the EFB app only while it is connected
+  to an older EFB app, not after every companion update.
 - Disabled companion buttons, for example during an update download, keep
   their colors and are dimmed instead of turning gray.
 - The strobe light callouts of the DA42 and the A400M are spoken clearly.

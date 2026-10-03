@@ -186,8 +186,9 @@ In the companion under **Settings**:
 - `Updates`: checks GitHub Releases once per start for a new companion
   version. Off until you allow it when first asked; the check sends only the
   usual web requests to GitHub. An offered update is installed only when you
-  click `Install update`; the companion then restarts and reminds you to
-  replace the EFB app with the ZIP from the release page.
+  click `Install update`; the companion then restarts. While it is connected
+  to an older EFB app, it reminds you to replace it with the ZIP from the
+  release page.
 
 Group completion and the test sound also work with item announcements turned
 off. Minimizing keeps the connection and audio running; closing exits the

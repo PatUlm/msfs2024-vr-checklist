@@ -137,7 +137,7 @@ public sealed partial class MainWindow : Window
 
     private void OnPostponeUpdateClick(object? sender, RoutedEventArgs args) => Updates?.Postpone();
 
-    private void OnDismissUpdatedClick(object? sender, RoutedEventArgs args) => Updates?.DismissUpdated();
+    private void OnDismissEfbNoticeClick(object? sender, RoutedEventArgs args) => Updates?.DismissEfbNotice();
 
     private void OnReleasePageClick(object? sender, RoutedEventArgs args)
     {

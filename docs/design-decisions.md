@@ -195,14 +195,16 @@ checks in [design-qa.md](design-qa.md).
   again retries only a failed check. Check errors appear only in Settings,
   not on the dashboard.
 - The dashboard shows one notice at a time as a blue info card: the EFB
-  reminder after an update, the consent question, then an available update.
+  reminder, the consent question, then an available update.
   `Later` hides the offer until the next start.
 - `Install update` downloads with visible progress and restarts the companion
   at once; no silent or deferred installation, see
   [ADR 0012](adr/0012-distribution-as-zip-and-companion-setup.md).
-- The companion never touches the Community folder. Only the restart after
-  the update shows a reminder that names the EFB ZIP of the new version and
-  opens the release page; it is not saved for later starts.
+- The companion never touches the Community folder. Only while the connected
+  EFB app reports an older MAJOR.MINOR.PATCH than the companion, a reminder
+  names the EFB ZIP of the companion's version and opens the release page.
+  `Dismiss` hides it until the next start; a running installation keeps its
+  progress visible.
 
 ## Branding and markup
 

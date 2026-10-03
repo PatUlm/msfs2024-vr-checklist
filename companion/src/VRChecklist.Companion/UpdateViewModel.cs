@@ -16,8 +16,9 @@ public interface ICompanionUpdater
 
 /*
  * Opt-in update check once per start (ADR 0012). The dashboard shows one
- * notice at a time: the EFB reminder after an update, the consent question or
- * an available update. Nothing is downloaded before the player confirms.
+ * notice at a time: the reminder for an older connected EFB app, the consent
+ * question or an available update. Nothing is downloaded before the player
+ * confirms.
  */
 public sealed class UpdateViewModel : INotifyPropertyChanged
 {
@@ -26,13 +27,15 @@ public sealed class UpdateViewModel : INotifyPropertyChanged
     private static readonly string[] ComputedProperties =
     [
         nameof(CheckEnabled), nameof(Status), nameof(HasStatus), nameof(IsNoticeVisible),
-        nameof(IsConsentNotice), nameof(IsAvailableNotice), nameof(IsUpdatedNotice), nameof(HasReleasePage),
+        nameof(IsConsentNotice), nameof(IsAvailableNotice), nameof(IsEfbNotice), nameof(HasReleasePage),
         nameof(CanInstall), nameof(NoticeTitle), nameof(NoticeText), nameof(NoticeDetail), nameof(HasNoticeDetail),
     ];
 
     private readonly UpdateCheckSettings settings;
     private readonly ICompanionUpdater? updater;
-    private string? updatedVersion;
+    private readonly string companionVersion;
+    private string? efbVersion;
+    private bool isEfbNoticeDismissed;
     private string? availableVersion;
     private string? saveError;
     private string? checkError;
@@ -45,14 +48,14 @@ public sealed class UpdateViewModel : INotifyPropertyChanged
     private bool isApplying;
     private int downloadPercent;
 
-    public UpdateViewModel(UpdateCheckSettings settings, ICompanionUpdater? updater, string? updatedVersion)
+    public UpdateViewModel(UpdateCheckSettings settings, ICompanionUpdater? updater, string companionVersion)
     {
         this.settings = settings;
         this.updater = updater;
-        this.updatedVersion = updatedVersion;
+        this.companionVersion = companionVersion;
     }
 
-    private enum NoticeKind { None, Consent, Available, Updated }
+    private enum NoticeKind { None, Consent, Available, Efb }
 
     public event PropertyChangedEventHandler? PropertyChanged;
 
@@ -73,8 +76,9 @@ public sealed class UpdateViewModel : INotifyPropertyChanged
 
     public bool HasStatus => Status.Length > 0;
 
+    // A running installation keeps its progress on screen.
     private NoticeKind Notice =>
-        updatedVersion is not null ? NoticeKind.Updated
+        IsEfbOlder && !isEfbNoticeDismissed && !isInstalling ? NoticeKind.Efb
         : updater is not null && settings.Enabled is null ? NoticeKind.Consent
         : availableVersion is not null && !isPostponed ? NoticeKind.Available
         : NoticeKind.None;
@@ -82,15 +86,15 @@ public sealed class UpdateViewModel : INotifyPropertyChanged
     public bool IsNoticeVisible => Notice != NoticeKind.None;
     public bool IsConsentNotice => Notice == NoticeKind.Consent;
     public bool IsAvailableNotice => Notice == NoticeKind.Available;
-    public bool IsUpdatedNotice => Notice == NoticeKind.Updated;
-    public bool HasReleasePage => IsAvailableNotice || IsUpdatedNotice;
+    public bool IsEfbNotice => Notice == NoticeKind.Efb;
+    public bool HasReleasePage => IsAvailableNotice || IsEfbNotice;
     public bool CanInstall => !isInstalling;
 
     public string NoticeTitle => Notice switch
     {
         NoticeKind.Consent => "UPDATES",
         NoticeKind.Available => "UPDATE AVAILABLE",
-        NoticeKind.Updated => "COMPANION UPDATED",
+        NoticeKind.Efb => "UPDATE THE EFB APP",
         _ => string.Empty,
     };
 
@@ -102,10 +106,10 @@ public sealed class UpdateViewModel : INotifyPropertyChanged
         NoticeKind.Available =>
             $"Version {availableVersion} is available. Installing restarts the companion; afterwards, also update " +
             "the EFB app from the release page.",
-        NoticeKind.Updated =>
-            $"The companion now runs version {updatedVersion}. Update the EFB app as well: download " +
-            $"patulm-vr-checklist-{updatedVersion}.zip from the release page and replace the old folder in " +
-            "Community with it.",
+        NoticeKind.Efb =>
+            $"The EFB app runs version {efbVersion}, the companion version {companionVersion}. Download " +
+            $"patulm-vr-checklist-{CoreVersion(companionVersion)}.zip from the release page and replace the old " +
+            "folder in Community with it.",
         _ => string.Empty,
     };
 
@@ -115,13 +119,31 @@ public sealed class UpdateViewModel : INotifyPropertyChanged
         NoticeKind.Available when isApplying => "Installing. The companion restarts.",
         NoticeKind.Available when isInstalling => $"Downloading… {downloadPercent} %",
         NoticeKind.Available => installError ?? openError ?? string.Empty,
-        NoticeKind.Updated => openError ?? string.Empty,
+        NoticeKind.Efb => openError ?? string.Empty,
         _ => string.Empty,
     };
 
     public bool HasNoticeDetail => NoticeDetail.Length > 0;
 
-    public string ReleasePageUrl => $"{ReleasesUrl}/tag/v{(IsUpdatedNotice ? updatedVersion : availableVersion)}";
+    public string ReleasePageUrl =>
+        $"{ReleasesUrl}/tag/v{(IsEfbNotice ? CoreVersion(companionVersion) : availableVersion)}";
+
+    /*
+     * Only MAJOR.MINOR.PATCH counts: development builds of both apps carry
+     * different `-dev` timestamps from the same deployment.
+     */
+    private bool IsEfbOlder =>
+        Version.TryParse(CoreVersion(efbVersion ?? string.Empty), out var efb) &&
+        Version.TryParse(CoreVersion(companionVersion), out var companion) &&
+        efb < companion;
+
+    /* The version the connected EFB app reports, or null without a connection. */
+    public void ObserveEfbVersion(string? version)
+    {
+        if (version == efbVersion) return;
+        efbVersion = version;
+        Refresh();
+    }
 
     /* Answers the consent question or the Settings switch; allowing checks at once. */
     public Task DecideAsync(bool enabled)
@@ -199,9 +221,10 @@ public sealed class UpdateViewModel : INotifyPropertyChanged
         Refresh();
     }
 
-    public void DismissUpdated()
+    /* Hides the reminder until the next start. */
+    public void DismissEfbNotice()
     {
-        updatedVersion = null;
+        isEfbNoticeDismissed = true;
         openError = null;
         Refresh();
     }
@@ -211,6 +234,8 @@ public sealed class UpdateViewModel : INotifyPropertyChanged
         openError = $"Could not open the browser. The release page is {ReleasePageUrl}";
         Refresh();
     }
+
+    private static string CoreVersion(string version) => version.Split('-', '+')[0];
 
     private void Refresh()
     {

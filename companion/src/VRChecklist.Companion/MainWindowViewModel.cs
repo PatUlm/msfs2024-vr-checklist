@@ -28,13 +28,7 @@ public sealed class MainWindowViewModel : INotifyPropertyChanged
     public MainWindowViewModel(ChecklistConnectionService connectionService, UpdateViewModel updates)
     {
         Updates = updates;
-        // The informational version carries the "-dev.<timestamp>" marker of
-        // development builds; releases show the plain project version.
-        var assembly = Assembly.GetExecutingAssembly();
-        CompanionVersion =
-            assembly.GetCustomAttribute<AssemblyInformationalVersionAttribute>()?.InformationalVersion
-            ?? assembly.GetName().Version?.ToString(3)
-            ?? "unknown";
+        CompanionVersion = ReadCompanionVersion();
         connectionService.ConnectionChanged += (status, detail) =>
             Dispatcher.UIThread.Post(() => ApplyConnectionStatus(status, detail));
         connectionService.SnapshotReceived += (snapshot, isRepeated) =>
@@ -45,12 +39,25 @@ public sealed class MainWindowViewModel : INotifyPropertyChanged
                 ChecklistStatus = "Error";
                 ChecklistDetail = message;
                 AircraftIdentityClipboardText = string.Empty;
+                Updates.ObserveEfbVersion(null);
             });
     }
 
     public event PropertyChangedEventHandler? PropertyChanged;
 
     public string CompanionVersion { get; }
+
+    /*
+     * The informational version carries the "-dev.<timestamp>" marker of
+     * development builds; releases show the plain project version.
+     */
+    public static string ReadCompanionVersion()
+    {
+        var assembly = Assembly.GetExecutingAssembly();
+        return assembly.GetCustomAttribute<AssemblyInformationalVersionAttribute>()?.InformationalVersion
+            ?? assembly.GetName().Version?.ToString(3)
+            ?? "unknown";
+    }
 
     public UpdateViewModel Updates { get; }
 
@@ -179,6 +186,7 @@ public sealed class MainWindowViewModel : INotifyPropertyChanged
         SimulatorStatusColor = isConnected ? "#4FCB83" : "#E5B94B";
         SimulatorDetail = detail ?? string.Empty;
         AircraftIdentityClipboardText = string.Empty;
+        Updates.ObserveEfbVersion(null);
 
         if (isConnected)
         {
@@ -221,6 +229,7 @@ public sealed class MainWindowViewModel : INotifyPropertyChanged
         Progress = checklistProgress.Label;
         ProgressPercent = checklistProgress.Percent;
         EfbVersion = snapshot.EfbVersion;
+        Updates.ObserveEfbVersion(snapshot.EfbVersion);
     }
 
     /* Audio problems are shown where transport errors appear; the state itself stays valid. */

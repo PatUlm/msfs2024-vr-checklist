@@ -3,7 +3,7 @@
   "checklists": [
     {
       "id": "airbus-a400m",
-      "revision": "2026-09-26",
+      "revision": "2026-10-03",
       "items": 72
     },
     {
@@ -23,7 +23,7 @@
     },
     {
       "id": "diamond-da42",
-      "revision": "2026-09-19",
+      "revision": "2026-10-03",
       "items": 52
     },
     {
@@ -239,9 +239,9 @@
       "recipeHash": "367b00c87d93d7887abd154b35a03cb0ea05bc0a81f3977dc7a862085b89d5bf"
     },
     {
-      "file": "item-7ee523f051cbd1b4.opus",
-      "sha256": "89e831da20f8586617be53e026b5986de6c9d4b4a4efaca6d927ff815b12aee8",
-      "recipeHash": "7ee523f051cbd1b4ee1bcb3132916c36997c231eebe06aa8287bab8aba450dfc"
+      "file": "item-6fc0a6372118848f.opus",
+      "sha256": "1f51954f806a539bbc35003b8159a4fb7f08c30f53c5d6e63e46a714c5b31ec1",
+      "recipeHash": "6fc0a6372118848fa5f60d7b256389825f5afc4c5a9e1e9ef3a22a4536f4d6e2"
     },
     {
       "file": "item-ca115f49fc3ae0b6.opus",
@@ -299,9 +299,9 @@
       "recipeHash": "80c795278fa40153d1ab99355900bac625c92391a013ee34823a4cedf085ccaf"
     },
     {
-      "file": "item-c5c399f9cd899092.opus",
-      "sha256": "db967820b39e0efdf1f182366bcd098f7761a67e7c70525d6197526c8a460d68",
-      "recipeHash": "c5c399f9cd899092ec05398b5c8a7f297664293063c17e905318033cd92564f5"
+      "file": "item-4486a6f81a333003.opus",
+      "sha256": "e9353b6a80791cf2e669356d24330f57419de762fb68afa2a026537a0a0a142c",
+      "recipeHash": "4486a6f81a333003cf6a30899675ce79a81d250ae6c01fee91834809edf9ffe3"
     },
     {
       "file": "item-04a15f604965be2a.opus",
@@ -1201,8 +1201,8 @@
     "airbus-a400m/before-taxi/to-taxi-lights": "item-82b63044ca52188b.opus",
     "airbus-a400m/before-taxi/runway-turn-off-lights": "item-2f28ba7836575dd0.opus",
     "airbus-a400m/before-takeoff/probe-lights": "item-367b00c87d93d788.opus",
-    "airbus-a400m/before-takeoff/strobe-lights": "item-7ee523f051cbd1b4.opus",
-    "diamond-da42/before-engine-start/strobe-lights": "item-7ee523f051cbd1b4.opus",
+    "airbus-a400m/before-takeoff/strobe-lights": "item-6fc0a6372118848f.opus",
+    "diamond-da42/before-engine-start/strobe-lights": "item-6fc0a6372118848f.opus",
     "airbus-a400m/after-takeoff/gear": "item-ca115f49fc3ae0b6.opus",
     "airbus-a400m/after-takeoff/flaps": "item-969058f91c6817ec.opus",
     "airbus-a400m/after-landing/flaps": "item-969058f91c6817ec.opus",
@@ -1218,7 +1218,7 @@
     "airbus-a400m/landing/gear": "item-54c0ac988a022507.opus",
     "diamond-da42/before-engine-start/gear": "item-54c0ac988a022507.opus",
     "airbus-a400m/landing/auto-brakes": "item-80c795278fa40153.opus",
-    "airbus-a400m/after-landing/strobe-lights": "item-c5c399f9cd899092.opus",
+    "airbus-a400m/after-landing/strobe-lights": "item-4486a6f81a333003.opus",
     "airbus-a400m/after-landing/landing-lights": "item-04a15f604965be2a.opus",
     "airbus-a400m/parking/apu-bleed": "item-ea08f30ba3484edd.opus",
     "airbus-a400m/parking/eng-master-off": "item-dfb1573981f094c5.opus",

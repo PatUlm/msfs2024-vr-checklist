@@ -11,7 +11,7 @@
       }
     ]
   },
-  "revision": "2026-09-26",
+  "revision": "2026-10-03",
   "sections": [
     {
       "id": "electrical-power-up",
@@ -368,7 +368,8 @@
           "id": "strobe-lights",
           "challenge": "Strobe Lights",
           "response": "On",
-          "kind": "action"
+          "kind": "action",
+          "speech": "Strobe lights: On."
         }
       ]
     },
@@ -481,7 +482,8 @@
           "id": "strobe-lights",
           "challenge": "Strobe Lights",
           "response": "Off",
-          "kind": "action"
+          "kind": "action",
+          "speech": "Strobe lights: Off."
         },
         {
           "id": "landing-lights",

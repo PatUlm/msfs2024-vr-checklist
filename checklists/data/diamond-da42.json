@@ -11,7 +11,7 @@
       { "atcModel": { "equals": "Diamond DA42" } }
     ]
   },
-  "revision": "2026-09-19",
+  "revision": "2026-10-03",
   "sections": [
     {
       "id": "before-engine-start",
@@ -60,7 +60,8 @@
           "id": "strobe-lights",
           "challenge": "Strobe Lights",
           "response": "On",
-          "kind": "action"
+          "kind": "action",
+          "speech": "Strobe lights: On."
         }
       ]
     },

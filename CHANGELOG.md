@@ -7,6 +7,10 @@ Changelog, and the project uses Semantic Versioning.
 
 ## [Unreleased]
 
+### Fixed
+
+- The strobe light callouts of the DA42 and the A400M are spoken clearly.
+
 ## [0.19.1] - 2026-10-03
 
 ### Changed

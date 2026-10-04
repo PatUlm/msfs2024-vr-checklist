@@ -7,6 +7,8 @@ Changelog, and the project uses Semantic Versioning.
 
 ## [Unreleased]
 
+## [0.19.3] - 2026-10-04
+
 ### Changed
 
 - The OH-6 shutdown checks the collective, its friction, the cyclic, its

@@ -3,6 +3,19 @@
   "companionSince": "0.3.0",
   "releases": [
     {
+      "version": "0.19.3",
+      "date": "2026-10-04",
+      "highlight": "The checklists are worded more consistently across all aircraft.",
+      "features": [
+        "Reads every Taxi to item with the maximum ground speed of 20 knots, per career mode rules.",
+        "Checks the OH-6 collective, cyclic, their frictions, generator and avionics on shutdown as separate items."
+      ],
+      "fixes": [
+        "Speaks the notes that were missing, for example the OH-6 lamp test result and the DA42 ECU test click spot.",
+        "Names the OH-6 twist grip position Full Open and the A400M beacon positions Both + Bright."
+      ]
+    },
+    {
       "version": "0.19.2",
       "date": "2026-10-03",
       "highlight": "The A400M checklist now covers taxi, takeoff and the climb steps after takeoff.",

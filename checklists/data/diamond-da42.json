@@ -89,7 +89,7 @@
           "challenge": "CAP \"L GLOW ON\"",
           "response": "Wait",
           "kind": "verify",
-          "condition": "Until CAP clears",
+          "condition": "Until the left glow indication clears",
           "speech": "Verify left glow indication: Wait until it clears."
         },
         {
@@ -120,7 +120,7 @@
           "challenge": "CAP \"R GLOW ON\"",
           "response": "Wait",
           "kind": "verify",
-          "condition": "Until CAP clears",
+          "condition": "Until the right glow indication clears",
           "speech": "Verify right glow indication: Wait until it clears."
         },
         {
@@ -293,7 +293,7 @@
           "alternatives": [
             {
               "when": "Short Field TO",
-              "response": "App (1)"
+              "response": "1 (Approach)"
             }
           ],
           "speech": "Flaps: Up. Alternative short field takeoff: Flaps: Approach one."

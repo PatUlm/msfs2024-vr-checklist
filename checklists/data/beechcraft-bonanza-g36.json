@@ -68,10 +68,10 @@
         },
         {
           "id": "approach-speed-95",
-          "challenge": "Approach Speed",
+          "challenge": "Approach Speed (Vapp)",
           "response": "95 kt",
           "kind": "action",
-          "speech": "Approach speed: 95 knots."
+          "speech": "Approach speed V app: 95 knots."
         },
         {
           "id": "flaps-approach",

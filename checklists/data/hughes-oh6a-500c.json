@@ -227,7 +227,8 @@
           "challenge": "Bleed Air and Electrical Equipment",
           "response": "Off",
           "kind": "action",
-          "speech": "Bleed air and electrical equipment: Off."
+          "speech": "Bleed air and electrical equipment: Off.",
+          "decision": "One collective instruction for all bleed air and electrical consumers, kept as one item."
         },
         {
           "id": "pedals",

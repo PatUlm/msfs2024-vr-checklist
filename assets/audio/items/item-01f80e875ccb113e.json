@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "file": "item-01f80e875ccb113e.opus",
+  "sha256": "4f14a03b0488336eb6f57896db0d148dfc022623b899a70ae806113bcfb3fab5",
+  "recipeHash": "01f80e875ccb113e25331dcd90bd93baae4a49b26ff81253e96a9f636c617fb4",
+  "recipe": {
+    "voiceId": "nPczCjzI2devNBz1zQrb",
+    "request": {
+      "text": "E C U test one and two: Use the click spot and hold for 25 seconds until the C A P indication clears.",
+      "model_id": "eleven_multilingual_v2",
+      "voice_settings": {
+        "stability": 0.75,
+        "similarity_boost": 0.75,
+        "style": 0,
+        "use_speaker_boost": true,
+        "speed": 1
+      },
+      "seed": 9172026
+    },
+    "sourceFormat": "mp3_44100_128",
+    "profile": "clean",
+    "normalization": "loudnorm=I=-20:TP=-2:LRA=11",
+    "format": "ogg-opus-mono-48000-32k",
+    "revision": 1
+  },
+  "generatedAt": "2026-10-04T07:21:42.746Z",
+  "provider": "ElevenLabs",
+  "voice": "Brian",
+  "generationPlan": "paid",
+  "planEvidence": "Operator confirmed active Starter subscription before rendering.",
+  "requestId": "3lLOibBwgGsWwdOD3qSY",
+  "characterCost": "40",
+  "ffmpegVersion": "ffmpeg version 6.1.1-3ubuntu5 Copyright (c) 2000-2023 the FFmpeg developers",
+  "licenseNotice": "../README.md"
+}

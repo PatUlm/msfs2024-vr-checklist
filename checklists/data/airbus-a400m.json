@@ -11,7 +11,7 @@
       }
     ]
   },
-  "revision": "2026-10-03",
+  "revision": "2026-10-04",
   "sections": [
     {
       "id": "electrical-power-up",
@@ -60,7 +60,8 @@
           "challenge": "GADIRS",
           "response": "All On",
           "kind": "action",
-          "speech": "GADIRS: All on."
+          "speech": "GADIRS: All on.",
+          "decision": "GADIRS is spoken as a word, as in the cockpit."
         },
         {
           "id": "fuel-pumps",
@@ -78,9 +79,9 @@
         {
           "id": "emer-light",
           "challenge": "Emergency Exit Lights",
-          "response": "Armed",
+          "response": "Arm",
           "kind": "action",
-          "speech": "Emergency exit lights: Armed."
+          "speech": "Emergency exit lights: Arm."
         }
       ]
     },
@@ -153,21 +154,21 @@
       "items": [
         {
           "id": "altimeters",
-          "challenge": "Altimeters",
-          "response": "Set (Both)",
+          "challenge": "Altimeters [1+2]",
+          "response": "Set",
           "kind": "action",
           "speech": "Both altimeters: Set."
         },
         {
           "id": "autopilot-flight-director",
-          "challenge": "Auto-Pilot Flight Director",
+          "challenge": "Autopilot Flight Director",
           "response": "On",
           "kind": "action",
           "speech": "Autopilot flight director: On."
         },
         {
           "id": "autopilot-altitude",
-          "challenge": "Auto-Pilot Altitude",
+          "challenge": "Autopilot Altitude",
           "response": "Set",
           "kind": "action",
           "speech": "Autopilot altitude: Set."
@@ -182,9 +183,10 @@
         {
           "id": "beacon",
           "challenge": "Beacon Lights",
-          "response": "Both Bright",
+          "response": "Both + Bright",
           "kind": "action",
-          "speech": "Beacon lights: Both bright."
+          "speech": "Beacon light switches: Both and bright.",
+          "decision": "The two BEACON switches are set together, so they share one item with both positions."
         },
         {
           "id": "parking-brake",
@@ -266,7 +268,7 @@
         {
           "id": "anti-ice",
           "challenge": "ANTI ICE",
-          "response": "As Required",
+          "response": "As required",
           "kind": "action",
           "speech": "Anti ice: As required."
         },
@@ -316,10 +318,11 @@
           "challenge": "T.O CONFIG",
           "response": "Press",
           "kind": "action",
-          "speech": "Takeoff configuration: Press the button on the E CAM control panel below the displays.",
           "notes": [
             "Button on the ECAM control panel below the displays."
-          ]
+          ],
+          "speech": "Takeoff configuration: Press the button on the E CAM control panel below the displays.",
+          "decision": "E CAM is written so that the voice says ee-cam, as pilots do."
         },
         {
           "id": "ready-for-takeoff",
@@ -347,9 +350,10 @@
         },
         {
           "id": "runway-turn-off-lights",
-          "challenge": "Runway Turn Off Lights",
+          "challenge": "Runway Turnoff Lights",
           "response": "On",
-          "kind": "action"
+          "kind": "action",
+          "speech": "Runway turnoff lights: On."
         }
       ]
     },
@@ -363,7 +367,11 @@
           "challenge": "Taxi to",
           "response": "Hold Short Line",
           "kind": "action",
-          "speech": "Taxi to the hold-short line."
+          "notes": [
+            "Maximum 20 kt ground speed per career mode rules"
+          ],
+          "speech": "Taxi to the hold-short line, maximum 20 knots ground speed, per career mode rules.",
+          "decision": "Taxi to...<destination> follows the existing wording and reads naturally; the preposition stays in the challenge. 20 kt ground speed is the MSFS 2024 career-mode taxi limit."
         }
       ]
     },
@@ -398,14 +406,16 @@
           "challenge": "Power Levers",
           "response": "TOGA",
           "kind": "action",
-          "speech": "Power levers: Toga."
+          "speech": "Power levers: Toga.",
+          "decision": "The power levers are coupled and always moved as one block, so the challenge has no component scope. TOGA is spoken as the word Toga, as pilots say it."
         },
         {
           "id": "rotation-speed",
           "challenge": "Rotation Speed (Vr)",
           "response": "Rotate",
           "kind": "action",
-          "speech": "Rotation speed V R: Rotate."
+          "speech": "At rotation speed V R: Rotate.",
+          "decision": "Same challenge as the other checklists; without a fixed Vr, the response is the action."
         },
         {
           "id": "pitch",
@@ -460,7 +470,8 @@
           "response": "MCL",
           "kind": "action",
           "condition": "At thrust reduction altitude, when prompted on the PFD",
-          "speech": "Power levers: M C L at thrust reduction altitude, when prompted on the P F D."
+          "speech": "Power levers: M C L at thrust reduction altitude, when prompted on the P F D.",
+          "decision": "The power levers are coupled and always moved as one block, so the challenge has no component scope."
         },
         {
           "id": "ground-spoilers",
@@ -478,9 +489,10 @@
         },
         {
           "id": "runway-turn-off-lights",
-          "challenge": "Runway Turn Off Lights",
+          "challenge": "Runway Turnoff Lights",
           "response": "Off",
-          "kind": "action"
+          "kind": "action",
+          "speech": "Runway turnoff lights: Off."
         }
       ]
     },
@@ -498,15 +510,15 @@
         },
         {
           "id": "altimeters",
-          "challenge": "Altimeters",
-          "response": "Set (Both)",
+          "challenge": "Altimeters [1+2]",
+          "response": "Set",
           "kind": "action",
           "speech": "Both altimeters: Set."
         },
         {
           "id": "eng-mode",
           "challenge": "ENG Start Mode",
-          "response": "As Required",
+          "response": "As required",
           "kind": "action",
           "speech": "Engine start mode: As required."
         }
@@ -664,7 +676,8 @@
           "challenge": "GADIRS",
           "response": "All Off",
           "kind": "action",
-          "speech": "GADIRS: All off."
+          "speech": "GADIRS: All off.",
+          "decision": "GADIRS is spoken as a word, as in the cockpit."
         },
         {
           "id": "apu-bleed",

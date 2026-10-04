@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "file": "item-e4ad4bc264090149.opus",
+  "sha256": "1e5415f025279cd445346e0a5b3a81079314fa70a29b0404a6a88a41ff12573a",
+  "recipeHash": "e4ad4bc2640901490451e0b0ea518fae389079cedbb9c1ab07f0f7fa3e0cd8e5",
+  "recipe": {
+    "voiceId": "nPczCjzI2devNBz1zQrb",
+    "request": {
+      "text": "Verify voltage and electrical load: Check on E I S.",
+      "model_id": "eleven_multilingual_v2",
+      "voice_settings": {
+        "stability": 0.75,
+        "similarity_boost": 0.75,
+        "style": 0,
+        "use_speaker_boost": true,
+        "speed": 1
+      },
+      "seed": 9172026
+    },
+    "sourceFormat": "mp3_44100_128",
+    "profile": "clean",
+    "normalization": "loudnorm=I=-20:TP=-2:LRA=11",
+    "format": "ogg-opus-mono-48000-32k",
+    "revision": 1
+  },
+  "generatedAt": "2026-10-04T07:21:39.213Z",
+  "provider": "ElevenLabs",
+  "voice": "Brian",
+  "generationPlan": "paid",
+  "planEvidence": "Operator confirmed active Starter subscription before rendering.",
+  "requestId": "1Q5WZf6N2etnbXf821S9",
+  "characterCost": "20",
+  "ffmpegVersion": "ffmpeg version 6.1.1-3ubuntu5 Copyright (c) 2000-2023 the FFmpeg developers",
+  "licenseNotice": "../README.md"
+}

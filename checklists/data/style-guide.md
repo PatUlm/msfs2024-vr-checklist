@@ -55,12 +55,14 @@ Examples:
   noticeable.
 - If a plus sign combines several states or actions within a response, it is
   surrounded by spaces for readability, for example `Start + IDLE`.
-- An optional `speech` text spells out numbers naturally, for example
-  `one and two`; the compact on-screen notation is not read aloud.
+- An optional `speech` text spells out component numbers naturally, for
+  example `one and two`; the compact on-screen notation is not read aloud.
+  Values such as `73 knots` may stay digits; the voice reads them correctly.
 
 ## Units and terms
 
 - Units follow the value after a space, for example `80 kt` or `100 %`.
+  Plane angles in degrees take no space, for example `10°`.
 - Established challenge names are reused for identical procedures. New
   aircraft checklists first follow existing entries before introducing new
   synonyms.
@@ -70,10 +72,9 @@ Examples:
   speed with flaps extended. A normal climb is labeled `Vy` only if the speed
   for the best rate of climb is actually meant; a chosen approach value is not
   declared `Vref` without source evidence.
-- `kt` denotes the unit knots, `KIAS` additionally the reference to indicated
-  airspeed. With a compact display in `kt`, the documented reference to IAS,
-  TAS or ground speed is kept in notes or conditions and in the provenance
-  record.
+- Speeds in `kt` are indicated airspeeds and need no note. A ground speed,
+  for example while taxiing, is always marked as such, for example
+  `Maximum 20 kt ground speed`.
 - Abbreviations may appear in the visible text. If the automatic
   pronunciation would be unclear, the entry gets a fully worded `speech` text.
 
@@ -93,7 +94,9 @@ Examples:
   `<challenge>: <response>`. `condition`, `alternatives` and `notes` are not
   appended automatically. Without `speech`, an entry is only fully voiced if
   the challenge and response already contain all the information needed for
-  the announcement.
+  the announcement. An entry gets its own `speech` only when needed, for
+  example when notes must be spoken or the automatic announcement sounds
+  wrong.
 - When changing an entry, also reconcile `speech` with all changed fields;
   then update the affected [audio assets](../../assets/audio/README.md).
 - Every entry with `kind: "verify"` gets a `speech` text starting with

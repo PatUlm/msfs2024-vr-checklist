@@ -12,7 +12,7 @@
       }
     ]
   },
-  "revision": "2026-09-19",
+  "revision": "2026-10-04",
   "sections": [
     {
       "id": "preparations",
@@ -41,10 +41,10 @@
         },
         {
           "id": "console-lights",
-          "challenge": "Console and Instruments Lights",
+          "challenge": "Console and Instrument Lights",
           "response": "As required",
           "kind": "action",
-          "speech": "Console and instruments lights: As required."
+          "speech": "Console and instrument lights: As required."
         },
         {
           "id": "displays",
@@ -118,16 +118,16 @@
         {
           "id": "engine-ignition",
           "challenge": "Engine Ignition",
-          "response": "Norm",
+          "response": "NORM",
           "kind": "action",
           "speech": "Engine ignition: Normal."
         },
         {
           "id": "computer-power",
-          "challenge": "Computer Power [1+2]",
+          "challenge": "Computer Power [PRI+BU]",
           "response": "On",
           "kind": "action",
-          "speech": "Computer power one and two: On."
+          "speech": "Primary and backup computer power: On."
         },
         {
           "id": "egi-power",
@@ -201,7 +201,7 @@
           "challenge": "Engine 1 NG",
           "response": "≥ 63 % and stable",
           "kind": "verify",
-          "speech": "Verify Engine one N G: At least 63 percent and stable."
+          "speech": "Verify engine one N G: At least 63 percent and stable."
         },
         {
           "id": "engine-2-start",
@@ -215,7 +215,7 @@
           "challenge": "Engine 2 NG",
           "response": "≥ 63 % and stable",
           "kind": "verify",
-          "speech": "Verify Engine two N G: At least 63 percent and stable."
+          "speech": "Verify engine two N G: At least 63 percent and stable."
         },
         {
           "id": "engines-fly",

@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "file": "item-1ea99738ccbe819b.opus",
+  "sha256": "cef1a8ffd9f4b6daf6836c0e3f06bba995fccc76af21b92e69f5c1d63cbf7170",
+  "recipeHash": "1ea99738ccbe819b350931720070bae0ea59cf7108dc178d7b23ca09d2394411",
+  "recipe": {
+    "voiceId": "nPczCjzI2devNBz1zQrb",
+    "request": {
+      "text": "Runway turnoff lights: On.",
+      "model_id": "eleven_multilingual_v2",
+      "voice_settings": {
+        "stability": 0.75,
+        "similarity_boost": 0.75,
+        "style": 0,
+        "use_speaker_boost": true,
+        "speed": 1
+      },
+      "seed": 9172026
+    },
+    "sourceFormat": "mp3_44100_128",
+    "profile": "clean",
+    "normalization": "loudnorm=I=-20:TP=-2:LRA=11",
+    "format": "ogg-opus-mono-48000-32k",
+    "revision": 1
+  },
+  "generatedAt": "2026-10-04T07:21:29.316Z",
+  "provider": "ElevenLabs",
+  "voice": "Brian",
+  "generationPlan": "paid",
+  "planEvidence": "Operator confirmed active Starter subscription before rendering.",
+  "requestId": "7g7m10ZM1m8iLSSIUHmH",
+  "characterCost": "10",
+  "ffmpegVersion": "ffmpeg version 6.1.1-3ubuntu5 Copyright (c) 2000-2023 the FFmpeg developers",
+  "licenseNotice": "../README.md"
+}

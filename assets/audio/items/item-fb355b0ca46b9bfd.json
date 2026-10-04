@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "file": "item-fb355b0ca46b9bfd.opus",
+  "sha256": "386299df4098451e6e6c8a20a78068958400afd85677489736d410b2ee9307f9",
+  "recipeHash": "fb355b0ca46b9bfd8faeab6649ea1c128f2e7e3ffee1f10df9ae0e399a9a276c",
+  "recipe": {
+    "voiceId": "nPczCjzI2devNBz1zQrb",
+    "request": {
+      "text": "Twist grip: Full open. Keep torque at 20 to 25 P S I in the H five hundred C, or 30 to 35 P S I in the O H six A.",
+      "model_id": "eleven_multilingual_v2",
+      "voice_settings": {
+        "stability": 0.75,
+        "similarity_boost": 0.75,
+        "style": 0,
+        "use_speaker_boost": true,
+        "speed": 1
+      },
+      "seed": 9172026
+    },
+    "sourceFormat": "mp3_44100_128",
+    "profile": "clean",
+    "normalization": "loudnorm=I=-20:TP=-2:LRA=11",
+    "format": "ogg-opus-mono-48000-32k",
+    "revision": 1
+  },
+  "generatedAt": "2026-10-04T07:21:50.886Z",
+  "provider": "ElevenLabs",
+  "voice": "Brian",
+  "generationPlan": "paid",
+  "planEvidence": "Operator confirmed active Starter subscription before rendering.",
+  "requestId": "jnQudlHVTFzeVGtGOvtF",
+  "characterCost": "45",
+  "ffmpegVersion": "ffmpeg version 6.1.1-3ubuntu5 Copyright (c) 2000-2023 the FFmpeg developers",
+  "licenseNotice": "../README.md"
+}

@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "file": "item-be3947151d114328.opus",
+  "sha256": "b238e1d050cdd81180e0d679e2da13a2a931f1ea2fb7f09ac8a2684869ccf7f3",
+  "recipeHash": "be3947151d1143283c16008734eb69852adf878ef236c98b7d22d3bd5524039f",
+  "recipe": {
+    "voiceId": "nPczCjzI2devNBz1zQrb",
+    "request": {
+      "text": "Avionics: Off, in the O H six A only.",
+      "model_id": "eleven_multilingual_v2",
+      "voice_settings": {
+        "stability": 0.75,
+        "similarity_boost": 0.75,
+        "style": 0,
+        "use_speaker_boost": true,
+        "speed": 1
+      },
+      "seed": 9172026
+    },
+    "sourceFormat": "mp3_44100_128",
+    "profile": "clean",
+    "normalization": "loudnorm=I=-20:TP=-2:LRA=11",
+    "format": "ogg-opus-mono-48000-32k",
+    "revision": 1
+  },
+  "generatedAt": "2026-10-04T07:24:04.443Z",
+  "provider": "ElevenLabs",
+  "voice": "Brian",
+  "generationPlan": "paid",
+  "planEvidence": "Operator confirmed active Starter subscription before rendering.",
+  "requestId": "wJRABTRd0hx8yH5ZVb6l",
+  "characterCost": "15",
+  "ffmpegVersion": "ffmpeg version 6.1.1-3ubuntu5 Copyright (c) 2000-2023 the FFmpeg developers",
+  "licenseNotice": "../README.md"
+}

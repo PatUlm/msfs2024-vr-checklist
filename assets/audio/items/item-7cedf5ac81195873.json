@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "file": "item-7cedf5ac81195873.opus",
+  "sha256": "cc565c9920de3e6cc19fc1bd0047425ff3fda695d657f7baa6e54c097c25709f",
+  "recipeHash": "7cedf5ac811958730942f0ed7dadf2cfbd568504e46a0da5e81f7951a0233858",
+  "recipe": {
+    "voiceId": "nPczCjzI2devNBz1zQrb",
+    "request": {
+      "text": "Verify collective: Full down.",
+      "model_id": "eleven_multilingual_v2",
+      "voice_settings": {
+        "stability": 0.75,
+        "similarity_boost": 0.75,
+        "style": 0,
+        "use_speaker_boost": true,
+        "speed": 1
+      },
+      "seed": 9172026
+    },
+    "sourceFormat": "mp3_44100_128",
+    "profile": "clean",
+    "normalization": "loudnorm=I=-20:TP=-2:LRA=11",
+    "format": "ogg-opus-mono-48000-32k",
+    "revision": 1
+  },
+  "generatedAt": "2026-10-04T07:21:45.996Z",
+  "provider": "ElevenLabs",
+  "voice": "Brian",
+  "generationPlan": "paid",
+  "planEvidence": "Operator confirmed active Starter subscription before rendering.",
+  "requestId": "dHi19Ca6MEgN14oSs7ys",
+  "characterCost": "12",
+  "ffmpegVersion": "ffmpeg version 6.1.1-3ubuntu5 Copyright (c) 2000-2023 the FFmpeg developers",
+  "licenseNotice": "../README.md"
+}

@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "file": "item-2615f4fb4956ad70.opus",
+  "sha256": "b695654ee118b9028c57b29bd20f2c5a25e637ec06e01afef302b126424602ef",
+  "recipeHash": "2615f4fb4956ad708e4d2b0397db5a1d74b1641515b117f8c4c5082ba058bfdc",
+  "recipe": {
+    "voiceId": "nPczCjzI2devNBz1zQrb",
+    "request": {
+      "text": "Taxi light: Off.",
+      "model_id": "eleven_multilingual_v2",
+      "voice_settings": {
+        "stability": 0.75,
+        "similarity_boost": 0.75,
+        "style": 0,
+        "use_speaker_boost": true,
+        "speed": 1
+      },
+      "seed": 9172026
+    },
+    "sourceFormat": "mp3_44100_128",
+    "profile": "clean",
+    "normalization": "loudnorm=I=-20:TP=-2:LRA=11",
+    "format": "ogg-opus-mono-48000-32k",
+    "revision": 1
+  },
+  "generatedAt": "2026-10-04T07:21:43.814Z",
+  "provider": "ElevenLabs",
+  "voice": "Brian",
+  "generationPlan": "paid",
+  "planEvidence": "Operator confirmed active Starter subscription before rendering.",
+  "requestId": "e4pJLNDitYQhuBRZ302l",
+  "characterCost": "6",
+  "ffmpegVersion": "ffmpeg version 6.1.1-3ubuntu5 Copyright (c) 2000-2023 the FFmpeg developers",
+  "licenseNotice": "../README.md"
+}

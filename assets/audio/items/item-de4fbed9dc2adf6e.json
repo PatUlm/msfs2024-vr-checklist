@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "file": "item-de4fbed9dc2adf6e.opus",
+  "sha256": "312ea96557ba30d951b199f864e793c4f327e84cd62b6c3e8d140bab181c18aa",
+  "recipeHash": "de4fbed9dc2adf6e76868996acb54d846f5e349675c71123f4e493ddd629b15e",
+  "recipe": {
+    "voiceId": "nPczCjzI2devNBz1zQrb",
+    "request": {
+      "text": "Taxi to the hold-short line, maximum 20 knots ground speed, per career mode rules.",
+      "model_id": "eleven_multilingual_v2",
+      "voice_settings": {
+        "stability": 0.75,
+        "similarity_boost": 0.75,
+        "style": 0,
+        "use_speaker_boost": true,
+        "speed": 1
+      },
+      "seed": 9172026
+    },
+    "sourceFormat": "mp3_44100_128",
+    "profile": "clean",
+    "normalization": "loudnorm=I=-20:TP=-2:LRA=11",
+    "format": "ogg-opus-mono-48000-32k",
+    "revision": 1
+  },
+  "generatedAt": "2026-10-04T07:44:35.040Z",
+  "provider": "ElevenLabs",
+  "voice": "Brian",
+  "generationPlan": "paid",
+  "planEvidence": "Operator confirmed active Starter subscription before rendering.",
+  "requestId": "1RLVLb2SypwSARDPtEEl",
+  "characterCost": "33",
+  "ffmpegVersion": "ffmpeg version 6.1.1-3ubuntu5 Copyright (c) 2000-2023 the FFmpeg developers",
+  "licenseNotice": "../README.md"
+}

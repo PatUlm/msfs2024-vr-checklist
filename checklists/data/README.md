@@ -28,6 +28,10 @@ change log.
   `Departure` the takeoff preparation, takeoff and climb. No empty groups for
   unused phases. The G36 group `Approach` stays assigned to this phase despite
   its landing configuration.
+- `Taxi to` items state `Maximum 20 kt ground speed per career mode rules`:
+  MSFS 2024 career mode penalizes faster taxiing
+  ([forum](https://forums.flightsimulator.com/t/remove-the-20kt-taxi-speed-limit-in-career-mode/677556));
+  real operators often allow more, Airbus for example 30 kt.
 - Phases serve the display, `Skip phase` and the phase end: consecutive groups
   with the same phase form one block, and the app stops its automatic advance
   after the block's last group. Check phase changes for this effect as well.
@@ -72,6 +76,9 @@ attribution and the assessment of the reviewed set.
   [MH60 Release Notes](https://miltechsimulations.talkyard.net/-337/miltech-simulations-mh60-release-notes)
   ends at V1.1.0. Keybinds and system description:
   [Miltech Documentation Hub](https://docs.miltechsimulations.com/miltech-simulations-mh60).
+  `AUTO PLT`, `TRIM`, `DE-ICE Master` and the position `NORM` follow the
+  cockpit labels; `Computer Power [PRI+BU]` (primary and backup) follows the
+  [quick-start guide](https://docs.miltechsimulations.com/miltech-simulations-mh60/product-guides/quick-start-guide.md).
 - The H125 order for the compact engine start is based on the published
   [AS350/H125 operator checklist](https://aviapages.com/media/2022/03/14/Checklist_H125.pdf):
   pitot heat follows the generator and avionics and comes before moving the
@@ -100,6 +107,7 @@ attribution and the assessment of the reviewed set.
   (positive climb, autopilot, F1 marker, managed speed, `MCL`) follow the
   in-game procedure; the Quick Reference Card does not cover them. Probe and
   strobe lights use the cockpit switch positions `OFF`/`DIM`/`BRT` instead of
-  the card's `On`.
+  the card's `On`. `BAT`, `ENG Master`, `ENG Start Mode`, `NAV Lights` and
+  `ANTI ICE` are the cockpit labels.
 - The G36 checklist is deliberately a minimal, incomplete memory aid of
   selected speeds, flap and landing gear positions.

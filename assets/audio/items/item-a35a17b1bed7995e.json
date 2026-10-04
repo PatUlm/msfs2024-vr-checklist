@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "file": "item-a35a17b1bed7995e.opus",
+  "sha256": "0196dff04f11e7563345aec98e938cb36ccd8838b42bea36bb14427279d3c853",
+  "recipeHash": "a35a17b1bed7995e0792d664206bdcb7f8f448d4866c90125200688f607761ab",
+  "recipe": {
+    "voiceId": "nPczCjzI2devNBz1zQrb",
+    "request": {
+      "text": "Before Start Checklist. Verify rotor brake: Released.",
+      "model_id": "eleven_multilingual_v2",
+      "voice_settings": {
+        "stability": 0.75,
+        "similarity_boost": 0.75,
+        "style": 0,
+        "use_speaker_boost": true,
+        "speed": 1
+      },
+      "seed": 9172026
+    },
+    "sourceFormat": "mp3_44100_128",
+    "profile": "clean",
+    "normalization": "loudnorm=I=-20:TP=-2:LRA=11",
+    "format": "ogg-opus-mono-48000-32k",
+    "revision": 1
+  },
+  "generatedAt": "2026-10-04T07:21:32.547Z",
+  "provider": "ElevenLabs",
+  "voice": "Brian",
+  "generationPlan": "paid",
+  "planEvidence": "Operator confirmed active Starter subscription before rendering.",
+  "requestId": "SZdH0qEctaRlNswLH1rr",
+  "characterCost": "21",
+  "ffmpegVersion": "ffmpeg version 6.1.1-3ubuntu5 Copyright (c) 2000-2023 the FFmpeg developers",
+  "licenseNotice": "../README.md"
+}

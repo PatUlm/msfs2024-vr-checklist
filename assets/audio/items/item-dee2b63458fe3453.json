@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "file": "item-dee2b63458fe3453.opus",
+  "sha256": "a3aba14d90c6039e1b9e949b54a6b1512a4e33e4efd771958b9b29ed94fbca2c",
+  "recipeHash": "dee2b63458fe34530bacda759d90cd13c533b265ee7429bf536fa2287c0a274d",
+  "recipe": {
+    "voiceId": "nPczCjzI2devNBz1zQrb",
+    "request": {
+      "text": "Verify twist grip: Cutoff.",
+      "model_id": "eleven_multilingual_v2",
+      "voice_settings": {
+        "stability": 0.75,
+        "similarity_boost": 0.75,
+        "style": 0,
+        "use_speaker_boost": true,
+        "speed": 1
+      },
+      "seed": 9172026
+    },
+    "sourceFormat": "mp3_44100_128",
+    "profile": "clean",
+    "normalization": "loudnorm=I=-20:TP=-2:LRA=11",
+    "format": "ogg-opus-mono-48000-32k",
+    "revision": 1
+  },
+  "generatedAt": "2026-10-04T07:21:47.003Z",
+  "provider": "ElevenLabs",
+  "voice": "Brian",
+  "generationPlan": "paid",
+  "planEvidence": "Operator confirmed active Starter subscription before rendering.",
+  "requestId": "H3D4485N5xzu1ggQXrzC",
+  "characterCost": "10",
+  "ffmpegVersion": "ffmpeg version 6.1.1-3ubuntu5 Copyright (c) 2000-2023 the FFmpeg developers",
+  "licenseNotice": "../README.md"
+}

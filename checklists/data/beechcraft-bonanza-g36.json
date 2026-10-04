@@ -12,7 +12,7 @@
       }
     ]
   },
-  "revision": "2026-09-19",
+  "revision": "2026-10-04",
   "sections": [
     {
       "id": "departure",
@@ -37,7 +37,7 @@
           "challenge": "Climb Rate",
           "response": "Positive",
           "kind": "verify",
-          "speech": "Verify Climb Rate: Positive."
+          "speech": "Verify climb rate: Positive."
         },
         {
           "id": "gear",
@@ -50,7 +50,8 @@
           "challenge": "Climb Speed (Vy)",
           "response": "100 kt",
           "kind": "action",
-          "speech": "Climb speed V Y: 100 knots."
+          "speech": "Climb speed V Y: 100 knots.",
+          "decision": "Vy is kept by maintainer decision."
         }
       ]
     },

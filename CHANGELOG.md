@@ -7,6 +7,25 @@ Changelog, and the project uses Semantic Versioning.
 
 ## [Unreleased]
 
+### Changed
+
+- The OH-6 shutdown checks the collective, its friction, the cyclic, its
+  friction, the generator and the avionics as separate items.
+- Item names are more consistent across checklists, for example
+  `Twist Grip`, `Engine Master Left`, `Autopilot`, `Altimeters [1+2]`,
+  `Runway Turnoff Lights` and the MH-60 `Computer Power [PRI+BU]`. The H125
+  rotor brake before start is now a check.
+- Every `Taxi to` item states the maximum taxi ground speed of 20 kt, the
+  limit of the MSFS 2024 career mode.
+
+### Fixed
+
+- Callouts now include their notes where they were missing, for example the
+  OH-6 lamp test result, the OH-6A-only avionics and the DA42 ECU test click
+  spot.
+- The OH-6 twist grip uses the position `Full Open` instead of `FLIGHT`.
+- The A400M beacon item names both switch positions, `Both + Bright`.
+
 ## [0.19.2] - 2026-10-03
 
 ### Added

@@ -14,7 +14,7 @@
       }
     ]
   },
-  "revision": "2026-09-19",
+  "revision": "2026-10-04",
   "sections": [
     {
       "id": "before-start",
@@ -26,21 +26,21 @@
           "challenge": "Rotor Brake Handle",
           "response": "Stowed",
           "kind": "verify",
-          "speech": "Verify Rotor Brake Handle: Stowed."
+          "speech": "Verify rotor brake handle: Stowed."
         },
         {
           "id": "collective",
           "challenge": "Collective",
           "response": "Full Down",
           "kind": "verify",
-          "speech": "Verify Collective: Full Down."
+          "speech": "Verify collective: Full down."
         },
         {
           "id": "twistgrip-throttle",
-          "challenge": "Twistgrip Throttle",
+          "challenge": "Twist Grip",
           "response": "CUTOFF",
           "kind": "verify",
-          "speech": "Verify Twistgrip throttle: Cutoff."
+          "speech": "Verify twist grip: Cutoff."
         },
         {
           "id": "electrical-power",
@@ -59,17 +59,18 @@
           "challenge": "Cabin / Panel / Instrument Lights",
           "response": "As required",
           "kind": "action",
-          "speech": "Cabin, panel and instrument lights: As required."
+          "speech": "Cabin, panel and instrument lights: As required.",
+          "decision": "One combined item on purpose, as in the source."
         },
         {
           "id": "caution-warning-lights-test",
-          "challenge": "Caution / Warning Lights",
+          "challenge": "Caution and Warning Lights",
           "response": "Press to Test",
           "kind": "action",
-          "speech": "Caution and warning lights: Press to test.",
           "notes": [
             "All indicators illuminate."
-          ]
+          ],
+          "speech": "Caution and warning lights: Press to test. All indicators illuminate."
         },
         {
           "id": "ignition-key",
@@ -89,15 +90,16 @@
           "challenge": "Starter",
           "response": "Press + Hold",
           "kind": "action",
-          "speech": "Starter: Press and hold."
+          "speech": "Starter: Press and hold.",
+          "decision": "The starter is a push button held during the start, not a switch."
         },
         {
           "id": "twistgrip-idle",
-          "challenge": "Twistgrip Throttle",
+          "challenge": "Twist Grip",
           "response": "IDLE",
           "kind": "action",
           "condition": "Engine N1 ≥ 20 %",
-          "speech": "Twistgrip throttle: Move to idle when engine N one is at least 20 percent."
+          "speech": "Twist grip: Move to idle when engine N one is at least 20 percent."
         },
         {
           "id": "starter-release",
@@ -105,17 +107,18 @@
           "response": "Release",
           "kind": "action",
           "condition": "Engine N1 ≥ 61 %",
-          "speech": "Starter: Release when engine N one is at least 61 percent."
+          "speech": "Starter: Release when engine N one is at least 61 percent.",
+          "decision": "The starter is a push button held during the start, not a switch."
         },
         {
           "id": "twistgrip-flight",
-          "challenge": "Twistgrip Throttle",
-          "response": "FLIGHT",
+          "challenge": "Twist Grip",
+          "response": "Full Open",
           "kind": "action",
           "notes": [
             "Keep torque at 20 to 25 psi (H500C) or 30 to 35 psi (OH-6A)."
           ],
-          "speech": "Twistgrip throttle: Flight. Keep torque at 20 to 25 P S I in the H500C, or 30 to 35 P S I in the OH-6A."
+          "speech": "Twist grip: Full open. Keep torque at 20 to 25 P S I in the H five hundred C, or 30 to 35 P S I in the O H six A."
         },
         {
           "id": "generator",
@@ -128,23 +131,22 @@
           "challenge": "Avionics",
           "response": "On",
           "kind": "action",
-          "notes": [
-            "Not fitted in the H500C."
-          ]
+          "condition": "OH-6A only",
+          "speech": "Avionics: On, in the O H six A only."
         },
         {
           "id": "set-n2",
-          "challenge": "Set N2",
+          "challenge": "Engine N2",
           "response": "104 %",
           "kind": "action",
-          "speech": "Set N two: 104 percent."
+          "speech": "Engine N two: 104 percent."
         },
         {
           "id": "caution-warning-indicators-final",
-          "challenge": "Caution / Warning Indicators",
+          "challenge": "Caution and Warning Lights",
           "response": "All Out",
           "kind": "verify",
-          "speech": "Verify Caution and warning indicators: All out."
+          "speech": "Verify caution and warning lights: All out."
         }
       ]
     },
@@ -163,10 +165,7 @@
           "id": "landing-light",
           "challenge": "Landing Light",
           "response": "As required",
-          "kind": "action",
-          "notes": [
-            "Also used as taxi light."
-          ]
+          "kind": "action"
         },
         {
           "id": "pitot-heat",
@@ -184,23 +183,37 @@
         {
           "id": "collective",
           "challenge": "Collective",
-          "response": "Full Down + Friction On",
+          "response": "Full Down",
           "kind": "action",
-          "speech": "Collective: Full down and friction on."
+          "speech": "Collective: Full down."
+        },
+        {
+          "id": "collective-friction",
+          "challenge": "Collective Friction",
+          "response": "On",
+          "kind": "action",
+          "speech": "Collective friction: On."
         },
         {
           "id": "cyclic",
           "challenge": "Cyclic",
-          "response": "Neutral + Friction On",
+          "response": "Neutral",
           "kind": "action",
-          "speech": "Cyclic: Neutral and friction on."
+          "speech": "Cyclic: Neutral."
+        },
+        {
+          "id": "cyclic-friction",
+          "challenge": "Cyclic Friction",
+          "response": "On",
+          "kind": "action",
+          "speech": "Cyclic friction: On."
         },
         {
           "id": "twistgrip-idle",
-          "challenge": "Twistgrip Throttle",
+          "challenge": "Twist Grip",
           "response": "IDLE",
           "kind": "action",
-          "speech": "Twistgrip throttle: Idle."
+          "speech": "Twist grip: Idle."
         },
         {
           "id": "engine-cool-down",
@@ -211,7 +224,7 @@
         },
         {
           "id": "bleed-air-electrical-equipment",
-          "challenge": "Bleed Air / Electrical Equipment",
+          "challenge": "Bleed Air and Electrical Equipment",
           "response": "Off",
           "kind": "action",
           "speech": "Bleed air and electrical equipment: Off."
@@ -224,17 +237,25 @@
         },
         {
           "id": "twistgrip-cutoff",
-          "challenge": "Twistgrip Throttle",
+          "challenge": "Twist Grip",
           "response": "CUTOFF",
           "kind": "action",
-          "speech": "Twistgrip throttle: Cutoff."
+          "speech": "Twist grip: Cutoff."
         },
         {
-          "id": "generator-avionics",
-          "challenge": "Generator / Avionics",
+          "id": "generator",
+          "challenge": "Generator",
           "response": "Off",
           "kind": "action",
-          "speech": "Generator and avionics: Off."
+          "speech": "Generator: Off."
+        },
+        {
+          "id": "avionics",
+          "challenge": "Avionics",
+          "response": "Off",
+          "kind": "action",
+          "condition": "OH-6A only",
+          "speech": "Avionics: Off, in the O H six A only."
         },
         {
           "id": "rotor-brake",
@@ -252,7 +273,7 @@
           "challenge": "Rotor Brake Handle",
           "response": "Stowed",
           "kind": "verify",
-          "speech": "Verify Rotor Brake Handle: Stowed."
+          "speech": "Verify rotor brake handle: Stowed."
         },
         {
           "id": "anti-collision-lights",

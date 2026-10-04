@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "file": "item-e315858695684a3f.opus",
+  "sha256": "fe44a9a87f47f08712fdc1c5c1884f6e4c4cf1fefe0ebd6d66b3d75540176626",
+  "recipeHash": "e315858695684a3f0bc5b8f213bcc452cd5d1f073628f3d9823615e10f9d117a",
+  "recipe": {
+    "voiceId": "nPczCjzI2devNBz1zQrb",
+    "request": {
+      "text": "Verify rotor brake handle: Stowed.",
+      "model_id": "eleven_multilingual_v2",
+      "voice_settings": {
+        "stability": 0.75,
+        "similarity_boost": 0.75,
+        "style": 0,
+        "use_speaker_boost": true,
+        "speed": 1
+      },
+      "seed": 9172026
+    },
+    "sourceFormat": "mp3_44100_128",
+    "profile": "clean",
+    "normalization": "loudnorm=I=-20:TP=-2:LRA=11",
+    "format": "ogg-opus-mono-48000-32k",
+    "revision": 1
+  },
+  "generatedAt": "2026-10-04T07:22:02.136Z",
+  "provider": "ElevenLabs",
+  "voice": "Brian",
+  "generationPlan": "paid",
+  "planEvidence": "Operator confirmed active Starter subscription before rendering.",
+  "requestId": "DRnxW7XqE1uf3570l0zv",
+  "characterCost": "14",
+  "ffmpegVersion": "ffmpeg version 6.1.1-3ubuntu5 Copyright (c) 2000-2023 the FFmpeg developers",
+  "licenseNotice": "../README.md"
+}

@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "file": "item-7a4686ec14aebedf.opus",
+  "sha256": "a321b6e17a3d357effd9878830b4665fab9131e782c3e9a616db03cbef6b25ce",
+  "recipeHash": "7a4686ec14aebedf65bbca6761573050c92c02454fd604005f5529179e3d7852",
+  "recipe": {
+    "voiceId": "nPczCjzI2devNBz1zQrb",
+    "request": {
+      "text": "Taxi to the runway, maximum 20 knots ground speed, per career mode rules.",
+      "model_id": "eleven_multilingual_v2",
+      "voice_settings": {
+        "stability": 0.75,
+        "similarity_boost": 0.75,
+        "style": 0,
+        "use_speaker_boost": true,
+        "speed": 1
+      },
+      "seed": 9172026
+    },
+    "sourceFormat": "mp3_44100_128",
+    "profile": "clean",
+    "normalization": "loudnorm=I=-20:TP=-2:LRA=11",
+    "format": "ogg-opus-mono-48000-32k",
+    "revision": 1
+  },
+  "generatedAt": "2026-10-04T07:44:36.374Z",
+  "provider": "ElevenLabs",
+  "voice": "Brian",
+  "generationPlan": "paid",
+  "planEvidence": "Operator confirmed active Starter subscription before rendering.",
+  "requestId": "W8faXuIaKS52cAJFVWqt",
+  "characterCost": "29",
+  "ffmpegVersion": "ffmpeg version 6.1.1-3ubuntu5 Copyright (c) 2000-2023 the FFmpeg developers",
+  "licenseNotice": "../README.md"
+}

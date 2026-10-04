@@ -11,7 +11,7 @@
       { "atcModel": { "equals": "Diamond DA42" } }
     ]
   },
-  "revision": "2026-10-03",
+  "revision": "2026-10-04",
   "sections": [
     {
       "id": "before-engine-start",
@@ -75,21 +75,22 @@
           "challenge": "Fuel Quantity and Temperature",
           "response": "Check",
           "kind": "verify",
-          "speech": "Verify Fuel Quantity and Temperature: Check."
+          "speech": "Verify fuel quantity and temperature: Check."
         },
         {
           "id": "engine-master-left",
-          "challenge": "Engine Master (left)",
+          "challenge": "Engine Master Left",
           "response": "On",
-          "kind": "action"
+          "kind": "action",
+          "speech": "Engine master left: On."
         },
         {
           "id": "glow-annunciation-left",
-          "challenge": "CAP \"L/R GLOW ON\"",
+          "challenge": "CAP \"L GLOW ON\"",
           "response": "Wait",
           "kind": "verify",
           "condition": "Until CAP clears",
-          "speech": "Verify Left glow indication: Wait until it clears."
+          "speech": "Verify left glow indication: Wait until it clears."
         },
         {
           "id": "start-key-left",
@@ -104,22 +105,23 @@
           "challenge": "Voltage and Electrical Load",
           "response": "Check",
           "kind": "verify",
-          "speech": "Verify Voltage and electrical load: Check on E I S.",
-          "notes": ["On EIS"]
+          "notes": ["On EIS"],
+          "speech": "Verify voltage and electrical load: Check on E I S."
         },
         {
           "id": "engine-master-right",
-          "challenge": "Engine Master (right)",
+          "challenge": "Engine Master Right",
           "response": "On",
-          "kind": "action"
+          "kind": "action",
+          "speech": "Engine master right: On."
         },
         {
           "id": "glow-annunciation-right",
-          "challenge": "CAP \"L/R GLOW ON\"",
+          "challenge": "CAP \"R GLOW ON\"",
           "response": "Wait",
           "kind": "verify",
           "condition": "Until CAP clears",
-          "speech": "Verify Right glow indication: Wait until it clears."
+          "speech": "Verify right glow indication: Wait until it clears."
         },
         {
           "id": "start-key-right",
@@ -218,8 +220,8 @@
           "response": "Hold for 25 s",
           "kind": "optional",
           "condition": "Until CAP clears",
-          "speech": "E C U test one and two: Hold for 25 seconds until the CAP indication clears.",
-          "notes": ["Use click spot"]
+          "notes": ["Use click spot"],
+          "speech": "E C U test one and two: Use the click spot and hold for 25 seconds until the C A P indication clears."
         }
       ]
     },
@@ -265,8 +267,9 @@
           "challenge": "Taxi to",
           "response": "Hold Short Line",
           "kind": "action",
-          "speech": "Taxi to the hold-short line, maximum 20 knots ground speed.",
-          "notes": ["Maximum 20 kt ground speed"]
+          "notes": ["Maximum 20 kt ground speed per career mode rules"],
+          "speech": "Taxi to the hold-short line, maximum 20 knots ground speed, per career mode rules.",
+          "decision": "Taxi to...<destination> follows the existing wording and reads naturally; the preposition stays in the challenge. 20 kt ground speed is the MSFS 2024 career-mode taxi limit."
         }
       ]
     },
@@ -297,9 +300,10 @@
         },
         {
           "id": "taxi-lights",
-          "challenge": "Taxi Lights",
+          "challenge": "Taxi Light",
           "response": "Off",
-          "kind": "action"
+          "kind": "action",
+          "speech": "Taxi light: Off."
         },
         {
           "id": "landing-lights",
@@ -327,7 +331,9 @@
           "challenge": "Taxi to",
           "response": "Runway",
           "kind": "action",
-          "speech": "Taxi to the runway."
+          "notes": ["Maximum 20 kt ground speed per career mode rules"],
+          "speech": "Taxi to the runway, maximum 20 knots ground speed, per career mode rules.",
+          "decision": "Taxi to...<destination> follows the existing wording and reads naturally; the preposition stays in the challenge. 20 kt ground speed is the MSFS 2024 career-mode taxi limit."
         },
         {
           "id": "heading",
@@ -384,7 +390,8 @@
           "challenge": "Climb Speed (Vy)",
           "response": "92 kt",
           "kind": "action",
-          "speech": "Climb speed V Y: 92 knots."
+          "speech": "Climb speed V Y: 92 knots.",
+          "decision": "Vy is kept by maintainer decision."
         },
         {
           "id": "fuel-pumps",

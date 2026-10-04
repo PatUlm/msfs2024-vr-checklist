@@ -20,7 +20,7 @@ const checklistProperties = new Set([
 const aircraftProperties = new Set(["manufacturer", "model", "msfsMatches"]);
 const aircraftMatchProperties = new Set(["atcModel", "atcType", "title"]);
 const aircraftMatchCriterionProperties = new Set(["equals", "contains"]);
-const sectionProperties = new Set(["id", "title", "phase", "items"]);
+const sectionProperties = new Set(["id", "title", "phase", "items", "decision"]);
 const itemProperties = new Set([
   "id",
   "challenge",
@@ -32,6 +32,7 @@ const itemProperties = new Set([
   "notes",
   "needsReview",
   "reviewNote",
+  "decision",
 ]);
 const alternativeProperties = new Set(["when", "response"]);
 
@@ -259,6 +260,9 @@ for (const fileName of fileNames) {
     );
     sectionIds.add(section.id);
     assertSingleLineString(section.title, `${sectionLocation}.title`);
+    if (section.decision !== undefined) {
+      assertSingleLineString(section.decision, `${sectionLocation}.decision`);
+    }
     assert(
       sectionPhases.has(section.phase),
       `${sectionLocation}.phase must be one of: ${[...sectionPhases].join(", ")}`
@@ -354,6 +358,9 @@ for (const fileName of fileNames) {
           item.needsReview === true,
           `${reference} has reviewNote without needsReview`
         );
+      }
+      if (item.decision !== undefined) {
+        assertSingleLineString(item.decision, `${reference}.decision`);
       }
       itemCount += 1;
     }

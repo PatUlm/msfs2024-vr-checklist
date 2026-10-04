@@ -14,6 +14,10 @@ change log.
 - The content and completeness of `speech` follow the
   [style guide](style-guide.md#spoken-announcements-speech).
 - `needsReview` and a specific `reviewNote` mark unresolved content.
+- `decision` records why an entry deliberately deviates from what the style
+  guide or the other checklists would suggest. It is internal: app, companion
+  and exports never show or speak it, and reviews do not flag such entries
+  again. Changing them needs a new decision.
 - Checklist, group (`sections` in the JSON) and item IDs are stable semantic
   slugs in `lower-kebab-case`, even when texts change. Item IDs are unique
   within their group; references look like

@@ -120,6 +120,12 @@
           "items": {
             "$ref": "#/$defs/item"
           }
+        },
+        "decision": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "^[^\\r\\n]+$",
+          "description": "Internal maintainer decision behind a deliberate wording, so reviews do not flag it again. Never shown, spoken or exported."
         }
       }
     },
@@ -181,6 +187,12 @@
           "type": "string",
           "minLength": 1,
           "pattern": "^[^\\r\\n]+$"
+        },
+        "decision": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "^[^\\r\\n]+$",
+          "description": "Internal maintainer decision behind a deliberate wording, so reviews do not flag it again. Never shown, spoken or exported."
         }
       },
       "allOf": [

@@ -107,7 +107,8 @@ attribution and the assessment of the reviewed set.
   (positive climb, autopilot, F1 marker, managed speed, `MCL`) follow the
   in-game procedure; the Quick Reference Card does not cover them. Probe and
   strobe lights use the cockpit switch positions `OFF`/`DIM`/`BRT` instead of
-  the card's `On`. `BAT`, `ENG Master`, `ENG Start Mode`, `NAV Lights` and
+  the card's `On`. The beacon has two switches, `UPPER`/`BOTH` and
+  `OFF`/`DIM`/`BRT`. `BAT`, `ENG Master`, `ENG Start Mode`, `NAV Lights` and
   `ANTI ICE` are the cockpit labels.
 - The G36 checklist is deliberately a minimal, incomplete memory aid of
   selected speeds, flap and landing gear positions.

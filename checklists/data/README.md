@@ -104,8 +104,12 @@ attribution and the assessment of the reviewed set.
   `After Takeoff` onward follow the iniBuilds Quick Reference Card v1.0.0,
   using the challenge names already in use and separate items per control.
   The `Taxi` and `Takeoff` groups and the climb items in `After Takeoff`
-  (positive climb, autopilot, F1 marker, managed speed, `MCL`) follow the
-  in-game procedure; the Quick Reference Card does not cover them. Probe and
+  (positive climb, autopilot, F1 marker, `MCL`) follow the in-game
+  procedure; the Quick Reference Card does not cover them. The autopilot
+  altitude and speed before takeoff, the approximate Vr and Vapp and the
+  takeoff pitch limit are in-game experience values. Landing flap position 4
+  is a separate position before `FULL`; its Vfe of 180 kt follows the flap
+  speed table on manual page 8. Probe and
   strobe lights use the cockpit switch positions `OFF`/`DIM`/`BRT` instead of
   the card's `On`. The beacon has two switches, `UPPER`/`BOTH` and
   `OFF`/`DIM`/`BRT`. `BAT`, `ENG Master`, `ENG Start Mode`, `NAV Lights` and

@@ -11,7 +11,7 @@
       }
     ]
   },
-  "revision": "2026-10-04",
+  "revision": "2026-10-09",
   "sections": [
     {
       "id": "electrical-power-up",
@@ -165,13 +165,6 @@
           "response": "On",
           "kind": "action",
           "speech": "Autopilot flight director: On."
-        },
-        {
-          "id": "autopilot-altitude",
-          "challenge": "Autopilot Altitude",
-          "response": "Set",
-          "kind": "action",
-          "speech": "Autopilot altitude: Set."
         }
       ]
     },
@@ -381,6 +374,24 @@
       "phase": "Departure",
       "items": [
         {
+          "id": "autopilot-altitude",
+          "challenge": "Autopilot Altitude",
+          "response": "Set + Managed",
+          "kind": "action",
+          "speech": "Autopilot altitude: Set and use managed mode."
+        },
+        {
+          "id": "autopilot-speed",
+          "challenge": "Autopilot Speed",
+          "response": "180 kt + Selected",
+          "kind": "action",
+          "notes": [
+            "Maximum 220 kt below 10,000 ft."
+          ],
+          "speech": "Autopilot speed: Set 180 knots and use selected mode. Maximum 220 knots below 10,000 feet.",
+          "decision": "The 220 kt maximum below 10,000 ft is a deliberate user choice for this in-game procedure instead of the common 250 kt limit."
+        },
+        {
           "id": "probe-lights",
           "challenge": "Probe Lights",
           "response": "Bright",
@@ -414,7 +425,10 @@
           "challenge": "Rotation Speed (Vr)",
           "response": "Rotate",
           "kind": "action",
-          "speech": "At rotation speed V R: Rotate.",
+          "notes": [
+            "Approx. 140 kt."
+          ],
+          "speech": "At rotation speed V R, approximately 140 knots: Rotate.",
           "decision": "Same challenge as the other checklists; without a fixed Vr, the response is the action."
         },
         {
@@ -422,7 +436,10 @@
           "challenge": "Pitch",
           "response": "Follow Flight Director",
           "kind": "action",
-          "speech": "Pitch: Follow the flight director."
+          "notes": [
+            "Keep pitch below 10°."
+          ],
+          "speech": "Pitch: Follow the flight director. Keep pitch below ten degrees."
         }
       ]
     },
@@ -453,16 +470,6 @@
           "kind": "action",
           "condition": "Above the F1 speed marker",
           "speech": "Flaps: Up, above the F one speed marker."
-        },
-        {
-          "id": "speed",
-          "challenge": "Speed",
-          "response": "Managed",
-          "kind": "verify",
-          "notes": [
-            "Monitor applicable speed restrictions."
-          ],
-          "speech": "Verify speed: Managed. Monitor applicable speed restrictions."
         },
         {
           "id": "power-levers-climb",
@@ -500,6 +507,7 @@
       "id": "approach",
       "title": "Approach",
       "phase": "Approach",
+      "decision": "The QRC v1.0.0 approach item Engine Start Selector: As Required is deliberately omitted.",
       "items": [
         {
           "id": "approach-data-minima",
@@ -514,13 +522,6 @@
           "response": "Set",
           "kind": "action",
           "speech": "Both altimeters: Set."
-        },
-        {
-          "id": "eng-mode",
-          "challenge": "ENG Start Mode",
-          "response": "As required",
-          "kind": "action",
-          "speech": "Engine start mode: As required."
         }
       ]
     },
@@ -532,8 +533,10 @@
         {
           "id": "flaps",
           "challenge": "Flaps",
-          "response": "Set",
-          "kind": "action"
+          "response": "4",
+          "kind": "action",
+          "condition": "Below Vfe: 180 kt",
+          "speech": "Below 180 knots, flaps: Set to position four."
         },
         {
           "id": "gear",
@@ -554,6 +557,14 @@
           "response": "Set",
           "kind": "action",
           "speech": "Auto brakes: Set."
+        },
+        {
+          "id": "approach-speed",
+          "challenge": "Approach Speed (Vapp)",
+          "response": "Approx. 140 kt",
+          "kind": "action",
+          "condition": "Final approach, flaps 4",
+          "speech": "Final approach speed V app with flaps four: Approximately 140 knots."
         }
       ]
     },

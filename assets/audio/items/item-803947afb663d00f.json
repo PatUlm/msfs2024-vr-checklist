@@ -1,12 +1,12 @@
 {
   "schemaVersion": 1,
-  "file": "item-743dab4abb3fabd5.opus",
-  "sha256": "f14276cfb163615b5e01a75a9e45c45014e7d55c70721e38e29417a5a254f7b0",
-  "recipeHash": "743dab4abb3fabd5278910b3179de996fe7704cc9e33aa3bf28c2c53b2bebe4c",
+  "file": "item-803947afb663d00f.opus",
+  "sha256": "bc4030ee461f32062112313d2f93ccc7b27c7bdcd37e5334023e497bfb469263",
+  "recipeHash": "803947afb663d00f50f77d8f8898f3fa2b78d02d93e51c35474ba1d99857ef43",
   "recipe": {
     "voiceId": "nPczCjzI2devNBz1zQrb",
     "request": {
-      "text": "Engine start mode: As required.",
+      "text": "Probe lights: Bright.",
       "model_id": "eleven_multilingual_v2",
       "voice_settings": {
         "stability": 0.75,
@@ -23,13 +23,13 @@
     "format": "ogg-opus-mono-48000-32k",
     "revision": 1
   },
-  "generatedAt": "2026-09-26T13:31:42.771Z",
+  "generatedAt": "2026-10-09T19:45:45.233Z",
   "provider": "ElevenLabs",
   "voice": "Brian",
   "generationPlan": "paid",
   "planEvidence": "Operator confirmed active Starter subscription before rendering.",
-  "requestId": "TCv8J1YLMhZLiusXbLvr",
-  "characterCost": "16",
+  "requestId": "KsyJSa5w0n3nFK2qNAtl",
+  "characterCost": "8",
   "ffmpegVersion": "ffmpeg version 6.1.1-3ubuntu5 Copyright (c) 2000-2023 the FFmpeg developers",
   "licenseNotice": "../README.md"
 }

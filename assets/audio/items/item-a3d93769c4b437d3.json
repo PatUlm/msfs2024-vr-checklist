@@ -1,12 +1,12 @@
 {
   "schemaVersion": 1,
-  "file": "item-a0d7384262aa2bc5.opus",
-  "sha256": "7acad9fe28f3c6ad4a4907b97ac1dda99e4734552c581939be69301b446490fb",
-  "recipeHash": "a0d7384262aa2bc5807d97fb32844493ed8b44c72dbb5cff7283a160259d7fc5",
+  "file": "item-a3d93769c4b437d3.opus",
+  "sha256": "4e15391f24f5ca384b685df49f02c930809a3f3fce3478ff8ba80ffcaf75f958",
+  "recipeHash": "a3d93769c4b437d32f9e8ea3e442a62fdd5d50aca3d7300f9a81f82f7952f778",
   "recipe": {
     "voiceId": "nPczCjzI2devNBz1zQrb",
     "request": {
-      "text": "At rotation speed V R: Rotate.",
+      "text": "Landing Checklist. Below 180 knots, flaps: Set to position four.",
       "model_id": "eleven_multilingual_v2",
       "voice_settings": {
         "stability": 0.75,
@@ -23,13 +23,13 @@
     "format": "ogg-opus-mono-48000-32k",
     "revision": 1
   },
-  "generatedAt": "2026-10-04T07:21:30.346Z",
+  "generatedAt": "2026-10-09T19:45:48.845Z",
   "provider": "ElevenLabs",
   "voice": "Brian",
   "generationPlan": "paid",
   "planEvidence": "Operator confirmed active Starter subscription before rendering.",
-  "requestId": "J979tnyLT3dSkVYijHp0",
-  "characterCost": "12",
+  "requestId": "5KSZjZBe4c8WPbmtfxWZ",
+  "characterCost": "26",
   "ffmpegVersion": "ffmpeg version 6.1.1-3ubuntu5 Copyright (c) 2000-2023 the FFmpeg developers",
   "licenseNotice": "../README.md"
 }

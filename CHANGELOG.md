@@ -7,6 +7,13 @@ Changelog, and the project uses Semantic Versioning.
 
 ## [Unreleased]
 
+### Changed
+
+- The A400M sets the autopilot altitude to managed and the speed to 180 kt
+  selected before takeoff, notes approximately 140 kt for rotation and
+  approach and a pitch below 10° on takeoff, and lands with flaps 4. The
+  approach no longer lists the engine start selector.
+
 ## [0.19.3] - 2026-10-04
 
 ### Changed

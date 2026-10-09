@@ -1,12 +1,12 @@
 {
   "schemaVersion": 1,
-  "file": "item-c2cbb131710913a1.opus",
-  "sha256": "03f9d28d0ad4b5c66b6b78fa94e2e4f88676c8f344522579f115664781c18576",
-  "recipeHash": "c2cbb131710913a1bb9b644297a40fdf4e7ab4661c1d8ff6666abd0501ddf2f4",
+  "file": "item-6dee2b584c35305c.opus",
+  "sha256": "a6883f0b7a441fd861d2634226b10f7c161a523ee28a2c0183d5c36edb25b8a1",
+  "recipeHash": "6dee2b584c35305c6f1dbde2b18fa4f3cce7517535cf25261d33721731703682",
   "recipe": {
     "voiceId": "nPczCjzI2devNBz1zQrb",
     "request": {
-      "text": "Before Takeoff Checklist. Probe lights: Bright.",
+      "text": "Final approach speed V app with flaps four: Approximately 140 knots.",
       "model_id": "eleven_multilingual_v2",
       "voice_settings": {
         "stability": 0.75,
@@ -23,13 +23,13 @@
     "format": "ogg-opus-mono-48000-32k",
     "revision": 1
   },
-  "generatedAt": "2026-10-03T14:11:43.989Z",
+  "generatedAt": "2026-10-09T19:45:50.180Z",
   "provider": "ElevenLabs",
   "voice": "Brian",
   "generationPlan": "paid",
   "planEvidence": "Operator confirmed active Starter subscription before rendering.",
-  "requestId": "0v45z5GlmEu2p8wxD7HK",
-  "characterCost": "19",
+  "requestId": "vIvSJlsq0d22CaE7I8Au",
+  "characterCost": "27",
   "ffmpegVersion": "ffmpeg version 6.1.1-3ubuntu5 Copyright (c) 2000-2023 the FFmpeg developers",
   "licenseNotice": "../README.md"
 }

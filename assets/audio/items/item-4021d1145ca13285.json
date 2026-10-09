@@ -1,12 +1,12 @@
 {
   "schemaVersion": 1,
-  "file": "item-a850352bfb18ef4f.opus",
-  "sha256": "2083297166a84d442d0cf81801507ce57b6064f5e2ae2ca26601b145fca9f115",
-  "recipeHash": "a850352bfb18ef4f0530f5747b3bd91a6b6d124aa0637567a8b9bc0e6a7b6d4e",
+  "file": "item-4021d1145ca13285.opus",
+  "sha256": "4cf0dcb12363cdb106c88e007d34a7e7556e434da9ec18c3997e03a4aab626eb",
+  "recipeHash": "4021d1145ca13285f2d6c82035b5b7bc0f872bcdf31a9410dde971b997286830",
   "recipe": {
     "voiceId": "nPczCjzI2devNBz1zQrb",
     "request": {
-      "text": "Autopilot altitude: Set.",
+      "text": "Autopilot speed: Set 180 knots and use selected mode. Maximum 220 knots below 10,000 feet.",
       "model_id": "eleven_multilingual_v2",
       "voice_settings": {
         "stability": 0.75,
@@ -23,13 +23,13 @@
     "format": "ogg-opus-mono-48000-32k",
     "revision": 1
   },
-  "generatedAt": "2026-09-24T17:29:46.506Z",
+  "generatedAt": "2026-10-09T19:45:44.125Z",
   "provider": "ElevenLabs",
   "voice": "Brian",
   "generationPlan": "paid",
   "planEvidence": "Operator confirmed active Starter subscription before rendering.",
-  "requestId": "PdvU9yWVRo7Kz4k5zAko",
-  "characterCost": "12",
+  "requestId": "jZNtQ5xVY6fFnV9EiqpP",
+  "characterCost": "36",
   "ffmpegVersion": "ffmpeg version 6.1.1-3ubuntu5 Copyright (c) 2000-2023 the FFmpeg developers",
   "licenseNotice": "../README.md"
 }

@@ -1,12 +1,12 @@
 {
   "schemaVersion": 1,
-  "file": "item-661d42e989104e80.opus",
-  "sha256": "4c1babd230f573c16d444022579b9f2e1c5bb53989752378c986780d116d4254",
-  "recipeHash": "661d42e989104e808d2424facd2c3cc53b6aa46084a2ba46af5bff43e091b114",
+  "file": "item-60ab29493a5bfef0.opus",
+  "sha256": "92a5b1f33f3712674b27e48bb605bcab7851a9c918835c802b6bdcee4e506328",
+  "recipeHash": "60ab29493a5bfef079d9efd3f3486f287b329bec962109c437c6416d949abe42",
   "recipe": {
     "voiceId": "nPczCjzI2devNBz1zQrb",
     "request": {
-      "text": "Verify speed: Managed. Monitor applicable speed restrictions.",
+      "text": "Pitch: Follow the flight director. Keep pitch below ten degrees.",
       "model_id": "eleven_multilingual_v2",
       "voice_settings": {
         "stability": 0.75,
@@ -23,13 +23,13 @@
     "format": "ogg-opus-mono-48000-32k",
     "revision": 1
   },
-  "generatedAt": "2026-10-03T14:11:46.170Z",
+  "generatedAt": "2026-10-09T19:45:47.564Z",
   "provider": "ElevenLabs",
   "voice": "Brian",
   "generationPlan": "paid",
   "planEvidence": "Operator confirmed active Starter subscription before rendering.",
-  "requestId": "2ufa17g0nr1YwLuyye3f",
-  "characterCost": "24",
+  "requestId": "8mj9Xda1qkMsutJfGOKH",
+  "characterCost": "26",
   "ffmpegVersion": "ffmpeg version 6.1.1-3ubuntu5 Copyright (c) 2000-2023 the FFmpeg developers",
   "licenseNotice": "../README.md"
 }

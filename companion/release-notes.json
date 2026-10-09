@@ -3,6 +3,18 @@
   "companionSince": "0.3.0",
   "releases": [
     {
+      "version": "0.19.4",
+      "date": "2026-10-09",
+      "highlight": "The A400M checklist sets speed and altitude before takeoff and lands with flaps 4.",
+      "features": [
+        "Sets the A400M autopilot altitude to managed and the speed to 180 knots selected before takeoff.",
+        "Notes approximately 140 knots for A400M rotation and approach and a takeoff pitch below 10 degrees."
+      ],
+      "fixes": [
+        "Drops the engine start selector from the A400M approach."
+      ]
+    },
+    {
       "version": "0.19.3",
       "date": "2026-10-04",
       "highlight": "The checklists are worded more consistently across all aircraft.",

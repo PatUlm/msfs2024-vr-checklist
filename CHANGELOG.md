@@ -7,6 +7,8 @@ Changelog, and the project uses Semantic Versioning.
 
 ## [Unreleased]
 
+## [0.19.4] - 2026-10-09
+
 ### Changed
 
 - The A400M sets the autopilot altitude to managed and the speed to 180 kt

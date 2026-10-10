@@ -24,6 +24,26 @@ findings and next steps are maintained only at the target.
   shared between EFB contexts and reset on a simulator restart; a changed
   decision gets an ADR superseding ADR 0009.
 
+### Checklist audit findings before 0.19.4
+
+The pre-release wording audit of 0.19.4 reported findings in existing
+content; the release went out without them. Each needs a decision, some a
+source or simulator check first.
+
+- **DA42:** `Start Key` items name no side; the ECU test omits the return to
+  idle from the COWS guide and says CAP instead of CAS; the transponder
+  `VFR | ALT` is ambiguous; four verify items have no target state (`Check`,
+  `Wait`); the fuel pumps "At TOD" sit in the approach phase; `HDG` and other
+  cockpit labels lack README evidence.
+- **OH-6:** The start condition N1 ≥ 20 % (manual: 12–15 % and TOT < 150 °C)
+  and the avionics as `OH-6A only` lack a recorded reason.
+- **Others:** MH-60 `Day/Night` responses instead of alternatives; A400M
+  parking brake `On` versus DA42 `Set`; H125 `Battery / Master`,
+  `(Beacon)` and the pitot heat order versus the data README; C152 notes
+  versus speech; no style-guide rule for `Approx.`
+- **Next step:** Re-run the audit with `vr-checklist-editor` and decide the
+  findings one by one.
+
 ## Topic lists
 
 - [License and redistribution questions](docs/license-audit.md)

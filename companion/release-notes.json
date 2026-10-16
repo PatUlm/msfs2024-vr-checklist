@@ -3,6 +3,19 @@
   "companionSince": "0.3.0",
   "releases": [
     {
+      "version": "0.19.6",
+      "date": "2026-10-16",
+      "highlight": "The A400M engine start now covers the pushback.",
+      "features": [
+        "Removes external power and the GPU just before the A400M engine start.",
+        "Adds a check of the departure runway and SID to the A400M IFR clearance.",
+        "Follows the A400M beacon with the pushback request, an optional pushback and setting the parking brake.",
+        "Makes the DA42 pushback optional.",
+        "Drops the A400M APU available check."
+      ],
+      "fixes": []
+    },
+    {
       "version": "0.19.5",
       "date": "2026-10-16",
       "highlight": "The A400M checklist follows the cockpit flow from power-up to engine start more closely.",

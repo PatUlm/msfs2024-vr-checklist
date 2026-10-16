@@ -11,7 +11,7 @@
       { "atcModel": { "equals": "Diamond DA42" } }
     ]
   },
-  "revision": "2026-10-04",
+  "revision": "2026-10-16",
   "sections": [
     {
       "id": "before-engine-start",
@@ -252,8 +252,8 @@
         {
           "id": "pushback",
           "challenge": "Pushback",
-          "response": "As required",
-          "kind": "action"
+          "response": "Proceed",
+          "kind": "optional"
         },
         {
           "id": "taxi-clearance",

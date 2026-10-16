@@ -7,6 +7,14 @@ Changelog, and the project uses Semantic Versioning.
 
 ## [Unreleased]
 
+### Changed
+
+- The A400M drops the APU available check and removes external power and the
+  GPU just before engine start. The IFR clearance adds a check of the departure
+  runway and SID. The pushback request, an optional pushback and the parking
+  brake, now set instead of checked, follow the beacon. The DA42 pushback is
+  likewise optional.
+
 ## [0.19.5] - 2026-10-16
 
 ### Changed

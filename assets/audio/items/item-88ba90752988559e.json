@@ -1,12 +1,12 @@
 {
   "schemaVersion": 1,
-  "file": "item-d52eb441d5af8eb5.opus",
-  "sha256": "7b7408f87ec47946935de47ae88d8220f4390717db1cf76ce51f85473bc9a786",
-  "recipeHash": "d52eb441d5af8eb5d6491e72f07653b30320c0aa4d6d64a944fbfe727fd5a88c",
+  "file": "item-88ba90752988559e.opus",
+  "sha256": "864c0026a0da558f8b98b4e41ce54a06a9e24ef9f0cd50d7d5425d3cabaa535a",
+  "recipeHash": "88ba90752988559ee2f04e18b5a56f134174f0e692b1ffe8d9b6a0a4140a7ac1",
   "recipe": {
     "voiceId": "nPczCjzI2devNBz1zQrb",
     "request": {
-      "text": "Before Engine Start Checklist. A T I S: Get Q N H.",
+      "text": "A T C clearance: Request I F R clearance. Check the departure runway and Sid in the flight plan against the clearance.",
       "model_id": "eleven_multilingual_v2",
       "voice_settings": {
         "stability": 0.75,
@@ -23,13 +23,13 @@
     "format": "ogg-opus-mono-48000-32k",
     "revision": 1
   },
-  "generatedAt": "2026-10-16T17:43:27.803Z",
+  "generatedAt": "2026-10-16T19:16:53.379Z",
   "provider": "ElevenLabs",
   "voice": "Brian",
   "generationPlan": "paid",
   "planEvidence": "Operator confirmed active Starter subscription before rendering.",
-  "requestId": "A6ijT2jLSsemTDcUP5OS",
-  "characterCost": "20",
+  "requestId": "GKHtUc9QogBMRHVBYtLu",
+  "characterCost": "47",
   "ffmpegVersion": "ffmpeg version 6.1.1-3ubuntu5 Copyright (c) 2000-2023 the FFmpeg developers",
   "licenseNotice": "../README.md"
 }

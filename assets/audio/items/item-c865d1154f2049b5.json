@@ -1,12 +1,12 @@
 {
   "schemaVersion": 1,
-  "file": "item-066bc11033f118a7.opus",
-  "sha256": "7d0198b06f7eae3a8dc737ddc29097da03d6dc06b34058c59d2c3bec65128828",
-  "recipeHash": "066bc11033f118a73dbf26813036b1ee115f2e3cb54068c8c64e6a6433e14fb3",
+  "file": "item-c865d1154f2049b5.opus",
+  "sha256": "3ab5033140d13d68511b2c589c8eb46515fdfb96514e2c83d8b584b0073198a2",
+  "recipeHash": "c865d1154f2049b5088c878839ea17c1bf6e84b441ad0084f03b354172ba2389",
   "recipe": {
     "voiceId": "nPczCjzI2devNBz1zQrb",
     "request": {
-      "text": "Verify A P U: Available.",
+      "text": "Before Engine Start Checklist. External power, if available: Off.",
       "model_id": "eleven_multilingual_v2",
       "voice_settings": {
         "stability": 0.75,
@@ -23,13 +23,13 @@
     "format": "ogg-opus-mono-48000-32k",
     "revision": 1
   },
-  "generatedAt": "2026-10-16T17:43:20.296Z",
+  "generatedAt": "2026-10-16T19:16:51.893Z",
   "provider": "ElevenLabs",
   "voice": "Brian",
   "generationPlan": "paid",
   "planEvidence": "Operator confirmed active Starter subscription before rendering.",
-  "requestId": "q2qbiYK6pMDgMitb7Dar",
-  "characterCost": "10",
+  "requestId": "uzzxD7iE6mCDfO9nC7AU",
+  "characterCost": "26",
   "ffmpegVersion": "ffmpeg version 6.1.1-3ubuntu5 Copyright (c) 2000-2023 the FFmpeg developers",
   "licenseNotice": "../README.md"
 }

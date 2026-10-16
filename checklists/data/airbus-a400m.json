@@ -82,32 +82,6 @@
           "response": "Arm",
           "kind": "action",
           "speech": "Emergency exit lights: Arm."
-        },
-        {
-          "id": "apu-available",
-          "challenge": "APU",
-          "response": "Available",
-          "kind": "verify",
-          "speech": "Verify A P U: Available."
-        },
-        {
-          "id": "bat-ext-off",
-          "challenge": "External Power",
-          "response": "Off",
-          "kind": "optional",
-          "speech": "External power, if available: Off.",
-          "condition": "If available"
-        },
-        {
-          "id": "gpu",
-          "challenge": "GPU",
-          "response": "Remove",
-          "kind": "action",
-          "condition": "If connected",
-          "speech": "G P U: Remove, if connected. See Ground in the A four hundred M E F B.",
-          "notes": [
-            "See Ground in the A400M EFB."
-          ]
         }
       ]
     },
@@ -194,6 +168,25 @@
       "phase": "Engine Start",
       "items": [
         {
+          "id": "bat-ext-off",
+          "challenge": "External Power",
+          "response": "Off",
+          "kind": "optional",
+          "speech": "External power, if available: Off.",
+          "condition": "If available"
+        },
+        {
+          "id": "gpu",
+          "challenge": "GPU",
+          "response": "Remove",
+          "kind": "action",
+          "condition": "If connected",
+          "speech": "G P U: Remove, if connected. See Ground in the A four hundred M E F B.",
+          "notes": [
+            "See Ground in the A400M EFB."
+          ]
+        },
+        {
           "id": "atis",
           "challenge": "COM: ATIS",
           "response": "Get QNH",
@@ -215,7 +208,10 @@
           "challenge": "COM: Clearance",
           "response": "Request IFR clearance",
           "kind": "communication",
-          "speech": "A T C clearance: Request I F R clearance."
+          "notes": [
+            "Check the departure runway and SID in the flight plan against the clearance."
+          ],
+          "speech": "A T C clearance: Request I F R clearance. Check the departure runway and Sid in the flight plan against the clearance."
         },
         {
           "id": "transponder",
@@ -226,13 +222,6 @@
             "Use the code from the IFR clearance."
           ],
           "speech": "Transponder: Set the code from the I F R clearance."
-        },
-        {
-          "id": "pushback-request",
-          "challenge": "COM: Ground",
-          "response": "Request pushback and engine start",
-          "kind": "communication",
-          "speech": "A T C ground: Request pushback and engine start."
         }
       ]
     },
@@ -250,6 +239,20 @@
           "decision": "The two BEACON switches are set together, so they share one item with both positions."
         },
         {
+          "id": "pushback-request",
+          "challenge": "COM: Ground",
+          "response": "Request pushback and engine start",
+          "kind": "communication",
+          "speech": "A T C ground: Request pushback and engine start."
+        },
+        {
+          "id": "pushback",
+          "challenge": "Pushback",
+          "response": "Proceed",
+          "kind": "optional",
+          "speech": "Pushback: Proceed."
+        },
+        {
           "id": "eng-mode",
           "challenge": "ENG Start Mode",
           "response": "IGN START",
@@ -260,8 +263,8 @@
           "id": "parking-brake",
           "challenge": "Parking Brake",
           "response": "Set",
-          "kind": "verify",
-          "speech": "Verify parking brake: Set."
+          "kind": "action",
+          "speech": "Parking brake: Set."
         },
         {
           "id": "eng-master-feather",

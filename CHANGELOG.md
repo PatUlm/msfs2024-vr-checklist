@@ -7,6 +7,8 @@ Changelog, and the project uses Semantic Versioning.
 
 ## [Unreleased]
 
+## [0.19.5] - 2026-10-16
+
 ### Changed
 
 - The A400M removes external power and the GPU once the APU is available. The

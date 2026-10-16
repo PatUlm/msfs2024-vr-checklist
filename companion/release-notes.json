@@ -3,6 +3,20 @@
   "companionSince": "0.3.0",
   "releases": [
     {
+      "version": "0.19.5",
+      "date": "2026-10-16",
+      "highlight": "The A400M checklist follows the cockpit flow from power-up to engine start more closely.",
+      "features": [
+        "Removes external power and the GPU once the A400M APU is available.",
+        "Adds the wind request and departure page to the FMGES setup and ends it with the flight plan.",
+        "Adds ATIS, IFR clearance, transponder code and the pushback request before engine start.",
+        "Moves the flight director to before takeoff and checks the parking brake after the ignition start mode."
+      ],
+      "fixes": [
+        "Drops the EFB Ready for Takeoff chocks workaround."
+      ]
+    },
+    {
       "version": "0.19.4",
       "date": "2026-10-09",
       "highlight": "The A400M checklist sets speed and altitude before takeoff and lands with flaps 4.",

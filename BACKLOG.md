@@ -40,6 +40,10 @@ source or simulator check first.
 - **Others:** MH-60 `Day/Night` responses instead of alternatives; H125
   `Battery / Master`, `(Beacon)` and the pitot heat order versus the data
   README; C152 notes versus speech; no style-guide rule for `Approx.`
+- **A400M (audit before 0.19.6):** The IFR clearance check names no follow-up
+  when the cleared departure runway differs from the flight plan; consider a
+  note to update the flight plan and recompute the takeoff performance after
+  checking the simulated FMS.
 - **Next step:** Re-run the audit with `vr-checklist-editor` and decide the
   findings one by one.
 

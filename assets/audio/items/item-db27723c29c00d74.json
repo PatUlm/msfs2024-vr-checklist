@@ -1,12 +1,12 @@
 {
   "schemaVersion": 1,
-  "file": "item-c67ca262aa39171f.opus",
-  "sha256": "e928ec303450c7fbaecf4280bb2c05cd273af35ca6b4533a25a7639dc85357e5",
-  "recipeHash": "c67ca262aa39171fd0283c692004efd8618f84a7df9ccc400918e989a0258b09",
+  "file": "item-db27723c29c00d74.opus",
+  "sha256": "d5edae9ee8e0998d63fa731244ab53d2155e55aefac7b32cedea873aa1a80fe0",
+  "recipeHash": "db27723c29c00d7434473de6043bb3824896c232fabc65a4467beb7dee11f059",
   "recipe": {
     "voiceId": "nPczCjzI2devNBz1zQrb",
     "request": {
-      "text": "Autopilot flight director: On.",
+      "text": "Before Takeoff Checklist. Flight director: On.",
       "model_id": "eleven_multilingual_v2",
       "voice_settings": {
         "stability": 0.75,
@@ -23,13 +23,13 @@
     "format": "ogg-opus-mono-48000-32k",
     "revision": 1
   },
-  "generatedAt": "2026-09-24T17:29:45.486Z",
+  "generatedAt": "2026-10-16T17:43:32.125Z",
   "provider": "ElevenLabs",
   "voice": "Brian",
   "generationPlan": "paid",
   "planEvidence": "Operator confirmed active Starter subscription before rendering.",
-  "requestId": "Lb9z9fzxyEgfzKzzfr97",
-  "characterCost": "15",
+  "requestId": "2ab8VUgfxjhPmjzedctE",
+  "characterCost": "18",
   "ffmpegVersion": "ffmpeg version 6.1.1-3ubuntu5 Copyright (c) 2000-2023 the FFmpeg developers",
   "licenseNotice": "../README.md"
 }

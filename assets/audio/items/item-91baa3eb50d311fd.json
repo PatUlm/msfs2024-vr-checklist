@@ -1,12 +1,12 @@
 {
   "schemaVersion": 1,
-  "file": "item-d935fcddbcc7ecf7.opus",
-  "sha256": "d38f579d9cacac3a3ee75fd1396452d50c804455061431c9c301385ac36918df",
-  "recipeHash": "d935fcddbcc7ecf766289977c1ce230bfb1deb6cf3b809eecdb3271dad737121",
+  "file": "item-91baa3eb50d311fd.opus",
+  "sha256": "b1cddc4ee7d61624a56616cec99f42dc527932e3f05646a2a9011da922660d7c",
+  "recipeHash": "91baa3eb50d311fdee44286316b8ccda46682f8fded859ba0ec9e4efde71b21a",
   "recipe": {
     "voiceId": "nPczCjzI2devNBz1zQrb",
     "request": {
-      "text": "Before Takeoff Checklist. Autopilot altitude: Set and use managed mode.",
+      "text": "Initialization page, departure airport, destination airport, alternate airport and cruise flight level: Set.",
       "model_id": "eleven_multilingual_v2",
       "voice_settings": {
         "stability": 0.75,
@@ -23,13 +23,13 @@
     "format": "ogg-opus-mono-48000-32k",
     "revision": 1
   },
-  "generatedAt": "2026-10-09T19:45:42.667Z",
+  "generatedAt": "2026-10-16T17:43:22.984Z",
   "provider": "ElevenLabs",
   "voice": "Brian",
   "generationPlan": "paid",
   "planEvidence": "Operator confirmed active Starter subscription before rendering.",
-  "requestId": "1efmtmtnL9SbT9fRPvWY",
-  "characterCost": "28",
+  "requestId": "VaMSk12fmPpSELEMjMcC",
+  "characterCost": "43",
   "ffmpegVersion": "ffmpeg version 6.1.1-3ubuntu5 Copyright (c) 2000-2023 the FFmpeg developers",
   "licenseNotice": "../README.md"
 }

@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "file": "item-563431e803ba59f3.opus",
+  "sha256": "b6f10c5d55eecacc9413a2b7e13d794ecb2cc9c0ad3cb56128065f7e01ba1d05",
+  "recipeHash": "563431e803ba59f371b0367c21526154b90553eb06b08086616ba3d75c518646",
+  "recipe": {
+    "voiceId": "nPczCjzI2devNBz1zQrb",
+    "request": {
+      "text": "Wind page, company wind request: Execute.",
+      "model_id": "eleven_multilingual_v2",
+      "voice_settings": {
+        "stability": 0.75,
+        "similarity_boost": 0.75,
+        "style": 0,
+        "use_speaker_boost": true,
+        "speed": 1
+      },
+      "seed": 9172026
+    },
+    "sourceFormat": "mp3_44100_128",
+    "profile": "clean",
+    "normalization": "loudnorm=I=-20:TP=-2:LRA=11",
+    "format": "ogg-opus-mono-48000-32k",
+    "revision": 1
+  },
+  "generatedAt": "2026-10-16T17:43:24.211Z",
+  "provider": "ElevenLabs",
+  "voice": "Brian",
+  "generationPlan": "paid",
+  "planEvidence": "Operator confirmed active Starter subscription before rendering.",
+  "requestId": "fDdUbZqZVwQj2Ieoa8Cf",
+  "characterCost": "16",
+  "ffmpegVersion": "ffmpeg version 6.1.1-3ubuntu5 Copyright (c) 2000-2023 the FFmpeg developers",
+  "licenseNotice": "../README.md"
+}

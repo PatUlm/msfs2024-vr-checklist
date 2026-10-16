@@ -37,10 +37,9 @@ source or simulator check first.
   cockpit labels lack README evidence.
 - **OH-6:** The start condition N1 ≥ 20 % (manual: 12–15 % and TOT < 150 °C)
   and the avionics as `OH-6A only` lack a recorded reason.
-- **Others:** MH-60 `Day/Night` responses instead of alternatives; A400M
-  parking brake `On` versus DA42 `Set`; H125 `Battery / Master`,
-  `(Beacon)` and the pitot heat order versus the data README; C152 notes
-  versus speech; no style-guide rule for `Approx.`
+- **Others:** MH-60 `Day/Night` responses instead of alternatives; H125
+  `Battery / Master`, `(Beacon)` and the pitot heat order versus the data
+  README; C152 notes versus speech; no style-guide rule for `Approx.`
 - **Next step:** Re-run the audit with `vr-checklist-editor` and decide the
   findings one by one.
 

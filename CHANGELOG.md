@@ -7,6 +7,16 @@ Changelog, and the project uses Semantic Versioning.
 
 ## [Unreleased]
 
+### Changed
+
+- The A400M removes external power and the GPU once the APU is available. The
+  FMGES setup adds the wind request and the departure page, sets alternate and
+  cruise level on the INIT page and ends with the flight plan. ATIS,
+  altimeters, IFR clearance, transponder code and the pushback request come
+  before engine start, the parking brake check follows the ignition start
+  mode, and the flight director moves to before takeoff. The EFB Ready for
+  Takeoff chocks workaround is removed.
+
 ## [0.19.4] - 2026-10-09
 
 ### Changed

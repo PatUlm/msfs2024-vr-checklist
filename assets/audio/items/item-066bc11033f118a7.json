@@ -1,12 +1,12 @@
 {
   "schemaVersion": 1,
-  "file": "item-d7bcb4238e1bd3af.opus",
-  "sha256": "7c2c60012e23d561bbd0777f56fbcf4df7da2af518cf344c8c8de1a64c2c2285",
-  "recipeHash": "d7bcb4238e1bd3af251ced8307f9ed21c2d56817f3dbad5fce8996cb650369ca",
+  "file": "item-066bc11033f118a7.opus",
+  "sha256": "7d0198b06f7eae3a8dc737ddc29097da03d6dc06b34058c59d2c3bec65128828",
+  "recipeHash": "066bc11033f118a73dbf26813036b1ee115f2e3cb54068c8c64e6a6433e14fb3",
   "recipe": {
     "voiceId": "nPczCjzI2devNBz1zQrb",
     "request": {
-      "text": "Initialization page, departure and arrival airports: Set. Run initialization request or enter manually.",
+      "text": "Verify A P U: Available.",
       "model_id": "eleven_multilingual_v2",
       "voice_settings": {
         "stability": 0.75,
@@ -23,13 +23,13 @@
     "format": "ogg-opus-mono-48000-32k",
     "revision": 1
   },
-  "generatedAt": "2026-09-25T15:57:51.291Z",
+  "generatedAt": "2026-10-16T17:43:20.296Z",
   "provider": "ElevenLabs",
   "voice": "Brian",
   "generationPlan": "paid",
   "planEvidence": "Operator confirmed active Starter subscription before rendering.",
-  "requestId": "mI4Ws5t4ppVVPB1CFZHo",
-  "characterCost": "52",
+  "requestId": "q2qbiYK6pMDgMitb7Dar",
+  "characterCost": "10",
   "ffmpegVersion": "ffmpeg version 6.1.1-3ubuntu5 Copyright (c) 2000-2023 the FFmpeg developers",
   "licenseNotice": "../README.md"
 }

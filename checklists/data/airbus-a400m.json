@@ -11,7 +11,7 @@
       }
     ]
   },
-  "revision": "2026-10-09",
+  "revision": "2026-10-16",
   "sections": [
     {
       "id": "electrical-power-up",
@@ -82,6 +82,32 @@
           "response": "Arm",
           "kind": "action",
           "speech": "Emergency exit lights: Arm."
+        },
+        {
+          "id": "apu-available",
+          "challenge": "APU",
+          "response": "Available",
+          "kind": "verify",
+          "speech": "Verify A P U: Available."
+        },
+        {
+          "id": "bat-ext-off",
+          "challenge": "External Power",
+          "response": "Off",
+          "kind": "optional",
+          "speech": "External power, if available: Off.",
+          "condition": "If available"
+        },
+        {
+          "id": "gpu",
+          "challenge": "GPU",
+          "response": "Remove",
+          "kind": "action",
+          "condition": "If connected",
+          "speech": "G P U: Remove, if connected. See Ground in the A four hundred M E F B.",
+          "notes": [
+            "See Ground in the A400M EFB."
+          ]
         }
       ]
     },
@@ -106,13 +132,17 @@
         },
         {
           "id": "init",
-          "challenge": "[INIT] Departure and Arrival Airports",
+          "challenge": "[INIT] FROM, TO, ALTN and CRZ FL",
           "response": "Set",
           "kind": "action",
-          "speech": "Initialization page, departure and arrival airports: Set. Run initialization request or enter manually.",
-          "notes": [
-            "Run INIT REQUEST or enter manually."
-          ]
+          "speech": "Initialization page, departure airport, destination airport, alternate airport and cruise flight level: Set."
+        },
+        {
+          "id": "wind-request",
+          "challenge": "[WIND] CPNY WIND REQUEST",
+          "response": "Execute",
+          "kind": "action",
+          "speech": "Wind page, company wind request: Execute."
         },
         {
           "id": "irs",
@@ -122,11 +152,12 @@
           "speech": "Verify I R S page, I R S one, two and three: Navigation."
         },
         {
-          "id": "flight-plan",
-          "challenge": "[F-PLN] Departure, Destination and Flight Plan",
+          "id": "departure",
+          "challenge": "[DEPARTURE] RWY and SID",
           "response": "Set",
           "kind": "action",
-          "speech": "Flight plan page, departure, destination and flight plan: Set."
+          "speech": "Departure page, runway and Sid: Set.",
+          "decision": "SID is spoken as the word Sid, as pilots say it."
         },
         {
           "id": "fuel-load",
@@ -144,6 +175,16 @@
           "response": "Compute + Insert",
           "kind": "action",
           "speech": "Takeoff performance: Compute and insert."
+        },
+        {
+          "id": "flight-plan",
+          "challenge": "[F-PLN] Departure, Arrival and Flight Plan",
+          "response": "Set",
+          "kind": "action",
+          "speech": "Flight plan page, departure, arrival and flight plan: Set. Delete discontinuities.",
+          "notes": [
+            "Delete discontinuities."
+          ]
         }
       ]
     },
@@ -153,18 +194,45 @@
       "phase": "Engine Start",
       "items": [
         {
-          "id": "altimeters",
-          "challenge": "Altimeters [1+2]",
-          "response": "Set",
-          "kind": "action",
-          "speech": "Both altimeters: Set."
+          "id": "atis",
+          "challenge": "COM: ATIS",
+          "response": "Get QNH",
+          "kind": "communication",
+          "speech": "A T I S: Get Q N H."
         },
         {
-          "id": "autopilot-flight-director",
-          "challenge": "Autopilot Flight Director",
-          "response": "On",
+          "id": "altimeters",
+          "challenge": "Altimeters [1+2]",
+          "response": "Set QNH",
           "kind": "action",
-          "speech": "Autopilot flight director: On."
+          "speech": "Altimeters one and two: Set Q N H from A T I S or M E T A R.",
+          "notes": [
+            "Use ATIS or METAR"
+          ]
+        },
+        {
+          "id": "ifr-clearance",
+          "challenge": "COM: Clearance",
+          "response": "Request IFR clearance",
+          "kind": "communication",
+          "speech": "A T C clearance: Request I F R clearance."
+        },
+        {
+          "id": "transponder",
+          "challenge": "Transponder",
+          "response": "Set code",
+          "kind": "action",
+          "notes": [
+            "Use the code from the IFR clearance."
+          ],
+          "speech": "Transponder: Set the code from the I F R clearance."
+        },
+        {
+          "id": "pushback-request",
+          "challenge": "COM: Ground",
+          "response": "Request pushback and engine start",
+          "kind": "communication",
+          "speech": "A T C ground: Request pushback and engine start."
         }
       ]
     },
@@ -182,18 +250,18 @@
           "decision": "The two BEACON switches are set together, so they share one item with both positions."
         },
         {
-          "id": "parking-brake",
-          "challenge": "Parking Brake",
-          "response": "On",
-          "kind": "verify",
-          "speech": "Verify parking brake: On."
-        },
-        {
           "id": "eng-mode",
           "challenge": "ENG Start Mode",
           "response": "IGN START",
           "kind": "action",
           "speech": "Engine start mode: Ignition start."
+        },
+        {
+          "id": "parking-brake",
+          "challenge": "Parking Brake",
+          "response": "Set",
+          "kind": "verify",
+          "speech": "Verify parking brake: Set."
         },
         {
           "id": "eng-master-feather",
@@ -239,24 +307,6 @@
           "response": "Off",
           "kind": "action",
           "speech": "A P U master switch: Off."
-        },
-        {
-          "id": "bat-ext",
-          "challenge": "External Power",
-          "response": "Off",
-          "kind": "optional",
-          "speech": "External power, if available: Off.",
-          "condition": "If available"
-        },
-        {
-          "id": "gpu",
-          "challenge": "GPU",
-          "response": "Remove",
-          "kind": "action",
-          "speech": "G P U: Remove. See Ground in the A four hundred M E F B.",
-          "notes": [
-            "See Ground in the A400M EFB."
-          ]
         },
         {
           "id": "anti-ice",
@@ -316,16 +366,6 @@
           ],
           "speech": "Takeoff configuration: Press the button on the E CAM control panel below the displays.",
           "decision": "E CAM is written so that the voice says ee-cam, as pilots do."
-        },
-        {
-          "id": "ready-for-takeoff",
-          "challenge": "[EFB] \"Ready for Takeoff\" Configuration",
-          "response": "Load",
-          "kind": "optional",
-          "speech": "E F B ready for takeoff configuration: Load. Workaround for a simulator bug where the wheel chocks may remain active internally.",
-          "notes": [
-            "Workaround for a simulator bug where the wheel chocks may remain active internally."
-          ]
         }
       ]
     },
@@ -373,6 +413,13 @@
       "title": "Before Takeoff",
       "phase": "Departure",
       "items": [
+        {
+          "id": "autopilot-flight-director",
+          "challenge": "Flight Director",
+          "response": "On",
+          "kind": "action",
+          "speech": "Flight director: On."
+        },
         {
           "id": "autopilot-altitude",
           "challenge": "Autopilot Altitude",

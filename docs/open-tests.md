@@ -12,3 +12,9 @@ Check two labels in the cockpit, then rename the item or record a decision:
 the A400M `All Switches Info...Off` after engine start (which indication is
 meant and how it is labeled) and the DA42 `Avionics Master...On` before taxi
 (is the switch labeled like that; H125 and OH-6 use `Avionics`).
+
+## A400M chock removal through the EFB
+
+The `[EFB] "Ready for Takeoff" Configuration` chocks workaround was removed.
+In the A400M EFB, check when the `ON GPU` button can be pressed and whether it
+removes the wheel chocks; then add it to the checklist at that point.

@@ -1,12 +1,12 @@
 {
   "schemaVersion": 1,
-  "file": "item-46a57d65250e49b6.opus",
-  "sha256": "9923a7a13a6ac89efc74537fcb5556f685feb167be219b01b8941c3a8154b05c",
-  "recipeHash": "46a57d65250e49b60b631358583553db096e7b6d1c4adb35b1bfbba172172edc",
+  "file": "item-7b213a0c0ff1484f.opus",
+  "sha256": "42f7db04faf737944f5c448769388bc3abe60e5c5d09699ec50638973572b066",
+  "recipeHash": "7b213a0c0ff1484f90a44ebc5747bbf45505f472d9d61a904937f7522389058e",
   "recipe": {
     "voiceId": "nPczCjzI2devNBz1zQrb",
     "request": {
-      "text": "Before Engine Start Checklist. Both altimeters: Set.",
+      "text": "G P U: Remove, if connected. See Ground in the A four hundred M E F B.",
       "model_id": "eleven_multilingual_v2",
       "voice_settings": {
         "stability": 0.75,
@@ -23,13 +23,13 @@
     "format": "ogg-opus-mono-48000-32k",
     "revision": 1
   },
-  "generatedAt": "2026-09-24T20:04:12.711Z",
+  "generatedAt": "2026-10-16T17:43:21.512Z",
   "provider": "ElevenLabs",
   "voice": "Brian",
   "generationPlan": "paid",
   "planEvidence": "Operator confirmed active Starter subscription before rendering.",
-  "requestId": "houPnDCp7PR4tvFpm0KQ",
-  "characterCost": "26",
+  "requestId": "VGUDsJ3tilty50DJCh1P",
+  "characterCost": "28",
   "ffmpegVersion": "ffmpeg version 6.1.1-3ubuntu5 Copyright (c) 2000-2023 the FFmpeg developers",
   "licenseNotice": "../README.md"
 }

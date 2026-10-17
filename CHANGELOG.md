@@ -7,6 +7,8 @@ Changelog, and the project uses Semantic Versioning.
 
 ## [Unreleased]
 
+## [0.20.0] - 2026-10-17
+
 ### Changed
 
 - The A400M merges Before Taxi and Taxi into Taxi to Runway, which requests

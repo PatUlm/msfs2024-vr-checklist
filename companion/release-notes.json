@@ -3,6 +3,21 @@
   "companionSince": "0.3.0",
   "releases": [
     {
+      "version": "0.20.0",
+      "date": "2026-10-17",
+      "highlight": "The A400M taxi and takeoff flow is shorter and faster to work through.",
+      "features": [
+        "Merges the A400M takeoff and after-takeoff steps into one short Takeoff group.",
+        "Adds the A400M Taxi to Runway group with taxi request and parking brake release.",
+        "Adds the A400M departure request, line-up and landing lights before takeoff.",
+        "Switches the A400M landing lights off above and on below 10,000 ft.",
+        "Announces the A400M T.O Configuration group as Takeoff Configuration and ATIS as ATC."
+      ],
+      "fixes": [
+        "Selects ON GPU in the A400M EFB after the batteries to work around wheel chocks that stay active."
+      ]
+    },
+    {
       "version": "0.19.6",
       "date": "2026-10-16",
       "highlight": "The A400M engine start now covers the pushback.",

@@ -7,6 +7,25 @@ Changelog, and the project uses Semantic Versioning.
 
 ## [Unreleased]
 
+### Changed
+
+- The A400M merges Before Taxi and Taxi into Taxi to Runway, which requests
+  taxi from ground and releases the parking brake. Before Takeoff switches the
+  landing lights on, requests departure and lines up on the runway. The T.O
+  Configuration group is announced as Takeoff Configuration, and the A400M and
+  DA42 ATIS step is announced as ATC.
+- The A400M merges Takeoff and After Takeoff into one short Takeoff group
+  without the approximate Vr, pitch limit and positive-climb and F1-marker
+  conditions; MCL now comes before the flaps. The landing lights go off above
+  10,000 ft and on again below 10,000 ft in the approach.
+- The DA42 climb reduces the power levers before the landing lights go off
+  above 10,000 ft.
+
+### Fixed
+
+- The A400M wheel chocks could still stay active internally. The checklist now
+  selects ON GPU on the EFB Panel State page after the batteries.
+
 ## [0.19.6] - 2026-10-16
 
 ### Changed

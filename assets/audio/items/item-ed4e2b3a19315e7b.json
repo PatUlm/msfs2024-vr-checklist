@@ -1,12 +1,12 @@
 {
   "schemaVersion": 1,
-  "file": "item-60ab29493a5bfef0.opus",
-  "sha256": "92a5b1f33f3712674b27e48bb605bcab7851a9c918835c802b6bdcee4e506328",
-  "recipeHash": "60ab29493a5bfef079d9efd3f3486f287b329bec962109c437c6416d949abe42",
+  "file": "item-ed4e2b3a19315e7b.opus",
+  "sha256": "f1b34378599a11fc9def46b92187b9b4ec87926e16006ef15853d5772381c424",
+  "recipeHash": "ed4e2b3a19315e7b710dc8483c9ced59be08b4ba70093b0cf214874a7b1e7b11",
   "recipe": {
     "voiceId": "nPczCjzI2devNBz1zQrb",
     "request": {
-      "text": "Pitch: Follow the flight director. Keep pitch below ten degrees.",
+      "text": "A T C, A T I S: Get Q N H.",
       "model_id": "eleven_multilingual_v2",
       "voice_settings": {
         "stability": 0.75,
@@ -23,13 +23,13 @@
     "format": "ogg-opus-mono-48000-32k",
     "revision": 1
   },
-  "generatedAt": "2026-10-09T19:45:47.564Z",
+  "generatedAt": "2026-10-17T09:27:38.065Z",
   "provider": "ElevenLabs",
   "voice": "Brian",
   "generationPlan": "paid",
   "planEvidence": "Operator confirmed active Starter subscription before rendering.",
-  "requestId": "8mj9Xda1qkMsutJfGOKH",
-  "characterCost": "26",
+  "requestId": "ZV3izbmwMwDYQT6oVwqe",
+  "characterCost": "10",
   "ffmpegVersion": "ffmpeg version 6.1.1-3ubuntu5 Copyright (c) 2000-2023 the FFmpeg developers",
   "licenseNotice": "../README.md"
 }

@@ -11,7 +11,7 @@
       { "atcModel": { "equals": "Diamond DA42" } }
     ]
   },
-  "revision": "2026-10-16",
+  "revision": "2026-10-17",
   "sections": [
     {
       "id": "before-engine-start",
@@ -155,7 +155,7 @@
           "challenge": "COM: ATIS",
           "response": "Get QNH",
           "kind": "communication",
-          "speech": "A T I S: Get Q N H."
+          "speech": "A T C, A T I S: Get Q N H."
         },
         {
           "id": "altimeters",
@@ -402,19 +402,19 @@
           "speech": "Fuel pumps, one and two: Off after passing 1,000 feet above ground level."
         },
         {
+          "id": "power-levers-climb",
+          "challenge": "Power Levers [1+2]",
+          "response": "≤ 92 %",
+          "kind": "action",
+          "speech": "Power levers, one and two: 92 percent or less."
+        },
+        {
           "id": "landing-lights",
           "challenge": "Landing Lights",
           "response": "Off",
           "kind": "action",
           "condition": "Above 10,000 ft",
           "speech": "Landing lights: Off above 10,000 feet."
-        },
-        {
-          "id": "power-levers-climb",
-          "challenge": "Power Levers [1+2]",
-          "response": "≤ 92 %",
-          "kind": "action",
-          "speech": "Power levers, one and two: 92 percent or less."
         }
       ]
     },

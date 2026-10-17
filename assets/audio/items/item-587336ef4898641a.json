@@ -1,12 +1,12 @@
 {
   "schemaVersion": 1,
-  "file": "item-a308a405fa0894f3.opus",
-  "sha256": "4f3fa8b8b5b1f0c54ce9aea0928d781bc99c28ee44c59b93445e5c8a234c1b2e",
-  "recipeHash": "a308a405fa0894f3614acb50c7e433dfdf8f92f5214743279aa9b6aa5c1d2fcb",
+  "file": "item-587336ef4898641a.opus",
+  "sha256": "b0d4938de62a2b99cf2dcff0d201c45967006873bc5c161dbf51f637614c22eb",
+  "recipeHash": "587336ef4898641abfc4966969d850c746909a0eabc69234aee67918d7879b71",
   "recipe": {
     "voiceId": "nPczCjzI2devNBz1zQrb",
     "request": {
-      "text": "At rotation speed V R, approximately 140 knots: Rotate.",
+      "text": "E F B panel state: Select on G P U. Workaround for a simulator bug where the wheel chocks may remain active internally.",
       "model_id": "eleven_multilingual_v2",
       "voice_settings": {
         "stability": 0.75,
@@ -23,13 +23,13 @@
     "format": "ogg-opus-mono-48000-32k",
     "revision": 1
   },
-  "generatedAt": "2026-10-09T19:45:46.374Z",
+  "generatedAt": "2026-10-17T09:27:36.839Z",
   "provider": "ElevenLabs",
   "voice": "Brian",
   "generationPlan": "paid",
   "planEvidence": "Operator confirmed active Starter subscription before rendering.",
-  "requestId": "rIhY4FCGtkA57EcgXtQx",
-  "characterCost": "22",
+  "requestId": "dGfdNegPURdpeTTBuR9s",
+  "characterCost": "48",
   "ffmpegVersion": "ffmpeg version 6.1.1-3ubuntu5 Copyright (c) 2000-2023 the FFmpeg developers",
   "licenseNotice": "../README.md"
 }

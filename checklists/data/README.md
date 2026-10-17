@@ -100,14 +100,19 @@ attribution and the assessment of the reviewed set.
   `BLOCK` denotes the total fuel on board at the start of the flight, see
   [Airbus: Fuel Leak Management](https://safetyfirst.airbus.com/fuel-leak-management-in-flight/).
   The addition `T.O CONFIG` on the ECAM control panel follows the in-game
-  hint; it comes after the takeoff flap configuration. The groups from
-  `After Takeoff` onward follow the iniBuilds Quick Reference Card v1.0.0,
-  using the challenge names already in use and separate items per control.
-  The `Taxi` and `Takeoff` groups and the climb items in `After Takeoff`
-  (positive climb, autopilot, F1 marker, `MCL`) follow the in-game
-  procedure; the Quick Reference Card does not cover them. The autopilot
-  altitude and speed before takeoff, the approximate Vr and Vapp and the
-  takeoff pitch limit are in-game experience values. Landing flap position 4
+  hint; it comes after the takeoff flap configuration. The after-takeoff
+  controls in `Takeoff` and the groups from `Approach` onward follow the
+  iniBuilds Quick Reference Card v1.0.0, using the challenge names already in
+  use and separate items per control. `Taxi to Runway`, the ATC steps, the
+  takeoff guidance, the optional autopilot and the PFD-triggered `MCL` follow
+  the in-game procedure; the Quick Reference Card does not cover them. The
+  landing lights follow the card's `Strobe and Landing Lights`; `LDG` is a
+  separate switch (manual page 5). Switching them off above and on below
+  10,000 ft is a user choice with the DA42 wording; the card has no such
+  threshold. Selecting `ON GPU` on the EFB `Panel State` page (manual page 13)
+  after the batteries works around a simulator bug that keeps the wheel
+  chocks active internally. The autopilot altitude and speed before takeoff
+  and the approximate Vapp are in-game experience values. Landing flap position 4
   is a separate position before `FULL`; its Vfe of 180 kt follows the flap
   speed table on manual page 8. Probe and
   strobe lights use the cockpit switch positions `OFF`/`DIM`/`BRT` instead of

@@ -15,6 +15,7 @@ meant and how it is labeled) and the DA42 `Avionics Master...On` before taxi
 
 ## A400M chock removal through the EFB
 
-The `[EFB] "Ready for Takeoff" Configuration` chocks workaround was removed.
-In the A400M EFB, check when the `ON GPU` button can be pressed and whether it
-removes the wheel chocks; then add it to the checklist at that point.
+The checklist now selects `ON GPU` on the EFB `Panel State` page right after
+the batteries. In a new A400M flight from cold and dark, work through the
+checklist and check that the aircraft taxis after pushback without remaining
+wheel chocks.

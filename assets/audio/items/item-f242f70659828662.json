@@ -1,12 +1,12 @@
 {
   "schemaVersion": 1,
-  "file": "item-82b63044ca52188b.opus",
-  "sha256": "79915e69df591e3c778aa952eef261a058d7c2b74feee0957d533b25027bda99",
-  "recipeHash": "82b63044ca52188b79c98b1a93e713631dac2d141dcf5274744d2da19520645d",
+  "file": "item-f242f70659828662.opus",
+  "sha256": "cbdc8d1ff4e7b148257d34d83b129e7445fa844065b79718c51d6941e89efb77",
+  "recipeHash": "f242f70659828662dc757a970419a666e7d4346b0a9ce03205e7cb3265ab9374",
   "recipe": {
     "voiceId": "nPczCjzI2devNBz1zQrb",
     "request": {
-      "text": "Before Taxi Checklist. Takeoff and taxi lights: On.",
+      "text": "Altimeters one and two: Set.",
       "model_id": "eleven_multilingual_v2",
       "voice_settings": {
         "stability": 0.75,
@@ -23,13 +23,13 @@
     "format": "ogg-opus-mono-48000-32k",
     "revision": 1
   },
-  "generatedAt": "2026-09-25T15:57:56.477Z",
+  "generatedAt": "2026-10-17T10:02:56.375Z",
   "provider": "ElevenLabs",
   "voice": "Brian",
   "generationPlan": "paid",
   "planEvidence": "Operator confirmed active Starter subscription before rendering.",
-  "requestId": "PVKglAZCLWN4yJBCM3pW",
-  "characterCost": "26",
+  "requestId": "U5NLdSE1915XLheHgyU9",
+  "characterCost": "11",
   "ffmpegVersion": "ffmpeg version 6.1.1-3ubuntu5 Copyright (c) 2000-2023 the FFmpeg developers",
   "licenseNotice": "../README.md"
 }

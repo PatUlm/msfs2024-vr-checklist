@@ -3,6 +3,18 @@
   "companionSince": "0.3.0",
   "releases": [
     {
+      "version": "0.20.1",
+      "date": "2026-10-17",
+      "highlight": "The A400M engines can now be started during pushback.",
+      "features": [
+        "Sets the A400M parking brake after FEATHER, so the engines can start during pushback.",
+        "Raises the A400M flaps before MCL.",
+        "Adds the A400M altimeter STD step at the transition altitude.",
+        "Renames the A400M All Switches Info check to Overhead Panel: All Lights Out."
+      ],
+      "fixes": []
+    },
+    {
       "version": "0.20.0",
       "date": "2026-10-17",
       "highlight": "The A400M taxi and takeoff flow is shorter and faster to work through.",

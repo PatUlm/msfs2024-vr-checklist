@@ -7,6 +7,8 @@ Changelog, and the project uses Semantic Versioning.
 
 ## [Unreleased]
 
+## [0.20.1] - 2026-10-17
+
 ### Changed
 
 - The A400M sets the parking brake after the engine masters go to FEATHER, so

@@ -109,7 +109,8 @@ attribution and the assessment of the reviewed set.
   landing lights follow the card's `Strobe and Landing Lights`; `LDG` is a
   separate switch (manual page 5). Switching them off above and on below
   10,000 ft is a user choice with the DA42 wording; the card has no such
-  threshold. Selecting `ON GPU` on the EFB `Panel State` page (manual page 13)
+  threshold. Selecting `STD` at the transition altitude in the climb is also a
+  user choice that the card does not cover. Selecting `ON GPU` on the EFB `Panel State` page (manual page 13)
   after the batteries works around a simulator bug that keeps the wheel
   chocks active internally. The autopilot altitude and speed before takeoff
   and the approximate Vapp are in-game experience values. Landing flap position 4
@@ -117,7 +118,9 @@ attribution and the assessment of the reviewed set.
   speed table on manual page 8. Probe and
   strobe lights use the cockpit switch positions `OFF`/`DIM`/`BRT` instead of
   the card's `On`. The beacon has two switches, `UPPER`/`BOTH` and
-  `OFF`/`DIM`/`BRT`. `BAT`, `ENG Master`, `ENG Start Mode`, `NAV Lights` and
-  `ANTI ICE` are the cockpit labels.
+  `OFF`/`DIM`/`BRT`. `BAT`, `ENG Master`, `ENG Start Mode`, `NAV Lights`,
+  `ANTI ICE` and the altimeter setting `STD` are the cockpit labels.
+- The DA42 `Avionics Master` follows the cockpit label; the H125 and OH-6 use
+  `Avionics`.
 - The G36 checklist is deliberately a minimal, incomplete memory aid of
   selected speeds, flap and landing gear positions.

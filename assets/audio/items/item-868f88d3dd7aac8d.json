@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "file": "item-868f88d3dd7aac8d.opus",
+  "sha256": "8a9b32a40dd1bf726f84701271abc267343da0ab3fe572d0ff215480106d6aac",
+  "recipeHash": "868f88d3dd7aac8d366645a4b4d7f11689563acbfc3d9479429db92ccc1489aa",
+  "recipe": {
+    "voiceId": "nPczCjzI2devNBz1zQrb",
+    "request": {
+      "text": "Verify overhead panel: All lights out.",
+      "model_id": "eleven_multilingual_v2",
+      "voice_settings": {
+        "stability": 0.75,
+        "similarity_boost": 0.75,
+        "style": 0,
+        "use_speaker_boost": true,
+        "speed": 1
+      },
+      "seed": 9172026
+    },
+    "sourceFormat": "mp3_44100_128",
+    "profile": "clean",
+    "normalization": "loudnorm=I=-20:TP=-2:LRA=11",
+    "format": "ogg-opus-mono-48000-32k",
+    "revision": 1
+  },
+  "generatedAt": "2026-10-17T16:12:59.412Z",
+  "provider": "ElevenLabs",
+  "voice": "Brian",
+  "generationPlan": "paid",
+  "planEvidence": "Operator confirmed active Starter subscription before rendering.",
+  "requestId": "FAko9Q5sMb6SZVuw8sG0",
+  "characterCost": "15",
+  "ffmpegVersion": "ffmpeg version 6.1.1-3ubuntu5 Copyright (c) 2000-2023 the FFmpeg developers",
+  "licenseNotice": "../README.md"
+}

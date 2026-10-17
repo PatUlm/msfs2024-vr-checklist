@@ -7,6 +7,14 @@ Changelog, and the project uses Semantic Versioning.
 
 ## [Unreleased]
 
+### Changed
+
+- The A400M sets the parking brake after the engine masters go to FEATHER, so
+  the engines can be started during pushback. The flaps now come up before
+  MCL, and a new climb step sets the altimeters to STD at the transition
+  altitude. All Switches Info after engine start is renamed to Overhead
+  Panel: All Lights Out.
+
 ## [0.20.0] - 2026-10-17
 
 ### Changed

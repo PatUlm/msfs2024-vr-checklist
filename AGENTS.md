@@ -126,6 +126,8 @@ overviews contain only links and topics; validity is stated in the ADR.
 
 - Trunk-based development on `master`: small, functionally complete, working
   increments; no long-lived feature branches or collective commits.
+- Have every completed change reviewed neutrally by a separate agent with its
+  own context before handing it over.
 - The user reviews and stages functional changes; staging is approval. Do not
   review the staged diff again. Stage yourself only on explicit request or
   under the following exceptions.

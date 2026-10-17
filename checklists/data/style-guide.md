@@ -103,6 +103,9 @@ Examples:
   `Verify `, for example `Verify A P U indicator: On.`. The visible challenge
   stays the system name; the existing verify badge marks the checking action
   in the UI.
+- The first item of a group is announced with `<group title> Checklist.`. A
+  group whose title would sound wrong, such as an abbreviated cockpit label,
+  gets a `speechTitle` that replaces the title in this announcement only.
 
 Example: `Altimeters [1+2]: Set QNH` with the note `Use ATIS or METAR` gets
 the announcement `Altimeters one and two: Set Q N H from A T I S or M E T A R.`.

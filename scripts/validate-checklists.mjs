@@ -20,7 +20,7 @@ const checklistProperties = new Set([
 const aircraftProperties = new Set(["manufacturer", "model", "msfsMatches"]);
 const aircraftMatchProperties = new Set(["atcModel", "atcType", "title"]);
 const aircraftMatchCriterionProperties = new Set(["equals", "contains"]);
-const sectionProperties = new Set(["id", "title", "phase", "items", "decision"]);
+const sectionProperties = new Set(["id", "title", "speechTitle", "phase", "items", "decision"]);
 const itemProperties = new Set([
   "id",
   "challenge",
@@ -260,6 +260,9 @@ for (const fileName of fileNames) {
     );
     sectionIds.add(section.id);
     assertSingleLineString(section.title, `${sectionLocation}.title`);
+    if (section.speechTitle !== undefined) {
+      assertSingleLineString(section.speechTitle, `${sectionLocation}.speechTitle`);
+    }
     if (section.decision !== undefined) {
       assertSingleLineString(section.decision, `${sectionLocation}.decision`);
     }

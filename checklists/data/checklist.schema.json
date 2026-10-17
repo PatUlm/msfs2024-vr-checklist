@@ -110,6 +110,12 @@
           "type": "string",
           "minLength": 1
         },
+        "speechTitle": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "^[^\\r\\n]+$",
+          "description": "Spoken group title in the announcement of the first item, when the visible title would sound wrong."
+        },
         "phase": {
           "enum": ["Engine Start", "Taxi", "Departure", "Cruise", "Descent", "Approach", "Landing", "After Landing", "Shutdown"],
           "description": "Flight phase of this group. Engine Start includes preparation; Departure includes takeoff preparation, takeoff and climb."

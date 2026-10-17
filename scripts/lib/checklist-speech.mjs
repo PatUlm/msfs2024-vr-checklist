@@ -3,7 +3,8 @@
 export function itemSpeech(section, item) {
   const text = item.speech ?? `${item.challenge}: ${item.response}`;
   if (item.id !== section.items[0].id) return text;
-  const title = section.title.replace(/\b[A-Z]{2,}\b/g, acronym => [...acronym].join(' '))
+  const title = section.speechTitle ?? section.title
+    .replace(/\b[A-Z]{2,}\b/g, acronym => [...acronym].join(' '))
     .replaceAll('&', 'and');
   return `${title} Checklist. ${text}`;
 }

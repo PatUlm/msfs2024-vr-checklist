@@ -40,6 +40,7 @@ neither ElevenLabs access nor FFmpeg, since the audio is already versioned.
 | All local checks                 | `task check`                |
 | Deploy EFB app for the simulator | `task deploy`               |
 | Deploy companion for Windows     | `task companion:deploy`     |
+| Install the test version         | `task stage:install`        |
 
 After app or data changes, run `task check` first, then `task deploy`; after
 companion changes, also run `task companion:deploy`. Documentation-only
@@ -72,6 +73,13 @@ Pure UI changes normally need no new flight. Lifecycle or reset changes do.
 Pending verifications are listed in [open-tests.md](open-tests.md) and
 [design-qa.md](design-qa.md). After a deployment, check the version identifier
 actually written instead of relying on that of an earlier build.
+
+To test a finished change in a normal simulator session, close MSFS and run
+`task stage:install`. It deploys both apps, builds the staging package with
+FsPackageTool and links `Community2024` to it, replacing the release link
+until `task release:install` restores it. The EFB then shows the `-dev` build
+without Developer Mode. For quick EFB UI iteration, the Debugger flow below
+stays faster, since the installed package needs a simulator restart.
 
 After `task companion:deploy`, start `VRChecklist.Companion.exe` in the
 companion staging folder. DLL configuration, the diagnostic tool and the

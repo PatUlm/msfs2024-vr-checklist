@@ -315,7 +315,11 @@ function findFile(files, suffix) {
   );
 }
 
-export async function verifyPackage(packageRoot, expectedReleaseVersion) {
+export async function verifyPackage(
+  packageRoot,
+  expectedReleaseVersion,
+  { allowSourceMaps = false } = {}
+) {
   const resolvedRoot = resolve(packageRoot);
   const rootStats = await lstat(resolvedRoot);
   if (!rootStats.isDirectory() || rootStats.isSymbolicLink()) {
@@ -399,7 +403,7 @@ export async function verifyPackage(packageRoot, expectedReleaseVersion) {
   }
 
   const sourceMap = packageFiles.find((file) => file.toLowerCase().endsWith(".map"));
-  if (sourceMap) {
+  if (sourceMap && !allowSourceMaps) {
     throw new Error(`Production package contains a source map: ${sourceMap}`);
   }
 
@@ -661,6 +665,143 @@ function runWindowsExecutable(executable, args) {
   });
 }
 
+// Builds the staged project like Build All in the Project Editor.
+async function buildStagingPackage(stagingRoot, sdkRoot) {
+  const resolvedSdkRoot = resolve(sdkRoot ?? "");
+  if (!/^\/mnt\/[a-z](?:\/|$)/i.test(resolvedSdkRoot)) {
+    throw new Error(`MSFS SDK root must be on a mounted Windows drive: ${sdkRoot}`);
+  }
+
+  const projectFile = join(stagingRoot, "VRChecklistProject.xml");
+  const packageTool = join(resolvedSdkRoot, "Tools", "bin", "fspackagetool.exe");
+  for (const requiredPath of [projectFile, packageTool]) {
+    if (!(await pathExists(requiredPath))) {
+      throw new Error(`Required package build input is missing: ${requiredPath}`);
+    }
+  }
+
+  await runWindowsExecutable(packageTool, [
+    toWindowsPath(projectFile),
+    "-rebuild",
+    "-mirroring",
+    "-nopause",
+  ]);
+  return join(stagingRoot, "Packages", packageName);
+}
+
+/*
+ * The simulator mounts Community packages at startup and locks their files,
+ * so package builds and installs require it to be closed.
+ */
+export function runningSimulatorProcesses(tasklistCsv) {
+  return tasklistCsv
+    .split(/\r?\n/)
+    .map((line) => /^"([^"]+)"/.exec(line)?.[1])
+    .filter((name) => name && /^FlightSimulator/i.test(name));
+}
+
+async function listWindowsProcesses() {
+  return new Promise((resolvePromise, reject) => {
+    const child = spawn("tasklist.exe", ["/FO", "CSV", "/NH"], {
+      stdio: ["ignore", "pipe", "inherit"],
+    });
+    let output = "";
+
+    child.stdout.on("data", (chunk) => {
+      output += chunk;
+    });
+    child.once("error", reject);
+    // Unlike exit, close fires only after stdout has been fully read.
+    child.once("close", (code) => {
+      if (code === 0) {
+        resolvePromise(output);
+        return;
+      }
+
+      reject(new Error(`tasklist.exe failed with exit code ${code}.`));
+    });
+  });
+}
+
+async function assertSimulatorClosed() {
+  const running = runningSimulatorProcesses(await listWindowsProcesses());
+  if (running.length) {
+    throw new Error(
+      `Close Microsoft Flight Simulator first: ${[...new Set(running)].join(", ")} is running.`
+    );
+  }
+}
+
+/*
+ * Builds the staged development package without the Project Editor and links
+ * it into Community2024, so a normal simulator start loads it. Later builds
+ * update the linked folder in place; task release:install links a release
+ * again.
+ */
+export async function installStagingPackage({
+  version,
+  stagingDirectory,
+  communityDirectory,
+  sdkRoot,
+}) {
+  validateReleaseVersion(version);
+  const stagingRoot = assertManagedWindowsDirectory(
+    stagingDirectory,
+    stagingDirectoryName,
+    "MSFS staging directory"
+  );
+  const communityRoot = assertManagedWindowsDirectory(
+    communityDirectory,
+    communityDirectoryName,
+    "MSFS Community directory"
+  );
+  if (!(await lstat(communityRoot)).isDirectory()) {
+    throw new Error("The Community path must already be a directory.");
+  }
+
+  await assertSimulatorClosed();
+  const packageOutput = await buildStagingPackage(stagingRoot, sdkRoot);
+  const verification = await verifyPackage(packageOutput, version, {
+    allowSourceMaps: true,
+  });
+  const appSource = await readFile(
+    join(
+      packageOutput,
+      "html_ui",
+      "efb_ui",
+      "efb_apps",
+      "VRChecklist",
+      "VRChecklist.js"
+    ),
+    "utf8"
+  );
+  const buildVersionPattern = new RegExp(
+    `${version.replaceAll(".", "\\.")}-dev\\.\\d{14}`
+  );
+  const buildVersion = buildVersionPattern.exec(appSource)?.[0] ?? version;
+
+  await installDirectoryLink({
+    sourceDirectory: packageOutput,
+    installTarget: join(communityRoot, packageName),
+    temporaryTarget: join(
+      communityRoot,
+      `.${packageName}.install-${process.pid}`
+    ),
+    backupTarget: join(
+      dirname(communityRoot),
+      `.${packageName}.backup-${process.pid}`
+    ),
+    verifyLinkedDirectory: (linkedDirectory) =>
+      verifyPackage(linkedDirectory, version, { allowSourceMaps: true }),
+  });
+
+  return {
+    buildVersion,
+    linkTarget: packageOutput,
+    packageVersion: verification.manifest.package_version,
+  };
+}
+
 export async function buildRelease({
   version,
   stagingDirectory,
@@ -679,34 +820,14 @@ export async function buildRelease({
     releaseDirectoryName,
     "Release directory"
   );
-  const resolvedSdkRoot = resolve(sdkRoot ?? "");
-  if (!/^\/mnt\/[a-z](?:\/|$)/i.test(resolvedSdkRoot)) {
-    throw new Error(`MSFS SDK root must be on a mounted Windows drive: ${sdkRoot}`);
-  }
-
-  const projectFile = join(stagingRoot, "VRChecklistProject.xml");
-  const packageTool = join(resolvedSdkRoot, "Tools", "bin", "fspackagetool.exe");
-  const packageOutput = join(stagingRoot, "Packages", packageName);
   const releaseTarget = join(releaseRoot, version);
-
-  for (const requiredPath of [projectFile, packageTool]) {
-    if (!(await pathExists(requiredPath))) {
-      throw new Error(`Required release input is missing: ${requiredPath}`);
-    }
-  }
-
   if (await pathExists(releaseTarget)) {
     throw new Error(
       `Release ${version} already exists and is immutable: ${releaseTarget}`
     );
   }
 
-  await runWindowsExecutable(packageTool, [
-    toWindowsPath(projectFile),
-    "-rebuild",
-    "-mirroring",
-    "-nopause",
-  ]);
+  const packageOutput = await buildStagingPackage(stagingRoot, sdkRoot);
   const verification = await verifyPackage(packageOutput, version);
   if (verification.manifest.package_version !== version) {
     throw new Error(

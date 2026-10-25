@@ -21,6 +21,7 @@ import {
   createZipArchive,
   installDirectoryLink,
   readProjectVersion,
+  runningSimulatorProcesses,
   selectPrunableReleases,
   toWindowsPath,
   validateArtifactVersion,
@@ -352,6 +353,29 @@ test("package verification checks layout, release version, and source maps", asy
   await assert.rejects(
     () => verifyPackage(packageRoot, "0.1.1"),
     /contains a source map/
+  );
+  const stagingResult = await verifyPackage(packageRoot, "0.1.1", {
+    allowSourceMaps: true,
+  });
+  assert.equal(stagingResult.fileCount, 7);
+});
+
+test("staging installs detect a running simulator from the task list", () => {
+  assert.deepEqual(
+    runningSimulatorProcesses(
+      [
+        '"explorer.exe","4120","Console","1","120,404 K"',
+        '"FlightSimulator2024.exe","9876","Console","1","9,812,004 K"',
+        '"VRChecklist.Companion.exe","5544","Console","1","80,120 K"',
+      ].join("\r\n")
+    ),
+    ["FlightSimulator2024.exe"]
+  );
+  assert.deepEqual(
+    runningSimulatorProcesses(
+      '"explorer.exe","4120","Console","1","120,404 K"\r\n'
+    ),
+    []
   );
 });
 

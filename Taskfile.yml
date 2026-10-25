@@ -182,6 +182,17 @@ tasks:
       - node scripts/release-package.mjs validate-version
       - node scripts/deploy-windows.mjs "{{.STAGING_DIR}}"
 
+  stage:install:
+    desc: Deploy both apps, build the staging package and link it into Community2024
+    env:
+      VR_CHECKLIST_RELEASE_STAGING_DIR: "{{.STAGING_DIR}}"
+      VR_CHECKLIST_RELEASE_COMMUNITY_DIR: "{{.COMMUNITY_DIR}}"
+      VR_CHECKLIST_RELEASE_SDK_ROOT: "{{.MSFS_SDK_ROOT}}"
+    cmds:
+      - task: deploy
+      - task: companion:deploy
+      - node scripts/release-package.mjs install-staging
+
   test:release:
     desc: Test the release packaging and installation utilities
     cmds:

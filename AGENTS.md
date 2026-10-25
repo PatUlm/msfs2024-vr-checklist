@@ -104,12 +104,15 @@ overviews contain only links and topics; validity is stated in the ADR.
 - After agreed app-affecting code, UI or data changes, run `task deploy`
   automatically once the checks succeed; for companion changes, also
   `task companion:deploy`. Pure documentation needs no deployment.
+- Once such a change is complete, install the test version automatically with
+  `task stage:install`; it deploys both apps and requires MSFS to be closed.
+  If MSFS is running, tell the user instead of waiting.
 - After a deployment, determine the version identifier actually written to
   the Windows staging folder and tell the user.
-- Simulator iteration: `task deploy` → **Build All In Project** in the Project
-  Editor → **Ignore Cache + Reload** in the Coherent Debugger. UI changes need
-  no simulator restart and normally no new flight; lifecycle/reset checks need
-  a new flight.
+- Quick EFB iteration: `task deploy` → **Build All In Project** in the
+  Project Editor → **Ignore Cache + Reload** in the Coherent Debugger. UI
+  changes need no simulator restart and normally no new flight;
+  lifecycle/reset checks need a new flight.
 - A build does not prove Coherent styling: check visual results in the EFB.
   Manual runtime verifications check the normal operating flow. Cover edge
   cases with unit/self-tests; additional manual steps need a concrete MSFS

@@ -4,6 +4,7 @@ import {
   buildRelease,
   installCompanionRelease,
   installRelease,
+  installStagingPackage,
   prepareCompanionRelease,
   pruneReleases,
   readProjectVersion,
@@ -82,8 +83,18 @@ if (command === "current-version") {
   console.log(
     `Installed companion ${result.companionVersion} to ${result.installTarget}`
   );
+} else if (command === "install-staging") {
+  const result = await installStagingPackage({
+    version,
+    stagingDirectory: process.env.VR_CHECKLIST_RELEASE_STAGING_DIR,
+    communityDirectory: process.env.VR_CHECKLIST_RELEASE_COMMUNITY_DIR,
+    sdkRoot: process.env.VR_CHECKLIST_RELEASE_SDK_ROOT,
+  });
+  console.log(
+    `Linked staging build ${result.buildVersion} (MSFS package ${result.packageVersion}) from ${result.linkTarget}`
+  );
 } else {
   throw new Error(
-    "Usage: release-package.mjs current-version|validate-version|prepare-companion|build|prune|install|install-companion (configuration is read from the task environment)."
+    "Usage: release-package.mjs current-version|validate-version|prepare-companion|build|prune|install|install-companion|install-staging (configuration is read from the task environment)."
   );
 }

@@ -1,3 +1,4 @@
+import airTractorAt802Data from "../../../../../checklists/data/air-tractor-at-802.json";
 import airbusA400mData from "../../../../../checklists/data/airbus-a400m.json";
 import airbusH125Data from "../../../../../checklists/data/airbus-h125.json";
 import beechcraftBonanzaG36Data from "../../../../../checklists/data/beechcraft-bonanza-g36.json";
@@ -12,6 +13,7 @@ import { Checklist } from "./ChecklistModel";
  * checklists/data/ are the only source of checklist content.
  */
 export const checklists: readonly Checklist[] = [
+  airTractorAt802Data as Checklist,
   airbusA400mData as Checklist,
   airbusH125Data as Checklist,
   beechcraftBonanzaG36Data as Checklist,

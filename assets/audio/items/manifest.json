@@ -2,6 +2,11 @@
   "schemaVersion": 1,
   "checklists": [
     {
+      "id": "air-tractor-at-802",
+      "revision": "2026-10-31",
+      "items": 13
+    },
+    {
       "id": "airbus-a400m",
       "revision": "2026-10-25",
       "items": 104
@@ -38,6 +43,71 @@
     }
   ],
   "assets": [
+    {
+      "file": "item-5138651624a9290c.opus",
+      "sha256": "d0e1aae89a75c10becf04a3d43c9c17bc2d00161cea668138c49c51a13639597",
+      "recipeHash": "5138651624a9290cbb0f93296c74f772593466ce8db6f4080a410c699c2be020"
+    },
+    {
+      "file": "item-804177f1a241715a.opus",
+      "sha256": "49a0e63f5d62b36505fa1153c6d4af5ab82108c83f090b8652f8741373f278e0",
+      "recipeHash": "804177f1a241715a12f4e01f68f084424bdec5b968c8fda9cb881be8122e2c37"
+    },
+    {
+      "file": "item-caf779a87a266257.opus",
+      "sha256": "afca27deaa4c09604e587fc778dcabfa6f670d8bd7f57426a7f189d1b5001148",
+      "recipeHash": "caf779a87a2662570be338d211af10e3dd51693d3a23b318f1ca516559c8b8a1"
+    },
+    {
+      "file": "item-ca4ac06a98fce986.opus",
+      "sha256": "18eb6247b6c8b0fcddf98b76cb34366e1cdb12570262b858875ac8929030cc12",
+      "recipeHash": "ca4ac06a98fce9869f34eff6ae77f22a85d040e714328c5f07a01bafe6528b4a"
+    },
+    {
+      "file": "item-1848e3a06ebf50dd.opus",
+      "sha256": "fb5a1c93ec80b329859f12cfd7cd3cca14eceb306b71cec38e46c3b941d9d064",
+      "recipeHash": "1848e3a06ebf50dde94732d911b34a9f0d8e248bc93463625cb6297117a9620b"
+    },
+    {
+      "file": "item-ec292c3edb3f9703.opus",
+      "sha256": "4369d5f295c3f0c9f29aa10889505503363defa82dd0f9af5666b8c5387e6011",
+      "recipeHash": "ec292c3edb3f970367565c8ab27dffebd3f4ce5cc460086fa4e86a216051460f"
+    },
+    {
+      "file": "item-2073b1dd1e67fa49.opus",
+      "sha256": "d5ee1dd38eef3d56bf2eb254fa410676203c6e886a80a30fe55ef9b323be57c1",
+      "recipeHash": "2073b1dd1e67fa4982a4db7037e2da9ba6aa0443fff24e5b1a79e6ba8365b0cc"
+    },
+    {
+      "file": "item-dd26c11d19d42853.opus",
+      "sha256": "ffa82abf3950b589ac1cff458bee52542080c2387c08e30f60ab9316f117f499",
+      "recipeHash": "dd26c11d19d42853fd4eccf547cb4b534b8224fb47cef315c44e741e1107da77"
+    },
+    {
+      "file": "item-359ef801d528dde9.opus",
+      "sha256": "6b202bd2f306aae94fc49ce9025f0c1b021ffe0aa44c024b6577d503743d4e6f",
+      "recipeHash": "359ef801d528dde932a44c516a7c8733d94b72cde4c95e4daa62397a7494ca34"
+    },
+    {
+      "file": "item-8433ea0465afd6ef.opus",
+      "sha256": "9cee72ca9913e9317bef30d402bf7f15e044f452cc092a770ae7b8d191b4ee4d",
+      "recipeHash": "8433ea0465afd6efbc4a2d7c20f5b68207081b3cf46818bbb5d163295b1a4ba4"
+    },
+    {
+      "file": "item-7b017e082ca1c05f.opus",
+      "sha256": "14958ab4ea0e5cc30b4114131c397864fdb90e41670eff322f174ce7b4595fe0",
+      "recipeHash": "7b017e082ca1c05f520e57aadccdcaec7dc8312ab71e6e17f683679e625b263a"
+    },
+    {
+      "file": "item-197110a2f833a408.opus",
+      "sha256": "c6bf6e94f16f7469fd7e04471389a15669d36fbc9461cf4c3033d45a84b1ea72",
+      "recipeHash": "197110a2f833a408ff449c85f420d6bffc3968009b0401e953ea428faaa9204f"
+    },
+    {
+      "file": "item-11d8c63a1c7dcdd6.opus",
+      "sha256": "31836b8c2f65044e5a6a8a5504d4d35f48ce628c16cd604e7502a3c0d32d63d8",
+      "recipeHash": "11d8c63a1c7dcdd6ce0f8af0593096400128347b8e4b4aaf25ebf3ad6b20fc4e"
+    },
     {
       "file": "item-55b2fe3cc82fc6fc.opus",
       "sha256": "566ca82d6860af0a8693cfda010ed114283e84db97cf7d25fd7f2bda68ed1e67",
@@ -1295,6 +1365,19 @@
     }
   ],
   "items": {
+    "air-tractor-at-802/takeoff/flaps": "item-5138651624a9290c.opus",
+    "air-tractor-at-802/takeoff/rotation-speed": "item-804177f1a241715a.opus",
+    "air-tractor-at-802/water-drop/flaps": "item-caf779a87a266257.opus",
+    "air-tractor-at-802/water-drop/drop-speed": "item-ca4ac06a98fce986.opus",
+    "air-tractor-at-802/water-drop/dump-water": "item-1848e3a06ebf50dd.opus",
+    "air-tractor-at-802/water-landing/flaps": "item-ec292c3edb3f9703.opus",
+    "air-tractor-at-802/water-landing/landing-speed": "item-2073b1dd1e67fa49.opus",
+    "air-tractor-at-802/scooping/flaps": "item-dd26c11d19d42853.opus",
+    "air-tractor-at-802/scooping/scooping-speed": "item-359ef801d528dde9.opus",
+    "air-tractor-at-802/scooping/start-scooping": "item-8433ea0465afd6ef.opus",
+    "air-tractor-at-802/water-takeoff/rotation-speed": "item-7b017e082ca1c05f.opus",
+    "air-tractor-at-802/landing/flaps": "item-197110a2f833a408.opus",
+    "air-tractor-at-802/landing/landing-speed": "item-11d8c63a1c7dcdd6.opus",
     "airbus-a400m/electrical-power-up/bat-ext": "item-55b2fe3cc82fc6fc.opus",
     "airbus-a400m/electrical-power-up/bat-1-2-ess": "item-c9f90f61593067d8.opus",
     "airbus-a400m/electrical-power-up/panel-state-on-gpu": "item-587336ef4898641a.opus",

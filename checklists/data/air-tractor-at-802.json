@@ -1,0 +1,161 @@
+{
+  "schemaVersion": 1,
+  "id": "air-tractor-at-802",
+  "title": "Air Tractor AT-802",
+  "aircraft": {
+    "manufacturer": "Air Tractor",
+    "model": "AT-802",
+    "msfsMatches": [
+      {
+        "atcModel": { "contains": "AC_MODEL AT-802" },
+        "title": { "contains": "AT802" }
+      }
+    ]
+  },
+  "revision": "2026-10-31",
+  "sections": [
+    {
+      "id": "takeoff",
+      "title": "Takeoff",
+      "phase": "Departure",
+      "items": [
+        {
+          "id": "flaps",
+          "challenge": "Flaps",
+          "response": "10°",
+          "kind": "action",
+          "speech": "Flaps: 10 degrees."
+        },
+        {
+          "id": "rotation-speed",
+          "challenge": "Rotation Speed (Vr)",
+          "response": "80 kt",
+          "kind": "action",
+          "condition": "Tank 50 % full",
+          "notes": ["Rotate gently: the tail wheel lifts early"],
+          "speech": "With the tank 50 percent full, rotation speed V R: 80 knots. Rotate gently: the tail wheel lifts early."
+        }
+      ]
+    },
+    {
+      "id": "water-drop",
+      "title": "Water Drop",
+      "phase": "Cruise",
+      "items": [
+        {
+          "id": "flaps",
+          "challenge": "Flaps",
+          "response": "10° or Full",
+          "kind": "action",
+          "speech": "Flaps: 10 degrees or full."
+        },
+        {
+          "id": "drop-speed",
+          "challenge": "Drop Speed",
+          "response": "100 kt",
+          "kind": "action",
+          "speech": "Drop speed: 100 knots."
+        },
+        {
+          "id": "dump-water",
+          "challenge": "Water",
+          "response": "Dump",
+          "kind": "action",
+          "notes": ["Caution: the nose pitches up sharply at release, push forward"],
+          "speech": "Water: Dump. Caution: the nose pitches up sharply at release, push forward."
+        }
+      ]
+    },
+    {
+      "id": "water-landing",
+      "title": "Water Landing",
+      "phase": "Landing",
+      "items": [
+        {
+          "id": "flaps",
+          "challenge": "Flaps",
+          "response": "Full",
+          "kind": "action"
+        },
+        {
+          "id": "landing-speed",
+          "challenge": "Landing Speed",
+          "response": "80 kt",
+          "kind": "action",
+          "notes": ["Shallow approach: look at the horizon, not at the water just ahead"],
+          "speech": "Landing speed: 80 knots. Shallow approach: look at the horizon, not at the water just ahead."
+        }
+      ]
+    },
+    {
+      "id": "scooping",
+      "title": "Scooping",
+      "phase": "Landing",
+      "items": [
+        {
+          "id": "flaps",
+          "challenge": "Flaps",
+          "response": "10°",
+          "kind": "action",
+          "speech": "Flaps: 10 degrees."
+        },
+        {
+          "id": "scooping-speed",
+          "challenge": "Scooping Speed",
+          "response": "80 kt",
+          "kind": "action",
+          "speech": "Scooping speed: 80 knots."
+        },
+        {
+          "id": "start-scooping",
+          "challenge": "Scooping",
+          "response": "Start",
+          "kind": "action",
+          "condition": "On the water",
+          "notes": ["Hold speed with the throttle while the probes are in the water"],
+          "speech": "On the water, scooping: Start. Hold speed with the throttle while the probes are in the water."
+        }
+      ]
+    },
+    {
+      "id": "water-takeoff",
+      "title": "Water Takeoff",
+      "phase": "Departure",
+      "items": [
+        {
+          "id": "rotation-speed",
+          "challenge": "Rotation Speed (Vr)",
+          "response": "80 kt",
+          "kind": "action",
+          "notes": ["Sluggish with a full tank: do not pull up too early"],
+          "speech": "Rotation speed V R: 80 knots. Sluggish with a full tank: do not pull up too early."
+        }
+      ]
+    },
+    {
+      "id": "landing",
+      "title": "Landing",
+      "phase": "Landing",
+      "items": [
+        {
+          "id": "flaps",
+          "challenge": "Flaps",
+          "response": "Full",
+          "kind": "action"
+        },
+        {
+          "id": "landing-speed",
+          "challenge": "Landing Speed",
+          "response": "75 kt",
+          "kind": "action",
+          "condition": "Tank empty",
+          "notes": [
+            "Touchdown at approx. 60–65 kt",
+            "Very light when empty: bounces easily"
+          ],
+          "speech": "With the tank empty, landing speed: 75 knots. Touch down at approximately 60 to 65 knots. Very light when empty: bounces easily."
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "file": "item-8433ea0465afd6ef.opus",
+  "sha256": "9cee72ca9913e9317bef30d402bf7f15e044f452cc092a770ae7b8d191b4ee4d",
+  "recipeHash": "8433ea0465afd6efbc4a2d7c20f5b68207081b3cf46818bbb5d163295b1a4ba4",
+  "recipe": {
+    "voiceId": "nPczCjzI2devNBz1zQrb",
+    "request": {
+      "text": "On the water, scooping: Start. Hold speed with the throttle while the probes are in the water.",
+      "model_id": "eleven_multilingual_v2",
+      "voice_settings": {
+        "stability": 0.75,
+        "similarity_boost": 0.75,
+        "style": 0,
+        "use_speaker_boost": true,
+        "speed": 1
+      },
+      "seed": 9172026
+    },
+    "sourceFormat": "mp3_44100_128",
+    "profile": "clean",
+    "normalization": "loudnorm=I=-20:TP=-2:LRA=11",
+    "format": "ogg-opus-mono-48000-32k",
+    "revision": 1
+  },
+  "generatedAt": "2026-10-31T17:27:54.189Z",
+  "provider": "ElevenLabs",
+  "voice": "Brian",
+  "generationPlan": "paid",
+  "planEvidence": "Operator confirmed active Starter subscription before rendering.",
+  "requestId": "4kacxhBn3hNXAtlSBeUv",
+  "characterCost": "38",
+  "ffmpegVersion": "ffmpeg version 6.1.1-3ubuntu5 Copyright (c) 2000-2023 the FFmpeg developers",
+  "licenseNotice": "../README.md"
+}

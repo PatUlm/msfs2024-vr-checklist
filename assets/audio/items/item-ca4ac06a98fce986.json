@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "file": "item-ca4ac06a98fce986.opus",
+  "sha256": "18eb6247b6c8b0fcddf98b76cb34366e1cdb12570262b858875ac8929030cc12",
+  "recipeHash": "ca4ac06a98fce9869f34eff6ae77f22a85d040e714328c5f07a01bafe6528b4a",
+  "recipe": {
+    "voiceId": "nPczCjzI2devNBz1zQrb",
+    "request": {
+      "text": "Drop speed: 100 knots.",
+      "model_id": "eleven_multilingual_v2",
+      "voice_settings": {
+        "stability": 0.75,
+        "similarity_boost": 0.75,
+        "style": 0,
+        "use_speaker_boost": true,
+        "speed": 1
+      },
+      "seed": 9172026
+    },
+    "sourceFormat": "mp3_44100_128",
+    "profile": "clean",
+    "normalization": "loudnorm=I=-20:TP=-2:LRA=11",
+    "format": "ogg-opus-mono-48000-32k",
+    "revision": 1
+  },
+  "generatedAt": "2026-10-31T17:23:55.517Z",
+  "provider": "ElevenLabs",
+  "voice": "Brian",
+  "generationPlan": "paid",
+  "planEvidence": "Operator confirmed active Starter subscription before rendering.",
+  "requestId": "EPwWYylDdNlh7x6HnhCI",
+  "characterCost": "9",
+  "ffmpegVersion": "ffmpeg version 6.1.1-3ubuntu5 Copyright (c) 2000-2023 the FFmpeg developers",
+  "licenseNotice": "../README.md"
+}

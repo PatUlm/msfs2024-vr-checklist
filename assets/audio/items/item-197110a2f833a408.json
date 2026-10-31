@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "file": "item-197110a2f833a408.opus",
+  "sha256": "c6bf6e94f16f7469fd7e04471389a15669d36fbc9461cf4c3033d45a84b1ea72",
+  "recipeHash": "197110a2f833a408ff449c85f420d6bffc3968009b0401e953ea428faaa9204f",
+  "recipe": {
+    "voiceId": "nPczCjzI2devNBz1zQrb",
+    "request": {
+      "text": "Landing Checklist. Flaps: Full",
+      "model_id": "eleven_multilingual_v2",
+      "voice_settings": {
+        "stability": 0.75,
+        "similarity_boost": 0.75,
+        "style": 0,
+        "use_speaker_boost": true,
+        "speed": 1
+      },
+      "seed": 9172026
+    },
+    "sourceFormat": "mp3_44100_128",
+    "profile": "clean",
+    "normalization": "loudnorm=I=-20:TP=-2:LRA=11",
+    "format": "ogg-opus-mono-48000-32k",
+    "revision": 1
+  },
+  "generatedAt": "2026-10-31T16:16:42.247Z",
+  "provider": "ElevenLabs",
+  "voice": "Brian",
+  "generationPlan": "paid",
+  "planEvidence": "Operator confirmed active Starter subscription before rendering.",
+  "requestId": "XSaNzZE5t03vIBMJnChL",
+  "characterCost": "12",
+  "ffmpegVersion": "ffmpeg version 6.1.1-3ubuntu5 Copyright (c) 2000-2023 the FFmpeg developers",
+  "licenseNotice": "../README.md"
+}

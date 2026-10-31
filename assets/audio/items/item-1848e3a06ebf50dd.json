@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "file": "item-1848e3a06ebf50dd.opus",
+  "sha256": "fb5a1c93ec80b329859f12cfd7cd3cca14eceb306b71cec38e46c3b941d9d064",
+  "recipeHash": "1848e3a06ebf50dde94732d911b34a9f0d8e248bc93463625cb6297117a9620b",
+  "recipe": {
+    "voiceId": "nPczCjzI2devNBz1zQrb",
+    "request": {
+      "text": "Water: Dump. Caution: the nose pitches up sharply at release, push forward.",
+      "model_id": "eleven_multilingual_v2",
+      "voice_settings": {
+        "stability": 0.75,
+        "similarity_boost": 0.75,
+        "style": 0,
+        "use_speaker_boost": true,
+        "speed": 1
+      },
+      "seed": 9172026
+    },
+    "sourceFormat": "mp3_44100_128",
+    "profile": "clean",
+    "normalization": "loudnorm=I=-20:TP=-2:LRA=11",
+    "format": "ogg-opus-mono-48000-32k",
+    "revision": 1
+  },
+  "generatedAt": "2026-10-31T17:23:56.147Z",
+  "provider": "ElevenLabs",
+  "voice": "Brian",
+  "generationPlan": "paid",
+  "planEvidence": "Operator confirmed active Starter subscription before rendering.",
+  "requestId": "SjcCahNsitYnSgOwZTns",
+  "characterCost": "30",
+  "ffmpegVersion": "ffmpeg version 6.1.1-3ubuntu5 Copyright (c) 2000-2023 the FFmpeg developers",
+  "licenseNotice": "../README.md"
+}

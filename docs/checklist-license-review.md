@@ -48,6 +48,7 @@ not independent evidence of sources or licenses.
 | H125        | Asobo default package; supplementary manufacturer and operator sources.                                           |
 | A400M       | Microsoft/iniBuilds; additionally a publicly provided QRC for comparison.                                         |
 | OH-6A/H500C | Taog's Hangar; shortened procedure from the Expert checklist.                                                     |
+| AT-802      | Maintainer's own flight notes; selected technical values, no vendor text.                                         |
 
 The source evidence remains in the [inventory](license-audit-inventory.json)
 under `checklistRightsReview`. The historical in-game wording could not be

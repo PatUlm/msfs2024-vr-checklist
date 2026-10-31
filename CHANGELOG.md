@@ -7,6 +7,12 @@ Changelog, and the project uses Semantic Versioning.
 
 ## [Unreleased]
 
+### Added
+
+- Added a minimal Air Tractor AT-802 firefighting checklist with speeds, flaps,
+  the scooping and dump steps and handling reminders for takeoff, water drop,
+  water landing, scooping, water takeoff and landing.
+
 ### Changed
 
 - The A400M gains an ILS approach with optional autoland: Descent Preparation

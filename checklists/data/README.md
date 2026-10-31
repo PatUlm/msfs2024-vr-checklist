@@ -135,3 +135,9 @@ attribution and the assessment of the reviewed set.
   `Avionics`.
 - The G36 checklist is deliberately a minimal, incomplete memory aid of
   selected speeds, flap and landing gear positions.
+- The AT-802 checklist is likewise a minimal memory aid: speeds, flaps,
+  scooping and dump steps and handling reminders per firefighting phase from
+  the maintainer's own flight notes, without manufacturer or in-game sources.
+  Its groups alternate between land and water, so the phases deliberately repeat; `Water Landing` and
+  `Scooping` form one block. The notes do not say when to use which flap
+  setting, so `10° or Full` stays open.

@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "file": "item-359ef801d528dde9.opus",
+  "sha256": "6b202bd2f306aae94fc49ce9025f0c1b021ffe0aa44c024b6577d503743d4e6f",
+  "recipeHash": "359ef801d528dde932a44c516a7c8733d94b72cde4c95e4daa62397a7494ca34",
+  "recipe": {
+    "voiceId": "nPczCjzI2devNBz1zQrb",
+    "request": {
+      "text": "Scooping speed: 80 knots.",
+      "model_id": "eleven_multilingual_v2",
+      "voice_settings": {
+        "stability": 0.75,
+        "similarity_boost": 0.75,
+        "style": 0,
+        "use_speaker_boost": true,
+        "speed": 1
+      },
+      "seed": 9172026
+    },
+    "sourceFormat": "mp3_44100_128",
+    "profile": "clean",
+    "normalization": "loudnorm=I=-20:TP=-2:LRA=11",
+    "format": "ogg-opus-mono-48000-32k",
+    "revision": 1
+  },
+  "generatedAt": "2026-10-31T17:23:56.693Z",
+  "provider": "ElevenLabs",
+  "voice": "Brian",
+  "generationPlan": "paid",
+  "planEvidence": "Operator confirmed active Starter subscription before rendering.",
+  "requestId": "ncJYFhAanTm2WcRrHtBa",
+  "characterCost": "10",
+  "ffmpegVersion": "ffmpeg version 6.1.1-3ubuntu5 Copyright (c) 2000-2023 the FFmpeg developers",
+  "licenseNotice": "../README.md"
+}

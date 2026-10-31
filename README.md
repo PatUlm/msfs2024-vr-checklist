@@ -102,6 +102,7 @@ reads out the next open item as soon as it becomes current.
 
 | Aircraft               | Aircraft package        | Coverage                                             |
 |------------------------|-------------------------|------------------------------------------------------|
+| Air Tractor AT-802     | MSFS default            | Firefighting: speeds and flaps per mission phase     |
 | Airbus A400M           | Microsoft/iniBuilds     | Full flight, from Electrical Power Up to Securing    |
 | Airbus H125            | MSFS default            | Before Start, Engine Start, Before Taxi, Shutdown    |
 | Beechcraft Bonanza G36 | MSFS default            | Departure and approach: speeds, flaps and gear       |

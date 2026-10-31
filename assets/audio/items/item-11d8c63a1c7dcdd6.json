@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "file": "item-11d8c63a1c7dcdd6.opus",
+  "sha256": "31836b8c2f65044e5a6a8a5504d4d35f48ce628c16cd604e7502a3c0d32d63d8",
+  "recipeHash": "11d8c63a1c7dcdd6ce0f8af0593096400128347b8e4b4aaf25ebf3ad6b20fc4e",
+  "recipe": {
+    "voiceId": "nPczCjzI2devNBz1zQrb",
+    "request": {
+      "text": "With the tank empty, landing speed: 75 knots. Touch down at approximately 60 to 65 knots. Very light when empty: bounces easily.",
+      "model_id": "eleven_multilingual_v2",
+      "voice_settings": {
+        "stability": 0.75,
+        "similarity_boost": 0.75,
+        "style": 0,
+        "use_speaker_boost": true,
+        "speed": 1
+      },
+      "seed": 9172026
+    },
+    "sourceFormat": "mp3_44100_128",
+    "profile": "clean",
+    "normalization": "loudnorm=I=-20:TP=-2:LRA=11",
+    "format": "ogg-opus-mono-48000-32k",
+    "revision": 1
+  },
+  "generatedAt": "2026-10-31T16:16:43.053Z",
+  "provider": "ElevenLabs",
+  "voice": "Brian",
+  "generationPlan": "paid",
+  "planEvidence": "Operator confirmed active Starter subscription before rendering.",
+  "requestId": "aatm2QD14uo27YFNEhfO",
+  "characterCost": "51",
+  "ffmpegVersion": "ffmpeg version 6.1.1-3ubuntu5 Copyright (c) 2000-2023 the FFmpeg developers",
+  "licenseNotice": "../README.md"
+}

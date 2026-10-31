@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "file": "item-7b017e082ca1c05f.opus",
+  "sha256": "14958ab4ea0e5cc30b4114131c397864fdb90e41670eff322f174ce7b4595fe0",
+  "recipeHash": "7b017e082ca1c05f520e57aadccdcaec7dc8312ab71e6e17f683679e625b263a",
+  "recipe": {
+    "voiceId": "nPczCjzI2devNBz1zQrb",
+    "request": {
+      "text": "Water Takeoff Checklist. Rotation speed V R: 80 knots. Sluggish with a full tank: do not pull up too early.",
+      "model_id": "eleven_multilingual_v2",
+      "voice_settings": {
+        "stability": 0.75,
+        "similarity_boost": 0.75,
+        "style": 0,
+        "use_speaker_boost": true,
+        "speed": 1
+      },
+      "seed": 9172026
+    },
+    "sourceFormat": "mp3_44100_128",
+    "profile": "clean",
+    "normalization": "loudnorm=I=-20:TP=-2:LRA=11",
+    "format": "ogg-opus-mono-48000-32k",
+    "revision": 1
+  },
+  "generatedAt": "2026-10-31T18:15:17.294Z",
+  "provider": "ElevenLabs",
+  "voice": "Brian",
+  "generationPlan": "paid",
+  "planEvidence": "Operator confirmed active Starter subscription before rendering.",
+  "requestId": "PfyovrJgGy7IihaTsZJD",
+  "characterCost": "43",
+  "ffmpegVersion": "ffmpeg version 6.1.1-3ubuntu5 Copyright (c) 2000-2023 the FFmpeg developers",
+  "licenseNotice": "../README.md"
+}

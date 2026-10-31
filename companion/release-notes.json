@@ -3,6 +3,18 @@
   "companionSince": "0.3.0",
   "releases": [
     {
+      "version": "0.21.0",
+      "date": "2026-10-31",
+      "highlight": "The Air Tractor AT-802 gets a firefighting checklist.",
+      "features": [
+        "Adds a minimal AT-802 firefighting checklist with speeds, flaps, scooping and dump steps.",
+        "Adds an A400M ILS approach with optional autoland.",
+        "Lowers the A400M gear before extending the flaps step by step to FULL.",
+        "Points the A400M FMGES setup to INIT REQUEST and inserts the departure directly."
+      ],
+      "fixes": []
+    },
+    {
       "version": "0.20.1",
       "date": "2026-10-17",
       "highlight": "The A400M engines can now be started during pushback.",

@@ -7,6 +7,8 @@ Changelog, and the project uses Semantic Versioning.
 
 ## [Unreleased]
 
+## [0.21.0] - 2026-10-31
+
 ### Added
 
 - Added a minimal Air Tractor AT-802 firefighting checklist with speeds, flaps,

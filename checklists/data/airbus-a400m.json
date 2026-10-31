@@ -268,7 +268,8 @@
           "speech": "Engine masters one to four: Feather, one at a time. Wait for the white half box to disappear.",
           "notes": [
             "One at a time. Wait for the white half box to disappear."
-          ]
+          ],
+          "decision": "All engines to FEATHER, then all to RUN, without the QRC's AVAIL sequence per engine: tested in-game flow, kept by maintainer decision."
         },
         {
           "id": "parking-brake",

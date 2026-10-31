@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "file": "item-313307565c98730b.opus",
+  "sha256": "b748c2789cee4b260e0bd26bea6ad34d37aff9d86df7845e1493c87aa4766141",
+  "recipeHash": "313307565c98730b0677909e27fee39a5041d0d617926337021d0c5d471b3abd",
+  "recipe": {
+    "voiceId": "nPczCjzI2devNBz1zQrb",
+    "request": {
+      "text": "Descent Checklist. At top of descent or when instructed by air traffic control, autopilot altitude: Use managed mode. The top of descent symbol on the navigation display is a level arrow bending down to the right. Use speed brakes if above the descent path or glideslope.",
+      "model_id": "eleven_multilingual_v2",
+      "voice_settings": {
+        "stability": 0.75,
+        "similarity_boost": 0.75,
+        "style": 0,
+        "use_speaker_boost": true,
+        "speed": 1
+      },
+      "seed": 9172026
+    },
+    "sourceFormat": "mp3_44100_128",
+    "profile": "clean",
+    "normalization": "loudnorm=I=-20:TP=-2:LRA=11",
+    "format": "ogg-opus-mono-48000-32k",
+    "revision": 1
+  },
+  "generatedAt": "2026-10-25T19:38:36.062Z",
+  "provider": "ElevenLabs",
+  "voice": "Brian",
+  "generationPlan": "paid",
+  "planEvidence": "Operator confirmed active Starter subscription before rendering.",
+  "requestId": "RcsUdf30hCRb7Pc0V7VW",
+  "characterCost": "108",
+  "ffmpegVersion": "ffmpeg version 6.1.1-3ubuntu5 Copyright (c) 2000-2023 the FFmpeg developers",
+  "licenseNotice": "../README.md"
+}

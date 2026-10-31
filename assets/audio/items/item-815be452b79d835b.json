@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "file": "item-815be452b79d835b.opus",
+  "sha256": "46ff3ae0ada3c76386f9fcc91ebb3d6496855ae919ea364140a32fde5c88443f",
+  "recipeHash": "815be452b79d835b22527647a43e67473b2fecb91652b0ffe78eea1e4957172c",
+  "recipe": {
+    "voiceId": "nPczCjzI2devNBz1zQrb",
+    "request": {
+      "text": "Performance page, approach panel, barometric or radio minimum and transition setting: Set from the approach chart. Select radio if the minimum is marked with the letter R; otherwise select barometric.",
+      "model_id": "eleven_multilingual_v2",
+      "voice_settings": {
+        "stability": 0.75,
+        "similarity_boost": 0.75,
+        "style": 0,
+        "use_speaker_boost": true,
+        "speed": 1
+      },
+      "seed": 9172026
+    },
+    "sourceFormat": "mp3_44100_128",
+    "profile": "clean",
+    "normalization": "loudnorm=I=-20:TP=-2:LRA=11",
+    "format": "ogg-opus-mono-48000-32k",
+    "revision": 1
+  },
+  "generatedAt": "2026-10-25T10:56:00.553Z",
+  "provider": "ElevenLabs",
+  "voice": "Brian",
+  "generationPlan": "paid",
+  "planEvidence": "Operator confirmed active Starter subscription before rendering.",
+  "requestId": "RNedxhx71O3cGnten2s6",
+  "characterCost": "80",
+  "ffmpegVersion": "ffmpeg version 6.1.1-3ubuntu5 Copyright (c) 2000-2023 the FFmpeg developers",
+  "licenseNotice": "../README.md"
+}

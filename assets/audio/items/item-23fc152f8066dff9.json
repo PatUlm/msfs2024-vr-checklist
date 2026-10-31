@@ -1,12 +1,12 @@
 {
   "schemaVersion": 1,
-  "file": "item-7e305277dcb7c985.opus",
-  "sha256": "f1247e0fa2f2c34b42b94b9c7c699a1b37ddd27ca290aec05439b0e962085989",
-  "recipeHash": "7e305277dcb7c9853e0c055b608c9f65db37710a36be7062bac49337744e8edf",
+  "file": "item-23fc152f8066dff9.opus",
+  "sha256": "76efc52cb42ff23d4853a71433c4be0b2adbabe2a2bfee1fe4c76371333938e0",
+  "recipeHash": "23fc152f8066dff910fea4d00b0e4ee08efa439bbc103045ceeea3ec0a403df4",
   "recipe": {
     "voiceId": "nPczCjzI2devNBz1zQrb",
     "request": {
-      "text": "Flight plan page, departure, arrival and flight plan: Set. Delete discontinuities.",
+      "text": "Approach Checklist. Performance page, approach panel: Activate approach at the deceleration point, marked with the letter D on the navigation display, or when vectored for the approach. This activates the approach speeds.",
       "model_id": "eleven_multilingual_v2",
       "voice_settings": {
         "stability": 0.75,
@@ -23,13 +23,13 @@
     "format": "ogg-opus-mono-48000-32k",
     "revision": 1
   },
-  "generatedAt": "2026-10-16T17:43:26.586Z",
+  "generatedAt": "2026-10-25T10:56:12.927Z",
   "provider": "ElevenLabs",
   "voice": "Brian",
   "generationPlan": "paid",
   "planEvidence": "Operator confirmed active Starter subscription before rendering.",
-  "requestId": "jwqqiSasL4gQqO2eP7jl",
-  "characterCost": "33",
+  "requestId": "jy6COo2mXLeoJE9q3S6L",
+  "characterCost": "88",
   "ffmpegVersion": "ffmpeg version 6.1.1-3ubuntu5 Copyright (c) 2000-2023 the FFmpeg developers",
   "licenseNotice": "../README.md"
 }

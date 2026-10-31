@@ -95,15 +95,26 @@ attribution and the assessment of the reviewed set.
   twist grip to `IDLE`, 30 seconds of cool-down, then switch off the systems
   used, and apply the rotor brake only at 140 rotor RPM or less.
 - The A400M checklist reflects an in-game procedure adapted for the app. Page
-  names were added according to the
-  [iniBuilds manual](https://flightsimulator.azureedge.net/wp-content/uploads/2024/11/Airbus-A400M-MSFS-Manual.pdf).
+  names and fields were added according to the
+  [iniBuilds manual](https://flightsimulator.azureedge.net/wp-content/uploads/2024/11/Airbus-A400M-MSFS-Manual.pdf)
+  (MFD menus and KCCU keys pages 22–23, INIT REQUEST page 24, DEPARTURE
+  insertion with TMPY F-PLN page 26, NAVAIDS page 28, PERF APPR page 31).
+  The bracket names the MFD page as in its header without the main menu
+  `ACTIVE`, whose pages have KCCU direct keys; other menus stay, as in
+  `[POSITION/NAVAIDS]`. A PERF panel such as `APPR` is the first word of the
+  challenge. The `ACTIVE/F-PLN/ARRIVAL` fields `RWY`, `APPR` and `STAR` follow
+  the in-game page.
   `BLOCK` denotes the total fuel on board at the start of the flight, see
   [Airbus: Fuel Leak Management](https://safetyfirst.airbus.com/fuel-leak-management-in-flight/).
   The addition `T.O CONFIG` on the ECAM control panel follows the in-game
   hint; it comes after the takeoff flap configuration. The after-takeoff
-  controls in `Takeoff` and the groups from `Approach` onward follow the
-  iniBuilds Quick Reference Card v1.0.0, using the challenge names already in
-  use and separate items per control. `Taxi to Runway`, the ATC steps, the
+  controls in `Takeoff`, the landing configuration and the groups from
+  `After Landing` onward follow the iniBuilds Quick Reference Card v1.0.0,
+  using the challenge names already in use and separate items per control.
+  `Descent Preparation`, `Descent` and `Approach` follow the in-game ILS and
+  autoland procedure. In `Landing`, the gear comes before flaps 2 and the
+  flaps 2 to `FULL` are one item, since their limits are visible on the PFD
+  (user choice). `Taxi to Runway`, the ATC steps, the
   takeoff guidance, the optional autopilot and the PFD-triggered `MCL` follow
   the in-game procedure; the Quick Reference Card does not cover them. The
   landing lights follow the card's `Strobe and Landing Lights`; `LDG` is a
@@ -113,13 +124,13 @@ attribution and the assessment of the reviewed set.
   user choice that the card does not cover. Selecting `ON GPU` on the EFB `Panel State` page (manual page 13)
   after the batteries works around a simulator bug that keeps the wheel
   chocks active internally. The autopilot altitude and speed before takeoff
-  and the approximate Vapp are in-game experience values. Landing flap position 4
-  is a separate position before `FULL`; its Vfe of 180 kt follows the flap
-  speed table on manual page 8. Probe and
+  and the approximate Vapp are in-game experience values. The Vfe of flaps 1 in the
+  approach follows the flap speed table on manual page 8. Probe and
   strobe lights use the cockpit switch positions `OFF`/`DIM`/`BRT` instead of
   the card's `On`. The beacon has two switches, `UPPER`/`BOTH` and
   `OFF`/`DIM`/`BRT`. `BAT`, `ENG Master`, `ENG Start Mode`, `NAV Lights`,
-  `ANTI ICE` and the altimeter setting `STD` are the cockpit labels.
+  `ANTI ICE`, the FCU buttons `LS` and `APPR` and the altimeter setting `STD`
+  are the cockpit labels.
 - The DA42 `Avionics Master` follows the cockpit label; the H125 and OH-6 use
   `Avionics`.
 - The G36 checklist is deliberately a minimal, incomplete memory aid of

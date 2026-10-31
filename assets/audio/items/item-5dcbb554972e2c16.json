@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "file": "item-5dcbb554972e2c16.opus",
+  "sha256": "dd88a48ecf3adb93f2671f86522d4a09c6184097fb845469eb5bdb6fd3f02236",
+  "recipeHash": "5dcbb554972e2c16c1090f179ff4b91c7087bf04e4fbeae7f1ea8455b462a87d",
+  "recipe": {
+    "voiceId": "nPczCjzI2devNBz1zQrb",
+    "request": {
+      "text": "Autopilot altitude: Set the glideslope intercept altitude from the approach chart. Do not activate the altitude change yet.",
+      "model_id": "eleven_multilingual_v2",
+      "voice_settings": {
+        "stability": 0.75,
+        "similarity_boost": 0.75,
+        "style": 0,
+        "use_speaker_boost": true,
+        "speed": 1
+      },
+      "seed": 9172026
+    },
+    "sourceFormat": "mp3_44100_128",
+    "profile": "clean",
+    "normalization": "loudnorm=I=-20:TP=-2:LRA=11",
+    "format": "ogg-opus-mono-48000-32k",
+    "revision": 1
+  },
+  "generatedAt": "2026-10-25T10:56:05.408Z",
+  "provider": "ElevenLabs",
+  "voice": "Brian",
+  "generationPlan": "paid",
+  "planEvidence": "Operator confirmed active Starter subscription before rendering.",
+  "requestId": "D60LsBEt2hYt6g2xpT0X",
+  "characterCost": "49",
+  "ffmpegVersion": "ffmpeg version 6.1.1-3ubuntu5 Copyright (c) 2000-2023 the FFmpeg developers",
+  "licenseNotice": "../README.md"
+}

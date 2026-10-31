@@ -11,7 +11,7 @@
       }
     ]
   },
-  "revision": "2026-10-17",
+  "revision": "2026-10-25",
   "sections": [
     {
       "id": "electrical-power-up",
@@ -119,7 +119,10 @@
           "challenge": "[INIT] FROM, TO, ALTN and CRZ FL",
           "response": "Set",
           "kind": "action",
-          "speech": "Initialization page, departure airport, destination airport, alternate airport and cruise flight level: Set."
+          "notes": [
+            "INIT REQUEST loads them from SimBrief."
+          ],
+          "speech": "Initialization page, departure airport, destination airport, alternate airport and cruise flight level: Set. The initialization request button loads them from SimBrief."
         },
         {
           "id": "wind-request",
@@ -129,23 +132,21 @@
           "speech": "Wind page, company wind request: Execute."
         },
         {
-          "id": "irs",
-          "challenge": "[IRS] IRS [1+2+3]",
-          "response": "NAV",
-          "kind": "verify",
-          "speech": "Verify I R S page, I R S one, two and three: Navigation."
-        },
-        {
           "id": "departure",
-          "challenge": "[DEPARTURE] RWY and SID",
-          "response": "Set",
+          "challenge": "[F-PLN/DEPARTURE] RWY and SID",
+          "response": "Set + Insert",
           "kind": "action",
-          "speech": "Departure page, runway and Sid: Set.",
+          "notes": [
+            "Open with DEPARTURE on the INIT page.",
+            "TMPY F-PLN inserts the selection and switches to the F-PLN page.",
+            "Delete discontinuities."
+          ],
+          "speech": "Flight plan departure page, runway and Sid: Set and insert. Open the page with the departure button on the initialization page. The temporary flight plan button inserts the selection and switches to the flight plan page. Delete discontinuities.",
           "decision": "SID is spoken as the word Sid, as pilots say it."
         },
         {
           "id": "fuel-load",
-          "challenge": "[FUEL & LOAD] ZFW, ZFWCG, Block Fuel",
+          "challenge": "[FUEL&LOAD] ZFW, ZFWCG, Block Fuel",
           "response": "Set",
           "kind": "action",
           "speech": "Fuel and load: Set zero fuel weight, zero fuel weight center of gravity, and block fuel. Use the E F B values.",
@@ -155,20 +156,10 @@
         },
         {
           "id": "to-perf",
-          "challenge": "[PERF] T.O. Perf",
+          "challenge": "[PERF] T.O Perf",
           "response": "Compute + Insert",
           "kind": "action",
           "speech": "Takeoff performance: Compute and insert."
-        },
-        {
-          "id": "flight-plan",
-          "challenge": "[F-PLN] Departure, Arrival and Flight Plan",
-          "response": "Set",
-          "kind": "action",
-          "speech": "Flight plan page, departure, arrival and flight plan: Set. Delete discontinuities.",
-          "notes": [
-            "Delete discontinuities."
-          ]
         }
       ]
     },
@@ -597,24 +588,94 @@
       ]
     },
     {
-      "id": "approach",
-      "title": "Approach",
-      "phase": "Approach",
-      "decision": "The QRC v1.0.0 approach item Engine Start Selector: As Required is deliberately omitted.",
+      "id": "descent-preparation",
+      "title": "Descent Preparation",
+      "phase": "Cruise",
       "items": [
         {
-          "id": "approach-data-minima",
-          "challenge": "Approach Data & Minima",
+          "id": "arrival",
+          "challenge": "[F-PLN/ARRIVAL] RWY, APPR and STAR",
           "response": "Set",
           "kind": "action",
-          "speech": "Approach data and minima: Set."
+          "condition": "As assigned by ATC",
+          "speech": "Flight plan arrival page, runway, approach and Star: Set as assigned by air traffic control.",
+          "decision": "STAR is spoken as the word Star, as pilots say it."
+        },
+        {
+          "id": "approach-weather",
+          "challenge": "[PERF] APPR MAG WIND, OAT and QNH",
+          "response": "Set",
+          "kind": "action",
+          "notes": [
+            "Use the arrival METAR on the EFB Home page."
+          ],
+          "speech": "Performance page, approach panel, magnetic wind, outside air temperature and Q N H: Set. Use the arrival M E T A R on the E F B home page."
+        },
+        {
+          "id": "approach-minima-transition",
+          "challenge": "[PERF] APPR MINIMUM BARO or RADIO, TRANS",
+          "response": "Set",
+          "kind": "action",
+          "notes": [
+            "From the approach chart.",
+            "RADIO if the minimum is marked R, otherwise BARO."
+          ],
+          "speech": "Performance page, approach panel, barometric or radio minimum and transition setting: Set from the approach chart. Select radio if the minimum is marked with the letter R; otherwise select barometric."
+        },
+        {
+          "id": "navaids",
+          "challenge": "[POSITION/NAVAIDS] LS IDENT, FREQ/CHAN and CRS",
+          "response": "Match approach chart",
+          "kind": "verify",
+          "speech": "Verify position menu, navigation aids page, landing system identifier, frequency or channel and course: Match the approach chart."
+        },
+        {
+          "id": "autopilot-altitude",
+          "challenge": "Autopilot Altitude",
+          "response": "Glideslope Intercept Altitude",
+          "kind": "action",
+          "notes": [
+            "From the approach chart.",
+            "Do not activate the altitude change yet."
+          ],
+          "speech": "Autopilot altitude: Set the glideslope intercept altitude from the approach chart. Do not activate the altitude change yet."
+        }
+      ]
+    },
+    {
+      "id": "descent",
+      "title": "Descent",
+      "phase": "Descent",
+      "items": [
+        {
+          "id": "autopilot-altitude",
+          "challenge": "Autopilot Altitude",
+          "response": "Managed",
+          "kind": "action",
+          "condition": "At TOD or when instructed by ATC",
+          "notes": [
+            "TOD symbol on the ND: level arrow bending down to the right.",
+            "Use speed brakes if above the descent path or glideslope."
+          ],
+          "speech": "At top of descent or when instructed by air traffic control, autopilot altitude: Use managed mode. The top of descent symbol on the navigation display is a level arrow bending down to the right. Use speed brakes if above the descent path or glideslope."
+        },
+        {
+          "id": "ls",
+          "challenge": "LS",
+          "response": "On",
+          "kind": "action",
+          "notes": [
+            "Shows localizer and glideslope on the PFD."
+          ],
+          "speech": "Landing system: On. Shows the localizer and glideslope on the primary flight display."
         },
         {
           "id": "altimeters",
           "challenge": "Altimeters [1+2]",
-          "response": "Set",
+          "response": "Set QNH",
           "kind": "action",
-          "speech": "Altimeters one and two: Set."
+          "condition": "At transition level or when instructed by ATC",
+          "speech": "At transition level or when instructed by air traffic control, altimeters one and two: Set Q N H."
         },
         {
           "id": "landing-lights",
@@ -623,6 +684,66 @@
           "kind": "action",
           "condition": "Below 10,000 ft",
           "speech": "Landing lights: On below 10,000 feet."
+        },
+        {
+          "id": "to-taxi-lights",
+          "challenge": "T.O & Taxi Lights",
+          "response": "On",
+          "kind": "action",
+          "speech": "Takeoff and taxi lights: On."
+        },
+        {
+          "id": "runway-turn-off-lights",
+          "challenge": "Runway Turnoff Lights",
+          "response": "On",
+          "kind": "action",
+          "speech": "Runway turnoff lights: On."
+        }
+      ]
+    },
+    {
+      "id": "approach",
+      "title": "Approach",
+      "phase": "Approach",
+      "decision": "The QRC v1.0.0 approach item Engine Start Selector: As Required is deliberately omitted.",
+      "items": [
+        {
+          "id": "activate-approach",
+          "challenge": "[PERF] APPR",
+          "response": "ACTIVATE APPR",
+          "kind": "action",
+          "condition": "At the DECEL point (D on the ND) or when vectored for the approach",
+          "notes": [
+            "Activates the approach speeds."
+          ],
+          "speech": "Performance page, approach panel: Activate approach at the deceleration point, marked with the letter D on the navigation display, or when vectored for the approach. This activates the approach speeds."
+        },
+        {
+          "id": "flaps",
+          "challenge": "Flaps",
+          "response": "1",
+          "kind": "action",
+          "condition": "Below Vfe: 235 kt",
+          "speech": "Below 235 knots, flaps: Set to position one."
+        },
+        {
+          "id": "autopilot-approach",
+          "challenge": "Autopilot APPR",
+          "response": "Press",
+          "kind": "action",
+          "condition": "When cleared for the approach",
+          "notes": [
+            "Arms localizer and glideslope."
+          ],
+          "speech": "When cleared for the approach, autopilot approach button: Press. This arms the localizer and glideslope."
+        },
+        {
+          "id": "autopilot-2",
+          "challenge": "Autopilot 2",
+          "response": "Engage",
+          "kind": "optional",
+          "condition": "For autoland",
+          "speech": "Autopilot two: Engage for autoland."
         }
       ]
     },
@@ -632,18 +753,22 @@
       "phase": "Landing",
       "items": [
         {
-          "id": "flaps",
-          "challenge": "Flaps",
-          "response": "4",
-          "kind": "action",
-          "condition": "Below Vfe: 180 kt",
-          "speech": "Below 180 knots, flaps: Set to position four."
-        },
-        {
           "id": "gear",
           "challenge": "Gear",
           "response": "Down",
           "kind": "action"
+        },
+        {
+          "id": "flaps",
+          "challenge": "Flaps",
+          "response": "2 → FULL",
+          "kind": "action",
+          "condition": "As speed decreases",
+          "notes": [
+            "Extend step by step."
+          ],
+          "speech": "Flaps: Extend step by step from position two to full as speed decreases.",
+          "decision": "Landing flap extension is deliberately combined into one item; speed limits are read from the PFD."
         },
         {
           "id": "ground-spoilers",
@@ -655,17 +780,23 @@
         {
           "id": "auto-brakes",
           "challenge": "Auto Brakes",
-          "response": "Set",
+          "response": "As required",
           "kind": "action",
-          "speech": "Auto brakes: Set."
+          "notes": [
+            "For example MED, depending on the runway length."
+          ],
+          "speech": "Auto brakes: As required. For example, medium, depending on the runway length."
         },
         {
           "id": "approach-speed",
           "challenge": "Approach Speed (Vapp)",
           "response": "Approx. 140 kt",
           "kind": "action",
-          "condition": "Final approach, flaps 4",
-          "speech": "Final approach speed V app with flaps four: Approximately 140 knots."
+          "condition": "Final approach, flaps FULL",
+          "notes": [
+            "Exact value: VAPP on the PERF APPR page."
+          ],
+          "speech": "Approach speed, V app, on final approach with flaps full: Approximately 140 knots. Use the exact approach speed on the performance page, approach panel."
         }
       ]
     },

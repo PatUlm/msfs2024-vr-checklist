@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "file": "item-01ab3e3d048e27ca.opus",
+  "sha256": "7070a0b81151834d572f0b5b7cdd3fea322781d486ad0dbc0b059168160f7560",
+  "recipeHash": "01ab3e3d048e27ca85b079efd89a3640edde11c1af41e649940879e3d181e40f",
+  "recipe": {
+    "voiceId": "nPczCjzI2devNBz1zQrb",
+    "request": {
+      "text": "Performance page, approach panel, magnetic wind, outside air temperature and Q N H: Set. Use the arrival M E T A R on the E F B home page.",
+      "model_id": "eleven_multilingual_v2",
+      "voice_settings": {
+        "stability": 0.75,
+        "similarity_boost": 0.75,
+        "style": 0,
+        "use_speaker_boost": true,
+        "speed": 1
+      },
+      "seed": 9172026
+    },
+    "sourceFormat": "mp3_44100_128",
+    "profile": "clean",
+    "normalization": "loudnorm=I=-20:TP=-2:LRA=11",
+    "format": "ogg-opus-mono-48000-32k",
+    "revision": 1
+  },
+  "generatedAt": "2026-10-25T10:55:58.405Z",
+  "provider": "ElevenLabs",
+  "voice": "Brian",
+  "generationPlan": "paid",
+  "planEvidence": "Operator confirmed active Starter subscription before rendering.",
+  "requestId": "5qIbHmxFvKEhSmlxvRbJ",
+  "characterCost": "55",
+  "ffmpegVersion": "ffmpeg version 6.1.1-3ubuntu5 Copyright (c) 2000-2023 the FFmpeg developers",
+  "licenseNotice": "../README.md"
+}

@@ -1,12 +1,12 @@
 {
   "schemaVersion": 1,
-  "file": "item-91baa3eb50d311fd.opus",
-  "sha256": "b1cddc4ee7d61624a56616cec99f42dc527932e3f05646a2a9011da922660d7c",
-  "recipeHash": "91baa3eb50d311fdee44286316b8ccda46682f8fded859ba0ec9e4efde71b21a",
+  "file": "item-427a26f00954880c.opus",
+  "sha256": "041a5b52bcb91c9f319fbaf54a713812d4eb362280601e2ca51c98ef29e3eb1e",
+  "recipeHash": "427a26f00954880c54f7437c41c5a90df1a2d78484953f65698ffb0dd9ab892e",
   "recipe": {
     "voiceId": "nPczCjzI2devNBz1zQrb",
     "request": {
-      "text": "Initialization page, departure airport, destination airport, alternate airport and cruise flight level: Set.",
+      "text": "Landing system: On. Shows the localizer and glideslope on the primary flight display.",
       "model_id": "eleven_multilingual_v2",
       "voice_settings": {
         "stability": 0.75,
@@ -23,13 +23,13 @@
     "format": "ogg-opus-mono-48000-32k",
     "revision": 1
   },
-  "generatedAt": "2026-10-16T17:43:22.984Z",
+  "generatedAt": "2026-10-25T10:56:09.119Z",
   "provider": "ElevenLabs",
   "voice": "Brian",
   "generationPlan": "paid",
   "planEvidence": "Operator confirmed active Starter subscription before rendering.",
-  "requestId": "VaMSk12fmPpSELEMjMcC",
-  "characterCost": "43",
+  "requestId": "JShOTBryGBFpGsu5VlB6",
+  "characterCost": "34",
   "ffmpegVersion": "ffmpeg version 6.1.1-3ubuntu5 Copyright (c) 2000-2023 the FFmpeg developers",
   "licenseNotice": "../README.md"
 }

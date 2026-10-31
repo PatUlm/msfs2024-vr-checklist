@@ -7,6 +7,17 @@ Changelog, and the project uses Semantic Versioning.
 
 ## [Unreleased]
 
+### Changed
+
+- The A400M gains an ILS approach with optional autoland: Descent Preparation
+  sets the arrival and the PERF APPR data before the top of descent, Descent
+  starts the managed descent with LS, QNH and lights, and Approach activates
+  the approach speeds and arms APPR. Landing lowers the gear before extending
+  the flaps step by step to FULL. The FMGES setup points to INIT REQUEST and
+  inserts the departure directly instead of reviewing the flight plan
+  afterwards; the IRS check is dropped. MFD pages outside the ACTIVE menu are
+  named with their menu, such as POSITION/NAVAIDS.
+
 ## [0.20.1] - 2026-10-17
 
 ### Changed

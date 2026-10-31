@@ -3,8 +3,8 @@
   "checklists": [
     {
       "id": "airbus-a400m",
-      "revision": "2026-10-17",
-      "items": 94
+      "revision": "2026-10-25",
+      "items": 104
     },
     {
       "id": "airbus-h125",
@@ -99,9 +99,9 @@
       "recipeHash": "a5ab1c39e3a9baea67cf84c378a6cc6fbe66998fa53edadbe0f259b6ba47981b"
     },
     {
-      "file": "item-91baa3eb50d311fd.opus",
-      "sha256": "b1cddc4ee7d61624a56616cec99f42dc527932e3f05646a2a9011da922660d7c",
-      "recipeHash": "91baa3eb50d311fdee44286316b8ccda46682f8fded859ba0ec9e4efde71b21a"
+      "file": "item-b5dd1257bc82435a.opus",
+      "sha256": "0d4ede76bcee617a83d7b0904ffbeeb8c1eee72491a3b521e9406ef7870ab027",
+      "recipeHash": "b5dd1257bc82435a92d5aef2cd2b661d9d6ff4e9e185288f4cbd3478b5e527c7"
     },
     {
       "file": "item-563431e803ba59f3.opus",
@@ -109,14 +109,9 @@
       "recipeHash": "563431e803ba59f371b0367c21526154b90553eb06b08086616ba3d75c518646"
     },
     {
-      "file": "item-14781d08a91c3b9e.opus",
-      "sha256": "329f62863a6b344fc9548ecd970f54a6e03114ffb1da821cbe8141c72ac74a2c",
-      "recipeHash": "14781d08a91c3b9ea3cc9f61117d95aed4ee3df188edec25f1039da979ded57d"
-    },
-    {
-      "file": "item-f6b796ad37f7472c.opus",
-      "sha256": "ad4cf248ef57f47aa097f41506108fac9d975900eeda55ffde64b4da5be2e1b0",
-      "recipeHash": "f6b796ad37f7472ca83e52cd6c7a08aa143e0ec9a2f6237ba12627de5130c3c8"
+      "file": "item-850182bc76eb72bd.opus",
+      "sha256": "e4ae820c6503b7073064c63d8187514dc4b2153d776edc614292bb88d3ca95a6",
+      "recipeHash": "850182bc76eb72bd4b66cb7d5bf2d0f094f30c43e69746aa5ea6eedf32f1b853"
     },
     {
       "file": "item-01bc81f7a16005fc.opus",
@@ -127,11 +122,6 @@
       "file": "item-69a4a0429f86fd73.opus",
       "sha256": "0118a3f096fcc6636299fb0e03d8552c84730e33614bab156dae6ae33ddd5c66",
       "recipeHash": "69a4a0429f86fd733a60535f9aed988b98952daf61b9bc4ea8f2b868b80f7e12"
-    },
-    {
-      "file": "item-7e305277dcb7c985.opus",
-      "sha256": "f1247e0fa2f2c34b42b94b9c7c699a1b37ddd27ca290aec05439b0e962085989",
-      "recipeHash": "7e305277dcb7c9853e0c055b608c9f65db37710a36be7062bac49337744e8edf"
     },
     {
       "file": "item-c865d1154f2049b5.opus",
@@ -374,14 +364,44 @@
       "recipeHash": "1d557ce99c9f3bf0b537b6ec49a6d0a6e9966a0cf695cf8d122c1cd2861095da"
     },
     {
-      "file": "item-091bac578a77557c.opus",
-      "sha256": "f3bda43fa61de7d7742421eb713c81ab54f783f53f0321f19bba53775ece6cb3",
-      "recipeHash": "091bac578a77557c9ab3d35d69bc1d027e5e7eb29482a7b9ce141bc2be6d37f2"
+      "file": "item-a1874075422c7f2b.opus",
+      "sha256": "96206c6a0cac387e0990df92d2a6fb1ee66dce0f6b9fdc9d44e6e81ca26668b5",
+      "recipeHash": "a1874075422c7f2b572eddab7effc0babfe8bba6bfe0f3791b2788069f39093b"
     },
     {
-      "file": "item-f242f70659828662.opus",
-      "sha256": "cbdc8d1ff4e7b148257d34d83b129e7445fa844065b79718c51d6941e89efb77",
-      "recipeHash": "f242f70659828662dc757a970419a666e7d4346b0a9ce03205e7cb3265ab9374"
+      "file": "item-01ab3e3d048e27ca.opus",
+      "sha256": "7070a0b81151834d572f0b5b7cdd3fea322781d486ad0dbc0b059168160f7560",
+      "recipeHash": "01ab3e3d048e27ca85b079efd89a3640edde11c1af41e649940879e3d181e40f"
+    },
+    {
+      "file": "item-815be452b79d835b.opus",
+      "sha256": "46ff3ae0ada3c76386f9fcc91ebb3d6496855ae919ea364140a32fde5c88443f",
+      "recipeHash": "815be452b79d835b22527647a43e67473b2fecb91652b0ffe78eea1e4957172c"
+    },
+    {
+      "file": "item-f408c630ffc623d3.opus",
+      "sha256": "3a171f6c582262de01f5ab5502c0443374be0979329a124a0395de340024daa3",
+      "recipeHash": "f408c630ffc623d32d4016b7adede1b53f23351f8316c85a9e2a3e206b9db369"
+    },
+    {
+      "file": "item-5dcbb554972e2c16.opus",
+      "sha256": "dd88a48ecf3adb93f2671f86522d4a09c6184097fb845469eb5bdb6fd3f02236",
+      "recipeHash": "5dcbb554972e2c16c1090f179ff4b91c7087bf04e4fbeae7f1ea8455b462a87d"
+    },
+    {
+      "file": "item-313307565c98730b.opus",
+      "sha256": "b748c2789cee4b260e0bd26bea6ad34d37aff9d86df7845e1493c87aa4766141",
+      "recipeHash": "313307565c98730b0677909e27fee39a5041d0d617926337021d0c5d471b3abd"
+    },
+    {
+      "file": "item-427a26f00954880c.opus",
+      "sha256": "041a5b52bcb91c9f319fbaf54a713812d4eb362280601e2ca51c98ef29e3eb1e",
+      "recipeHash": "427a26f00954880c54f7437c41c5a90df1a2d78484953f65698ffb0dd9ab892e"
+    },
+    {
+      "file": "item-8f37eda5566e85d4.opus",
+      "sha256": "e6ce924ed15c7aec83aafdaa46c2b36c13c97a6d63db01fd5ecc8ad6878b4cb1",
+      "recipeHash": "8f37eda5566e85d47e78178c082cba35b87cd1b33449823e795ed81fd212e955"
     },
     {
       "file": "item-2e155b9d4d0c656f.opus",
@@ -389,24 +409,44 @@
       "recipeHash": "2e155b9d4d0c656ff0af3bfde546e36156057a8bd8256a7a2fdb47d725e87828"
     },
     {
-      "file": "item-a3d93769c4b437d3.opus",
-      "sha256": "4e15391f24f5ca384b685df49f02c930809a3f3fce3478ff8ba80ffcaf75f958",
-      "recipeHash": "a3d93769c4b437d32f9e8ea3e442a62fdd5d50aca3d7300f9a81f82f7952f778"
+      "file": "item-23fc152f8066dff9.opus",
+      "sha256": "76efc52cb42ff23d4853a71433c4be0b2adbabe2a2bfee1fe4c76371333938e0",
+      "recipeHash": "23fc152f8066dff910fea4d00b0e4ee08efa439bbc103045ceeea3ec0a403df4"
     },
     {
-      "file": "item-54c0ac988a022507.opus",
-      "sha256": "0fb5cf3b358bcf10e609e901c155f8f19ef5a5d5d0a4a919a7fdf8f577a706d3",
-      "recipeHash": "54c0ac988a022507435e8c57827bef9b53fab220970b2ed0ad021e75e3b9b518"
+      "file": "item-625bf887fd37d4e4.opus",
+      "sha256": "25ea23a369a168e85c555a2b8df1345ef7aa09b3a04e21484f0f7cbcf8e8187e",
+      "recipeHash": "625bf887fd37d4e4978e60060064a40953407de0f173762be1231a209228eec0"
     },
     {
-      "file": "item-80c795278fa40153.opus",
-      "sha256": "5164fc7a93e53d1a31ba82577df7f8e81d4e3cf70102a3b6006615ed1edbb98c",
-      "recipeHash": "80c795278fa40153d1ab99355900bac625c92391a013ee34823a4cedf085ccaf"
+      "file": "item-f412acb47ccb9a68.opus",
+      "sha256": "cb24cc19abc64902f38ef530fd62320c69597e190e2109f247bb31673e44433e",
+      "recipeHash": "f412acb47ccb9a6853c9d5ce265fc88dab438c39ca104df4cb12938947024c82"
     },
     {
-      "file": "item-6dee2b584c35305c.opus",
-      "sha256": "a6883f0b7a441fd861d2634226b10f7c161a523ee28a2c0183d5c36edb25b8a1",
-      "recipeHash": "6dee2b584c35305c6f1dbde2b18fa4f3cce7517535cf25261d33721731703682"
+      "file": "item-fa04f180ebbae51b.opus",
+      "sha256": "3101c24e8a23135955bcde3d77119fc5757f9232976bb417083ca41493cdf068",
+      "recipeHash": "fa04f180ebbae51b68b9d9af9c00bc6a26fbee2b7f432677ae6660f480c9ae04"
+    },
+    {
+      "file": "item-c16846e153b77e4e.opus",
+      "sha256": "27bcb94c6195894816245cff5860b09f3835adc2dcc4137f46f18132dbc10bda",
+      "recipeHash": "c16846e153b77e4e5fecc38443d713d95d5a79476a43de66ac9c42cd904f90f1"
+    },
+    {
+      "file": "item-38a05fbd724619ea.opus",
+      "sha256": "568a2bcd0ceca235f534a93bec212f4158f52ba34f0f6a0cac82f76e15acff6d",
+      "recipeHash": "38a05fbd724619ea0413cf056f0bf4d52b3010444a8ce91da24a5c73b77c13db"
+    },
+    {
+      "file": "item-23316b28b34f9a70.opus",
+      "sha256": "a8deda0dba8284597222fe83f8e09ed73d051852cb874f7b59e50aa204eb7acc",
+      "recipeHash": "23316b28b34f9a70136a0e2befaca930420570fa19509f0077eee135f16cb96e"
+    },
+    {
+      "file": "item-06dc8b826e96cd01.opus",
+      "sha256": "e1010673cc1444ba3178cb1cb85b1c759c63a1ccf57de2b3fabfa6297554ca55",
+      "recipeHash": "06dc8b826e96cd01445eb43761013bc71ea0a7811bd43f4b8e387e2938bd8ad6"
     },
     {
       "file": "item-4486a6f81a333003.opus",
@@ -712,6 +752,11 @@
       "file": "item-a9b44662537fc31e.opus",
       "sha256": "458cf4e9ec5d71a8d53c91af3cd61cde3f435979cd4a66212c321151c98aa5c4",
       "recipeHash": "a9b44662537fc31e4207874c4f15992b8be0a5bd4484b033834f390bd4baa0c8"
+    },
+    {
+      "file": "item-54c0ac988a022507.opus",
+      "sha256": "0fb5cf3b358bcf10e609e901c155f8f19ef5a5d5d0a4a919a7fdf8f577a706d3",
+      "recipeHash": "54c0ac988a022507435e8c57827bef9b53fab220970b2ed0ad021e75e3b9b518"
     },
     {
       "file": "item-8c0be6cf2fce91e9.opus",
@@ -1264,13 +1309,11 @@
     "airbus-a400m/electrical-power-up/emer-light": "item-aa3b254e81ed6086.opus",
     "airbus-a400m/fsm-init/flight-details": "item-ee7cb8c8bf6159a6.opus",
     "airbus-a400m/fsm-init/fuel-payload": "item-a5ab1c39e3a9baea.opus",
-    "airbus-a400m/fsm-init/init": "item-91baa3eb50d311fd.opus",
+    "airbus-a400m/fsm-init/init": "item-b5dd1257bc82435a.opus",
     "airbus-a400m/fsm-init/wind-request": "item-563431e803ba59f3.opus",
-    "airbus-a400m/fsm-init/irs": "item-14781d08a91c3b9e.opus",
-    "airbus-a400m/fsm-init/departure": "item-f6b796ad37f7472c.opus",
+    "airbus-a400m/fsm-init/departure": "item-850182bc76eb72bd.opus",
     "airbus-a400m/fsm-init/fuel-load": "item-01bc81f7a16005fc.opus",
     "airbus-a400m/fsm-init/to-perf": "item-69a4a0429f86fd73.opus",
-    "airbus-a400m/fsm-init/flight-plan": "item-7e305277dcb7c985.opus",
     "airbus-a400m/before-engine-start/bat-ext-off": "item-c865d1154f2049b5.opus",
     "airbus-a400m/before-engine-start/gpu": "item-7b213a0c0ff1484f.opus",
     "airbus-a400m/before-engine-start/atis": "item-ed4e2b3a19315e7b.opus",
@@ -1301,7 +1344,9 @@
     "airbus-a400m/to-configuration/to-config": "item-8cb24ec50e204b13.opus",
     "airbus-a400m/taxi-to-runway/taxi-clearance": "item-41b2cc582c14181f.opus",
     "airbus-a400m/taxi-to-runway/to-taxi-lights": "item-79ab6e0e8922509b.opus",
+    "airbus-a400m/descent/to-taxi-lights": "item-79ab6e0e8922509b.opus",
     "airbus-a400m/taxi-to-runway/runway-turn-off-lights": "item-1ea99738ccbe819b.opus",
+    "airbus-a400m/descent/runway-turn-off-lights": "item-1ea99738ccbe819b.opus",
     "airbus-a400m/taxi-to-runway/parking-brake": "item-e3a714a531cfd052.opus",
     "diamond-da42/taxi/parking-brake": "item-e3a714a531cfd052.opus",
     "airbus-a400m/taxi-to-runway/taxi-hold-short": "item-de4fbed9dc2adf6e.opus",
@@ -1332,15 +1377,24 @@
     "airbus-a400m/takeoff/landing-lights": "item-ac19ebacf780ffae.opus",
     "diamond-da42/take-off-and-climb/landing-lights": "item-ac19ebacf780ffae.opus",
     "airbus-a400m/takeoff/altimeters-std": "item-1d557ce99c9f3bf0.opus",
-    "airbus-a400m/approach/approach-data-minima": "item-091bac578a77557c.opus",
-    "airbus-a400m/approach/altimeters": "item-f242f70659828662.opus",
-    "airbus-a400m/approach/landing-lights": "item-2e155b9d4d0c656f.opus",
+    "airbus-a400m/descent-preparation/arrival": "item-a1874075422c7f2b.opus",
+    "airbus-a400m/descent-preparation/approach-weather": "item-01ab3e3d048e27ca.opus",
+    "airbus-a400m/descent-preparation/approach-minima-transition": "item-815be452b79d835b.opus",
+    "airbus-a400m/descent-preparation/navaids": "item-f408c630ffc623d3.opus",
+    "airbus-a400m/descent-preparation/autopilot-altitude": "item-5dcbb554972e2c16.opus",
+    "airbus-a400m/descent/autopilot-altitude": "item-313307565c98730b.opus",
+    "airbus-a400m/descent/ls": "item-427a26f00954880c.opus",
+    "airbus-a400m/descent/altimeters": "item-8f37eda5566e85d4.opus",
+    "airbus-a400m/descent/landing-lights": "item-2e155b9d4d0c656f.opus",
     "diamond-da42/approach/landing-lights": "item-2e155b9d4d0c656f.opus",
-    "airbus-a400m/landing/flaps": "item-a3d93769c4b437d3.opus",
-    "airbus-a400m/landing/gear": "item-54c0ac988a022507.opus",
-    "diamond-da42/before-engine-start/gear": "item-54c0ac988a022507.opus",
-    "airbus-a400m/landing/auto-brakes": "item-80c795278fa40153.opus",
-    "airbus-a400m/landing/approach-speed": "item-6dee2b584c35305c.opus",
+    "airbus-a400m/approach/activate-approach": "item-23fc152f8066dff9.opus",
+    "airbus-a400m/approach/flaps": "item-625bf887fd37d4e4.opus",
+    "airbus-a400m/approach/autopilot-approach": "item-f412acb47ccb9a68.opus",
+    "airbus-a400m/approach/autopilot-2": "item-fa04f180ebbae51b.opus",
+    "airbus-a400m/landing/gear": "item-c16846e153b77e4e.opus",
+    "airbus-a400m/landing/flaps": "item-38a05fbd724619ea.opus",
+    "airbus-a400m/landing/auto-brakes": "item-23316b28b34f9a70.opus",
+    "airbus-a400m/landing/approach-speed": "item-06dc8b826e96cd01.opus",
     "airbus-a400m/after-landing/strobe-lights": "item-4486a6f81a333003.opus",
     "airbus-a400m/after-landing/landing-lights": "item-04a15f604965be2a.opus",
     "airbus-a400m/parking/apu-bleed": "item-ea08f30ba3484edd.opus",
@@ -1406,6 +1460,7 @@
     "cessna-152/landing/landing-speed": "item-db7509074065e80e.opus",
     "diamond-da42/before-engine-start/power-levers": "item-bea0ac4c99d9d85d.opus",
     "diamond-da42/before-engine-start/parking-brake": "item-a9b44662537fc31e.opus",
+    "diamond-da42/before-engine-start/gear": "item-54c0ac988a022507.opus",
     "diamond-da42/before-engine-start/trim": "item-8c0be6cf2fce91e9.opus",
     "diamond-da42/before-engine-start/electric-master": "item-68b6a2ab319697fa.opus",
     "diamond-da42/before-engine-start/strobe-lights": "item-6fc0a6372118848f.opus",

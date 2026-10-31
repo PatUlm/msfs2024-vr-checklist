@@ -1,12 +1,12 @@
 {
   "schemaVersion": 1,
-  "file": "item-f6b796ad37f7472c.opus",
-  "sha256": "ad4cf248ef57f47aa097f41506108fac9d975900eeda55ffde64b4da5be2e1b0",
-  "recipeHash": "f6b796ad37f7472ca83e52cd6c7a08aa143e0ec9a2f6237ba12627de5130c3c8",
+  "file": "item-b5dd1257bc82435a.opus",
+  "sha256": "0d4ede76bcee617a83d7b0904ffbeeb8c1eee72491a3b521e9406ef7870ab027",
+  "recipeHash": "b5dd1257bc82435a92d5aef2cd2b661d9d6ff4e9e185288f4cbd3478b5e527c7",
   "recipe": {
     "voiceId": "nPczCjzI2devNBz1zQrb",
     "request": {
-      "text": "Departure page, runway and Sid: Set.",
+      "text": "Initialization page, departure airport, destination airport, alternate airport and cruise flight level: Set. The initialization request button loads them from SimBrief.",
       "model_id": "eleven_multilingual_v2",
       "voice_settings": {
         "stability": 0.75,
@@ -23,13 +23,13 @@
     "format": "ogg-opus-mono-48000-32k",
     "revision": 1
   },
-  "generatedAt": "2026-10-16T17:43:25.332Z",
+  "generatedAt": "2026-10-25T16:53:52.916Z",
   "provider": "ElevenLabs",
   "voice": "Brian",
   "generationPlan": "paid",
   "planEvidence": "Operator confirmed active Starter subscription before rendering.",
-  "requestId": "CMrYp4FvYfkJgTj6QsKn",
-  "characterCost": "14",
+  "requestId": "YR3ibIkZmMMtDav8727v",
+  "characterCost": "67",
   "ffmpegVersion": "ffmpeg version 6.1.1-3ubuntu5 Copyright (c) 2000-2023 the FFmpeg developers",
   "licenseNotice": "../README.md"
 }

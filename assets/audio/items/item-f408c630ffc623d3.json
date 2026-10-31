@@ -1,12 +1,12 @@
 {
   "schemaVersion": 1,
-  "file": "item-6dee2b584c35305c.opus",
-  "sha256": "a6883f0b7a441fd861d2634226b10f7c161a523ee28a2c0183d5c36edb25b8a1",
-  "recipeHash": "6dee2b584c35305c6f1dbde2b18fa4f3cce7517535cf25261d33721731703682",
+  "file": "item-f408c630ffc623d3.opus",
+  "sha256": "3a171f6c582262de01f5ab5502c0443374be0979329a124a0395de340024daa3",
+  "recipeHash": "f408c630ffc623d32d4016b7adede1b53f23351f8316c85a9e2a3e206b9db369",
   "recipe": {
     "voiceId": "nPczCjzI2devNBz1zQrb",
     "request": {
-      "text": "Final approach speed V app with flaps four: Approximately 140 knots.",
+      "text": "Verify position menu, navigation aids page, landing system identifier, frequency or channel and course: Match the approach chart.",
       "model_id": "eleven_multilingual_v2",
       "voice_settings": {
         "stability": 0.75,
@@ -23,13 +23,13 @@
     "format": "ogg-opus-mono-48000-32k",
     "revision": 1
   },
-  "generatedAt": "2026-10-09T19:45:50.180Z",
+  "generatedAt": "2026-10-25T10:56:03.717Z",
   "provider": "ElevenLabs",
   "voice": "Brian",
   "generationPlan": "paid",
   "planEvidence": "Operator confirmed active Starter subscription before rendering.",
-  "requestId": "vIvSJlsq0d22CaE7I8Au",
-  "characterCost": "27",
+  "requestId": "lukqjG6biXAvcAwQ1O9s",
+  "characterCost": "52",
   "ffmpegVersion": "ffmpeg version 6.1.1-3ubuntu5 Copyright (c) 2000-2023 the FFmpeg developers",
   "licenseNotice": "../README.md"
 }

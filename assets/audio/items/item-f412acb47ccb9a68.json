@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "file": "item-f412acb47ccb9a68.opus",
+  "sha256": "cb24cc19abc64902f38ef530fd62320c69597e190e2109f247bb31673e44433e",
+  "recipeHash": "f412acb47ccb9a6853c9d5ce265fc88dab438c39ca104df4cb12938947024c82",
+  "recipe": {
+    "voiceId": "nPczCjzI2devNBz1zQrb",
+    "request": {
+      "text": "When cleared for the approach, autopilot approach button: Press. This arms the localizer and glideslope.",
+      "model_id": "eleven_multilingual_v2",
+      "voice_settings": {
+        "stability": 0.75,
+        "similarity_boost": 0.75,
+        "style": 0,
+        "use_speaker_boost": true,
+        "speed": 1
+      },
+      "seed": 9172026
+    },
+    "sourceFormat": "mp3_44100_128",
+    "profile": "clean",
+    "normalization": "loudnorm=I=-20:TP=-2:LRA=11",
+    "format": "ogg-opus-mono-48000-32k",
+    "revision": 1
+  },
+  "generatedAt": "2026-10-25T10:56:15.914Z",
+  "provider": "ElevenLabs",
+  "voice": "Brian",
+  "generationPlan": "paid",
+  "planEvidence": "Operator confirmed active Starter subscription before rendering.",
+  "requestId": "M5zqAIEnOQphDazJzRp2",
+  "characterCost": "42",
+  "ffmpegVersion": "ffmpeg version 6.1.1-3ubuntu5 Copyright (c) 2000-2023 the FFmpeg developers",
+  "licenseNotice": "../README.md"
+}

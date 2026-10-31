@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "file": "item-38a05fbd724619ea.opus",
+  "sha256": "568a2bcd0ceca235f534a93bec212f4158f52ba34f0f6a0cac82f76e15acff6d",
+  "recipeHash": "38a05fbd724619ea0413cf056f0bf4d52b3010444a8ce91da24a5c73b77c13db",
+  "recipe": {
+    "voiceId": "nPczCjzI2devNBz1zQrb",
+    "request": {
+      "text": "Flaps: Extend step by step from position two to full as speed decreases.",
+      "model_id": "eleven_multilingual_v2",
+      "voice_settings": {
+        "stability": 0.75,
+        "similarity_boost": 0.75,
+        "style": 0,
+        "use_speaker_boost": true,
+        "speed": 1
+      },
+      "seed": 9172026
+    },
+    "sourceFormat": "mp3_44100_128",
+    "profile": "clean",
+    "normalization": "loudnorm=I=-20:TP=-2:LRA=11",
+    "format": "ogg-opus-mono-48000-32k",
+    "revision": 1
+  },
+  "generatedAt": "2026-10-25T16:53:59.698Z",
+  "provider": "ElevenLabs",
+  "voice": "Brian",
+  "generationPlan": "paid",
+  "planEvidence": "Operator confirmed active Starter subscription before rendering.",
+  "requestId": "2P8peUxmBnTumhpjgDR8",
+  "characterCost": "29",
+  "ffmpegVersion": "ffmpeg version 6.1.1-3ubuntu5 Copyright (c) 2000-2023 the FFmpeg developers",
+  "licenseNotice": "../README.md"
+}

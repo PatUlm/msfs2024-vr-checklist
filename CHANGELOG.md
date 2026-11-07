@@ -7,6 +7,13 @@ Changelog, and the project uses Semantic Versioning.
 
 ## [Unreleased]
 
+### Changed
+
+- The AT-802 refill cycle forms a new Scooping phase, from a Configuration
+  group with fill level and scoops mode through water landing and scooping to
+  the water takeoff. Water landing and scooping now use 60 kt, flaps 10° are
+  set after scooping starts, and scooping ends when the probes retract.
+
 ## [0.21.0] - 2026-10-31
 
 ### Added

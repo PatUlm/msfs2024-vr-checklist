@@ -1,12 +1,12 @@
 {
   "schemaVersion": 1,
-  "file": "item-dd26c11d19d42853.opus",
-  "sha256": "ffa82abf3950b589ac1cff458bee52542080c2387c08e30f60ab9316f117f499",
-  "recipeHash": "dd26c11d19d42853fd4eccf547cb4b534b8224fb47cef315c44e741e1107da77",
+  "file": "item-ba61048bf0d093a0.opus",
+  "sha256": "dfa28c92bc16b6cf41bce289be1b98ca4bea4670d344c3586bf34666892bc175",
+  "recipeHash": "ba61048bf0d093a0464d61724803c672b43250103da3ba9e11faad0195792282",
   "recipe": {
     "voiceId": "nPczCjzI2devNBz1zQrb",
     "request": {
-      "text": "Scooping Checklist. Flaps: 10 degrees.",
+      "text": "Landing speed: 60 knots.",
       "model_id": "eleven_multilingual_v2",
       "voice_settings": {
         "stability": 0.75,
@@ -23,13 +23,13 @@
     "format": "ogg-opus-mono-48000-32k",
     "revision": 1
   },
-  "generatedAt": "2026-10-31T18:15:16.529Z",
+  "generatedAt": "2026-11-05T18:39:19.086Z",
   "provider": "ElevenLabs",
   "voice": "Brian",
   "generationPlan": "paid",
   "planEvidence": "Operator confirmed active Starter subscription before rendering.",
-  "requestId": "7d1aqVeH9lXoo7nc0BQw",
-  "characterCost": "15",
+  "requestId": "Pc0pkPP7GjwQ32jlkIuX",
+  "characterCost": "10",
   "ffmpegVersion": "ffmpeg version 6.1.1-3ubuntu5 Copyright (c) 2000-2023 the FFmpeg developers",
   "licenseNotice": "../README.md"
 }

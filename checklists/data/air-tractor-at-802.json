@@ -12,7 +12,7 @@
       }
     ]
   },
-  "revision": "2026-10-31",
+  "revision": "2026-11-05",
   "sections": [
     {
       "id": "takeoff",
@@ -67,9 +67,30 @@
       ]
     },
     {
+      "id": "configuration",
+      "title": "Configuration",
+      "phase": "Scooping",
+      "items": [
+        {
+          "id": "fill-level",
+          "challenge": "Fill Level",
+          "response": "Set",
+          "kind": "action",
+          "notes": ["Set \"Fill to\" to the required gallons (410 gal)"],
+          "speech": "Fill level: Set the Fill to value to the required gallons, 410 gallons."
+        },
+        {
+          "id": "scoops-mode",
+          "challenge": "Scoops Mode",
+          "response": "Auto",
+          "kind": "action"
+        }
+      ]
+    },
+    {
       "id": "water-landing",
       "title": "Water Landing",
-      "phase": "Landing",
+      "phase": "Scooping",
       "items": [
         {
           "id": "flaps",
@@ -80,31 +101,23 @@
         {
           "id": "landing-speed",
           "challenge": "Landing Speed",
-          "response": "80 kt",
+          "response": "60 kt",
           "kind": "action",
-          "notes": ["Shallow approach: look at the horizon, not at the water just ahead"],
-          "speech": "Landing speed: 80 knots. Shallow approach: look at the horizon, not at the water just ahead."
+          "speech": "Landing speed: 60 knots."
         }
       ]
     },
     {
       "id": "scooping",
       "title": "Scooping",
-      "phase": "Landing",
+      "phase": "Scooping",
       "items": [
-        {
-          "id": "flaps",
-          "challenge": "Flaps",
-          "response": "10°",
-          "kind": "action",
-          "speech": "Flaps: 10 degrees."
-        },
         {
           "id": "scooping-speed",
           "challenge": "Scooping Speed",
-          "response": "80 kt",
+          "response": "60 kt",
           "kind": "action",
-          "speech": "Scooping speed: 80 knots."
+          "speech": "Scooping speed: 60 knots."
         },
         {
           "id": "start-scooping",
@@ -114,13 +127,28 @@
           "condition": "On the water",
           "notes": ["Hold speed with the throttle while the probes are in the water"],
           "speech": "On the water, scooping: Start. Hold speed with the throttle while the probes are in the water."
+        },
+        {
+          "id": "flaps",
+          "challenge": "Flaps",
+          "response": "10°",
+          "kind": "action",
+          "speech": "Flaps: 10 degrees."
+        },
+        {
+          "id": "probes-up",
+          "challenge": "Probes",
+          "response": "Up",
+          "kind": "verify",
+          "notes": ["Retract automatically at the set fill level"],
+          "speech": "Verify probes: Up. They retract automatically at the set fill level."
         }
       ]
     },
     {
       "id": "water-takeoff",
       "title": "Water Takeoff",
-      "phase": "Departure",
+      "phase": "Scooping",
       "items": [
         {
           "id": "rotation-speed",

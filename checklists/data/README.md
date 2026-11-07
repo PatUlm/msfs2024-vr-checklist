@@ -25,7 +25,8 @@ change log.
 - The array order alone determines the sequence; there is no separate
   `order`. Each group gets a phase from the schema. `Engine Start` also covers
   preparation, APU and follow-up work, `Taxi` the taxi preparation,
-  `Departure` the takeoff preparation, takeoff and climb. No empty groups for
+  `Departure` the takeoff preparation, takeoff and climb, `Scooping` a
+  firefighting refill cycle from setup to water takeoff. No empty groups for
   unused phases. The G36 group `Approach` stays assigned to this phase despite
   its landing configuration.
 - `Taxi to` items state `Maximum 20 kt ground speed per career mode rules`:
@@ -138,6 +139,6 @@ attribution and the assessment of the reviewed set.
 - The AT-802 checklist is likewise a minimal memory aid: speeds, flaps,
   scooping and dump steps and handling reminders per firefighting phase from
   the maintainer's own flight notes, without manufacturer or in-game sources.
-  Its groups alternate between land and water, so the phases deliberately repeat; `Water Landing` and
-  `Scooping` form one block. The notes do not say when to use which flap
-  setting, so `10° or Full` stays open.
+  `Fill Level`, `Fill to` and `Scoops Mode` follow these notes. The notes do
+  not say when to use which flap setting for the water drop, so `10° or Full`
+  stays open.

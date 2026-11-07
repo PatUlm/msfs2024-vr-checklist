@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "file": "phase-scooping-6c7922c5c0c2f119.opus",
+  "sha256": "c27f4283f71dd3285d9e2684954e1a3424d5579ddecc71b58f2e1267dfe2c4a0",
+  "recipeHash": "6c7922c5c0c2f119d500bfec72973a49094ddc7bfdb6c6551573d05c1d900385",
+  "recipe": {
+    "voiceId": "nPczCjzI2devNBz1zQrb",
+    "request": {
+      "text": "Scooping phase complete.",
+      "model_id": "eleven_multilingual_v2",
+      "voice_settings": {
+        "stability": 0.75,
+        "similarity_boost": 0.75,
+        "style": 0,
+        "use_speaker_boost": true,
+        "speed": 1
+      },
+      "seed": 9172026
+    },
+    "sourceFormat": "mp3_44100_128",
+    "profile": "clean",
+    "normalization": "loudnorm=I=-20:TP=-2:LRA=11",
+    "format": "ogg-opus-mono-48000-32k",
+    "revision": 1
+  },
+  "generatedAt": "2026-11-05T18:39:17.312Z",
+  "provider": "ElevenLabs",
+  "voice": "Brian",
+  "generationPlan": "paid",
+  "planEvidence": "Operator confirmed active Starter subscription before rendering.",
+  "requestId": "WQ5barqHiazdaDQ28Soc",
+  "characterCost": "10",
+  "ffmpegVersion": "ffmpeg version 6.1.1-3ubuntu5 Copyright (c) 2000-2023 the FFmpeg developers",
+  "licenseNotice": "../README.md"
+}

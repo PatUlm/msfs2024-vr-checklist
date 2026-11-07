@@ -1,12 +1,12 @@
 {
   "schemaVersion": 1,
-  "file": "item-2073b1dd1e67fa49.opus",
-  "sha256": "d5ee1dd38eef3d56bf2eb254fa410676203c6e886a80a30fe55ef9b323be57c1",
-  "recipeHash": "2073b1dd1e67fa4982a4db7037e2da9ba6aa0443fff24e5b1a79e6ba8365b0cc",
+  "file": "item-8edd448e27834f06.opus",
+  "sha256": "4a5d28779de447748e92555dfd45ae35198e834606876a65e0d9b2aec8614eae",
+  "recipeHash": "8edd448e27834f060ff6667f8faa443a6e5486a360d0155cb42569457742f50e",
   "recipe": {
     "voiceId": "nPczCjzI2devNBz1zQrb",
     "request": {
-      "text": "Landing speed: 80 knots. Shallow approach: look at the horizon, not at the water just ahead.",
+      "text": "Verify probes: Up. They retract automatically at the set fill level.",
       "model_id": "eleven_multilingual_v2",
       "voice_settings": {
         "stability": 0.75,
@@ -23,13 +23,13 @@
     "format": "ogg-opus-mono-48000-32k",
     "revision": 1
   },
-  "generatedAt": "2026-10-31T16:16:39.455Z",
+  "generatedAt": "2026-11-07T14:03:01.793Z",
   "provider": "ElevenLabs",
   "voice": "Brian",
   "generationPlan": "paid",
   "planEvidence": "Operator confirmed active Starter subscription before rendering.",
-  "requestId": "8xxP98JiUz3k8BfNcmyy",
-  "characterCost": "37",
+  "requestId": "vCksRftJ7px7Eqe597XC",
+  "characterCost": "27",
   "ffmpegVersion": "ffmpeg version 6.1.1-3ubuntu5 Copyright (c) 2000-2023 the FFmpeg developers",
   "licenseNotice": "../README.md"
 }

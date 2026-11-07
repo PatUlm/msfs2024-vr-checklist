@@ -46,9 +46,7 @@ source or simulator check first.
   checking the simulated FMS.
 - **Audit before 0.20.0:** DA42 Vr 76 kt is the VI value (TDI: 72 kt) and
   `≤ 92 %` does not say whether lever position or LOAD is meant (COWS guide
-  I and IV); the A400M engine start sets all masters to FEATHER, then RUN,
-  while the QRC starts engine 1 first and selects RUN at `AVAIL`; MH-60
-  `Primary Fuel Pump` versus the manufacturer's `Prime Fuel Pump`; MH-60
+  I and IV); MH-60 `Primary Fuel Pump` versus the manufacturer's `Prime Fuel Pump`; MH-60
   `Set in EFB` mixes location into the response; 21 short speech overrides
   add nothing to the automatic announcement.
 - **Next step:** Re-run the audit with `vr-checklist-editor` and decide the

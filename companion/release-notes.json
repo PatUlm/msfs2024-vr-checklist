@@ -3,6 +3,17 @@
   "companionSince": "0.3.0",
   "releases": [
     {
+      "version": "0.22.0",
+      "date": "2026-11-07",
+      "highlight": "The AT-802 refill cycle now has its own Scooping phase.",
+      "features": [
+        "Adds a Scooping phase from the AT-802 fill level and scoops mode setup to the water takeoff.",
+        "Uses 60 kt for the AT-802 water landing and scooping.",
+        "Sets the AT-802 flaps to 10° after scooping starts and ends scooping when the probes retract."
+      ],
+      "fixes": []
+    },
+    {
       "version": "0.21.0",
       "date": "2026-10-31",
       "highlight": "The Air Tractor AT-802 gets a firefighting checklist.",

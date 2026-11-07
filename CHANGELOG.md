@@ -7,6 +7,8 @@ Changelog, and the project uses Semantic Versioning.
 
 ## [Unreleased]
 
+## [0.22.0] - 2026-11-07
+
 ### Changed
 
 - The AT-802 refill cycle forms a new Scooping phase, from a Configuration
